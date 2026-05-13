@@ -1,9 +1,0 @@
-= Repository template
-
-image::https://github.com/kieranpotts/template/actions/workflows/commit-validation-trunk.yaml/badge.svg?branch=dev[]
-
-This repository is a template for new code repositories.
-
-''''
-
-Copyright © 2020-present Kieran Potts, link:./LICENSE.txt[MIT license]
