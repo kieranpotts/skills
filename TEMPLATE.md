@@ -1,5 +1,0 @@
-# Skill: <Skill Name>
-
-<!--
-TODO
--->
