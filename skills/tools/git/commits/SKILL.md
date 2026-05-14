@@ -149,7 +149,11 @@ Closes: #123
 
 - **`feature(scope): …` fails validation.** Scopes – popularized by Conventional Commits – are not supported by the commit convention described in this skill.
 
-- **Alternative types for non-executable source.** If this repository contains documentation, specifications, or other non-code artifacts, use `add`, `edit`, `remove`, `restructure`, `format` instead of `feature`, `fix`, `step`, `refactor`.
+- **Alternative types for non-executable source.** If this repository contains only documentation, specifications, and other non-code artifacts, allow additional commit types: `add`, `edit`, `remove`, and `restructure`. Here's the extended regex for validation:
+
+```
+^((add|chore|edit|feature|fix|format|maintenance|merge|performance|refactor|release|remove|restructure|revert|step): [a-z].*)$
+```
 
 ## References
 
