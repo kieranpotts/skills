@@ -1,5 +1,1 @@
-# Skills
-
-<!--
-TODO: Describe directory structure.
--->
+# Skills index
