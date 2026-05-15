@@ -71,6 +71,22 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
 
   If using a project-specific output library, follow its conventions.
 
+- **Use `printf` over `echo -e`.**
+
+  The `-e` flag for `echo` is not POSIX. Its handling of backslash escape sequences is implementation-defined and varies across shells.
+
+  Use `printf` for any output that requires escape interpretation:
+
+  ```sh
+  # ❌
+  echo -e "Done.\nSee log for details."
+
+  # ✅
+  printf "Done.\nSee log for details.\n"
+  ```
+
+  Plain `echo` (without `-e`) is fine for simple string output with no escape sequences.
+
 - **Choose argument-handling pattern by scope.**
 
   *No-argument scripts* validate and reject any input:
@@ -110,22 +126,22 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
   Verify assumptions before modifying files, deleting paths, or overwriting data. Handle edge cases - empty strings, missing files, unset variables, multiple spaces in data:
 
   ```sh
-  # Check preconditions.
-  if [ ! -f "$target_file" ]; then
-    printf "Error: file not found: %s\n" "$target_file" >&2
-    return 1
-  fi
-
-  # Check for required tools.
+  # Verify a required external tool is available.
   if ! command -v jq >/dev/null 2>&1; then
     printf "Error: 'jq' is required but not installed\n" >&2
-    return 1
+    exit 1
   fi
 
-  # Test before committing.
-  if ! some_command > /dev/null 2>&1; then
+  # Verify a file exists before operating on it.
+  if [ ! -f "${target_file}" ]; then
+    printf "Error: file not found: %s\n" "${target_file}" >&2
+    exit 1
+  fi
+
+  # Dry-run a command before committing to it.
+  if ! some_command >/dev/null 2>&1; then
     printf "Error: precondition check failed\n" >&2
-    return 1
+    exit 1
   fi
   ```
 
