@@ -76,7 +76,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
         - The footer section is a contiguous block consists of key-value pairs, one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name <email>`. Separated from body by a single blank line.
 
-## House rules
+## Rules
 
 **Atomic commits**: One logical change per commit. Split large changes into multiple `step:` commits. `feature:` and `performance:` work may bundle logically related changes.
 

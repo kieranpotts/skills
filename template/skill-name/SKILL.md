@@ -19,7 +19,7 @@ Short introduction, restating the purpose of the skill and when to use it. Also 
 
 3. xxx
 
-## House rules
+## Rules
 
 - Rule 1.
 

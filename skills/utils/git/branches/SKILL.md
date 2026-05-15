@@ -55,7 +55,7 @@ Do NOT use this skill for preparing or tagging releases.
 
     - Temporary and epic branches SHOULD NOT exceed 50 characters total.
 
-## House rules
+## Rules
 
 **Trunk branches** are permanent, append-only, and immutable. There are up to three trunks:
 

@@ -33,7 +33,7 @@ Validation regex (for both):
 ^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$
 ```
 
-## House rules
+## Rules
 
 **Release trunk** (`release`):
 
