@@ -13,6 +13,8 @@ Short introduction, restating the purpose of the skill and when to use it. Also 
 
 ## Instructions
 
+Include instructions for skills that gave a procedural workflow.
+
 1. Run the extraction script: `scripts/extract.py`.
 
 2. xxx
@@ -20,6 +22,8 @@ Short introduction, restating the purpose of the skill and when to use it. Also 
 3. xxx
 
 ## Rules
+
+Include rules for skills that list guidelines, rather than steps.
 
 - Rule 1.
 
