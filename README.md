@@ -12,6 +12,7 @@ This project organizes knowledge into skill modules across several domains:
 - **Plan**: Planning, architecture, and project management.
 - **Product**: Product development and strategy.
 - **Standards**: Best practices and standards.
+- **Tools**: Working with development and operations tools and services.
 - **Utils**: Working with single-purpose system tools: `git`, `jq`, etc.
 
 Each skill includes:
