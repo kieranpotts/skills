@@ -7,140 +7,146 @@ license: MIT
 
 # POSIX
 
-Use this skill when authoring or modifying shell scripts that must be POSIX-compliant and run across multiple shells (sh, bash, zsh, dash) and platforms (Linux, macOS, Windows WSL2, Git Bash).
+Use this skill when authoring or modifying shell scripts that must be POSIX-compliant and run across multiple shells (sh, bash, zsh, dash, etc.) and platforms (Linux, macOS, WSL2, and Git Bash for Windows).
 
 Do NOT use this skill for Bash-specific scripts, Python scripts, or shell configuration files (`.bashrc`, `.zshrc`). Use project-specific shell skills if available.
 
-## Instructions
+## Rules
 
-1.  **Start with POSIX-compliant structure**:
+- **Use POSIX-compliant syntax.**
 
-    ```sh
-    #!/bin/sh
-    set -eu
+  Use `#!/bin/sh` (not `#!/bin/bash`). No Bashisms (`[[`, `=~`, `${var^}`, etc.). Scripts must work in `sh`, `bash`, `zsh`, and `dash`.
 
-    #
-    # Script description in a comment block at the top.
-    # Usage: script-name [options] [args]
-    # Dependencies: none (or list external tools: jq, curl, etc.)
-    #
+- **Trap errors.**
 
-    main() {
-      # Script logic here.
-      return 0
-    }
+  Use `set -eu` at the top of most scripts.
 
-    main "$@"
-    ```
+  `-e` exits immediately when any command returns a non-zero status. `-u` treats references to undefined variables as errors. Both must be set before any other logic.
 
-    Use `#!/bin/sh` (not `#!/bin/bash`).
+  `set -x` MAY be added temporarily for debugging but MUST NOT be committed. `set -o pipefail` is not POSIX — do not use it.
 
-    Add shellcheck directives for sourced files:
+  ```sh
+  #!/bin/sh
 
-    ```sh
-    # shellcheck source=./lib/helpers.sh
-    . "$(dirname "$0")/lib/helpers.sh"
-    ```
+  set -eu
 
-    `set -eu` enables:
-    - `-e`: Exit on first error
-    - `-u`: Error on undefined variables
+  # Start of script...
+  ```
 
-    `set -x` MAY be added temporarily for debugging but MUST NOT be committed.
+- **Return explicit exit codes.**
 
-2. **Separate data output from messaging.**
+  Use `return N` in functions and `exit N` in scripts. 0 = success, non-zero = failure. Avoid implicit status from the last command.
 
-    Reserve plain `echo` / `printf` for script *output* (the data the user/caller expects). Use structured messaging for everything else (status, errors, debug info):
+- **No external dependencies unless necessary.**
 
-    ```sh
-    # Data output (user expects this)
-    echo "result: $value"
+  Rely on POSIX utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`.
 
-    # Status messages (send to stderr)
-    printf "Processing file: %s\n" "$file" >&2
-    ```
+  For complex operations (JSON parsing, HTTP requests), document the dependency.
 
-    If using a project-specific output library, follow its conventions.
+- **Choose meaningful variable names.**
 
-3.  **Choose argument-handling pattern by scope.**
+  Prefer `input_file` over `f`, `exit_code` over `rc`.
 
-    *No-argument scripts* validate and reject any input:
+  Shell isn't verbose; clarity matters.
 
-    ```sh
-    if [ $# -gt 0 ]; then
-      printf "Error: script does not accept arguments\n" >&2
-      return 1
-    fi
-    ```
+- **Quote all variables.**
 
-    *Single-option scripts* use simple checks:
-    ```sh
-    case "${1:-}" in
-      --help)  show_help; return 0 ;;
+  Always write `"${var}"`. This is easier to read than `"$var"`, and more reliable than `$var`.
+
+  Quoting prevents word-splitting and glob expansion.
+
+  Exception: intentional word-splitting must have a comment explaining why.
+
+- **Separate data output from messaging.**
+
+  Reserve plain `echo` / `printf` for script *output* (the data the caller expects). Send status, errors, and debug info to stderr:
+
+  ```sh
+  # Data output (caller expects this).
+  echo "result: $value"
+
+  # Status/error messages.
+  printf "Processing file: %s\n" "$file" >&2
+  ```
+
+  If using a project-specific output library, follow its conventions.
+
+- **Choose argument-handling pattern by scope.**
+
+  *No-argument scripts* validate and reject any input:
+
+  ```sh
+  if [ $# -gt 0 ]; then
+    printf "Error: script does not accept arguments\n" >&2
+    return 1
+  fi
+  ```
+
+  *Single-option scripts* use a simple case:
+
+  ```sh
+  case "${1:-}" in
+    --help)  show_help; return 0 ;;
+    -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
+    *)       : ;;
+  esac
+  ```
+
+  *Multi-option scripts* use a loop:
+
+  ```sh
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --name)  name="$2"; shift 2 ;;
+      --file)  file="$2"; shift 2 ;;
       -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
       *)       break ;;
     esac
-    ```
+  done
+  ```
 
-    *Multi-option scripts* use a loop:
-    ```sh
-    while [ $# -gt 0 ]; do
-      case "$1" in
-        --name)  name="$2"; shift 2 ;;
-        --file)  file="$2"; shift 2 ;;
-        -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
-        *)       break ;;
-      esac
-    done
-    ```
+- **Add defensive checks before destructive operations.**
 
-4.  **Add defensive checks before destructive operations.**
+  Verify assumptions before modifying files, deleting paths, or overwriting data. Handle edge cases - empty strings, missing files, unset variables, multiple spaces in data:
 
-    Verify assumptions before modifying files, deleting paths, or overwriting data:
+  ```sh
+  # Check preconditions.
+  if [ ! -f "$target_file" ]; then
+    printf "Error: file not found: %s\n" "$target_file" >&2
+    return 1
+  fi
 
-    ```sh
-    # Check preconditions before deletion
-    if [ ! -f "$target_file" ]; then
-      printf "Error: file not found: %s\n" "$target_file" >&2
-      return 1
-    fi
+  # Check for required tools.
+  if ! command -v jq >/dev/null 2>&1; then
+    printf "Error: 'jq' is required but not installed\n" >&2
+    return 1
+  fi
 
-    # Check for required tools
-    if ! command -v jq >/dev/null 2>&1; then
-      printf "Error: 'jq' is required but not installed\n" >&2
-      return 1
-    fi
+  # Test before committing.
+  if ! some_command > /dev/null 2>&1; then
+    printf "Error: precondition check failed\n" >&2
+    return 1
+  fi
+  ```
 
-    # Test before committing
-    if ! some_command > /dev/null 2>&1; then
-      printf "Error: precondition check failed\n" >&2
-      return 1
-    fi
-    ```
+- **Validate with ShellCheck.**
 
-5. **Validate with ShellCheck**:
+  Run this before committing:
 
-    ```sh
-    shellcheck --severity=style script.sh
-    ```
+  ```sh
+  shellcheck --severity=style script.sh
+  ```
 
-    Address all warnings. Use directives (`# shellcheck disable=SC2086`) sparingly and only with clear justification.
+  Address all warnings before committing changes.
 
-## Rules
+  Use ShellCheck's "source" directive to point it to the real path (relative to the current file) of sourced files:
 
-- **POSIX-only.** No Bashisms (`[[`, `=~`, `${var^}`, etc.). Test scripts work in `sh`, `bash`, `zsh`, and `dash`.
+  ```sh
+  # shellcheck source=./lib/helpers.sh
+  . "$(dirname "$0")/lib/helpers.sh"
+  ```
 
-- **No external dependencies unless necessary.** Rely on POSIX utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`. For complex operations (JSON parsing, HTTP requests), document the dependency.
-
-- **Trap errors explicitly.** Use `set -e` to exit on error, but understand it has edge cases. For critical sections, add explicit error checks.
-
-- **Quote variables.** Always quote: `"$var"` not `$var`. Prevents word-splitting and glob expansion. Exception: intentional word-splitting must have a comment explaining why.
-
-- **Use meaningful variable names.** Prefer `input_file` over `f`, `exit_code` over `rc`. Shell isn't verbose; clarity matters.
-
-- **Return explicit exit codes.** Use `return N` (functions) or `exit N` (scripts). 0 = success, non-zero = failure. Avoid implicit status from the last command.
-
-- **Handle edge cases.** Empty strings, missing files, unset variables, multiple spaces in data. Test with `set -u` and `-e` enabled.
+  Use ShellCheck's "disable" directive (`# shellcheck disable=SC2086`) sparingly and only with clear justification (which must be explained in an adjacent comment).
 
 ## Examples
 
