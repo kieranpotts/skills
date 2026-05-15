@@ -7,112 +7,212 @@ license: MIT
 
 # POSIX
 
-Use this skill when authoring or modifying a shell scripts that are required to be POSIX-compliant and compatible with the widest possible range of Unix shells, including Bash, Zsh, and Dash, and also Git Bash for Windows and WSL2.
+Use this skill when authoring or modifying shell scripts that must be POSIX-compliant and run across multiple shells (sh, bash, zsh, dash) and platforms (Linux, macOS, Windows WSL2, Git Bash).
+
+Do NOT use this skill for Bash-specific scripts, Python scripts, or shell configuration files (`.bashrc`, `.zshrc`). Use project-specific shell skills if available.
 
 ## Instructions
 
-1. **Start from the canonical template.** Use [`bin/git-whoami`](../../bin/git-whoami) as the reference. Every `bin/` script has this shape:
+1.  **Start with POSIX-compliant structure**:
 
-   ```sh
-   #!/bin/env sh
-   set -eu
+    ```sh
+    #!/bin/sh
+    set -eu
 
-   #
-   # <command-name> - <one-line description>.
-   #
-   # <Longer description if needed.>
-   #
-   # Usage:
-   #   $ git <command> [args]
-   #
-   # Dependencies: <list, or "None">
-   #
+    #
+    # Script description in a comment block at the top.
+    # Usage: script-name [options] [args]
+    # Dependencies: none (or list external tools: jq, curl, etc.)
+    #
 
-   # shellcheck source=../lib/print.sh
-   . "$(dirname "$0")/../lib/print.sh"
+    main() {
+      # Script logic here.
+      return 0
+    }
 
-   main() {
-     # ...
-   }
+    main "$@"
+    ```
 
-   main "$@"
-   ```
+    Use `#!/bin/sh` (not `#!/bin/bash`).
 
-   The **Dependencies** line records external CLI tools the script invokes beyond Git and the standard POSIX utilities (eg. `jq`, `curl`). Git, `lib/` files, and POSIX utilities (`grep`, `sed`, `awk`, `printf`, …) are assumed and not listed. Write `None` if there are no extras.
+    Add shellcheck directives for sourced files:
 
-   `set -x` MAY be added temporarily for debugging but MUST NOT be committed.
+    ```sh
+    # shellcheck source=./lib/helpers.sh
+    . "$(dirname "$0")/lib/helpers.sh"
+    ```
 
-2. **Use `print_*` helpers for all user-facing output.** Sourcing [`lib/print.sh`](../../lib/print.sh) exposes:
+    `set -eu` enables:
+    - `-e`: Exit on first error
+    - `-u`: Error on undefined variables
 
-   | Helper | Stream | Use for |
-   | --- | --- | --- |
-   | `print_info` | stdout | Neutral informational output (e.g., "nothing to amend"). |
-   | `print_success` | stdout | Successful completion of an action. |
-   | `print_error` | stderr | Errors that caused the script to abort. |
-   | `print_warning` | stderr | Non-fatal warnings the user should see. |
-   | `print_hint` | stderr | A follow-up suggestion after an error (e.g., "Try 'gitex --help'"). |
-   | `print_prompt` | stdout + stderr | Interactive prompt before a `read`. |
+    `set -x` MAY be added temporarily for debugging but MUST NOT be committed.
 
-   Plain `echo` / `printf` is reserved for the command's *data* output (e.g., `git whoami` printing `name: …`). Anything that frames or annotates that data uses the helpers.
+2. **Separate data output from messaging.**
 
-3. **Pick an argument-handling pattern matching the command's surface.**
+    Reserve plain `echo` / `printf` for script *output* (the data the user/caller expects). Use structured messaging for everything else (status, errors, debug info):
 
-   *No-argument commands* ([`bin/git-whoami`](../../bin/git-whoami), [`bin/git-amend`](../../bin/git-amend)) reject all arguments up front:
+    ```sh
+    # Data output (user expects this)
+    echo "result: $value"
 
-   ```sh
-   if [ $# -gt 0 ]; then
-     print_error "git-<name> does not accept any options"
-     return 1
-   fi
-   ```
+    # Status messages (send to stderr)
+    printf "Processing file: %s\n" "$file" >&2
+    ```
 
-   *Optioned commands* parse flags. For a fixed, small set of mutually exclusive flags, use a single `case` ([`bin/gitex`](../../bin/gitex)). For mixed positional/named arguments, use `while/case` ([`bin/git-author`](../../bin/git-author)):
+    If using a project-specific output library, follow its conventions.
 
-   ```sh
-   while [ $# -gt 0 ]; do
-     case "$1" in
-       --name)  author_name="$2"; shift 2 ;;
-       --email) author_email="$2"; shift 2 ;;
-       -*)      print_error "unknown option '$1'"; return 1 ;;
-       *)       # positional handling
-                shift ;;
-     esac
-   done
-   ```
+3.  **Choose argument-handling pattern by scope.**
 
-   Unknown options emit `print_error "unknown option: …"` followed (where `--help` is implemented) by `print_hint "Try '… --help' for more information."`
+    *No-argument scripts* validate and reject any input:
 
-4. **Add defensive checks before destructive operations.** Verify preconditions before rewriting history, deleting refs, or force-pushing. Pattern from [`bin/git-amend`](../../bin/git-amend):
+    ```sh
+    if [ $# -gt 0 ]; then
+      printf "Error: script does not accept arguments\n" >&2
+      return 1
+    fi
+    ```
 
-   ```sh
-   if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
-     print_error "no commits exist to amend"
-     return 1
-   fi
-   ```
+    *Single-option scripts* use simple checks:
+    ```sh
+    case "${1:-}" in
+      --help)  show_help; return 0 ;;
+      -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
+      *)       break ;;
+    esac
+    ```
 
-   Default patterns:
-   - Verify `HEAD` exists before any history-rewriting command.
-   - Use `git diff --cached --quiet` / `git diff --quiet` to distinguish staged vs. working changes.
-   - Use `git ls-files --others --exclude-standard` to detect untracked files.
-   - Redirect probing commands' stderr to `/dev/null` so the user only sees the script's own error messages.
+    *Multi-option scripts* use a loop:
+    ```sh
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --name)  name="$2"; shift 2 ;;
+        --file)  file="$2"; shift 2 ;;
+        -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
+        *)       break ;;
+      esac
+    done
+    ```
 
-5. **Validate.** Run `shellcheck --severity=style bin/<script>` until clean. The full pipeline is `./check` (see [`../testing/SKILL.md`](../testing/SKILL.md)).
+4.  **Add defensive checks before destructive operations.**
+
+    Verify assumptions before modifying files, deleting paths, or overwriting data:
+
+    ```sh
+    # Check preconditions before deletion
+    if [ ! -f "$target_file" ]; then
+      printf "Error: file not found: %s\n" "$target_file" >&2
+      return 1
+    fi
+
+    # Check for required tools
+    if ! command -v jq >/dev/null 2>&1; then
+      printf "Error: 'jq' is required but not installed\n" >&2
+      return 1
+    fi
+
+    # Test before committing
+    if ! some_command > /dev/null 2>&1; then
+      printf "Error: precondition check failed\n" >&2
+      return 1
+    fi
+    ```
+
+5. **Validate with ShellCheck**:
+
+    ```sh
+    shellcheck --severity=style script.sh
+    ```
+
+    Address all warnings. Use directives (`# shellcheck disable=SC2086`) sparingly and only with clear justification.
+
+## Rules
+
+- **POSIX-only.** No Bashisms (`[[`, `=~`, `${var^}`, etc.). Test scripts work in `sh`, `bash`, `zsh`, and `dash`.
+
+- **No external dependencies unless necessary.** Rely on POSIX utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`. For complex operations (JSON parsing, HTTP requests), document the dependency.
+
+- **Trap errors explicitly.** Use `set -e` to exit on error, but understand it has edge cases. For critical sections, add explicit error checks.
+
+- **Quote variables.** Always quote: `"$var"` not `$var`. Prevents word-splitting and glob expansion. Exception: intentional word-splitting must have a comment explaining why.
+
+- **Use meaningful variable names.** Prefer `input_file` over `f`, `exit_code` over `rc`. Shell isn't verbose; clarity matters.
+
+- **Return explicit exit codes.** Use `return N` (functions) or `exit N` (scripts). 0 = success, non-zero = failure. Avoid implicit status from the last command.
+
+- **Handle edge cases.** Empty strings, missing files, unset variables, multiple spaces in data. Test with `set -u` and `-e` enabled.
 
 ## Examples
 
-Sourcing helpers and emitting an error:
+Basic script with argument parsing:
 
 ```sh
-# shellcheck source=../lib/print.sh
-. "$(dirname "$0")/../lib/print.sh"
+#!/bin/sh
+set -eu
 
-if [ ! -d ".git" ]; then
-  print_error "not inside a Git repository"
-  return 1
-fi
+main() {
+  action="${1:-}"
+
+  case "$action" in
+    start)   start_service; return 0 ;;
+    stop)    stop_service; return 0 ;;
+    status)  check_status; return 0 ;;
+    *)       printf "Error: unknown action '%s'\n" "$action" >&2; return 1 ;;
+  esac
+}
+
+start_service() {
+  if [ -f "$service_pid" ]; then
+    printf "Error: service already running\n" >&2
+    return 1
+  fi
+  printf "Starting service...\n" >&2
+}
+
+stop_service() {
+  printf "Stopping service...\n" >&2
+}
+
+check_status() {
+  echo "Service is running"
+}
+
+main "$@"
 ```
 
-## House rules
+Defensive checks before file operations:
 
-* Scripts MUST pass `shellcheck --severity=style`.
+```sh
+#!/bin/sh
+set -eu
+
+backup_file() {
+  src="$1"
+  dst="$2"
+
+  if [ ! -f "$src" ]; then
+    printf "Error: source file not found: %s\n" "$src" >&2
+    return 1
+  fi
+
+  if [ -f "$dst" ]; then
+    printf "Error: destination already exists: %s\n" "$dst" >&2
+    return 1
+  fi
+
+  cp "$src" "$dst" || {
+    printf "Error: copy failed\n" >&2
+    return 1
+  }
+}
+
+backup_file "$@"
+```
+
+## References
+
+- [POSIX Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html) — Official standard
+
+- [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html) — Practical conventions
+
+- [ShellCheck](https://www.shellcheck.net/) — Static analysis tool for shell scripts
