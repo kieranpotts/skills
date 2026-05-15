@@ -17,6 +17,16 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
 
   Use `#!/bin/sh` (not `#!/bin/bash`). No Bashisms (`[[`, `=~`, `${var^}`, etc.). Scripts must work in `sh`, `bash`, `zsh`, and `dash`.
 
+  Do not use the `function` keyword in function declarations — it is not POSIX:
+
+  ```sh
+  # ❌
+  function my_func() { : ; }
+
+  # ✅
+  my_func() { : ; }
+  ```
+
 - **Trap errors.**
 
   Use `set -eu` at the top of most scripts.
@@ -33,21 +43,55 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
   # Start of script...
   ```
 
+- **Wrap non-trivial scripts in `main()`.**
+
+  For any script beyond a few lines, define a `main()` function as the entry point and call it at the very end. This keeps executable code out of the global scope and away from function definitions:
+
+  ```sh
+  main() {
+    # Script logic here.
+  }
+
+  main "$@"
+  ```
+
 - **Return explicit exit codes.**
 
   Use `return N` in functions and `exit N` in scripts. 0 = success, non-zero = failure. Avoid implicit status from the last command.
 
-- **No external dependencies unless necessary.**
+- **Prefer built-ins over external commands.**
 
-  Rely on POSIX utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`.
+  Shell built-ins run in the shell's own process; external commands spawn a new process. Prefer built-in parameter expansion over `sed`, `awk`, etc. for simple text manipulation — it is faster and has no external dependency.
 
-  For complex operations (JSON parsing, HTTP requests), document the dependency.
+  When external commands are unavoidable, prefer POSIX-standard utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`. For anything beyond these (JSON parsing, HTTP requests), document the dependency explicitly.
 
-- **Choose meaningful variable names.**
+- **Use lowercase_snake_case for variable and function names.**
 
-  Prefer `input_file` over `f`, `exit_code` over `rc`.
+  Do not use `UPPER_SNAKE_CASE` for script variables — it risks collision with shell and environment variables. The only exception is variables explicitly exported to the environment, which should follow the prevailing Unix convention of uppercase names:
 
-  Shell isn't verbose; clarity matters.
+  ```sh
+  # ❌ risks collision with shell/env vars
+  readonly OUTPUT_DIR="/tmp/out"
+
+  # ✅
+  readonly output_dir="/tmp/out"
+
+  # ✅ exported env vars use uppercase by convention
+  export MY_APP_LOG_LEVEL="info"
+  ```
+
+  Prefer descriptive names over terse abbreviations: `input_file` over `f`, `exit_code` over `rc`.
+
+- **Declare variables `readonly` by default.**
+
+  Variables SHOULD be `readonly` unless the logic requires reassignment. Apply `readonly` immediately after assignment:
+
+  ```sh
+  readonly config_file="/etc/app/config"
+
+  result="$(some_command)"
+  readonly result
+  ```
 
 - **Quote all variables.**
 
@@ -56,6 +100,18 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
   Quoting prevents word-splitting and glob expansion.
 
   Exception: intentional word-splitting must have a comment explaining why.
+
+- **Use `$()` for command substitution.**
+
+  Prefer `$(command)` over backtick syntax. Backticks require escaping when nested; `$()` nests cleanly:
+
+  ```sh
+  # ❌
+  result=`outer \`inner\``
+
+  # ✅
+  result="$(outer "$(inner)")"
+  ```
 
 - **Separate data output from messaging.**
 
@@ -144,6 +200,12 @@ Do NOT use this skill for Bash-specific scripts, Python scripts, or shell config
     exit 1
   fi
   ```
+
+- **Do not use `eval` or aliases.**
+
+  `eval` executes arbitrary strings as shell code, making it impossible to reason about what variables were set or whether commands succeeded. Use explicit commands instead.
+
+  Aliases are unreliable in scripts — they are not always expanded and behave differently between interactive and non-interactive shells. Define functions instead.
 
 - **Validate with ShellCheck.**
 
