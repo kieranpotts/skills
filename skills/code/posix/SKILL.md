@@ -232,6 +232,7 @@ Basic script with argument parsing:
 
 ```sh
 #!/bin/sh
+
 set -eu
 
 main() {
@@ -268,6 +269,7 @@ Defensive checks before file operations:
 
 ```sh
 #!/bin/sh
+
 set -eu
 
 backup_file() {
@@ -295,7 +297,11 @@ backup_file "$@"
 
 ## References
 
+- This skill is based on [TS-19: Unix Shells](https://github.com/kieranpotts/standards/tree/dev/ts/019)
+
 - [POSIX Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html) — Official standard
+
+- [Pure sh bible](https://github.com/dylanaraps/pure-sh-bible) by Dylan Araps
 
 - [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html) — Practical conventions
 
