@@ -13,9 +13,19 @@ Short introduction, restating the purpose of the skill and when to use it. Also 
 
 ## Instructions
 
-1. Run the extraction script: `scripts/extract.py`
+1. Run the extraction script: `scripts/extract.py`.
+
 2. xxx
+
 3. xxx
+
+## House rules
+
+- Rule 1.
+
+- Rule 2.
+
+- Rule 3.
 
 ## Examples
 
