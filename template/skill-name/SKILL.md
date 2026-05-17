@@ -9,37 +9,74 @@ metadata:
 
 # Skill name
 
-Short introduction, restating the purpose of the skill and when to use it. Also specify when the skill does NOT apply.
+Use this skill when...
+
+This skill extends [this skill](https://raw.githubusercontent.com/...) – all rules there apply here.
+
+Do NOT use this skill for...
 
 ## Instructions
 
-Include instructions for skills that gave a procedural workflow.
+Instructions are step-by-step procedural implementation workflows.
 
-1. Run the extraction script: `scripts/extract.py`.
+1.  **Short description.**
 
-2. xxx
+    Extended details.
 
-3. xxx
+2.  **Run the execution script.**
+
+    ```sh
+    $ python3 scripts/extract.py
+    ```
+
+3.  ...
 
 ## Rules
 
-Include rules for skills that list guidelines, rather than steps.
+Rules are an unordered list of guidelines, recommendations, and best practices.
 
-- Rule 1.
+-   **Short description.**
 
-- Rule 2.
+    Extended details.
 
-- Rule 3.
+-   **Base new scripts on this template:**
+
+    ```sh
+    #!/bin/env sh
+    set -eu
+
+    # ...
+    ```
+
+-   **Variable naming convention:**
+
+    - `UPPER_SNAKE_CASE` for variables exported to the environment.
+    - `lower_snake_case` for everything else, including functions.
+
+    ```sh
+    # ❌ No:
+    readonly OUTPUT_DIR="/tmp/out"
+
+    # ✅ Yes:
+    readonly output_dir="/tmp/out"
+
+    # ✅ Yes:
+    export MY_APP_LOG_LEVEL="info"
+    ```
 
 ## Examples
 
-A small number of canonical input/output examples. OPTIONAL.
+A small number of canonical input/output examples. Regular prose. OPTIONAL.
 
 ## Edge cases
 
-xxx
+Warn about potential edge cases. Regular prose. OPTIONAL.
 
 ## References
 
-- `references/REFERENCE.md` — full technical reference.
-- `references/<subdomain>.md` — domain-specific notes.
+List of links with extended and related information for agents.
+
+- [Technical reference](./references/REFERENCE.md)
+- [Domain-specific notes](./references/<subdomain>.md)
+- [Adjacent skill](../skill-name/SKILL.md) – used for xxxxx.
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md] – used for xxxxx.
