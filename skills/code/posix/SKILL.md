@@ -9,222 +9,236 @@ license: MIT
 
 Use this skill when authoring or modifying shell scripts that must be POSIX-compliant and run across multiple shells (sh, bash, zsh, dash, etc.) and platforms (Linux, macOS, WSL2, and Git Bash for Windows).
 
-Do NOT use this skill for Bash-specific scripts, Python scripts, or shell configuration files (`.bashrc`, `.zshrc`). Use project-specific shell skills if available.
+Do NOT use this skill for Bash-specific scripts, Python scripts, or shell configuration files (`.bashrc`, `.zshrc`).
+
+Use project-specific shell skills if available.
 
 ## Rules
 
-- **Use POSIX-compliant syntax.**
+-   **Use POSIX-compliant syntax.**
 
-  Use `#!/bin/sh` (not `#!/bin/bash`). No Bashisms (`[[`, `=~`, `${var^}`, etc.). Scripts must work in `sh`, `bash`, `zsh`, and `dash`.
+    Use `#!/bin/sh` (not `#!/bin/bash`).
 
-  Do not use the `function` keyword in function declarations — it is not POSIX:
+    No Bashisms (`[[`, `=~`, `${var^}`, etc.). Scripts must work in `sh`, `bash`, `zsh`, and `dash`.
 
-  ```sh
-  # ❌
-  function my_func() { : ; }
+    Do not use the `function` keyword in function declarations – it is not POSIX:
 
-  # ✅
-  my_func() { : ; }
-  ```
+    ```sh
+    # ❌
+    function my_func() { : ; }
 
-- **Trap errors.**
+    # ✅
+    my_func() { : ; }
+    ```
 
-  Use `set -eu` at the top of most scripts.
+-   **Trap errors.**
 
-  `-e` exits immediately when any command returns a non-zero status. `-u` treats references to undefined variables as errors. Both must be set before any other logic.
+    Use `set -eu` at the top of most scripts. `-e` exits immediately when any command returns a non-zero status. `-u` treats references to undefined variables as errors. Both SHOULD be set before any other logic.
 
-  `set -x` MAY be added temporarily for debugging but MUST NOT be committed. `set -o pipefail` is not POSIX — do not use it.
+    `set -x` MAY be added temporarily for debugging but MUST NOT be committed.
 
-  ```sh
-  #!/bin/sh
+    `set -o pipefail` is not POSIX – do not use it.
 
-  set -eu
+    ```sh
+    #!/bin/sh
 
-  # Start of script...
-  ```
+    set -eu
 
-- **Wrap non-trivial scripts in `main()`.**
+    # Start of script...
+    ```
 
-  For any script beyond a few lines, define a `main()` function as the entry point and call it at the very end. This keeps executable code out of the global scope and away from function definitions:
+-   **Wrap non-trivial scripts in `main()`.**
 
-  ```sh
-  main() {
-    # Script logic here.
-  }
+    For any script longer than a few lines, define a `main()` function as the entry point and call it at the end of the script:
 
-  main "$@"
-  ```
+    ```sh
+    main() {
+      # Script logic here.
+    }
 
-- **Return explicit exit codes.**
+    main "$@"
+    ```
 
-  Use `return N` in functions and `exit N` in scripts. 0 = success, non-zero = failure. Avoid implicit status from the last command.
+    This keeps executable code out of the global scope and away from function definitions.
 
-- **Prefer built-ins over external commands.**
+-   **Return explicit exit codes.**
 
-  Shell built-ins run in the shell's own process; external commands spawn a new process. Prefer built-in parameter expansion over `sed`, `awk`, etc. for simple text manipulation — it is faster and has no external dependency.
+    Use `return <number>` in functions and `exit <number>` in scripts. 0 = success, non-zero = failure. Avoid implicit status from the last command.
 
-  When external commands are unavoidable, prefer POSIX-standard utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`. For anything beyond these (JSON parsing, HTTP requests), document the dependency explicitly.
+-   **Prefer built-ins over external commands.**
 
-- **Use lowercase_snake_case for variable and function names.**
+    Shell built-ins run in the shell's own process. External commands spawn a new process.
 
-  Do not use `UPPER_SNAKE_CASE` for script variables — it risks collision with shell and environment variables. The only exception is variables explicitly exported to the environment, which should follow the prevailing Unix convention of uppercase names:
+    Prefer built-in parameter expansion over `sed`, `awk`, etc., for simple text manipulation. It is faster and has no external dependency.
 
-  ```sh
-  # ❌ risks collision with shell/env vars
-  readonly OUTPUT_DIR="/tmp/out"
+    When external commands are unavoidable, prefer POSIX-standard utilities: `grep`, `sed`, `awk`, `find`, `xargs`, `cut`, `sort`, `uniq`, `tr`, etc. For anything else, eg. non-POSIX utilities for JSON parsing and HTTP requests, document the dependency explicitly.
 
-  # ✅
-  readonly output_dir="/tmp/out"
+-   **Use lowercase_snake_case for variable and function names.**
 
-  # ✅ exported env vars use uppercase by convention
-  export MY_APP_LOG_LEVEL="info"
-  ```
+    Do not use `UPPER_SNAKE_CASE` for script variables – it risks collision with shell and environment variables. Use only for variables that are explicitly exported to the environment:
 
-  Prefer descriptive names over terse abbreviations: `input_file` over `f`, `exit_code` over `rc`.
+    ```sh
+    # ❌ No:
+    readonly OUTPUT_DIR="/tmp/out"
 
-- **Declare variables `readonly` by default.**
+    # ✅ Yes:
+    readonly output_dir="/tmp/out"
 
-  Variables SHOULD be `readonly` unless the logic requires reassignment. Apply `readonly` immediately after assignment:
+    # ✅ Yes:
+    export MY_APP_LOG_LEVEL="info"
+    ```
 
-  ```sh
-  readonly config_file="/etc/app/config"
+-   **Err on the side of clarity over brevity.**
 
-  result="$(some_command)"
-  readonly result
-  ```
+    Prefer descriptive names over terse abbreviations: `input_file` over `f`, `exit_code` over `rc`.
 
-- **Quote all variables.**
+-   **Declare variables `readonly` by default.**
 
-  Always write `"${var}"`. This is easier to read than `"$var"`, and more reliable than `$var`.
+    Variables SHOULD be `readonly` unless the logic requires reassignment. Apply `readonly` immediately after assignment:
 
-  Quoting prevents word-splitting and glob expansion.
+    ```sh
+    # ❌ No:
+    readonly config_file="/etc/app/config"
 
-  Exception: intentional word-splitting must have a comment explaining why.
+    # ✅ Yes:
+    result="$(some_command)"
+    readonly result
+    ```
 
-- **Use `$()` for command substitution.**
+-   **Quote all variables.**
 
-  Prefer `$(command)` over backtick syntax. Backticks require escaping when nested; `$()` nests cleanly:
+    Always write `"${var}"`. This is easier to read than `"$var"`, and more reliable than `$var`.
 
-  ```sh
-  # ❌
-  result=`outer \`inner\``
+    Quoting prevents word-splitting and glob expansion.
 
-  # ✅
-  result="$(outer "$(inner)")"
-  ```
+    Exception: intentional word-splitting must have a comment explaining why.
 
-- **Separate data output from messaging.**
+-   **Use `$()` for command substitution.**
 
-  Reserve plain `echo` / `printf` for script *output* (the data the caller expects). Send status, errors, and debug info to stderr:
+    Prefer `$(command)` over backtick syntax. Backticks require escaping when nested; `$()` nests cleanly:
 
-  ```sh
-  # Data output (caller expects this).
-  echo "result: $value"
+    ```sh
+    # ❌ No:
+    result=`outer \`inner\``
 
-  # Status/error messages.
-  printf "Processing file: %s\n" "$file" >&2
-  ```
+    # ✅ Yes:
+    result="$(outer "$(inner)")"
+    ```
 
-  If using a project-specific output library, follow its conventions.
+-   **Separate data output from messaging.**
 
-- **Use `printf` over `echo -e`.**
+    Reserve plain `echo` / `printf` for script *output* (the data the caller expects).
 
-  The `-e` flag for `echo` is not POSIX. Its handling of backslash escape sequences is implementation-defined and varies across shells.
+    Send status, errors, and debug info to stderr.
 
-  Use `printf` for any output that requires escape interpretation:
+    ```sh
+    # Data output:
+    echo "result: $value"
 
-  ```sh
-  # ❌
-  echo -e "Done.\nSee log for details."
+    # Status/error messages:
+    printf "Processing file: %s\n" "$file" >&2
+    ```
 
-  # ✅
-  printf "Done.\nSee log for details.\n"
-  ```
+    If using a project-specific output library, follow its conventions.
 
-  Plain `echo` (without `-e`) is fine for simple string output with no escape sequences.
+-   **Use `printf` over `echo -e`.**
 
-- **Choose argument-handling pattern by scope.**
+    The `-e` flag for `echo` is not POSIX. Its handling of backslash escape sequences is implementation-defined and so varies between shells.
 
-  *No-argument scripts* validate and reject any input:
+    Use `printf` for any output that requires escape interpretation:
 
-  ```sh
-  if [ $# -gt 0 ]; then
-    printf "Error: script does not accept arguments\n" >&2
-    return 1
-  fi
-  ```
+    ```sh
+    # ❌ No:
+    echo -e "Done.\nSee log for details."
 
-  *Single-option scripts* use a simple case:
+    # ✅ Yes:
+    printf "Done.\nSee log for details.\n"
+    ```
 
-  ```sh
-  case "${1:-}" in
-    --help)  show_help; return 0 ;;
-    -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
-    *)       : ;;
-  esac
-  ```
+    Plain `echo` (without `-e`) is fine for simple string output with no escape sequences.
 
-  *Multi-option scripts* use a loop:
+-   **Choose argument-handling pattern by scope.**
 
-  ```sh
-  while [ $# -gt 0 ]; do
-    case "$1" in
-      --name)  name="$2"; shift 2 ;;
-      --file)  file="$2"; shift 2 ;;
+    *No-argument scripts* validate and reject any input:
+
+    ```sh
+    if [ $# -gt 0 ]; then
+      printf "Error: script does not accept arguments\n" >&2
+      return 1
+    fi
+    ```
+
+    *Single-option scripts* use a simple case:
+
+    ```sh
+    case "${1:-}" in
+      --help)  show_help; return 0 ;;
       -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
-      *)       break ;;
+      *)       : ;;
     esac
-  done
-  ```
+    ```
 
-- **Add defensive checks before destructive operations.**
+    *Multi-option scripts* use a loop:
 
-  Verify assumptions before modifying files, deleting paths, or overwriting data. Handle edge cases - empty strings, missing files, unset variables, multiple spaces in data:
+    ```sh
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --name)  name="$2"; shift 2 ;;
+        --file)  file="$2"; shift 2 ;;
+        -*)      printf "Error: unknown option '%s'\n" "$1" >&2; return 1 ;;
+        *)       break ;;
+      esac
+    done
+    ```
 
-  ```sh
-  # Verify a required external tool is available.
-  if ! command -v jq >/dev/null 2>&1; then
-    printf "Error: 'jq' is required but not installed\n" >&2
-    exit 1
-  fi
+-   **Add defensive checks before destructive operations.**
 
-  # Verify a file exists before operating on it.
-  if [ ! -f "${target_file}" ]; then
-    printf "Error: file not found: %s\n" "${target_file}" >&2
-    exit 1
-  fi
+    Verify assumptions before modifying files, deleting paths, or overwriting data. Handle edge cases - empty strings, missing files, unset variables, or multiple spaces in data:
 
-  # Dry-run a command before committing to it.
-  if ! some_command >/dev/null 2>&1; then
-    printf "Error: precondition check failed\n" >&2
-    exit 1
-  fi
-  ```
+    ```sh
+    # Verify a required external tool is available.
+    if ! command -v jq >/dev/null 2>&1; then
+      printf "Error: 'jq' is required but not installed\n" >&2
+      exit 1
+    fi
 
-- **Do not use `eval` or aliases.**
+    # Verify a file exists before operating on it.
+    if [ ! -f "${target_file}" ]; then
+      printf "Error: file not found: %s\n" "${target_file}" >&2
+      exit 1
+    fi
 
-  `eval` executes arbitrary strings as shell code, making it impossible to reason about what variables were set or whether commands succeeded. Use explicit commands instead.
+    # Dry-run a command before committing to it.
+    if ! some_command >/dev/null 2>&1; then
+      printf "Error: precondition check failed\n" >&2
+      exit 1
+    fi
+    ```
 
-  Aliases are unreliable in scripts — they are not always expanded and behave differently between interactive and non-interactive shells. Define functions instead.
+-   **Do not use `eval` or aliases.**
 
-- **Validate with ShellCheck.**
+    `eval` executes arbitrary strings as shell code, making it impossible to reason about what variables were set or whether commands succeeded. Use explicit commands instead.
 
-  Run this before committing:
+    Aliases are unreliable in scripts. They are not always expanded and behave differently between interactive and non-interactive shells. Define functions instead.
 
-  ```sh
-  shellcheck --severity=style script.sh
-  ```
+-   **Validate with ShellCheck.**
 
-  Address all warnings before committing changes.
+    Run this before committing:
 
-  Use ShellCheck's "source" directive to point it to the real path (relative to the current file) of sourced files:
+    ```sh
+    shellcheck --severity=style <script.sh>
+    ```
 
-  ```sh
-  # shellcheck source=./lib/helpers.sh
-  . "$(dirname "$0")/lib/helpers.sh"
-  ```
+    Address all warnings before committing changes.
 
-  Use ShellCheck's "disable" directive (`# shellcheck disable=SC2086`) sparingly and only with clear justification (which must be explained in an adjacent comment).
+    Use ShellCheck's "source" directive to point it to the real path of sourced files (relative to the current file):
+
+    ```sh
+    # shellcheck source=./lib/helpers.sh
+    . "$(dirname "$0")/lib/helpers.sh"
+    ```
+
+    Use ShellCheck's "disable" directive (`# shellcheck disable=SC2086`) sparingly and only with clear justification (which MUST be explained in an adjacent comment).
 
 ## Examples
 

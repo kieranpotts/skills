@@ -15,9 +15,9 @@ Do NOT use this skill for preparing or tagging releases.
 
 ## Instructions
 
-1.  **Use one of these formats**:
+1.  **Use one of these formats:**
 
-    **Permanent trunks**:
+    *Permanent trunks:*
 
     ```
     dev
@@ -25,79 +25,85 @@ Do NOT use this skill for preparing or tagging releases.
     ready
     ```
 
-    **Temporary branches**:
+    *Short-lived temporary branches:*
 
     ```
     temp/[<id>-]<description>
     ```
 
-    **Epic branches**:
+    *Long-lived epic branches:*
 
     ```
     epic/[<id>-]<description>
     ```
 
-    Validation regex:
+    Validation regex (for all branch types):
 
     ```
     ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
     ```
 
-2.  **Follow these rules**:
+2.  **Follow these rules:**
 
-    - Branch names must be lowercase.
+    - Branch names MUST be lowercase.
 
     - For `temp/*` and `epic/*` branches, use hyphen-delimited descriptions (kebab-case) - REQUIRED.
 
-    - The OPTIONAL `<id>` typically corresponds to an issue number or tracking system identifier.
-
     - No underscores or spaces in branch names.
 
-    - Temporary and epic branches SHOULD NOT exceed 50 characters total.
+    - The OPTIONAL `<id>` typically corresponds to an issue number or tracking system identifier.
+
+    - Temporary and epic branches SHOULD NOT exceed 50 characters total, and MUST NOT exceed 72.
 
 ## Rules
 
-**Trunk branches** are permanent, append-only, and immutable. There are up to three trunks:
+-   **Trunk branches:**
 
-- `dev`: The primary integration trunk. All work originates here. This is the only REQUIRED branch. Most projects should use `dev` as their default branch.
+    Trunks are permanent, append-only, and immutable. There are up to three trunks:
 
-- `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` for comprehensive testing (integration tests, system tests, performance tests).
+    - `dev`: The primary integration trunk. All work originates here. This is the only REQUIRED branch. Most projects should use `dev` as their default branch.
 
-- `ready`: OPTIONAL production-grade trunk. Fast-forwarded to passing commits on `test`. Always shippable, enabling continuous delivery.
+    - `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` for comprehensive testing (integration tests, system tests, performance tests).
 
-**Temporary branches** are short-lived and capture single-focused changes, typically associated with an issue/bug. Follow these rules:
+    - `ready`: OPTIONAL production-grade trunk. Fast-forwarded to passing commits on `test`. Always shippable, enabling continuous delivery.
 
-- Cut from `dev`, never from `test`, `ready`, or release branches.
+-   **Temporary branches:**
 
-- Valid use cases: experiments, proofs-of-concept, technical spikes, features that cannot be completed in one day, disruptive work, backup of in-progress work.
+    Temporary branches (`temp/*`) are short-lived and capture single-focused changes spanning a small number of commits. Commonly associated with an issue/bug. Follow these rules:
 
-- One logical change per temporary branch. Multiple orthogonal changes SHOULD NOT be combined into a single branch.
+    - Cut from `dev`, never from `test`, `ready`, or release branches.
 
-- Use rebase-up strategy to keep synchronized with `dev`.
+    - Valid use cases: bugs and other issues that span multple atomic commits; experiments, proofs-of-concept, and technical spikes;backup of in-progress work.
 
-- Reintegrate with `dev` using fast-forward merge.
+    - One logical change per temporary branch. Multiple orthogonal changes SHOULD NOT be combined into a single temporary branch.
 
-- Delete after integration. The commit history is preserved in `dev`.
+    - Use rebase-up strategy to keep synchronized with `dev`.
 
-**Epic branches** are long-lived branches for multi-developer coordination on complex changes. Rules:
+    - Reintegrate with `dev` using fast-forward merge.
 
-- Cut from `dev`, like temporary branches.
+    - Delete after integration. The commit history is preserved in `dev`.
 
-- Valid use cases: large coordinated features spanning weeks/months, major refactoring initiatives, cross-cutting concerns, experimental/research work.
+-   **Epic branches:**
 
-- Use merge-down strategy: synchronize by merging `dev` into the epic branch (never rebase). This is safer for long-lived branches with multiple contributors since it preserves the history of the branch.
+    Epic branches (`epic/*`) are long-lived branches for multi-developer coordination on complex changes. Rules:
 
-- Reintegrate with `dev` using squash-merge strategy.
+    - Cut from `dev`, like temporary branches.
 
-- Delete after integration into `dev`.
+    - Valid use cases: large coordinated features spanning weeks/months, and which can't easily be continuously integrated into the `dev` trunk but toggled off; major refactoring and replatforming initiatives; cross-cutting concerns; long-running research work; other highly disruptive or volatile changes.
 
-**General practices**:
+    - Use merge-down strategy: synchronize by merging `dev` into the epic branch (never rebase). This is safer for long-lived branches with multiple contributors since it preserves the history of the branch.
 
-- All changes originate on `dev` and flow forward through `test` → `ready` → release.
+    - Reintegrate with `dev` using squash-merge strategy.
 
-- Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix must be committed to `dev` and flow forward from there - no direct commits to downstream trunks.
+    - Delete after integration into `dev`.
 
-- Periodically review stale `temp/*` and `epic/*` branches with no commits in ~90 days and delete or revive them.
+-   **General practices:**
+
+    - All changes originate on `dev` and flow forward through `test` → `ready` → release.
+
+    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix must be committed to `dev` and flow forward from there - no direct commits to downstream trunks.
+
+    - Periodically review stale `temp/*` and `epic/*` branches with no commits in ~90 days and delete or revive them.
 
 ## Examples
 

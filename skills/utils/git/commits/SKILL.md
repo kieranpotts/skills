@@ -37,7 +37,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
 2.  **Follow these rules**:
 
-    - `<type>` must be one of these literal strings:
+    - `<type>` MUST be one of these literal strings:
 
         - `add`
         - `chore`
@@ -54,7 +54,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
         - `revert`
         - `step`
 
-    - `<description>` must be full lowercase and use the imperative mood (eg. "add", not "added" or "adds").
+    - `<description>` MUST be full lowercase and use the imperative mood (eg. "add", not "added" or "adds").
 
     - No period at the end of the description.
 
@@ -68,61 +68,67 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
     - Header (type + description + flag) SHOULD NOT exceed 50 characters and MUST NOT exceed 72 characters.
 
-    - Scopes/parentheticals (`feature(parser): …`) fail validation - the regex expects the colon immediately after the type.
+    - Commit message convention is NOT compatible with Conventional Commits. Scopes/parentheticals (`feature(parser): …`) fail validation. The regex expects the colon immediately after the type.
 
     - Bodies and footers are OPTIONAL and do not require validation.
 
         - Use the body to explain the _why_ of the change, not the _what_. Separate from header with a single blank line. Proper English sentences. Markdown formatting allowed, but prefer plain text. Wrap lines at 72 characters.
 
-        - The footer section is a contiguous block consists of key-value pairs, one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name <email>`. Separated from body by a single blank line.
+        - The footer section is a contiguous block consisting of key-value pairs, one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name <email>`. Separated from body by a single blank line.
 
 ## Rules
 
-**Atomic commits**: One logical change per commit. Split large changes into multiple `step:` commits. `feature:` and `performance:` work may bundle logically related changes.
+-   **Atomic commits.**
 
-**Pick the most appropriate commit type** based on the semantics of the changeset being committed:
+    One logical change per commit. Split large changes into multiple `step:` commits.
 
-- `add`: Use only for documentation/specifications repositories. Add new content.
+    `feature:` and `performance:` work may bundle logically related changes.
 
-- `chore`: Small, insignificant housekeeping - typo fixes, comment tweaks, non-production artifacts. Typically no peer review needed.
+-   **Pick the most appropriate commit type.**
 
-- `edit`: Use only for documentation/specifications repositories. Change existing content.
+    Choice based on the semantics of the changeset being committed:
 
-- `feature`: User-facing operation or behavior change (new commands, flags, endpoints, features, deprecations, removals).
+    - `add`: Use only for documentation/specifications repositories. Add new content.
 
-- `fix`: Resolves a defect - bug, regression, vulnerability, or incident (including silencing spurious error log entries).
+    - `chore`: Small, insignificant housekeeping - typo fixes, comment tweaks, non-production artifacts. Typically no peer review needed.
 
-- `format`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
+    - `edit`: Use only for documentation/specifications repositories. Change existing content.
 
-- `maintenance`: Required upkeep - dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
+    - `feature`: User-facing operation or behavior change (new commands, flags, endpoints, features, deprecations, removals).
 
-- `merge`: Merge commits (when not fast-forwarded).
+    - `fix`: Resolves a defect - bug, regression, vulnerability, or incident (including silencing spurious error log entries).
 
-- `performance`: External runtime optimization - observable and measurable outside the system (latency, throughput, resource utilization, security, compliance).
+    - `format`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
 
-- `refactor`: Improves internal structure without changing features or degrading performance (renames, helper extraction, simplifying interfaces, restructuring data flows).
+    - `maintenance`: Required upkeep - dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
 
-- `release`: Version bumps and release-preparation commits.
+    - `merge`: Merge commits (when not fast-forwarded).
 
-- `remove`: Use only for documentation/specifications repositories. Delete existing content.
+    - `performance`: External runtime optimization - observable and measurable outside the system (latency, throughput, resource utilization, security, compliance).
 
-- `revert`: Reverting a prior commit.
+    - `refactor`: Improves internal structure without changing features or degrading performance (renames, helper extraction, simplifying interfaces, restructuring data flows).
 
-- `step`: Incremental change toward a larger feature or fix that is not yet user-facing. Building block in multi-commit implementation.
+    - `release`: Version bumps and release-preparation commits.
 
-**Subtle diistinctions**: `step` is for incomplete work toward a user-facing `feature` or `performance` change. `refactor` is for higher-level internal structural improvements, while`format` is for lower-level code presentation improvements. `maintenance` is for updating infrastructure and dependencies, while `chore` is general repository housekeeping that does not touch any code or configuration, eg. small edits to READMEs.
+    - `remove`: Use only for documentation/specifications repositories. Delete existing content.
 
-**Add a flag** to the subject line in the following special cases:
+    - `revert`: Reverting a prior commit.
 
-- `BREAKING`: Breaking change to external API. Automated tools may bump major version.
+    - `step`: Incremental change toward a larger feature or fix that is not yet user-facing. Building block in multi-commit implementation.
 
-- `EXPERIMENT`: Experimental or temporary change expected to be reverted.
+    *Subtle diistinctions*: `step` is for incomplete work toward a user-facing `feature` or `performance` change. `refactor` is for higher-level internal structural improvements, while`format` is for lower-level code presentation improvements. `maintenance` is for updating things like infrastructure configuration and dependencies, while `chore` is general repository housekeeping that does not touch any code or configuration, eg. edits to READMEs and other documentation.
 
-- `INCOMPAT`: Internal breaking change (function signature, schema, data structure). May break other changes being introduced in parallel branches.
+-   **Add a flag** to the subject line in the following special cases:
 
-- `TEMPORARY`: Temporary commit that will be reverted (eg. debug logging). SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor repositories.
+    - `BREAKING`: Breaking change to external API. Automated tools may bump major version of next release in response.
 
-- `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor repositories.
+    - `EXPERIMENT`: Experimental change expected to be reverted. May include experimental user-facing features.
+
+    - `INCOMPAT`: Internal breaking change (function signature, schema, data structure). May break other changes being introduced in parallel branches, but no impact on users.
+
+    - `TEMPORARY`: Temporary commit that will be reverted (eg. debug logging). SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor repositories.
+
+    - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor repositories.
 
 ## Examples
 

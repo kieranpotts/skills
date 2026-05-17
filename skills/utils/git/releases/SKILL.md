@@ -15,17 +15,21 @@ Do NOT use this skill for commit message conventions or general branch naming.
 
 Choose one release strategy:
 
-**Release trunk** (continuous deployment):
+-   A single **release trunk**:
 
-```
-release
-```
+    For continuous deployment. Naming convention:
 
-**Release branches** (release trains / big bang):
+    ```
+    release
+    ```
 
-```
-release/<version>
-```
+-   Multiple **release branches**:
+
+    For release trains and big-bang releases. Naming convention:
+
+    ```
+    release/<version>
+    ```
 
 Validation regex (for both):
 
@@ -35,29 +39,41 @@ Validation regex (for both):
 
 ## Rules
 
-**Release trunk** (`release`):
+-   **Release trunk** (`release`):
 
-- Permanent trunk, auto-promoted from `ready` when verified.
-- The tip commit is always a candidate for production deployment.
-- References pre-built artifacts in external artifact registries.
+    - Permanent trunk, auto-promoted from `ready` when verified.
 
-**Release branches** (`release/<version>`):
+    - The tip commit is always a candidate for production deployment.
 
-- Cut from `ready` trunk tip: `git checkout -b release/<version> ready`.
-- Temporary - deleted after tagging and artifact build.
-- Contains only release-preparation commits: version bumps, changelog updates, release-specific config.
-- Tag with version: `git tag -a v<version> -m "<release_notes>"`.
-- Build artifacts stored in external repository, indexed by tag.
-- If preparation fails, abandon branch and start over.
-- Never commit fixes to release branches. Fixes MUST flow through `dev` → `ready` → new release branch.
-- Placeholder name `release/next` allowed if version not yet decided.
+    - References pre-built artifacts in external artifact registries.
 
-**General**:
+-   **Release branches** (`release/<version>`):
 
-- All releases cut from `ready` trunk (pristine, production-grade).
-- Development continues unblocked during release preparation (no code freezes).
-- Compiled artifacts are shipped to external artifact registries (Docker, npm, PyPI, S3, etc.), never to the Git repository.
-- Version tags are permanent. Reference them in external artifact repos for traceability.
+    - Cut from `ready` trunk tip: `git checkout -b release/<version> ready`.
+
+    - Temporary. Deleted after tagging and successful deployment pipeline.
+
+    - Contains only release-preparation commits: version bumps, changelog updates, release-specific config.
+
+    - Tag with version: `git tag -a v<version> -m "<release_notes>"`.
+
+    - Build artifacts stored in external artifact registry, indexed by tag.
+
+    - If preparation fails, abandon branch and start over.
+
+    - Never commit fixes to release branches. Fixes MUST flow through `dev` → `ready` → new release branch.
+
+    - Placeholder name `release/next` allowed if version not yet decided.
+
+-   **General**:
+
+    - All releases cut from `ready` trunk, the tip of which is guaranteed to always contain pristine, production-grade artifacts.
+
+    - Development continues unblocked during release preparation (no code freezes).
+
+    - Compiled artifacts are shipped to external artifact registries (Docker, npm, PyPI, S3, etc.), never to the Git repository.
+
+    - Version tags are permanent. Reference them in external artifact repos for traceability.
 
 ## Examples
 
