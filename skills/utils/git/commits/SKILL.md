@@ -29,19 +29,11 @@ Do NOT use this skill for branch-naming conventions or PR titles.
     ^((chore|feature|fix|format|maintenance|merge|performance|refactor|release|revert|step): [a-z].*)$
     ```
 
-    For repositories that contain only documentation, specifications, or other non-source/non-executable artifacts, use this regex to validate the subject line:
-
-    ```
-    ^((add|edit|fix|remove|restructure|format|chore|release|merge|revert): [a-z].*)$
-    ```
-
 2.  **Follow these rules**:
 
     - `<type>` MUST be one of these literal strings:
 
-        - `add`
         - `chore`
-        - `edit`
         - `feature`
         - `fix`
         - `format`
@@ -50,7 +42,6 @@ Do NOT use this skill for branch-naming conventions or PR titles.
         - `performance`
         - `refactor`
         - `release`
-        - `remove`
         - `revert`
         - `step`
 
@@ -88,11 +79,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
     Choice based on the semantics of the changeset being committed:
 
-    - `add`: Use only for documentation/specifications repositories. Add new content.
-
     - `chore`: Small, insignificant housekeeping - typo fixes, comment tweaks, non-production artifacts. Typically no peer review needed.
-
-    - `edit`: Use only for documentation/specifications repositories. Change existing content.
 
     - `feature`: User-facing operation or behavior change (new commands, flags, endpoints, features, deprecations, removals).
 
@@ -109,8 +96,6 @@ Do NOT use this skill for branch-naming conventions or PR titles.
     - `refactor`: Improves internal structure without changing features or degrading performance (renames, helper extraction, simplifying interfaces, restructuring data flows).
 
     - `release`: Version bumps and release-preparation commits.
-
-    - `remove`: Use only for documentation/specifications repositories. Delete existing content.
 
     - `revert`: Reverting a prior commit.
 
