@@ -28,20 +28,6 @@
     },
   },
 
-  "[python]": {
-    /* Python files should wrap at 88 characters. */
-    "editor.rulers": [
-      88
-    ],
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 88,
-
-    /* Enable auto-formatting for Python files. */
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-  },
-
   "[skill]": {
     /* Same as Markdown. */
     "editor.wordWrap": "bounded",
