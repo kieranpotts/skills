@@ -1,5 +1,5 @@
 ---
-name: bash
+name: code-bash
 description: Coding conventions and design patterns for Bash scripts.
 compatibility: requires bash, shellcheck
 license: MIT
@@ -9,13 +9,13 @@ license: MIT
 
 Use this skill when authoring or modifying scripts that target Bash specifically - scripts that use Bash extensions, or that are deployed only to environments where Bash is guaranteed to be available.
 
-Do NOT use this skill for scripts that must be portable across multiple shells. For that, use the [POSIX skill](https://raw.githubusercontent.com/kieranpotts/skills/refs/heads/dev/skills/code/posix/SKILL.md) instead.
+Do NOT use this skill for scripts that must be portable across multiple shells. For that, use the [POSIX skill](https://raw.githubusercontent.com/kieranpotts/skills/refs/heads/dev/skills/code-posix/SKILL.md) instead.
 
 Do NOT use this skill for Python scripts or shell configuration files (`.bashrc`, `.zshrc`).
 
 Use project-specific shell skills if available.
 
-All rules from the [POSIX skill](https://raw.githubusercontent.com/kieranpotts/skills/refs/heads/dev/skills/code/posix/SKILL.md) apply here. This skill extends them with Bash-specific conventions.
+All rules from the [POSIX skill](https://raw.githubusercontent.com/kieranpotts/skills/refs/heads/dev/skills/code-posix/SKILL.md) apply here. This skill extends them with Bash-specific conventions.
 
 ## Rules
 

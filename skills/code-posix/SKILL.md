@@ -1,5 +1,5 @@
 ---
-name: posix
+name: code-posix
 description: Coding conventions and design patterns for POSIX-compliant shell scripts.
 compatibility: requires sh, shellcheck
 license: MIT
