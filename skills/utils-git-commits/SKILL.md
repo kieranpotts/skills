@@ -156,4 +156,4 @@ Closes: #123
 
 - This skill is based on [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003).
 
-- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commits) is used to validate commit messages against the conventions described in TS-3 and this skill.
+- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-3 and this skill.
