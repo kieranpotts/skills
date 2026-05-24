@@ -1,6 +1,6 @@
 # Skills for AI agents
 
-A curated collection of skills, rules, instructions, and custom prompts for use by AI tools.
+A curated collection of skills, rules, instructions, and custom prompts for use by AI tools. Includes install script for Claude, Copilot, Cursor, and Pi.
 
 [**Browse the skills ➡️**](./skills/)
 
