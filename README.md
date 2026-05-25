@@ -1,8 +1,22 @@
-# Skills for AI agents
+# Agentic workflow skills
 
 [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-A curated collection of skills, rules, instructions, and custom prompts for use by AI tools — Claude Code, Pi, Cursor, and GitHub Copilot via the bundled installer, plus a wider range of agents via the [skills.sh](https://www.skills.sh/) CLI.
+A curated collection of skills – also known as rules, instructions, and custom prompts – for use by AI tools.
+
+A bundled shell script automates installation for Claude Code, Cursor, GitHub Copilot, and Pi. All other agents are supported via Vercel's [skills.sh CLI](https://www.skills.sh/docs/cli).
+
+<!-- TODO: Workflow-oriented skills. -->
+
+| Phase    | Skill      | Description                                 |
+| -------- | ---------- | ------------------------------------------- |
+| Specify  | `spec`     | Specify requirements as acceptance criteria |
+| Design   | `design`   | Explore architecture options and trade-offs |
+| Plan     | `plan`     | Break delivery into small increments        |
+| Code     | `code`     | Write code and tests for one step           |
+| Test     | `test`     | Verify the full solution againt the ACs     |
+| Review   | `review`   | Audit code for security, consistency, etc.  |
+| Refactor | `refactor` | Improve internal code quality               |
 
 [**Browse the skills ➡️**](./skills/)
 

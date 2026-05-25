@@ -14,10 +14,10 @@
 # Copilot (.instructions.md) as generated files with the right frontmatter.
 # All four agents then install from ./build/:
 #
-#   - User-level (DIR is ~) → symlinks into ./build/. Rebuilds (eg. after
-#     editing a skill) are picked up immediately by the agent.
-#   - Project-level (any other DIR) → hard copies of ./build/ artifacts.
-#     The project remains self-contained and unaffected by repo changes.
+#   - Default → hard copies of ./build/ artifacts. The target remains
+#     self-contained and unaffected by later repo changes.
+#   - --symlinks → symlinks into ./build/. Rebuilds (eg. after editing a
+#     skill) are picked up immediately. Useful when developing skills.
 #
 # Cursor and Copilot may not auto-discover user-level skills. The script
 # warns at the end of the run if either was installed at ~.
@@ -55,6 +55,10 @@ Options:
                         to ~ (user-level). Use any other path for a
                         project-level install. A leading ~ is expanded
                         to $HOME.
+  --symlinks            Install as symlinks pointing into ./build/ instead
+                        of hard copies. Local edits to skills are picked up
+                        immediately on the next install run. Useful for
+                        developing skills.
   --uninstall           Remove installs. Combine with target flags.
   --dry-run             Print outcomes without performing them.
   --help, -h            Show this help.
@@ -67,11 +71,14 @@ Target paths (relative to DIR):
 
 Notes:
   - Every install first compiles per-agent artifacts into ./build/ (in the
-    repo root). All four agents then install from there:
-      * User-level (DIR is ~) → symlinks into ./build/.
-      * Project-level (any other DIR) → hard copies of the build artifacts.
-    Re-running install rebuilds ./build/, so symlinked installs pick up
-    skill edits immediately. Copy installs need a re-run to refresh.
+    repo root). All four agents then install from there. By default,
+    artifacts are hard-copied into DIR. Pass --symlinks for symlinks back
+    into ./build/ instead.
+  - Copy installs are independent of the source repo: changes (or even
+    deletion) of the repo don't affect already-installed copies. Re-run
+    `./run/install` to refresh the copies with the latest source.
+  - Symlink installs pick up changes immediately on the next install run
+    (which rebuilds ./build/). Use this for developing skills.
   - Cursor and Copilot typically only auto-discover skills in project
     directories. They are still installed when DIR is ~, but the installer
     prints a warning at the end of its run.
@@ -80,14 +87,14 @@ Notes:
     generated files containing our marker comment).
 
 Examples:
-  ./run/install --claude                       # Claude, user-level (default).
-  ./run/install --claude --dir .               # Claude, into cwd.
-  ./run/install --pi                           # Pi, user-level.
-  ./run/install --all                          # All four, user-level (warns about Cursor/Copilot).
-  ./run/install --all --dir ~/dev/my-project   # All four, into a specific project.
-  ./run/install --cursor --dir .               # Cursor, into cwd.
-  ./run/install --uninstall --claude           # Remove Claude user-level symlinks.
-  ./run/install --uninstall --all --dir .      # Remove all four agents' copies from cwd.
+  ./run/install --claude                       # Claude, user-level copies (defaults).
+  ./run/install --claude --dir .               # Claude, copies into cwd.
+  ./run/install --claude --symlinks            # Claude, user-level symlinks (dev mode).
+  ./run/install --all                          # All four, user-level copies (warns about Cursor/Copilot).
+  ./run/install --all --dir ~/dev/my-project   # All four, copies into a specific project.
+  ./run/install --all --symlinks               # All four, user-level symlinks.
+  ./run/install --uninstall --claude           # Remove Claude user-level install.
+  ./run/install --uninstall --all --dir .      # Remove all four agents' installs from cwd.
 EOF
 }
 
@@ -333,6 +340,7 @@ main() {
   local do_cursor=false
   local do_copilot=false
   local dir=""
+  local symlinks=false
   local uninstall=false
   local dry_run=false
   local any_flag=false
@@ -358,6 +366,8 @@ main() {
         fi
         dir="$(expand_tilde "$1")"
         shift ;;
+      --symlinks)
+        symlinks=true; shift ;;
       --uninstall)
         uninstall=true; shift ;;
       --dry-run)
@@ -400,11 +410,11 @@ main() {
   [[ "${uninstall}" == "true" ]] && action="Uninstalling"
   [[ "${dry_run}" == "true" ]] && action="${action} (dry-run)"
 
-  # All four agents use symlinks at user-level (DIR is ~) and hard copies
-  # at project-level. The build/ tree is the source of truth for every
-  # symlink target and every copy.
-  local mode="symlinks"
-  [[ "${dir}" != "${HOME}" ]] && mode="copies"
+  # Default install mode is hard copies of the build artifacts. Pass
+  # --symlinks to install symlinks back into ./build/ instead — useful
+  # when actively developing skills (rebuilds propagate immediately).
+  local mode="copies"
+  [[ "${symlinks}" == "true" ]] && mode="symlinks"
 
   local action_fn="install_agent"
   [[ "${uninstall}" == "true" ]] && action_fn="uninstall_agent"

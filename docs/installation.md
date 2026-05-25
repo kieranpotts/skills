@@ -44,25 +44,29 @@ There are two ways to install these skills:
     Use `./run/install --help` for detailed options. Here are some examples:
 
     ```sh
-    # Claude only, user-level (default).
+    # Claude only, user-level copies (default).
     ./run/install --claude
 
-    # Pi only, user-level (default).
+    # Pi only, user-level copies.
     ./run/install --pi
 
-    # Claude and Cursor, both into cwd.
+    # Claude and Cursor, both copied into cwd.
     ./run/install --claude --cursor --dir .
 
-    # All four agents into a specific project.
+    # All four agents copied into a specific project.
     ./run/install --all --dir ~/dev/my-project
 
     # All four agents, user-level (Cursor/Copilot will warn).
     ./run/install --all
 
-    # Remove Claude's user-level symlinks.
+    # All four agents, user-level symlinks back into ./build/
+    # (dev mode — rebuilds propagate immediately).
+    ./run/install --all --symlinks
+
+    # Remove Claude's user-level install.
     ./run/install --uninstall --claude
 
-    # Remove Pi's copies from a particular project.
+    # Remove Pi's install from a particular project.
     ./run/install --uninstall --pi --dir ~/dev/my-project
     ```
 
@@ -76,10 +80,9 @@ There are two ways to install these skills:
 
     The `./build/` tree is the single source of truth for every install — symlinked or copied. It is rebuilt from scratch on every install run (so removed skills don't leave stale artifacts), and is gitignored.
 
-    **Symlinks vs hard copies.** The install mode is determined by `--dir`:
+    **Hard copies (default).** By default, every install is a **hard copy** of the build artifacts into the target directory. This applies to all four agents and to both user-level and project-level installs. The target remains self-contained and unaffected by later changes — or deletion — of the upstream repository. Re-run `./run/install` to refresh the copies with the latest source.
 
-    - **User-level** (`--dir ~`, the default): all four agents are installed as **symlinks** into `./build/`. Re-running `./run/install` rebuilds the artifacts in place, so edits to source skills are picked up immediately by the agent.
-    - **Project-level** (any other `--dir`): all four agents are installed as **hard copies** of the build artifacts. The project remains self-contained and unaffected by changes — or deletion — of the upstream repository. Re-run `./run/install` against the project to refresh the copies.
+    **Symlinks (opt-in via `--symlinks`).** Pass `--symlinks` to install symlinks back into `./build/` instead of copies. Re-running `./run/install` rebuilds `./build/` in place, so edits to source skills are picked up immediately by the agent on the next install run. This is intended for actively developing skills against a live agent — not the recommended mode for everyday use.
 
     The install script will not overwrite anything it didn't create. It identifies its own installs via:
 
