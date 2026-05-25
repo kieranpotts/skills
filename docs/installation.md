@@ -82,4 +82,4 @@ There are two ways to install these skills:
 
     The install script will not overwrite anything it didn't create. For Claude and Pi, it only touches a symlink whose target points back into this repository. For Cursor and Copilot, it identifies its own files via a marker comment in the generated skills files.
 
-    The custom installer also provides a mechanism for uninstalling skills. The `--uninstall` flag is used with the same combination of other flags (eg. `--claude ~ --copilot ~/dev/project`). The script will only uninstall what it previously installed. Empty target directories will be pruned.
+    The custom installer also provides a mechanism for uninstalling skills. The `--uninstall` flag is used with the same combination of other flags (eg. `--claude --copilot ~/dev/project`). The script will only uninstall what it previously installed. Empty target directories will be pruned.

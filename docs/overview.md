@@ -9,7 +9,7 @@ Each skill includes:
 - Practical examples and edge cases.
 - Technical references and domain-specific notes.
 
-A Bash script is included to automate the installation of the skills for different AI agents – currently Claude, Pi, Copilot, and Cursor. Alternatively, you can install these skills using Vercel's [skills.sh CLI](https://www.skills.sh/), which supports a [much wider range of agents](https://www.skills.sh/agent).
+A Bash script is included to automate the installation of the skills for different AI agents – currently Claude, Pi, Cursor, and Copilot. Alternatively, you can install these skills using Vercel's [skills.sh CLI](https://www.skills.sh/), which supports a [much wider range of agents](https://www.skills.sh/agent).
 
 When installed via the custom installer, every skill is generated with Cursor's `alwaysApply` set to `true` and Copilot's `applyTo` set to `"**"`, so all skills are always in scope. You may need to tune the targeting per-project. (Skills installed via the skills.sh CLI follow that tool's own defaults.)
 
