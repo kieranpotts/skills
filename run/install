@@ -190,100 +190,148 @@ build_artifacts() {
   done < <(discover_skills)
 }
 
-# Symlink a single build artifact into the target location. Used for
-# user-level installs (live link, so rebuilds picked up immediately).
+# Is `target` a hard copy that this installer previously created?
+# Detects both directory copies (Claude/Pi: marker file inside) and file
+# copies (Cursor/Copilot: marker comment inside).
+#
+is_our_copy() {
+  local target="$1"
+  if [[ -d "${target}" && -f "${target}/${copy_marker_file}" ]]; then
+    return 0
+  fi
+  if [[ -f "${target}" ]] && grep -qF "${marker}" "${target}" 2>/dev/null; then
+    return 0
+  fi
+  return 1
+}
+
+# Is `target` a symlink that this installer previously created (points
+# at the expected build artifact)?
+#
+is_our_symlink() {
+  local source="$1" target="$2"
+  [[ -L "${target}" ]] && [[ "$(readlink "${target}")" == "${source}" ]]
+}
+
+# Write a build artifact at `target` as a hard copy. Drops the marker
+# file for directory artifacts so we can identify our own copies later;
+# file artifacts already carry the marker comment from the build step.
+#
+do_write_copy() {
+  local source="$1" target="$2"
+  if [[ -d "${source}" ]]; then
+    cp -R "${source}" "${target}"
+    : > "${target}/${copy_marker_file}"
+  else
+    cp "${source}" "${target}"
+  fi
+}
+
+# Remove an existing target (either a symlink, a directory copy, or a
+# file copy). Caller must have verified ownership.
+#
+do_remove() {
+  local target="$1"
+  if [[ -L "${target}" || -f "${target}" ]]; then
+    rm "${target}"
+  elif [[ -d "${target}" ]]; then
+    rm -rf "${target}"
+  fi
+}
+
+# Install a build artifact as a symlink at `target`. Replaces any
+# existing install that we own — including a previous hard copy — so
+# the user can switch modes by re-running with --symlinks.
 #
 install_one_symlink() {
   local source="$1" target="$2" name="$3" dry_run="$4"
 
+  if is_our_symlink "${source}" "${target}"; then
+    printf "  = %s (already linked)\n" "${name}"
+    return
+  fi
+
   if [[ -L "${target}" ]]; then
-    if [[ "$(readlink "${target}")" == "${source}" ]]; then
-      printf "  = %s (already linked)\n" "${name}"
-      return
-    fi
     printf "  ~ %s (updating symlink)\n" "${name}"
     [[ "${dry_run}" == "true" ]] || ln -sfn "${source}" "${target}"
-  elif [[ -e "${target}" ]]; then
-    printf "  ! %s (skipping — exists and is not our symlink)\n" "${name}" >&2
-  else
-    printf "  + %s\n" "${name}"
-    [[ "${dry_run}" == "true" ]] || ln -sfn "${source}" "${target}"
+    return
   fi
+
+  if is_our_copy "${target}"; then
+    printf "  ~ %s (replacing copy with symlink)\n" "${name}"
+    [[ "${dry_run}" == "true" ]] || {
+      do_remove "${target}"
+      ln -sfn "${source}" "${target}"
+    }
+    return
+  fi
+
+  if [[ -e "${target}" ]]; then
+    printf "  ! %s (skipping — exists and is not ours)\n" "${name}" >&2
+    return
+  fi
+
+  printf "  + %s\n" "${name}"
+  [[ "${dry_run}" == "true" ]] || ln -sfn "${source}" "${target}"
 }
 
 uninstall_one_symlink() {
   local source="$1" target="$2" name="$3" dry_run="$4"
 
-  if [[ -L "${target}" ]]; then
-    if [[ "$(readlink "${target}")" == "${source}" ]]; then
-      printf "  - %s\n" "${name}"
-      [[ "${dry_run}" == "true" ]] || rm "${target}"
-    else
-      printf "  ? %s (symlink, but not ours — skipping)\n" "${name}" >&2
-    fi
+  if is_our_symlink "${source}" "${target}"; then
+    printf "  - %s\n" "${name}"
+    [[ "${dry_run}" == "true" ]] || rm "${target}"
+  elif [[ -L "${target}" ]]; then
+    printf "  ? %s (symlink, but not ours — skipping)\n" "${name}" >&2
   fi
 }
 
-# Copy a single build artifact into the target location. Used for
-# project-level installs (self-contained, unaffected by source changes).
-# Handles both directory artifacts (Claude/Pi: drop marker file) and
-# file artifacts (Cursor/Copilot: marker comment is already inside).
+# Install a build artifact as a hard copy at `target`. Replaces any
+# existing install that we own — including a previous symlink — so the
+# user can switch modes by re-running without --symlinks. Handles both
+# directory artifacts (Claude/Pi) and file artifacts (Cursor/Copilot).
 #
 install_one_copy() {
   local source="$1" target="$2" name="$3" dry_run="$4"
 
-  if [[ -L "${target}" ]]; then
-    printf "  ! %s (skipping — exists as a symlink, not our copy)\n" "${name}" >&2
+  if is_our_symlink "${source}" "${target}"; then
+    printf "  ~ %s (replacing symlink with copy)\n" "${name}"
+    [[ "${dry_run}" == "true" ]] || {
+      do_remove "${target}"
+      do_write_copy "${source}" "${target}"
+    }
     return
   fi
 
-  if [[ -d "${source}" ]]; then
-    if [[ -d "${target}" ]]; then
-      if [[ -f "${target}/${copy_marker_file}" ]]; then
-        printf "  ~ %s (refreshing copy)\n" "${name}"
-        [[ "${dry_run}" == "true" ]] || {
-          rm -rf "${target}"
-          cp -R "${source}" "${target}"
-          : > "${target}/${copy_marker_file}"
-        }
-      else
-        printf "  ! %s (skipping — exists and is not our copy)\n" "${name}" >&2
-      fi
-    elif [[ -e "${target}" ]]; then
-      printf "  ! %s (skipping — exists and is not a directory)\n" "${name}" >&2
-    else
-      printf "  + %s\n" "${name}"
-      [[ "${dry_run}" == "true" ]] || {
-        cp -R "${source}" "${target}"
-        : > "${target}/${copy_marker_file}"
-      }
-    fi
-  else
-    if [[ -f "${target}" ]]; then
-      if grep -qF "${marker}" "${target}"; then
-        printf "  ~ %s (refreshing copy)\n" "${name}"
-        [[ "${dry_run}" == "true" ]] || cp "${source}" "${target}"
-      else
-        printf "  ! %s (skipping — exists and is not our copy)\n" "${name}" >&2
-      fi
-    elif [[ -e "${target}" ]]; then
-      printf "  ! %s (skipping — exists and is not a regular file)\n" "${name}" >&2
-    else
-      printf "  + %s\n" "${name}"
-      [[ "${dry_run}" == "true" ]] || cp "${source}" "${target}"
-    fi
+  if [[ -L "${target}" ]]; then
+    printf "  ! %s (skipping — exists as a symlink, not ours)\n" "${name}" >&2
+    return
   fi
+
+  if is_our_copy "${target}"; then
+    printf "  ~ %s (refreshing copy)\n" "${name}"
+    [[ "${dry_run}" == "true" ]] || {
+      do_remove "${target}"
+      do_write_copy "${source}" "${target}"
+    }
+    return
+  fi
+
+  if [[ -e "${target}" ]]; then
+    printf "  ! %s (skipping — exists and is not ours)\n" "${name}" >&2
+    return
+  fi
+
+  printf "  + %s\n" "${name}"
+  [[ "${dry_run}" == "true" ]] || do_write_copy "${source}" "${target}"
 }
 
 uninstall_one_copy() {
   local target="$1" name="$2" dry_run="$3"
 
-  if [[ -d "${target}" && -f "${target}/${copy_marker_file}" ]]; then
+  if is_our_copy "${target}"; then
     printf "  - %s\n" "${name}"
-    [[ "${dry_run}" == "true" ]] || rm -rf "${target}"
-  elif [[ -f "${target}" ]] && grep -qF "${marker}" "${target}" 2>/dev/null; then
-    printf "  - %s\n" "${name}"
-    [[ "${dry_run}" == "true" ]] || rm "${target}"
+    [[ "${dry_run}" == "true" ]] || do_remove "${target}"
   elif [[ -e "${target}" || -L "${target}" ]]; then
     printf "  ? %s (exists, but not ours — skipping)\n" "${name}" >&2
   fi
