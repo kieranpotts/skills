@@ -88,9 +88,9 @@ Do NOT use this skill for <exceptions...>.
 
 ## References
 
-[List of links with extended and related information for agents.]
+[List of links with extended and related information for agents. For each include an explicit triger condition.]
 
-- [Technical reference](./references/REFERENCE.md)
-- [Domain-specific notes](./references/<subdomain>.md)
-- [Adjacent skill](../skill-name/SKILL.md) – Used for [purpose].
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md] – Used for [purpose].
+- [API errors](./references/api-errors.md): Read is the API returns a non-200 status code.
+- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md]: Used for [purpose].
+
