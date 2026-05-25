@@ -11,5 +11,5 @@
 #
 
 # Build artifacts (but keep the README or .keep file).
-dist/*
-!dist/README.md
+build/*
+!build/README.md
