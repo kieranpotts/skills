@@ -66,10 +66,14 @@ There are two ways to install these skills:
     ./run/install --uninstall --pi --dir ~/dev/my-project
     ```
 
-    Claude and Pi installs are **symlinks**, which means you can edit a skill in this repo and those tools will pick up the change immediately. This is useful for local development of these skills, because you can evaluate your changes faster.
+    **Symlinks vs hard copies (Claude and Pi).** When installing at user-level (`--dir ~`, the default), Claude and Pi skills are installed as **symlinks** pointing back into this repository. Edits to the source files are picked up immediately — useful when developing skills locally. When installing at project-level (any other `--dir`), the same skills are installed as **hard copies** of the originals. This keeps each project self-contained and unaffected by changes — or deletion — of the upstream repository. Re-running `./run/install` against a project refreshes the copies with the latest source.
 
-    Cursor (`.mdc`) and Copilot (`.instructions.md`) installs are **generated files**, because both have different skill files formats (`.mdc` and `.instructions.md` respectively, with different frontmatter). The installer compiles these proprietary artifacts from the [standard `SKILL.md` source files](https://agentskills.io/home). Therefore, after making changes to the source files, you will need to re-run `./run/install` to refresh the skills in Cursor and Copilot.
+    **Generated files (Cursor and Copilot).** Cursor (`.mdc`) and Copilot (`.instructions.md`) installs are always **generated files**, regardless of `--dir`. Both agents use proprietary frontmatter formats, so the installer compiles these artifacts from the [standard `SKILL.md` source files](https://agentskills.io/home). After editing source files, re-run `./run/install` to refresh.
 
-    The install script will not overwrite anything it didn't create. For Claude and Pi, it only touches a symlink whose target points back into this repository. For Cursor and Copilot, it identifies its own files via a marker comment in the generated skills files.
+    The install script will not overwrite anything it didn't create. It identifies its own installs via:
+
+    - Claude/Pi symlinks: the symlink's target must point back into this repository.
+    - Claude/Pi copies: a hidden marker file (`.kp-skills-installer`) inside the copied skill directory.
+    - Cursor/Copilot files: a marker HTML comment in the generated file.
 
     The custom installer also provides a mechanism for uninstalling skills. The `--uninstall` flag is used with the same combination of other flags (eg. `--claude --copilot --dir ~/dev/project`). The script will only uninstall what it previously installed. Empty target directories will be pruned.
