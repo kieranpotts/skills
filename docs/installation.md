@@ -62,18 +62,29 @@ There are two ways to install these skills:
     # Remove Claude's user-level symlinks.
     ./run/install --uninstall --claude
 
-    # Remove Pi's symlinks from a particular project.
+    # Remove Pi's copies from a particular project.
     ./run/install --uninstall --pi --dir ~/dev/my-project
     ```
 
-    **Symlinks vs hard copies (Claude and Pi).** When installing at user-level (`--dir ~`, the default), Claude and Pi skills are installed as **symlinks** pointing back into this repository. Edits to the source files are picked up immediately — useful when developing skills locally. When installing at project-level (any other `--dir`), the same skills are installed as **hard copies** of the originals. This keeps each project self-contained and unaffected by changes — or deletion — of the upstream repository. Re-running `./run/install` against a project refreshes the copies with the latest source.
+    **Build step.** Every install run first compiles per-agent artifacts into the [`./build/`](../build/) directory in the repository root:
 
-    **Generated files (Cursor and Copilot).** Cursor (`.mdc`) and Copilot (`.instructions.md`) installs are always **generated files**, regardless of `--dir`. Both agents use proprietary frontmatter formats, so the installer compiles these artifacts from the [standard `SKILL.md` source files](https://agentskills.io/home). After editing source files, re-run `./run/install` to refresh.
+    - `build/claude/<skill>/` and `build/pi/<skill>/` — verbatim copies of each source skill directory.
+    - `build/cursor/<skill>.mdc` — generated `.mdc` files with Cursor's `description` + `alwaysApply: true` frontmatter.
+    - `build/copilot/<skill>.instructions.md` — generated `.instructions.md` files with Copilot's `applyTo: "**"` frontmatter.
+
+    Both Cursor's `.mdc` and Copilot's `.instructions.md` formats use proprietary frontmatter, so the installer compiles them from the [standard `SKILL.md` source files](https://agentskills.io/home).
+
+    The `./build/` tree is the single source of truth for every install — symlinked or copied. It is rebuilt from scratch on every install run (so removed skills don't leave stale artifacts), and is gitignored.
+
+    **Symlinks vs hard copies.** The install mode is determined by `--dir`:
+
+    - **User-level** (`--dir ~`, the default): all four agents are installed as **symlinks** into `./build/`. Re-running `./run/install` rebuilds the artifacts in place, so edits to source skills are picked up immediately by the agent.
+    - **Project-level** (any other `--dir`): all four agents are installed as **hard copies** of the build artifacts. The project remains self-contained and unaffected by changes — or deletion — of the upstream repository. Re-run `./run/install` against the project to refresh the copies.
 
     The install script will not overwrite anything it didn't create. It identifies its own installs via:
 
-    - Claude/Pi symlinks: the symlink's target must point back into this repository.
-    - Claude/Pi copies: a hidden marker file (`.kp-skills-installer`) inside the copied skill directory.
-    - Cursor/Copilot files: a marker HTML comment in the generated file.
+    - Symlinks: the symlink's target must point into the repo's `./build/` directory.
+    - Directory copies (Claude/Pi): a hidden marker file (`.kp-skills-installer`) inside the copied skill directory.
+    - File copies (Cursor/Copilot): a marker HTML comment inside the generated file.
 
     The custom installer also provides a mechanism for uninstalling skills. The `--uninstall` flag is used with the same combination of other flags (eg. `--claude --copilot --dir ~/dev/project`). The script will only uninstall what it previously installed. Empty target directories will be pruned.
