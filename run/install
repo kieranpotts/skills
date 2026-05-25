@@ -42,7 +42,7 @@ usage() {
   cat <<'EOF'
 Usage: ./run/install [OPTIONS]
 
-Install skills into AI agents. At least one agent flag (--claude, --pi,
+Install skills for AI agents. At least one agent flag (--claude, --pi,
 --cursor, --copilot, or --all) is required.
 
 Options:
@@ -55,10 +55,10 @@ Options:
                         to ~ (user-level). Use any other path for a
                         project-level install. A leading ~ is expanded
                         to $HOME.
-  --symlinks            Install as symlinks pointing into ./build/ instead
-                        of hard copies. Local edits to skills are picked up
-                        immediately on the next install run. Useful for
-                        developing skills.
+  --symlinks            Install as symlinks instead of copies. Local edits
+                        to skills are picked up immediately by new agent
+                        sessions. Useful for evaluating skills during
+                        development.
   --uninstall           Remove installs. Combine with target flags.
   --dry-run             Print outcomes without performing them.
   --help, -h            Show this help.
@@ -71,14 +71,14 @@ Target paths (relative to DIR):
 
 Notes:
   - Every install first compiles per-agent artifacts into ./build/ (in the
-    repo root). All four agents then install from there. By default,
-    artifacts are hard-copied into DIR. Pass --symlinks for symlinks back
-    into ./build/ instead.
-  - Copy installs are independent of the source repo: changes (or even
-    deletion) of the repo don't affect already-installed copies. Re-run
-    `./run/install` to refresh the copies with the latest source.
-  - Symlink installs pick up changes immediately on the next install run
-    (which rebuilds ./build/). Use this for developing skills.
+    repo root). By default, the built artifacts are hard-copied into the
+    target DIR. Pass --symlinks to create symlinks back to the built
+    artifacts in this repository, instead.
+  - Copied skills are independent of the source repo. Changes (or even
+    deletion) of the repo don't affect already-installed skills.
+  - Re-run `./run/install` to refresh installed skills from the latest source.
+  - Symlink installs pick up changes immediately on the next install run.
+    Use this for fast evaluation of skills during their development.
   - Cursor and Copilot typically only auto-discover skills in project
     directories. They are still installed when DIR is ~, but the installer
     prints a warning at the end of its run.
@@ -87,10 +87,10 @@ Notes:
     generated files containing our marker comment).
 
 Examples:
-  ./run/install --claude                       # Claude, user-level copies (defaults).
+  ./run/install --claude                       # Claude, user-level copies.
   ./run/install --claude --dir .               # Claude, copies into cwd.
   ./run/install --claude --symlinks            # Claude, user-level symlinks (dev mode).
-  ./run/install --all                          # All four, user-level copies (warns about Cursor/Copilot).
+  ./run/install --all                          # All four, user-level copies.
   ./run/install --all --dir ~/dev/my-project   # All four, copies into a specific project.
   ./run/install --all --symlinks               # All four, user-level symlinks.
   ./run/install --uninstall --claude           # Remove Claude user-level install.
@@ -147,6 +147,7 @@ prune_empty_dir() {
 # source skill directories. Cursor (.mdc) and Copilot (.instructions.md)
 # artifacts are generated, with proprietary frontmatter prepended and a
 # marker comment so the installer can identify its own files later.
+#
 build_artifacts() {
   local dry_run="$1"
 
@@ -191,6 +192,7 @@ build_artifacts() {
 
 # Symlink a single build artifact into the target location. Used for
 # user-level installs (live link, so rebuilds picked up immediately).
+#
 install_one_symlink() {
   local source="$1" target="$2" name="$3" dry_run="$4"
 
@@ -226,6 +228,7 @@ uninstall_one_symlink() {
 # project-level installs (self-contained, unaffected by source changes).
 # Handles both directory artifacts (Claude/Pi: drop marker file) and
 # file artifacts (Cursor/Copilot: marker comment is already inside).
+#
 install_one_copy() {
   local source="$1" target="$2" name="$3" dry_run="$4"
 
@@ -288,6 +291,7 @@ uninstall_one_copy() {
 
 # Per-agent driver: iterate skills, compute source (in build/) and
 # target paths, and dispatch to the symlink or copy primitive.
+#
 install_agent() {
   local build_subdir="$1" target_dir="$2" suffix="$3" mode="$4" dry_run="$5"
 
