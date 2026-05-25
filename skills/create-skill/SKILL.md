@@ -30,7 +30,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 3.  **Choose a name and location.**
 
-    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab case.
+    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `spec`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
 4.  **Write the `SKILL.md`** using the [template](../../template/skill-name/SKILL.md). The REQUIRED sections are:
 

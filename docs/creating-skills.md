@@ -10,6 +10,10 @@ Each skill MUST include:
   - A `## Success criteria` section listing self-verifiable checks.
 - A sibling `README.md` (human-readable documentation).
 
+## Naming
+
+Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. These skills are intended to support agent workflows, and a verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index. Prefer single verbs where possible; use `<verb>-<noun>` when disambiguation is needed (eg. `create-skill`).
+
 The following sections are OPTIONAL:
 
 - `## Examples` — canonical input/output examples.
