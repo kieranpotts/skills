@@ -1,5 +1,7 @@
 # Skills for AI agents
 
+[![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+
 A curated collection of skills, rules, instructions, and custom prompts for use by AI tools.
 
 [**Browse the skills ➡️**](./skills/)
