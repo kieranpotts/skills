@@ -1,6 +1,6 @@
 ---
 name: create-skill
-description: Create a new skill or improve an existing one – either in this skills repository or another one. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
+description: Create a new skill (SKILL.md) or improve an existing one – either in this skills repository or another one. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
 license: MIT
 ---
 
@@ -30,7 +30,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 3.  **Choose a name and location.**
 
-    If installing the skill in this repository, the skill names are kebab-case and follow a `<category>-<topic>` pattern. Categories in use: `code-`, `utils-`, `tools-`, `docs-`, `plan-`, `product-`, `standards-`.
+    If installing the skill in this repository, the skill names are kebab-case and follow a `<category>-<topic>` pattern. Categories in use: `chat-`, `code-`, `utils-`, `tools-`, `docs-`, `plan-`, `product-`, `standards-`.
 
     Place the skill at `skills/<skill-name>/SKILL.md`.
 
@@ -169,6 +169,6 @@ skills/
 
 - [Skill template](../../template/skill-name/SKILL.md): The canonical SKILL.md template to base new skills on.
 
-- [Example skill — utils-git-commits](../utils-git-commits/SKILL.md): A well-formed example of a completed skill.
+- [Example skill — utils-git-commits](../utils-git-commits/SKILL.md): A well-formed example of a minimal skill (no bundled scripts or references).
 
 - [Creating skills](../../docs/creating-skills.md): Human-readable documentation on the skill creation process.
