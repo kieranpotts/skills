@@ -31,40 +31,41 @@ There are two ways to install these skills:
 
 2.  **Custom installer:**
 
-    Alternatively, you can run this repository's own [`./run/install`](../run/install) script. This supports fewer agents, but it offers a bit more flexibility by allowing skills to be installed at the user/global level, as an alternative to a per-project installation.
+    Alternatively, you can run this repository's own [`./run/install`](../run/install) script. This supports fewer agents, but it offers a bit more flexibility by allowing skills to be installed at the user/global level (for agents that support this), as an alternative to a per-project installation.
 
     Clone this repository to your computer, then run `./run/install` from the repository's root directory. At least one agent flag is required; running the script with no arguments prints the help text.
 
     Use `./run/install --help` for detailed options. Here are some examples:
 
     ```sh
-    # Claude only, installed at user/global level.
-    ./run/install --claude ~
+    # Claude only, user-level (default).
+    ./run/install --claude
 
-    # Pi only, user/global.
-    ./run/install --pi ~
+    # Pi only, user-level (default).
+    ./run/install --pi
 
-    # All four agents, all into cwd.
-    ./run/install --all
+    # Claude into a specific project, Cursor into cwd.
+    ./run/install --claude ~/dev/my-project --cursor .
 
-    # Claude and Pi, installed globally; Cursor and Copilot into cwd.
-    ./run/install --all --claude ~ --pi ~
+    # All four agents; Claude/Pi user-level, Cursor/Copilot in cwd.
+    ./run/install --all --cursor . --copilot .
 
     # Per-project install, one tool.
     ./run/install --cursor ~/dev/my-project
 
     # Remove Claude's user-level symlinks.
-    ./run/install --uninstall --claude ~
+    ./run/install --uninstall --claude
 
     # Remove Pi's symlinks from a particular project.
     ./run/install --uninstall --pi ~/dev/my-project
     ```
 
-    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--cursor`), and GitHub Copilot (`--copilot`). Each agent flag optionally takes a target directory:
+    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--cursor`), and GitHub Copilot (`--copilot`). The `DIR` argument controls where the skills are installed:
 
-    - Omitted: installs into the current working directory (project-level).
-    - `~`: installs in the current user's scope (Claude and Pi only — Cursor and Copilot do not auto-discover user-level skills).
-    - `[DIR]`: any other directory path, treated as the target for a project-level installation.
+    - **Claude and Pi:** `DIR` is OPTIONAL. Defaults to `~` (user-level). Pass any other path to install at project-level.
+    - **Cursor and Copilot:** `DIR` is REQUIRED. These tools only auto-discover skills in project directories. Passing `~` is allowed but the installer will warn, since the files will not be picked up.
+
+    A leading `~` in any `DIR` is expanded to `$HOME`. Use `.` for the current working directory.
 
     The target installation paths are:
 
