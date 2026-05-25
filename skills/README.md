@@ -2,17 +2,6 @@
 
 Skills are stored in a flat layout – required for auto-discovery by Claude and other tools. Directory names use a `<category>-<skill-name>` format, with the prefix identifying categories of skills, for example skills for writing "code", "docs", "standards", and planning "product" roadmaps and specifications.
 
-## Chat
-
-Conversational and communication-focused skills.
-
-## Code
-
-Coding conventions for various programming and scripting languages.
-
-- [code-bash](./code-bash/SKILL.md): Coding conventions and design patterns for Bash scripts.
-- [code-posix](./code-posix/SKILL.md): Coding conventions and design patterns for POSIX-compliant shell scripts.
-
 ## Docs
 
 Skills for documentation and technical writing.
