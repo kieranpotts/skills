@@ -30,11 +30,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 3.  **Choose a name and location.**
 
-    If installing the skill in this repository, the skill names are kebab-case and follow a `<category>-<topic>` pattern. Categories in use: `chat-`, `code-`, `utils-`, `tools-`, `docs-`, `plan-`, `product-`, `standards-`.
-
-    Place the skill at `skills/<skill-name>/SKILL.md`.
-
-    If installing the skill in another project, follow the conventions and documented patterns of that project.
+    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab case.
 
 4.  **Write the `SKILL.md`** using the [template](../../template/skill-name/SKILL.md). The REQUIRED sections are:
 
