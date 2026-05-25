@@ -1,6 +1,6 @@
 # Creating skills
 
-To create a new skill, use the template in `template/skill-name/` as a starting point.
+To create a new skill, use the template in `template/skill-name/` as a starting point. Alternatively, use the `create-skill` skill!
 
 Each skill requires, as a minimum, a `SKILL.md` file that defines:
 
