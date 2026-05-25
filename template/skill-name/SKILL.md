@@ -9,19 +9,19 @@ metadata:
 
 # Skill name
 
-Use this skill when...
+Use this skill when <scenario>.
 
 This skill extends [this skill](https://raw.githubusercontent.com/...) – all rules there apply here.
 
-Do NOT use this skill for...
+Do NOT use this skill for <exceptions...>.
 
 ## Instructions
 
-Instructions are step-by-step procedural implementation workflows.
+[Instructions are step-by-step procedural implementation workflows.]
 
-1.  **Short description.**
+1.  **[Short description.]**
 
-    Extended details.
+    [Extended details.]
 
 2.  **Run the execution script.**
 
@@ -33,11 +33,11 @@ Instructions are step-by-step procedural implementation workflows.
 
 ## Rules
 
-Rules are an unordered list of guidelines, recommendations, and best practices.
+[Rules are an unordered list of guidelines, recommendations, and best practices.]
 
--   **Short description.**
+-   **[Short description.]**
 
-    Extended details.
+    [Extended details.]
 
 -   **Base new scripts on this template:**
 
@@ -66,17 +66,31 @@ Rules are an unordered list of guidelines, recommendations, and best practices.
 
 ## Examples
 
-A small number of canonical input/output examples. Regular prose. OPTIONAL.
+[A small number of canonical input/output examples. Regular prose. OPTIONAL.]
 
 ## Edge cases
 
-Warn about potential edge cases. Regular prose. OPTIONAL.
+[Warn about potential edge cases. Regular prose. OPTIONAL.]
+
+## Success criteria
+
+-   **The output matches the expected format.**
+
+    [Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.]
+
+-   **All rules have been respected.**
+
+    Review the completed output against the rules above before finishing.
+
+-   **[Domain-specific check.]**
+
+    [Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
 
 ## References
 
-List of links with extended and related information for agents.
+[List of links with extended and related information for agents.]
 
 - [Technical reference](./references/REFERENCE.md)
 - [Domain-specific notes](./references/<subdomain>.md)
-- [Adjacent skill](../skill-name/SKILL.md) – used for xxxxx.
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md] – used for xxxxx.
+- [Adjacent skill](../skill-name/SKILL.md) – Used for [purpose].
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md] – Used for [purpose].
