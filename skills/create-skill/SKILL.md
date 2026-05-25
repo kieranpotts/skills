@@ -60,6 +60,16 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     Re-read the completed SKILL.md with fresh eyes. Check for unnecessary verbosity, redundant rules, or instructions that assume too much. Trim anything that isn't pulling its weight.
 
+8.  **Validate the skill.**
+
+    Run the bundled validator against the new skill directory:
+
+    ```sh
+    scripts/validate.sh <path/to/new-skill-dir>
+    ```
+
+    The script wraps `skills-ref validate` (if installed) for canonical Agent Skills checks, and adds repo-specific checks: sibling `README.md`, ~300-line limit, presence of `## Instructions`/`## Rules`, and `## Success criteria`. Fix any reported failures before finishing.
+
 ## Rules
 
 -   **The `description` field is the primary trigger mechanism.**
