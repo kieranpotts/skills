@@ -33,7 +33,7 @@ There are two ways to install these skills:
 
     Alternatively, you can run this repository's own [`./run/install`](../run/install) script. This supports fewer agents, but it offers a bit more flexibility by allowing skills to be installed at the user/global level, as an alternative to a per-project installation.
 
-    Clone this repository to your computer, then run `./run/install` from the repository's root directory.
+    Clone this repository to your computer, then run `./run/install` from the repository's root directory. At least one agent flag is required; running the script with no arguments prints the help text.
 
     Use `./run/install --help` for detailed options. Here are some examples:
 
@@ -60,10 +60,11 @@ There are two ways to install these skills:
     ./run/install --uninstall --pi ~/dev/my-project
     ```
 
-    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--cursor`), and GitHub Copilot (`--copilot`). For each agent flag, you MUST pass a string value:
+    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--cursor`), and GitHub Copilot (`--copilot`). Each agent flag optionally takes a target directory:
 
-    - `~`: This will install the skills in the current user's scope.
-    - `[DIR]`: Any other directory path, which will be treated as the target for a project-level installation.
+    - Omitted: installs into the current working directory (project-level).
+    - `~`: installs in the current user's scope (Claude and Pi only — Cursor and Copilot do not auto-discover user-level skills).
+    - `[DIR]`: any other directory path, treated as the target for a project-level installation.
 
     The target installation paths are:
 
