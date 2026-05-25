@@ -1,5 +1,5 @@
 ---
-name: git-commits
+name: commit
 description: Commit message format. Semantics of commit types.
 compatibility: requires git
 license: MIT

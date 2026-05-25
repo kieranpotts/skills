@@ -6,9 +6,9 @@
       "title": "Git",
       "description": "Skills for working with Git.",
       "skills": [
-        "git-branches",
-        "git-commits",
-        "git-releases"
+        "branch",
+        "commit",
+        "release"
       ]
     }
   ]

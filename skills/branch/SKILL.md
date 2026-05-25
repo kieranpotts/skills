@@ -1,5 +1,5 @@
 ---
-name: git-branches
+name: branch
 description: Branching conventions. Branch naming format.
 compatibility: requires git
 license: MIT

@@ -14,7 +14,7 @@ There are two ways to install these skills:
     npx skills add kieranpotts/skills --all
 
     # Install one specific skill.
-    npx skills add kieranpotts/skills --skill git-commits
+    npx skills add kieranpotts/skills --skill commit
 
     # Target a specific agent (default: prompts).
     npx skills add kieranpotts/skills -a claude

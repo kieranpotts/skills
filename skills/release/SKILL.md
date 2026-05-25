@@ -1,5 +1,5 @@
 ---
-name: git-releases
+name: release
 description: Release branching and tagging conventions.
 compatibility: requires git
 license: MIT
