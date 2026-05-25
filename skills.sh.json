@@ -1,0 +1,15 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Git",
+      "description": "Skills for working with Git.",
+      "skills": [
+        "utils-git-branches",
+        "utils-git-commits",
+        "utils-git-releases"
+      ]
+    }
+  ]
+}
