@@ -29,13 +29,13 @@ Install skills into AI tools. With no flags, installs only for Claude Code
 
 Options:
   --claude [DIR]        Install for Claude Code. Adds symlinks into
-                        DIR/.claude/skills/. Default DIR is cwd). Pass `~`
+                        DIR/.claude/skills/. Default DIR is cwd. Pass `~`
                         for user-level install at ~/.claude/skills/.
   --pi [DIR]            Install for Pi. Adds symlinks into
                         DIR/.pi/skills/. Default DIR is cwd. Pass `~`
                         for user-level install at ~/.pi/agent/skills/.
   --cursor [DIR]        Install for Cursor. Adds .mdc files into
-                        DIR/.cursor/rules/. Default DIR is cwd).
+                        DIR/.cursor/rules/. Default DIR is cwd.
   --copilot [DIR]       Install for Copilot. Adds .instructions.md files
                         into DIR/.github/instructions/. Default DIR is cwd.
   --all                 Install for all four. All default to cwd.
@@ -385,8 +385,9 @@ main() {
   fi
 
   # Append the tool-specific subdir to DIR (or use cwd if no DIR was given).
-  # Pi has two discovery paths: ~/.pi/agent/skills/ (user-level, when ~ is
-  # passed as DIR) and .pi/skills/ (project-level, for any other DIR or cwd).
+  # Pi's discovery contract uses two different subpaths: ~/.pi/agent/skills/
+  # for user-level (only when ~ is explicitly passed) and .pi/skills/ for
+  # project-level (any other DIR, or cwd as default).
   local base
   base="${claude_dir:-$(pwd)}"; claude_dir="${base}/.claude/skills"
   base="${pi_dir:-$(pwd)}"
