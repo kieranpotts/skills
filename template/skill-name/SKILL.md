@@ -1,13 +1,13 @@
 ---
 name: skill-name
-description: Skill description here.
+description: <Skill description here.>
 compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
   <key>: <value>
 ---
 
-# Skill name
+# <Skill name>
 
 Use this skill when <scenario>.
 

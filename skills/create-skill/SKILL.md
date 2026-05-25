@@ -6,9 +6,9 @@ license: MIT
 
 # Create skill
 
-Use this skill when creating a new skill from scratch or improving an existing one.
+Use this skill when creating a new skill from scratch or improving an existing one. Use this skill for creating new skills either in this shared-skills repository, or in project-specific skills libraries.
 
-Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, shareable, and repo-agnostic prompts that can be installed across multiple AI tools.
+Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic prompts.
 
 ## Instructions
 
@@ -30,19 +30,21 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 3.  **Choose a name and location.**
 
-    Skill names are kebab-case and follow a `<category>-<topic>` pattern. Categories in use: `code-`, `utils-`, `tools-`, `docs-`, `plan-`, `product-`, `standards-`.
+    If installing the skill in this repository, the skill names are kebab-case and follow a `<category>-<topic>` pattern. Categories in use: `code-`, `utils-`, `tools-`, `docs-`, `plan-`, `product-`, `standards-`.
 
     Place the skill at `skills/<skill-name>/SKILL.md`.
 
-4.  **Write the `SKILL.md`** using the [template](../../template/skill-name/SKILL.md). Required sections:
+    If installing the skill in another project, follow the conventions and documented patterns of that project.
 
-    - **Frontmatter**: `name` and `description` are required. Other fields like `compatibility` and `license` are optional.
+4.  **Write the `SKILL.md`** using the [template](../../template/skill-name/SKILL.md). The REQUIRED sections are:
 
-    - **Instructions**: Numbered, ordered procedural steps the agent must follow.
+    - **Frontmatter**: `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
 
-    - **Success criteria**: Concrete, self-verifiable checks the agent runs before finishing.
+    - **Instructions** or **Rules**: MUST include at least one of these two sections.
 
-    Optional sections: Rules, Examples, Edge cases, References.
+    - **Success criteria**: Concrete, self-verifiable checks the agent runs before finishing. REQUIRED.
+
+    OPTIONAL sections: Examples, Edge cases, References.
 
 5.  **Bundle supporting files if needed.**
 
@@ -52,7 +54,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     - `assets/`: Static files used in output (templates, icons, fonts).
 
-6.  **Write the `README.md`** using the [template](../../template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide examples.
+6.  **Write the `README.md`** using the [template](../../template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide invocation examples.
 
 7.  **Review the draft.**
 
@@ -64,9 +66,11 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     It determines whether an agent invokes the skill. Write it to include both what the skill does and the specific contexts in which to use it. Err toward being explicit rather than brief. A vague description leads to the skill being ignored.
 
--   **Instructions versus Rules.**
+-   **Instructions versus rules.**
 
-    Instructions are ordered steps — the procedural workflow the agent follows. Rules are unordered guidelines, recommendations, and constraints. Keep them separate. Don't embed rules inside instructions.
+    Instructions are ordered steps — the procedural workflow the agent follows. Rules are individual, non-sequential guidelines, recommendations, and constraints – the most important ones come first.
+
+    Keep them separate. Don't embed rules inside instructions.
 
 -   **Explain the why behind non-obvious requirements.**
 
@@ -76,7 +80,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files. Link references from SKILL.md with a trigger condition so they're only read when needed.
 
--   **Use imperative form in Instructions.**
+-   **Use imperative form in instructions.**
 
     "Use this format", not "You should use this format".
 
