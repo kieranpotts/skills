@@ -42,3 +42,8 @@ Skills for working with single-purpose system tools: `git`, `jq`, etc.
 - [utils-git-branches](./utils-git-branches/SKILL.md): Branching conventions. Branch naming format.
 - [utils-git-commits](./utils-git-commits/SKILL.md): Commit message format. Semantics of commit types.
 - [utils-git-releases](./utils-git-releases/SKILL.md): Release branching and tagging conventions.
+
+## Other
+
+- [create-skill](./create-skills/SKILL.md): Guidelines for creating new skills.
+
