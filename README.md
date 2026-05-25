@@ -2,7 +2,7 @@
 
 [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-A curated collection of skills, rules, instructions, and custom prompts for use by AI tools.
+A curated collection of skills, rules, instructions, and custom prompts for use by AI tools — Claude Code, Pi, Cursor, and GitHub Copilot via the bundled installer, plus a wider range of agents via the [skills.sh](https://www.skills.sh/) CLI.
 
 [**Browse the skills ➡️**](./skills/)
 
