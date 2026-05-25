@@ -74,19 +74,41 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 -   **Explain the why behind non-obvious requirements.**
 
-    Instead of bare imperatives (`ALWAYS do X`), explain the reasoning so the agent can apply judgment in edge cases. Well-reasoned instructions are more robust than rigid rules.
+    Instead of bare imperatives (`ALWAYS do X`), explain the reasoning so the agent can apply judgment in edge cases. Well-reasoned instructions are more robust than rigid rules. When multiple approaches are valid, prefer explaining the *purpose* over prescribing exact steps — an agent that understands the why makes better context-dependent decisions.
+
+-   **Match prescriptiveness to fragility.**
+
+    Be prescriptive — exact commands, flags, ordering — when operations are fragile, consistency is critical, or a specific sequence must be followed. Otherwise, avoid enumerating every edge case in the body; handle genuinely tricky ones in an "edge cases" section or a `references/` file. Simple skills need only Instructions and Success criteria.
+
+-   **Provide defaults, not menus.**
+
+    When multiple tools or approaches could work, pick one as the default and mention alternatives as escape hatches. The agent should follow the default unless there is a specific reason not to.
+
+-   **Favor procedures over declarations.**
+
+    Teach the agent *how to approach* a class of problems, not what to produce for a single instance. A reusable method that generalizes beats a hardcoded answer.
 
 -   **Write for token efficiency.**
 
-    Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files. Link references from SKILL.md with a trigger condition so they're only read when needed.
+    Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files; link them with a trigger condition so they're only read when needed. If the same logic recurs across runs — parsing a format, validating output, building a fixture — extract it to `scripts/` rather than duplicating it in prose.
+
+-   **Gotchas live in `SKILL.md`, not in references.**
+
+    Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) must stay in the main file — the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
 
 -   **Use imperative form in instructions.**
 
     "Use this format", not "You should use this format".
 
--   **Don't over-specify.**
+-   **Reach for proven structural techniques** when the situation calls for them:
 
-    Avoid enumerating every possible edge case in the body. Handle genuinely tricky cases in an "edge cases" section or a `references/` file. Simple skills need only Instructions and Success criteria.
+    -   *Step checklists* (`- [ ] Step N`) for multi-step workflows where the agent must track progress across dependencies or validation gates.
+
+    -   *Output templates* — provide a concrete template rather than a prose description; agents pattern-match against structure more reliably than they interpret descriptions. Long or conditional templates belong in `assets/`.
+
+    -   *Validation loops* — instruct the agent to run a validator, fix any failures, and repeat until it passes.
+
+    -   *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator must produce error messages specific enough for the agent to self-correct.
 
 ## Examples
 
