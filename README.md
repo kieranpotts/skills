@@ -1,6 +1,6 @@
 # Skills for AI agents
 
-A curated collection of skills, rules, instructions, and custom prompts for use by AI tools. Includes install script for Claude, Copilot, Cursor, and Pi.
+A curated collection of skills, rules, instructions, and custom prompts for use by AI tools.
 
 [**Browse the skills ➡️**](./skills/)
 
@@ -9,14 +9,7 @@ A curated collection of skills, rules, instructions, and custom prompts for use 
 - [**Overview**](./docs/overview.md)
 - [**Installation**](./docs/installation.md)
 - [**Creating skills**](./docs/creating-skills.md)
-
-## References
-
-- [TS-51]
-
-- [Agent Skills Best Practices](https://agentskills.io/skill-creation/best-practices)
-
-- [Anthropic's skills](https://github.com/anthropics/skills/tree/main/skills)
+- [**Publishing to skills.sh**](./docs/publishing.md)
 
 -----
 

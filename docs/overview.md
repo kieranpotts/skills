@@ -1,6 +1,6 @@
 # Overview
 
-This repository captures a curated collection of skills, rules, instructions, and custom prompts for use by AI tools.
+This repository captures a curated collection of skills, rules, instructions, and custom prompts for use by AI agents.
 
 Each skill includes:
 
@@ -9,6 +9,8 @@ Each skill includes:
 - Practical examples and edge cases.
 - Technical references and domain-specific notes.
 
-A Bash script is included to automate the installation of the skills for different AI tools – currently Claude, pi, Copilot, and Cursor.
+A Bash script is included to automate the installation of the skills for different AI agents – currently Claude, Pi, Copilot, and Cursor. Alternatively, you can install these skills using Vercel's [skills.sh CLI](https://www.skills.sh/), which supports a [much wider range of agents](https://www.skills.sh/agent).
 
-Skills are written for token-efficiency, to moderate the size of the context window and thereby improve output quality. By comparison, my [Technical Standards](https://github.com/kieranpotts/standards) are written for humans to read and are considerably more verbose.
+For all skills, Cursor's `alwaysApply` setting is set to `true`, and Copilot's `applyTo` is set to `"**"`. This means that all skills are always in scope. You may need to tune the targeting per-project.
+
+Skills are written for token-efficiency, to moderate the size of the context window and thereby improve output quality.

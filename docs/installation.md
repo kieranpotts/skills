@@ -1,61 +1,83 @@
 # Installation
 
-The `./run/install` script installs skills into various AI coding tools – currently Claude, Pi, Copilot, and Cursor.
+There are two ways to install these skills:
 
-## Quick start
+1.  **skills.sh** – RECOMMENDED:
 
-From the repo root:
+    Change to the root directory of the project in which you want to install these skills. Then use Vercel's [skills CLI](https://www.skills.sh/), which fetches the skills directly from GitHub and installs them in the paths supported by your target agents:
 
-```sh
-./run/install                           # Claude only, into cwd.
-./run/install --claude ~                # Claude only, user/global.
-./run/install --pi ~                    # Pi only, user/global.
-./run/install --all                     # All four, all into cwd.
-./run/install --all --claude ~ --pi ~   # Claude and Pi global.
-                                        # Cursor and Copilot into cwd.
-./run/install --cursor ~/some/project   # Per-project install, one tool.
-./run/install --uninstall --claude ~    # Remove Claude's user symlinks.
-./run/install --uninstall --pi ~        # Remove Pi's user symlinks.
-./run/install --help                    # Show help.
-```
+    ```sh
+    # Interactive skill picker.
+    npx skills add kieranpotts/skills
 
-## How each tool is supported
+    # Install all skills from this repo.
+    npx skills add kieranpotts/skills --all
 
-All four tools support per-project installs. Claude and Pi additionally support a true user-level install.
+    # Install one specific skill.
+    npx skills add kieranpotts/skills --skill utils-git-commits
 
-| Tool | Per-project | User |
-|------|-------------|------|
-| Claude Code | `<DIR>/.claude/skills/<skill>/` | `~/.claude/skills/<skill>/` |
-| Pi | `<DIR>/.pi/skills/<skill>/` | `~/.pi/agent/skills/<skill>/` |
-| Cursor | `<DIR>/.cursor/rules/<skill>.mdc` | – |
-| Copilot | `<DIR>/.github/instructions/<skill>.instructions.md` | – |
+    # Target a specific agent (default: prompts).
+    npx skills add kieranpotts/skills -a claude
 
-Each tool flag accepts an optional `DIR` argument:
+    # Preview available skills without installing.
+    npx skills add kieranpotts/skills --list
+    ```
 
-- `--claude [DIR]`: Symlinks added to `DIR/.claude/skills/`. `DIR` defaults to cwd. Use `~` to install global skills in the user home directory.
+    The CLI's `add` command installs the skills files into individual projects. Re-run the `skills add` command in each project where you want the skills to be available to agents. Re-run the command to pick up upstream changes.
 
-- `--pi [DIR]`: Symlinks added to `DIR/.pi/skills/`. `DIR` defaults to cwd. Use `~` to install global skills at `~/.pi/agent/skills/` instead.
+    [Every mainstream agent is supported.](https://www.skills.sh/agent).
 
-- `--cursor [DIR]`: Generates `.mdc` files, installed into `DIR/.cursor/rules/`.
+    Whenever you install skills using this CLI, anonymous telemetry data will be collected that will feed into the leaderboards on the [skills.sh website](https://www.skills.sh/), helping others to discover popular skills.
 
-- `--copilot [DIR]`: Generates `.instructions.md` files, installed into `DIR/.github/instructions/`.
+2.  **Custom installer:**
 
-A leading `~` in any `DIR` value is expanded to `$HOME`.
+    Alternatively, you can run this repository's own [`./run/install`](../run/install) script. This supports fewer agents, but it offers a bit more flexibility by allowing skills to be installed at the user/global level, as an alternative to a per-project installation.
 
-## Live edits vs. regeneration
+    Clone this repository to your computer, then run `./run/install` from the repository's root directory.
 
-Claude and Pi installs are **symlinks**, which means you can edit a skill in this repo and those tools will pick up the change immediately.
+    Use `./run/install --help` for detailed options. Here are some examples:
 
-Cursor (`.mdc`) and Copilot (`.instructions.md`) installs are **generated files**, because both need different frontmatter than `SKILL.md`. Edit a skill, then re-run `./run/install` to refresh them in your tooling.
+    ```sh
+    # Claude only, installed at user/global level.
+    ./run/install --claude ~
 
-## Conflicts and uninstall
+    # Pi only, user/global.
+    ./run/install --pi ~
 
-The script will not overwrite anything it didn't create. For Claude and Pi, it only touches a symlink whose target points back into this repo. For Cursor / Copilot, it identifies its own files via a marker comment in the generated content.
+    # All four agents, all into cwd.
+    ./run/install --all
 
-The `--uninstall` flag removes only what this script installed. Pass the same target flags (and `DIR`) you used at install time. Empty target directories are pruned.
+    # Claude and Pi, installed globally; Cursor and Copilot into cwd.
+    ./run/install --all --claude ~ --pi ~
 
-## Conventions
+    # Per-project install, one tool.
+    ./run/install --cursor ~/dev/my-project
 
-- Skill directory names follow `<category>-<skill-name>` (flat namespace, required for Claude's and Pi's discovery model).
+    # Remove Claude's user-level symlinks.
+    ./run/install --uninstall --claude ~
 
-- Each skill ships a `SKILL.md` with YAML frontmatter. The install script reads `description` for Cursor's frontmatter. Cursor's `alwaysApply` is set to `true` and Copilot's `applyTo` to `"**"`, which means that all skills are always in scope. You may need to tune the targeting per-project.
+    # Remove Pi's symlinks from a particular project.
+    ./run/install --uninstall --pi ~/dev/my-project
+    ```
+
+    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--pi`), and GitHub Copilot (`--pilot`). For each agent flag, you MUST pass a string value:
+
+    - `~`: This will install the skills in the current user's scope.
+    - `[DIR]`: Any other directory path, which will be treated as the target for a project-level installation.
+
+    The target installation paths are:
+
+    | Tool | Per-project | User |
+    |------|-------------|------|
+    | Claude Code | `<DIR>/.claude/skills/<skill>/` | `~/.claude/skills/<skill>/` |
+    | Pi | `<DIR>/.pi/skills/<skill>/` | `~/.pi/agent/skills/<skill>/` |
+    | Cursor | `<DIR>/.cursor/rules/<skill>.mdc` | – |
+    | Copilot | `<DIR>/.github/instructions/<skill>.instructions.md` | – |
+
+    Claude and Pi installs are **symlinks**, which means you can edit a skill in this repo and those tools will pick up the change immediately. This is useful for local development of these skills, because you can evaluate your changes faster.
+
+    Cursor (`.mdc`) and Copilot (`.instructions.md`) installs are **generated files**, because both need different frontmatter than the [conventional `SKILL.md` format](https://agentskills.io/home). So if you edit a skill in the cloned repository, you will need to re-run `./run/install` to refresh the skills in these agents.
+
+    The install script will not overwrite anything it didn't create. For Claude and Pi, it only touches a symlink whose target points back into this repository. For Cursor and Copilot, it identifies its own files via a marker comment in the generated skills files.
+
+    The custom installer also provides a mechanism for uninstalling skills. The `--uninstall` flag is used with the same combination of other flags (eg. `--claude ~ --copilot ~/dev/project`). The script will only uninstall what it previously installed. Empty target directories will be pruned.
