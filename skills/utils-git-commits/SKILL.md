@@ -1,5 +1,5 @@
 ---
-name: utils-git-commits
+name: git-commits
 description: Commit message format. Semantics of commit types.
 compatibility: requires git
 license: MIT

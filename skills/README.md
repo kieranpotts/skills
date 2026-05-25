@@ -4,9 +4,9 @@ Skills are stored in a flat layout – required for auto-discovery by Claude and
 
 ### Git
 
-- [utils-git-branches](./utils-git-branches/SKILL.md): Branching conventions. Branch naming format.
-- [utils-git-commits](./utils-git-commits/SKILL.md): Commit message format. Semantics of commit types.
-- [utils-git-releases](./utils-git-releases/SKILL.md): Release branching and tagging conventions.
+- [git-branches](./git-branches/SKILL.md): Branching conventions. Branch naming format.
+- [git-commits](./git-commits/SKILL.md): Commit message format. Semantics of commit types.
+- [git-releases](./git-releases/SKILL.md): Release branching and tagging conventions.
 
 ### Other
 

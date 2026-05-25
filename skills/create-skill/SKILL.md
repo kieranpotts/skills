@@ -122,7 +122,7 @@ A minimal skill with no bundled resources:
 
 ```
 skills/
-└── utils-git-commits/
+└── git-commits/
     ├── SKILL.md
     └── README.md
 ```
@@ -175,6 +175,6 @@ skills/
 
 - [Skill template](../../template/skill-name/SKILL.md): The canonical SKILL.md template to base new skills on.
 
-- [Example skill — utils-git-commits](../utils-git-commits/SKILL.md): A well-formed example of a minimal skill (no bundled scripts or references).
+- [Example skill — git-commits](../git-commits/SKILL.md): A well-formed example of a minimal skill (no bundled scripts or references).
 
 - [Creating skills](../../docs/creating-skills.md): Human-readable documentation on the skill creation process.
