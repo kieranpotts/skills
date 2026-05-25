@@ -60,7 +60,7 @@ There are two ways to install these skills:
     ./run/install --uninstall --pi ~/dev/my-project
     ```
 
-    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--pi`), and GitHub Copilot (`--pilot`). For each agent flag, you MUST pass a string value:
+    The custom installer currently supports four coding agents: Claude Code (`--claude`), Pi (`--pi`), Cursor (`--cursor`), and GitHub Copilot (`--copilot`). For each agent flag, you MUST pass a string value:
 
     - `~`: This will install the skills in the current user's scope.
     - `[DIR]`: Any other directory path, which will be treated as the target for a project-level installation.

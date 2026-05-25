@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 #
-# Install skills into AI tools (Claude Code, Cursor, GitHub Copilot).
+# Install skills into AI tools (Claude Code, Pi, Cursor, GitHub Copilot).
 #
-# All three tools support per-project installs – skills/rules/instructions
-# are placed inside a project's tool-specific directory. Claude additionally
-# supports user-level installs – pass `--claude ~`. See `--help`.
+# All four tools support per-project installs – skills/rules/instructions
+# are placed inside a project's tool-specific directory. Claude and Pi
+# additionally support user-level installs – pass `--claude ~` or
+# `--pi ~`. See `--help`.
 #
 
 set -euo pipefail

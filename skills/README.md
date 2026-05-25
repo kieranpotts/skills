@@ -8,7 +8,7 @@ Skills are stored in a flat layout – required for auto-discovery by Claude and
 - [utils-git-commits](./utils-git-commits/SKILL.md): Commit message format. Semantics of commit types.
 - [utils-git-releases](./utils-git-releases/SKILL.md): Release branching and tagging conventions.
 
-## Other
+### Other
 
-- [create-skill](./create-skills/SKILL.md): Guidelines for creating new skills.
+- [create-skill](./create-skill/SKILL.md): Guidelines for creating new skills.
 
