@@ -73,7 +73,7 @@ Do NOT use this skill for preparing or tagging releases.
 
     - Cut from `dev`, never from `test`, `ready`, or release branches.
 
-    - Valid use cases: bugs and other issues that span multple atomic commits; experiments, proofs-of-concept, and technical spikes;backup of in-progress work.
+    - Valid use cases: bugs and other issues that span multiple atomic commits; experiments, proofs-of-concept, and technical spikes; backup of in-progress work.
 
     - One logical change per temporary branch. Multiple orthogonal changes SHOULD NOT be combined into a single temporary branch.
 

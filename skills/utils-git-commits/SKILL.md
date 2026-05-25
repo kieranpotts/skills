@@ -101,7 +101,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
     - `step`: Incremental change toward a larger feature or fix that is not yet user-facing. Building block in multi-commit implementation.
 
-    *Subtle diistinctions*: `step` is for incomplete work toward a user-facing `feature` or `performance` change. `refactor` is for higher-level internal structural improvements, while`format` is for lower-level code presentation improvements. `maintenance` is for updating things like infrastructure configuration and dependencies, while `chore` is general repository housekeeping that does not touch any code or configuration, eg. edits to READMEs and other documentation.
+    *Subtle distinctions*: `step` is for incomplete work toward a user-facing `feature` or `performance` change. `refactor` is for higher-level internal structural improvements, while `format` is for lower-level code presentation improvements. `maintenance` is for updating things like infrastructure configuration and dependencies, while `chore` is general repository housekeeping that does not touch any code or configuration, eg. edits to READMEs and other documentation.
 
 -   **Add a flag** to the subject line in the following special cases:
 
