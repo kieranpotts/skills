@@ -16,6 +16,7 @@
         "debug",
         "review",
         "refactor",
+        "format",
         "refine"
       ]
     },
