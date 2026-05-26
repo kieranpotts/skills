@@ -32,7 +32,7 @@ In short:
 - All skills use the [skill template](./template/skill-name/SKILL.md) as a starting point.
 - Skill names are kebab-case verbs (eg. `commit`, `release`, `create-skill`).
 - SKILL.md files stay under ~300 lines. Deeper detail belongs in `references/`.
-- Write for token-efficiency. Trim anything that does not pull its weight.
+- Write for token-efficiency. Trim anything that does not pull its weight. But balance the need to manage the contex window with the need for skills to be understandable and easily-editable by humans, too.
 
 ## Licensing
 
