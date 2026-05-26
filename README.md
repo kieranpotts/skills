@@ -4,7 +4,7 @@
 
 ## 📓 Overview
 
-These skills cover universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus cross-cutting concerns like issue triage and agent handoff. The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
+These skills cover universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus cross-cutting concerns like customer discovery, issue triage, and agent handoff. The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
 
 This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and high-level [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches, and so on.
 
@@ -28,9 +28,11 @@ The workflow skills cover distinct phases of the software development lifecycle 
 
 ```mermaid
 flowchart LR
-  %% Main workflow sequence.
+  %% Starting points.
   spec:::start --> design
   audit:::start --> design
+
+  %% Main workflow sequence.
   design:::main --> elaborate
   elaborate:::main --> plan
   plan:::main --> code
@@ -102,6 +104,7 @@ The remaining skills cut across the workflow and version control processes.
 | ---------- | ----------- |
 | [`triage`](./skills/triage/) | Move issues through a category × state machine. |
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
+| [`discover`](./skills/discover/) | Run a structured customer-discovery session to elicit business requirements. Sidecar to `spec`. |
 | [`create-skill`](./skills/create-skill/) | A skill to create new skills. |
 
 ## 📦 Installation

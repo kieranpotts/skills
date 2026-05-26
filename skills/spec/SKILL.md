@@ -227,6 +227,8 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
+- [`discover`](../discover/SKILL.md): Upstream sidecar - run a structured customer-discovery session before writing a spec when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
+
 - [`design`](../design/SKILL.md): The next step after a spec is approved.
 
 - [`test`](../test/SKILL.md): How specified ACs are verified.
