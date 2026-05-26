@@ -35,14 +35,19 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 - MUST follow the `branch` skill for all branch names.
 - MUST run the validator on any new or modified skill before committing.
 - `SKILL.md` files MUST NOT exceed 300 lines.
+<!-- TODO: Reinstate once skills are "final" again. Matching TODO in `template/skill-name/README.md` and `skills/create-skill/scripts/validate.sh`.
 - Each skill directory MUST contain a sibling `README.md`.
+-->
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
 - Skills SHOULD NOT duplicate content from other skills – cross-reference with a relative markdown link instead, eg. [`commit`](./skills/commit/SKILL.md).
 - MUST NOT commit anything under `build/` (it is gitignored; only `build/README.md` is tracked).
+- Use the [`reflect`](./skills/reflect/SKILL.md) skill at session end to record durable lessons – corrections, validated approaches, project decisions outside version control. The skill defines the memory file format and routing.
 
 ## Skills
 
+- `./skills/audit/SKILL.md`: Proactive scan of the codebase for architectural improvement candidates. Discovery only.
 - `./skills/branch/SKILL.md`: Branch naming and merge model for this repository.
 - `./skills/commit/SKILL.md`: Commit message conventions for this repository.
 - `./skills/create-skill/SKILL.md`: How to author a new skill, including required structure and the validator.
+- `./skills/reflect/SKILL.md`: Distil durable lessons from a session into agent memory and convention files. Invoke at session end.
 - `./skills/release/SKILL.md`: Release branching and tagging conventions.

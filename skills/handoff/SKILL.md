@@ -187,6 +187,8 @@ A compact handoff:
 
 - [Original source — mattpocock/skills `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): The skill this one is adapted from.
 
+- [`reflect`](../reflect/SKILL.md): Companion at session end. Reflect captures durable lessons (persistent memory); handoff captures current task state (ephemeral). Typically invoke `reflect` first, then `handoff`.
+
 - [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md): Skills that produce the durable artifacts the handoff references.
 
 - [`code`](../code/SKILL.md), [`debug`](../debug/SKILL.md), [`test`](../test/SKILL.md), [`review`](../review/SKILL.md): Skills the next session may need.
