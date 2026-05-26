@@ -3,12 +3,39 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Git",
-      "description": "Skills for working with Git.",
+      "title": "SDLC",
+      "description": "One skill for each discrete phases of the software development life cycle.",
+      "skills": [
+        "spec",
+        "design",
+        "prototype",
+        "elaborate",
+        "plan",
+        "code",
+        "test",
+        "debug",
+        "review",
+        "refactor",
+        "refine"
+      ]
+    },
+    {
+      "title": "VCS",
+      "description": "Skills for managing revisions and versions with Git.",
       "skills": [
         "branch",
         "commit",
+        "merge",
         "release"
+      ]
+    },
+    {
+      "title": "Supporting",
+      "description": "Cross-cutting skills that support the SDLC and version control steps.",
+      "skills": [
+        "triage",
+        "handoff",
+        "create-skill"
       ]
     }
   ]
