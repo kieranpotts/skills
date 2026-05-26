@@ -4,3 +4,189 @@ description: Compact the current conversation into a handoff document so a fresh
 license: MIT
 ---
 
+# Handoff
+
+Use this skill when the work is about to be picked up by someone (or something) that does not have the current session's context: a fresh agent in a new conversation, a teammate taking over, your own next session after a long break, or yourself just before a compaction event.
+
+Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo (see [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md)). A handoff document is *ephemeral* - a bridge across the gap between sessions - and should not survive longer than the next session that absorbs it.
+
+## Instructions
+
+1.  **Identify what the next session needs to know.**
+
+    If the user passed an argument describing the next session's focus (eg. "next session continues with the API integration"), use it to scope the handoff. Otherwise, treat the handoff as covering the full state of the current work.
+
+    Ask yourself: if this conversation vanished now, what would a fresh agent need in order to *not* repeat the work, *not* re-litigate decisions, and *not* re-walk dead ends?
+
+2.  **Inventory existing artifacts.**
+
+    Before writing anything, list the durable artifacts the current work has already produced:
+
+    - The spec / PRD and its path or URL.
+    - The design document or chosen ADR.
+    - The plan, with which steps are done and which are open.
+    - Issue / ticket references.
+    - PR or branch references.
+    - Recent commits worth pointing at.
+    - Any updated entries in `docs/domain-model.md`.
+
+    The handoff document references these by path or URL - it does NOT duplicate their content. Duplication rots: if the artifact changes, the handoff lies.
+
+3.  **Draft the document.**
+
+    Use this structure:
+
+    ```md
+    # Handoff: <topic> (<date>)
+
+    ## What's been done
+    Short summary of decisions made and work completed this session.
+    Reference artifacts by path/URL; do not paste their content.
+
+    ## What's open
+    Outstanding questions, decisions deferred, work in progress.
+    Be specific about *what* is undecided and *why*.
+
+    ## State of the codebase
+    Current branch, working-tree status, any tests known failing, any
+    temporary instrumentation in place.
+
+    ## Suggested skills
+    Skills the next session should invoke for the work ahead - eg.
+    [`plan`](../plan/SKILL.md) if the next step is decomposition; [`code`](../code/SKILL.md) if implementation
+    is the next step; [`debug`](../debug/SKILL.md) if a test is failing. Name the specific
+    step if known.
+
+    ## Watch out for
+    Gotchas, environmental quirks, decisions that look obvious but
+    weren't, dead-ends already explored that should not be re-tried.
+    ```
+
+4.  **Redact sensitive information.**
+
+    Before writing the file, strip:
+
+    - API keys, tokens, passwords, secrets of any kind.
+    - Personally identifiable information (real names, emails, IDs, addresses).
+    - Internal-only URLs or hostnames.
+
+    If in doubt, redact. Handoff documents are often pasted into other channels.
+
+5.  **Save to a temporary location.**
+
+    Write to the OS temp directory:
+
+    - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back to `/tmp`).
+    - Windows: `%TEMP%\handoff-<topic>-<timestamp>.md`.
+
+    Do NOT commit the handoff to the project repo. The handoff is a session bridge, not a project artifact.
+
+6.  **Tell the user the absolute path.**
+
+    The user (or the next agent) needs to know where to find the file. Print the full absolute path.
+
+## Rules
+
+-   **Reference, don't duplicate.**
+
+    Every fact already captured in a spec, plan, ADR, issue, commit, or diff is referenced by path or URL. Duplication invites drift.
+
+-   **The handoff is ephemeral.**
+
+    It lives outside the repo. Discard once the next session has absorbed it. If a piece of the handoff turns out to be durable, promote it to the relevant project artifact (ADR, spec update, runbook) and remove it from the handoff.
+
+-   **Be specific about what's open.**
+
+    "Some questions remain about the API" is unhelpful. "Two questions remain on the API: (1) idempotency behavior on retry; (2) whether to accept partial updates - both blocked on product input" is actionable.
+
+-   **Suggest skills, don't dictate them.**
+
+    Name the skills relevant to the work ahead, but the next session decides whether to invoke them. Don't pretend to know what the next session will encounter.
+
+-   **Redact aggressively.**
+
+    Anything that looks remotely like a credential, real identity, or internal URL is removed. The bar is: "could this embarrass anyone if pasted into a public channel?"
+
+-   **Do not fabricate state to fill the template.**
+
+    If a section has nothing to say, omit it or write "none" explicitly. An empty section is honest; an invented one is misleading.
+
+## Examples
+
+A compact handoff:
+
+```md
+# Handoff: orders POST endpoint (2026-05-26)
+
+## What's been done
+- Spec agreed (issue #482).
+- Design captured as ADR-0007 in `docs/adr/`.
+- Plan written as 6 steps; see PR #483 description.
+- Steps 1-4 implemented and merged (commits abc123..def456).
+
+## What's open
+- Step 5 (feature flag wiring) is HITL; awaiting SRE sign-off on
+  the `ORDERS_API_V2` rollout plan. Slack thread: REDACTED.
+- AC-4 (24h replay of idempotency key) flagged as a spec gap;
+  comment posted on #482, no answer yet.
+
+## State of the codebase
+- Branch: `temp/482-idempotency`.
+- Tests green locally.
+- One `[DEBUG-a4f2]` log left in `handlers/orders.ts:42` from
+  earlier diagnosis; remove before merging step 5.
+
+## Suggested skills
+- [`code`](../code/SKILL.md) for step 5 once SRE sign-off lands.
+- [`review`](../review/SKILL.md) once steps 5 and 6 are integrated.
+
+## Watch out for
+- The `idempotency-key` header parsing in `handlers/orders.ts:64`
+  is case-sensitive. A previous attempt to lower-case broke a
+  test that was deliberately preserved. Don't "fix" it without
+  reading commit def456.
+```
+
+## Edge cases
+
+-   **Context limit imminent.**
+
+    Write the handoff immediately, even if other work was mid-flight. A handoff written *before* compaction is far higher-fidelity than one reconstructed after.
+
+-   **Multiple parallel threads of work.**
+
+    If the session covered two unrelated streams, write two handoffs - one per stream. Mixing them produces a document the next session has to triage before using.
+
+-   **Handing off to a human, not an agent.**
+
+    Same skill, same structure - but replace "Suggested skills" with "Suggested first action", describing the concrete next step the human should take.
+
+-   **The user provided no topic and the conversation covered nothing substantive.**
+
+    There's nothing to hand off. Say so. Do NOT fabricate state to fill the template.
+
+-   **The handoff would contain a partial decision the user hasn't confirmed.**
+
+    Mark it explicitly as unconfirmed in "What's open", not in "What's been done". A handoff that misrepresents an in-flight decision as settled is worse than one that says nothing at all.
+
+## Success criteria
+
+-   **The handoff lives outside the repo.**
+
+    Written to a temp-directory path, not the project tree.
+
+-   **Every artifact referenced has a path or URL, not pasted content.**
+
+-   **All credentials, PII, and internal-only URLs are redacted.**
+
+-   **Outstanding questions are stated specifically, with their blockers named.**
+
+-   **The next session could read the handoff alone and know what to do next.**
+
+## References
+
+- [Original source — mattpocock/skills `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): The skill this one is adapted from.
+
+- [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md): Skills that produce the durable artifacts the handoff references.
+
+- [`code`](../code/SKILL.md), [`debug`](../debug/SKILL.md), [`test`](../test/SKILL.md), [`review`](../review/SKILL.md): Skills the next session may need.
