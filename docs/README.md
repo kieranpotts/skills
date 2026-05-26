@@ -4,3 +4,4 @@ This documentation is for developers and maintainers of this code repository. Fo
 
 - [**Creating skills**](./creating-skills.md)
 - [**Publishing to skills.sh**](./publishing.md)
+- [**Acknowledgements**](./acknowledgements.md)
