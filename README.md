@@ -2,8 +2,6 @@
 
 A carefully-curated collection of agentic workflow skills – also known as rules, instructions, commands, and custom prompts, depending on the agent harness.
 
-[**Browse the skills here 👉**](./skills/)
-
 ## 📓 Overview
 
 This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The skills focus on universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
