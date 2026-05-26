@@ -1,4 +1,9 @@
-# Agentic workflow skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+# ✨ Skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+
+A curated collection of agentic workflow skills – also known as rules, instructions, commands, and custom prompts, depending on the agent harness.
+
+[**Browse the skills here 👉**](./skills/)
+
 
 A curated collection of skills – also known as rules, instructions, and custom prompts – for use by AI tools.
 
