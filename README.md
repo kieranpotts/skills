@@ -37,6 +37,7 @@ flowchart LR
   plan --> code
   code --> review
   review --> test
+  test --> code
 
   %% Small iterative cycles.
   design <-.-> prototype
