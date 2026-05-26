@@ -6,7 +6,7 @@ A carefully curated collection of agentic workflow skills – also known as rule
 
 This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The primary goal of this project is to transform external context – development workflow practices, version control conventions, etc. – into high-quality prompts that produce consistent, predictable outputs from all mainstream coding agents and models.
 
-The skills focus on the universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
+These skills are platform-agnostic and domain-agnostic. They focus on the universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
 
 Together, the skills compose a coherent agentic workflow. They're not a grab-bag of independent tasks. Each skill cross-references others, reflecting how the phases of development naturally hand off to one another.
 
@@ -14,7 +14,7 @@ The skills are unashamedly opinionated. Each skill enforces the use of methods a
 
 You are encouraged to treat this collection of skills as a baseline, not a framework, on which you can iterate your own agent skills that encode your particular methods and tools.
 
-These skills are intended to be used with specialist agents tailored for software development workflows, and with models trained for computer programming tasks. Claude, Copilot, Cursor, and Pi are supported out-of-the-box. The [built-in installer](./run/install) transforms the source files, which are written to conform to the [Agent Skills](https://agentskills.io/) standard, into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported by using Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for full documentation.
+The source files conform to the [Agent Skills](https://agentskills.io/) standard, making them compatible with any agent that supports this format. The [built-in installer](./run/install) additionally transforms the source files into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents – including Claude and Pi – are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for full documentation.
 
 ## 🧩 Skills
 
