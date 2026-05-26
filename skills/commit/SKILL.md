@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Commit message format. Semantics of commit types.
+description: Commit message format and the semantics of each commit type (`chore`, `feature`, `fix`, `format`, `maintenance`, `merge`, `performance`, `refactor`, `release`, `revert`, `step`), including optional flags like `BREAKING` and `WIP`. Use when composing a commit message, validating a branch's messages before push, or troubleshooting a failed commit-validation CI job.
 compatibility: requires git
 license: MIT
 ---
