@@ -4,15 +4,17 @@ A carefully-curated collection of agentic workflow skills – also known as rule
 
 ## 📓 Overview
 
-This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The skills focus on universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
+This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The primary goal of this project is to transform external context – development workflow practices, version control conventions, etc. – into high-quality, reliable prompts that produce consistent, predictable outputs from all mainstream coding agents and models.
+
+These skills cover universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
+
+The skills are designed to form a coherent system. They're not a grab-bag of independent tasks. Each skill cross-references others, reflecting how the phases of development naturally hand off to one another.
+
+The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with occasional `temp/*` and `epic/*` branches, and so on. These choices are documented more existensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
+
+You are encouraged to treat this collection of skills as a baseline, not a framework, on which you can iterate your own agent skills that encode you particular methods and tools.
 
 These skills are intended to be used with specialist agents tailored for software development workflows, and with models trained for computer programming tasks. Claude, Copilot, Cursor, and Pi are supported out-of-the-box. The [built-in installer](./run/install) transforms the source files, which are written to conform to the [Agent Skills](https://agentskills.io/) standard, into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported by using Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
-
-The skills are designed to be small and composable, to optimise token consumption. A key design goal is to balance context size with achieving consistent outcomes across models and agents.
-
-The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with occasional `temp/*` and `epic/*` branches, and so on. These choices are documented more existensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
-
-You should treat this collection of skills as a baseline, not a framework. Fork the repository, copy individual skills, and use them as a starting point to write your own custom skills that encode your particular methods and tools.
 
 ## 🧩 Skills
 
