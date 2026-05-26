@@ -37,7 +37,7 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 - `SKILL.md` files MUST NOT exceed 300 lines.
 - Each skill directory MUST contain a sibling `README.md`.
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
-- Skills SHOULD NOT duplicate content from other skills – cross-reference with `[[skill-name]]` instead.
+- Skills SHOULD NOT duplicate content from other skills – cross-reference with a relative markdown link instead, eg. [`commit`](./skills/commit/SKILL.md).
 - MUST NOT commit anything under `build/` (it is gitignored; only `build/README.md` is tracked).
 
 ## Skills
