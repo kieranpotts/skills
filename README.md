@@ -24,7 +24,7 @@ These skills span three categories:
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The flow diagram below shows the user-initiated entry points (solid green), the subsequent main workflow sequence (dashed blue), and optional iterative loops (dotted yellow).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). The diagram below models the workflow. It shows the user-initiated entry points (solid green), the main workflow sequence (dashed blue), and optional iterative loops (dotted yellow).
 
 ```mermaid
 flowchart LR
