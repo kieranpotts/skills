@@ -8,11 +8,11 @@ license: MIT
 
 Use this skill when the user asks for a proactive architectural review of the codebase – for example, "where should we refactor next?", "find the worst parts of this codebase", or "what's worth cleaning up?".
 
-This skill is **discovery only**. The output is a prioritised report. Candidates feed into [`refactor`](../refactor/SKILL.md) (for direct structural improvements) or [`design`](../design/SKILL.md) (for findings significant enough to warrant a design exploration first).
+This skill is **discovery only**. The output is a prioritised report. Findings feed into [`design`](../design/SKILL.md), where they kick off a new workflow iteration (design → elaborate → plan → code → review → test) to implement the proposed changes. Audit does *not* feed directly into [`refactor`](../refactor/SKILL.md) – refactor is a feedback loop within an in-flight code → review → test cycle, not a destination for audit findings.
 
 Do NOT use this skill when:
 
-- The user has already named the area to improve – go straight to [`refactor`](../refactor/SKILL.md) or [`design`](../design/SKILL.md).
+- The user has already named the area to improve – use [`design`](../design/SKILL.md) for architectural changes, or [`refactor`](../refactor/SKILL.md) for internal-quality improvements within an in-flight iteration.
 - The user wants changes applied – this skill stops at the generated report.
 - The user wants issues filed, tickets cut, or PRs opened – leave that to their workflow.
 
@@ -70,7 +70,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 
     ### 1. <Module / area>
     **Problem.** <One sentence, citing files and lines.>
-    **Direction.** <Refactor / redesign / leave it.>
+    **Direction.** <Proposed change to take into design, or "leave it" with rationale.>
     **Effort.** <Small / medium / large.>
 
     ### 2. <Module / area>
@@ -119,6 +119,6 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 
 ## References
 
-- [`refactor`](../refactor/SKILL.md): Applies structural improvements to a candidate identified by this skill.
-- [`design`](../design/SKILL.md): Explores architectural options for an audit finding that's too significant for a direct refactor.
+- [`design`](../design/SKILL.md): Downstream destination for all audit findings. Each finding becomes input to a new workflow iteration starting at design.
+- [`refactor`](../refactor/SKILL.md): Different scope – refactor is a feedback step within an in-flight code → review → test cycle, not a destination for audit findings. The design iteration triggered by an audit finding may eventually produce refactor work, but only as a side effect.
 - [`review`](../review/SKILL.md): Different scope – reviews a specific diff for style/pattern consistency rather than scanning the whole codebase for structural problems.
