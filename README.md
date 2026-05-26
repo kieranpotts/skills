@@ -4,17 +4,17 @@ A carefully curated collection of agentic workflow skills – also known as rule
 
 ## 📓 Overview
 
-This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The primary goal of this project is to transform external context – development workflow practices, version control conventions, etc. – into high-quality, reliable prompts that produce consistent, predictable outputs from all mainstream coding agents and models.
+This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The primary goal of this project is to transform external context – development workflow practices, version control conventions, etc. – into high-quality prompts that produce consistent, predictable outputs from all mainstream coding agents and models.
 
-These skills cover universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
+The skills focus on the universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of the business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
 
-The skills are designed to form a coherent system. They're not a grab-bag of independent tasks. Each skill cross-references others, reflecting how the phases of development naturally hand off to one another.
+Together, the skills compose a coherent agentic workflow. They're not a grab-bag of independent tasks. Each skill cross-references others, reflecting how the phases of development naturally hand off to one another.
 
 The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with occasional `temp/*` and `epic/*` branches, and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
 
 You are encouraged to treat this collection of skills as a baseline, not a framework, on which you can iterate your own agent skills that encode your particular methods and tools.
 
-These skills are intended to be used with specialist agents tailored for software development workflows, and with models trained for computer programming tasks. Claude, Copilot, Cursor, and Pi are supported out-of-the-box. The [built-in installer](./run/install) transforms the source files, which are written to conform to the [Agent Skills](https://agentskills.io/) standard, into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported by using Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
+These skills are intended to be used with specialist agents tailored for software development workflows, and with models trained for computer programming tasks. Claude, Copilot, Cursor, and Pi are supported out-of-the-box. The [built-in installer](./run/install) transforms the source files, which are written to conform to the [Agent Skills](https://agentskills.io/) standard, into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported by using Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for full documentation.
 
 ## 🧩 Skills
 
@@ -30,21 +30,24 @@ The workflow skills cover distinct phases of the software development lifecycle 
 
 ```mermaid
 flowchart LR
+  %% Main workflow.
   spec --> design
   design --> elaborate
   elaborate --> plan
   plan --> code
-
   code --> review
-  review <-.-> refactor
+  review --> test
 
-  code --> test
+  %% Small iterative cycles.
+  design <-.-> prototype
+  review <-.-> format
   test <-.-> debug
 
+  %% Big feedback loops.
+  review -.-> refactor
+  refactor -.-> design
   test -.-> refine
   refine -.-> spec
-
-  design <-.-> prototype
 ```
 
 | Skill name | Description |
@@ -55,11 +58,12 @@ flowchart LR
 | [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
 | [`plan`](./skills/plan/) | Decompose delivery into small, incremental, stable revisions. |
 | [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
+| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focus on static qualities. |
+| [`format`](./skills/format/) | Improve the presentation of code – whitespace, style, ordering – without changing its structure. |
+| [`refactor`](./skills/refactor/) | Iterate the design of logic and data structures via direct code changes, maintaining stability through system testing. |
 | [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on dynamic qualities. |
 | [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors observed during acceptance testing. |
-| [`review`](./skills/review/) | Audit code for style conventions, pattern consistency, and other static qualities. |
-| [`refactor`](./skills/refactor/) | Iterate the solution design via direct code changes, maintaining stability through system testing. |
-| [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from acceptance testing of working software. |
+| [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from acceptance testing. |
 
 ### Version control skills
 
