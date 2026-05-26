@@ -97,7 +97,7 @@ The remaining skills cut across the workflow and version control processes.
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
 | [`reflect`](./skills/reflect/) | Distil durable lessons from the session into memory and convention files. Companion to `handoff`. |
 | [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. |
-| [`create-skill`](./skills/create-skill/) | A skill to help create new skills. |
+| [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project that has installed this collection. (For new skills in *this* repo, use [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
 
 ## 📦 Installation
 

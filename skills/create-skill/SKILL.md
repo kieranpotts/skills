@@ -1,14 +1,16 @@
 ---
 name: create-skill
-description: Create a new skill (SKILL.md) or improve an existing one – either in this skills repository or another one. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
+description: Create a new skill (SKILL.md) or improve an existing one in any project that has installed this skills collection. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
 license: MIT
 ---
 
 # Create skill
 
-Use this skill when creating a new skill from scratch or improving an existing one. Use this skill for creating new skills either in this shared-skills repository, or in project-specific skills libraries.
+Use this skill when creating a new skill from scratch or improving an existing one in any project that has installed this skills collection.
 
 Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic prompts.
+
+Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](https://github.com/kieranpotts/skills) repository – that repo uses [`docs/creating-skills.md`](https://github.com/kieranpotts/skills/blob/dev/docs/creating-skills.md) + [`template/skill-name/`](https://github.com/kieranpotts/skills/tree/dev/template/skill-name) for its own contribution workflow. This skill is packaged for downstream consumers.
 
 ## Instructions
 
@@ -32,7 +34,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `spec`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
-4.  **Write the `SKILL.md`** using the [template](../../template/skill-name/SKILL.md). The REQUIRED sections are:
+4.  **Write the `SKILL.md`** using the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
 
     - **Frontmatter**: `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
 
@@ -50,7 +52,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     - `assets/`: Static files used in output (templates, icons, fonts).
 
-6.  **Write the `README.md`** using the [template](../../template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide invocation examples.
+6.  **Write the `README.md`** using the [bundled template](./assets/skill-template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide invocation examples.
 
 7.  **Review the draft.**
 
@@ -188,8 +190,6 @@ skills/
 
 ## References
 
-- [Skill template](../../template/skill-name/SKILL.md): The canonical SKILL.md template to base new skills on.
+- [Skill template](./assets/skill-template/skill-name/SKILL.md): The bundled SKILL.md template to base new skills on.
 
 - [Example skill — commit](../commit/SKILL.md): A well-formed example of a minimal skill (no bundled scripts or references).
-
-- [Creating skills](../../docs/creating-skills.md): Human-readable documentation on the skill creation process.

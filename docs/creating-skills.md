@@ -1,36 +1,24 @@
 # Creating skills
 
-To create a new skill, use the template in [`template/skill-name/`](../template/skill-name/) as a starting point. Alternatively, use the [`create-skill`](../skills/create-skill/SKILL.md) skill, which captures the full authoring workflow including validation.
+This is the canonical reference for creating new skills **in this repository**. For creating skills in *other* projects that have installed this collection, use the portable [`create-skill`](../skills/create-skill/SKILL.md) skill instead – this doc is repo-internal.
+
+To create a new skill, copy [`template/skill-name/`](../template/skill-name/) as your starting point. The template documents the required structure of `SKILL.md` and `README.md` inline – it is the source of truth for file layout, frontmatter fields, and section structure.
 
 Before drafting, see [CONTRIBUTING.md](../CONTRIBUTING.md) for the criteria a useful skill should meet and the proposal workflow (file a `FEATURE` issue first).
 
-Each skill MUST include:
-
-- A `SKILL.md` file with:
-  - YAML frontmatter. `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
-  - At least one of `## Instructions` (ordered procedural steps) or `## Rules` (unordered guidelines).
-  - A `## Success criteria` section listing self-verifiable checks.
-- A sibling `README.md` (human-readable documentation).
-
 ## Naming
 
-Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. These skills are intended to support agent workflows, and a verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index. Prefer single verbs where possible; use `<verb>-<noun>` when disambiguation is needed (eg. `create-skill`).
-
-The following sections are OPTIONAL:
-
-- `## Examples` — canonical input/output examples.
-- `## Edge cases` — known pitfalls.
-- `## References` — links to supporting material, each with an explicit trigger condition.
+Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
 ## Validating a skill
 
-The `create-skill` skill bundles a validator that wraps `skills-ref` (if installed) and adds repo-specific checks:
+A validator ships at [`skills/create-skill/scripts/validate.sh`](../skills/create-skill/scripts/validate.sh):
 
 ```sh
 skills/create-skill/scripts/validate.sh skills/<your-skill>/
 ```
 
-It enforces the sibling `README.md`, a ~300-line cap on `SKILL.md`, and the presence of `## Instructions`/`## Rules` and `## Success criteria`.
+It wraps `skills-ref` (if installed) for the canonical [Agent Skills](https://agentskills.io/) checks, and adds this repo's stricter ones: a ~300-line cap on `SKILL.md`, presence of `## Instructions`/`## Rules`, and a `## Success criteria` section.
 
 ## References
 

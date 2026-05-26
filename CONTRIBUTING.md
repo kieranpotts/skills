@@ -46,7 +46,7 @@ This repository's own skills define the conventions for contributing:
 
 - [`commit`](./skills/commit/SKILL.md): Commit message format and type semantics.
 
-- [`create-skill`](./skills/create-skill/SKILL.md): Authoring a new skill, including required structure and validation.
+For authoring new skills in this repository, see [`docs/creating-skills.md`](./docs/creating-skills.md) plus the [skill template](./template/skill-name/SKILL.md). The portable [`create-skill`](./skills/create-skill/SKILL.md) skill is packaged for downstream consumers and is not used in this repo's contribution flow.
 
 In short:
 
@@ -60,7 +60,7 @@ In short:
 
 ## Style
 
-- Start from the [skill template](./template/skill-name/SKILL.md). The [`create-skill`](./skills/create-skill/SKILL.md) skill covers required structure, naming, the 300-line cap, and validation.
+- Start from the [skill template](./template/skill-name/SKILL.md). See [`docs/creating-skills.md`](./docs/creating-skills.md) for naming, validation, and other repo-specific conventions. Do NOT use the [`create-skill`](./skills/create-skill/SKILL.md) skill to add skills here – it's packaged for downstream projects, not for this repo's own contribution workflow.
 
 - Write for token-efficiency. Trim anything that does not pull its weight. But balance context window management with the need for skills to be readable and editable by humans, too.
 

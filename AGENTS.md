@@ -34,6 +34,7 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 - MUST follow the `commit` skill for all commit messages.
 - MUST follow the `branch` skill for all branch names.
 - MUST run the validator on any new or modified skill before committing.
+- To add a new skill to this repository, use [`docs/creating-skills.md`](./docs/creating-skills.md) + [`template/skill-name/`](./template/skill-name/). The [`create-skill`](./skills/create-skill/SKILL.md) skill is packaged for downstream consumers and MUST NOT be used to add skills here.
 - `SKILL.md` files MUST NOT exceed 300 lines.
 <!-- TODO: Reinstate once skills are "final" again. Matching TODO in `template/skill-name/README.md` and `skills/create-skill/scripts/validate.sh`.
 - Each skill directory MUST contain a sibling `README.md`.
@@ -48,6 +49,7 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 - `./skills/audit/SKILL.md`: Proactive scan of the codebase for architectural improvement candidates. Discovery only.
 - `./skills/branch/SKILL.md`: Branch naming and merge model for this repository.
 - `./skills/commit/SKILL.md`: Commit message conventions for this repository.
-- `./skills/create-skill/SKILL.md`: How to author a new skill, including required structure and the validator.
 - `./skills/reflect/SKILL.md`: Distil durable lessons from a session into agent memory and convention files. Invoke at session end.
 - `./skills/release/SKILL.md`: Release branching and tagging conventions.
+
+For authoring new skills in this repository, see [`docs/creating-skills.md`](./docs/creating-skills.md) – not the [`create-skill`](./skills/create-skill/SKILL.md) skill, which is packaged for downstream consumers.
