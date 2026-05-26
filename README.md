@@ -178,12 +178,9 @@ Use `./run/install --help` for detailed guidance. Here are some examples:
 >
 > Skills installed via the skills.sh CLI follow that tool's own defaults.
 
-## 📓 Documentation
+## 🛠️ Developer documentation
 
-- [**Overview**](./docs/overview.md)
-- [**Installation**](./docs/installation.md)
-- [**Creating skills**](./docs/creating-skills.md)
-- [**Publishing to skills.sh**](./docs/publishing.md)
+For contributors and maintainers, see the [developer docs](./docs/).
 
 -----
 
