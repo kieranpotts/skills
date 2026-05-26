@@ -70,7 +70,22 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 -   **The `description` field is the primary trigger mechanism.**
 
-    It determines whether an agent invokes the skill. Write it to include both what the skill does and the specific contexts in which to use it. Err toward being explicit rather than brief. A vague description leads to the skill being ignored.
+    It determines whether an agent invokes the skill. Err toward being explicit rather than brief. A vague description leads to the skill being ignored. Follow this two-sentence pattern, written in the third person:
+
+    1. *First sentence* - what the skill does.
+    2. *Second sentence* - `Use when ...` followed by specific triggers (user phrasings, situations, file types, contexts).
+
+    ```
+    ✅ Good:
+    Extract text and tables from PDF files, fill forms, merge documents.
+    Use when working with PDF files or when the user mentions PDFs, forms,
+    or document extraction.
+
+    ❌ Bad:
+    Helps with documents.
+    ```
+
+    The bad example gives the agent no way to distinguish this from other document-related skills. The good example names both the capability and the trigger conditions.
 
 -   **Instructions versus rules.**
 
