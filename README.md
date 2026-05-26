@@ -75,8 +75,8 @@ flowchart LR
 | Skill name | Description |
 | ---------- | ----------- |
 | [`branch`](./skills/branch/) | Git branching strategy. |
-| [`merge`](./skills/merge/) | Consolidate divergence between branches. |
 | [`commit`](./skills/commit/) | Commit message conventions. |
+| [`merge`](./skills/merge/) | Consolidate divergence between branches. |
 | [`release`](./skills/release/) | Release trunks and branches, plus tagged versions. |
 
 ### Supporting skills
