@@ -24,13 +24,13 @@ These skills span three categories:
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The flow diagram below shows the main workflow sequence (solid blue) and optional iterative loops (dotted yellow).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). The flow diagram below shows the user-initiated workflow trigger skills (solid green), the subsequent main workflow sequence (dashed blue), and optional iterative loops (dotted yellow).
 
 ```mermaid
 flowchart LR
   %% Main workflow sequence.
-  spec:::main --> design
-  audit:::main --> design
+  spec:::start --> design
+  audit:::start --> design
   design:::main --> elaborate
   elaborate:::main --> plan
   plan:::main --> code
@@ -54,8 +54,9 @@ flowchart LR
   refine -.-> spec
 
   %% Class definitions.
-  classDef main fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef secondary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:5 5
+  classDef start fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px
+  classDef main fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px,stroke-dasharray:7 3
+  classDef secondary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
 | Skill name | Description |
@@ -67,7 +68,7 @@ flowchart LR
 | [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
 | [`plan`](./skills/plan/) | Decompose delivery into small, incremental, stable revisions – supporting continuous integration. |
 | [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focus on static qualities. |
+| [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
 | [`format`](./skills/format/) | Improve the presentation of code – whitespace, style, ordering – without changing its structure. |
 | [`refactor`](./skills/refactor/) | Iterate the design of logic and data structures via direct code changes, maintaining stability through system testing. |
 | [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic performance qualities. |
