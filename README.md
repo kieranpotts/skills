@@ -30,6 +30,7 @@ The workflow skills cover distinct phases of the software development lifecycle 
 flowchart LR
   %% Main workflow sequence.
   spec:::main --> design
+  audit:::main --> design
   design:::main --> elaborate
   elaborate:::main --> plan
   plan:::main --> code
@@ -48,6 +49,7 @@ flowchart LR
   %% Big feedback loops.
   review -.-> refactor:::secondary
   refactor -.-> design
+
   test -.-> refine:::secondary
   refine -.-> spec
 
@@ -59,6 +61,7 @@ flowchart LR
 | Skill name | Description |
 | ---------- | ----------- |
 | [`spec`](./skills/spec/) | Specify requirements – both functional and performance – as testable acceptance criteria. |
+| [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
 | [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
 | [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |

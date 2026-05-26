@@ -15,6 +15,7 @@
         "test",
         "debug",
         "review",
+        "audit",
         "refactor",
         "format",
         "refine"
