@@ -134,25 +134,9 @@ Whenever you install skills using this CLI, anonymous telemetry data will be col
 
 ### Custom installer
 
-Alternatively, you can run this repository's own [`./run/install`](./run/install) script. This supports fewer agents, but enables installation at the user/global level, as an alternative to per-project installation.
+Alternatively, you can run this repository's own [`./run/install`](./run/install) script. This supports fewer agents, but it allows installation at the user/global level, as an alternative to per-project installation. This is the intended use case for these skills, which are designed to enforce consistent development workflows across multiple, diverse software projects.
 
-Not all agents currently auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agents to detect skills at specific paths. So, if you install these skills globally, you may need to review your agents' configuration to ensure the skills are discoverable by them.
-
-User-level installation is particularly useful because this repository's skills are focused on universal development workflow steps like "plan", "branch", "commit", and "release".
-
-To run the custom installer, clone this repository to your computer, then run `./run/install` from the repository's root directory. At least one agent flag is required: `--claude`, `--pi`, `--copilot`, and/or `--cursor`. Alternatively, use `--all` to install the skills in a format that is recognized by all four agents.
-
-By default, the installer will place the skills files in a subdirectory of the current user's home directory (ie. the default install directory is "~"). For example, the Copilot skills will be installed at `~/.github/instructions/<skill-name>.instructions.md`.
-
-To install the skills on a per-project basis, supply the path to the root of the target project via the `--dir` parameter.
-
-By default, the skills files are transpiled to artifacts understood by each target agent, and those artifacts are copied into the target installation directories. The installed skills files are decoupled from the source skills in this repository, so you are free to commit and modify the installed skills – make them your own!
-
-But if you pass the `--symlinks` parameter, symlinks targeting the built artifacts in the cloned repository will be installed instead. This is useful when developing and evaluating these skills, as your changes will be immediately detected by new agent sessions.
-
-You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations – eg. `--claude --copilot --dir ~/dev/project`. Only skills installed by the `./run/install` script will be deleted; skills installed by other tools will not be.
-
-Use `./run/install --help` for detailed guidance. Here are some examples:
+To run the custom installer, clone this repository to your computer, then run `./run/install` from the repository's root directory, with parameters as described below.
 
 ```sh
 # Claude only, installed at the user-level.
@@ -180,10 +164,28 @@ Use `./run/install --help` for detailed guidance. Here are some examples:
 ./run/install --uninstall --pi --dir ~/dev/my-project
 ```
 
+At least one agent flag is required: `--claude`, `--pi`, `--copilot`, and/or `--cursor`. Alternatively, use `--all` to install the skills in a format that is recognized by all four agents.
+
+By default, the installer will place the skills files in a subdirectory of the your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`.
+
+Not all agents currently auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agents to detect skills at specific paths. So, if you install the skills globally, you should review your agents' configuration to ensure the skills are discoverable by them.
+
+To install the skills on a per-project basis, supply the path to the root of the target project via the `--dir` parameter.
+
+By default, the skills files are transpiled to artifacts understood by each target agent, and those artifacts are copied into the target installation directories. The installed skills files are decoupled from the source skills in this repository, so you are free to commit and modify the installed skills – make them your own!
+
 > [!NOTE]
 > When installed via the custom installer, every skill is generated with Cursor's `alwaysApply` set to `true` and Copilot's `applyTo` set to `"**"` – which means all the skills will always be in scope in those agents. You may need to tune the targeting per-project, which you can do by modifying the installed skills files.
 >
 > Skills installed via the skills.sh CLI follow that tool's own defaults.
+
+But if you pass the `--symlinks` parameter, symlinks targeting the built artifacts in the cloned repository will be installed instead. This is useful when developing and evaluating these skills, as your changes will be immediately detected by new agent sessions.
+
+You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations. For example, the parameters `--claude --copilot --dir ~/dev/project` will remove the skills files installed in your home directory for Claude, and the skill files installed in a particular project for Copilot.
+
+Only skills installed by the `./run/install` script will be deleted; skills installed by other tools will not be.
+
+Use `./run/install --help` for more guidance.
 
 ## 🛠️ Developer documentation
 
