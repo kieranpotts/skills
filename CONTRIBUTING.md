@@ -64,6 +64,18 @@ In short:
 
 - Write for token-efficiency. Trim anything that does not pull its weight. But balance context window management with the need for skills to be readable and editable by humans, too.
 
+## Further reading
+
+The [developer docs](./docs/) cover the topics below in more depth:
+
+- [Creating skills](./docs/creating-skills.md) – required structure, naming conventions, and how to run the validator.
+
+- [Publishing to skills.sh](./docs/publishing.md) – how this repo is consumed by the public skills.sh directory.
+
+- [Releasing](./docs/releasing.md) – cutting tagged releases from `dev`.
+
+- [Acknowledgements](./docs/acknowledgements.md) – prior work this collection draws on.
+
 ## Licensing
 
 By contributing, you agree that your contribution will be licensed under the repository's [MIT license](./LICENSE.txt).

@@ -1,6 +1,6 @@
 # 🛠️ Developer documentation
 
-This documentation is for developers and maintainers of this code repository. For usage docs, refer to the [project README](../README.md).
+This documentation is for contributors to, and maintainers of, this code repository. For usage docs, refer to the [project README](../README.md).
 
 - [**Contributing**](../CONTRIBUTING.md)
 - [**Creating skills**](./creating-skills.md)

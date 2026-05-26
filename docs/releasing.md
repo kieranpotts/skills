@@ -4,6 +4,8 @@ Releases are cut directly from the `dev` trunk and tagged with a semantic versio
 
 Releases are for the maintainer's benefit only — to mark significant milestones in the project's history. They have no effect on installation behavior.
 
+The branch and commit conventions used in the steps below are defined in [CONTRIBUTING.md](../CONTRIBUTING.md).
+
 ## Steps
 
 1.  **Determine the version number.**

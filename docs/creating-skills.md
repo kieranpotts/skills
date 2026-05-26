@@ -2,6 +2,8 @@
 
 To create a new skill, use the template in [`template/skill-name/`](../template/skill-name/) as a starting point. Alternatively, use the [`create-skill`](../skills/create-skill/SKILL.md) skill, which captures the full authoring workflow including validation.
 
+Before drafting, see [CONTRIBUTING.md](../CONTRIBUTING.md) for the criteria a useful skill should meet and the proposal workflow (file a `FEATURE` issue first).
+
 Each skill MUST include:
 
 - A `SKILL.md` file with:
