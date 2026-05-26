@@ -13,6 +13,22 @@ Do NOT use this skill for commit message conventions or PR titles.
 
 Do NOT use this skill for preparing or tagging releases.
 
+**Branch model at-a-glance**:
+
+```mermaid
+flowchart LR
+    subgraph trunks["trunks (forward fast-forward only)"]
+        direction LR
+        dev --> test --> ready
+    end
+
+    temp["temp/*"] -.->|ff-merge| dev
+    dev -.->|cut from| temp
+
+    epic["epic/*"] -.->|squash-merge| dev
+    dev -.->|cut from / merge-down| epic
+```
+
 ## Instructions
 
 1.  **Use one of these formats:**
