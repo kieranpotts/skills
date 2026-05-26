@@ -248,4 +248,6 @@ on the Spec finding; Standards finding non-blocking.
 
 - [`refactor`](../refactor/SKILL.md): For findings that require structural change. May escalate further to [`design`](../design/SKILL.md) if architecturally significant.
 
+- [`audit`](../audit/SKILL.md): Different scope - proactively scans the whole codebase for structural problems, rather than evaluating a specific diff.
+
 - [`commit`](../commit/SKILL.md): One logical change per commit - relevant when asking authors to re-split a squashed PR.

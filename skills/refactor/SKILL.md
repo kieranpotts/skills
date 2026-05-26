@@ -210,6 +210,8 @@ commit and tracking issue. Resumed the refactor.
 
 - [`review`](../review/SKILL.md): Common upstream trigger - review surfaces an internal-quality finding that needs structural work.
 
+- [`audit`](../audit/SKILL.md): Upstream source - audit produces a prioritised list of refactor candidates from a whole-codebase scan, without being pointed at a specific area.
+
 - [`design`](../design/SKILL.md): When the change is bigger than a refactor and crosses module boundaries. Refactor escalates to design when module boundaries, interfaces, or data models would have to change.
 
 - [`debug`](../debug/SKILL.md): When a refactor uncovers a defect.
