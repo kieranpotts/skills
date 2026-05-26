@@ -28,29 +28,37 @@ These skills span three categories:
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The role of each skill within the SDLC is illustrated by the following flow diagram. The solid lines represent the main workflow sequence. The dotted lines represent feedback loops and iterative cycles.
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). The role of each skill within the SDLC is illustrated by the flow diagram, below. The solid blue boxes, connected by the solid lines, represent the main workflow sequence. The yellow boxes and dotted lines represent feedback loops and iterative cycles.
 
 ```mermaid
+---
+config:
+  htmlLabels: false
+---
 flowchart LR
-  %% Main workflow.
-  spec --> design
-  design --> elaborate
-  elaborate --> plan
-  plan --> code
-  code --> review
-  review --> test
-  test --> code
+  %% Main workflow sequence.
+  spec:::main --> design
+  design:::main --> elaborate
+  elaborate:::main --> plan
+  plan:::main --> code
+  code:::main --> review
+  review:::main --> test
+  test:::main --> code
 
   %% Small iterative cycles.
-  design <-.-> prototype
-  review <-.-> format
-  test <-.-> debug
+  design <-.-> prototype:::secondary
+  review <-.-> format:::secondary
+  test <-.-> debug:::secondary
 
   %% Big feedback loops.
-  review -.-> refactor
+  review -.-> refactor:::secondary
   refactor -.-> design
-  test -.-> refine
+  test -.-> refine:::secondary
   refine -.-> spec
+
+  %% Class definitions.
+  classDef main fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef secondary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:5 5
 ```
 
 | Skill name | Description |
@@ -61,11 +69,11 @@ flowchart LR
 | [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
 | [`plan`](./skills/plan/) | Decompose delivery into small, incremental, stable revisions. |
 | [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focus on static qualities. |
+| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focuses on static qualities. |
 | [`format`](./skills/format/) | Improve the presentation of code – whitespace, style, ordering – without changing its structure. |
 | [`refactor`](./skills/refactor/) | Iterate the design of logic and data structures via direct code changes, maintaining stability through system testing. |
-| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on dynamic qualities. |
-| [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors observed during acceptance testing. |
+| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focuses on functionality and dynamic qualities. |
+| [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors or performance issues observed during acceptance testing. |
 | [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from acceptance testing. |
 
 ### Version control skills
