@@ -10,11 +10,11 @@ The source files conform to the [Agent Skills](https://agentskills.io/) standard
 
 These skills focus on universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus a small number of cross-cutting skills that support these steps, like issue triage and agent handoff.
 
-Because these skills are common to all software projects, and because they are agnostic of technology stacks or business domains, these skills work best when they are installed at a global level. The skills are intended to be installed in the user's home directory or a workspace root, so they become available to all projects. Of course, per-project installation works perfectly well, too.
+Because these skills are common to all software projects, and because they are agnostic about technology stacks and business domains, these skills work best when they are installed at a global level. The skills are intended to be installed in the user's home directory or a workspace root, so they become available to all projects. Of course, per-project installation works perfectly well, too.
 
 These skills are no grab-bag of isolated tasks that the author once did manually. Rather, this is a carefully-curated collection of skills that together compose a coherent end-to-end agentic development workflow. Each skill cross-references others, reflecting how the phases of development feed into one another.
 
-The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with rare use of `temp/*` and `epic/*` branches, and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
+The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control in which the default branch is named `dev` and there are rare uses of `temp/*` and `epic/*` branches… and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
 
 You are encouraged to treat this collection of skills as a baseline, not a readymade framework. Use them to iterate on the design of your own agent skills that encode your particular workflow choices.
 
@@ -31,10 +31,6 @@ These skills span three categories:
 The workflow skills cover distinct phases of the software development lifecycle (SDLC). The role of each skill within the SDLC is illustrated by the flow diagram, below. The solid blue boxes, connected by the solid lines, represent the main workflow sequence. The yellow boxes and dotted lines represent feedback loops and iterative cycles.
 
 ```mermaid
----
-config:
-  htmlLabels: false
----
 flowchart LR
   %% Main workflow sequence.
   spec:::main --> design
