@@ -238,7 +238,13 @@ on the Spec finding; Standards finding non-blocking.
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-7: Code Review](https://github.com/kieranpotts/standards/tree/dev/ts/007): The standard this skill is derived from. Read for purpose, what-to-review, how-to-review, pair-programming.
+
+-->
 
 - [`spec`](../spec/SKILL.md): The source of truth for "does this do what it should do".
 

@@ -201,11 +201,17 @@ Handing off to debug. Test left in place; do not delete.
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-7: Quality Assurance](https://github.com/kieranpotts/standards/tree/dev/ts/007): Quality gates, Definition of Done. Read when deciding whether verification clears the bar to ship.
 
 - [TS-8: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/008): Test types, levels, strategies (regression, smoke, exploratory, negative).
 
 - [TS-9: Performance Testing](https://github.com/kieranpotts/standards/tree/dev/ts/009): NFR verification approaches.
+
+-->
 
 - [`spec`](../spec/SKILL.md): Source of ACs.
 

@@ -279,7 +279,13 @@ npm test
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003): The full standard covering branch types, merge strategies per type, and the rationale for the trunk model.
+
+-->
 
 - [`branch`](../branch/SKILL.md): Defines the branch types and merge strategy each type uses. This skill applies what [`branch`](../branch/SKILL.md) specifies.
 

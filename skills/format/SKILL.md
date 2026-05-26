@@ -194,7 +194,13 @@ format: convert tab indentation to spaces across src/
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003): Defines the `format:` commit type used here.
+
+-->
 
 - [`refactor`](../refactor/SKILL.md): When the change is structural rather than presentational. Format is presentation only; refactor is structure.
 

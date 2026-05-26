@@ -195,11 +195,17 @@ Consequences:
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-10: Software Design Qualities](https://github.com/kieranpotts/standards/tree/dev/ts/010): The full taxonomy of the nine qualities. Read when an evaluation needs deeper rationale on a specific quality.
 
 - [TS-11a: Design Docs](https://github.com/kieranpotts/standards/tree/dev/ts/011a): Conventions for design documents. Read before writing an ADR or long-form design doc.
 
 - [TS-12: Application Architecture](https://github.com/kieranpotts/standards/tree/dev/ts/012): Architectural patterns for single-node applications.
+
+-->
 
 - [`spec`](../spec/SKILL.md): Produces the constraints this skill consumes.
 

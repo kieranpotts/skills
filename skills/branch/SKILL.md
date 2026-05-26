@@ -146,6 +146,12 @@ epic/infra-migrate-kubernetes
 epic/major-ui-redesign
 ```
 
+<!--
+
 ## References
 
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - This skill is based on [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003), specifically the "Branches" section.
+
+-->

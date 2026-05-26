@@ -12,4 +12,4 @@ The [skills.sh](https://www.skills.sh/) project (Vercel) provides the CLI that m
 
 ## Standards
 
-Most workflow and version-control skills are derived from the [technical standards](https://github.com/kieranpotts/standards) that this repository's author maintains separately. Where a skill is a direct distillation of a standard, the standard is linked in the skill's `## References` section.
+Most workflow and version-control skills are derived from the [software development playbook](https://github.com/kieranpotts/playbook) [technical standards](https://github.com/kieranpotts/standards) that this repository's author maintains separately. Where a skill is a direct distillation of a standard, the standard is linked in the skill's `## References` section.

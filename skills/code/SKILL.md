@@ -205,9 +205,15 @@ Refs: #482
 
 ## References
 
+<!--
+
+TODO: Reinstate TS-* cross-references when those are republished.
+
 - [TS-8: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/008): Test types, levels, doubles, and the TDD section. Read when uncertain about test scope or test-double choice.
 
 - [TS-13: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/013): Naming, decomposition, error handling, comments, and dependency management. Read before any non-trivial new file or module.
+
+-->
 
 - [`plan`](../plan/SKILL.md): Source of the step being implemented. The workflow cycles through the plan one step at a time via `code → review → test → code`.
 
