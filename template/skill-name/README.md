@@ -1,5 +1,7 @@
 # Skill name
 
+<!-- TODO: Reinstate this README.md in all skills once they are "final". -->
+
 Short introduction, restating the purpose of the skill.
 
 ## What it does
