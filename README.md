@@ -1,34 +1,30 @@
 # ✨ Skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**A collection of agentic workflow skills** – also known as rules, instructions, commands, and custom prompts… depending on which agent harness you use.
+**A collection of agentic workflow skills** – also known as rules, instructions, commands, or custom prompts, depending on your agent!
 
 ## 📓 Overview
 
-This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development workflows. The primary goal of this project is to encode development workflow practices and version control conventions into high-quality, reusable prompts that produce consistent, predictable outputs from all mainstream coding agents and models – allowing for easy portability between development environments with different tooling.
+These skills cover universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus cross-cutting concerns like issue triage and agent handoff. The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
 
-The source files conform to the [Agent Skills](https://agentskills.io/) standard, making them compatible with any agent that supports this format – including Claude Code and Pi. The [built-in installer](./run/install) transforms the source files into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for more details.
+This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and high-level [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches, and so on.
 
-These skills focus on universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus a small number of cross-cutting skills that support these steps, like issue triage and agent handoff.
+Treat this collection as a baseline from which you can iterate your own agent skills that encode _your_ methods and tools.
 
-Because these skills are common to all software projects, and because they are agnostic about technology stacks and business domains, these skills work best when they are installed at a global level. The skills are intended to be installed in the user's home directory or a workspace root, so they become available to all projects. Of course, per-project installation works perfectly well, too.
+The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
-These skills are no grab-bag of isolated tasks that the author once did manually. Rather, this is a carefully-curated collection of skills that together compose a coherent end-to-end agentic development workflow. Each skill cross-references others, reflecting how the phases of development feed into one another.
-
-The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control in which the default branch is named `dev` and there are rare uses of `temp/*` and `epic/*` branches… and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
-
-You are encouraged to treat this collection of skills as a baseline, not a readymade framework. Use them to iterate on the design of your own agent skills that encode your particular workflow choices.
+A user-level install is RECOMMENDED, but per-project installs work just as well. See the installation steps, below, for details.
 
 ## 🧩 Skills
 
 These skills span three categories:
 
 - **Workflow skills**, one for each discrete step in the software development lifecycle.
-- **Version control skills**, for managing revisions and versions using Git.
+- **Version control skills**, for managing revisions and releases via Git.
 - **Supporting skills** that cut across the workflow and version control processes.
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The role of each skill within the SDLC is illustrated by the flow diagram, below. The solid blue boxes, connected by the solid lines, represent the main workflow sequence. The yellow boxes and dotted lines represent feedback loops and iterative cycles.
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). The flow diagram below shows the main workflow sequence (solid blue) and optional iterative loops (dotted yellow).
 
 ```mermaid
 flowchart LR
@@ -42,9 +38,12 @@ flowchart LR
   test:::main --> code
 
   %% Small iterative cycles.
-  design <-.-> prototype:::secondary
-  review <-.-> format:::secondary
-  test <-.-> debug:::secondary
+  design -.-> prototype:::secondary
+  prototype -.-> design
+  review -.-> format:::secondary
+  format -.-> review
+  test -.-> debug:::secondary
+  debug -.-> test
 
   %% Big feedback loops.
   review -.-> refactor:::secondary
@@ -60,21 +59,21 @@ flowchart LR
 | Skill name | Description |
 | ---------- | ----------- |
 | [`spec`](./skills/spec/) | Specify requirements – both functional and performance – as testable acceptance criteria. |
-| [`design`](./skills/design/) | Explore architectural design options and their trade-offs. |
+| [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
 | [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
 | [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
-| [`plan`](./skills/plan/) | Decompose delivery into small, incremental, stable revisions. |
+| [`plan`](./skills/plan/) | Decompose delivery into small, incremental, stable revisions – supporting continuous integration. |
 | [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focuses on static qualities. |
+| [`review`](./skills/review/) | Audit code for style conventions and pattern consistency. Focus on static qualities. |
 | [`format`](./skills/format/) | Improve the presentation of code – whitespace, style, ordering – without changing its structure. |
 | [`refactor`](./skills/refactor/) | Iterate the design of logic and data structures via direct code changes, maintaining stability through system testing. |
-| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focuses on functionality and dynamic qualities. |
+| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic performance qualities. |
 | [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors or performance issues observed during acceptance testing. |
-| [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from acceptance testing. |
+| [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. |
 
 ### Version control skills
 
-The version control skills describe how revisions are committed to source control, and how stable, versioned releases are cut.
+The version control skills describe how revisions are committed to source control, and how stable points in the revision history are prepared and tagged for release.
 
 ```mermaid
 flowchart LR
@@ -104,11 +103,6 @@ The remaining skills cut across the workflow and version control processes.
 
 ## 📦 Installation
 
-There are two ways to install these skills:
-
-- Use Vercel's [skills.sh CLI](https://www.skills.sh/) – RECOMMENDED.
-- Use this repository's own custom installer script.
-
 ### skills.sh CLI
 
 Change to the root directory of the project in which you want to install these skills. Then use Vercel's [skills CLI](https://www.skills.sh/), which fetches the skills directly from GitHub and installs them in the paths supported by your target agents, relative to the current working directory.
@@ -132,7 +126,7 @@ npx skills add kieranpotts/skills -a claude-code
 npx skills add kieranpotts/skills --list
 ```
 
-The CLI's `add` command installs the skills files into the local project, into paths that are detected by your target agents. Re-run the command periodically to pick up upstream changes.
+Re-run the command periodically to pick up upstream changes.
 
 Every mainstream agent is supported – [see the list here](https://www.skills.sh/agent).
 
@@ -140,9 +134,7 @@ Whenever you install skills using this CLI, anonymous telemetry data will be col
 
 ### Custom installer
 
-Alternatively, you can run this repository's own [`./run/install`](./run/install) script. This supports fewer agents, but it allows installation at the user/global level, as an alternative to per-project installation. This is the intended use case for these skills, which are designed to enforce consistent development workflows across multiple, diverse software projects.
-
-To run the custom installer, clone this repository to your computer, then execute `./run/install` from the repository's root directory, with parameters as described below.
+The custom [`./run/install`](./run/install) script supports fewer agents than skills.sh, but it can install at the user level. Clone this repository, then execute `./run/install` from its root.
 
 ```sh
 # Claude only, installed at the user-level.
@@ -170,28 +162,20 @@ To run the custom installer, clone this repository to your computer, then execut
 ./run/install --uninstall --pi --dir ~/dev/my-project
 ```
 
-At least one agent flag is required: `--claude`, `--pi`, `--copilot`, and/or `--cursor`. Alternatively, use `--all` to install the skills in formats suported by all four agents.
+At least one agent flag is required: `--claude`, `--pi`, `--copilot`, and/or `--cursor`. Alternatively, use `--all` to install the skills in formats supported by all four agents.
 
-By default, the installer will place the skills files in a subdirectory of your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`.
+By default, the installer will place the skills files in a subdirectory of your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`. Pass the `--dir` parameter to install into a specific project instead. For example, `--dir ~/dev/my-project` will install the Copilot skills at `~/dev/my-project/.github/instructions/<skill-name>.instructions.md`.
 
 Not all agents auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agents to detect skills at specific paths. So, if you install the skills globally, you should review your agents' configurations to ensure the skills are discoverable by them.
 
-To install the skills on a per-project basis, supply the path to the root of the target project via the `--dir` parameter.
-
-By default, the source files are transpiled to artifacts understood by each target agent, and it is those built artifacts that are copied into the target installation directories. The installed skills are thereby decoupled from the source skills in this repository, so you are free to modify the install skills, and to commit them to your own projects – make them your own!
+By default, the source files are transpiled to artifacts understood by each target agent, and it is those built artifacts that are copied into the target installation directories. The installed skills are thereby decoupled from the source skills in this repository, so you are free to modify the installed skills, and to commit them to your own projects – make them your own!
 
 > [!NOTE]
 > When installed via the custom installer, every skill is generated with Cursor's `alwaysApply` set to `true` and Copilot's `applyTo` set to `"**"` – which means all the skills will always be in scope in those agents. You may need to tune the targeting per-project, which you can do by modifying the installed skills files.
->
-> Skills installed via the skills.sh CLI follow that tool's own defaults.
 
-If you pass the `--symlinks` parameter, instead of installing hard copies of the skills files, symlinks will be put in your projects that references the built artifacts in this repository. This is useful when developing and evaluating these skills, because it means changes made to the skills in this repository will be immediately detected by new agent sessions – no new install step is required.
+If you pass the `--symlinks` parameter, instead of installing hard copies of the skills files, symlinks will be put in your target locations. These symlinks will reference the built artifacts in this repository. This is a useful "dev mode" when iterating and evaluating these skills. Changes made to the skills in this repository will be immediately detected by new agent sessions, providing fast feedback. (Symlinked files don't port well between environments via version control, so you should configure Git to ignore any symlinked skills put into your project directories.)
 
-You will probably want to configure Git to ignore any symlinked skills in your projects.
-
-You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations. For example, the parameters `--claude --copilot --dir ~/dev/project` will remove the skills files installed in your home directory for Claude, and the skill files installed in one project for Copilot.
-
-The `--uninstall` options will delete only those skills that were installed by the `./run/install` script in the first place. Skills installed by other tools – including the skills.sh CLI – will be left alone.
+You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations. For example, the parameters `--claude --copilot --dir ~/dev/project` will remove the skills for Claude and Copilot from a particular project. The `--uninstall` option will delete only those skills that were installed by the `./run/install` script in the first place; skills installed by other tools – including the skills.sh CLI – will be left alone.
 
 Use `./run/install --help` for more guidance.
 
