@@ -80,15 +80,6 @@ flowchart LR
 
 The version control skills describe how revisions are committed to source control, and how stable points in the revision history are prepared and tagged for release.
 
-```mermaid
-flowchart LR
-  branch --> commit
-  commit --> merge
-  merge --> release
-
-  merge -.-> branch
-```
-
 | Skill name | Description |
 | ---------- | ----------- |
 | [`branch`](./skills/branch/) | Git branching strategy. |
