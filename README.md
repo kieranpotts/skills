@@ -1,26 +1,28 @@
 # ✨ Skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-A carefully curated collection of agentic workflow skills – also known as rules, instructions, commands, and custom prompts, depending on the agent harness.
+**A collection of agentic workflow skills** – also known as rules, instructions, commands, and custom prompts… depending on which agent harness you use.
 
 ## 📓 Overview
 
-This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development processes. The primary goal of this project is to transform external context – development workflow practices, version control conventions, etc. – into high-quality prompts that produce consistent, predictable outputs from all mainstream coding agents and models.
+This repository encapsulates a minimal suite of agent skills to support AI-assisted and agentic software development workflows. The primary goal of this project is to encode development workflow practices and version control conventions into high-quality, reusable prompts that produce consistent, predictable outputs from all mainstream coding agents and models – allowing for easy portability between development environments with different tooling.
 
-These skills are platform-agnostic and domain-agnostic. They focus on the universal phases of the software development lifecycle – specifying, designing, planning, coding, testing, reviewing, branching, committing, releasing – plus a small number of cross-cutting skills that support those phases – eg. issue triage and agent handoff. Because these workflow steps recur in every software project, regardless of business domain or technology stack, these skills are designed to be installed at a global level – either in the user's home directory or a workspace root.
+The source files conform to the [Agent Skills](https://agentskills.io/) standard, making them compatible with any agent that supports this format – including Claude Code and Pi. The [built-in installer](./run/install) transforms the source files into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for more details.
 
-Together, the skills compose a coherent agentic workflow. They're not a grab-bag of independent tasks. Each skill cross-references others, reflecting how the phases of development naturally hand off to one another.
+These skills focus on universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, testing, reviewing, merging, releasing – plus a small number of cross-cutting skills that support these steps, like issue triage and agent handoff.
 
-The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with occasional `temp/*` and `epic/*` branches, and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
+Because these skills are common to all software projects, and because they are agnostic of technology stacks or business domains, these skills work best when they are installed at a global level. The skills are intended to be installed in the user's home directory or a workspace root, so they become available to all projects. Of course, per-project installation works perfectly well, too.
 
-You are encouraged to treat this collection of skills as a baseline, not a framework, on which you can iterate your own agent skills that encode your particular methods and tools.
+These skills are no grab-bag of isolated tasks that the author once did manually. Rather, this is a carefully-curated collection of skills that together compose a coherent end-to-end agentic development workflow. Each skill cross-references others, reflecting how the phases of development feed into one another.
 
-The source files conform to the [Agent Skills](https://agentskills.io/) standard, making them compatible with any agent that supports this format. The [built-in installer](./run/install) additionally transforms the source files into the proprietary formats used by Copilot (`.github/instructions/*.instructions.md`) and Cursor (`.cursor/rules/*.mdc`). All other mainstream agents – including Claude and Pi – are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for full documentation.
+The skills are unashamedly opinionated. Each skill enforces the use of methods and tools that reflect the author's preferred – and somewhat idiosyncratic – ways of working within each lifecycle phase. Examples: Gherkin for acceptance criteria, ADRs for design decisions, trunk-based source control with rare use of `temp/*` and `epic/*` branches, and so on. These choices are documented more extensively in the author's [technical standards](https://github.com/kieranpotts/standards) and [software development playbook](https://github.com/kieranpotts/playbook).
+
+You are encouraged to treat this collection of skills as a baseline, not a readymade framework. Use them to iterate on the design of your own agent skills that encode your particular workflow choices.
 
 ## 🧩 Skills
 
 These skills span three categories:
 
-- **Workflow skills**, one for each discrete phase of the software development lifecycle.
+- **Workflow skills**, one for each discrete step in the software development lifecycle.
 - **Version control skills**, for managing revisions and versions using Git.
 - **Supporting skills** that cut across the workflow and version control processes.
 
