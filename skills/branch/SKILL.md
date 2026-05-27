@@ -62,7 +62,7 @@ flowchart LR
 
     - Branch names MUST be full lowercase.
 
-    - For `temp/*` and `epic/*` branches, use hyphen-delimited descriptions (kebab-case) - REQUIRED.
+    - `temp/*` and `epic/*` branch names MUST use hyphen-delimited descriptions (kebab-case).
 
     - No underscores or spaces in branch names.
 
@@ -114,7 +114,7 @@ flowchart LR
 
     - All changes originate on `dev` and flow forward through `test` → `ready` → release.
 
-    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix must be committed to `dev` and flow forward from there - no direct commits to downstream trunks.
+    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix MUST be committed to `dev` and flow forward from there - no direct commits to downstream trunks.
 
     - Periodically review stale `temp/*` and `epic/*` branches with no commits in ~90 days and delete or revive them.
 

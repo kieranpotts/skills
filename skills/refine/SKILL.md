@@ -42,9 +42,9 @@ The boundary is sharp: if the spec was right and the code was wrong, you are not
 
     Classify before drafting:
 
-    - *Correction*: an existing AC is wrong and must be rewritten. (The most common case.)
-    - *Addition*: a missing AC must be added. New scenario, new NFR, new out-of-scope entry.
-    - *Removal*: an AC was over-specified and must be deleted. (Rare. Be careful - users often *think* an AC is wrong when really the *implementation* is.)
+    - *Correction*: an existing AC is wrong and MUST be rewritten. (The most common case.)
+    - *Addition*: a missing AC MUST be added. New scenario, new NFR, new out-of-scope entry.
+    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful - users often *think* an AC is wrong when really the *implementation* is.)
     - *Reclassification*: an item moves between scope/out-of-scope, or between functional and non-functional, or between blocking and deferred.
     - *Threshold adjustment*: an NFR target is loosened or tightened with new justification.
 

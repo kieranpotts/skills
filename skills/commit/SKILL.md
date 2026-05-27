@@ -105,9 +105,9 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
 -   **Add a flag** to the subject line in the following special cases:
 
-    - `BREAKING`: Breaking change to external API. Automated tools may bump major version of next release in response.
+    - `BREAKING`: Breaking change to external API. Automated tools MAY bump major version of next release in response.
 
-    - `EXPERIMENT`: Experimental change expected to be reverted. May include experimental user-facing features.
+    - `EXPERIMENT`: Experimental change expected to be reverted. MAY include experimental user-facing features.
 
     - `INCOMPAT`: Internal breaking change (function signature, schema, data structure). May break other changes being introduced in parallel branches, but no impact on users.
 

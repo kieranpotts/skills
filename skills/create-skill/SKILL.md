@@ -117,7 +117,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
 -   **Gotchas live in `SKILL.md`, not in references.**
 
-    Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) must stay in the main file — the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
+    Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) MUST stay in the main file — the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
 
 -   **Use imperative form in instructions.**
 
@@ -131,7 +131,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     -   *Validation loops* — instruct the agent to run a validator, fix any failures, and repeat until it passes.
 
-    -   *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator must produce error messages specific enough for the agent to self-correct.
+    -   *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator MUST produce error messages specific enough for the agent to self-correct.
 
 ## Examples
 
@@ -174,7 +174,7 @@ skills/
 
     `name` and `description` fields are present and non-empty. `name` matches the directory name.
 
--   **All required sections are present.**
+-   **All REQUIRED sections are present.**
 
     At minimum: a titled intro paragraph, `## Instructions`, and `## Success criteria`.
 

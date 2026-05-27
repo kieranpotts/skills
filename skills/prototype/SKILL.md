@@ -119,7 +119,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
     After every action (for a logic / state-machine prototype) or on every variant switch (for a UI prototype), print or render the full relevant state so the user can see what changed. A prototype that requires a debugger to learn from isn't doing its job - the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a prototype keeps, because without it the prototype produces no usable evidence.
 
--   **Findings must be reproducible from notes.**
+-   **Findings MUST be reproducible from notes.**
 
     "Felt fast" is not evidence. A measurement with the command, dataset, and environment recorded is.
 

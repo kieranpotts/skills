@@ -31,6 +31,8 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 
 ## Rules
 
+The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT, OPTIONAL, and MAY, in the context of this document and agent skills/instructions/rules, are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
+
 - MUST follow the `commit` skill for all commit messages.
 - MUST follow the `branch` skill for all branch names.
 - MUST run the validator on any new or modified skill before committing.

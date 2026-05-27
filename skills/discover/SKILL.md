@@ -122,7 +122,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 -   **Stay in business language.**
 
-    No technical jargon. No data structures, APIs, schemas, or code. The discovery report must read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here – defer it to [`design`](../design/SKILL.md).
+    No technical jargon. No data structures, APIs, schemas, or code. The discovery report MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here – defer it to [`design`](../design/SKILL.md).
 
 -   **Do not volunteer solutions.**
 
@@ -142,7 +142,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 -   **Park unanswered questions; don't stall.**
 
-    If a question cannot be answered now, capture it in *Open questions* with a named owner and move on. The report must surface incompleteness, not hide it behind a half-finished session.
+    If a question cannot be answered now, capture it in *Open questions* with a named owner and move on. The report MUST surface incompleteness, not hide it behind a half-finished session.
 
 ## Success criteria
 

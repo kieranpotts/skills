@@ -85,7 +85,7 @@ If review surfaces a stylistic or presentational issue, fix it via [`format`](..
 
     Every comment gets a severity label:
 
-    - *Blocking*: must be addressed before merge (correctness, security, missing tests for new behavior, breaks the build).
+    - *Blocking*: MUST be addressed before merge (correctness, security, missing tests for new behavior, breaks the build).
     - *Suggestion*: would improve the change but is acceptable as-is.
     - *Nit*: stylistic preference, optional.
     - *Praise*: explicitly noting something well done. Reinforces good patterns.

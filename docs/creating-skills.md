@@ -1,10 +1,10 @@
 # Creating skills
 
-This is the canonical reference for creating new skills **in this repository**. For creating skills in *other* projects that have installed this collection, use the portable [`create-skill`](../skills/create-skill/SKILL.md) skill instead – this doc is repo-internal.
+This is the canonical reference for creating new skills in this repository. For creating skills in *other* projects that have installed this skills collection, use the portable [`create-skill`](../skills/create-skill/SKILL.md) skill instead.
 
-To create a new skill, copy [`template/skill-name/`](../template/skill-name/) as your starting point. The template documents the required structure of `SKILL.md` and `README.md` inline – it is the source of truth for file layout, frontmatter fields, and section structure.
+**Contributors**: Before drafting a new skill, please file a `FEATURE` issue to discuss scope and fit. See [CONTRIBUTING.md](../CONTRIBUTING.md) for the full contribution workflow.
 
-Before drafting, file a `FEATURE` issue to discuss scope and fit — see [CONTRIBUTING.md](../CONTRIBUTING.md) for the full proposal and PR workflow.
+To create a new skill, copy [`template/skill-name/`](../template/skill-name/) as your starting point. The template documents the required structure of `SKILL.md`. It is the source-of-truth for file layout, frontmatter fields, and section structure.
 
 ## When to create a skill
 
@@ -34,11 +34,21 @@ Do _not_ create a skill when:
 
 ## Naming
 
-Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
+Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index.
+
+Prefer single verbs. Use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
+
+## Requirements levels
+
+The following capitalized keywords, which are a subset of those defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt), MAY appear in `SKILL.md` frontmatter and body content to indicate the requirement level of a skill's criteria, instructions, rules, or success criteria. The meaning of these words are to be interpreted as described in RFC 2119.
+
+- REQUIRED, MUST, MUST NOT
+- RECOMMENDED, SHOULD, SHOULD NOT
+- OPTIONAL, MAY
 
 ## Bundled resources
 
-Each skill may include up to three standard subdirectories alongside `SKILL.md`:
+Each skill MAY include up to three standard subdirectories alongside `SKILL.md`:
 
 - `assets/`: Static files used in output: templates, example content, icons, etc.
 
