@@ -4,7 +4,33 @@ This is the canonical reference for creating new skills **in this repository**. 
 
 To create a new skill, copy [`template/skill-name/`](../template/skill-name/) as your starting point. The template documents the required structure of `SKILL.md` and `README.md` inline – it is the source of truth for file layout, frontmatter fields, and section structure.
 
-Before drafting, see [CONTRIBUTING.md](../CONTRIBUTING.md) for the criteria a useful skill should meet and the proposal workflow (file a `FEATURE` issue first).
+Before drafting, file a `FEATURE` issue to discuss scope and fit — see [CONTRIBUTING.md](../CONTRIBUTING.md) for the full proposal and PR workflow.
+
+## When to create a skill
+
+A skill is worth adding when it:
+
+- **Encodes judgement, interpretation, or context-sensitivity.** Skills are for recurring work that can't be reduced to a deterministic rule.
+
+- **Has no deterministic substitute.** If a linter, formatter, validator, Git hook, build script, or CI job already does (or could do) the job, prefer that. Skills are for the parts of the SDLC that resist automation by conventional tools.
+
+- **Covers a single concern** with a clear trigger condition.
+
+- **Is technology-agnostic and domain-agnostic**, and so useful across diverse projects.
+
+- **Is opinionated.** Skills should describe one clear path for achieving a goal, not offer a menu of options.
+
+- **Fits the existing workflow** with explicit hand-offs to and from adjacent skills.
+
+Do _not_ create a skill when:
+
+- A deterministic tool already handles the task. Deployment of release artifacts, for example, belongs in a CI pipeline, not a skill.
+
+- An existing skill already covers the concern. (Instead, propose to extend or refine the existing skill.)
+
+- The shape is one-off, with no reusable form across projects.
+
+- The content would primarily restate language-specific or framework-specific conventions.
 
 ## Naming
 
@@ -37,6 +63,12 @@ skills/
     └── references/
         └── my-skill-api-errors.md    ← Namespaced by filename prefix.
 ```
+
+## Style
+
+- Start from the [skill template](../template/skill-name/SKILL.md). Do NOT use the [`create-skill`](../skills/create-skill/SKILL.md) skill to add skills here – it is packaged for downstream projects, not for this repo's contribution workflow.
+
+- Write for token-efficiency. Trim anything that does not pull its weight. But balance context window management with the need for skills to be readable and editable by humans, too.
 
 ## Validating a skill
 
