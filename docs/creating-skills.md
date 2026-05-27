@@ -10,6 +10,34 @@ Before drafting, see [CONTRIBUTING.md](../CONTRIBUTING.md) for the criteria a us
 
 Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
+## Bundled resources
+
+Each skill may include up to three standard subdirectories alongside `SKILL.md`:
+
+- `assets/`: Static files used in output: templates, example content, icons, etc.
+
+- `references/`: Detailed documentation loaded into context on demand.  Link from `SKILL.md` with an explicit trigger condition so the agent progressively loads them into context when needed.
+
+- `scripts/`: Executable scripts for deterministic or repetitive sub-tasks. Reference from `SKILL.md` with instructions for when and how to run them.
+
+**Only these three subdirectories are propagated by the custom installer.** Any other directories present in a skill folder are silently ignored for all agent targets.
+
+### Collision safety
+
+For Claude Code and Pi, each skill installs as its own self-contained directory, so subdirectory contents never interact across skills. But for Copilot and Cursor, skills compile to flat instruction/rules files and the installer merges all `assets/`, `references/`, and `scripts/` directories into a single shared directory at the target. Thus, two skills that both write `assets/foo.md` will collide — the second silently overwrites the first.
+
+To avoid this, pay careful attention to the naming of static assets, reference docs, and scripts. Use a namespacing convention to ensure uniqueness across the entire collection of skills.
+
+```
+skills/
+└── my-skill/
+    ├── assets/
+    │   └── my-skill/          ← Asset namespaced by a subdirectory
+    │       └── template.md      named after the skill.
+    └── references/
+        └── my-skill-api-errors.md    ← Namespaced by filename prefix.
+```
+
 ## Validating a skill
 
 A validator ships at [`skills/create-skill/scripts/validate.sh`](../skills/create-skill/scripts/validate.sh):

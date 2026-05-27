@@ -187,6 +187,16 @@ build_artifacts() {
       printf "%s\n\n" "${marker}"
       extract_body "${skill_path}/SKILL.md"
     } > "${build_dir}/copilot/${skill_name}.instructions.md"
+
+    # Copy assets/, references/, scripts/ for flat-file agents so that
+    # relative links in skill bodies resolve correctly at the target.
+    for subdir in assets references scripts; do
+      if [[ -d "${skill_path}/${subdir}" ]]; then
+        mkdir -p "${build_dir}/copilot/${subdir}" "${build_dir}/cursor/${subdir}"
+        cp -R "${skill_path}/${subdir}/." "${build_dir}/copilot/${subdir}/"
+        cp -R "${skill_path}/${subdir}/." "${build_dir}/cursor/${subdir}/"
+      fi
+    done
   done < <(discover_skills)
 }
 
@@ -380,6 +390,43 @@ uninstall_agent() {
   prune_empty_dir "${target_dir}" "${dry_run}"
 }
 
+# Install shared asset directories (assets/, references/, scripts/) for
+# flat-file agents (Copilot, Cursor). These are copied into the same target
+# directory as the skill instruction files so relative links resolve.
+#
+install_agent_assets() {
+  local build_subdir="$1" target_dir="$2" mode="$3" dry_run="$4"
+
+  [[ "${dry_run}" == "true" ]] || mkdir -p "${target_dir}"
+
+  for subdir in assets references scripts; do
+    local source="${build_dir}/${build_subdir}/${subdir}"
+    [[ -d "${source}" ]] || continue
+    local target="${target_dir}/${subdir}"
+
+    if [[ "${mode}" == "symlinks" ]]; then
+      install_one_symlink "${source}" "${target}" "${subdir}" "${dry_run}"
+    else
+      install_one_copy "${source}" "${target}" "${subdir}" "${dry_run}"
+    fi
+  done
+}
+
+uninstall_agent_assets() {
+  local build_subdir="$1" target_dir="$2" mode="$3" dry_run="$4"
+
+  for subdir in assets references scripts; do
+    local source="${build_dir}/${build_subdir}/${subdir}"
+    local target="${target_dir}/${subdir}"
+
+    if [[ "${mode}" == "symlinks" ]]; then
+      uninstall_one_symlink "${source}" "${target}" "${subdir}" "${dry_run}"
+    else
+      uninstall_one_copy "${target}" "${subdir}" "${dry_run}"
+    fi
+  done
+}
+
 main() {
   # No arguments → show help and exit 0.
   if [[ $# -eq 0 ]]; then
@@ -491,11 +538,21 @@ main() {
   if [[ "${do_cursor}" == "true" ]]; then
     printf "%s skills for Cursor (%s): %s\n" "${action}" "${mode}" "${cursor_target}"
     "${action_fn}" "cursor" "${cursor_target}" ".mdc" "${mode}" "${dry_run}"
+    if [[ "${uninstall}" == "false" ]]; then
+      install_agent_assets "cursor" "${cursor_target}" "${mode}" "${dry_run}"
+    else
+      uninstall_agent_assets "cursor" "${cursor_target}" "${mode}" "${dry_run}"
+    fi
   fi
 
   if [[ "${do_copilot}" == "true" ]]; then
     printf "%s skills for Copilot (%s): %s\n" "${action}" "${mode}" "${copilot_target}"
     "${action_fn}" "copilot" "${copilot_target}" ".instructions.md" "${mode}" "${dry_run}"
+    if [[ "${uninstall}" == "false" ]]; then
+      install_agent_assets "copilot" "${copilot_target}" "${mode}" "${dry_run}"
+    else
+      uninstall_agent_assets "copilot" "${copilot_target}" "${mode}" "${dry_run}"
+    fi
   fi
 
   # Warn at the end if Cursor or Copilot were targeted at $HOME — those
