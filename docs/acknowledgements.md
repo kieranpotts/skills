@@ -1,15 +1,9 @@
 # Acknowledgements
 
-This collection has been shaped by the work of others. Particular thanks to:
+This collection of agent skills are my own. They're derived primarily from my [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards).
 
-## Matt Pocock's skills
+But this project has, inevitably, been shaped by the prior work of others. I would like to acknowledge the following sources of inspiration and influence:
 
-[Matt Pocock's open skills repository](https://github.com/mattpocock/skills) was a direct influence on the format, tone, and structure of several skills here, and several are adapted from his source material. Where his content has been adapted rather than copied verbatim, the goal was to fit the local template format without losing the substance of the original.
+- [Matt Pocock's skills](https://github.com/mattpocock/skills) and [Owain Lewis's blueprint](https://github.com/owainlewis/blueprint/) were early inspirations for the goals and structure of this repository.
 
-## skills.sh
-
-The [skills.sh](https://www.skills.sh/) project (Vercel) provides the CLI that makes this repository installable into a wide range of agents with a single command. The publishing workflow and validation tooling lean on its conventions.
-
-## Standards
-
-Most workflow and version-control skills are derived from the [software development playbook](https://github.com/kieranpotts/playbook) [technical standards](https://github.com/kieranpotts/standards) that this repository's author maintains separately. Where a skill is a direct distillation of a standard, the standard is linked in the skill's `## References` section.
+- The [skills.sh leaderboard](https://www.skills.sh/), maintained by Vercel, was a useful research tool for understanding the kinds of skills that were possible and desirable to create. The [skills.sh CLI](https://www.skills.sh/docs/cli) also makes these skills installable into a wide range of agents with a single command, which was incredibly useful for testing the universality of my skills across different agents and harnesses.
