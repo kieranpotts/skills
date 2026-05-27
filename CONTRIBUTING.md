@@ -12,9 +12,9 @@ Before proposing a new skill, check it against these criteria. A skill is worth 
 
 - **Covers a single concern** with a clear trigger condition.
 
-- **Is technology- and domain-agnostic**, and so useful across diverse projects.
+- **Is technology-agnostic and domain-agnostic**, and so useful across diverse projects.
 
-- **Is opinionated.** Skills should enforce one way of doing something, not a menu of options.
+- **Is opinionated.** Skills should decsribe one clear path for achieving a goal, not offer a menu of options.
 
 - **Fits the existing workflow** with explicit hand-offs to and from adjacent skills.
 
@@ -26,7 +26,7 @@ Do _not_ create a skill when:
 
 - The shape is one-off, with no reusable form across projects.
 
-- The content would primarily restate language- or framework-specific conventions.
+- The content would primarily restate language-specific or framework-specific conventions.
 
 Before opening a PR requesting to merge a new skill, file a `FEATURE` issue describing:
 
