@@ -60,7 +60,7 @@ flowchart LR
 
     - *For `temp/*` → `dev`*: rebase the source onto the latest `dev` (`git rebase dev`). This is the "rebase-up" step. The result is a linear history; the FF merge that follows adds no new commit.
 
-    - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged *down* into the epic (`git checkout epic/x && git merge --no-ff dev`). Conflicts are resolved on the epic side, not at integration time.
+    - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged *down* into the epic (`git checkout epic/x && git merge --no-ff dev`). Conflicts are resolved on the epic side, not at integration time. Then, still on the `epic/*` branch, add a commit that updates `CHANGELOG.md` under the `[Unreleased]` section (see [`commit`](../commit/SKILL.md) for the entry format). This commit is squashed in with the rest of the epic's changes and is how the CHANGELOG lands on `dev`.
 
     - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the downstream target. If `git merge --ff-only` would fail, do NOT switch to a regular merge - the workflow has been violated, escalate.
 
@@ -170,6 +170,10 @@ flowchart LR
 
     Pushing a broken merge to a shared trunk wastes everyone's CI cycle and can block teammates.
 
+-   **Update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
+
+    Add a commit to the `epic/*` branch — after the final merge-down from `dev` — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line (see [`commit`](../commit/SKILL.md)). This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
+
 -   **Clean up integrated branches.**
 
     `temp/*` and `epic/*` branches are deleted after integration - locally and remotely. Stale branches accumulate and obscure active work.
@@ -276,6 +280,10 @@ npm test
 -   **The source branch is deleted after integration.**
 
     `temp/*` and `epic/*` are gone locally and remotely once landed.
+
+-   **For `epic/*` → `dev`: CHANGELOG updated in a pre-merge commit on the epic branch.**
+
+    The `[Unreleased]` section contains an entry for the epic's changes, committed to the `epic/*` branch before the squash-merge.
 
 ## References
 

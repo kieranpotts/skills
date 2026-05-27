@@ -115,6 +115,28 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor repositories.
 
+-   **Update the CHANGELOG for commits to `dev` and `temp/*`.**
+
+    When committing directly to `dev` or a `temp/*` branch, update the project's `CHANGELOG.md` (or equivalent) as part of the same commit. Document the change under an `[Unreleased]` section at the top of the file.
+
+    All commit types SHOULD be recorded — including `format:` and `refactor:`. The only exception is `chore:`, which is housekeeping too minor to warrant a changelog entry.
+
+    Each entry is a bullet point using the same `type: description` format as the commit subject line, including any flag. Newest entries are at the top.
+
+    ```markdown
+    ## [Unreleased]
+
+    - feature: add new capability
+    - fix: fix a bug - INCOMPAT
+    - performance: improve performance of X
+    - maintenance: update dependencies
+    - refactor: refactor code
+    - format: apply prettier to src
+    - step: increment toward new feature - EXPERIMENT
+    ```
+
+    A changelog is for contributors and developers. Release notes — a separate artifact — is for end users. So we _are_ interesting in recording in the changelog internal changes like refactorings and reformattings.
+
 ## Examples
 
 Minimal (subject line only):
@@ -169,6 +191,10 @@ Closes: #123
 -   **No Conventional Commits artefacts.**
 
     No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing `:` artefacts. The colon comes immediately after the type, nothing else.
+
+-   **CHANGELOG is updated for direct commits to `dev` and `temp/*` branches, unless the type is `chore:`.**
+
+    The `[Unreleased]` section exists and contains a bullet for this commit, using the same `type: description` format as the subject line.
 
 ## References
 

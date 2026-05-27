@@ -75,6 +75,14 @@ Validation regex (for both):
 
     - Version tags are permanent. Reference them in external artifact repos for traceability.
 
+-   **Promote the `[Unreleased]` CHANGELOG section at release time.**
+
+    Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md` to the version and date (e.g., `## [1.2.0] - 2026-05-27`), and add a new empty `[Unreleased]` section above it. Include this as part of the `release:` commit on the release branch. This ties each changelog entry to a specific shipped version.
+
+-   **Prepare release notes for end users.** *(Draft — process to be defined.)*
+
+    Release notes are distinct from the CHANGELOG. Where the CHANGELOG records all changes for contributors and developers, release notes are curated for end users: user-facing features, bug fixes, and breaking changes, written in plain non-technical language. Derive them from the newly-promoted versioned section of `CHANGELOG.md`, filtering out internal changes (`refactor:`, `format:`, `step:`, `maintenance:`). The format and publication channel are project-specific.
+
 ## Examples
 
 Release trunk:
