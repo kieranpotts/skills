@@ -1,5 +1,7 @@
 # Contributing
 
+<!-- Agents MUST read ./AGENTS.md. This document is for humans. -->
+
 Contributions are welcome – new skills, improvements to existing ones, bug fixes, and documentation tweaks.
 
 ## Proposing a new skill
