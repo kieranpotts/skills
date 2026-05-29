@@ -146,16 +146,22 @@ The custom [`./run/install`](./run/install) script supports fewer agents than sk
 # Pi only, installed at the user-level.
 ./run/install --pi
 
-# All four agents installed at the user-level.
+# The agent-agnostic .agents/skills location, at the user-level.
+./run/install --agents
+
+# All targets installed at the user-level.
 ./run/install --all
 
 # Claude and Cursor, installed into cwd.
 ./run/install --claude --cursor --dir .
 
-# All four agents, into a project in another directory.
+# The agent-agnostic path, plus Claude's proprietary `.claude/skills` path.
+./run/install --agents --claude
+
+# All targets, into a project in another directory.
 ./run/install --all --dir ~/dev/my-project
 
-# All four agents, installed as user-level symlinks.
+# All targets, installed as user-level symlinks.
 ./run/install --all --symlinks
 
 # Remove Claude's user-level install.
@@ -165,7 +171,11 @@ The custom [`./run/install`](./run/install) script supports fewer agents than sk
 ./run/install --uninstall --pi --dir ~/dev/my-project
 ```
 
-At least one agent flag is required: `--claude`, `--pi`, `--copilot`, and/or `--cursor`. Alternatively, use `--all` to install the skills in formats supported by all four agents.
+At least one agent flag is required: `--claude`, `--pi`, `--copilot`, `--cursor`, and/or `--agents`. Alternatively, use `--all` to install the skills in every supported location at once.
+
+Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format of the source files, so the source files are copied verbatim into the target directories for those agents. For Copilot and Cursor, the source files are transpiled to instructions (`.github/instructions/*.instructions.md`) and rules (`.cursor/rules/*.mdc`) respectively.
+
+The `--agents` flag installs into `.agents/skills/` — a vendor-neutral location that a growing number of harnesses auto-discover – as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor. The skills are installed in their native [Agent Skills](https://agentskills.io/) format – no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single agent-agnostic install, but combine this with flags to target other agent harnesses that you know you will be using, to ensure compatibility.
 
 By default, the installer will place the skills in a subdirectory of your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`. Pass the `--dir` parameter to install into a specific project instead. For example, `--dir ~/dev/my-project` will install the Copilot skills at `$HOME/dev/my-project/.github/instructions/<skill-name>.instructions.md`.
 

@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
 
 #
-# Install skills into AI agents: Claude Code, Pi, Cursor, GitHub Copilot.
+# Install skills into AI agents: Claude Code, Pi, Cursor, GitHub Copilot,
+# plus the agent-agnostic .agents/skills convention.
 #
-# Select agents with --claude, --pi, --cursor, --copilot, or --all.
-# These parameters do not accept values.
+# Select targets with --claude, --pi, --cursor, --copilot, --agents, or
+# --all. These parameters do not accept values.
+#
+# --agents installs into .agents/skills/ — a vendor-neutral location an
+# increasing number of harnesses auto-discover. Use it on its own, or
+# alongside the per-agent flags when you also want agent-specific copies
+# (eg. tweaked for Pi or Claude).
 #
 # The target directory is set once via --dir. It defaults to ~
 # (user-level install). Pass any other path for a project-level install.
 #
 # Every install first compiles agent-specific artifacts into ./build/:
-# Claude/Pi as verbatim copies of each skill directory; Cursor (.mdc) and
-# Copilot (.instructions.md) as generated files with the right frontmatter.
-# All four agents then install from ./build/:
+# Claude/Pi/agents as verbatim copies of each skill directory; Cursor
+# (.mdc) and Copilot (.instructions.md) as generated files with the right
+# frontmatter. All targets then install from ./build/:
 #
 #   - Default → hard copies of ./build/ artifacts. The target remains
 #     self-contained and unaffected by later repo changes.
@@ -43,14 +49,17 @@ usage() {
 Usage: ./run/install [OPTIONS]
 
 Install skills for AI agents. At least one agent flag (--claude, --pi,
---cursor, --copilot, or --all) is required.
+--cursor, --copilot, --agents, or --all) is required.
 
 Options:
   --claude              Install for Claude Code.
   --pi                  Install for Pi.
   --cursor              Install for Cursor.
   --copilot             Install for Copilot.
-  --all                 Install for all four agents.
+  --agents              Install into the agent-agnostic .agents/skills/
+                        location (native skill format, like Claude/Pi).
+  --all                 Install for all targets (the four agents above
+                        plus --agents).
   --dir DIR             Target directory for all selected agents. Defaults
                         to ~ (user-level). Use any other path for a
                         project-level install. A leading ~ is expanded
@@ -68,6 +77,7 @@ Target paths (relative to DIR):
   Pi:        DIR/.pi/skills/ (project) or ~/.pi/agent/skills/ (when DIR is ~)
   Cursor:    DIR/.cursor/rules/
   Copilot:   DIR/.github/instructions/
+  Agents:    DIR/.agents/skills/
 
 Notes:
   - Every install first compiles per-agent artifacts into ./build/ (in the
@@ -90,11 +100,13 @@ Examples:
   ./run/install --claude                       # Claude, user-level copies.
   ./run/install --claude --dir .               # Claude, copies into cwd.
   ./run/install --claude --symlinks            # Claude, user-level symlinks (dev mode).
-  ./run/install --all                          # All four, user-level copies.
-  ./run/install --all --dir ~/dev/my-project   # All four, copies into a specific project.
-  ./run/install --all --symlinks               # All four, user-level symlinks.
+  ./run/install --agents                       # Agent-agnostic .agents/skills, user-level.
+  ./run/install --agents --pi                  # Agnostic location plus a Pi-specific copy.
+  ./run/install --all                          # All targets, user-level copies.
+  ./run/install --all --dir ~/dev/my-project   # All targets, copies into a specific project.
+  ./run/install --all --symlinks               # All targets, user-level symlinks.
   ./run/install --uninstall --claude           # Remove Claude user-level install.
-  ./run/install --uninstall --all --dir .      # Remove all four agents' installs from cwd.
+  ./run/install --uninstall --all --dir .      # Remove all targets' installs from cwd.
 EOF
 }
 
@@ -141,12 +153,13 @@ prune_empty_dir() {
   fi
 }
 
-# Build all four agents' artifacts into ./build/. Wipes the build dir
+# Build all targets' artifacts into ./build/. Wipes the build dir
 # first (preserving build/README.md) so removed skills don't leave stale
-# artifacts behind. Claude and Pi artifacts are verbatim copies of the
-# source skill directories. Cursor (.mdc) and Copilot (.instructions.md)
-# artifacts are generated, with proprietary frontmatter prepended and a
-# marker comment so the installer can identify its own files later.
+# artifacts behind. Claude, Pi, and the agent-agnostic .agents artifacts
+# are verbatim copies of the source skill directories. Cursor (.mdc) and
+# Copilot (.instructions.md) artifacts are generated, with proprietary
+# frontmatter prepended and a marker comment so the installer can identify
+# its own files later.
 #
 build_artifacts() {
   local dry_run="$1"
@@ -160,7 +173,7 @@ build_artifacts() {
 
   # Wipe everything except the README, then recreate the per-agent dirs.
   find "${build_dir}" -mindepth 1 -maxdepth 1 ! -name 'README.md' -exec rm -rf {} +
-  mkdir -p "${build_dir}/claude" "${build_dir}/pi" \
+  mkdir -p "${build_dir}/claude" "${build_dir}/pi" "${build_dir}/agents" \
            "${build_dir}/cursor" "${build_dir}/copilot"
 
   local skill_path skill_name description
@@ -170,6 +183,7 @@ build_artifacts() {
 
     cp -R "${skill_path}" "${build_dir}/claude/${skill_name}"
     cp -R "${skill_path}" "${build_dir}/pi/${skill_name}"
+    cp -R "${skill_path}" "${build_dir}/agents/${skill_name}"
 
     {
       printf -- "---\n"
@@ -438,6 +452,7 @@ main() {
   local do_pi=false
   local do_cursor=false
   local do_copilot=false
+  local do_agents=false
   local dir=""
   local symlinks=false
   local uninstall=false
@@ -454,9 +469,11 @@ main() {
         do_cursor=true; any_flag=true; shift ;;
       --copilot)
         do_copilot=true; any_flag=true; shift ;;
+      --agents)
+        do_agents=true; any_flag=true; shift ;;
       --all)
         do_claude=true; do_pi=true; do_cursor=true; do_copilot=true
-        any_flag=true; shift ;;
+        do_agents=true; any_flag=true; shift ;;
       --dir)
         shift
         if [[ $# -eq 0 ]]; then
@@ -484,7 +501,7 @@ main() {
   # At least one agent flag is required. --uninstall and --dry-run alone
   # are not enough to do anything useful, so error out with the help text.
   if [[ "${any_flag}" == "false" ]]; then
-    printf "Error: at least one agent flag is required (--claude, --pi, --cursor, --copilot, or --all).\n\n" >&2
+    printf "Error: at least one agent flag is required (--claude, --pi, --cursor, --copilot, --agents, or --all).\n\n" >&2
     usage >&2
     return 1
   fi
@@ -504,6 +521,7 @@ main() {
   fi
   local cursor_target="${dir}/.cursor/rules"
   local copilot_target="${dir}/.github/instructions"
+  local agents_target="${dir}/.agents/skills"
 
   local action="Installing"
   [[ "${uninstall}" == "true" ]] && action="Uninstalling"
@@ -533,6 +551,11 @@ main() {
   if [[ "${do_pi}" == "true" ]]; then
     printf "%s skills for Pi (%s): %s\n" "${action}" "${mode}" "${pi_target}"
     "${action_fn}" "pi" "${pi_target}" "" "${mode}" "${dry_run}"
+  fi
+
+  if [[ "${do_agents}" == "true" ]]; then
+    printf "%s skills for agents (%s): %s\n" "${action}" "${mode}" "${agents_target}"
+    "${action_fn}" "agents" "${agents_target}" "" "${mode}" "${dry_run}"
   fi
 
   if [[ "${do_cursor}" == "true" ]]; then
