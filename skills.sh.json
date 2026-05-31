@@ -15,6 +15,7 @@
         "test",
         "debug",
         "review",
+        "discover",
         "audit",
         "refactor",
         "format",
@@ -38,7 +39,6 @@
         "triage",
         "handoff",
         "reflect",
-        "discover",
         "create-skill"
       ]
     }
