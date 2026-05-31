@@ -8,7 +8,7 @@ license: MIT
 
 Use this skill to move issues on the project's issue tracker through a deliberate state machine. The goal is to take a freshly-filed issue and decide what happens next: implement it, defer it, reject it, or get more information.
 
-Do NOT use this skill to fix bugs (use [`debug`](../debug/SKILL.md)), implement features (use [`code`](../code/SKILL.md) from a [`plan`](../plan/SKILL.md)), or write requirements from scratch (use [`spec`](../spec/SKILL.md)).
+Do NOT use this skill to fix bugs (use [`debug`](../debug/SKILL.md)), implement features (use [`code`](../code/SKILL.md) from a [`plan`](../plan/SKILL.md)), or write requirements from scratch (use [`specify`](../specify/SKILL.md)).
 
 This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
 
@@ -39,8 +39,8 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
       unlabeled --> needs_triage: enter triage
       needs_triage --> needs_info: missing detail
       needs_info --> needs_triage: reporter replies
-      needs_triage --> ready_for_agent: spec'd, agent-implementable
-      needs_triage --> ready_for_human: spec'd, needs human judgment
+      needs_triage --> ready_for_agent: specified, agent-implementable
+      needs_triage --> ready_for_human: specified, needs human judgment
       needs_triage --> wontfix: rejected
       ready_for_agent --> [*]: implemented & closed
       ready_for_human --> [*]: implemented & closed
@@ -242,6 +242,6 @@ scratch. Closing.
 
 - [`plan`](../plan/SKILL.md): What "ready-for-agent" specifications should resemble - including HITL / AFK tagging.
 
-- [`spec`](../spec/SKILL.md): Where AC-style requirements come from in agent briefs.
+- [`specify`](../specify/SKILL.md): Where AC-style requirements come from in agent briefs.
 
 - [`debug`](../debug/SKILL.md): For the implementation phase that follows a reproduced bug.

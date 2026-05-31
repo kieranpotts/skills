@@ -19,7 +19,7 @@ If review surfaces a stylistic or presentational issue, fix it via [`format`](..
     Before reading any code:
 
     - Read the PR description, linked issue, or commit body.
-    - Identify the acceptance criteria (or the spec) it claims to satisfy.
+    - Identify the acceptance criteria (or the specification) it claims to satisfy.
     - Note the [`design`](../design/SKILL.md) decision behind it, if one was captured.
 
     If the *why* is unclear from the description, ask the author. Do not reverse-engineer intent from the diff - reviewers who do that miss the cases where the diff does not match the intent.
@@ -102,14 +102,14 @@ If review surfaces a stylistic or presentational issue, fix it via [`format`](..
 
 ## Rules
 
--   **Organize findings into two axes: Spec and Standards.**
+-   **Organize findings into two axes: Specification and Standards.**
 
     A change can pass one axis and fail the other:
 
-    - Code that follows every standard but implements the wrong thing → *Standards pass, Spec fail.*
-    - Code that does exactly what the issue asked but breaks the project's conventions → *Spec pass, Standards fail.*
+    - Code that follows every standard but implements the wrong thing → *Standards pass, Specification fail.*
+    - Code that does exactly what the issue asked but breaks the project's conventions → *Specification pass, Standards fail.*
 
-    *Spec axis*: does the change faithfully implement the originating issue, ACs, or PRD? Covers correctness and completeness. Quote the spec line for each finding.
+    *Specification axis*: does the change faithfully implement the originating issue, ACs, or PRD? Covers correctness and completeness. Quote the specification line for each finding.
 
     *Standards axis*: does the change conform to the repo's documented standards - CLAUDE.md, CONTRIBUTING.md, ADRs, naming conventions, architectural patterns? Covers design, clarity, test style, and security idioms. Cite the standard (file + rule) for each finding.
 
@@ -175,7 +175,7 @@ Verdict block to close the review, organized by axis:
 ```
 Request changes.
 
-## Spec
+## Specification
 - [Blocking] AC-2 requires "amount must be positive" — the handler
   does not validate this (handlers/orders.ts:42). Quoted from
   issue #482, AC-2.
@@ -188,8 +188,8 @@ Request changes.
 - [Praise]   Test naming follows the project convention in
   CLAUDE.md §"Tests".
 
-Summary: 1 Spec blocker, 1 Standards suggestion. Re-review needed
-on the Spec finding; Standards finding non-blocking.
+Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
+on the Specification finding; Standards finding non-blocking.
 ```
 
 ## Edge cases
@@ -246,7 +246,7 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
-- [`spec`](../spec/SKILL.md): The source of truth for "does this do what it should do".
+- [`specify`](../specify/SKILL.md): The source of truth for "does this do what it should do".
 
 - [`test`](../test/SKILL.md): Downstream of review - verifies the running system. Review evaluates static qualities; test evaluates dynamic ones.
 

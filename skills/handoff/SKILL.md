@@ -8,7 +8,7 @@ license: MIT
 
 Use this skill when the work is about to be picked up by someone (or something) that does not have the current session's context: a fresh agent in a new conversation, a teammate taking over, your own next session after a long break, or yourself just before a compaction event.
 
-Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo (see [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md)). A handoff document is *ephemeral* - a bridge across the gap between sessions - and should not survive longer than the next session that absorbs it.
+Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo (see [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md)). A handoff document is *ephemeral* - a bridge across the gap between sessions - and should not survive longer than the next session that absorbs it.
 
 ## Instructions
 
@@ -22,7 +22,7 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
 
     Before writing anything, list the durable artifacts the current work has already produced:
 
-    - The spec / PRD and its path or URL.
+    - The specification / PRD and its path or URL.
     - The design document or chosen ADR.
     - The plan, with which steps are done and which are open.
     - Issue / ticket references.
@@ -89,11 +89,11 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
 
 -   **Reference, don't duplicate.**
 
-    Every fact already captured in a spec, plan, ADR, issue, commit, or diff is referenced by path or URL. Duplication invites drift.
+    Every fact already captured in a specification, plan, ADR, issue, commit, or diff is referenced by path or URL. Duplication invites drift.
 
 -   **The handoff is ephemeral.**
 
-    It lives outside the repo. Discard once the next session has absorbed it. If a piece of the handoff turns out to be durable, promote it to the relevant project artifact (ADR, spec update, runbook) and remove it from the handoff.
+    It lives outside the repo. Discard once the next session has absorbed it. If a piece of the handoff turns out to be durable, promote it to the relevant project artifact (ADR, specification update, runbook) and remove it from the handoff.
 
 -   **Be specific about what's open.**
 
@@ -119,7 +119,7 @@ A compact handoff:
 # Handoff: orders POST endpoint (2026-05-26)
 
 ## What's been done
-- Spec agreed (issue #482).
+- Specification agreed (issue #482).
 - Design captured as ADR-0007 in `docs/adr/`.
 - Plan written as 6 steps; see PR #483 description.
 - Steps 1-4 implemented and merged (commits abc123..def456).
@@ -127,7 +127,7 @@ A compact handoff:
 ## What's open
 - Step 5 (feature flag wiring) is HITL; awaiting SRE sign-off on
   the `ORDERS_API_V2` rollout plan. Slack thread: REDACTED.
-- AC-4 (24h replay of idempotency key) flagged as a spec gap;
+- AC-4 (24h replay of idempotency key) flagged as a specification gap;
   comment posted on #482, no answer yet.
 
 ## State of the codebase
@@ -189,6 +189,6 @@ A compact handoff:
 
 - [`reflect`](../reflect/SKILL.md): Companion at session end. Reflect captures durable lessons (persistent memory); handoff captures current task state (ephemeral). Typically invoke `reflect` first, then `handoff`.
 
-- [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md): Skills that produce the durable artifacts the handoff references.
+- [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md): Skills that produce the durable artifacts the handoff references.
 
 - [`code`](../code/SKILL.md), [`debug`](../debug/SKILL.md), [`test`](../test/SKILL.md), [`review`](../review/SKILL.md): Skills the next session may need.

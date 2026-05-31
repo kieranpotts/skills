@@ -1,5 +1,5 @@
 ---
-name: spec
+name: specify
 description: Specify software requirements as acceptance criteria (ACs) - functional and non-functional - in a testable form. Use when starting a new feature, scoping a change, refining a vague request into a contract, or before any design or coding work begins.
 license: MIT
 ---
@@ -70,14 +70,14 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
 5.  **Capture what is out of scope.**
 
-    A spec that lists only what to build invites scope creep during design and implementation. Add an explicit "Out of scope" section that names:
+    A specification that lists only what to build invites scope creep during design and implementation. Add an explicit "Out of scope" section that names:
 
     - *Deferred features* the user might assume are in scope ("Refund flow - coming in Phase 2").
     - *Adjacent functionality* that touches the same area but is not changing ("Order cancellation - existing behavior unchanged, not under review here").
     - *Decisions explicitly NOT being revisited* ("Payment provider choice - stays with Stripe for this change").
     - *Things ruled out during clarification* ("Discussed bulk refunds; decided to defer until single-refund flow is stable").
 
-    A reader of the spec - a designer, a developer, a reviewer - should finish with a clear picture of where the spec ends, not just where it starts.
+    A reader of the specification - a designer, a developer, a reviewer - should finish with a clear picture of where the specification ends, not just where it starts.
 
 6.  **Verify each AC is testable.**
 
@@ -85,7 +85,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
 7.  **Check against the Definition of Ready.**
 
-    Before declaring the spec complete, run through the DoR checklist:
+    Before declaring the specification complete, run through the DoR checklist:
 
     - Are the requirements clear and unambiguous?
     - Are the ACs in a testable, automatable form?
@@ -111,19 +111,19 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
 -   **Avoid `Then` assertions on internal state.**
 
-    Assert on outputs the user can observe: rendered UI, API responses, logged messages, command output, state visible in a downstream report. Assertions on database rows, queue contents, or in-memory data structures couple the spec to the implementation.
+    Assert on outputs the user can observe: rendered UI, API responses, logged messages, command output, state visible in a downstream report. Assertions on database rows, queue contents, or in-memory data structures couple the specification to the implementation.
 
 -   **Bundle authorization into functional requirements.**
 
-    Permissions and roles ("As an admin, I can...") belong in the functional spec as user stories, not in a separate NFR list. Encryption, audit logging, and compliance-driven constraints belong in NFRs.
+    Permissions and roles ("As an admin, I can...") belong in the functional specification as user stories, not in a separate NFR list. Encryption, audit logging, and compliance-driven constraints belong in NFRs.
 
 -   **Identify NFRs early.**
 
-    NFRs around scalability, durability, security, and compliance often dictate fundamental architecture choices (technology stack, database, deployment topology). Surface them in the spec before any design work starts.
+    NFRs around scalability, durability, security, and compliance often dictate fundamental architecture choices (technology stack, database, deployment topology). Surface them in the specification before any design work starts.
 
 ## Examples
 
-A minimal functional spec (Gherkin):
+A minimal functional specification (Gherkin):
 
 ```feature
 Feature: Refund item
@@ -185,13 +185,13 @@ Out of scope:
 
 ## Edge cases
 
--   **Spike or research task**: the goal is to *learn*, not to ship a feature. Write the spec as a list of questions to answer, with a time-box, rather than as ACs.
+-   **Spike or research task**: the goal is to *learn*, not to ship a feature. Write the specification as a list of questions to answer, with a time-box, rather than as ACs.
 
 -   **Bug fix**: the AC is usually a Gherkin scenario that fails today and should pass after the fix. Include the reproduction steps as `Given`/`When` and the correct behavior as `Then`.
 
--   **Refactor or internal change**: there are no new ACs. The spec is "existing ACs continue to pass, plus these new internal-quality criteria" (eg. cyclomatic complexity reduced, tests faster, module decoupled). Use [`refactor`](../refactor/SKILL.md) instead.
+-   **Refactor or internal change**: there are no new ACs. The specification is "existing ACs continue to pass, plus these new internal-quality criteria" (eg. cyclomatic complexity reduced, tests faster, module decoupled). Use [`refactor`](../refactor/SKILL.md) instead.
 
--   **Existing spec is wrong**: if you discover during specification that an existing AC is incorrect or contradicts a new requirement, flag the conflict to the user before resolving it. Do not silently rewrite.
+-   **Existing specification is wrong**: if you discover during specification that an existing AC is incorrect or contradicts a new requirement, flag the conflict to the user before resolving it. Do not silently rewrite.
 
 ## Success criteria
 
@@ -199,7 +199,7 @@ Out of scope:
 
     For each scenario or condition, an observable pass/fail outcome is identifiable without reading implementation code.
 
--   **No implementation details leak into the spec.**
+-   **No implementation details leak into the specification.**
 
     No class, file, endpoint, table, or framework name appears in an AC. Re-read with that filter before finishing.
 
@@ -209,7 +209,7 @@ Out of scope:
 
 -   **Out-of-scope items are named.**
 
-    The spec includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during clarification - not just what is being built.
+    The specification includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during clarification - not just what is being built.
 
 -   **The user, goal, and value are stated.**
 
@@ -227,10 +227,10 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
-- [`discover`](../discover/SKILL.md): Upstream sidecar - run a structured customer-discovery session before writing a spec when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
+- [`discover`](../discover/SKILL.md): Upstream sidecar - run a structured customer-discovery session before writing a specification when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
 
-- [`design`](../design/SKILL.md): The next step after a spec is approved.
+- [`design`](../design/SKILL.md): The next step after a specification is approved.
 
 - [`test`](../test/SKILL.md): How specified ACs are verified.
 
-- [`refine`](../refine/SKILL.md): Where feedback from [`test`](../test/SKILL.md) (a wrong, missing, or ambiguous AC) flows back into the spec. Refinements land here as edits and re-enter the workflow.
+- [`refine`](../refine/SKILL.md): Where feedback from [`test`](../test/SKILL.md) (a wrong, missing, or ambiguous AC) flows back into the specification. Refinements land here as edits and re-enter the workflow.

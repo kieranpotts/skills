@@ -1,6 +1,6 @@
 ---
 name: design
-description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Use after [`spec`](../spec/SKILL.md) is agreed and before [`plan`](../plan/SKILL.md) or [`code`](../code/SKILL.md) when the change has architecturally significant decisions.
+description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Use after [`specify`](../specify/SKILL.md) is agreed and before [`plan`](../plan/SKILL.md) or [`code`](../code/SKILL.md) when the change has architecturally significant decisions.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ Use this skill after the acceptance criteria are agreed but before any planning 
 
 Do NOT use this skill for trivial changes whose design is obvious (bug fixes, copy edits, renames - go straight to [`code`](../code/SKILL.md) or [`refactor`](../refactor/SKILL.md)).
 
-Do NOT use this skill to write requirements (use [`spec`](../spec/SKILL.md)) or to break delivery into steps (use [`plan`](../plan/SKILL.md)).
+Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md)) or to break delivery into steps (use [`plan`](../plan/SKILL.md)).
 
 ## Instructions
 
@@ -18,7 +18,7 @@ Do NOT use this skill to write requirements (use [`spec`](../spec/SKILL.md)) or 
 
     Before exploring options, write down:
 
-    - *Functional ACs* the design must satisfy (from [`spec`](../spec/SKILL.md)).
+    - *Functional ACs* the design must satisfy (from [`specify`](../specify/SKILL.md)).
     - *Non-functional requirements*: performance targets, security/compliance, availability, scalability, data retention.
     - *Existing system shape*: relevant modules, public APIs, data stores, deployment topology.
     - *Budget*: time, complexity tolerance, team familiarity, operational headroom.
@@ -90,7 +90,7 @@ Do NOT use this skill to write requirements (use [`spec`](../spec/SKILL.md)) or 
 
 -   **Surface NFRs early.**
 
-    NFRs around scalability, durability, security, and compliance often dictate the design (technology stack, database, deployment topology) and are expensive to retrofit. If the [`spec`](../spec/SKILL.md) omitted them, stop and clarify before continuing.
+    NFRs around scalability, durability, security, and compliance often dictate the design (technology stack, database, deployment topology) and are expensive to retrofit. If the [`specify`](../specify/SKILL.md) omitted them, stop and clarify before continuing.
 
 -   **Cost the operational tail.**
 
@@ -207,7 +207,7 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
-- [`spec`](../spec/SKILL.md): Produces the constraints this skill consumes.
+- [`specify`](../specify/SKILL.md): Produces the constraints this skill consumes.
 
 - [`elaborate`](../elaborate/SKILL.md): Stress-tests the draft design one question at a time before decomposition.
 

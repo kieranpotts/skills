@@ -31,7 +31,7 @@ The workflow skills cover distinct phases of the software development lifecycle 
 ```mermaid
 flowchart LR
   %% Starting points.
-  spec:::start --> design
+  specify:::start --> design
   audit:::start --> design
 
   %% Main workflow sequence.
@@ -54,7 +54,7 @@ flowchart LR
   review -.-> refactor:::secondary
   refactor -.-> design
   test -.-> refine:::secondary
-  refine -.-> spec
+  refine -.-> specify
 
   %% Class definitions.
   classDef start fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px
@@ -64,7 +64,7 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`spec`](./skills/spec/) | Specify functional and performance requirements as testable acceptance criteria. May be proceeded by [`discover`](./skills/discover/). |
+| [`specify`](./skills/specify/) | Specify functional and performance requirements as testable acceptance criteria. May be proceeded by [`discover`](./skills/discover/). |
 | [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
 | [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
@@ -98,7 +98,7 @@ The remaining skills cut across the workflow and version control processes.
 | [`triage`](./skills/triage/) | Move issues through a category × state machine. |
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
 | [`reflect`](./skills/reflect/) | Distil durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
-| [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. Feeds into the [`spec`](./skills/spec/) step. |
+| [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. Informs the [`specify`](./skills/specify/) step. |
 | [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project. (For new skills in *this* repo, see [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
 
 ## 📦 Installation

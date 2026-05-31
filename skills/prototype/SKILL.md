@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: Build throwaway code to answer a specific question - feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when [`design`](../design/SKILL.md) hits a question that cannot be answered by reasoning alone, or when a [`spec`](../spec/SKILL.md) is too speculative to commit to without evidence.
+description: Build throwaway code to answer a specific question - feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when [`design`](../design/SKILL.md) hits a question that cannot be answered by reasoning alone, or when a [`specify`](../specify/SKILL.md) is too speculative to commit to without evidence.
 license: MIT
 ---
 
@@ -92,7 +92,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     Update the relevant artifact:
 
     - For an architectural question → ADR or design-doc update (see [`design`](../design/SKILL.md)).
-    - For a spec question → revise the ACs in [`spec`](../spec/SKILL.md).
+    - For a specification question → revise the ACs in [`specify`](../specify/SKILL.md).
     - For a tooling/library question → a short note in the repo's decision log.
 
     Once the answer is captured, delete the prototype - or, at minimum, move it somewhere unambiguous (`prototypes/<date>-<question>/`) with a README naming the question, the answer, and the date.
@@ -188,7 +188,7 @@ Loop back to design and evaluate the other two candidates.
 
 -   **The prototype "almost works" and the user wants to keep it.**
 
-    Resist. Keeping prototype code skips the [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), and [`code`](../code/SKILL.md) discipline that the prototype was meant to *inform*, not *replace*. Re-implement cleanly. The prototype itself can stay as a reference for the re-implementation.
+    Resist. Keeping prototype code skips the [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), and [`code`](../code/SKILL.md) discipline that the prototype was meant to *inform*, not *replace*. Re-implement cleanly. The prototype itself can stay as a reference for the re-implementation.
 
 -   **The prototype reveals the question was wrong.**
 
@@ -204,7 +204,7 @@ Loop back to design and evaluate the other two candidates.
 
 -   **The user asks for "just a quick proof of concept" with no time-box.**
 
-    Push back. Propose a half-day or one-day box. An unbounded PoC is the most common path to a production system written without [`spec`](../spec/SKILL.md), [`design`](../design/SKILL.md), or [`plan`](../plan/SKILL.md).
+    Push back. Propose a half-day or one-day box. An unbounded PoC is the most common path to a production system written without [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), or [`plan`](../plan/SKILL.md).
 
 ## Success criteria
 
@@ -226,7 +226,7 @@ Loop back to design and evaluate the other two candidates.
 
 -   **The findings are captured durably.**
 
-    ADR, design doc, spec update, or decision log - somewhere the answer survives after the code is gone.
+    ADR, design doc, specification update, or decision log - somewhere the answer survives after the code is gone.
 
 -   **The code is disposed of or quarantined.**
 
@@ -244,7 +244,7 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 - [`design`](../design/SKILL.md): Where the question usually originates and where the answer usually lands.
 
-- [`spec`](../spec/SKILL.md): Where prototype findings may force AC changes.
+- [`specify`](../specify/SKILL.md): Where prototype findings may force AC changes.
 
 - [`plan`](../plan/SKILL.md): Where work continues once the prototype has answered its question.
 

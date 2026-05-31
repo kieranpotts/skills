@@ -8,7 +8,7 @@ license: MIT
 
 Use this skill when implementing one numbered step from [`plan`](../plan/SKILL.md), or any small standalone change whose design is already obvious. The workflow re-enters this skill once per plan step: after [`test`](../test/SKILL.md) passes for the current step, return here to start the next one.
 
-Do NOT use this skill to specify requirements (use [`spec`](../spec/SKILL.md)), evaluate design options (use [`design`](../design/SKILL.md)), decompose work (use [`plan`](../plan/SKILL.md)), or diagnose a failure (use [`debug`](../debug/SKILL.md)).
+Do NOT use this skill to specify requirements (use [`specify`](../specify/SKILL.md)), evaluate design options (use [`design`](../design/SKILL.md)), decompose work (use [`plan`](../plan/SKILL.md)), or diagnose a failure (use [`debug`](../debug/SKILL.md)).
 
 Do NOT bundle multiple plan steps into one coding session. One step per session keeps the diff reviewable and the rollback clean.
 

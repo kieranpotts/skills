@@ -1,6 +1,6 @@
 ---
 name: discover
-description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report in business language, no Gherkin. Use when requirements are vague and an interview-style refinement is needed before `spec` can be written.
+description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report in business language, no Gherkin. Use when requirements are vague and an interview-style refinement is needed before `specify` can be written.
 license: MIT
 ---
 
@@ -8,11 +8,11 @@ license: MIT
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a discovery report. The agent acts as the business analyst, asking one question at a time. The user answers as the customer – either directly (when the user is the product owner) or as a relay (paraphrasing what real customers said in a prior conversation).
 
-The output is a **discovery report**, not Gherkin. Translation into testable acceptance criteria is [`spec`](../spec/SKILL.md)'s job.
+The output is a **discovery report**, not Gherkin. Translation into testable acceptance criteria is [`specify`](../specify/SKILL.md)'s job.
 
 Do NOT use this skill when:
 
-- The business requirements are already clear and well-understood – go straight to [`spec`](../spec/SKILL.md).
+- The business requirements are already clear and well-understood – go straight to [`specify`](../specify/SKILL.md).
 - The user wants to interrogate a draft *design* – use [`elaborate`](../elaborate/SKILL.md) for technical refinement.
 - The user wants implementation answers or technology choices – stay in business language; technical exploration belongs in [`design`](../design/SKILL.md).
 
@@ -67,7 +67,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
     Examples are the lifeblood of discovery. Without examples, rules are abstract noise. The counter-example forces a sharper boundary.
 
-    Capture examples in plain natural language (*"A premium customer with £600 in their cart sees free delivery presented at checkout"*) – not Gherkin. [`spec`](../spec/SKILL.md) will translate.
+    Capture examples in plain natural language (*"A premium customer with £600 in their cart sees free delivery presented at checkout"*) – not Gherkin. [`specify`](../specify/SKILL.md) will translate.
 
 7.  **Surface assumptions.**
 
@@ -148,7 +148,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 -   **Every rule has at least one example AND one counter-example.**
 
-    A rule without a counter-example is not ready for [`spec`](../spec/SKILL.md) – its boundaries are unclear.
+    A rule without a counter-example is not ready for [`specify`](../specify/SKILL.md) – its boundaries are unclear.
 
 -   **Scope is explicit in both directions.**
 
@@ -174,8 +174,8 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 - [Impact Mapping](https://www.impactmapping.org/) (Gojko Adzic): Source of the *goal / actor / impact* framing used in the outcome section.
 
-- [`spec`](../spec/SKILL.md): Downstream destination. The discovery report becomes input to `spec`, which translates rules + examples into Gherkin acceptance criteria.
+- [`specify`](../specify/SKILL.md): Downstream destination. The discovery report becomes input to `specify`, which translates rules + examples into Gherkin acceptance criteria.
 
 - [`elaborate`](../elaborate/SKILL.md): Peer skill – also interrogation-style, but refines a draft *design* rather than business requirements. Discovery deals with the customer; elaborate deals with the system.
 
-- [`prototype`](../prototype/SKILL.md): Related sidecar pattern – prototype is to design what discover is to spec. Both unblock their parent skill by gathering evidence.
+- [`prototype`](../prototype/SKILL.md): Related sidecar pattern – `prototype` is to `design` what `discover` is to `specify`. Both unblock their parent skill by gathering evidence.

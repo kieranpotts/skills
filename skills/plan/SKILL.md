@@ -10,13 +10,13 @@ Use this skill after the design is captured (and, where needed, sharpened throug
 
 The plan is consumed one step at a time by the downstream `code → review → test` cycle. Each plan step is implemented in [`code`](../code/SKILL.md), audited in [`review`](../review/SKILL.md), and verified in [`test`](../test/SKILL.md); on PASS the workflow returns to [`code`](../code/SKILL.md) for the next step. The plan is the script for that loop.
 
-Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`](../design/SKILL.md)). Do NOT use it to write acceptance criteria (use [`spec`](../spec/SKILL.md)).
+Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`](../design/SKILL.md)). Do NOT use it to write acceptance criteria (use [`specify`](../specify/SKILL.md)).
 
 ## Instructions
 
 1.  **Restate the goal and constraints.**
 
-    Pull the acceptance criteria from the [`spec`](../spec/SKILL.md) and the chosen option from the [`design`](../design/SKILL.md). State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the spec or design is not ready - go back.
+    Pull the acceptance criteria from the [`specify`](../specify/SKILL.md) and the chosen option from the [`design`](../design/SKILL.md). State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the specification or design is not ready - go back.
 
 2.  **Find the thinnest first slice.**
 
@@ -202,7 +202,7 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
-- [`spec`](../spec/SKILL.md): Provides the acceptance criteria the plan must deliver.
+- [`specify`](../specify/SKILL.md): Provides the acceptance criteria the plan must deliver.
 
 - [`design`](../design/SKILL.md): Provides the chosen option the plan decomposes.
 

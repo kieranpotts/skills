@@ -32,7 +32,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
 3.  **Choose a name and location.**
 
-    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `spec`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
+    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `specify`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
 4.  **Write the `SKILL.md`** using the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
 
@@ -122,6 +122,10 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 -   **Use imperative form in instructions.**
 
     "Use this format", not "You should use this format".
+
+-   **Use consistent terminology.**
+
+    One word means one thing. Avoid synonyms. For example 
 
 -   **Reach for proven structural techniques** when the situation calls for them:
 

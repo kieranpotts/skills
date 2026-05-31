@@ -34,7 +34,7 @@ Do _not_ create a skill when:
 
 ## Naming
 
-Skill names are kebab-case and SHOULD be meaningful actions or verbs — `spec`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index.
+Skill names are kebab-case and SHOULD be meaningful actions or verbs — `specify`, `commit`, `release`, `review`, `create-skill`. A verb-first name makes the skill's purpose obvious both to the agent (when deciding whether to trigger) and in the skills.sh index.
 
 Prefer single verbs. Use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 

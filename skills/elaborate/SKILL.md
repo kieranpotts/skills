@@ -8,7 +8,7 @@ license: MIT
 
 Use this skill *after* [`design`](../design/SKILL.md) has produced a draft and *before* [`plan`](../plan/SKILL.md) decomposes it, when the design still has soft edges - unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation.
 
-Do NOT use this skill to explore options from scratch (use [`design`](../design/SKILL.md)). Do NOT use it to write requirements (use [`spec`](../spec/SKILL.md)) or to break work into steps (use [`plan`](../plan/SKILL.md)).
+Do NOT use this skill to explore options from scratch (use [`design`](../design/SKILL.md)). Do NOT use it to write requirements (use [`specify`](../specify/SKILL.md)) or to break work into steps (use [`plan`](../plan/SKILL.md)).
 
 This skill is a *synchronous conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
@@ -19,7 +19,7 @@ This skill is a *synchronous conversation*. Ask one question. Wait for the answe
     Before asking anything, read:
 
     - The draft design (ADR, design doc, PR description, or whatever artifact [`design`](../design/SKILL.md) produced).
-    - Any related ACs from [`spec`](../spec/SKILL.md).
+    - Any related ACs from [`specify`](../specify/SKILL.md).
     - The relevant code: the modules the design touches, their public APIs, their tests.
     - Any existing `docs/domain-model.md` (the project's ubiquitous-language glossary) or `docs/adr/` decisions in the area.
 
@@ -121,7 +121,7 @@ This skill is a *synchronous conversation*. Ask one question. Wait for the answe
 
     A vague term left in the conversation infects every subsequent decision. Stop, pin it down, update `docs/domain-model.md`, then proceed.
 
--   **Surface code-versus-spec contradictions immediately.**
+-   **Surface code-versus-specification contradictions immediately.**
 
     When stated design and implemented behavior disagree, that is the most valuable thing this skill can find. Don't gloss over it.
 
@@ -129,9 +129,9 @@ This skill is a *synchronous conversation*. Ask one question. Wait for the answe
 
     Most elaboration decisions do not need an ADR. Apply the three-criteria filter (hard to reverse, surprising without context, real trade-off). When in doubt, don't.
 
--   **`docs/domain-model.md` is a glossary, not a spec.**
+-   **`docs/domain-model.md` is a glossary, not a specification.**
 
-    Keep implementation details out. An entry is what the term IS, in one or two sentences. Behavior, persistence, and protocols belong in code, ADRs, or [`spec`](../spec/SKILL.md).
+    Keep implementation details out. An entry is what the term IS, in one or two sentences. Behavior, persistence, and protocols belong in code, ADRs, or the specification.
 
 -   **Create artifacts lazily.**
 
@@ -150,7 +150,7 @@ that two ways:
   (b) Marks the order cancelled AND issues refunds for any items
       already paid for.
 
-I'd lean (b), because the spec mentions a refund flow and the existing
+I'd lean (b), because the specification mentions a refund flow and the existing
 `cancelOrder()` doesn't trigger refunds today - so this is a
 behavior change either way.
 
@@ -249,7 +249,7 @@ response time. If that becomes a problem we revisit.
 
 -   **A question reveals a missing AC.**
 
-    Stop, capture the gap, suggest the user revise [`spec`](../spec/SKILL.md). Do not paper over it with a guess about what the requirement "probably" is.
+    Stop, capture the gap, suggest the user revise the [specification](../specify/SKILL.md). Do not paper over it with a guess about what the requirement "probably" is.
 
 -   **The user disagrees with the recommended answer.**
 
@@ -303,4 +303,4 @@ response time. If that becomes a problem we revisit.
 
 - [`plan`](../plan/SKILL.md): Consumes the elaborated design.
 
-- [`spec`](../spec/SKILL.md): Where a missing AC, surfaced during elaboration, should be sent for revision.
+- [`specify`](../specify/SKILL.md): Where a missing AC, surfaced during elaboration, should be sent for revision.
