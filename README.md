@@ -1,6 +1,6 @@
 # ✨ Skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**A collection of agentic workflow skills** – also known as rules, instructions, commands, or custom prompts, depending on your agent!
+**A collection of agentic workflow skills** – also known as rules or instructions, depending on the agent.
 
 **🚧 Under construction.**
 
@@ -10,11 +10,11 @@ These skills cover universal phases of the software development lifecycle – sp
 
 This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and high-level [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches… and so on.
 
-Treat this collection as a baseline from which you can iterate your own agent skills that encode _your_ chosen methods and tools.
+You should treat these skills as a baseline from which you can iterate your own agentic workflow that encodes _your_ chosen methods and tools.
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
-A user-level install is RECOMMENDED, but per-project installs work just as well. See the installation steps, below, for details.
+A user-level install is RECOMMENDED, since these are intended to be global workflow skills. But per-project installs work just as well. See the installation steps, below, for details.
 
 ## 🧩 Skills
 
@@ -64,7 +64,7 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`spec`](./skills/spec/) | Specify functional and performance requirements as testable acceptance criteria. |
+| [`spec`](./skills/spec/) | Specify functional and performance requirements as testable acceptance criteria. May be proceeded by [`discover`](./skills/discover/). |
 | [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
 | [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
@@ -97,9 +97,9 @@ The remaining skills cut across the workflow and version control processes.
 | ---------- | ----------- |
 | [`triage`](./skills/triage/) | Move issues through a category × state machine. |
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
-| [`reflect`](./skills/reflect/) | Distil durable lessons from the session into memory and convention files. Companion to `handoff`. |
-| [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. |
-| [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project that has installed this collection. (For new skills in *this* repo, use [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
+| [`reflect`](./skills/reflect/) | Distil durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
+| [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. Feeds into the [`spec`](./skills/spec/) step. |
+| [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project. (For new skills in *this* repo, see [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
 
 ## 📦 Installation
 
