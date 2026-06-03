@@ -38,9 +38,24 @@ Skill names are kebab-case and SHOULD be meaningful actions or verbs — `specif
 
 Prefer single verbs. Use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
+## Preferred model
+
+A skill MAY declare a preferred model under the `metadata:` map, as `metadata.preferred_model`, to name the model it runs best under. The value is an exact model id, optionally provider-qualified (`provider/id`):
+
+```yaml
+metadata:
+  preferred_model: claude-opus-4-8
+```
+
+`metadata` is the Agent Skills standard's sanctioned place for vendor data, so the key validates against the canonical schema and the skill stays portable — hosts that do not understand it simply ignore it. (It lives under `metadata` rather than as a top-level `x_`-prefixed key precisely because the canonical validator allowlists top-level fields.)
+
+The Pi [`/realize`](https://github.com/kieranpotts/pi) pipeline is one host that reads it. When a phase loads a skill that declares `metadata.preferred_model` and that exact model is currently loaded, `/realize` runs the phase under it. If the model is not loaded — or the skill declares no preference — `/realize` falls back to its own per-phase model selection. The preference is therefore a hint, never a hard requirement, and a skill never fails for naming a model that happens to be absent.
+
+Pin a model only when the skill genuinely depends on it (eg. a judgment-heavy review skill that needs a stronger model). Most skills should omit the field and inherit the host's default.
+
 ## Requirements levels
 
-The following capitalized keywords, which are a subset of those defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt), MAY appear in `SKILL.md` frontmatter and body content to indicate the requirement level of a skill's criteria, instructions, rules, or success criteria. The meaning of these words are to be interpreted as described in RFC 2119.
+The following capitalized keywords, which are a subset of those defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt), MAY appear in `SKILL.md` frontmatter and body content to indicate the requirement level of a skill's criteria, instructions, rules, or success criteria. The meaning of these words are to be interpreted as described in RFC 2119.
 
 - REQUIRED, MUST, MUST NOT
 - RECOMMENDED, SHOULD, SHOULD NOT

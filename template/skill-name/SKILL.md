@@ -5,6 +5,11 @@ compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
   <key>: <value>
+  # OPTIONAL. Exact model id this skill prefers to run under. Honored only by
+  # hosts that read it - eg. the Pi `/realize` pipeline, which uses it when the
+  # named model is loaded and otherwise falls back to its own model selection.
+  # Ignored by hosts that do not. Use an exact id, optionally `provider/id`.
+  preferred_model: <model-id>
 ---
 
 # <Skill name>

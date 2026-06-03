@@ -2,6 +2,8 @@
 name: reflect
 description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end, typically just before [`handoff`](../handoff/SKILL.md), to make future sessions start smarter.
 license: MIT
+metadata:
+  preferred_model: qwen3.5:27b
 ---
 
 # Reflect

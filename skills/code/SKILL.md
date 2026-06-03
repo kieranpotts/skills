@@ -2,6 +2,8 @@
 name: code
 description: Write code and tests for a single step from the plan. Default to test-driven development (red-green-refactor). Stay strictly within the step's scope. Use when implementing one numbered step from [`plan`](../plan/SKILL.md), or for any small standalone change whose design is already obvious.
 license: MIT
+metadata:
+  preferred_model: kimi-k2.6:cloud
 ---
 
 # Code

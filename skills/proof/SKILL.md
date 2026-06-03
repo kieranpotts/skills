@@ -2,6 +2,8 @@
 name: proof
 description: Proofread the AsciiDoc files in this repository, opening one pull request per topic. Trigger only when the user explicitly requests this skill.
 argument-hint: "[topic]"
+metadata:
+  preferred_model: qwen3.5:cloud
 ---
 
 # Proof
