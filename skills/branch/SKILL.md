@@ -30,7 +30,7 @@ flowchart LR
   dev -.->|cut from| epic
 ```
 
-## Rules
+##  Rules
 
 -  **Allowed branches:**
 
@@ -60,7 +60,7 @@ flowchart LR
     ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
     ```
 
--  **Naming rules:**
+-   **Naming rules:**
 
     - Branch names MUST be full lowercase.
 
@@ -147,6 +147,28 @@ epic/PRODUCT-187-auth-overhaul
 epic/infra-migrate-kubernetes
 epic/major-ui-redesign
 ```
+
+##  Success criteria
+
+-   **The branch name validates.**
+
+    It matches `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$` — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case description.
+
+-   **The name is well-formed.**
+
+    Full lowercase, hyphen-delimited, no underscores or spaces, and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for `temp/*` and `epic/*` branches.
+
+-   **The branch type fits the work.**
+
+    `temp/*` for a short, single-focus change; `epic/*` for long-lived, multi-contributor work that cannot be continuously integrated. A change of one or two commits needs no branch beyond `dev`.
+
+-   **`temp/*` and `epic/*` branches are cut from `dev`.**
+
+    Never from `test`, `ready`, or a release branch.
+
+-   **Changes flow forward only.**
+
+    Work originates on `dev` and flows through `test` → `ready`; no fix is committed directly to a downstream trunk.
 
 <!--
 

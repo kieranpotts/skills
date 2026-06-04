@@ -14,7 +14,7 @@ Do NOT use this skill to specify requirements (use [`specify`](../specify/SKILL.
 
 Do NOT bundle multiple plan steps into one coding session. One step per session keeps the diff reviewable and the rollback clean.
 
-## Instructions
+##  Instructions
 
 1.  **Restate the step's scope.**
 
@@ -73,7 +73,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
     One step = one commit (or a small batch of `step:` commits if subdivision helps reviewers). Follow [`commit`](../commit/SKILL.md) for the type vocabulary and format. Reference the issue or plan in the body or footer.
 
-## Rules
+##  Rules
 
 -   **One step per session.**
 
@@ -128,7 +128,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
 A red → green → refactor cycle for a small step:
 
-```
+```js
 // Red — write the failing test first.
 test('returns 400 when idempotency-key header is missing', async () => {
   const res = await request(app).post('/orders').send(validBody);
@@ -161,7 +161,7 @@ idempotency lookup is the next step.
 Refs: #482
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The step turns out to be too big.**
 
@@ -183,7 +183,7 @@ Refs: #482
 
     The goal is to learn, not to ship. Skip TDD, skip strict scope discipline, but throw the prototype away when done. Re-implement properly under this skill afterward.
 
-## Success criteria
+##  Success criteria
 
 -   **The diff stays within the step's stated scope.**
 

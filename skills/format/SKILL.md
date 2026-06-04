@@ -14,7 +14,7 @@ Do NOT use this skill to alter logic, data structures, names, module boundaries,
 
 A formatting pass that "while we're here" renames a variable, splits a function, or tweaks a conditional is no longer a formatting pass. It is a refactor, and belongs in a separate commit under [`refactor`](../refactor/SKILL.md) conventions.
 
-## Instructions
+##  Instructions
 
 1.  **Confirm the change is presentation only.**
 
@@ -81,7 +81,7 @@ A formatting pass that "while we're here" renames a variable, splits a function,
 
     Hand-formatting is a smell. The skill exists for the cases where it is necessary, not as the default.
 
-## Rules
+##  Rules
 
 -   **Behavior preservation is non-negotiable.**
 
@@ -150,7 +150,7 @@ format: convert tab indentation to spaces across src/
   outside src/ changed. Tests pass.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The formatter wants to rewrite a file your change just touched.**
 
@@ -172,7 +172,7 @@ format: convert tab indentation to spaces across src/
 
     A Python re-indent turned a method into a nested function. The test suite caught it. Lesson: never run an auto-formatter on a significant-whitespace language without test coverage.
 
-## Success criteria
+##  Success criteria
 
 -   **External behavior is unchanged.**
 

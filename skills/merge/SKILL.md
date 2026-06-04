@@ -29,7 +29,7 @@ flowchart LR
   dev -.->|merge-down| epic
 ```
 
-## Instructions
+##  Instructions
 
 1.  **Identify source and target.**
 
@@ -144,7 +144,7 @@ flowchart LR
 
     Do NOT delete trunks. Trunk branches are permanent.
 
-## Rules
+##  Rules
 
 -   **Strategy is determined by branch type, not by preference.**
 
@@ -235,7 +235,7 @@ npm test
 # Resolution: edit the caller to use the new name, stage, continue.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **Merge of two long-running parallel branches with deep divergence.**
 
@@ -261,7 +261,7 @@ npm test
 
     Reviewable squash diffs are a feature, not a bug, but huge diffs are unreviewable. If the epic is more than a few hundred LOC of net change, the squash review needs to lean on the [`design`](../design/SKILL.md) document and the epic's commit history for context. Provide both in the PR description.
 
-## Success criteria
+##  Success criteria
 
 -   **The strategy used matches the branch type.**
 

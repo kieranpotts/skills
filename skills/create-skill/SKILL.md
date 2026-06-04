@@ -14,7 +14,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](https://github.com/kieranpotts/skills) repository – that repo uses [`docs/creating-skills.md`](https://github.com/kieranpotts/skills/blob/dev/docs/creating-skills.md) + [`template/skill-name/`](https://github.com/kieranpotts/skills/tree/dev/template/skill-name) for its own contribution workflow. This skill is packaged for downstream consumers.
 
-## Instructions
+##  Instructions
 
 1.  **Clarify intent.**
 
@@ -70,7 +70,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     The script wraps `skills-ref validate` (if installed) for canonical Agent Skills checks, and adds repo-specific checks: sibling `README.md`, ~300-line limit, presence of `## Instructions`/`## Rules`, and `## Success criteria`. Fix any reported failures before finishing.
 
-## Rules
+##  Rules
 
 -   **The `description` field is the primary trigger mechanism.**
 
@@ -127,7 +127,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
 -   **Use consistent terminology.**
 
-    One word means one thing. Avoid synonyms. For example 
+    One word means one thing. Avoid synonyms. For example
 
 -   **Reach for proven structural techniques** when the situation calls for them:
 
@@ -192,7 +192,7 @@ skills/
 
     It names both the capability and the contexts that should invoke it — not just a one-line summary of what the skill does.
 
--   **A `README.md` exists** alongside the `SKILL.md`.
+-   **A `README.md` exists alongside the `SKILL.md`.**
 
 ## References
 

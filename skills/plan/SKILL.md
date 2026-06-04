@@ -14,7 +14,7 @@ The plan is consumed one step at a time by the downstream `code → review → t
 
 Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`](../design/SKILL.md)). Do NOT use it to write acceptance criteria (use [`specify`](../specify/SKILL.md)).
 
-## Instructions
+##  Instructions
 
 1.  **Restate the goal and constraints.**
 
@@ -79,7 +79,7 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
 
     If any answer is no, re-split or re-order.
 
-## Rules
+##  Rules
 
 -   **Each step ships independently.**
 
@@ -154,7 +154,7 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 3, after the UI and copy work are merged, wastes that work.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The plan is a single step.**
 
@@ -172,7 +172,7 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
     If steps will be done across weeks by multiple contributors and don't fit on `temp/*`, use an `epic/*` branch (see [`branch`](../branch/SKILL.md)). The plan still applies; the integration target changes.
 
-## Success criteria
+##  Success criteria
 
 -   **Every step is independently mergeable, testable, and reversible.**
 

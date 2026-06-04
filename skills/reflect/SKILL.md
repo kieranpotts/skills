@@ -19,7 +19,7 @@ Do NOT use this skill to:
 - Save standard best practices any reasonable agent would already follow.
 - Save one-off task details (a specific bug fix, a specific filename) that won't generalise.
 
-## Instructions
+##  Instructions
 
 1.  **Scan the conversation for non-obvious lessons.**
 
@@ -118,7 +118,7 @@ Do NOT use this skill to:
 
     Keep the report to ~5 lines.
 
-## Rules
+##  Rules
 
 -   **One candidate at a time.**
 
@@ -148,7 +148,7 @@ Do NOT use this skill to:
 
     A new lesson close to an existing memory should usually edit the existing entry, not create a sibling. Two entries saying nearly-the-same thing is worse than one entry saying it accurately.
 
-## Edge cases
+##  Edge cases
 
 -   **The session contained nothing worth saving.**
 
@@ -166,13 +166,13 @@ Do NOT use this skill to:
 
     Some agents (Cursor, Copilot) do not expose a standard memory directory. In that case, fall back to `AGENTS.md` for codebase conventions and skip the memory-file steps for `user` / `feedback` / `project` / `reference` types – flag them in the report as deferred.
 
-## Success criteria
+##  Success criteria
 
 -   **Every saved lesson is non-obvious and would change future agent behaviour.**
 
     A reader of the entry can identify what the agent would do *differently* because of it.
 
--   **Each `feedback` and `project` entry has both a **Why:** and a **How to apply:** line.**
+-   **Each `feedback` and `project` entry has both a Why: and a How to apply: line.**
 
 -   **Every new memory file is indexed in `MEMORY.md`.**
 

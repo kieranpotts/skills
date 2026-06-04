@@ -14,7 +14,7 @@ Do NOT use this skill to build something you intend to keep (use [`code`](../cod
 
 A prototype is a *byproduct*. The product is the *answer*. The code is thrown away.
 
-## Instructions
+##  Instructions
 
 1.  **Frame one question.**
 
@@ -99,7 +99,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
     Once the answer is captured, delete the prototype - or, at minimum, move it somewhere unambiguous (`prototypes/<date>-<question>/`) with a README naming the question, the answer, and the date.
 
-## Rules
+##  Rules
 
 -   **The code is throwaway. The answer is the deliverable.**
 
@@ -186,7 +186,7 @@ Decision: rules out this vector DB for our cancellable-search workload.
 Loop back to design and evaluate the other two candidates.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The prototype "almost works" and the user wants to keep it.**
 
@@ -208,7 +208,7 @@ Loop back to design and evaluate the other two candidates.
 
     Push back. Propose a half-day or one-day box. An unbounded PoC is the most common path to a production system written without [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), or [`plan`](../plan/SKILL.md).
 
-## Success criteria
+##  Success criteria
 
 -   **A single falsifiable question is stated up front.**
 

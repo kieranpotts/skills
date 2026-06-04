@@ -28,7 +28,7 @@ flowchart LR
   F -.->|fix exposes more| H
 ```
 
-## Instructions
+##  Instructions
 
 1.  **Build a feedback loop.**
 
@@ -121,7 +121,7 @@ flowchart LR
 
     Then ask: what would have prevented this bug? If the answer involves architectural change (no good test seam, tangled callers, hidden coupling), make a recommendation - *after* the fix is in, not before. You have more information now than when you started.
 
-## Rules
+##  Rules
 
 -   **The feedback loop is the skill.**
 
@@ -191,17 +191,25 @@ console.log(`[DEBUG-a4f2] cache key for tenant=${tenantId}: ${key}`)
 
 Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 
-## Edge cases
+##  Edge cases
 
--   **Performance regression, not a functional bug**: skip "watch it crash" - the bug is a measurement. Replace step 2's symptom capture with a numerical baseline + threshold, and the step-1 loop becomes a benchmark, not a test.
+-   **Performance regression, not a functional bug.**
 
--   **Heisenbug that disappears under instrumentation**: the probe itself is changing timing. Switch to a sampling profiler, post-hoc log analysis, or hardware-level tracing rather than synchronous logging.
+    Skip "watch it crash" - the bug is a measurement. Replace step 2's symptom capture with a numerical baseline + threshold, and the step-1 loop becomes a benchmark, not a test.
 
--   **Bug only reproduces in production**: do not skip the loop. Capture a production artifact (HAR, request log, db snapshot) and replay it locally. If that is impossible, get explicit permission before adding production instrumentation, and tag it the same way (`[DEBUG-...]`) for guaranteed cleanup.
+-   **Heisenbug that disappears under instrumentation.**
 
--   **The user's reported symptom is not the real bug**: in step 2, if the loop fails to reproduce the *user's* described symptom but reproduces something nearby, stop and check in with the user before chasing the wrong bug.
+    The probe itself is changing timing. Switch to a sampling profiler, post-hoc log analysis, or hardware-level tracing rather than synchronous logging.
 
-## Success criteria
+-   **Bug only reproduces in production.**
+
+    Do not skip the loop. Capture a production artifact (HAR, request log, db snapshot) and replay it locally. If that is impossible, get explicit permission before adding production instrumentation, and tag it the same way (`[DEBUG-...]`) for guaranteed cleanup.
+
+-   **The user's reported symptom is not the real bug.**
+
+    In step 2, if the loop fails to reproduce the *user's* described symptom but reproduces something nearby, stop and check in with the user before chasing the wrong bug.
+
+##  Success criteria
 
 -   **A feedback loop exists and is recorded.**
 

@@ -14,7 +14,7 @@ Do NOT use this skill to explore options from scratch (use [`design`](../design/
 
 This skill is a *synchronous conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
-## Instructions
+##  Instructions
 
 1.  **Load the context.**
 
@@ -101,7 +101,7 @@ This skill is a *synchronous conversation*. Ask one question. Wait for the answe
 
     Hand off to [`plan`](../plan/SKILL.md) (if the design is now decomposition-ready) or back to [`design`](../design/SKILL.md) (if elaboration uncovered a flaw too large to resolve here).
 
-## Rules
+##  Rules
 
 -   **One question at a time. Wait for the answer.**
 
@@ -239,7 +239,7 @@ Consequences: cancellation latency is bounded by the payment provider's
 response time. If that becomes a problem we revisit.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The user is AFK.**
 
@@ -265,7 +265,7 @@ response time. If that becomes a problem we revisit.
 
     Create it when the first term is resolved, not at session start. Use the format shown in the examples. Do not pre-populate it with terms that have not actually been the subject of a question.
 
-## Success criteria
+##  Success criteria
 
 -   **Every open decision in the draft is resolved or deferred with a stated reason.**
 

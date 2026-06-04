@@ -13,7 +13,7 @@ Do NOT use this skill for branch-naming conventions or PR titles.
 
 This convention is NOT compatible with Conventional Commits. Scopes/parentheticals (`feature(parser): …`) fail validation — the colon comes immediately after the type.
 
-## Rules
+##  Rules
 
 -   **Use this exact format**:
 
@@ -176,7 +176,7 @@ issue but which are now obsolete.
 Closes: #123
 ```
 
-## Success criteria
+##  Success criteria
 
 -   **Subject line passes the validation regex.**
 

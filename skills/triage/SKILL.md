@@ -14,7 +14,7 @@ Do NOT use this skill to fix bugs (use [`debug`](../debug/SKILL.md)), implement 
 
 This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
 
-## Instructions
+##  Instructions
 
 1.  **Establish the label vocabulary.**
 
@@ -96,7 +96,7 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
     If the triage is being performed by an AI agent, prefix every comment posted with a short disclaimer (eg. `> *AI-generated during triage.*`) so the reporter and maintainer can distinguish agent activity from human activity at a glance.
 
-## Rules
+##  Rules
 
 -   **Triage is a maintainer's decision.**
 
@@ -192,7 +192,7 @@ so future suggestions land on a reasoned reply rather than starting from
 scratch. Closing.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The reporter ghosts on `needs-info`.**
 
@@ -218,7 +218,7 @@ scratch. Closing.
 
     Surface the conflict ("this issue currently has `ready-for-agent` but you asked me to move it to `needs-info` - confirm?") before making any changes.
 
-## Success criteria
+##  Success criteria
 
 -   **Every triaged issue carries one category and one state label.**
 

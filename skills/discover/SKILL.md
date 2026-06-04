@@ -116,7 +116,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     - <Question> *(Owner: <name / role>)*
     ```
 
-## Rules
+##  Rules
 
 -   **One question at a time.**
 
@@ -146,7 +146,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
     If a question cannot be answered now, capture it in *Open questions* with a named owner and move on. The report MUST surface incompleteness, not hide it behind a half-finished session.
 
-## Success criteria
+##  Success criteria
 
 -   **Every rule has at least one example AND one counter-example.**
 

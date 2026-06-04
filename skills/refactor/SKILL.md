@@ -14,7 +14,7 @@ Do NOT use this skill to fix a defect (use [`debug`](../debug/SKILL.md)) or to a
 
 A change that alters externally observable behavior is not a refactor. Even a "small" behavior tweak in the middle of restructuring is a separate change.
 
-## Instructions
+##  Instructions
 
 1.  **Name the quality you are improving.**
 
@@ -86,7 +86,7 @@ A change that alters externally observable behavior is not a refactor. Even a "s
 
     The PR description names the quality being improved and the moves taken.
 
-## Rules
+##  Rules
 
 -   **Behavior preservation is non-negotiable.**
 
@@ -162,7 +162,7 @@ fix, not a refactor. Reverted the throw; opened a separate fix:
 commit and tracking issue. Resumed the refactor.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **Coverage is absent and impossible to add quickly.**
 
@@ -184,7 +184,7 @@ commit and tracking issue. Resumed the refactor.
 
     Don't try to fix it all at once. Pick one named quality per refactor session. Plan a sequence of refactors over time. The whole codebase does not need to improve in one PR.
 
-## Success criteria
+##  Success criteria
 
 -   **External behavior is unchanged.**
 

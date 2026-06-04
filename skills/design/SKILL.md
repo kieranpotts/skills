@@ -14,7 +14,7 @@ Do NOT use this skill for trivial changes whose design is obvious (bug fixes, co
 
 Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md)) or to break delivery into steps (use [`plan`](../plan/SKILL.md)).
 
-## Instructions
+##  Instructions
 
 1.  **Gather the constraints.**
 
@@ -76,7 +76,7 @@ Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md
 
     Trivial designs may skip [`elaborate`](../elaborate/SKILL.md) and go straight to [`plan`](../plan/SKILL.md).
 
-## Rules
+##  Rules
 
 -   **Always produce alternatives.**
 
@@ -155,7 +155,7 @@ Consequences:
   interface to make that swap straightforward.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The design is forced by an existing constraint.**
 
@@ -173,7 +173,7 @@ Consequences:
 
     Say so. Present both with their trade-offs and ask the user to break the tie. Do not flip a coin and proceed silently.
 
-## Success criteria
+##  Success criteria
 
 -   **The constraints are written down.**
 

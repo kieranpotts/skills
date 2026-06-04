@@ -12,7 +12,7 @@ Use this skill after [`review`](../review/SKILL.md) has cleared the change, or b
 
 Do NOT use this skill to write fresh test cases for newly-added behavior (handled inside [`code`](../code/SKILL.md)). Do NOT use it to investigate a failing test - hand off to [`debug`](../debug/SKILL.md). Do NOT use it to revise the specification when an AC turns out to be wrong - hand off to [`refine`](../refine/SKILL.md).
 
-## Instructions
+##  Instructions
 
 1.  **Pull the acceptance criteria.**
 
@@ -87,7 +87,7 @@ Do NOT use this skill to write fresh test cases for newly-added behavior (handle
     - Any FAIL caused by a wrong, missing, or ambiguous AC → hand off to [`refine`](../refine/SKILL.md) for a specification edit, then replan downstream. Do not silently rewrite the AC.
     - Any BLOCKED → resolve the blocker before declaring done; do not silently downgrade to PASS.
 
-## Rules
+##  Rules
 
 -   **Test against the specification, not the implementation.**
 
@@ -157,7 +157,7 @@ instead of 200 + existing order ID. Reproduction is deterministic.
 Handing off to debug. Test left in place; do not delete.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **No automated suite exists.**
 
@@ -179,7 +179,7 @@ Handing off to debug. Test left in place; do not delete.
 
     Run the full pipeline (smoke → unit → integration → system → acceptance) plus the NFR suite on the release candidate. Performance and security checks are not optional at release.
 
-## Success criteria
+##  Success criteria
 
 -   **Every AC has a status and evidence.**
 

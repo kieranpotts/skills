@@ -12,7 +12,7 @@ Use this skill before designing or coding a change, when the request is vague, o
 
 Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)).
 
-## Instructions
+##  Instructions
 
 1.  **Identify the user, the goal, and the value.**
 
@@ -97,7 +97,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     Flag any unmet item to the user.
 
-## Rules
+##  Rules
 
 -   **Specify the problem, not the solution.**
 
@@ -185,17 +185,25 @@ Out of scope:
   ruled out until we have a baseline of single-currency refund data.
 ```
 
-## Edge cases
+##  Edge cases
 
--   **Spike or research task**: the goal is to *learn*, not to ship a feature. Write the specification as a list of questions to answer, with a time-box, rather than as ACs.
+-   **Spike or research task.**
 
--   **Bug fix**: the AC is usually a Gherkin scenario that fails today and should pass after the fix. Include the reproduction steps as `Given`/`When` and the correct behavior as `Then`.
+    The goal is to *learn*, not to ship a feature. Write the specification as a list of questions to answer, with a time-box, rather than as ACs.
 
--   **Refactor or internal change**: there are no new ACs. The specification is "existing ACs continue to pass, plus these new internal-quality criteria" (eg. cyclomatic complexity reduced, tests faster, module decoupled). Use [`refactor`](../refactor/SKILL.md) instead.
+-   **Bug fix.**
 
--   **Existing specification is wrong**: if you discover during specification that an existing AC is incorrect or contradicts a new requirement, flag the conflict to the user before resolving it. Do not silently rewrite.
+    The AC is usually a Gherkin scenario that fails today and should pass after the fix. Include the reproduction steps as `Given`/`When` and the correct behavior as `Then`.
 
-## Success criteria
+-   **Refactor or internal change.**
+
+    There are no new ACs. The specification is "existing ACs continue to pass, plus these new internal-quality criteria" (eg. cyclomatic complexity reduced, tests faster, module decoupled). Use [`refactor`](../refactor/SKILL.md) instead.
+
+-   **Existing specification is wrong.**
+
+    If you discover during specification that an existing AC is incorrect or contradicts a new requirement, flag the conflict to the user before resolving it. Do not silently rewrite.
+
+##  Success criteria
 
 -   **Every AC is testable.**
 

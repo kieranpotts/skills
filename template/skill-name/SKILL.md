@@ -20,7 +20,7 @@ This skill extends [this skill](https://raw.githubusercontent.com/...) – all r
 
 Do NOT use this skill for <exceptions...>.
 
-## Instructions
+##  Instructions
 
 _Instructions are step-by-step procedural implementation workflows._
 
@@ -36,7 +36,7 @@ _Instructions are step-by-step procedural implementation workflows._
 
 3.  ...
 
-## Rules
+##  Rules
 
 _Rules are an unordered list of guidelines, recommendations, and best practices._
 
@@ -77,7 +77,7 @@ _A small number of canonical input/output examples. Regular prose. OPTIONAL._
 
 _Warn about potential edge cases. Regular prose. OPTIONAL._
 
-## Success criteria
+##  Success criteria
 
 -   **The output matches the expected format.**
 

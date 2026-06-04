@@ -39,7 +39,7 @@ Validation regex (for both):
 ^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$
 ```
 
-## Rules
+##  Rules
 
 -   **Release trunk** (`release`):
 
@@ -107,6 +107,32 @@ Version tags:
 v1.2.0
 v2.0.0
 ```
+
+##  Success criteria
+
+-   **A single release strategy is in use.**
+
+    Either the `release` trunk (continuous deployment) or `release/<version>` branches (release trains) — not both. The name matches `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+
+-   **The release was cut from `ready`.**
+
+    Release branches branch from the `ready` trunk tip, whose artifacts are production-grade — never from `dev` or `test`.
+
+-   **The release is tagged.**
+
+    An annotated `v<version>` tag (eg. `v1.2.0`) marks the release, and version tags are treated as permanent.
+
+-   **The CHANGELOG is promoted.**
+
+    The `[Unreleased]` section is renamed to the version and date, a fresh empty `[Unreleased]` is added above it, and this lands in the `release:` commit.
+
+-   **Artifacts live outside Git.**
+
+    Compiled artifacts are shipped to an external registry (Docker, npm, PyPI, S3, …) and referenced by tag — never committed to the repository.
+
+-   **No fix was committed to a release branch.**
+
+    Any correction flows `dev` → `ready` → a new release branch; release branches carry only release-preparation commits.
 
 <!--
 

@@ -35,7 +35,7 @@ VERDICT: FAIL — <one-line reason>
 
 -->
 
-## Instructions
+##  Instructions
 
 1.  **Understand what the change is and why.**
 
@@ -215,7 +215,7 @@ Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
 on the Specification finding; Standards finding non-blocking.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **Reviewer is the author.**
 
@@ -237,7 +237,7 @@ on the Specification finding; Standards finding non-blocking.
 
     Say so. "I don't follow why X is needed here - can you walk me through it?" is a legitimate review comment. Approving code you don't understand is how subtle bugs ship.
 
-## Success criteria
+##  Success criteria
 
 -   **The *why* of the change is understood before any code is read.**
 

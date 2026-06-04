@@ -12,7 +12,7 @@ Use this skill when the work is about to be picked up by someone (or something) 
 
 Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo (see [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md)). A handoff document is *ephemeral* - a bridge across the gap between sessions - and should not survive longer than the next session that absorbs it.
 
-## Instructions
+##  Instructions
 
 1.  **Identify what the next session needs to know.**
 
@@ -87,7 +87,7 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
 
     The user (or the next agent) needs to know where to find the file. Print the full absolute path.
 
-## Rules
+##  Rules
 
 -   **Reference, don't duplicate.**
 
@@ -149,7 +149,7 @@ A compact handoff:
   reading commit def456.
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **Context limit imminent.**
 
@@ -171,7 +171,7 @@ A compact handoff:
 
     Mark it explicitly as unconfirmed in "What's open", not in "What's been done". A handoff that misrepresents an in-flight decision as settled is worse than one that says nothing at all.
 
-## Success criteria
+##  Success criteria
 
 -   **The handoff lives outside the repo.**
 

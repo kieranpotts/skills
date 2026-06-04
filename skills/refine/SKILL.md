@@ -14,7 +14,7 @@ Do NOT use this skill to fix defects in the implementation - that is [`debug`](.
 
 The boundary is sharp: if the specification was right and the code was wrong, you are not refining. If the specification was wrong and the code matches it, you are.
 
-## Instructions
+##  Instructions
 
 1.  **Name the trigger.**
 
@@ -93,7 +93,7 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
     Do not implement the change inside this skill. Refinement is about *what is required*, not *how to build it*.
 
-## Rules
+##  Rules
 
 -   **Refine the specification, not the code.**
 
@@ -210,7 +210,7 @@ Downstream impact:
   - test: re-run perf suite against new threshold (currently FAIL).
 ```
 
-## Edge cases
+##  Edge cases
 
 -   **The refinement contradicts a recently-shipped feature.**
 
@@ -232,7 +232,7 @@ Downstream impact:
 
     Common when a "tested" AC was really verified by ad-hoc inspection. Rewrite the AC into a testable form per [`specify`](../specify/SKILL.md) conventions; that is itself the refinement.
 
-## Success criteria
+##  Success criteria
 
 -   **Every refinement names its trigger and its type.**
 

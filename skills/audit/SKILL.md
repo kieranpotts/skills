@@ -20,7 +20,7 @@ Do NOT use this skill when:
 
 Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff for style and pattern consistency. `audit` proactively scans the whole codebase for *acrhitectural* problems – module boundaries, abstractions, dependencies.
 
-## Instructions
+##  Instructions
 
 1.  **Read available architecture documentation first.**
 
@@ -79,7 +79,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
     ...
     ```
 
-## Rules
+##  Rules
 
 -   **Discovery only.**
 
@@ -101,7 +101,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 
     Don't flag style choices that are consistent across the codebase as smells just because you'd prefer a different style. Audit is for structural problems, not preferences.
 
-## Success criteria
+##  Success criteria
 
 -   **The report cites specific files for every finding.**
 
@@ -122,5 +122,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 ## References
 
 - [`design`](../design/SKILL.md): Downstream destination for all audit findings. Each finding becomes input to a new workflow iteration starting at design.
+
 - [`refactor`](../refactor/SKILL.md): Different scope – refactor is a feedback step within an in-flight code → review → test cycle, not a destination for audit findings. The design iteration triggered by an audit finding may eventually produce refactor work, but only as a side effect.
+
 - [`review`](../review/SKILL.md): Different scope – reviews a specific diff for style/pattern consistency rather than scanning the whole codebase for structural problems.
