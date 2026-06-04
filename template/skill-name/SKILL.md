@@ -5,10 +5,10 @@ compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
   <key>: <value>
-  # OPTIONAL. Exact model id this skill prefers to run under. Honored only by
-  # hosts that read it - eg. the Pi `/realize` pipeline, which uses it when the
-  # named model is loaded and otherwise falls back to its own model selection.
-  # Ignored by hosts that do not. Use an exact id, optionally `provider/id`.
+  # OPTIONAL. Exact model id this skill prefers to run under. Honored
+  # only by hosts that read it - my Pi `/realize` extesion, which
+  # uses it when the named model is loaded and otherwise falls back to
+  # its own model selection. Use an exact id, optionally `provider/id`.
   preferred_model: <model-id>
 ---
 
@@ -22,7 +22,7 @@ Do NOT use this skill for <exceptions...>.
 
 ## Instructions
 
-[Instructions are step-by-step procedural implementation workflows.]
+_Instructions are step-by-step procedural implementation workflows._
 
 1.  **[Short description.]**
 
@@ -38,7 +38,7 @@ Do NOT use this skill for <exceptions...>.
 
 ## Rules
 
-[Rules are an unordered list of guidelines, recommendations, and best practices.]
+_Rules are an unordered list of guidelines, recommendations, and best practices._
 
 -   **[Short description.]**
 
@@ -71,11 +71,11 @@ Do NOT use this skill for <exceptions...>.
 
 ## Examples
 
-[A small number of canonical input/output examples. Regular prose. OPTIONAL.]
+_A small number of canonical input/output examples. Regular prose. OPTIONAL._
 
 ## Edge cases
 
-[Warn about potential edge cases. Regular prose. OPTIONAL.]
+_Warn about potential edge cases. Regular prose. OPTIONAL._
 
 ## Success criteria
 
@@ -85,7 +85,7 @@ Do NOT use this skill for <exceptions...>.
 
 -   **All rules have been respected.**
 
-    Review the completed output against the rules above before finishing.
+    Review the completed output against the rules, above, before finishing.
 
 -   **[Domain-specific check.]**
 
@@ -93,9 +93,10 @@ Do NOT use this skill for <exceptions...>.
 
 ## References
 
-[List of links with extended and related information for agents. For each include an explicit triger condition.]
+_List of links with extended and related information for agents. For each include an explicit triger condition._
 
 - [API errors](./references/api-errors.md): Read is the API returns a non-200 status code.
-- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md]: Used for [purpose].
 
+- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
+
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md]: Used for [purpose].
