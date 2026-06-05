@@ -18,18 +18,22 @@ Do NOT use this skill when:
 - The user wants to interrogate a draft *design* – use [`elaborate`](../elaborate/SKILL.md) for technical refinement.
 - The user wants implementation answers or technology choices – stay in business language; technical exploration belongs in [`design`](../design/SKILL.md).
 
+<!--
+
+TODO:
+
+-->
+
 ## Instructions
 
 Conduct the session as a structured interview. Ask one question at a time. Wait for the answer before asking the next. Let each answer shape the question that follows.
 
 1.  **Confirm the seed.**
-
     Restate what the user has brought you, in one sentence: *"You want to understand the requirements for `<feature/capability>` – is that right?"*
 
     Clarify before proceeding if the seed is ambiguous. A discovery built on a misread seed produces a misread report.
 
 2.  **Surface the outcome.**
-
     Ask, one at a time:
 
     - *"What is the customer trying to achieve? What does success look like for them?"*
@@ -39,7 +43,6 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     Capture as *Goal*, *Why now*, *Success measure*. This is the Impact Mapping layer – it keeps the *why* alive for downstream skills.
 
 3.  **Identify the stakeholders.**
-
     Ask, one at a time:
 
     - *"Who is affected by this?"*
@@ -49,19 +52,16 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     For each stakeholder, capture role and interest in the outcome.
 
 4.  **Establish scope.**
-
     Ask: *"What is deliberately out of scope here? What are we choosing not to address?"*
 
     An explicit out-of-scope list is one of the most valuable discovery artifacts. Push for it. Discovery sessions that produce only an *in-scope* list hide ambiguity that re-surfaces during build.
 
 5.  **Elicit rules.**
-
     Ask: *"What rules govern this? Things that must always be true, or must never happen."*
 
     Capture each rule as a single declarative sentence. Number them.
 
 6.  **For each rule, elicit at least one concrete example AND one counter-example.**
-
     For *each* rule, ask:
 
     - *"Give me a real case where this rule applies. What's the situation, and what happens?"*
@@ -72,17 +72,12 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     Capture examples in plain natural language (*"A premium customer with £600 in their cart sees free delivery presented at checkout"*) – not Gherkin. [`specify`](../specify/SKILL.md) will translate.
 
 7.  **Surface assumptions.**
-
-    Whenever the user states something with confidence, ask: *"Is that something the customer has told us, or something we're assuming?"*
-
-    Capture every assumption explicitly. Each one is a risk to validate later.
+    Whenever the user states something with confidence, ask: *"Is that something the customer has told us, or something we're assuming?"* Capture every assumption explicitly. Each one is a risk to validate later.
 
 8.  **Capture open questions.**
-
     Any question the user/customer cannot answer in this session goes into an *Open Questions* list, with a named owner. Do NOT stall on unanswered questions – capture and move on. Discovery sessions end when no new rules emerge, not when every question is resolved.
 
 9.  **Produce the discovery report.**
-
     Confirm with the user that no further rules need to be elicited, then produce:
 
     ```markdown
@@ -116,56 +111,60 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     - <Question> *(Owner: <name / role>)*
     ```
 
+    <!--
+
+    TODO: Should this be the PRD, which /specify produces the SRS?
+    The PRD captures: problem, success criteria, scope, constraints, open questions...
+
+    -->
+
 ##  Rules
 
 -   **One question at a time.**
-
     Never batch. A user (or customer) cannot answer four questions in a row without losing context, and batching erases the chance to let one answer shape the next.
 
 -   **Stay in business language.**
-
     No technical jargon. No data structures, APIs, schemas, or code. The discovery report MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here – defer it to [`design`](../design/SKILL.md).
 
 -   **Do not volunteer solutions.**
-
     This skill is for understanding the problem. If the user starts proposing implementations, redirect: *"Let's park that – I want to understand the requirement first."* Solutions captured in discovery anchor the design prematurely.
 
 -   **No leading questions.**
-
     Avoid *"You'd want X, right?"* or *"Presumably the customer expects Y?"*. Use open, neutral questions: *"What does the customer expect here?"*. Leading questions seed the answers and erase information.
 
 -   **Distinguish observation from assumption.**
-
     When confidence is stated without a source, ask whether the customer actually said it or we're inferring. Inferences belong in *Assumptions*, not *Rules*. An assumption that hardens into a rule without validation is a silent failure mode.
 
--   **Counter-examples are mandatory.**
+-   **Pushback.**
+    Don't be a "yes" machine - don't assume the user's answers are correct, as they may be based on assumptions and biases – it's your job to discover those. Interrogate vague requests. Disagree when something's off. Flag contradictions – never silently overwrite. No sycophancy.
 
+-   **Note-taking**
+    Capture context, decisions, and open threads continuously. Checkpoint before switching domains or when a chat runs long.
+
+-   **Tone.**
+    Rigorous. Direct. No fluff. Cover things properly but don't pad responses. Remove filler. Show reasoning, not just conclusions.
+
+-   **Counter-examples are mandatory.**
     A rule without a counter-example has fuzzy boundaries. The contrast between *"this case applies"* and *"this case looks similar but doesn't"* is where the rule's real shape becomes visible.
 
 -   **Park unanswered questions; don't stall.**
-
     If a question cannot be answered now, capture it in *Open questions* with a named owner and move on. The report MUST surface incompleteness, not hide it behind a half-finished session.
 
 ##  Success criteria
 
 -   **Every rule has at least one example AND one counter-example.**
-
     A rule without a counter-example is not ready for [`specify`](../specify/SKILL.md) – its boundaries are unclear.
 
 -   **Scope is explicit in both directions.**
-
     The *Out of scope* list is non-empty. Discovery without explicit exclusions hides ambiguity.
 
 -   **Assumptions are flagged as assumptions.**
-
     No statement of confidence without a source survives in *Rules* – it has been moved to *Assumptions* if the customer did not directly say it.
 
 -   **Open questions name their owners.**
-
     Each unanswered question identifies who should answer it next.
 
 -   **The report reads in business language.**
-
     A non-technical reader can follow every sentence. No code, no API names, no schema details.
 
 ## References

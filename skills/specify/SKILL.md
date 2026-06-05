@@ -12,6 +12,13 @@ Use this skill before designing or coding a change, when the request is vague, o
 
 Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)).
 
+<!--
+
+TODO:
+
+
+-->
+
 ##  Instructions
 
 1.  **Identify the user, the goal, and the value.**
@@ -28,9 +35,9 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     - *Functional requirements (FRs)*: what the system does — operations, behaviors, outputs.
 
-    - *Non-functional requirements (NFRs)*: the constraints under which it operates — performance, security, availability, accessibility, data retention, scalability.
+    - *Non-functional requirements (NFRs)*: the constraints under which it operates — performance, security, availability, accessibility, data retention, scalability, and other dynamic qualities observed at runtime.
 
-    Both MUST be specified. NFRs are often architecturally significant and harder to retrofit, so identify them up front.
+    Both MUST be specified. NFRs are often architecturally significant and harder to retrofit, so identify them up-front.
 
 3.  **Write functional ACs in Gherkin** for any non-trivial feature.
 
@@ -38,7 +45,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     ```feature
     Feature: <short description>
-      In order to <realize some business value>
+      In order to <realize some value>
       As a <user type>
       I want to <achieve some goal>
 
@@ -173,10 +180,10 @@ Security & compliance:
 - WCAG 2.2 AA for all customer-facing web pages.
 ```
 
-Out of scope (worked example):
+Out-of-scope:
 
 ```
-Out of scope:
+Out-of-scope:
 - Bulk refund flow — deferred to Phase 2 (tracking issue #519).
 - Refunds in non-USD currencies — existing single-currency handling
   remains unchanged.
