@@ -200,7 +200,7 @@ format: convert tab indentation to spaces across src/
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003): Defines the `format:` commit type used here.
+- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines the `format:` commit type used here.
 
 -->
 

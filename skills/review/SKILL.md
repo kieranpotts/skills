@@ -265,7 +265,7 @@ on the Specification finding; Standards finding non-blocking.
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-7: Code Review](https://github.com/kieranpotts/standards/tree/dev/ts/007): The standard this skill is derived from. Read for purpose, what-to-review, how-to-review, pair-programming.
+- [TS-12: Quality Assurance — Code Review](https://github.com/kieranpotts/standards/tree/dev/ts/012/03-code-review.adoc): The section this skill is derived from. Read for purpose, what-to-review, how-to-review, pair-programming.
 
 -->
 

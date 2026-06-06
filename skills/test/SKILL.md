@@ -207,11 +207,11 @@ Handing off to debug. Test left in place; do not delete.
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-7: Quality Assurance](https://github.com/kieranpotts/standards/tree/dev/ts/007): Quality gates, Definition of Done. Read when deciding whether verification clears the bar to ship.
+- [TS-12: Quality Assurance](https://github.com/kieranpotts/standards/tree/dev/ts/012): Quality gates, Definition of Done. Read when deciding whether verification clears the bar to ship.
 
-- [TS-8: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/008): Test types, levels, strategies (regression, smoke, exploratory, negative).
+- [TS-13: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/013): Test types, levels, strategies (regression, smoke, exploratory, negative).
 
-- [TS-9: Performance Testing](https://github.com/kieranpotts/standards/tree/dev/ts/009): NFR verification approaches.
+- [TS-14: Performance Testing](https://github.com/kieranpotts/standards/tree/dev/ts/014): NFR verification approaches.
 
 -->
 

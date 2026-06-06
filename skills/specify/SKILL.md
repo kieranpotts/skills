@@ -240,7 +240,7 @@ Out-of-scope:
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-6: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/006): The full standard this skill is derived from. Read when the user asks for deeper rationale on Gherkin conventions, scenario outlines, NFR taxonomy, or DoR.
+- [TS-1: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/001): The full standard this skill is derived from. Read when the user asks for deeper rationale on Gherkin conventions, scenario outlines, NFR taxonomy, or DoR.
 
 -->
 

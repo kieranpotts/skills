@@ -236,14 +236,6 @@ Loop back to design and evaluate the other two candidates.
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-1: Guiding Principles for Software Development](https://github.com/kieranpotts/standards/tree/dev/ts/001): Iteration, feedback loops, and the value of cheap learning. Read for the rationale behind throwaway work.
-
--->
-
 - [`design`](../design/SKILL.md): Where the question usually originates and where the answer usually lands.
 
 - [`specify`](../specify/SKILL.md): Where prototype findings may force AC changes.

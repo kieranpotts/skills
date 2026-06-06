@@ -208,9 +208,9 @@ commit and tracking issue. Resumed the refactor.
 
 <!--
 
-- [TS-10: Software Design Qualities](https://github.com/kieranpotts/standards/tree/dev/ts/010): The nine qualities to target. Read when picking which quality this refactor improves.
+- [TS-2: Software Design Qualities](https://github.com/kieranpotts/standards/tree/dev/ts/002): The nine qualities to target. Read when picking which quality this refactor improves.
 
-- [TS-13: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/013): Decomposition, naming, dependency management. Read for the patterns most refactors apply.
+- [TS-7: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/007): Decomposition, naming, dependency management. Read for the patterns most refactors apply.
 
 -->
 

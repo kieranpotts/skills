@@ -211,9 +211,9 @@ Refs: #482
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-8: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/008): Test types, levels, doubles, and the TDD section. Read when uncertain about test scope or test-double choice.
+- [TS-13: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/013): Test types, levels, doubles, and the TDD section. Read when uncertain about test scope or test-double choice.
 
-- [TS-13: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/013): Naming, decomposition, error handling, comments, and dependency management. Read before any non-trivial new file or module.
+- [TS-7: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/007): Naming, decomposition, error handling, comments, and dependency management. Read before any non-trivial new file or module.
 
 -->
 

@@ -293,7 +293,7 @@ npm test
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003): The full standard covering branch types, merge strategies per type, and the rationale for the trunk model.
+- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): The full standard covering branch types, merge strategies per type, and the rationale for the trunk model.
 
 -->
 

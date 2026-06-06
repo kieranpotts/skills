@@ -204,7 +204,7 @@ Closes: #123
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- This skill is based on [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003).
+- This skill is based on [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009).
 
 -->
 

@@ -140,6 +140,6 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 ## References
 
-- This skill is based on [TS-3: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/003), specifically the "Releases" section.
+- This skill is based on [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009), specifically the "Releases" section.
 
 -->

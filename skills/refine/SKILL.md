@@ -260,7 +260,7 @@ Downstream impact:
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-6: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/006): The conventions every refinement must conform to.
+- [TS-1: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/001): The conventions every refinement must conform to.
 
 -->
 
