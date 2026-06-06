@@ -66,7 +66,7 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`specify`](./skills/specify/) | Specify functional and performance requirements as testable acceptance criteria. May be proceeded by requirements discovery workshop. |
+| [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be proceeded by requirements discovery workshop. |
 | [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. Informs the specification work. |
 | [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
@@ -77,7 +77,7 @@ flowchart LR
 | [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
 | [`format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. |
 | [`refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. |
-| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic performance qualities. |
+| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. |
 | [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. |
 | [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. |
 

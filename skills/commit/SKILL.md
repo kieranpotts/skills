@@ -30,7 +30,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
     Validation regex (only the subject line is checked):
 
     ```
-    ^((chore|feature|fix|format|maintenance|merge|performance|refactor|release|revert|step): [a-z].*)$
+    ^((chore|feature|fix|format|maintenance|merge|refactor|release|revert|runtime|step): [a-z].*)$
     ```
 
     `<type>` MUST be one of these literal strings:
@@ -41,10 +41,10 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
     - `format`
     - `maintenance`
     - `merge`
-    - `performance`
     - `refactor`
     - `release`
     - `revert`
+    - `runtime`
     - `step`
 
     `<description>` MUST be full lowercase and use the imperative mood (eg. "add", not "added" or "adds"). No period at the end of the description.
@@ -69,7 +69,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     One logical change per commit. Split large changes into multiple commits.
 
-    A user-facing change typically arrives as a bundle of atomic commits — `refactor:`, `format:`, `step:`, `chore:` — culminating in the `feature:` or `performance:` commit that makes the requirement verifiable through the system's UI.
+    A user-facing change typically arrives as a bundle of atomic commits — `refactor:`, `format:`, `step:`, `chore:` — culminating in the `feature:` or `runtime:` commit that makes the requirement verifiable through the system's UI.
 
 -   **Pick the most appropriate commit type.**
 
@@ -87,19 +87,19 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - `merge`: Merge commits (when not fast-forwarded).
 
-    - `performance`: External runtime optimization - observable and measurable outside the system (latency, throughput, resource utilization, security, compliance).
-
-    - `refactor`: Improves internal structure without changing features or degrading performance (renames, helper extraction, simplifying interfaces, restructuring data flows).
+    - `refactor`: Improves internal structure without changing features or degrading runtime quality (renames, helper extraction, simplifying interfaces, restructuring data flows).
 
     - `release`: Version bumps and release-preparation commits.
 
     - `revert`: Reverting a prior commit.
 
+    - `runtime`: Implements a dynamic quality attribute - observable and measurable outside the system (latency, throughput, resource utilization, availability, security, compliance). Named for the runtime, externally-observable nature of these changes; covers the quality attributes as a whole, not speed alone.
+
     - `step`: Incremental change toward a larger feature or fix that is not yet user-facing.
 
     *Subtle distinctions*:
 
-    - `step` vs. `feature`/`performance`: `step` is incomplete work toward a user-facing change. `feature`/`performance` is the commit where the change becomes verifiable.
+    - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a user-facing change. `feature`/`runtime` is the commit where the change becomes verifiable.
 
     - `refactor` vs. `format`: `refactor` improves internal structure; `format` improves code presentation only.
 
@@ -130,7 +130,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - feature: add new capability
     - fix: fix a bug - INCOMPAT
-    - performance: improve performance of X
+    - runtime: cut p95 latency on the search endpoint
     - maintenance: update dependencies
     - refactor: refactor code
     - format: apply prettier to src
@@ -180,7 +180,7 @@ Closes: #123
 
 -   **Subject line passes the validation regex.**
 
-    Test against `^((chore|feature|fix|format|maintenance|merge|performance|refactor|release|revert|step): [a-z].*)$` before considering the message done.
+    Test against `^((chore|feature|fix|format|maintenance|merge|refactor|release|revert|runtime|step): [a-z].*)$` before considering the message done.
 
 -   **Type semantics fit the changeset.**
 

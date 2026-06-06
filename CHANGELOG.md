@@ -9,4 +9,4 @@
 - fix: fix a bug - INCOMPAT
 - chore: update README
 - refactor: refactor code
-- performance: improve performance of X
+- runtime: cut p95 latency on the search endpoint
