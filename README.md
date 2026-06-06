@@ -1,14 +1,14 @@
-# ✨ Skills [![skills.sh](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+# ✨ Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**A collection of agentic workflow skills** – also known as rules or instructions, depending on the agent.
-
-**🚧 Under construction.**
+**🚧 Under construction.** **A collection of agentic workflow skills** – also known as rules or instructions, depending on the agent.
 
 ## 📓 Overview
 
-These skills cover universal phases of the software development lifecycle – specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing – plus supporting activities like customer discovery and issue triage, and agent-optimization techniques like session reflection and handoff. The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
+These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing. The skills also cover supporting activities like customer discovery and issue triage, and agentic workflow-optimization techniques like session reflection and handoff.
 
-This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and high-level [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches… and so on.
+The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
+
+This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and some aspects of his [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches… and so on.
 
 You should treat these skills as a baseline from which you can iterate your own agentic workflow that encodes _your_ chosen methods and tools.
 
@@ -31,8 +31,9 @@ The workflow skills cover distinct phases of the software development lifecycle 
 ```mermaid
 flowchart LR
   %% Starting points.
-  specify:::start --> design
+  discover:::secondary -.-> specify
   audit:::start --> design
+  specify:::start --> design
 
   %% Main workflow sequence.
   design:::main --> elaborate
@@ -43,7 +44,6 @@ flowchart LR
   test:::main --> code
 
   %% Small iterative cycles.
-  discover:::secondary -.-> specify
   specify -.-> discover
   design -.-> prototype:::secondary
   prototype -.-> design

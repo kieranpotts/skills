@@ -6,31 +6,7 @@ This is the canonical reference for creating new skills in this repository. For 
 
 To create a new skill, copy [`template/skill-name/`](../template/skill-name/) as your starting point. The template documents the required structure of `SKILL.md`. It is the source-of-truth for file layout, frontmatter fields, and section structure.
 
-## When to create a skill
-
-A skill is worth adding when it:
-
-- **Encodes judgement, interpretation, or context-sensitivity.** Skills are for recurring work that can't be reduced to a deterministic rule.
-
-- **Has no deterministic substitute.** If a linter, formatter, validator, Git hook, build script, or CI job already does (or could do) the job, prefer that. Skills are for the parts of the SDLC that resist automation by conventional tools.
-
-- **Covers a single concern** with a clear trigger condition.
-
-- **Is technology-agnostic and domain-agnostic**, and so useful across diverse projects.
-
-- **Is opinionated.** Skills should describe one clear path for achieving a goal, not offer a menu of options.
-
-- **Fits the existing workflow** with explicit hand-offs to and from adjacent skills.
-
-Do _not_ create a skill when:
-
-- A deterministic tool already handles the task. Deployment of release artifacts, for example, belongs in a CI pipeline, not a skill.
-
-- An existing skill already covers the concern. (Instead, propose to extend or refine the existing skill.)
-
-- The shape is one-off, with no reusable form across projects.
-
-- The content would primarily restate language-specific or framework-specific conventions.
+See also [best practices](./best-practices.md) for designing agentic workflows.
 
 ## Naming
 

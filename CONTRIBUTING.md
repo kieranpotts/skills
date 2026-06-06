@@ -36,15 +36,7 @@ In short:
 
 ## Further reading
 
-The [developer docs](./docs/) cover the topics below in more depth:
-
-- [Creating skills](./docs/creating-skills.md): Criteria, authoring conventions, naming, bundled resources, and validation.
-
-- [Publishing to skills.sh](./docs/publishing.md): How this repo is consumed by the public skills.sh directory.
-
-- [Releasing](./docs/releasing.md): Cutting tagged releases from `dev`.
-
-- [Acknowledgements](./docs/acknowledgements.md): Prior work this collection draws on.
+See the [developer docs](./docs/) for more guidelines about creating skills.
 
 ## Licensing
 
