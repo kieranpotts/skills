@@ -208,4 +208,4 @@ TODO: Reinstate TS-* cross-references when those are republished.
 
 -->
 
-- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-3 and this skill.
+- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.
