@@ -133,13 +133,3 @@ v2.0.0
 -   **No fix was committed to a release branch.**
 
     Any correction flows `dev` → `ready` → a new release branch; release branches carry only release-preparation commits.
-
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-## References
-
-- This skill is based on [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009), specifically the "Releases" section.
-
--->

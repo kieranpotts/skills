@@ -289,14 +289,6 @@ npm test
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): The full standard covering branch types, merge strategies per type, and the rationale for the trunk model.
-
--->
-
 - [`branch`](../branch/SKILL.md): Defines the branch types and merge strategy each type uses. This skill applies what [`branch`](../branch/SKILL.md) specifies.
 
 - [`commit`](../commit/SKILL.md): Required for the message format of merge commits and squash commits.

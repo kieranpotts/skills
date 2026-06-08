@@ -206,14 +206,6 @@ commit and tracking issue. Resumed the refactor.
 
 ## References
 
-<!--
-
-- [TS-2: Software Design Qualities](https://github.com/kieranpotts/standards/tree/dev/ts/002): The nine qualities to target. Read when picking which quality this refactor improves.
-
-- [TS-7: Code Design](https://github.com/kieranpotts/standards/tree/dev/ts/007): Decomposition, naming, dependency management. Read for the patterns most refactors apply.
-
--->
-
 - [`review`](../review/SKILL.md): Common upstream trigger - review surfaces an internal-quality finding that needs structural work.
 
 - [`audit`](../audit/SKILL.md): Different scope - audit's whole-codebase scan produces design-revisit candidates that flow through [`design`](../design/SKILL.md) and a new workflow iteration. Refactor is a feedback step within an in-flight iteration, not a destination for audit findings.

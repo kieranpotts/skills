@@ -196,14 +196,6 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines `step:` commits and `temp/*` / `epic/*` branches used by the plan output.
-
--->
-
 - [`specify`](../specify/SKILL.md): Provides the acceptance criteria the plan must deliver.
 
 - [`design`](../design/SKILL.md): Provides the chosen option the plan decomposes.

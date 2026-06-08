@@ -169,13 +169,3 @@ epic/major-ui-redesign
 -   **Changes flow forward only.**
 
     Work originates on `dev` and flows through `test` → `ready`; no fix is committed directly to a downstream trunk.
-
-<!--
-
-## References
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- This skill is based on [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009), specifically the "Branches" section.
-
--->

@@ -200,12 +200,4 @@ Closes: #123
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- This skill is based on [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009).
-
--->
-
 - [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.

@@ -18,12 +18,6 @@ Do NOT use this skill when:
 - The user wants to interrogate a draft *design* – use [`elaborate`](../elaborate/SKILL.md) for technical refinement.
 - The user wants implementation answers or technology choices – stay in business language; technical exploration belongs in [`design`](../design/SKILL.md).
 
-<!--
-
-TODO:
-
--->
-
 ## Instructions
 
 Conduct the session as a structured interview. Ask one question at a time. Wait for the answer before asking the next. Let each answer shape the question that follows.

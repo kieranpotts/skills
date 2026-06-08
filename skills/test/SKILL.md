@@ -203,18 +203,6 @@ Handing off to debug. Test left in place; do not delete.
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-12: Quality Assurance](https://github.com/kieranpotts/standards/tree/dev/ts/012): Quality gates, Definition of Done. Read when deciding whether verification clears the bar to ship.
-
-- [TS-13: Functional Testing](https://github.com/kieranpotts/standards/tree/dev/ts/013): Test types, levels, strategies (regression, smoke, exploratory, negative).
-
-- [TS-14: Performance Testing](https://github.com/kieranpotts/standards/tree/dev/ts/014): NFR verification approaches.
-
--->
-
 - [`specify`](../specify/SKILL.md): Source of ACs.
 
 - [`code`](../code/SKILL.md): Downstream on PASS — the workflow loops back to code for the next increment from [`plan`](../plan/SKILL.md), until the plan is complete.

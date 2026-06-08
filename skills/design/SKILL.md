@@ -197,18 +197,6 @@ Consequences:
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-2: Software Design Qualities](https://github.com/kieranpotts/standards/tree/dev/ts/002): The full taxonomy of the nine qualities. Read when an evaluation needs deeper rationale on a specific quality.
-
-- [TS-3: Design Docs](https://github.com/kieranpotts/standards/tree/dev/ts/003): Conventions for design documents. Read before writing an ADR or long-form design doc.
-
-- [TS-5: Application Architecture](https://github.com/kieranpotts/standards/tree/dev/ts/005): Architectural patterns for single-node applications.
-
--->
-
 - [`specify`](../specify/SKILL.md): Produces the constraints this skill consumes.
 
 - [`elaborate`](../elaborate/SKILL.md): Stress-tests the draft design one question at a time before decomposition.

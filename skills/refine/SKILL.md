@@ -256,14 +256,6 @@ Downstream impact:
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-1: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/001): The conventions every refinement must conform to.
-
--->
-
 - [`specify`](../specify/SKILL.md): The owner of requirements artefacts; every refinement lands as edits processed through here.
 
 - [`test`](../test/SKILL.md): Most common upstream trigger - a failing AC or an exploratory finding.

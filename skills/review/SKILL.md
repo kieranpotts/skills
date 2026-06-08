@@ -261,14 +261,6 @@ on the Specification finding; Standards finding non-blocking.
 
 ## References
 
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-12: Quality Assurance — Code Review](https://github.com/kieranpotts/standards/tree/dev/ts/012/03-code-review.adoc): The section this skill is derived from. Read for purpose, what-to-review, how-to-review, pair-programming.
-
--->
-
 - [`specify`](../specify/SKILL.md): The source of truth for "does this do what it should do".
 
 - [`test`](../test/SKILL.md): Downstream of review - verifies the running system. Review evaluates static qualities; test evaluates dynamic ones.

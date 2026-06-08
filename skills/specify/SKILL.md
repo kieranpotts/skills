@@ -12,13 +12,6 @@ Use this skill before designing or coding a change, when the request is vague, o
 
 Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)).
 
-<!--
-
-TODO:
-
-
--->
-
 ##  Instructions
 
 1.  **Identify the user, the goal, and the value.**
@@ -235,14 +228,6 @@ Out-of-scope:
 -   **The Definition of Ready is satisfied or unmet items are flagged.**
 
 ## References
-
-<!--
-
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-1: Requirements Specification](https://github.com/kieranpotts/standards/tree/dev/ts/001): The full standard this skill is derived from. Read when the user asks for deeper rationale on Gherkin conventions, scenario outlines, NFR taxonomy, or DoR.
-
--->
 
 - [`discover`](../discover/SKILL.md): Upstream sidecar - run a structured customer-discovery session before writing a specification when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
 
