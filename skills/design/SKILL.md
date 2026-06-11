@@ -205,6 +205,6 @@ Consequences:
 
 - [`prototype`](../prototype/SKILL.md): Sidecar - when a design question cannot be answered by reasoning alone, a time-boxed prototype produces the evidence.
 
-- [`audit`](../audit/SKILL.md): Upstream source - audit produces a prioritised list of architectural findings; each one becomes input to a new workflow iteration starting here.
+- [`audit`](../audit/SKILL.md): Upstream source - audit produces a prioritized list of architectural findings; each one becomes input to a new workflow iteration starting here.
 
 - [`refactor`](../refactor/SKILL.md): Upstream feedback - a refactor that crosses module boundaries or alters interfaces escalates back into design.

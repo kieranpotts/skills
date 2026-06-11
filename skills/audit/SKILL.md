@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Proactively scan a codebase for architectural improvement candidates – shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritised report. Discovery only, no code changes. Use when the user wants to know where the codebase needs work, ahead of committing to specific changes.
+description: Proactively scan a codebase for architectural improvement candidates – shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report. Discovery only, no code changes. Use when the user wants to know where the codebase needs work, ahead of committing to specific changes.
 license: MIT
 metadata:
   preferred_model: gemma4:31b
@@ -10,7 +10,7 @@ metadata:
 
 Use this skill when the user asks for a proactive architectural review of the codebase – for example, "where should we refactor next?", "find the worst parts of this codebase", or "what's worth cleaning up?".
 
-This skill is **discovery only**. The output is a prioritised report. Findings feed into [`design`](../design/SKILL.md), where they kick off a new workflow iteration (design → elaborate → plan → code → review → test) to implement the proposed changes. Audit does *not* feed directly into [`refactor`](../refactor/SKILL.md) – refactor is a feedback loop within an in-flight code → review → test cycle, not a destination for audit findings.
+This skill is **discovery only**. The output is a prioritized report. Findings feed into [`design`](../design/SKILL.md), where they kick off a new workflow iteration (design → elaborate → plan → code → review → test) to implement the proposed changes. Audit does *not* feed directly into [`refactor`](../refactor/SKILL.md) – refactor is a feedback loop within an in-flight code → review → test cycle, not a destination for audit findings.
 
 Do NOT use this skill when:
 
@@ -51,7 +51,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
     - **Inverted dependencies.** Lower-level modules importing higher-level ones; stable code depending on volatile code.
     - **Names that don't match content.** A `util` doing domain logic, a `Manager` with one method, a `Service` that's a thin DAO.
 
-4.  **Prioritise findings by impact ÷ effort.**
+4.  **Prioritize findings by impact ÷ effort.**
 
     - **Impact**: how much the rest of the codebase simplifies if this is fixed. Findings that unlock other improvements rank high.
     - **Effort**: how invasive the change would be. Local renames rank above cross-cutting restructures.
@@ -68,7 +68,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
     ## Summary
     <2–3 sentences on the dominant themes – what's working, what's not.>
 
-    ## Findings (prioritised)
+    ## Findings (prioritized)
 
     ### 1. <Module / area>
     **Problem.** <One sentence, citing files and lines.>
@@ -107,7 +107,7 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 
     No vague platitudes. Each finding names a module/file path and a concrete observation.
 
--   **Findings are prioritised by impact ÷ effort.**
+-   **Findings are prioritized by impact ÷ effort.**
 
     A reader can stop after the top three entries and still have something actionable.
 

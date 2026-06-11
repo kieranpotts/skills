@@ -6,9 +6,9 @@ license: MIT
 
 # Research
 
-Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesise them into a report someone can act on.
+Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a report someone can act on.
 
-This skill is the *world-facing* counterpart to [`reflect`](../reflect/SKILL.md). Reflect distils lessons *inward* from the current session; research pulls knowledge *inward* from external sources. Neither writes production code or project docs - they produce inputs that other skills consume.
+This skill is the *world-facing* counterpart to [`reflect`](../reflect/SKILL.md). Reflect distills lessons *inward* from the current session; research pulls knowledge *inward* from external sources. Neither writes production code or project docs - they produce inputs that other skills consume.
 
 The output is a single research report. Where it lands (a design doc, an ADR input, a memory entry, a message back to the user) is the *caller's* decision, stated when the skill is invoked or chosen by the user afterward. This skill does not edit shipped skills, project documentation, or code.
 
@@ -47,7 +47,7 @@ Do NOT use this skill to:
 
     When sources disagree, say so explicitly rather than silently picking one.
 
-5.  **Synthesise into a structured report.**
+5.  **Synthesize into a structured report.**
 
     Write the report (format below). Lead with a direct answer to the framed question, then the supporting evidence, then the open questions. The reader should get the actionable conclusion in the first few lines and be able to drill into the evidence only if they need to.
 
@@ -75,7 +75,7 @@ Do NOT use this skill to:
 
 -   **Distinguish fact from inference.**
 
-    Sourced facts and your own synthesis are different categories and must read as different categories. Recommendations are clearly labelled as the agent's, not the sources'.
+    Sourced facts and your own synthesis are different categories and must read as different categories. Recommendations are clearly labeled as the agent's, not the sources'.
 
 -   **Surface disagreement; do not launder it.**
 
@@ -168,7 +168,7 @@ here should still have what they need.>
 
 ## References
 
-- [`reflect`](../reflect/SKILL.md): The inward-facing counterpart. Research pulls knowledge in from the world; reflect distils lessons from the session. A finding worth persisting across sessions is handed to reflect to write into memory.
+- [`reflect`](../reflect/SKILL.md): The inward-facing counterpart. Research pulls knowledge in from the world; reflect distills lessons from the session. A finding worth persisting across sessions is handed to reflect to write into memory.
 
 - [`design`](../design/SKILL.md): A common consumer. When a design option depends on external facts, research supplies the evidence before the trade-off is weighed.
 

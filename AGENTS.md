@@ -51,7 +51,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 - `./skills/audit/SKILL.md`: Proactive scan of the codebase for architectural improvement candidates. Discovery only.
 - `./skills/branch/SKILL.md`: Branch naming and merge model for this repository.
 - `./skills/commit/SKILL.md`: Commit message conventions for this repository.
-- `./skills/reflect/SKILL.md`: Distil durable lessons from a session into agent memory and convention files. Invoke at session end.
+- `./skills/reflect/SKILL.md`: Distill durable lessons from a session into agent memory and convention files. Invoke at session end.
 - `./skills/release/SKILL.md`: Release branching and tagging conventions.
 
 For authoring new skills in this repository, see [`docs/creating-skills.md`](./docs/creating-skills.md) – not the [`create-skill`](./skills/create-skill/SKILL.md) skill, which is packaged for downstream consumers.

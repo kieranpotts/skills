@@ -144,7 +144,7 @@ VERDICT: FAIL — <one-line reason>
 
 -   **Distinguish blocking from non-blocking explicitly.**
 
-    Unlabelled comments leave the author guessing what must change. Every comment carries a severity.
+    Unlabeled comments leave the author guessing what must change. Every comment carries a severity.
 
 -   **Focus on what machines can't check.**
 
@@ -172,7 +172,7 @@ VERDICT: FAIL — <one-line reason>
 
 ## Examples
 
-A labelled comment set on a hypothetical diff:
+A labeled comment set on a hypothetical diff:
 
 ```
 [Blocking] handlers/orders.ts:42

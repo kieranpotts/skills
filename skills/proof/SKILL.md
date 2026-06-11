@@ -1,12 +1,12 @@
 ---
 name: proof
-description: Proofread prose - Markdown, AsciiDoc, reStructuredText, plain text - making conservative copy edits only - spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalisation. Never touches technical meaning, code, or markup syntax. Edits in place and reports a summary; committing is left to the version-control skills. Use when polishing documentation, a README, release notes, or any written content before it ships.
+description: Proofread prose - Markdown, AsciiDoc, reStructuredText, plain text - making conservative copy edits only - spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalization. Never touches technical meaning, code, or markup syntax. Edits in place and reports a summary; committing is left to the version-control skills. Use when polishing documentation, a README, release notes, or any written content before it ships.
 license: MIT
 ---
 
 # Proof
 
-Use this skill to proofread prose - documentation, a README, release notes, comments-as-prose, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalisation consistent. Nothing more.
+Use this skill to proofread prose - documentation, a README, release notes, comments-as-prose, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. Nothing more.
 
 It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) - it edits the *prose* and leaves the *markup* and any embedded code untouched.
 
@@ -16,7 +16,7 @@ Do NOT use this skill to:
 
 - Rewrite, restructure, or re-argue content - this is copy editing, not [`refactor`](../refactor/SKILL.md) for prose. Structural change needs a human's intent.
 - Edit code, configuration, or data files - it works on prose. Code presentation is [`format`](../format/SKILL.md).
-- Translate, localise, or change the register/voice of the writing.
+- Translate, localize, or change the register/voice of the writing.
 - Change technical facts, even wrong-looking ones (see edge cases).
 
 ## Instructions
@@ -37,7 +37,7 @@ Do NOT use this skill to:
 
 4.  **Report a summary and stop.**
 
-    When every target file is processed, print a concise summary grouped by file: for each file that changed, a short bullet list of the kinds of edits made (eg. "3 typos, 1 subject-verb agreement, standardised 'web-site' -> 'website'"). Name any files reviewed but left unchanged. Then stop - do not stage, commit, or push.
+    When every target file is processed, print a concise summary grouped by file: for each file that changed, a short bullet list of the kinds of edits made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -> 'website'"). Name any files reviewed but left unchanged. Then stop - do not stage, commit, or push.
 
 ## Rules
 
@@ -47,7 +47,7 @@ Do NOT use this skill to:
 
 -   **Smooth genuinely awkward phrasing in prose** - but only where the meaning is unambiguous and preserved. When in doubt, leave it.
 
--   **Make terminology and capitalisation consistent** within and across the target files (eg. pick one of "GitHub"/"Github", "set up" vs "setup" by part of speech).
+-   **Make terminology and capitalization consistent** within and across the target files (eg. pick one of "GitHub"/"Github", "set up" vs "setup" by part of speech).
 
 -   **Default to the project's established English variety.** Infer it from the surrounding text (eg. "colour"/"color"). If genuinely ambiguous, leave existing spellings and flag the inconsistency in the summary rather than imposing a variety.
 

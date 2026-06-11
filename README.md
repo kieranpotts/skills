@@ -102,7 +102,7 @@ The remaining skills cut across the workflow and version control processes.
 | [`research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. World-facing counterpart to [`reflect`](./skills/reflect/). |
 | [`proof`](./skills/proof/) | Conservatively copy-edit prose (Markdown, AsciiDoc, etc.) in place – spelling, grammar, consistency – without touching code or markup. |
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
-| [`reflect`](./skills/reflect/) | Distil durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
+| [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
 | [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project. (For new skills in *this* repo, see [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
 
 ## 📦 Installation

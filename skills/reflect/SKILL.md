@@ -8,7 +8,7 @@ metadata:
 
 # Reflect
 
-Use this skill at the end of a session to distil what was *learned* about working with the user, in this codebase, or on this project. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
+Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
 
 This skill is the *learning* sibling of [`handoff`](../handoff/SKILL.md). Handoff bridges *task* continuity – what's done, what's open. Reflect bridges *working-style* continuity – how to collaborate effectively with this user, in this codebase. Invoke reflect first when both apply: durable lessons go to memory; the rest of the session state goes to the temp handoff document.
 
@@ -17,7 +17,7 @@ Do NOT use this skill to:
 - Capture task progress – that's [`handoff`](../handoff/SKILL.md)'s job.
 - Save anything derivable from the current code, git history, or existing project docs (CLAUDE.md, AGENTS.md, README, ADRs).
 - Save standard best practices any reasonable agent would already follow.
-- Save one-off task details (a specific bug fix, a specific filename) that won't generalise.
+- Save one-off task details (a specific bug fix, a specific filename) that won't generalize.
 
 ##  Instructions
 
@@ -126,7 +126,7 @@ Do NOT use this skill to:
 
 -   **Filter ruthlessly.**
 
-    A memory entry that doesn't change future agent behaviour is clutter. Better to surface ten candidates and save two than to save ten that dilute the signal.
+    A memory entry that doesn't change future agent behavior is clutter. Better to surface ten candidates and save two than to save ten that dilute the signal.
 
 -   **Reference external systems; don't duplicate them.**
 
@@ -158,7 +158,7 @@ Do NOT use this skill to:
 
     Drop it. The user's view of their own preferences trumps the agent's inference from the conversation.
 
--   **The lesson is genuinely universal (about a tool's behaviour, not the user or project).**
+-   **The lesson is genuinely universal (about a tool's behavior, not the user or project).**
 
     Lessons that apply regardless of user / project may belong in a *skill*, not a memory entry. Flag them in the final report as candidates for a future [`create-skill`](../create-skill/SKILL.md) invocation, but do not save them as memory.
 
@@ -168,7 +168,7 @@ Do NOT use this skill to:
 
 ##  Success criteria
 
--   **Every saved lesson is non-obvious and would change future agent behaviour.**
+-   **Every saved lesson is non-obvious and would change future agent behavior.**
 
     A reader of the entry can identify what the agent would do *differently* because of it.
 
