@@ -37,6 +37,8 @@
       "description": "Cross-cutting skills that support the SDLC and version control steps.",
       "skills": [
         "triage",
+        "research",
+        "proof",
         "handoff",
         "reflect",
         "create-skill"
