@@ -3,6 +3,7 @@ name: create-skill
 description: Create a new skill (SKILL.md) or improve an existing one, in this skills collection or any downstream project. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
 license: CC0-1.0
 metadata:
+  interactive: yes
   preferred_model: qwen3.5:35b
 ---
 

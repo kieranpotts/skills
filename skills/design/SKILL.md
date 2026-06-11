@@ -3,6 +3,7 @@ name: design
 description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Use after [`specify`](../specify/SKILL.md) is agreed and before [`plan`](../plan/SKILL.md) or [`code`](../code/SKILL.md) when the change has architecturally significant decisions.
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: qwen3.5:cloud
 ---
 
