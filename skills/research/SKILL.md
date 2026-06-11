@@ -1,7 +1,7 @@
 ---
 name: research
 description: Research a topic the agent or project does not yet understand - a library, protocol, pattern, regulation, prior-art approach - by gathering current external sources, then produce a structured, cited research report. Discovery and synthesis only, no code or doc changes. Use when a decision is blocked on missing knowledge, when the user says "research X", "look into X", "find out how X works", or before [`design`](../design/SKILL.md) when an option depends on facts the team does not yet hold.
-license: MIT
+license: CC0-1.0
 ---
 
 # Research

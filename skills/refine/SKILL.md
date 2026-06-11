@@ -1,7 +1,7 @@
 ---
 name: refine
 description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into [`specify`](../specify/SKILL.md). Use when [`test`](../test/SKILL.md) surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
-license: MIT
+license: CC0-1.0
 metadata:
   preferred_model: kimi-k2.6:cloud
 ---

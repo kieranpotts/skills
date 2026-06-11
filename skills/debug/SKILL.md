@@ -1,7 +1,7 @@
 ---
 name: debug
 description: Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimize → hypothesize → instrument → fix → regression-test. Use when the user says "debug this" or "diagnose this", reports a bug, says something is broken/throwing/failing, or describes a performance regression.
-license: MIT
+license: CC0-1.0
 metadata:
   preferred_model: qwen3.5:9b
 ---

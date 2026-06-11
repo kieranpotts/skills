@@ -40,4 +40,4 @@ See the [developer docs](./docs/) for more guidelines about creating skills.
 
 ## Licensing
 
-By contributing, you agree that your contribution will be licensed under the repository's [MIT license](./LICENSE.txt).
+By contributing, you agree that your contribution will be released under the repository's [CC0 license](./LICENSE.txt) – ie. dedicated to the public domain.

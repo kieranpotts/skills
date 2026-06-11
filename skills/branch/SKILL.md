@@ -2,7 +2,7 @@
 name: branch
 description: Git branching conventions, including the trunk model (`dev` → `test` → `ready`), short-lived `temp/*` branches, and long-lived `epic/*` branches, plus naming rules and validation regex. Use when creating a new branch, naming a feature or fix branch, or validating branch names before push.
 compatibility: requires git
-license: MIT
+license: CC0-1.0
 metadata:
   preferred_model: glm-5.1:cloud
 ---

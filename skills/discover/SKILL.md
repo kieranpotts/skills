@@ -1,7 +1,7 @@
 ---
 name: discover
 description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report in business language, no Gherkin. Use when requirements are vague and an interview-style refinement is needed before `specify` can be written.
-license: MIT
+license: CC0-1.0
 metadata:
   preferred_model: gemma4:31b
 ---

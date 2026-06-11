@@ -202,4 +202,4 @@ For contributors and maintainers, see the [developer docs](./docs/).
 
 -----
 
-Copyright © 2026-present Kieran Potts, [MIT license](./LICENSE.txt)
+Copyright © 2026-present Kieran Potts, [CC0 license](./LICENSE.txt)

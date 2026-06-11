@@ -1,7 +1,7 @@
 ---
 name: audit
 description: Proactively scan a codebase for architectural improvement candidates – shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report. Discovery only, no code changes. Use when the user wants to know where the codebase needs work, ahead of committing to specific changes.
-license: MIT
+license: CC0-1.0
 metadata:
   preferred_model: gemma4:31b
 ---
