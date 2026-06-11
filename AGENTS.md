@@ -38,9 +38,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 - MUST run the validator on any new or modified skill before committing.
 - To add a new skill to this repository, use [`docs/creating-skills.md`](./docs/creating-skills.md) + [`template/skill-name/`](./template/skill-name/). The [`create-skill`](./skills/create-skill/SKILL.md) skill is packaged for downstream consumers and MUST NOT be used to add skills here.
 - `SKILL.md` files MUST NOT exceed 300 lines.
-<!-- TODO: Reinstate once skills are "final" again. Matching TODO in `template/skill-name/README.md` and `skills/create-skill/scripts/validate.sh`.
 - Each skill directory MUST contain a sibling `README.md`.
--->
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
 - Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller. See [`docs/best-practices.md`](./docs/best-practices.md#single-responsibility).
 - Skills SHOULD NOT duplicate content from other skills – cross-reference with a relative markdown link instead, eg. [`commit`](./skills/commit/SKILL.md).
