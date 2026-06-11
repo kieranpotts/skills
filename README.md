@@ -88,20 +88,20 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be preceded by a requirements discovery workshop. |
-| [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
-| [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
-| [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
-| [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
-| [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
-| [`plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. |
-| [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
-| [`format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. |
-| [`refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. |
-| [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. |
-| [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. |
-| [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. |
+| 🚧 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be preceded by a requirements discovery workshop. |
+| 🚧 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
+| 🚧 [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
+| 🚧 [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
+| 🚧 [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
+| 🚧 [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
+| 🚧 [`plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. |
+| 🚧 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
+| 🚧 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
+| 🚧 [`format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. |
+| 🚧 [`refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. |
+| 🚧 [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. |
+| 🚧 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. |
+| 🚧 [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. |
 
 ### Version control skills
 
@@ -109,10 +109,10 @@ The version control skills describe how revisions are committed to source contro
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`branch`](./skills/branch/) | Git branching strategy. |
-| [`commit`](./skills/commit/) | Commit message conventions. |
-| [`merge`](./skills/merge/) | Consolidate divergence between branches. |
-| [`release`](./skills/release/) | Release trunks and branches. Version tags. |
+| 🚧 [`branch`](./skills/branch/) | Git branching strategy. |
+| 🚧 [`commit`](./skills/commit/) | Commit message conventions. |
+| 🚧 [`merge`](./skills/merge/) | Consolidate divergence between branches. |
+| 🚧 [`release`](./skills/release/) | Release trunks and branches. Version tags. |
 
 ### Supporting skills
 
@@ -120,12 +120,12 @@ The remaining skills cut across the workflow and version control processes.
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`triage`](./skills/triage/) | Move issues through a category × state machine. |
-| [`research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. World-facing counterpart to [`reflect`](./skills/reflect/). |
-| [`proof`](./skills/proof/) | Conservatively copy-edit prose (Markdown, AsciiDoc, etc.) in place – spelling, grammar, consistency – without touching code or markup. |
-| [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
-| [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
-| [`create-skill`](./skills/create-skill/) | Author a new skill for installation in a downstream project. |
+| 🚧 [`triage`](./skills/triage/) | Move issues through a category × state machine. |
+| 🚧 [`research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. World-facing counterpart to [`reflect`](./skills/reflect/). |
+| 🚧 [`proof`](./skills/proof/) | Conservatively copy-edit prose (Markdown, AsciiDoc, etc.) in place – spelling, grammar, consistency – without touching code or markup. |
+| 🚧 [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
+| 🚧 [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
+| ✅ [`create-skill`](./skills/create-skill/) | Author or improve a skill – in this collection or a downstream project. |
 
 ## 📦 Installation
 

@@ -5,6 +5,8 @@ compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
   <key>: <value>
+  # Proprietary metadata used by my own tools – OPTIONAL:
+  preferred_model: <model-id>
 ---
 
 # <Skill name>
@@ -74,17 +76,11 @@ _Warn about potential edge cases. Regular prose. OPTIONAL._
 
 ##  Success criteria
 
--   **The output matches the expected format.**
+- **The output matches the expected format.** [Optionally, describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.]
 
-    [Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.]
+- **All rules have been respected.** Review the completed output against the rules above before finishing.
 
--   **All rules have been respected.**
-
-    Review the completed output against the rules above before finishing.
-
--   **[Domain-specific check.]**
-
-    [Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
+- **[Domain-specific check.]** [Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
 
 ## References
 

@@ -1,6 +1,6 @@
 ---
 name: create-skill
-description: Create a new skill (SKILL.md) or improve an existing one in any project that has installed this skills collection. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
+description: Create a new skill (SKILL.md) or improve an existing one, in this skills collection or any downstream project. Use when the user asks to create, write, draft, add, or update a skill, or wants to capture a workflow as a reusable skill.
 license: CC0-1.0
 metadata:
   preferred_model: qwen3.5:35b
@@ -8,13 +8,11 @@ metadata:
 
 # Create skill
 
-Use this skill when creating a new skill from scratch or improving an existing one in any project that has installed this skills collection.
+Use this skill when creating a new skill from scratch or improving an existing one.
 
-Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic prompts.
+Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic, model-agnostic prompts.
 
-Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](https://github.com/kieranpotts/skills) repository – that repo uses [`docs/creating-skills.md`](https://github.com/kieranpotts/skills/blob/dev/docs/creating-skills.md) + [`template/skill-name/`](https://github.com/kieranpotts/skills/tree/dev/template/skill-name) for its own contribution workflow. This skill is packaged for downstream consumers.
-
-##  Instructions
+## Instructions
 
 1.  **Clarify intent.**
 
@@ -30,21 +28,25 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
 2.  **Research the domain.**
 
-    Before writing, gather relevant context. Look up tool documentation, check for similar existing skills in `skills/`, identify any scripts or reference files that should be bundled. Come prepared, so you can minimize questions to the user.
+    Before writing, gather relevant context. Look up tool documentation, check the project for similar existing skills (in whichever directory it keeps them), identify any scripts or reference files that should be bundled. Come prepared, so you can minimize questions to the user.
 
 3.  **Choose a name and location.**
 
-    Place the skill at `skills/<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `specify`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
+    Place the skill in the project's skills directory as `<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful actions or verbs (eg. `specify`, `commit`, `release`, `review`). Skills support agent workflows, so a verb-first name makes the skill's purpose immediately legible. Prefer single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg. `create-skill`).
 
-4.  **Write the `SKILL.md`** using the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
+4.  **Write the `SKILL.md`.**
 
-    - **Front-matter**: `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
+    Use the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
+
+    - **Front-matter**: `name` and `description` are REQUIRED. `compatibility` and `license` are OPTIONAL. A skill MAY also pin a model via `metadata.preferred_model` – see [create-skill-preferred-model.md](./references/create-skill-preferred-model.md) before adding one (most skills should omit it).
 
     - **Instructions** or **Rules**: MUST include at least one of these two sections.
 
     - **Success criteria**: Concrete, self-verifiable checks the agent runs before finishing. REQUIRED.
 
     OPTIONAL sections: Examples, Edge cases, References.
+
+    Use the RFC 2119 keywords (MUST, SHOULD, MAY, …) to mark requirement levels in the body; see [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md) for their meaning and when to reach for them.
 
 5.  **Bundle supporting files if needed.**
 
@@ -54,7 +56,11 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     - `assets/`: Static files used in output (templates, icons, fonts).
 
-6.  **Write the `README.md`** using the [bundled template](./assets/skill-template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide invocation examples.
+    Only these three subdirectories are propagated by installers; any others are ignored. Namespace every bundled file to avoid collisions when the skill is installed alongside others – see [create-skill-collision-safety.md](./references/create-skill-collision-safety.md). This matters most for Copilot and Cursor, which flatten all skills' resources into one shared directory.
+
+6.  **Write the `README.md`.**
+
+    Use the [bundled template](./assets/skill-template/skill-name/README.md). This is human-readable documentation. Describe what the skill does, how to invoke it, and provide invocation examples.
 
 7.  **Review the draft.**
 
@@ -70,7 +76,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     The script wraps `skills-ref validate` (if installed) for canonical Agent Skills checks, and adds repo-specific checks: sibling `README.md`, ~300-line limit, presence of `## Instructions`/`## Rules`, and `## Success criteria`. Fix any reported failures before finishing.
 
-##  Rules
+## Rules
 
 -   **The `description` field is the primary trigger mechanism.**
 
@@ -117,6 +123,8 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files; link them with a trigger condition so they're only read when needed. If the same logic recurs across runs — parsing a format, validating output, building a fixture — extract it to `scripts/` rather than duplicating it in prose.
 
+    Balance token efficiency against human readability/edit-ability.
+
 -   **Gotchas live in `SKILL.md`, not in references.**
 
     Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) MUST stay in the main file — the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
@@ -129,15 +137,15 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
     One word means one thing. Avoid synonyms. For example
 
--   **Reach for proven structural techniques** when the situation calls for them:
+-   **Reach for proven structural techniques**, eg.:
 
-    -   *Step checklists* (`- [ ] Step N`) for multi-step workflows where the agent must track progress across dependencies or validation gates.
+    - *Step checklists* (`- [ ] Step N`) for multi-step workflows where the agent must track progress across dependencies or validation gates.
 
-    -   *Output templates* — provide a concrete template rather than a prose description; agents pattern-match against structure more reliably than they interpret descriptions. Long or conditional templates belong in `assets/`.
+    - *Output templates* — provide a concrete template rather than a prose description; agents pattern-match against structure more reliably than they interpret descriptions. Long or conditional templates belong in `assets/`.
 
-    -   *Validation loops* — instruct the agent to run a validator, fix any failures, and repeat until it passes.
+    - *Validation loops* — instruct the agent to run a validator, fix any failures, and repeat until it passes.
 
-    -   *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator MUST produce error messages specific enough for the agent to self-correct.
+    - *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator MUST produce error messages specific enough for the agent to self-correct.
 
 ## Examples
 
@@ -149,6 +157,9 @@ skills/
     ├── SKILL.md
     └── README.md
 ```
+
+See the [`commit`](../commit/SKILL.md) skill for an example.
+
 
 A skill with bundled scripts and references:
 
@@ -166,36 +177,30 @@ skills/
 
 ## Edge cases
 
--   **Improving an existing skill**:
+- **Improving an existing skill:** Read the current SKILL.md first, then treat the improvement like a new draft. Rewrite rather than patch. Preserve the `name` field unchanged.
 
-    Read the current SKILL.md first, then treat the improvement like a new draft. Rewrite rather than patch. Preserve the `name` field unchanged.
-
--   **Skill already exists in Anthropic's repo**:
-
-    Use it as a reference for domain knowledge, but adapt the instructions and format to this repo's template and style. Don't copy verbatim.
+- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.Use it as a reference for domain knowledge, but adapt the instructions and format to the bundled template and the conventions of the project you are authoring in. Don't copy verbatim.
 
 ## Success criteria
 
--   **Front-matter is valid.**
+- **Front-matter is valid.** `name` and `description` fields are present and non-empty. `name` matches the directory name.
 
-    `name` and `description` fields are present and non-empty. `name` matches the directory name.
+- **All REQUIRED sections are present.** At minimum: a titled intro paragraph, `## Instructions`, and `## Success criteria`.
 
--   **All REQUIRED sections are present.**
+- **The skill is token-efficient.** No section is padded with detail that belongs in a `references/` file. SKILL.md is under ~300 lines.
 
-    At minimum: a titled intro paragraph, `## Instructions`, and `## Success criteria`.
+- **The `description` is specific enough to trigger correctly.** It names both the capability and the contexts that should invoke it — not just a one-line summary of what the skill does.
 
--   **The skill is token-efficient.**
+- **A `README.md` exists alongside the `SKILL.md`.**
 
-    No section is padded with detail that belongs in a `references/` file. SKILL.md is under ~300 lines.
-
--   **The `description` is specific enough to trigger correctly.**
-
-    It names both the capability and the contexts that should invoke it — not just a one-line summary of what the skill does.
-
--   **A `README.md` exists alongside the `SKILL.md`.**
-
-## References
+## Assets
 
 - [Skill template](./assets/skill-template/skill-name/SKILL.md): The bundled SKILL.md template to base new skills on.
 
-- [Example skill — commit](../commit/SKILL.md): A well-formed example of a minimal skill (no bundled scripts or references).
+## References
+
+- [create-skill-collision-safety.md](./references/create-skill-collision-safety.md): Read before adding files to `assets/`, `references/`, or `scripts/` – how to namespace bundled resources so they don't collide across skills.
+
+- [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md): Read when wording requirement levels – the RFC 2119 keyword subset (MUST, SHOULD, MAY, …) and when to use each.
+
+- [create-skill-preferred-model.md](./references/create-skill-preferred-model.md): Read when deciding whether to pin a model via `metadata.preferred_model`, and how hosts like Pi's `/realize` interpret it.

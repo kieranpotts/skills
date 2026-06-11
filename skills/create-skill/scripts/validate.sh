@@ -107,7 +107,8 @@ run_repo_checks() {
   fi
 
   # At least one of '## Instructions' or '## Rules' is required.
-  if grep -qE '^## (Instructions|Rules)\b' "${skill_md}"; then
+  # Tolerate extra spaces after the '##' marker (eg. '##  Rules').
+  if grep -qE '^## +(Instructions|Rules)\b' "${skill_md}"; then
     printf "  [PASS] Has '## Instructions' and/or '## Rules'\n" >&2
   else
     printf "  [FAIL] Missing both '## Instructions' and '## Rules'\n" >&2
@@ -115,7 +116,7 @@ run_repo_checks() {
   fi
 
   # '## Success criteria' is required.
-  if grep -qE '^## Success criteria\b' "${skill_md}"; then
+  if grep -qE '^## +Success criteria\b' "${skill_md}"; then
     printf "  [PASS] Has '## Success criteria' section\n" >&2
   else
     printf "  [FAIL] Missing '## Success criteria' section\n" >&2
