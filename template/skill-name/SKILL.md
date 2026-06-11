@@ -95,7 +95,7 @@ _Warn about potential edge cases. Regular prose. OPTIONAL._
 
 _List of links with extended and related information for agents. For each include an explicit triger condition._
 
-- [API errors](./references/api-errors.md): Read is the API returns a non-200 status code.
+- [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
 
 - [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
 
