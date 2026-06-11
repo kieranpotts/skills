@@ -18,7 +18,7 @@
 # Every install first compiles agent-specific artifacts into ./build/:
 # Claude/Pi/agents as verbatim copies of each skill directory; Cursor
 # (.mdc) and Copilot (.instructions.md) as generated files with the right
-# frontmatter. All targets then install from ./build/:
+# front-matter. All targets then install from ./build/:
 #
 #   - Default → hard copies of ./build/ artifacts. The target remains
 #     self-contained and unaffected by later repo changes.
@@ -158,7 +158,7 @@ prune_empty_dir() {
 # artifacts behind. Claude, Pi, and the agent-agnostic .agents artifacts
 # are verbatim copies of the source skill directories. Cursor (.mdc) and
 # Copilot (.instructions.md) artifacts are generated, with proprietary
-# frontmatter prepended and a marker comment so the installer can identify
+# front-matter prepended and a marker comment so the installer can identify
 # its own files later.
 #
 build_artifacts() {

@@ -5,7 +5,7 @@
 # repo's additional conventions.
 #
 # If `skills-ref` is installed on the host, it is used for the canonical
-# checks (frontmatter, naming, required fields). Repo-specific checks always
+# checks (front-matter, naming, required fields). Repo-specific checks always
 # run regardless.
 #
 

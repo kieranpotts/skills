@@ -2,42 +2,4 @@
 
 <!-- Agents MUST read ./AGENTS.md. This document is for humans. -->
 
-Contributions are welcome – new skills, improvements to existing ones, bug fixes, and documentation tweaks.
-
-## Proposing a new skill
-
-Before opening a PR for a new skill, file a `FEATURE` issue describing:
-
-- The task or workflow the skill enables.
-- The contexts in which it should trigger.
-- The expected output, with a small example if helpful.
-
-This is the place to discuss the shape of the skill, its scope and boundaries, and how it fits into the wider skills collection. See [`docs/creating-skills.md`](./docs/creating-skills.md) for the criteria a skill must meet and the authoring conventions for this repository.
-
-There's no need to wait for maintainer approval of the issue before starting work on a PR, but do be responsive to feedback on the issue and update your PR as needed.
-
-## Submitting changes
-
-This repository's own skills define the conventions for branching and commits:
-
-- [`branch`](./skills/branch/SKILL.md): Branch naming and merge model.
-
-- [`commit`](./skills/commit/SKILL.md): Commit message format and type semantics.
-
-In short:
-
-1. Cut a `temp/<id>-<description>` branch from `dev`.
-
-2. Make atomic commits.
-
-3. Run the [validator](./skills/create-skill/scripts/validate.sh) over any new or modified skill directory.
-
-4. Open a PR targeting `dev`, linking it to the relevant issue.
-
-## Further reading
-
-See the [developer docs](./docs/) for more guidelines about creating skills.
-
-## Licensing
-
-By contributing, you agree that your contribution will be released under the repository's [CC0 license](./LICENSE.txt) – ie. dedicated to the public domain.
+This repository is closed for external contributions. The skills are closely aligned with the author's own ways of working and are not intended for general use. You are, however, welcome to fork this repository and use these skills as baseline from which you can iterate your own agentic workflow that encodes _your_ chosen methods and tools.

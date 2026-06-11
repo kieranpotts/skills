@@ -38,7 +38,7 @@ Do NOT use this skill to add new skills to the source [`kieranpotts/skills`](htt
 
 4.  **Write the `SKILL.md`** using the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
 
-    - **Frontmatter**: `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
+    - **Front-matter**: `name` and `description` are REQUIRED. Other fields like `compatibility` and `license` are OPTIONAL.
 
     - **Instructions** or **Rules**: MUST include at least one of these two sections.
 
@@ -176,7 +176,7 @@ skills/
 
 ## Success criteria
 
--   **Frontmatter is valid.**
+-   **Front-matter is valid.**
 
     `name` and `description` fields are present and non-empty. `name` matches the directory name.
 

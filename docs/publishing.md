@@ -10,7 +10,7 @@ There is no submission form. A repo appears on the skills.sh leaderboard as soon
 
 - Each skill must be discoverable by the `skills` CLI. It will look for a root-level `SKILL.md`, or a `skills/` directory following the [Agent Skills](https://agentskills.io/) convention (which this repo uses).
 
-- Each `SKILL.md` needs YAML frontmatter with at least `name` (lowercase, hyphens) and `description`.
+- Each `SKILL.md` needs YAML front-matter with at least `name` (lowercase, hyphens) and `description`.
 
 Verify discovery using this command:
 
@@ -18,11 +18,11 @@ Verify discovery using this command:
 npx skills add kieranpotts/skills --list
 ```
 
-`--list` previews what would be installed without writing anything. If a skill is missing, the cause is almost always a `SKILL.md` frontmatter mismatch.
+`--list` previews what would be installed. If a skill is missing, the cause is almost always a `SKILL.md` front-matter mismatch.
 
 ## skills.sh.json
 
-The optional `skills.sh.json` file in the repo root controls how these skills are grouped and ordered on its skills.sh directory page. Without it, all skills are listed ungrouped.
+The optional `skills.sh.json` file in the repo root controls how the skills are grouped and ordered on its skills.sh directory page. Without it, all skills are listed ungrouped.
 
 ```json
 {
