@@ -3,6 +3,7 @@ name: refactor
 description: Improve the internal quality of existing code without changing its observable behavior. Tests pass before and after. Each step is small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work - distinct from bug fixes ([`debug`](../debug/SKILL.md)) and feature work ([`code`](../code/SKILL.md)).
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: glm-5.1:cloud
 ---
 

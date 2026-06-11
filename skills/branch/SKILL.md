@@ -4,6 +4,7 @@ description: Git branching conventions, including the trunk model (`dev` → `te
 compatibility: requires git
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: glm-5.1:cloud
 ---
 

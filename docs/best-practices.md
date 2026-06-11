@@ -40,15 +40,32 @@ Do _not_ create a skill when:
 
 - The content would primarily restate language-specific or framework-specific conventions.
 
-## Synchronous versus asynchronous execution
+## Interactive versus non-interactive execution
 
-Another key design decision is the choice between synchronous and asynchronous execution of skills — ie. whether the skill permits the agent to prompt the user for input mid-flow. Decide this deliberately for each skill:
+Another key design decision is whether a skill is **interactive** — ie. whether it may prompt the user for input mid-flow. Decide this deliberately for each skill:
 
-- **Synchronous:** The skill MAY block on user input. Reserve this for stages where human interaction is essential to the outcome. An example is this repository's [`discover`](../skills/discover/SKILL.md), which is a structured agent-human interview, and therefore its execution model is inherently synchronous. The same will be true of any skill whose value comes from eliciting judgement, preferences, or context that only the user holds. Synchronous skills MUST state clearly in their description when and why they prompt for input.
+- **Interactive:** The skill MAY block on user input. Reserve this for stages where human interaction is essential to the outcome. An example is this repository's [`discover`](../skills/discover/SKILL.md), a structured agent-human interview whose entire value is the dialogue. The same is true of any skill that elicits judgement, preferences, or context only the user holds. An interactive skill MUST make clear in its body when and why it prompts.
 
-- **Asynchronous:** The skill MUST run to completion without user input, taking everything it needs from its inputs and the workspace. This should be the default behavior for skills (it doesn't need specifying in the skill itself). Use when the skill is intended to be run in unattended pipelines, supporting parallel agentic workflows.
+- **Non-interactive:** The skill runs to completion without user input, taking everything it needs from its inputs and the workspace. Use this for skills meant to run in unattended pipelines, supporting parallel agentic workflows.
 
-When a synchronous skill feeds an asynchronous one, the hand-off should resolve all the human-dependent decisions first, so the downstream skill receives a complete, settled input.
+When an interactive skill feeds a non-interactive one, the hand-off should resolve all the human-dependent decisions first, so the downstream skill receives a complete, settled input.
+
+### Declaring it: `metadata.interactive`
+
+A skill MAY declare its mode in front-matter, under the `metadata:` map, so that hosts can route on it:
+
+```yaml
+metadata:
+  interactive: no   # this skill never blocks on the user
+```
+
+The value is `yes` or `no`. The default, when the field is omitted, is `yes` — so a skill is assumed to be interactive unless it explicitly states otherwise. This is the safe default. A host that auto-runs skills unattended will not silently run a skill that might have needed a human.
+
+Set `interactive: no` only on skills you are confident run start-to-finish without ever blocking on the user. Leave the field off (defaulting to `yes`) for skills that are interactive, or *conditionally* interactive — those that usually run through but may stop to ask when a constraint is unclear.
+
+Claiming `interactive: no` for a skill that might actually prompt is the mistake this field exists to prevent.
+
+`metadata` is the Agent Skills standard's sanctioned place for vendor data, so the key validates against the canonical schema and the skill stays portable — hosts that do not read it simply ignore it. (See also [`metadata.preferred_model`](../skills/create-skill/references/create-skill-preferred-model.md), which lives in the same map for the same reason.)
 
 ## Handoff
 

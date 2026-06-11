@@ -4,6 +4,7 @@ description: Release branching strategy - either a single `release` trunk for co
 compatibility: requires git
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: qwen3.5:35b
 ---
 

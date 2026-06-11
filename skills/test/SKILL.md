@@ -3,6 +3,7 @@ name: test
 description: Verify a completed change against its full set of acceptance criteria - functional and non-functional. Map each AC to evidence (test run, observed behavior, measurement) and report pass/fail/blocked. Use after [`review`](../review/SKILL.md) has cleared the change, or before tagging a release. Failures hand off to [`debug`](../debug/SKILL.md) (implementation defect) or [`refine`](../refine/SKILL.md) (specification defect).
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: gemma4:31b
 ---
 

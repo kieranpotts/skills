@@ -12,7 +12,7 @@ Use this skill *after* [`design`](../design/SKILL.md) has produced a draft and *
 
 Do NOT use this skill to explore options from scratch (use [`design`](../design/SKILL.md)). Do NOT use it to write requirements (use [`specify`](../specify/SKILL.md)) or to break work into steps (use [`plan`](../plan/SKILL.md)).
 
-This skill is a *synchronous conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
+This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
 ##  Instructions
 

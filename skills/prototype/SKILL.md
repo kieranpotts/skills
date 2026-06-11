@@ -3,6 +3,7 @@ name: prototype
 description: Build throwaway code to answer a specific question - feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when [`design`](../design/SKILL.md) hits a question that cannot be answered by reasoning alone, or when a [`specify`](../specify/SKILL.md) is too speculative to commit to without evidence.
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: gemma4:31b
 ---
 

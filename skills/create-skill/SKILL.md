@@ -38,7 +38,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     Use the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
 
-    - **Front-matter**: `name` and `description` are REQUIRED. `compatibility` and `license` are OPTIONAL. A skill MAY also pin a model via `metadata.preferred_model` – see [create-skill-preferred-model.md](./references/create-skill-preferred-model.md) before adding one (most skills should omit it).
+    - **Front-matter**: `name` and `description` are REQUIRED. `compatibility` and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model via `preferred_model` (see [create-skill-preferred-model.md](./references/create-skill-preferred-model.md); most skills omit it), and MAY declare `interactive: no` if it never blocks on the user (see [create-skill-interactive.md](./references/create-skill-interactive.md); the default is `yes`).
 
     - **Instructions** or **Rules**: MUST include at least one of these two sections.
 
@@ -204,3 +204,5 @@ skills/
 - [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md): Read when wording requirement levels – the RFC 2119 keyword subset (MUST, SHOULD, MAY, …) and when to use each.
 
 - [create-skill-preferred-model.md](./references/create-skill-preferred-model.md): Read when deciding whether to pin a model via `metadata.preferred_model`, and how hosts like Pi's `/realize` interpret it.
+
+- [create-skill-interactive.md](./references/create-skill-interactive.md): Read when deciding whether a skill prompts the user mid-flow, and whether to declare `metadata.interactive` (default `yes`).

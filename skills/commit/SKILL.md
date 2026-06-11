@@ -4,6 +4,7 @@ description: Commit message format and the semantics of each commit type, includ
 compatibility: requires git
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: qwen3.5:27b
 ---
 

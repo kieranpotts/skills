@@ -5,7 +5,11 @@ compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
   <key>: <value>
-  # Proprietary metadata used by my own tools – OPTIONAL:
+  # Set to `no` to enable non-interactive execution of the skill.
+  # Compatible agents will not prompt the user. OPTIONAL (default: yes).
+  interactive: no
+  # Proprietary metadata used by my own tools.
+  # OPTIONAL (default: use host agent).
   preferred_model: <model-id>
 ---
 

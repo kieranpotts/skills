@@ -3,6 +3,7 @@ name: plan
 description: Break delivery of a designed change into a sequence of small, independently mergeable steps. Each step is shippable, testable, and reversible on its own. Use after [`design`](../design/SKILL.md) is agreed and before any [`code`](../code/SKILL.md) begins. Use whenever a change is bigger than a single commit or touches multiple seams.
 license: CC0-1.0
 metadata:
+  interactive: no
   preferred_model: qwen3.5:9b
 ---
 
