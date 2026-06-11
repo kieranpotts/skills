@@ -24,48 +24,72 @@ These skills span three categories:
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The diagram below models the workflow enabled by these skills. It shows the user-initiated entry points (solid green), the main workflow sequence (dashed blue), and optional iterative loops (dotted yellow).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). The following model of the workflow distinguishes the user-initiated entry points (solid green) from the main workflow sequence (dashed blue) and optional iterative loops (dotted yellow).
 
 ```mermaid
 flowchart LR
+  %% Node classes (declared up front so they hold inside and outside the subgraph).
+  discover:::secondary
+  audit:::start
+  specify:::start
+  design:::main
+  elaborate:::main
+  plan:::main
+  code:::main
+  review:::main
+  test:::main
+  prototype:::secondary
+  format:::secondary
+  debug:::secondary
+  refactor:::secondary
+  refine:::secondary
+
   %% Starting points.
-  discover:::secondary -.-> specify
-  audit:::start --> design
-  specify:::start --> design
+  discover -.-> specify
+  audit --> design
+  specify --> design
 
   %% Main workflow sequence.
-  design:::main --> elaborate
-  elaborate:::main --> plan
-  plan:::main --> code
-  code:::main --> review
-  review:::main --> test
-  test:::main --> code
+  design --> elaborate
+  elaborate --> plan
+  plan --> code
+
+  %% The build loop: code -> review -> test, plus the format and debug repair cycles.
+  subgraph build [construction increments]
+    direction LR
+    code --> review
+    review --> test
+    test --> code
+    review -.-> format
+    format -.-> review
+    test -.-> debug
+    debug -.-> test
+  end
 
   %% Small iterative cycles.
   specify -.-> discover
-  design -.-> prototype:::secondary
+  design -.-> prototype
   prototype -.-> design
-  review -.-> format:::secondary
-  format -.-> review
-  test -.-> debug:::secondary
-  debug -.-> test
 
   %% Big feedback loops.
-  review -.-> refactor:::secondary
+  review -.-> refactor
   refactor -.-> design
-  test -.-> refine:::secondary
+  test -.-> refine
   refine -.-> specify
 
   %% Class definitions.
   classDef start fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px
   classDef main fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px,stroke-dasharray:7 3
   classDef secondary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+
+  %% Subgraph (loop) border styling.
+  style build fill:none,stroke:#004085,stroke-width:2px,stroke-dasharray:4 4,rx:60,ry:60
 ```
 
 | Skill name | Description |
 | ---------- | ----------- |
-| [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be proceeded by requirements discovery workshop. |
-| [`discover`](./skills/discover/) | Run a discovery session with the customer to elicit business requirements. Informs the specification work. |
+| [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be preceded by a requirements discovery workshop. |
+| [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
 | [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
 | [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
@@ -101,7 +125,7 @@ The remaining skills cut across the workflow and version control processes.
 | [`proof`](./skills/proof/) | Conservatively copy-edit prose (Markdown, AsciiDoc, etc.) in place – spelling, grammar, consistency – without touching code or markup. |
 | [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
 | [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
-| [`create-skill`](./skills/create-skill/) | Author a new skill in a downstream project. (For new skills in *this* repo, see [`docs/creating-skills.md`](./docs/creating-skills.md) instead.) |
+| [`create-skill`](./skills/create-skill/) | Author a new skill for installation in a downstream project. |
 
 ## 📦 Installation
 
@@ -139,7 +163,7 @@ Whenever you install skills using this CLI, anonymous telemetry data will be col
 
 ### Custom installer
 
-The custom [`./run/install`](./run/install) script supports fewer agents than skills.sh, but it can install at the user level. Clone this repository, then execute `./run/install` from its root.
+The custom [`./run/install`](./run/install) script supports fewer agents than skills.sh, but it can install at the user level as an alternative to installing on a per-project basis. Clone this repository, then execute `./run/install` from its root.
 
 ```sh
 # Claude only, installed at the user-level.
@@ -183,14 +207,14 @@ By default, the installer will place the skills in a subdirectory of your home d
 
 Not all agents auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agents to detect skills at specific paths. So, if you install the skills globally, you should review your agents' configurations to ensure the skills are discoverable by them.
 
-By default, the source files are transpiled to artifacts understood by each target agent, and it is those built artifacts that are copied into the target installation directories. The installed skills are thereby decoupled from the source skills in this repository, so you are free to modify the installed skills, and to commit them to your own projects – make them your own!
+By default, the source files are transpiled to artifacts understood by each target agent, and it is those built artifacts that are copied into the target installation directories. The installed skills are thereby decoupled from the source skills in this repository. So you are free to modify the installed skills, and to commit them to your own projects – make them your own!
 
 > [!NOTE]
 > When installed via the custom installer, every skill is generated with Cursor's `alwaysApply` set to `true` and Copilot's `applyTo` set to `"**"` – which means all the skills will always be in scope in those agents. You may need to tune the targeting per-project, which you can do by modifying the installed skills.
 
 If you pass the `--symlinks` parameter, instead of installing hard copies of the skills, symlinks will be put in your target locations. These symlinks will reference the built artifacts in this repository. This is a useful "dev mode" when iterating and evaluating these skills. Changes made to the skills in this repository will be immediately detected by new agent sessions, providing fast feedback. Symlinked files don't port well between environments via version control, so you should configure Git to ignore any symlinked skills you put inside your local code repositories.
 
-You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations. For example, the parameters `--claude --copilot --dir ~/dev/project` will remove the skills for Claude and Copilot from a particular project. The `--uninstall` option will delete only those skills that were installed by the `./run/install` script in the first place. Skills installed by other tools – including the skills.sh CLI – will be unharmed.
+You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations. For example, the parameters `--uninstall --claude --copilot --dir ~/dev/project` will remove the skills for Claude and Copilot from a particular project. The `--uninstall` option will delete only those skills that were installed by the `./run/install` script in the first place. Skills installed by other tools – including the skills.sh CLI – will be unharmed.
 
 Use `./run/install --help` for more guidance.
 
