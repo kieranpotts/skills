@@ -42,6 +42,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 - Each skill directory MUST contain a sibling `README.md`.
 -->
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
+- Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller. See [`docs/best-practices.md`](./docs/best-practices.md#single-responsibility).
 - Skills SHOULD NOT duplicate content from other skills – cross-reference with a relative markdown link instead, eg. [`commit`](./skills/commit/SKILL.md).
 - MUST NOT commit anything under `build/` (it is gitignored; only `build/README.md` is tracked).
 - Use the [`reflect`](./skills/reflect/SKILL.md) skill at session end to record durable lessons – corrections, validated approaches, project decisions outside version control. The skill defines the memory file format and routing.

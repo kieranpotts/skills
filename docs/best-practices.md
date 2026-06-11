@@ -2,6 +2,20 @@
 
 This section covers best practices for designing agentic workflows.
 
+## Single responsibility
+
+Every skill MUST have a single responsibility. A skill does one job and stops at the boundary of that job – it does NOT reach into adjacent work, even when doing so would be convenient.
+
+The canonical example: a skill that proofreads a document MUST NOT also commit the changes. Committing is a separate responsibility, and the decision of whether, when, and how to commit belongs to the caller – which might be a human, or an agent invoking another skill ([`commit`](../skills/commit/SKILL.md)). The proofreading skill edits and stops; what happens next is not its concern.
+
+This is what makes the collection composable. Each skill is a small, sharp tool with one clear output and an explicit hand-off, so callers can chain skills in whatever order their workflow demands. A skill that bundles two responsibilities forecloses that choice and couples concerns that should stay independent.
+
+Apply the test when scoping any skill: *can I name its responsibility in a single verb phrase, without an "and"?* "Proofread prose." "Compose a commit message." "Decompose a design into steps." If the honest description needs an "and" – "proofread **and** commit", "review **and** merge" – it is two skills, and the second responsibility belongs to a separate skill or to the caller.
+
+The rest of this document builds on this principle: a single responsibility is what gives a skill a clear trigger condition, a clean hand-off, and a definite point at which to stop.
+
+## When to add a skill
+
 A skill is worth adding when it:
 
 - **Encodes judgement, interpretation, or context-sensitivity.** Skills are for recurring work that can't be reduced to a deterministic rule.
@@ -10,7 +24,7 @@ A skill is worth adding when it:
 
   - Where a skill does invoke deterministic sub-tasks, embed explicit scripts to perform them. It saves tokens and removes ambiguity, improving predictability of outcomes.
 
-- **Covers a single concern** with a clear trigger condition.
+- **Covers a single responsibility** (see above) with a clear trigger condition.
 
 - **Is technology-agnostic and domain-agnostic**, and so useful across diverse projects.
 
