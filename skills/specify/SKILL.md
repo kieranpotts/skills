@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Specify software requirements as acceptance criteria (ACs) - both functional and non-functional - in testable forms. Use when starting a new feature, scoping a change, refining a vague request into a contract, or before any design or coding work begins.
+description: Specify software requirements as acceptance criteria (ACs) – both functional and non-functional – in testable forms. Use when starting a new feature, scoping a change, refining a vague request into a contract, or before any design or coding work begins.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -27,9 +27,9 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
 2.  **Separate functional from non-functional requirements.**
 
-    - *Functional requirements (FRs)*: what the system does — operations, behaviors, outputs.
+    - *Functional requirements (FRs)*: what the system does – operations, behaviors, outputs.
 
-    - *Non-functional requirements (NFRs)*: the constraints under which it operates — performance, security, availability, accessibility, data retention, scalability, and other dynamic qualities observed at runtime.
+    - *Non-functional requirements (NFRs)*: the constraints under which it operates – performance, security, availability, accessibility, data retention, scalability, and other dynamic qualities observed at runtime.
 
     Both MUST be specified. NFRs are often architecturally significant and harder to retrofit, so identify them up-front.
 
@@ -56,8 +56,8 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
     - One `.feature` file per feature (or per aspect of a feature).
     - Aim for ≤5 steps per scenario; ≤2 `When` steps.
     - Use `Background:` to factor out repeated `Given` steps.
-    - Use `Scenario Outline:` + `Examples:` for variable-driven business rules — but only when the rule itself varies, not for UI permutations.
-    - Steps describe observable outcomes (a report, a UI repaint, a response, a state change visible to the user) - NOT internal state.
+    - Use `Scenario Outline:` + `Examples:` for variable-driven business rules – but only when the rule itself varies, not for UI permutations.
+    - Steps describe observable outcomes (a report, a UI repaint, a response, a state change visible to the user) – NOT internal state.
 
     For simple requests where Gherkin is overkill, a structured bullet list of testable conditions is acceptable.
 
@@ -69,22 +69,22 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
     - *Conformance to a published standard* (eg. AES-256 at rest, TLS 1.3 in transit, WCAG 2.2 AA, GDPR Article 32), OR
     - *A user-story-style requirement* for security/authorization concerns (eg. "As an admin, I can revoke a user's session so that...").
 
-    Vague NFRs ("must be fast", "should be secure") are NOT acceptable - convert them to one of the forms above or flag them for clarification.
+    Vague NFRs ("must be fast", "should be secure") are NOT acceptable – convert them to one of the forms above or flag them for clarification.
 
 5.  **Capture what is out of scope.**
 
     A specification that lists only what to build invites scope creep during design and implementation. Add an explicit "Out of scope" section that names:
 
-    - *Deferred features* the user might assume are in scope ("Refund flow - coming in Phase 2").
-    - *Adjacent functionality* that touches the same area but is not changing ("Order cancellation - existing behavior unchanged, not under review here").
-    - *Decisions explicitly NOT being revisited* ("Payment provider choice - stays with Stripe for this change").
+    - *Deferred features* the user might assume are in scope ("Refund flow – coming in Phase 2").
+    - *Adjacent functionality* that touches the same area but is not changing ("Order cancellation – existing behavior unchanged, not under review here").
+    - *Decisions explicitly NOT being revisited* ("Payment provider choice – stays with Stripe for this change").
     - *Things ruled out during clarification* ("Discussed bulk refunds; decided to defer until single-refund flow is stable").
 
-    A reader of the specification - a designer, a developer, a reviewer - should finish with a clear picture of where the specification ends, not just where it starts.
+    A reader of the specification – a designer, a developer, a reviewer – should finish with a clear picture of where the specification ends, not just where it starts.
 
 6.  **Verify each AC is testable.**
 
-    For every scenario or condition, ask: *what observable outcome would prove this passes or fails?* If you can't answer that without referring to implementation details, the AC is not testable - rewrite it.
+    For every scenario or condition, ask: *what observable outcome would prove this passes or fails?* If you can't answer that without referring to implementation details, the AC is not testable – rewrite it.
 
 7.  **Check against the Definition of Ready.**
 
@@ -102,15 +102,15 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
 -   **Specify the problem, not the solution.**
 
-    ACs describe user needs and outcomes. They MUST NOT prescribe implementation: no class names, no API endpoints, no database tables, no framework choices. Ideally, ACs do not even mention "software" - they describe what the user can do or observe.
+    ACs describe user needs and outcomes. They MUST NOT prescribe implementation: no class names, no API endpoints, no database tables, no framework choices. Ideally, ACs do not even mention "software" – they describe what the user can do or observe.
 
 -   **Use domain language, not technical jargon.**
 
-    ACs are a contract with business stakeholders. Use the vocabulary of the business domain (customer, order, refund, dosage, invoice) - not the vocabulary of the codebase (entity, repository, DTO, controller).
+    ACs are a contract with business stakeholders. Use the vocabulary of the business domain (customer, order, refund, dosage, invoice) – not the vocabulary of the codebase (entity, repository, DTO, controller).
 
 -   **Doctor, not waiter.**
 
-    The job is to surface the underlying need, then specify a solution that meets it - not to transcribe what the user literally asked for. If the requested change won't solve the actual problem, say so before writing ACs.
+    The job is to surface the underlying need, then specify a solution that meets it – not to transcribe what the user literally asked for. If the requested change won't solve the actual problem, say so before writing ACs.
 
 -   **Avoid `Then` assertions on internal state.**
 
@@ -216,11 +216,11 @@ Out-of-scope:
 
 -   **Functional and non-functional requirements are both present.**
 
-    Even if the NFR section is "no new NFRs - inherits from system baseline", it is stated explicitly, not omitted.
+    Even if the NFR section is "no new NFRs – inherits from system baseline", it is stated explicitly, not omitted.
 
 -   **Out-of-scope items are named.**
 
-    The specification includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during clarification - not just what is being built.
+    The specification includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during clarification – not just what is being built.
 
 -   **The user, goal, and value are stated.**
 
@@ -230,7 +230,7 @@ Out-of-scope:
 
 ## References
 
-- [`discover`](../discover/SKILL.md): Upstream sidecar - run a structured customer-discovery session before writing a specification when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
+- [`discover`](../discover/SKILL.md): Upstream sidecar – run a structured customer-discovery session before writing a specification when requirements are vague. The discovery report (outcome, stakeholders, rules, examples) is direct input to this skill.
 
 - [`design`](../design/SKILL.md): The next step after a specification is approved.
 
