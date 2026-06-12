@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Specify software requirements as acceptance criteria (ACs) – both functional and non-functional – in testable forms. Use when starting a new feature, scoping a change, refining a vague request into a contract, or before any design or coding work begins.
+description: Specify software requirements as acceptance criteria (ACs) – both functional and non-functional – in testable forms, filed as a proposal in the project's SRS (software requirements specification) repository. Use when starting a new feature, scoping a change, refining a vague request into a contract, or before any design or coding work begins.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,23 +9,39 @@ metadata:
 
 # Specify
 
-Use this skill before designing or coding a change, when the request is vague, or when the existing acceptance criteria are unclear, incomplete, or untestable.
+Use this skill before designing or coding a change, when the request is vague, or when the existing acceptance criteria are unclear, incomplete, or untestable. It produces a requirements proposal in the project's SRS (software requirements specification) repository, expressed as testable acceptance criteria.
 
 Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)).
 
+This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository and read at runtime – this skill does NOT restate that process. (2) *What makes the specification good* – the content expertise below – is owned by this skill.
+
 ##  Instructions
 
-1.  **Identify the user, the goal, and the value.**
+1.  **Locate the SRS repository.**
+
+    Read the consuming project's root `AGENTS.md` and find its `Workflow repositories` section. This section maps each ecosystem role to a location (a path or a repository URL). Resolve the `SRS` entry to find where requirements live.
+
+    If the project's `AGENTS.md` has no `Workflow repositories` section, or no `SRS` entry within it, the project is not wired to an SRS. Tell the user, and stop – do NOT guess a location or write requirements into an arbitrary file.
+
+2.  **Read the SRS repository's `AGENTS.md` to learn its workflow.**
+
+    The SRS repository's own `AGENTS.md` is the authoritative description of how a proposal is filed there: the proposal template, the branch convention, the lifecycle states, and the pull-request, discussion-thread, and label rules. Read it, and follow whatever it prescribes.
+
+    Read `AGENTS.md`, NOT `CONTRIBUTING.md`. `CONTRIBUTING.md` is the workflow for human contributors; `AGENTS.md` is the workflow for agents. They may deliberately differ. As an agent, you follow `AGENTS.md`.
+
+    Do NOT hard-code the SRS workflow from memory or from this skill. The process lives in the target repository so it can evolve, and so the agent workflow can differ from the human one. Always read it fresh.
+
+3.  **Identify the user, the goal, and the value.**
 
     Before writing any criteria, answer three questions in plain language:
 
-    - *Who* is this for? (user type, persona, role, or system actor)
-    - *What* do they want to do? (the goal, expressed as an outcome)
-    - *Why* does it matter? (the business value or problem being solved)
+    - *Who* is this for? (User type, persona, role, or system actor.)
+    - *What* do they want to do? (The goal, expressed as an outcome.)
+    - *Why* does it matter? (The business value or problem to solve.)
 
     If any of these is unclear, ask the user. Do not invent answers.
 
-2.  **Separate functional from non-functional requirements.**
+4.  **Separate functional from non-functional requirements.**
 
     - *Functional requirements (FRs)*: what the system does – operations, behaviors, outputs.
 
@@ -33,7 +49,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     Both MUST be specified. NFRs are often architecturally significant and harder to retrofit, so identify them up-front.
 
-3.  **Write functional ACs in Gherkin** for any non-trivial feature.
+5.  **Write functional ACs in Gherkin** for any non-trivial feature.
 
     Use this structure:
 
@@ -61,7 +77,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     For simple requests where Gherkin is overkill, a structured bullet list of testable conditions is acceptable.
 
-4.  **Write NFRs as measurable benchmarks.**
+6.  **Write NFRs as measurable benchmarks.**
 
     Each NFR MUST be either:
 
@@ -71,7 +87,7 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     Vague NFRs ("must be fast", "should be secure") are NOT acceptable – convert them to one of the forms above or flag them for clarification.
 
-5.  **Capture what is out of scope.**
+7.  **Capture what is out of scope.**
 
     A specification that lists only what to build invites scope creep during design and implementation. Add an explicit "Out of scope" section that names:
 
@@ -82,11 +98,11 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     A reader of the specification – a designer, a developer, a reviewer – should finish with a clear picture of where the specification ends, not just where it starts.
 
-6.  **Verify each AC is testable.**
+8.  **Verify each AC is testable.**
 
     For every scenario or condition, ask: *what observable outcome would prove this passes or fails?* If you can't answer that without referring to implementation details, the AC is not testable – rewrite it.
 
-7.  **Check against the Definition of Ready.**
+9.  **Check against the Definition of Ready.**
 
     Before declaring the specification complete, run through the DoR checklist:
 
@@ -98,7 +114,23 @@ Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)),
 
     Flag any unmet item to the user.
 
+10. **File the proposal per the SRS repository's process.**
+
+    Write the proposal content into the artifact the SRS repository's template defines, in the location its `AGENTS.md` specifies, and file it following that repository's workflow – branch, pull request, discussion thread, and lifecycle labels exactly as its `AGENTS.md` prescribes. Do not improvise these mechanics; defer to the target repository.
+
 ##  Rules
+
+-   **Read the SRS repository's `AGENTS.md`, not its `CONTRIBUTING.md`.**
+
+    `AGENTS.md` is the agent's workflow; `CONTRIBUTING.md` is the human's. They may differ deliberately. Follow `AGENTS.md`.
+
+-   **Never hard-code the SRS workflow.**
+
+    The branch convention, proposal template, lifecycle states, and filing mechanics live in the target repository. Read them fresh each time. Do not assume them from memory.
+
+-   **Stop if no SRS is declared.**
+
+    If the project's `AGENTS.md` does not declare an `SRS` location under `Workflow repositories`, do not write requirements anywhere. Tell the user the project is not wired to an SRS.
 
 -   **Specify the problem, not the solution.**
 
@@ -178,15 +210,30 @@ Out-of-scope:
 
 ```
 Out-of-scope:
-- Bulk refund flow — deferred to Phase 2 (tracking issue #519).
-- Refunds in non-USD currencies — existing single-currency handling
+- Bulk refund flow – deferred to Phase 2 (tracking issue #519).
+- Refunds in non-USD currencies – existing single-currency handling
   remains unchanged.
-- Payment-provider choice — stays with Stripe; not under review.
-- Auto-detecting fraud during refund — discussed in clarification,
+- Payment-provider choice – stays with Stripe; not under review.
+- Auto-detecting fraud during refund – discussed in clarification,
   ruled out until we have a baseline of single-currency refund data.
 ```
 
+A `Workflow repositories` declaration, as it appears in the consuming project's root `AGENTS.md`:
+
+```markdown
+## Workflow repositories
+
+- SRS: ./docs/specs
+- RFC: ./docs/rfc
+- Design: ./docs/design
+- Plans: ./docs/plans
+```
+
 ##  Edge cases
+
+-   **No SRS declared.**
+
+    The project's `AGENTS.md` has no `Workflow repositories` section, or no `SRS` entry. Stop and tell the user – the project is not wired to an SRS, and requirements have no home. Do not write them into an arbitrary file.
 
 -   **Spike or research task.**
 
@@ -205,6 +252,10 @@ Out-of-scope:
     If you discover during specification that an existing AC is incorrect or contradicts a new requirement, flag the conflict to the user before resolving it. Do not silently rewrite.
 
 ##  Success criteria
+
+-   **The proposal is filed in the SRS repository.**
+
+    The specification lives in the project's declared SRS repository, in the artifact its template defines, filed through that repository's own workflow – not in an arbitrary file or the working repository.
 
 -   **Every AC is testable.**
 

@@ -102,7 +102,7 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. |
+| 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. |
 | 🚧 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
 | 🚧 [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | 🚧 [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
