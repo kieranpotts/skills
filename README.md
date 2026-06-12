@@ -14,19 +14,19 @@ The source files conform to the [Agent Skills](https://agentskills.io/) standard
 
 A user-level install is RECOMMENDED, since these are intended to be global workflow skills. But per-project installs work just as well. See the installation steps, below, for details.
 
-## Ecosystem
+## 🌐 Ecosystem
 
 This collection is the agentic workflow that operates across a coherent, version-controlled documentation ecosystem modeling the software development lifecycle. Each of those repositories is the reference implementation of an opinionated workflow that these skills drive:
 
-- [**Software requirements specification (SRS)**](https://github.com/kieranpotts/specs): _What_ the system does, in business terms.
+- [**📋 Software requirements specification (SRS)**](https://github.com/kieranpotts/specs): _What_ the system does, in business terms.
 
-- [**Requests for comments (RFC)**](https://github.com/kieranpotts/rfc): _How_ significant technical decisions were made, and _why_.
+- [**💬 Requests for comments (RFC)**](https://github.com/kieranpotts/rfc): _How_ significant technical decisions were made, and _why_.
 
-- [**Design docs**](https://github.com/kieranpotts/design): _What the system looks like_, its as-is architecture.
+- [**📐 Design docs**](https://github.com/kieranpotts/design): _What the system looks like_, its as-is architecture.
 
-- [**Implementation plans**](https://github.com/kieranpotts/plans): _When, and in what order_, the work gets done.
+- [**🗺️ Implementation plans**](https://github.com/kieranpotts/plans): _When, and in what order_, the work gets done.
 
-Those dedicated documentation repositories are intended for application software that spans multiple code repositories, and potentially multiple teams, where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase. For a standalone code repository — a small utility library, say — it is better to fold those artifacts, and these skills, directly into that repository, rather than maintain them separately.
+Those dedicated documentation repositories are intended for application software that spans multiple code repositories, and potentially multiple teams, where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase. For a standalone code repository – a small utility library, say – it is better to fold those artifacts, and these skills, directly into that repository, rather than maintain them separately.
 
 ## 🧩 Skills
 
@@ -102,7 +102,7 @@ flowchart LR
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. May be preceded by a requirements discovery workshop. |
+| 🚧 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. |
 | 🚧 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
 | 🚧 [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
 | 🚧 [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
@@ -215,7 +215,7 @@ At least one agent flag is required: `--claude`, `--pi`, `--copilot`, `--cursor`
 
 Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format of the source files, so the source files are copied verbatim into the target directories for those agents. For Copilot and Cursor, the source files are transpiled to instructions (`.github/instructions/*.instructions.md`) and rules (`.cursor/rules/*.mdc`) respectively.
 
-The `--agents` flag installs into `.agents/skills/` — a vendor-neutral location that a growing number of harnesses auto-discover – as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor. The skills are installed in their native [Agent Skills](https://agentskills.io/) format – no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single agent-agnostic install, but combine this with flags to target other agent harnesses that you know you will be using, to ensure compatibility.
+The `--agents` flag installs into `.agents/skills/` – a vendor-neutral location that a growing number of harnesses auto-discover – as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor. The skills are installed in their native [Agent Skills](https://agentskills.io/) format – no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single agent-agnostic install, but combine this with flags to target other agent harnesses that you know you will be using, to ensure compatibility.
 
 By default, the installer will place the skills in a subdirectory of your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`. Pass the `--dir` parameter to install into a specific project instead. For example, `--dir ~/dev/my-project` will install the Copilot skills at `$HOME/dev/my-project/.github/instructions/<skill-name>.instructions.md`.
 
