@@ -1,4 +1,4 @@
-# Skill name
+# `discover`
 
 Short introduction, restating the purpose of the skill.
 

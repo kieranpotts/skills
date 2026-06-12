@@ -1,4 +1,4 @@
-# Skill name
+# `triage`
 
 Short introduction, restating the purpose of the skill.
 

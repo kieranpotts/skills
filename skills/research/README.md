@@ -1,4 +1,4 @@
-# Skill name
+# `research`
 
 Short introduction, restating the purpose of the skill.
 
