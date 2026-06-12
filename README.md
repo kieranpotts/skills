@@ -18,13 +18,13 @@ A user-level install is RECOMMENDED, since these are intended to be global workf
 
 This collection is the agentic workflow that operates across a coherent, version-controlled documentation ecosystem modeling the software development lifecycle. Each of those repositories is the reference implementation of an opinionated workflow that these skills drive:
 
-- [**📋 Software requirements specification (SRS)**](https://github.com/kieranpotts/specs): _What_ the system does, in business terms.
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): _What_ the system does, in business terms.
 
-- [**💬 Requests for comments (RFC)**](https://github.com/kieranpotts/rfc): _How_ significant technical decisions were made, and _why_.
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): _How_ significant technical decisions were made, and _why_.
 
-- [**📐 Design docs**](https://github.com/kieranpotts/design): _What the system looks like_, its as-is architecture.
+- [**📐 Design Docs**](https://github.com/kieranpotts/design): _What the system looks like_, its as-is architecture.
 
-- [**🗺️ Implementation plans**](https://github.com/kieranpotts/plans): _When, and in what order_, the work gets done.
+- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): _When, and in what order_, the work gets done.
 
 Those dedicated documentation repositories are intended for application software that spans multiple code repositories, and potentially multiple teams, where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase. For a standalone code repository – a small utility library, say – it is better to fold those artifacts, and these skills, directly into that repository, rather than maintain them separately.
 
