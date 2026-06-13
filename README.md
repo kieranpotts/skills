@@ -34,11 +34,12 @@ For a standalone code repository – a small utility library, say – it is RECO
 
 ## 🧩 Skills
 
-These skills span three categories:
+These skills span four categories:
 
 - **Workflow skills**, one for each discrete step in the software development lifecycle.
 - **Version control skills**, for managing revisions and triggering releases via Git.
-- **Supporting skills** that cut across the workflow and version control processes.
+- **Auxiliary skills** for peripheral tasks, eg. proofreading technical documentation.
+- **Agentic workflow-optimization skills** – eg. agent handoff and session reflection
 
 ### Workflow skills
 
@@ -134,15 +135,22 @@ The version control skills describe how revisions are committed to source contro
 | 🚧 [`/merge`](./skills/merge/) | Consolidate divergence between branches. |
 | 🚧 [`/release`](./skills/release/) | Release trunks and branches. Version tags. |
 
-### Supporting skills
+### Auxiliary skills
 
-The remaining skills cut across the workflow and version control processes.
+These skills support peripheral activities in the software development life cycle, such as the proofreading of technical documentation.
 
 | Skill name | Description |
 | ---------- | ----------- |
 | 🚧 [`/triage`](./skills/triage/) | Move issues through a category × state machine. |
 | 🚧 [`/research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. World-facing counterpart to [`/reflect`](./skills/reflect/). |
 | 🚧 [`/proof`](./skills/proof/) | Conservatively copy-edit prose (Markdown, AsciiDoc, etc.) in place – spelling, grammar, consistency – without touching code or markup. |
+
+### Agentic workflow-optimization skills
+
+These skills support agentic development workflows.
+
+| Skill name | Description |
+| ---------- | ----------- |
 | 🚧 [`/handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
 | 🚧 [`/reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`/handoff`](./skills/handoff/). |
 | ✅ [`/create-skill`](./skills/create-skill/) | Author or improve a skill – in this collection or a downstream project. |
