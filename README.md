@@ -50,6 +50,7 @@ flowchart LR
   plan["/plan"]:::main
   code["/code"]:::main
   review["/review"]:::main
+  resolve["/resolve"]:::main
   test["/test"]:::main
   prototype["/prototype"]:::secondary
   elaborate["/elaborate"]:::secondary
@@ -67,11 +68,12 @@ flowchart LR
   design --> plan
   plan --> code
 
-  %% The build loop: code -> review -> test, plus the format and debug repair cycles.
+  %% The build loop: code -> review -> resolve -> test, plus the format and debug repair cycles.
   subgraph build [construction increments]
     direction LR
     code --> review
-    review --> test
+    review --> resolve
+    resolve --> test
     test --> code
     review -.-> format
     format -.-> review
@@ -112,6 +114,7 @@ flowchart LR
 | 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | No |
 | 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | No |
 | 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | No |
+| 🚧 [`/resolve`](./skills/resolve/) | Action the open review comments – implement each fix in code, verify it, and mark the comment resolved. | No |
 | 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | No |
 | 🚧 [`/refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | No |
 | 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. | No |
