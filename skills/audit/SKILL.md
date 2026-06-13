@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Proactively scan a codebase for architectural improvement candidates – shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report. Discovery only, no code changes. Use when the user wants to know where the codebase needs work, ahead of committing to specific changes.
+description: Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,17 +9,20 @@ metadata:
 
 # `/audit`
 
-Use this skill when the user asks for a proactive architectural review of the codebase – for example, "where should we refactor next?", "find the worst parts of this codebase", or "what's worth cleaning up?".
+Use this skill once all of a plan's increments are complete – built, reviewed, and tested – as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. The output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.
 
-This skill is **discovery only**. The output is a prioritized report. Each finding becomes input to a fresh architectural-change workflow that implements the proposed change; it is not itself an in-flight refactoring step.
+This is the architectural counterpart to [`/validate`](../validate/SKILL.md): `/audit` judges whether the *design* should evolve (feeding [`/refactor`](../refactor/SKILL.md)); `/validate` judges whether the *specification* should evolve (feeding [`/refine`](../refine/SKILL.md)). Both run after the increments are done, evaluate only, and change nothing themselves.
+
+This skill is **evaluation only**. The output is a prioritized report. Each finding becomes input to a [`/refactor`](../refactor/SKILL.md) pass that iterates the design and updates the design docs; it is not itself an in-flight refactoring step. The loop is `audit → refactor → design`: this skill judges, `/refactor` enacts, `/design` re-establishes the intended structure.
 
 Do NOT use this skill when:
 
-- The user has already named the area to improve – this skill is for discovering candidates, not designing or applying a change to a known target.
-- The user wants changes applied – this skill stops at the generated report.
+- The increments are not yet complete – this is a post-plan checkpoint, not a per-increment step. Low-level code review within the build loop is [`/review`](../review/SKILL.md).
+- The user wants changes applied – this skill stops at the generated report; applying them is [`/refactor`](../refactor/SKILL.md).
+- The user wants the *specification* evaluated against user need – that is [`/validate`](../validate/SKILL.md).
 - The user wants issues filed, tickets cut, or PRs opened – leave that to their workflow.
 
-This is distinct from reviewing a specific diff for style and pattern consistency. `/audit` proactively scans the whole codebase for *architectural* problems – module boundaries, abstractions, dependencies.
+This is distinct from reviewing a specific diff for style and pattern consistency. `/audit` evaluates the *architecture* as a whole – module boundaries, abstractions, dependencies – against its intended design.
 
 ##  Instructions
 
@@ -73,7 +76,7 @@ This is distinct from reviewing a specific diff for style and pattern consistenc
 
     ### 1. <Module / area>
     **Problem.** <One sentence, citing files and lines.>
-    **Direction.** <Proposed change to take into design, or "leave it" with rationale.>
+    **Direction.** <Proposed change for `/refactor` to take into design, or "leave it" with rationale.>
     **Effort.** <Small / medium / large.>
 
     ### 2. <Module / area>
@@ -122,6 +125,6 @@ This is distinct from reviewing a specific diff for style and pattern consistenc
 
 ## Inputs and outputs
 
-- **Input.** A codebase to scan, optionally with architecture documentation describing its intended structure.
+- **Input.** The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. Run once all increments are complete.
 
-- **Output.** A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a separate architectural-change workflow.
+- **Output.** A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.
