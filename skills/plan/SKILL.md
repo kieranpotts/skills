@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Break delivery of a designed change into a sequence of small, independently mergeable steps. Each step is shippable, testable, and reversible on its own. Use after [`design`](../design/SKILL.md) is agreed and before any [`code`](../code/SKILL.md) begins. Use whenever a change is bigger than a single commit or touches multiple seams.
+description: Break delivery of a designed change into a sequence of small, independently mergeable steps. Each step is shippable, testable, and reversible on its own. Use after the design is agreed and before any implementation begins. Use whenever a change is bigger than a single commit or touches multiple seams.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,17 +9,17 @@ metadata:
 
 # Plan
 
-Use this skill after the design is captured (and, where needed, sharpened through [`elaborate`](../elaborate/SKILL.md)) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system.
+Use this skill after the design is captured (and, where needed, sharpened) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system.
 
-The plan is consumed one step at a time by the downstream `code → review → test` cycle. Each plan step is implemented in [`code`](../code/SKILL.md), audited in [`review`](../review/SKILL.md), and verified in [`test`](../test/SKILL.md); on PASS the workflow returns to [`code`](../code/SKILL.md) for the next step. The plan is the script for that loop.
+The plan is consumed one step at a time by the downstream implement → review → verify cycle: each step is built, audited, and verified, and on success the loop returns for the next step. The plan is the script for that loop.
 
-Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`](../design/SKILL.md)). Do NOT use it to write acceptance criteria (use [`specify`](../specify/SKILL.md)).
+Do NOT use this skill to enumerate options or evaluate trade-offs – that is design work. Do NOT use it to write acceptance criteria – that is specification work. This skill decomposes an already-agreed design into deliverable steps, and nothing more.
 
 ##  Instructions
 
 1.  **Restate the goal and constraints.**
 
-    Pull the acceptance criteria from the [`specify`](../specify/SKILL.md) and the chosen option from the [`design`](../design/SKILL.md). State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the specification or design is not ready - go back.
+    Pull the acceptance criteria from the specification and the chosen option from the design. State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the specification or design is not ready – go back.
 
 2.  **Find the thinnest first slice.**
 
@@ -44,7 +44,7 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
 
 4.  **Order by risk, not by ease.**
 
-    Schedule the *riskiest* steps first - the integrations you are unsure about, the assumptions that might not hold, the components you don't fully understand. Discovering a flaw early costs one step's worth of rework; discovering it after eight steps costs eight.
+    Schedule the *riskiest* steps first – the integrations you are unsure about, the assumptions that might not hold, the components you don't fully understand. Discovering a flaw early costs one step's worth of rework; discovering it after eight steps costs eight.
 
     Easy and decorative work (polish, copy, secondary error paths) goes last.
 
@@ -63,16 +63,16 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
     Output a numbered checklist. For each step include:
 
     - A short imperative title (eg. "Step 3: add `/orders` POST endpoint, stubbed response").
-    - A *mode tag*: `HITL` (human-in-the-loop - requires synchronous human input such as an architectural call, design review, or UI/UX sign-off) or `AFK` (away-from-keyboard - can be implemented and merged without further human input).
+    - A *mode tag*: `HITL` (human-in-the-loop – requires synchronous human input such as an architectural call, design review, or UI/UX sign-off) or `AFK` (away-from-keyboard – can be implemented and merged without further human input).
     - The pass/fail signal (test name, behavior to verify, metric to check).
     - Any dependency on a prior step.
     - Any flag, fixture, or migration involved.
 
-    Keep step descriptions tight. The plan is a checklist, not a design doc - the design lives elsewhere.
+    Keep step descriptions tight. The plan is a checklist, not a design doc – the design lives elsewhere.
 
 7.  **Pressure-test the plan.**
 
-    Before handing off to [`code`](../code/SKILL.md), ask:
+    Before reporting the plan as ready, ask:
 
     - If step N fails review or test, can step N+1 still merge? (It should.)
     - If we stop after step K, is the system in a coherent state? (It should be.)
@@ -96,7 +96,7 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
 
 -   **Plans are revisable, not sacred.**
 
-    The plan made before step 1 is the plan with the least information. Update it after each step as you learn. Re-order, split, drop steps - and note why.
+    The plan made before step 1 is the plan with the least information. Update it after each step as you learn. Re-order, split, drop steps – and note why.
 
 -   **Feature flags are tools, not asks.**
 
@@ -104,7 +104,7 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
 
 -   **Prefer AFK over HITL.**
 
-    Steps an agent can complete and merge without human input are cheaper, faster, and parallelizable. When a step truly requires a human (architectural call, design or UI review, manual verification, security sign-off), tag it `HITL` explicitly so the dependency on human time is visible up front - and so the plan can be re-ordered to cluster or front-load those steps when synchronous time is scarce.
+    Steps an agent can complete and merge without human input are cheaper, faster, and parallelizable. When a step truly requires a human (architectural call, design or UI review, manual verification, security sign-off), tag it `HITL` explicitly so the dependency on human time is visible up front – and so the plan can be re-ordered to cluster or front-load those steps when synchronous time is scarce.
 
 -   **No step is "do everything else".**
 
@@ -112,7 +112,7 @@ Do NOT use this skill to enumerate options or evaluate trade-offs (use [`design`
 
 -   **Match commit type to step type.**
 
-    Refer to [`commit`](../commit/SKILL.md) for the type vocabulary. Most plan steps are `step:` commits (building blocks toward a user-facing change), with the final user-visible step typically `feature:`. Split refactor work into separate `refactor:` steps.
+    Use the project's commit-type vocabulary. Most plan steps are `step:` commits (building blocks toward a user-facing change), with the final user-visible step typically `feature:`. Split refactor work into separate `refactor:` steps.
 
 ## Examples
 
@@ -159,7 +159,7 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 -   **The plan is a single step.**
 
-    Fine. Skip the planning artifact and go straight to [`code`](../code/SKILL.md). Don't manufacture three steps to justify the skill.
+    Fine. Skip the planning artifact and go straight to implementation. Don't manufacture three steps to justify the skill.
 
 -   **A step turns out to be too big mid-implementation.**
 
@@ -167,11 +167,11 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 -   **A step uncovers a design flaw.**
 
-    Stop. Loop back to [`design`](../design/SKILL.md) with what you learned. Replan the remaining steps once the design is settled. Sunk cost is not a reason to push forward.
+    Stop. Loop back to the design with what you learned. Replan the remaining steps once the design is settled. Sunk cost is not a reason to push forward.
 
 -   **Long-lived parallel work.**
 
-    If steps will be done across weeks by multiple contributors and don't fit on `temp/*`, use an `epic/*` branch (see [`branch`](../branch/SKILL.md)). The plan still applies; the integration target changes.
+    If steps will be done across weeks by multiple contributors and don't fit on `temp/*`, use an `epic/*` branch per the project's branching convention. The plan still applies; the integration target changes.
 
 ##  Success criteria
 
@@ -189,22 +189,14 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 -   **Each step has a stated pass/fail signal.**
 
-    A test name, a curl command, a metric threshold - something observable.
+    A test name, a curl command, a metric threshold – something observable.
 
 -   **Feature flags, fixtures, and migrations are named where used.**
 
     Implicit coupling between steps is called out.
 
-## References
+## Inputs and outputs
 
-- [`specify`](../specify/SKILL.md): Provides the acceptance criteria the plan must deliver.
+- **Input**: an agreed design (the chosen option) and the acceptance criteria it must deliver, for a change larger than one atomic commit or touching multiple seams. The project's commit-type vocabulary and branch model inform how steps are labelled and integrated.
 
-- [`design`](../design/SKILL.md): Provides the chosen option the plan decomposes.
-
-- [`elaborate`](../elaborate/SKILL.md): Sharpens the design before decomposition - run this first if the draft has soft edges.
-
-- [`commit`](../commit/SKILL.md): Commit-type vocabulary referenced in each step.
-
-- [`branch`](../branch/SKILL.md): Branch model for short-lived (`temp/*`) and long-lived (`epic/*`) work.
-
-- [`handoff`](../handoff/SKILL.md): If you need to pause partway through a plan, write a handoff so the next session can resume on the correct step.
+- **Output**: a numbered checklist of small steps, each independently mergeable, testable, and reversible, ordered riskiest-first, with a mode tag (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and any flag, fixture, or migration named where used. The plan is reported as the artefact and the skill stops; it writes no code itself.

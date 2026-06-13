@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research a topic the agent or project does not yet understand - a library, protocol, pattern, regulation, prior-art approach - by gathering current external sources, then produce a structured, cited research report. Discovery and synthesis only, no code or doc changes. Use when a decision is blocked on missing knowledge, when the user says "research X", "look into X", "find out how X works", or before [`design`](../design/SKILL.md) when an option depends on facts the team does not yet hold.
+description: Research a topic the agent or project does not yet understand – a library, protocol, pattern, regulation, prior-art approach – by gathering current external sources, then produce a structured, cited research report. Discovery and synthesis only, no code or doc changes. Use when a decision is blocked on missing knowledge, when the user says "research X", "look into X", "find out how X works", or before a design decision when an option depends on facts the team does not yet hold.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -10,22 +10,22 @@ metadata:
 
 Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a report someone can act on.
 
-This skill is the *world-facing* counterpart to [`reflect`](../reflect/SKILL.md). Reflect distills lessons *inward* from the current session; research pulls knowledge *inward* from external sources. Neither writes production code or project docs - they produce inputs that other skills consume.
+Research looks *outward*: it pulls knowledge inward from external sources, rather than distilling lessons from the current session. It does not write production code or project docs – it produces an input that other work consumes.
 
 The output is a single research report. Where it lands (a design doc, an ADR input, a memory entry, a message back to the user) is the *caller's* decision, stated when the skill is invoked or chosen by the user afterward. This skill does not edit shipped skills, project documentation, or code.
 
 Do NOT use this skill to:
 
-- Write or change code - that is [`code`](../code/SKILL.md), [`prototype`](../prototype/SKILL.md), or [`refactor`](../refactor/SKILL.md).
-- Answer a design question by *building* something - that is [`prototype`](../prototype/SKILL.md). Use `research` when the answer exists in the world already; use `prototype` when it has to be discovered by experiment.
-- Capture session lessons - that is [`reflect`](../reflect/SKILL.md).
-- Elicit requirements from a human - that is [`discover`](../discover/SKILL.md).
+- Write or change code – that is implementation work, a separate responsibility.
+- Answer a design question by *building* something. Use `research` when the answer exists in the world already; when it has to be discovered by experiment, that is a separate, build-and-measure responsibility.
+- Capture session lessons – that is distilling knowledge inward from the session, a separate responsibility.
+- Elicit requirements from a human – that is requirements discovery, a separate responsibility.
 
 ## Instructions
 
 1.  **Frame the question.**
 
-    Restate the topic as one or more specific, answerable questions. A good frame is falsifiable and scoped: *"Does library X support streaming responses, and from which version?"* beats *"research library X"*. Note explicitly what decision the answer unblocks - that decision sets the depth and stopping point.
+    Restate the topic as one or more specific, answerable questions. A good frame is falsifiable and scoped: *"Does library X support streaming responses, and from which version?"* beats *"research library X"*. Note explicitly what decision the answer unblocks – that decision sets the depth and stopping point.
 
     If the request is too broad to answer in one pass, narrow it to the questions that actually block progress and say which you are deferring.
 
@@ -45,7 +45,7 @@ Do NOT use this skill to:
 
 4.  **Corroborate and date every claim.**
 
-    A claim that matters to the decision needs at least two independent sources, or one primary source. Version- and time-sensitive facts (API shapes, pricing, limits, "best practice") MUST carry the version or date they were true as of - knowledge goes stale, and a dated claim lets a future reader judge whether it still holds.
+    A claim that matters to the decision needs at least two independent sources, or one primary source. Version- and time-sensitive facts (API shapes, pricing, limits, "best practice") MUST carry the version or date they were true as of – knowledge goes stale, and a dated claim lets a future reader judge whether it still holds.
 
     When sources disagree, say so explicitly rather than silently picking one.
 
@@ -55,11 +55,11 @@ Do NOT use this skill to:
 
 6.  **Separate fact from inference.**
 
-    Mark clearly which statements are sourced fact and which are your synthesis or recommendation. Never present an inference as if a source asserted it. If the evidence is thin, say the confidence is low - an honest "the sources don't settle this" is more useful than false certainty.
+    Mark clearly which statements are sourced fact and which are your synthesis or recommendation. Never present an inference as if a source asserted it. If the evidence is thin, say the confidence is low – an honest "the sources don't settle this" is more useful than false certainty.
 
-7.  **State where the report should go - but do not put it there.**
+7.  **State where the report should go – but do not put it there.**
 
-    End by naming the natural destination(s) for the findings (an input to [`design`](../design/SKILL.md), an ADR, a memory entry via [`reflect`](../reflect/SKILL.md), or simply the user's review) and stop. Writing into those destinations is a separate, explicit step the caller initiates.
+    End by naming the natural destination(s) for the findings (an input to a design decision, an ADR, a persisted memory entry, or simply the user's review) and stop. Writing into those destinations is a separate, explicit step the caller initiates.
 
 ## Rules
 
@@ -83,13 +83,13 @@ Do NOT use this skill to:
 
     When sources conflict, present the conflict and your read of which is more credible and why. Do not silently collapse it into a single confident answer.
 
--   **Discovery only - no production changes.**
+-   **Discovery only – no production changes.**
 
     This skill never edits code, project docs, or shipped skills. It produces a report. Acting on the report is a separate, explicit step.
 
 -   **Stop when the framed question is answered.**
 
-    Research expands to fill the time available. When the questions from step 1 are answered to the confidence the decision needs, stop - do not keep reading for completeness.
+    Research expands to fill the time available. When the questions from step 1 are answered to the confidence the decision needs, stop – do not keep reading for completeness.
 
 ## Report format
 
@@ -132,7 +132,7 @@ here should still have what they need.>
 
 -   **The question turns out to be answerable from the codebase alone.**
 
-    If step 2 fully answers it, stop there - report the finding with its in-repo source and skip the external search. An unnecessary web search is wasted budget.
+    If step 2 fully answers it, stop there – report the finding with its in-repo source and skip the external search. An unnecessary web search is wasted budget.
 
 -   **The topic is too broad to research in one pass.**
 
@@ -144,7 +144,7 @@ here should still have what they need.>
 
 -   **The honest answer is "it depends" or "unknown".**
 
-    Report that. A research skill that always returns a confident answer is not researching - it is rationalising. Name the dependency or the gap.
+    Report that. A research skill that always returns a confident answer is not researching – it is rationalising. Name the dependency or the gap.
 
 ## Success criteria
 
@@ -168,10 +168,8 @@ here should still have what they need.>
 
     Code, project docs, and shipped skills are untouched; the output is a report plus a suggested destination.
 
-## References
+## Inputs and outputs
 
-- [`reflect`](../reflect/SKILL.md): The inward-facing counterpart. Research pulls knowledge in from the world; reflect distills lessons from the session. A finding worth persisting across sessions is handed to reflect to write into memory.
+- **Input** – a topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase: how a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
 
-- [`design`](../design/SKILL.md): A common consumer. When a design option depends on external facts, research supplies the evidence before the trade-off is weighed.
-
-- [`prototype`](../prototype/SKILL.md): The sibling for questions the world cannot answer. If the answer must be discovered by building and measuring rather than by reading, use prototype instead.
+- **Output** – a single, cited research report: a direct answer to the framed question, the supporting evidence (each decision-bearing claim sourced and, where time-sensitive, dated), the open questions, and a suggested destination for the findings. This skill produces the report and stops; writing the findings into a design doc, an ADR, persisted memory, or anywhere else is a separate, explicit step the caller initiates.

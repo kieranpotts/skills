@@ -11,15 +11,15 @@ metadata:
 
 Use this skill when the user asks for a proactive architectural review of the codebase – for example, "where should we refactor next?", "find the worst parts of this codebase", or "what's worth cleaning up?".
 
-This skill is **discovery only**. The output is a prioritized report. Findings feed into [`design`](../design/SKILL.md), where they kick off a new workflow iteration (design → elaborate → plan → code → review → test) to implement the proposed changes. Audit does *not* feed directly into [`refactor`](../refactor/SKILL.md) – refactor is a feedback loop within an in-flight code → review → test cycle, not a destination for audit findings.
+This skill is **discovery only**. The output is a prioritized report. Each finding becomes input to a fresh architectural-change workflow that implements the proposed change; it is not itself an in-flight refactoring step.
 
 Do NOT use this skill when:
 
-- The user has already named the area to improve – use [`design`](../design/SKILL.md) for architectural changes, or [`refactor`](../refactor/SKILL.md) for internal-quality improvements within an in-flight iteration.
+- The user has already named the area to improve – this skill is for discovering candidates, not designing or applying a change to a known target.
 - The user wants changes applied – this skill stops at the generated report.
 - The user wants issues filed, tickets cut, or PRs opened – leave that to their workflow.
 
-Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff for style and pattern consistency. `audit` proactively scans the whole codebase for *acrhitectural* problems – module boundaries, abstractions, dependencies.
+This is distinct from reviewing a specific diff for style and pattern consistency. `audit` proactively scans the whole codebase for *architectural* problems – module boundaries, abstractions, dependencies.
 
 ##  Instructions
 
@@ -120,10 +120,8 @@ Distinct from [`review`](../review/SKILL.md): `review` evaluates a specific diff
 
     Top 5–10 candidates. Not an exhaustive enumeration.
 
-## References
+## Inputs and outputs
 
-- [`design`](../design/SKILL.md): Downstream destination for all audit findings. Each finding becomes input to a new workflow iteration starting at design.
+- **Input.** A codebase to scan, optionally with architecture documentation describing its intended structure.
 
-- [`refactor`](../refactor/SKILL.md): Different scope – refactor is a feedback step within an in-flight code → review → test cycle, not a destination for audit findings. The design iteration triggered by an audit finding may eventually produce refactor work, but only as a side effect.
-
-- [`review`](../review/SKILL.md): Different scope – reviews a specific diff for style/pattern consistency rather than scanning the whole codebase for structural problems.
+- **Output.** A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a separate architectural-change workflow.

@@ -1,6 +1,6 @@
 ---
 name: merge
-description: Consolidate divergence between two git branches using the right strategy for the branch type. Pick fast-forward, merge commit, rebase, or squash-merge per [`branch`](../branch/SKILL.md) conventions. Verify, resolve conflicts, run tests, then push. Use any time work on one branch is being integrated into another.
+description: Consolidate divergence between two git branches using the right strategy for the branch type. Pick fast-forward, merge commit, rebase, or squash-merge per the project's branching conventions. Verify, resolve conflicts, run tests, then push. Use any time work on one branch is being integrated into another.
 compatibility: requires git
 license: CC0-1.0
 metadata:
@@ -10,9 +10,9 @@ metadata:
 
 # Merge
 
-Use this skill any time you need to integrate commits from one branch into another - reintegrating a `temp/*` branch into `dev`, promoting `dev` to `test` to `ready`, merging `dev` down into a long-lived `epic/*`, or landing an `epic/*` back into `dev`.
+Use this skill any time you need to integrate commits from one branch into another – reintegrating a `temp/*` branch into `dev`, promoting `dev` to `test` to `ready`, merging `dev` down into a long-lived `epic/*`, or landing an `epic/*` back into `dev`.
 
-Do NOT use this skill to choose a branching strategy (use [`branch`](../branch/SKILL.md)) or to cut a release (use [`release`](../release/SKILL.md)). Do NOT use it to author commit messages (use [`commit`](../commit/SKILL.md)).
+Do NOT use this skill to choose or define a branching strategy, to cut a release, or to author commit messages – it applies an existing branching convention to integrate one branch into another, and nothing more.
 
 This skill assumes a working tree with no uncommitted changes. If you have uncommitted work, stash or commit first.
 
@@ -45,7 +45,7 @@ flowchart LR
 
 2.  **Identify the branch type and choose the strategy.**
 
-    Strategy is determined by the branch type, per [`branch`](../branch/SKILL.md):
+    Strategy is determined by the branch type, per the project's branching convention:
 
     | Source → Target              | Strategy                | Command                                  |
     | ---------------------------- | ----------------------- | ---------------------------------------- |
@@ -55,7 +55,7 @@ flowchart LR
     | `dev` → `test` → `ready`     | Fast-forward only       | `git merge --ff-only`                    |
     | `ready` → `release` / `release/<v>` | Fast-forward only       | `git merge --ff-only`                    |
 
-    If the situation does not match a row, stop and consult [`branch`](../branch/SKILL.md) before improvising. Picking the wrong strategy (eg. squash-merging a `temp/*`, FF-merging an `epic/*`) corrupts history conventions.
+    If the situation does not match a row, stop and consult the branching convention before improvising. Picking the wrong strategy (eg. squash-merging a `temp/*`, FF-merging an `epic/*`) corrupts history conventions.
 
 3.  **Pre-merge: align the source.**
 
@@ -63,9 +63,9 @@ flowchart LR
 
     - *For `temp/*` → `dev`*: rebase the source onto the latest `dev` (`git rebase dev`). This is the "rebase-up" step. The result is a linear history; the FF merge that follows adds no new commit.
 
-    - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged *down* into the epic (`git checkout epic/x && git merge --no-ff dev`). Conflicts are resolved on the epic side, not at integration time. Then, still on the `epic/*` branch, add a commit that updates `CHANGELOG.md` under the `[Unreleased]` section (see [`commit`](../commit/SKILL.md) for the entry format). This commit is squashed in with the rest of the epic's changes and is how the CHANGELOG lands on `dev`.
+    - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged *down* into the epic (`git checkout epic/x && git merge --no-ff dev`). Conflicts are resolved on the epic side, not at integration time. Then, still on the `epic/*` branch, add a commit that updates `CHANGELOG.md` under the `[Unreleased]` section (using the project's changelog entry format). This commit is squashed in with the rest of the epic's changes and is how the CHANGELOG lands on `dev`.
 
-    - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the downstream target. If `git merge --ff-only` would fail, do NOT switch to a regular merge - the workflow has been violated, escalate.
+    - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the downstream target. If `git merge --ff-only` would fail, do NOT switch to a regular merge – the workflow has been violated, escalate.
 
 4.  **Run pre-merge checks on the source.**
 
@@ -73,7 +73,7 @@ flowchart LR
 
     - `git status` clean.
     - Tests green on the source branch (run the suite locally or check CI).
-    - Commit messages valid (see [`commit`](../commit/SKILL.md) - the validation regex catches most issues).
+    - Commit messages valid per the project's message convention (the validation regex catches most issues).
     - No `WIP` or `TEMPORARY` flagged commits if the target is a shared trunk.
 
     If any check fails, fix on the source branch and re-run. Do not merge through known-failing state.
@@ -90,7 +90,7 @@ flowchart LR
     # epic/* into dev (after merge-down from dev into epic).
     git checkout dev
     git merge --squash epic/billing-v2-rewrite
-    git commit  # author the squash-commit per [`commit`](../commit/SKILL.md)
+    git commit  # author the squash-commit per the message convention
 
     # dev down into epic/* (sync).
     git checkout epic/billing-v2-rewrite
@@ -107,7 +107,7 @@ flowchart LR
 
     - List them: `git status` shows the conflicted files.
     - Open each, resolve manually. Prefer the change that preserves the target branch's contract over local convenience.
-    - Watch for *semantic conflicts*: both sides apply cleanly textually but the combined behavior is wrong (renamed symbol still referenced by the other side, two new functions with the same name in different files, etc.). The compiler / type-checker / test suite catches most of these - run them after each non-trivial resolution.
+    - Watch for *semantic conflicts*: both sides apply cleanly textually but the combined behavior is wrong (renamed symbol still referenced by the other side, two new functions with the same name in different files, etc.). The compiler / type-checker / test suite catches most of these – run them after each non-trivial resolution.
     - Stage resolutions (`git add <file>`).
     - For rebase: `git rebase --continue`. For merge: `git commit`.
 
@@ -149,11 +149,11 @@ flowchart LR
 
 -   **Strategy is determined by branch type, not by preference.**
 
-    `temp/*` → rebase-up + FF. `epic/*` → squash-merge. Trunks → FF-only. Picking a different strategy violates [`branch`](../branch/SKILL.md) conventions and corrupts history.
+    `temp/*` → rebase-up + FF. `epic/*` → squash-merge. Trunks → FF-only. Picking a different strategy violates the branching conventions and corrupts history.
 
 -   **Never use `--no-ff` to forward-promote trunks.**
 
-    `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk indicates that a fix was committed downstream - which is forbidden by the trunk model. If `--ff-only` fails on a trunk merge, escalate.
+    `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk indicates that a fix was committed downstream – which is forbidden by the trunk model. If `--ff-only` fails on a trunk merge, escalate.
 
 -   **Never squash a `temp/*` branch.**
 
@@ -175,11 +175,11 @@ flowchart LR
 
 -   **Update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
 
-    Add a commit to the `epic/*` branch — after the final merge-down from `dev` — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line (see [`commit`](../commit/SKILL.md)). This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
+    Add a commit to the `epic/*` branch — after the final merge-down from `dev` — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line. This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
 
 -   **Clean up integrated branches.**
 
-    `temp/*` and `epic/*` branches are deleted after integration - locally and remotely. Stale branches accumulate and obscure active work.
+    `temp/*` and `epic/*` branches are deleted after integration – locally and remotely. Stale branches accumulate and obscure active work.
 
 ## Examples
 
@@ -204,7 +204,7 @@ Reintegrating an epic branch:
 git checkout dev
 git pull --ff-only
 git merge --squash epic/billing-v2-rewrite
-git commit       # author per [`commit`](../commit/SKILL.md); subject reflects the epic's outcome
+git commit       # author per the message convention; subject reflects the epic's outcome
 npm test         # green on the squashed result
 git push origin dev
 git branch -D epic/billing-v2-rewrite   # -D because epic is not FF-merged
@@ -218,8 +218,8 @@ git checkout test
 git merge --ff-only dev
 # fatal: Not possible to fast-forward, aborting.
 
-# Diagnosis: test has a commit that is not on dev. Per [`branch`](../branch/SKILL.md), this
-# is a workflow violation — fixes must originate on dev and flow forward.
+# Diagnosis: test has a commit that is not on dev. Per the branching convention,
+# this is a workflow violation — fixes must originate on dev and flow forward.
 # Escalate; do not switch to --no-ff to "fix" it.
 ```
 
@@ -240,13 +240,13 @@ npm test
 
 -   **Merge of two long-running parallel branches with deep divergence.**
 
-    This usually indicates a planning failure ([`plan`](../plan/SKILL.md)) rather than a merge problem. If integration is genuinely necessary, prefer merging via the smaller branch onto the larger and squash-merging into `dev` afterward. Do not attempt a giant interactive rebase.
+    This usually indicates a planning failure rather than a merge problem. If integration is genuinely necessary, prefer merging via the smaller branch onto the larger and squash-merging into `dev` afterward. Do not attempt a giant interactive rebase.
 
 -   **A rebase rewrites already-pushed commits on a shared branch.**
 
-    Don't, unless the branch is explicitly yours. If the source is a shared `epic/*`, do not rebase it - use merge-down to sync, per the rule above.
+    Don't, unless the branch is explicitly yours. If the source is a shared `epic/*`, do not rebase it – use merge-down to sync, per the rule above.
 
--   **The source branch's commits don't pass [`commit`](../commit/SKILL.md) validation.**
+-   **The source branch's commits don't pass commit-message validation.**
 
     Fix the messages with `git rebase -i` *before* integration. Once merged, broken messages are in the trunk history.
 
@@ -256,11 +256,11 @@ npm test
 
 -   **The merge succeeds, tests pass, but production breaks.**
 
-    Treat as a defect found in [`test`](../test/SKILL.md), hand off to [`debug`](../debug/SKILL.md). Do not bypass the verification step next time as a result - the failure means something else (test coverage, NFR check) needs strengthening, not that verification is unnecessary.
+    Treat it as a defect to be diagnosed and fixed downstream, outside this skill. Do not bypass the verification step next time as a result – the failure means something else (test coverage, NFR check) needs strengthening, not that verification is unnecessary.
 
 -   **`epic/*` integration produces an enormous squash diff.**
 
-    Reviewable squash diffs are a feature, not a bug, but huge diffs are unreviewable. If the epic is more than a few hundred LOC of net change, the squash review needs to lean on the [`design`](../design/SKILL.md) document and the epic's commit history for context. Provide both in the PR description.
+    Reviewable squash diffs are a feature, not a bug, but huge diffs are unreviewable. If the epic is more than a few hundred LOC of net change, the squash review needs to lean on the design document and the epic's commit history for context. Provide both in the PR description.
 
 ##  Success criteria
 
@@ -288,12 +288,8 @@ npm test
 
     The `[Unreleased]` section contains an entry for the epic's changes, committed to the `epic/*` branch before the squash-merge.
 
-## References
+## Inputs and outputs
 
-- [`branch`](../branch/SKILL.md): Defines the branch types and merge strategy each type uses. This skill applies what [`branch`](../branch/SKILL.md) specifies.
+- **Input**: a source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats.
 
-- [`commit`](../commit/SKILL.md): Required for the message format of merge commits and squash commits.
-
-- [`release`](../release/SKILL.md): When promoting `ready` onward into a release branch or release trunk.
-
-- [`debug`](../debug/SKILL.md): When a merge reveals a defect (semantic conflict that tests catch).
+- **Output**: the target branch updated with the integrated work using the strategy correct for the branch type, conflicts resolved deliberately, tests and build green on the merged result before push, and disposable source branches (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill integrates and stops; it neither defines the branching convention nor cuts releases.

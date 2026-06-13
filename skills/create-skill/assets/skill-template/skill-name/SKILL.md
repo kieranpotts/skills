@@ -1,6 +1,6 @@
 ---
 name: skill-name
-description: <One sentence describing what the skill does.> Use when <specific triggers - user phrasings, situations, file types, contexts>.
+description: <One sentence describing what the skill does.> Use when <specific triggers – user phrasings, situations, file types, contexts>.
 compatibility: requires <tool> or <tool>
 license: <license>
 metadata:

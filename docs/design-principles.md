@@ -18,9 +18,19 @@ When bundling resources, namespace them so they remain unique if the skill is la
 
 A skill MUST be independent: it MUST NOT cross-reference another skill.
 
-No `SKILL.md` links to, names as a dependency, or assumes the presence of another skill in the collection. A skill is a complete, self-contained unit. This is what gives the user the freedom to **delete any skill they don't want** without breaking the ones they keep, and to install a single skill without dragging in the rest.
+No `SKILL.md` links to, names as a dependency, or assumes the presence of another skill in the collection. A skill is a complete, self-contained unit, with **no knowledge of any other skill**. This is what gives the user the freedom to **delete any skill they don't want** without breaking the ones they keep, and to install a single skill without dragging in the rest.
 
 Independence and portability are two sides of the same rule: portability forbids reaching *outside the directory*; independence forbids reaching *into a sibling skill* specifically.
+
+**Scope: independence is within this collection.** The rule forbids a skill from knowing about *other skills in this collection*. It does not forbid a skill from orchestrating skills that live in a *separate, external repository* it is designed to drive – for example, a workflow skill here that runs a target project's own repository-local sub-skills. Those are not siblings in this collection; naming and sequencing them is the skill's legitimate job. The line is: no knowledge of a peer in *this* collection; orchestrating another project's skills across a repository boundary is allowed.
+
+**Independence between skills is not isolation from everything.** A skill here is independent of its *sibling skills*, but it may be – and often is – *tightly coupled to external artifacts*: a repository structure, a file convention, a documented pattern it expects the target project to follow. For example, the `specify` skill knows nothing of any sibling skill, yet it is deliberately bound to an SRS repository that follows a specific pattern and exposes its own agent skills (scaffold, author, mark-ready) for `specify` to drive. That coupling is intentional and is what makes the skill *do* something useful in this ecosystem. The independence rule governs skill-to-*skill* relationships within the collection; it says nothing against a skill depending on an external contract, structure, or pattern. Reusability (above) is then a matter of how widely that external contract is shared – a skill bound to a common, well-documented pattern travels further than one bound to a bespoke one.
+
+Beyond deletability, strict self-containment pays off in two further ways:
+
+- **Maintainability.** A skill with no knowledge of any other can be read, changed, and reasoned about on its own. There are no ripple effects to trace: editing one skill cannot silently break another, because nothing depends on its internals or its presence. The blast radius of any change is a single directory.
+
+- **Reusability across contexts.** A self-contained, single-responsibility skill drops cleanly into a different collection, a different workflow, or a different project, with no assumptions to satisfy first. The more a skill knows about its neighbours, the more tightly it is bound to *this* collection and *this* workflow — and the less reusable it becomes anywhere else. Independence keeps each skill a free-standing tool, useful wherever its one job is needed.
 
 ## No hand-offs between skills
 

@@ -11,7 +11,7 @@ metadata:
 
 Use this skill when the work is about to be picked up by someone (or something) that does not have the current session's context: a fresh agent in a new conversation, a teammate taking over, your own next session after a long break, or yourself just before a compaction event.
 
-Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo (see [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md)). A handoff document is *ephemeral* - a bridge across the gap between sessions - and should not survive longer than the next session that absorbs it.
+Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo. A handoff document is *ephemeral* – a bridge across the gap between sessions – and should not survive longer than the next session that absorbs it.
 
 ##  Instructions
 
@@ -33,7 +33,7 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
     - Recent commits worth pointing at.
     - Any updated entries in `docs/domain-model.md`.
 
-    The handoff document references these by path or URL - it does NOT duplicate their content. Duplication rots: if the artifact changes, the handoff lies.
+    The handoff document references these by path or URL – it does NOT duplicate their content. Duplication rots: if the artifact changes, the handoff lies.
 
 3.  **Draft the document.**
 
@@ -54,11 +54,11 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
     Current branch, working-tree status, any tests known failing, any
     temporary instrumentation in place.
 
-    ## Suggested skills
-    Skills the next session should invoke for the work ahead - eg.
-    [`plan`](../plan/SKILL.md) if the next step is decomposition; [`code`](../code/SKILL.md) if implementation
-    is the next step; [`debug`](../debug/SKILL.md) if a test is failing. Name the specific
-    step if known.
+    ## Suggested next steps
+    The work the next session should pick up - eg. decomposition if
+    the plan is incomplete, implementation if the design is settled,
+    diagnosis if a test is failing. Name the specific step if known,
+    and any tool or skill suited to it.
 
     ## Watch out for
     Gotchas, environmental quirks, decisions that look obvious but
@@ -100,11 +100,11 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
 
 -   **Be specific about what's open.**
 
-    "Some questions remain about the API" is unhelpful. "Two questions remain on the API: (1) idempotency behavior on retry; (2) whether to accept partial updates - both blocked on product input" is actionable.
+    "Some questions remain about the API" is unhelpful. "Two questions remain on the API: (1) idempotency behavior on retry; (2) whether to accept partial updates – both blocked on product input" is actionable.
 
--   **Suggest skills, don't dictate them.**
+-   **Suggest next steps, don't dictate them.**
 
-    Name the skills relevant to the work ahead, but the next session decides whether to invoke them. Don't pretend to know what the next session will encounter.
+    Name the work relevant to the road ahead, but the next session decides what to do. Don't pretend to know what the next session will encounter.
 
 -   **Redact aggressively.**
 
@@ -139,9 +139,9 @@ A compact handoff:
 - One `[DEBUG-a4f2]` log left in `handlers/orders.ts:42` from
   earlier diagnosis; remove before merging step 5.
 
-## Suggested skills
-- [`code`](../code/SKILL.md) for step 5 once SRE sign-off lands.
-- [`review`](../review/SKILL.md) once steps 5 and 6 are integrated.
+## Suggested next steps
+- Implement step 5 once SRE sign-off lands.
+- Review once steps 5 and 6 are integrated.
 
 ## Watch out for
 - The `idempotency-key` header parsing in `handlers/orders.ts:64`
@@ -158,11 +158,11 @@ A compact handoff:
 
 -   **Multiple parallel threads of work.**
 
-    If the session covered two unrelated streams, write two handoffs - one per stream. Mixing them produces a document the next session has to triage before using.
+    If the session covered two unrelated streams, write two handoffs – one per stream. Mixing them produces a document the next session has to triage before using.
 
 -   **Handing off to a human, not an agent.**
 
-    Same skill, same structure - but replace "Suggested skills" with "Suggested first action", describing the concrete next step the human should take.
+    Same skill, same structure – but replace "Suggested next steps" with "Suggested first action", describing the concrete next step the human should take.
 
 -   **The user provided no topic and the conversation covered nothing substantive.**
 
@@ -186,12 +186,12 @@ A compact handoff:
 
 -   **The next session could read the handoff alone and know what to do next.**
 
+## Inputs and outputs
+
+- **Input** – the current session's context: the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
+
+- **Output** – a single, ephemeral handoff document written to the OS temp directory (not the repo), referencing those durable artifacts by path or URL rather than duplicating them. It captures what's done, what's open, the codebase state, suggested next steps, and gotchas. This skill reports the file's absolute path and stops; whether the next session is an agent or a human is the orchestrator's concern.
+
 ## References
 
 - [Original source — mattpocock/skills `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): The skill this one is adapted from.
-
-- [`reflect`](../reflect/SKILL.md): Companion at session end. Reflect captures durable lessons (persistent memory); handoff captures current task state (ephemeral). Typically invoke `reflect` first, then `handoff`.
-
-- [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md): Skills that produce the durable artifacts the handoff references.
-
-- [`code`](../code/SKILL.md), [`debug`](../debug/SKILL.md), [`test`](../test/SKILL.md), [`review`](../review/SKILL.md): Skills the next session may need.

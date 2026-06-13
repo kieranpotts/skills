@@ -1,6 +1,6 @@
 ---
 name: code
-description: Write code and tests for a single step from the plan. Default to test-driven development (red-green-refactor). Stay strictly within the step's scope. Use when implementing one numbered step from [`plan`](../plan/SKILL.md), or for any small standalone change whose design is already obvious.
+description: Write code and tests for a single step from the plan. Default to test-driven development (red-green-refactor). Stay strictly within the step's scope. Use when implementing one numbered step from a plan, or for any small standalone change whose design is already obvious.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,9 +9,9 @@ metadata:
 
 # Code
 
-Use this skill when implementing one numbered step from [`plan`](../plan/SKILL.md), or any small standalone change whose design is already obvious. The workflow re-enters this skill once per plan step: after [`test`](../test/SKILL.md) passes for the current step, return here to start the next one.
+Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. Implement one plan step per session: after the step's tests pass, start the next step in a fresh session.
 
-Do NOT use this skill to specify requirements (use [`specify`](../specify/SKILL.md)), evaluate design options (use [`design`](../design/SKILL.md)), decompose work (use [`plan`](../plan/SKILL.md)), or diagnose a failure (use [`debug`](../debug/SKILL.md)).
+Do NOT use this skill to specify requirements, evaluate design options, decompose work into steps, or diagnose a failure. This skill turns one already-designed step into working, tested code – nothing upstream of that.
 
 Do NOT bundle multiple plan steps into one coding session. One step per session keeps the diff reviewable and the rollback clean.
 
@@ -19,7 +19,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
 1.  **Restate the step's scope.**
 
-    Quote the step from the plan. Say in one sentence what is in-scope and, more importantly, what is out-of-scope. Anything not in the step is for a future step - including refactors, error handling for unreached paths, and "while I'm here" cleanups.
+    Quote the step from the plan. Say in one sentence what is in-scope and, more importantly, what is out-of-scope. Anything not in the step is for a future step – including refactors, error handling for unreached paths, and "while I'm here" cleanups.
 
     If the step is ambiguous, clarify before coding. Mid-implementation scope drift is the most common cause of unmergeable PRs.
 
@@ -41,7 +41,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
     - *Green*: write the simplest code that makes the test pass. No design improvements yet.
     - *Refactor*: improve the structure of code and test while all tests stay green.
 
-    Repeat for each piece of behavior, one cycle at a time - never batch the reds (see "Slice vertically, not horizontally" below). Each cycle is a few minutes, not hours.
+    Repeat for each piece of behavior, one cycle at a time – never batch the reds (see "Slice vertically, not horizontally" below). Each cycle is a few minutes, not hours.
 
     Skip TDD only when the design is in genuine flux (early exploration, spikes). Explain the skip in the commit body if so.
 
@@ -55,7 +55,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
 5.  **Apply the project's coding standards.**
 
-    Match the surrounding code's idioms - naming, file layout, error handling, logging. If unsure, read 2-3 nearby files first. New code should be indistinguishable in style from existing code unless the existing code is what the step is replacing.
+    Match the surrounding code's idioms – naming, file layout, error handling, logging. If unsure, read 2-3 nearby files first. New code should be indistinguishable in style from existing code unless the existing code is what the step is replacing.
 
     Adhere to the broader TS-13 principles: meaningful names, low coupling, explicit error handling at boundaries (not interior), comments only where the *why* is non-obvious.
 
@@ -72,7 +72,7 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
 7.  **Commit.**
 
-    One step = one commit (or a small batch of `step:` commits if subdivision helps reviewers). Follow [`commit`](../commit/SKILL.md) for the type vocabulary and format. Reference the issue or plan in the body or footer.
+    One step = one commit (or a small batch of `step:` commits if subdivision helps reviewers). Use the project's commit type vocabulary and format. Reference the issue or plan in the body or footer.
 
 ##  Rules
 
@@ -103,11 +103,11 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
       RED → GREEN: test3 → impl3
     ```
 
-    Tests written in bulk verify *imagined* behavior, not actual behavior. They drift toward testing the *shape* of things (function signatures, data structures) rather than user-facing behavior, and they become insensitive to real changes - passing when behavior breaks and failing when behavior is fine. Each test only earns its keep by being written *after* the previous implementation taught you what to verify.
+    Tests written in bulk verify *imagined* behavior, not actual behavior. They drift toward testing the *shape* of things (function signatures, data structures) rather than user-facing behavior, and they become insensitive to real changes – passing when behavior breaks and failing when behavior is fine. Each test only earns its keep by being written *after* the previous implementation taught you what to verify.
 
 -   **Don't write speculative code.**
 
-    No abstractions for hypothetical futures. No flexibility points for changes that aren't on the plan. Three similar lines beats a premature abstraction. Trim every "might need this" - if you might need it, you don't need it now.
+    No abstractions for hypothetical futures. No flexibility points for changes that aren't on the plan. Three similar lines beats a premature abstraction. Trim every "might need this" – if you might need it, you don't need it now.
 
 -   **Don't write defensive code at internal boundaries.**
 
@@ -115,11 +115,11 @@ Do NOT bundle multiple plan steps into one coding session. One step per session 
 
 -   **Default to no comments.**
 
-    Well-named identifiers do the explaining. Add a comment only when the *why* is non-obvious - a hidden constraint, a workaround for a specific bug, a surprising invariant. Don't narrate what the code does.
+    Well-named identifiers do the explaining. Add a comment only when the *why* is non-obvious – a hidden constraint, a workaround for a specific bug, a surprising invariant. Don't narrate what the code does.
 
 -   **Match TDD discipline to risk.**
 
-    TDD is the default. For trivial code (a config tweak, a rename, a one-line copy change) it's overkill - skip it. For complex logic or anything with corner cases, the test-first discipline pays for itself many times over.
+    TDD is the default. For trivial code (a config tweak, a rename, a one-line copy change) it's overkill – skip it. For complex logic or anything with corner cases, the test-first discipline pays for itself many times over.
 
 -   **Stop when the step is done.**
 
@@ -166,7 +166,7 @@ Refs: #482
 
 -   **The step turns out to be too big.**
 
-    Stop. Loop back to [`plan`](../plan/SKILL.md) and split it. Don't merge a half-step.
+    Stop. Send it back for the plan to be split. Don't merge a half-step.
 
 -   **You discover a bug unrelated to the step.**
 
@@ -178,7 +178,7 @@ Refs: #482
 
 -   **Tests are missing for the area being touched.**
 
-    Add *characterization tests* first - tests that pin down the current behavior - before changing it. This is a separate step from the change itself.
+    Add *characterization tests* first – tests that pin down the current behavior – before changing it. This is a separate step from the change itself.
 
 -   **A spike or prototype.**
 
@@ -202,22 +202,12 @@ Refs: #482
 
     Naming, layout, error handling, and comment density are consistent with nearby files.
 
--   **The commit follows the [`commit`](../commit/SKILL.md) format.**
+-   **The commit follows the project's commit format.**
 
     Correct type, lowercase imperative description, atomic scope.
 
-## References
+## Inputs and outputs
 
-- [`plan`](../plan/SKILL.md): Source of the step being implemented. The workflow cycles through the plan one step at a time via `code → review → test → code`.
+- **Input — one numbered plan step** (or a small standalone change whose design is already obvious): a scoped, already-designed unit of work. This skill does not design or decompose; it consumes a step that is ready to implement.
 
-- [`review`](../review/SKILL.md): The next step after coding is complete. Self-review the diff against [`review`](../review/SKILL.md)'s criteria before opening a PR.
-
-- [`test`](../test/SKILL.md): Runs after [`review`](../review/SKILL.md) clears the change, to verify dynamic qualities and full-AC coverage. On pass, the workflow returns to this skill for the next plan step.
-
-- [`commit`](../commit/SKILL.md): Required for the final commit format.
-
-- [`debug`](../debug/SKILL.md): When a test fails for unexpected reasons.
-
-- [`refactor`](../refactor/SKILL.md): When the cleanup discovered mid-step needs its own dedicated session.
-
-- [`handoff`](../handoff/SKILL.md): If you need to pause mid-step (context limit, end of day, switching agents), write a handoff so the next session can resume cleanly inside the same step.
+- **Output — a committed, tested change** for that single step: the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.

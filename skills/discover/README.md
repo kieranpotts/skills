@@ -1,6 +1,6 @@
 # `discover`
 
-Run a structured customer-discovery session to turn a vague business need into a clear discovery report. Use `discover` *before* [`specify`](../specify/SKILL.md), when the requirements themselves are still unclear and an interview is needed to draw them out.
+Run a structured customer-discovery session to turn a vague business need into a clear discovery report. Use `discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
 
 ## What it does
 
@@ -14,7 +14,7 @@ The agent acts as a business analyst and interviews the user – who answers as 
 - **Draw out examples and counter-examples** – for every rule, a concrete case where it applies and one that looks similar but doesn't, in plain language (the Example Mapping core).
 - **Separate assumptions from observations**, and **park open questions** with named owners rather than stalling.
 
-The output is a **discovery report**: Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions – in business language, with no Gherkin and no technical detail. This report is the project's PRD in all but name, and it is *transient*: it feeds `specify` and is superseded by the durable SRS proposal `specify` files. `discover` itself files nothing in a workflow repository.
+The output is a **discovery report**: Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions – in business language, with no Gherkin and no technical detail. This report is the project's PRD in all but name, and it is *transient*: it is the input from which a durable specification is later produced, and is superseded by it. `discover` itself files nothing in a workflow repository.
 
 It carries the rules that keep an interview honest: one question at a time, no leading questions, stay in business language, don't volunteer solutions, push back rather than rubber-stamp, and treat counter-examples as mandatory.
 
@@ -22,11 +22,11 @@ It carries the rules that keep an interview honest: one question at a time, no l
 
 Ask the agent to run discovery or explore requirements – eg. *"let's discover the requirements for X"*, *"run a discovery session on Y"*, *"help me understand what the customer actually needs here"*, or *"interview me about this feature"*. The skill triggers when a need is too vague to specify directly.
 
-Use it only for *business* discovery. To interrogate a draft **design**, use [`elaborate`](../elaborate/SKILL.md); for technology choices, use [`design`](../design/SKILL.md). If the requirements are already clear, skip straight to [`specify`](../specify/SKILL.md).
+Use it only for *business* discovery: interrogating a draft **design** and making technology choices are separate, technical responsibilities. If the requirements are already clear, skip straight to writing the specification.
 
 ## Examples
 
-- **Vague feature request:** *"We want some kind of loyalty scheme."* → an interview that surfaces the goal, the rules (tiers, thresholds), worked examples and counter-examples, and an out-of-scope list – handed to `specify`.
+- **Vague feature request:** *"We want some kind of loyalty scheme."* → an interview that surfaces the goal, the rules (tiers, thresholds), worked examples and counter-examples, and an out-of-scope list – ready to specify from.
 
 - **Relaying customer conversations:** *"I spoke to three warehouse managers last week – let's discover the requirements."* → the user answers as the customer; the report captures rules, assumptions to validate, and open questions with owners.
 

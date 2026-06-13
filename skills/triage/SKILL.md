@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Move issues on the project issue tracker through a small state machine of category and state labels. Gather context, recommend a classification, attempt reproduction for bugs, grill the issue into shape if needed, then apply the outcome - a label change, an agent brief, a needs-info request, or a wontfix closure. Use when triaging incoming issues, preparing them for AFK agents, reviewing the backlog, or when the user says "triage this".
+description: Move issues on the project issue tracker through a small state machine of category and state labels. Gather context, recommend a classification, attempt reproduction for bugs, grill the issue into shape if needed, then apply the outcome – a label change, an agent brief, a needs-info request, or a wontfix closure. Use when triaging incoming issues, preparing them for AFK agents, reviewing the backlog, or when the user says "triage this".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -11,7 +11,7 @@ metadata:
 
 Use this skill to move issues on the project's issue tracker through a deliberate state machine. The goal is to take a freshly-filed issue and decide what happens next: implement it, defer it, reject it, or get more information.
 
-Do NOT use this skill to fix bugs (use [`debug`](../debug/SKILL.md)), implement features (use [`code`](../code/SKILL.md) from a [`plan`](../plan/SKILL.md)), or write requirements from scratch (use [`specify`](../specify/SKILL.md)).
+Do NOT use this skill to fix bugs, implement features, or write requirements from scratch. Triage classifies and routes issues; it does not do the implementation or specification work that follows.
 
 This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
 
@@ -21,16 +21,16 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
     Two *category* labels:
 
-    - `bug` - something is broken.
-    - `enhancement` - new feature or improvement.
+    - `bug` – something is broken.
+    - `enhancement` – new feature or improvement.
 
     Five *state* labels:
 
-    - `needs-triage` - maintainer needs to evaluate.
-    - `needs-info` - waiting on the reporter for more information.
-    - `ready-for-agent` - fully specified, ready for an AFK agent (see [`plan`](../plan/SKILL.md) for what "fully specified" means).
-    - `ready-for-human` - needs human implementation (architectural judgment, external access, manual verification).
-    - `wontfix` - will not be actioned.
+    - `needs-triage` – maintainer needs to evaluate.
+    - `needs-info` – waiting on the reporter for more information.
+    - `ready-for-agent` – fully specified, ready for an AFK agent.
+    - `ready-for-human` – needs human implementation (architectural judgment, external access, manual verification).
+    - `wontfix` – will not be actioned.
 
     Every triaged issue carries *exactly one* category label and *exactly one* state label. The actual strings in the tracker may differ (eg. `kind/bug` instead of `bug`); maintain a mapping if so.
 
@@ -54,9 +54,9 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
     Query the tracker for three buckets, oldest first:
 
-    1. *Unlabeled* - never triaged.
-    2. *`needs-triage`* - evaluation in progress.
-    3. *`needs-info` with new reporter activity* - the reporter has replied since the last triage notes, so the issue needs re-evaluation.
+    1. *Unlabeled* – never triaged.
+    2. *`needs-triage`* – evaluation in progress.
+    3. *`needs-info` with new reporter activity* – the reporter has replied since the last triage notes, so the issue needs re-evaluation.
 
     Present counts and a one-line summary per issue. Let the maintainer pick which to work on next.
 
@@ -66,7 +66,7 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
 4.  **Recommend a classification.**
 
-    State your category and state recommendation with reasoning, plus a brief codebase summary relevant to the issue. Wait for direction from the maintainer before applying any labels - triage is a maintainer's decision; the skill does the legwork to make that decision cheap.
+    State your category and state recommendation with reasoning, plus a brief codebase summary relevant to the issue. Wait for direction from the maintainer before applying any labels – triage is a maintainer's decision; the skill does the legwork to make that decision cheap.
 
 5.  **For bugs: attempt reproduction.**
 
@@ -80,7 +80,7 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
 6.  **Grill the issue into shape (if needed).**
 
-    If the issue is under-specified for whichever state it's heading to, run an [`elaborate`](../elaborate/SKILL.md) session against it. The output is a sharpened set of requirements, ready to be implemented, escalated to a human, or rejected with a captured reason.
+    If the issue is under-specified for whichever state it's heading to, interrogate it – question the reporter and the code until its requirements are sharp. The output is a sharpened set of requirements, ready to be implemented, escalated to a human, or rejected with a captured reason.
 
 7.  **Apply the outcome.**
 
@@ -197,7 +197,7 @@ scratch. Closing.
 
 -   **The reporter ghosts on `needs-info`.**
 
-    After a reasonable interval (varies by project - often 14-30 days), close politely: "Closing for lack of activity; please reopen with the requested info." Re-opening is cheap; stale `needs-info` issues obscure the active queue.
+    After a reasonable interval (varies by project – often 14-30 days), close politely: "Closing for lack of activity; please reopen with the requested info." Re-opening is cheap; stale `needs-info` issues obscure the active queue.
 
 -   **Duplicate of an existing issue.**
 
@@ -217,7 +217,7 @@ scratch. Closing.
 
 -   **An issue's labels conflict with the maintainer's request.**
 
-    Surface the conflict ("this issue currently has `ready-for-agent` but you asked me to move it to `needs-info` - confirm?") before making any changes.
+    Surface the conflict ("this issue currently has `ready-for-agent` but you asked me to move it to `needs-info` – confirm?") before making any changes.
 
 ##  Success criteria
 
@@ -240,11 +240,3 @@ scratch. Closing.
 ## References
 
 - [Original source — mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.
-
-- [`elaborate`](../elaborate/SKILL.md): For grilling under-specified issues into shape.
-
-- [`plan`](../plan/SKILL.md): What "ready-for-agent" specifications should resemble - including HITL / AFK tagging.
-
-- [`specify`](../specify/SKILL.md): Where AC-style requirements come from in agent briefs.
-
-- [`debug`](../debug/SKILL.md): For the implementation phase that follows a reproduced bug.

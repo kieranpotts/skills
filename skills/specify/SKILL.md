@@ -9,11 +9,11 @@ metadata:
 
 # Specify
 
-Use this skill to turn a **PRD** – a product-requirements document, in practice the discovery report produced by [`discover`](../discover/SKILL.md) – into a testable specification, filed as a proposal in the project's SRS (software requirements specification) repository.
+Use this skill to turn a **PRD** – a product-requirements document, in practice a business-language discovery report – into a testable specification, filed as a proposal in the project's SRS (software requirements specification) repository.
 
-This skill is **non-interactive**. It does NOT interview the user or elicit missing information – that is [`discover`](../discover/SKILL.md)'s job. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
+This skill is **non-interactive**. It does NOT interview the user or elicit missing information. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
 
-- **Rejects** the PRD, with a specific list of what is missing or ambiguous, directing the user to [`discover`](../discover/SKILL.md) to fill the gaps; or
+- **Rejects** the PRD, with a specific list of what is missing or ambiguous, so the requirements can be gathered before retrying; or
 - **Proceeds**: files the proposal in the SRS repository by running that repository's own sub-skills, autonomously and in sequence.
 
 When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – by invoking three of its sub-skills in order:
@@ -24,9 +24,9 @@ When the PRD passes validation, this skill drives the SRS repository's workflow 
 
 These are the reference-implementation skill names; a project MAY expose differently-named equivalents, discoverable through its SRS repository's `AGENTS.md`. Run whichever skills that repository provides for these three phases – scaffold, author, mark-ready.
 
-The run stops at a proposal that is `PROPOSED` – complete and open for review, but **not yet approved**. The outcome of this skill is a specification *awaiting the user's review and approval*, not an approved specification. Approval is a human decision the user makes deliberately; only an approved (`ACCEPTED`) specification unblocks the next SDLC phase, [`design`](../design/SKILL.md).
+The run stops at a proposal that is `PROPOSED` – complete and open for review, but **not yet approved**. The outcome of this skill is a specification *awaiting the user's review and approval*, not an approved specification. Approval is a human decision the user makes deliberately; only an approved (`ACCEPTED`) specification unblocks the downstream design phase.
 
-Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)). Do NOT use it to *gather* requirements – use [`discover`](../discover/SKILL.md) for that.
+Use this skill only to turn an existing PRD into a filed specification. Do NOT use it to *gather* requirements (that produces the PRD this skill consumes), to make design decisions, to plan implementation, or to run tests – those are separate responsibilities.
 
 This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository and executed through its sub-skills – this skill orchestrates them but does NOT restate their process. (2) *Whether the PRD is fit to specify from* – the validation gate below – is owned by this skill.
 
@@ -34,9 +34,9 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
 1.  **Read the PRD.**
 
-    Obtain the PRD however it is supplied – a file path, pasted report text, or the discovery report produced by a preceding [`discover`](../discover/SKILL.md) run in this session. Read it in full before doing anything else.
+    Obtain the PRD however it is supplied – a file path, pasted report text, or a discovery report produced earlier in this session. Read it in full before doing anything else.
 
-    If no PRD is supplied and none can be found, reject immediately: there is nothing to specify. Direct the user to run [`discover`](../discover/SKILL.md) first.
+    If no PRD is supplied and none can be found, reject immediately: there is nothing to specify. Tell the user a PRD must be gathered first.
 
 2.  **Validate the PRD for completeness. Reject if it is not ready.**
 
@@ -49,7 +49,7 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
     - **Non-functional requirements** – stated, or an explicit statement that there are none beyond the system baseline.
     - **Blocking open questions resolved** – any open question whose answer is needed to write a rule or an AC MUST be resolved. Non-blocking open questions (parked for later, not gating any criterion) are acceptable and are carried into the proposal.
 
-    If any of these is missing or ambiguous, **reject the PRD**. Output a specific, itemized list of what is absent or unclear – tied to the rule or section it concerns – and direct the user to [`discover`](../discover/SKILL.md) to fill the gaps. Do NOT ask the user questions yourself, and do NOT invent the missing content. Write nothing to the SRS.
+    If any of these is missing or ambiguous, **reject the PRD**. Output a specific, itemized list of what is absent or unclear – tied to the rule or section it concerns – so the requirements can be gathered before retrying. Do NOT ask the user questions yourself, and do NOT invent the missing content. Write nothing to the SRS.
 
     You MAY normalize purely mechanical gaps without rejecting – deriving a `Feature` title from the stated goal, ordering scenarios, tidying phrasing. The bar for rejection is *substantive* incompleteness, not formatting.
 
@@ -90,13 +90,13 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
 8.  **Report the outcome and the required approval.**
 
-    On finishing, tell the user plainly: the specification proposal is filed and `PROPOSED`, and it now needs their review and approval before downstream work begins. State explicitly that **[`design`](../design/SKILL.md) – the next SDLC phase – MUST NOT start until this specification is approved** (`ACCEPTED`). Link the pull request and its discussion thread for the user to act on.
+    On finishing, tell the user plainly: the specification proposal is filed and `PROPOSED`, and it now needs their review and approval before downstream work begins. State explicitly that **the next SDLC phase – design – MUST NOT start until this specification is approved** (`ACCEPTED`). Link the pull request and its discussion thread for the user to act on.
 
 ##  Rules
 
 -   **Non-interactive. Validate, don't elicit.**
 
-    This skill does NOT ask the user questions or gather missing requirements. Its input is a PRD. If the PRD is incomplete, reject it with reasons and point to [`discover`](../discover/SKILL.md) – never interview the user to fill the gap yourself.
+    This skill does NOT ask the user questions or gather missing requirements. Its input is a PRD. If the PRD is incomplete, reject it with reasons so the requirements can be gathered separately – never interview the user to fill the gap yourself.
 
 -   **Reject substantive gaps; never invent content.**
 
@@ -112,7 +112,7 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
 -   **The outcome is an approval request, not an approval.**
 
-    This skill never approves its own output. It stops at `PROPOSED` and hands the specification to the user to review and approve. Do NOT advance the proposal to `ACCEPTED`, and do NOT proceed to [`design`](../design/SKILL.md), on the skill's own authority – approval is the user's decision, and it gates the next SDLC phase.
+    This skill never approves its own output. It stops at `PROPOSED` and hands the specification to the user to review and approve. Do NOT advance the proposal to `ACCEPTED`, and do NOT proceed to the design phase, on the skill's own authority – approval is the user's decision, and it gates the next SDLC phase.
 
 -   **Read the SRS repository's `AGENTS.md`, not its `CONTRIBUTING.md`.**
 
@@ -132,7 +132,7 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
 -   **Specify the need the PRD states, not a literal transcription.**
 
-    Translate the PRD's *outcome* and *rules* into criteria that meet the underlying need – not a mechanical restatement of surface wording. If the PRD itself is internally incoherent, or its stated solution plainly won't meet its own stated goal, that is a validation failure: reject it and name the contradiction. (Surfacing the real need from a vague request is [`discover`](../discover/SKILL.md)'s job, not this skill's.)
+    Translate the PRD's *outcome* and *rules* into criteria that meet the underlying need – not a mechanical restatement of surface wording. If the PRD itself is internally incoherent, or its stated solution plainly won't meet its own stated goal, that is a validation failure: reject it and name the contradiction. (Surfacing the real need from a vague request is the upstream discovery step's job, not this skill's.)
 
 ## Examples
 
@@ -165,7 +165,7 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 -   **Refactor or internal change.**
 
-    There are no new ACs. The specification is "existing ACs continue to pass, plus these new internal-quality criteria" (eg. cyclomatic complexity reduced, tests faster, module decoupled). Use [`refactor`](../refactor/SKILL.md) instead.
+    There are no new ACs. A pure internal-quality change (eg. cyclomatic complexity reduced, tests faster, module decoupled) is not specification work and does not belong here – the existing ACs continue to pass unchanged.
 
 -   **PRD contradicts the existing specification.**
 
@@ -173,7 +173,7 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 -   **Incomplete PRD.**
 
-    The PRD is missing rules, examples, counter-examples, scope, or measurable NFRs. Reject it (step 2) with an itemized list of the gaps, and direct the user to [`discover`](../discover/SKILL.md). Write nothing to the SRS.
+    The PRD is missing rules, examples, counter-examples, scope, or measurable NFRs. Reject it (step 2) with an itemized list of the gaps, so the requirements can be gathered before retrying. Write nothing to the SRS.
 
 ##  Success criteria
 
@@ -183,7 +183,7 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 -   **The user is told the specification awaits their approval.**
 
-    The skill's closing message states that the proposal is `PROPOSED` and needs the user's review and approval, and that [`design`](../design/SKILL.md) MUST NOT begin until the specification is approved (`ACCEPTED`). The pull request and discussion thread are linked for the user to act on. The skill does not approve, and does not advance to design, itself.
+    The skill's closing message states that the proposal is `PROPOSED` and needs the user's review and approval, and that the design phase MUST NOT begin until the specification is approved (`ACCEPTED`). The pull request and discussion thread are linked for the user to act on. The skill does not approve, and does not advance to design, itself.
 
 -   **The specification conforms to the SRS repository's content rules.**
 
@@ -205,16 +205,12 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 -   **An incomplete PRD is rejected, not patched.**
 
-    When the PRD lacks substantive content, the skill produces an itemized rejection pointing to [`discover`](../discover/SKILL.md) – not a specification built on invented or assumed material, and nothing written to the SRS.
+    When the PRD lacks substantive content, the skill produces an itemized rejection naming the gaps – not a specification built on invented or assumed material, and nothing written to the SRS.
 
-## References
+## Inputs and outputs
 
-- [`discover`](../discover/SKILL.md): Upstream source of the PRD. Its discovery report (outcome, stakeholders, rules, examples, scope) is the input this skill validates and translates. When this skill rejects a PRD as incomplete, the gaps are filled by re-running `discover`. All requirement *elicitation* happens there; this skill never interviews the user.
+- **Input — a PRD** (product-requirements / discovery report): the business-language outcome, stakeholders, rules, examples, and scope this skill validates and translates. This skill does not produce the PRD; it consumes one. Requirement *elicitation* happens upstream, separately – this skill never interviews the user.
 
-- **SRS repository sub-skills** (reference-implementation names): `draft-spec` scaffolds the proposal, `write-spec` authors the content, and `propose-spec` marks it ready for review. `specify` runs these three in sequence on a valid PRD. They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents.
+- **Target — the SRS repository's sub-skills** (reference-implementation names): `draft-spec` scaffolds the proposal, `write-spec` authors the content, and `propose-spec` marks it ready for review. This skill runs these three in sequence on a valid PRD. They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents. (These belong to the target repository, not to this collection.)
 
-- [`design`](../design/SKILL.md): The next SDLC phase. It is gated on this skill's output being *approved* (`ACCEPTED`) – it MUST NOT begin while the specification is only `PROPOSED`. Approval is the user's decision, made after reviewing the proposal this skill files.
-
-- [`test`](../test/SKILL.md): How specified ACs are verified.
-
-- [`refine`](../refine/SKILL.md): Where feedback from [`test`](../test/SKILL.md) (a wrong, missing, or ambiguous AC) flows back into the specification. Refinements land here as edits and re-enter the workflow.
+- **Output — a `PROPOSED` specification proposal**, awaiting the user's review and approval. Only once approved (`ACCEPTED`) does it unblock the downstream design phase. Whatever consumes the approved specification is the orchestrator's concern, not this skill's.

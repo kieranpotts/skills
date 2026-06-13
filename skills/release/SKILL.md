@@ -1,6 +1,6 @@
 ---
 name: release
-description: Release branching strategy - either a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains - and version-tagging conventions. Use when preparing a release, creating a release branch, or tagging a release version.
+description: Release branching strategy – either a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains – and version-tagging conventions. Use when preparing a release, creating a release branch, or tagging a release version.
 compatibility: requires git
 license: CC0-1.0
 metadata:

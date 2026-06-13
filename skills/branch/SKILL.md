@@ -117,7 +117,7 @@ flowchart LR
 
     - All changes originate on `dev` and flow forward through `test` → `ready` → release.
 
-    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix MUST be committed to `dev` and flow forward from there - no direct commits to downstream trunks.
+    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix MUST be committed to `dev` and flow forward from there – no direct commits to downstream trunks.
 
     - Periodically review stale `temp/*` and `epic/*` branches with no commits in ~90 days and delete or revive them.
 

@@ -78,15 +78,15 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     Choice based on the semantics of the changeset being committed:
 
-    - `chore`: Small, insignificant housekeeping - typo fixes, comment tweaks, non-production artifacts. Typically no peer review needed.
+    - `chore`: Small, insignificant housekeeping – typo fixes, comment tweaks, non-production artifacts. Typically no peer review needed.
 
     - `feature`: User-facing operation or behavior change (new commands, flags, endpoints, features, deprecations, removals), verifiable via the UI.
 
-    - `fix`: Resolves a defect - bug, regression, vulnerability, or incident (including silencing spurious error log entries).
+    - `fix`: Resolves a defect – bug, regression, vulnerability, or incident (including silencing spurious error log entries).
 
     - `format`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
 
-    - `maintenance`: Required upkeep - dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
+    - `maintenance`: Required upkeep – dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
 
     - `merge`: Merge commits (when not fast-forwarded).
 
@@ -96,7 +96,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - `revert`: Reverting a prior commit.
 
-    - `runtime`: Implements a dynamic quality attribute - observable and measurable outside the system (latency, throughput, resource utilization, availability, security, compliance). Named for the runtime, externally-observable nature of these changes; covers the quality attributes as a whole, not speed alone.
+    - `runtime`: Implements a dynamic quality attribute – observable and measurable outside the system (latency, throughput, resource utilization, availability, security, compliance). Named for the runtime, externally-observable nature of these changes; covers the quality attributes as a whole, not speed alone.
 
     - `step`: Incremental change toward a larger feature or fix that is not yet user-facing.
 

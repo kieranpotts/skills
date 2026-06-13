@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: Build throwaway code to answer a specific question - feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when [`design`](../design/SKILL.md) hits a question that cannot be answered by reasoning alone, or when a [`specify`](../specify/SKILL.md) is too speculative to commit to without evidence.
+description: Build throwaway code to answer a specific question – feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -11,7 +11,7 @@ metadata:
 
 Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option.
 
-Do NOT use this skill to build something you intend to keep (use [`code`](../code/SKILL.md)). Do NOT use it to fix a bug (use [`debug`](../debug/SKILL.md)).
+Do NOT use this skill to build something you intend to keep – production implementation is a separate responsibility. Do NOT use it to fix a bug – that is a separate responsibility.
 
 A prototype is a *byproduct*. The product is the *answer*. The code is thrown away.
 
@@ -26,7 +26,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     - ❌ "Try out the new SDK." (No question.)
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at stream close?"
 
-    If you cannot phrase the question this way, you are not ready to prototype - you are still exploring. Loop back to [`design`](../design/SKILL.md) first.
+    If you cannot phrase the question this way, you are not ready to prototype – you are still exploring. Return to the design work first.
 
 2.  **Define the answer that ends the prototype.**
 
@@ -40,7 +40,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
 3.  **Time-box.**
 
-    State the budget in hours or, at most, days. A prototype that grows past the time-box is no longer a prototype - it is unmanaged work. Common budgets:
+    State the budget in hours or, at most, days. A prototype that grows past the time-box is no longer a prototype – it is unmanaged work. Common budgets:
 
     - Half-day: API ergonomics, single integration check.
     - 1-2 days: performance characterization, multi-component spike.
@@ -66,7 +66,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     Keep prototype code out of the production codebase. Use one of:
 
     - A separate repo or `prototypes/` subdirectory clearly marked as throwaway.
-    - A branch named `temp/spike-<question>` (see [`branch`](../branch/SKILL.md)) that will not be merged.
+    - A branch named `temp/spike-<question>` that will not be merged.
     - A scratch directory outside any tracked path.
 
     Mark the entry point file with a comment naming it as a spike. Future readers should not be able to mistake it for production code.
@@ -78,7 +78,7 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     - The exact command(s) used.
     - The observed result against the expected evidence.
     - Numerical measurements with environment details (hardware, dataset, traffic).
-    - Surprises - anything observed that the question did not ask about but matters.
+    - Surprises – anything observed that the question did not ask about but matters.
 
     "It worked" is not a finding. A finding is reproducible by someone else from the notes alone.
 
@@ -86,25 +86,25 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
     Based on the findings:
 
-    - *Answer is positive* → close the design question. Move to [`plan`](../plan/SKILL.md) or back to [`design`](../design/SKILL.md) with the answer. Re-implement properly under [`code`](../code/SKILL.md) - do not promote the prototype.
-    - *Answer is negative* → close the option being prototyped. Loop back to [`design`](../design/SKILL.md) for alternatives.
+    - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch – do not promote the prototype.
+    - *Answer is negative* → the option being prototyped is closed; the design work resumes with the alternatives.
     - *Answer is mixed or inconclusive* → either run another time-boxed prototype to disambiguate, or escalate the decision to the user. Do not silently extend.
 
 8.  **Document the answer, then throw the code away.**
 
     Update the relevant artifact:
 
-    - For an architectural question → ADR or design-doc update (see [`design`](../design/SKILL.md)).
-    - For a specification question → revise the ACs in [`specify`](../specify/SKILL.md).
+    - For an architectural question → an ADR or design-doc update.
+    - For a specification question → a revision to the affected acceptance criteria.
     - For a tooling/library question → a short note in the repo's decision log.
 
-    Once the answer is captured, delete the prototype - or, at minimum, move it somewhere unambiguous (`prototypes/<date>-<question>/`) with a README naming the question, the answer, and the date.
+    Once the answer is captured, delete the prototype – or, at minimum, move it somewhere unambiguous (`prototypes/<date>-<question>/`) with a README naming the question, the answer, and the date.
 
 ##  Rules
 
 -   **The code is throwaway. The answer is the deliverable.**
 
-    Promoting prototype code to production removes the very property that made it cheap to write. If it must ship, re-implement it cleanly under [`code`](../code/SKILL.md) using what was learned.
+    Promoting prototype code to production removes the very property that made it cheap to write. If it must ship, re-implement it cleanly using what was learned.
 
 -   **One question per prototype.**
 
@@ -116,11 +116,11 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
 -   **Production concerns are explicitly skipped.**
 
-    Tests, error handling, auth, monitoring, accessibility, configuration, documentation - none of these belong in a prototype. Including them is how prototypes drift into production-track work.
+    Tests, error handling, auth, monitoring, accessibility, configuration, documentation – none of these belong in a prototype. Including them is how prototypes drift into production-track work.
 
 -   **Surface the state.**
 
-    After every action (for a logic / state-machine prototype) or on every variant switch (for a UI prototype), print or render the full relevant state so the user can see what changed. A prototype that requires a debugger to learn from isn't doing its job - the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a prototype keeps, because without it the prototype produces no usable evidence.
+    After every action (for a logic / state-machine prototype) or on every variant switch (for a UI prototype), print or render the full relevant state so the user can see what changed. A prototype that requires a debugger to learn from isn't doing its job – the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a prototype keeps, because without it the prototype produces no usable evidence.
 
 -   **Findings MUST be reproducible from notes.**
 
@@ -158,9 +158,9 @@ production, instrument with /usr/bin/time -v.
 
 Result: wall-clock 18.4s, peak RSS 3.1GB. Answer: yes, within budget.
 
-Re-evaluate: yes — IM7 is viable on current hardware. Move to plan;
-production version will be implemented from scratch under code,
-applying our error handling, telemetry, and config conventions.
+Re-evaluate: yes — IM7 is viable on current hardware. Question closed;
+production version will be implemented from scratch, applying our error
+handling, telemetry, and config conventions.
 
 Code disposal: prototypes/2026-05-im7-spike/ retained with README
 noting question, answer, and date. Not merged.
@@ -184,14 +184,14 @@ is released only on response. Verified with server-side logs.
 Answer: no.
 
 Decision: rules out this vector DB for our cancellable-search workload.
-Loop back to design and evaluate the other two candidates.
+The design work resumes, evaluating the other two candidates.
 ```
 
 ##  Edge cases
 
 -   **The prototype "almost works" and the user wants to keep it.**
 
-    Resist. Keeping prototype code skips the [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), and [`code`](../code/SKILL.md) discipline that the prototype was meant to *inform*, not *replace*. Re-implement cleanly. The prototype itself can stay as a reference for the re-implementation.
+    Resist. Keeping prototype code skips the specification, design, and implementation discipline that the prototype was meant to *inform*, not *replace*. Re-implement cleanly. The prototype itself can stay as a reference for the re-implementation.
 
 -   **The prototype reveals the question was wrong.**
 
@@ -207,7 +207,7 @@ Loop back to design and evaluate the other two candidates.
 
 -   **The user asks for "just a quick proof of concept" with no time-box.**
 
-    Push back. Propose a half-day or one-day box. An unbounded PoC is the most common path to a production system written without [`specify`](../specify/SKILL.md), [`design`](../design/SKILL.md), or [`plan`](../plan/SKILL.md).
+    Push back. Propose a half-day or one-day box. An unbounded PoC is the most common path to a production system written without specification, design, or planning.
 
 ##  Success criteria
 
@@ -229,20 +229,14 @@ Loop back to design and evaluate the other two candidates.
 
 -   **The findings are captured durably.**
 
-    ADR, design doc, specification update, or decision log - somewhere the answer survives after the code is gone.
+    ADR, design doc, specification update, or decision log – somewhere the answer survives after the code is gone.
 
 -   **The code is disposed of or quarantined.**
 
     Deleted, or moved to a clearly-marked throwaway location with a README. Never merged into production paths.
 
-## References
+## Inputs and outputs
 
-- [`design`](../design/SKILL.md): Where the question usually originates and where the answer usually lands.
+- **Input — one falsifiable question.** A specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front.
 
-- [`specify`](../specify/SKILL.md): Where prototype findings may force AC changes.
-
-- [`plan`](../plan/SKILL.md): Where work continues once the prototype has answered its question.
-
-- [`code`](../code/SKILL.md): Where the production re-implementation happens - the prototype itself is never promoted.
-
-- [`branch`](../branch/SKILL.md): `temp/spike-*` naming convention for prototype branches.
+- **Output — the answer, durably captured.** A measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The prototype code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.

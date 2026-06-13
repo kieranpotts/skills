@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end, typically just before [`handoff`](../handoff/SKILL.md), to make future sessions start smarter.
+description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions start smarter.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -11,11 +11,11 @@ metadata:
 
 Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
 
-This skill is the *learning* sibling of [`handoff`](../handoff/SKILL.md). Handoff bridges *task* continuity – what's done, what's open. Reflect bridges *working-style* continuity – how to collaborate effectively with this user, in this codebase. Invoke reflect first when both apply: durable lessons go to memory; the rest of the session state goes to the temp handoff document.
+This skill bridges *working-style* continuity – how to collaborate effectively with this user, in this codebase. It is distinct from *task* continuity – what's done, what's open – which belongs in a separate session-handoff document. Durable lessons go to memory; ephemeral task state goes to that document.
 
 Do NOT use this skill to:
 
-- Capture task progress – that's [`handoff`](../handoff/SKILL.md)'s job.
+- Capture task progress – that belongs in a session-handoff document, not memory.
 - Save anything derivable from the current code, git history, or existing project docs (CLAUDE.md, AGENTS.md, README, ADRs).
 - Save standard best practices any reasonable agent would already follow.
 - Save one-off task details (a specific bug fix, a specific filename) that won't generalize.
@@ -123,7 +123,7 @@ Do NOT use this skill to:
 
 -   **One candidate at a time.**
 
-    Walk through proposals individually, like [`discover`](../discover/SKILL.md) and [`elaborate`](../elaborate/SKILL.md). Batching invites blind approval; one-at-a-time invites scrutiny.
+    Walk through proposals individually. Batching invites blind approval; one-at-a-time invites scrutiny.
 
 -   **Filter ruthlessly.**
 
@@ -139,7 +139,7 @@ Do NOT use this skill to:
 
 -   **Redact aggressively.**
 
-    Memory persists. Strip API keys, tokens, real names, internal-only URLs, and anything else that would embarrass if leaked. Same bar as [`handoff`](../handoff/SKILL.md).
+    Memory persists. Strip API keys, tokens, real names, internal-only URLs, and anything else that would embarrass if leaked.
 
 -   **Distinguish rules from facts.**
 
@@ -161,7 +161,7 @@ Do NOT use this skill to:
 
 -   **The lesson is genuinely universal (about a tool's behavior, not the user or project).**
 
-    Lessons that apply regardless of user / project may belong in a *skill*, not a memory entry. Flag them in the final report as candidates for a future [`create-skill`](../create-skill/SKILL.md) invocation, but do not save them as memory.
+    Lessons that apply regardless of user / project may belong in a *skill*, not a memory entry. Flag them in the final report as candidates for authoring into a new skill, but do not save them as memory.
 
 -   **The agent's memory system has no obvious file path.**
 
@@ -183,8 +183,8 @@ Do NOT use this skill to:
 
 -   **No credentials, PII, or internal URLs appear in any saved entry.**
 
-## References
+## Inputs and outputs
 
-- [`handoff`](../handoff/SKILL.md): Peer supporting skill. Reflect captures *durable lessons* (persistent memory); handoff captures *current task state* (ephemeral, outside the repo). Often invoked together at session end – reflect first.
+- **Input.** The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md).
 
-- [`create-skill`](../create-skill/SKILL.md): Where a lesson goes when it turns out to be universal enough to encode as a new skill, rather than as a memory entry.
+- **Output.** Zero or more persisted lessons – memory entries (indexed in `MEMORY.md`) and/or appended convention rules – each non-obvious and capable of changing future agent behavior, written only after per-candidate user approval. Universal lessons better encoded as a new skill are flagged, not saved.

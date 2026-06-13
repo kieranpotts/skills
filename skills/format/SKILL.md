@@ -1,6 +1,6 @@
 ---
 name: format
-description: Apply presentation-only code or content changes - whitespace, indentation, line wrapping, quotes, trailing commas, import ordering - without altering behavior or structure. Prefer automated formatters configured at the project level. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions - distinct from structural improvements ([`refactor`](../refactor/SKILL.md)).
+description: Apply presentation-only code or content changes – whitespace, indentation, line wrapping, quotes, trailing commas, import ordering – without altering behavior or structure. Prefer automated formatters configured at the project level. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions – distinct from structural improvements to the code.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,11 +9,11 @@ metadata:
 
 # Format
 
-Use this skill when applying presentation-only changes to code or content - whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged.
+Use this skill when applying presentation-only changes to code or content – whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged.
 
-Do NOT use this skill to alter logic, data structures, names, module boundaries, or any other internal structure (use [`refactor`](../refactor/SKILL.md)). Do NOT use it to fix defects ([`debug`](../debug/SKILL.md)) or add behavior ([`code`](../code/SKILL.md)).
+Do NOT use this skill to alter logic, data structures, names, module boundaries, or any other internal structure – that is structural refactoring. Do NOT use it to fix defects or add behavior.
 
-A formatting pass that "while we're here" renames a variable, splits a function, or tweaks a conditional is no longer a formatting pass. It is a refactor, and belongs in a separate commit under [`refactor`](../refactor/SKILL.md) conventions.
+A formatting pass that "while we're here" renames a variable, splits a function, or tweaks a conditional is no longer a formatting pass. It is a refactor, and belongs in a separate commit under structural-change conventions.
 
 ##  Instructions
 
@@ -27,7 +27,7 @@ A formatting pass that "while we're here" renames a variable, splits a function,
     - Casing of literals (eg. hex `0xFF` vs `0xff`) where the language treats them as equivalent.
     - File-level concerns: line endings (LF/CRLF), final newline, BOM, encoding.
 
-    If you cannot describe the change in those terms, you are not formatting. Stop and re-classify - most likely [`refactor`](../refactor/SKILL.md).
+    If you cannot describe the change in those terms, you are not formatting. Stop and re-classify – most likely a structural refactor.
 
 2.  **Prefer the project's configured formatter.**
 
@@ -37,15 +37,15 @@ A formatting pass that "while we're here" renames a variable, splits a function,
     - A formatter script in `package.json`, `Makefile`, `justfile`, or similar (`npm run format`, `make fmt`).
     - A pre-commit hook (`.pre-commit-config.yaml`) that already configures the formatter.
 
-    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a formatting commit - that is a `maintenance:` change (see [`commit`](../commit/SKILL.md)).
+    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a formatting commit – that is a `maintenance:` change.
 
 3.  **Scope the run deliberately.**
 
     Decide what to format:
 
-    - *The file or files I just touched* (most common - normalize before commit).
+    - *The file or files I just touched* (most common – normalize before commit).
     - *A single directory* being brought into line with project conventions.
-    - *The whole repo* (rare - a one-off normalization, usually justified by adopting or upgrading a formatter).
+    - *The whole repo* (rare – a one-off normalization, usually justified by adopting or upgrading a formatter).
 
     Wider scope means a noisier diff. Reviewers cannot distinguish behavior changes from formatting noise when they are mixed. Format in its own commit, on its own scope.
 
@@ -62,7 +62,7 @@ A formatting pass that "while we're here" renames a variable, splits a function,
 
 5.  **Commit as `format:`.**
 
-    One formatting commit per scope. See [`commit`](../commit/SKILL.md):
+    One formatting commit per scope:
 
     ```
     format: apply prettier to src/
@@ -88,9 +88,9 @@ A formatting pass that "while we're here" renames a variable, splits a function,
 
     A formatting change that alters runtime behavior is mislabeled. Tests pass before and after; observable output is byte-identical for any given input. If you cannot promise that, it is not a format change.
 
--   **Presentation only - no structural edits.**
+-   **Presentation only – no structural edits.**
 
-    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional - all are [`refactor`](../refactor/SKILL.md), not format. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
+    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional – all are structural refactors, not format. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
 
 -   **Never bundle with feature, fix, or refactor work.**
 
@@ -98,7 +98,7 @@ A formatting pass that "while we're here" renames a variable, splits a function,
 
 -   **Prefer automated formatters over hand-edits.**
 
-    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix - via a `maintenance:` commit - before the next manual format pass.
+    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix – via a `maintenance:` commit – before the next manual format pass.
 
 -   **Do not change formatter configuration in a format commit.**
 
@@ -106,7 +106,7 @@ A formatting pass that "while we're here" renames a variable, splits a function,
 
 -   **Respect generated and vendored files.**
 
-    Generated code (codegen output, transpiled bundles, vendored third-party files) should not be reformatted - the generator owns the format. Add such paths to the formatter's ignore list.
+    Generated code (codegen output, transpiled bundles, vendored third-party files) should not be reformatted – the generator owns the format. Add such paths to the formatter's ignore list.
 
 -   **Watch significant-whitespace languages.**
 
@@ -167,7 +167,7 @@ format: convert tab indentation to spaces across src/
 
 -   **Formatting "fixes" a CI failure.**
 
-    If CI fails because of formatting, fix the formatting. But also check whether the formatter check is missing as a local pre-commit hook - if it is, file a `maintenance:` task. Catching format issues at push time is friction.
+    If CI fails because of formatting, fix the formatting. But also check whether the formatter check is missing as a local pre-commit hook – if it is, file a `maintenance:` task. Catching format issues at push time is friction.
 
 -   **Significant-whitespace breakage.**
 
@@ -204,11 +204,3 @@ TODO: Reinstate TS-* cross-references when those are republished.
 - [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines the `format:` commit type used here.
 
 -->
-
-- [`refactor`](../refactor/SKILL.md): When the change is structural rather than presentational. Format is presentation only; refactor is structure.
-
-- [`commit`](../commit/SKILL.md): The `format:` commit type and atomic-commit rules.
-
-- [`review`](../review/SKILL.md): How reviewers should treat a `format:` diff - usually scanned, not read line-by-line.
-
-- [`commit`](../commit/SKILL.md): Defines the `maintenance:` commit type used for changes to formatter configuration, pre-commit hooks, or CI lint checks.

@@ -1,6 +1,6 @@
 ---
 name: elaborate
-description: Interview the user one question at a time to stress-test and sharpen a draft design - walking the decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-referencing against the codebase, and capturing crystallized decisions as ADRs. Use after [`design`](../design/SKILL.md) produces a draft and before [`plan`](../plan/SKILL.md) decomposes it, when the design has ambiguities, unstated assumptions, or contested terms.
+description: Interview the user one question at a time to stress-test and sharpen a draft design – walking the decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft design exists and before it is decomposed into steps, when the design has ambiguities, unstated assumptions, or contested terms.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,9 +9,9 @@ metadata:
 
 # Elaborate
 
-Use this skill *after* [`design`](../design/SKILL.md) has produced a draft and *before* [`plan`](../plan/SKILL.md) decomposes it, when the design still has soft edges - unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation.
+Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges – unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation.
 
-Do NOT use this skill to explore options from scratch (use [`design`](../design/SKILL.md)). Do NOT use it to write requirements (use [`specify`](../specify/SKILL.md)) or to break work into steps (use [`plan`](../plan/SKILL.md)).
+Do NOT use this skill to explore design options from scratch, to write requirements, or to break work into steps. This skill sharpens an existing draft; it does not originate the design, the requirements, or the step breakdown.
 
 This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
@@ -21,8 +21,8 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     Before asking anything, read:
 
-    - The draft design (ADR, design doc, PR description, or whatever artifact [`design`](../design/SKILL.md) produced).
-    - Any related ACs from [`specify`](../specify/SKILL.md).
+    - The draft design (ADR, design doc, PR description, or whatever artifact holds it).
+    - Any related acceptance criteria from the specification.
     - The relevant code: the modules the design touches, their public APIs, their tests.
     - Any existing `docs/domain-model.md` (the project's ubiquitous-language glossary) or `docs/adr/` decisions in the area.
 
@@ -36,7 +36,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - Which terms are used loosely and need pinning down?
     - Which assumptions are stated as if obvious but actually have alternatives?
 
-    Plan to walk the tree top-down, resolving parents before children. Do not write the list out for the user - it is your scratchpad. The user sees questions one at a time.
+    Plan to walk the tree top-down, resolving parents before children. Do not write the list out for the user – it is your scratchpad. The user sees questions one at a time.
 
 3.  **Ask one question. Wait. Then the next.**
 
@@ -54,10 +54,10 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     When the user uses a vague or overloaded term, stop and pin it down:
 
-    - "You said 'account' - do you mean the Customer or the User? Those are different in the existing glossary."
-    - "You said 'cancel' - the codebase has both `cancelOrder()` and `voidOrder()`; which behavior do you mean?"
+    - "You said 'account' – do you mean the Customer or the User? Those are different in the existing glossary."
+    - "You said 'cancel' – the codebase has both `cancelOrder()` and `voidOrder()`; which behavior do you mean?"
 
-    If the glossary already defines the term differently from how the user is using it, surface the conflict explicitly. Update `docs/domain-model.md` (or create it if missing) the moment a term is resolved - inline, not at the end.
+    If the glossary already defines the term differently from how the user is using it, surface the conflict explicitly. Update `docs/domain-model.md` (or create it if missing) the moment a term is resolved – inline, not at the end.
 
 5.  **Probe with concrete scenarios.**
 
@@ -72,7 +72,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     When the user states "we do X", check whether the code agrees. If you find a contradiction, surface it:
 
-    > "You just said partial cancellation is supported, but the `OrderService.cancel()` method takes only an order ID and marks the whole order cancelled. Which is right - is the code out of date, or is the design wrong?"
+    > "You just said partial cancellation is supported, but the `OrderService.cancel()` method takes only an order ID and marks the whole order cancelled. Which is right – is the code out of date, or is the design wrong?"
 
     Contradictions between stated behavior and implemented behavior are some of the highest-leverage findings of this skill.
 
@@ -84,9 +84,9 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     - *Architectural decision settled* → ADR, but only if all three are true:
 
-        1. *Hard to reverse* - the cost of changing your mind later is meaningful.
-        2. *Surprising without context* - a future reader will wonder "why did they do it this way?"
-        3. *The result of a real trade-off* - there were genuine alternatives.
+        1. *Hard to reverse* – the cost of changing your mind later is meaningful.
+        2. *Surprising without context* – a future reader will wonder "why did they do it this way?"
+        3. *The result of a real trade-off* – there were genuine alternatives.
 
         If any of the three is missing, skip the ADR. Most decisions during elaboration do NOT meet all three.
 
@@ -100,7 +100,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - The terms in use match the glossary.
     - No contradictions remain between stated design and existing code.
 
-    Hand off to [`plan`](../plan/SKILL.md) (if the design is now decomposition-ready) or back to [`design`](../design/SKILL.md) (if elaboration uncovered a flaw too large to resolve here).
+    Report the result and stop: either a decomposition-ready design, or – if elaboration uncovered a flaw too large to resolve here – a note that the draft needs structural rework before it can proceed. Whatever consumes the elaborated design is the orchestrator's concern.
 
 ##  Rules
 
@@ -244,23 +244,23 @@ response time. If that becomes a problem we revisit.
 
 -   **The user is AFK.**
 
-    Do not push ahead silently. Pause, leave a one-line note ("queued questions: 1, 2, 3 - asking 1 when you're back"), and stop. The skill's value comes from the dialogue; producing a unilateral decision-doc defeats it.
+    Do not push ahead silently. Pause, leave a one-line note ("queued questions: 1, 2, 3 – asking 1 when you're back"), and stop. The skill's value comes from the dialogue; producing a unilateral decision-doc defeats it.
 
 -   **The draft turns out to be too unfinished to elaborate.**
 
-    If three or four questions in a row reveal that the design has not actually decided anything, stop and hand back to [`design`](../design/SKILL.md). Elaboration cannot rescue a draft that has no spine.
+    If three or four questions in a row reveal that the design has not actually decided anything, stop and report that the draft needs to be reworked from scratch. Elaboration cannot rescue a draft that has no spine.
 
 -   **A question reveals a missing AC.**
 
-    Stop, capture the gap, suggest the user revise the [specification](../specify/SKILL.md). Do not paper over it with a guess about what the requirement "probably" is.
+    Stop, capture the gap, suggest the user revise the specification. Do not paper over it with a guess about what the requirement "probably" is.
 
 -   **The user disagrees with the recommended answer.**
 
-    Good - that is the signal that the recommendation surfaced a real choice. Ask one follow-up to understand the reasoning, then move on. Do not relitigate.
+    Good – that is the signal that the recommendation surfaced a real choice. Ask one follow-up to understand the reasoning, then move on. Do not relitigate.
 
 -   **The session keeps spawning new questions faster than it resolves them.**
 
-    Likely a sign that the draft design is built on a shaky foundation. Pause, summarize the unresolved branch, and ask the user whether to keep elaborating or to loop back to [`design`](../design/SKILL.md) for a structural rethink.
+    Likely a sign that the draft design is built on a shaky foundation. Pause, summarize the unresolved branch, and ask the user whether to keep elaborating or to send the draft back for a structural rethink.
 
 -   **The project does not yet have a `docs/domain-model.md`.**
 
@@ -288,9 +288,15 @@ response time. If that becomes a problem we revisit.
 
     Decisions that did not, did not.
 
--   **The output is decomposition-ready for [`plan`](../plan/SKILL.md).**
+-   **The output is decomposition-ready.**
 
     A reader can pick up the design and break it into steps without re-asking the questions this skill resolved.
+
+## Inputs and outputs
+
+- **Input — a draft design with soft edges**: an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. This skill does not originate the design; it consumes a draft to sharpen.
+
+- **Output — a decomposition-ready design**: every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
 
 ## References
 
@@ -301,9 +307,3 @@ response time. If that becomes a problem we revisit.
 - [CONTEXT-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/CONTEXT-FORMAT.md): The glossary format the `docs/domain-model.md` entries are modeled on. Read for term-style conventions (one or two sentences, aliases to avoid).
 
 - [ADR-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/ADR-FORMAT.md): The ADR format and the three-criteria filter for when to write one.
-
-- [`design`](../design/SKILL.md): Produces the draft this skill elaborates.
-
-- [`plan`](../plan/SKILL.md): Consumes the elaborated design.
-
-- [`specify`](../specify/SKILL.md): Where a missing AC, surfaced during elaboration, should be sent for revision.

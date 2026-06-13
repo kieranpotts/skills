@@ -1,6 +1,6 @@
 ---
 name: refine
-description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into [`specify`](../specify/SKILL.md). Use when [`test`](../test/SKILL.md) surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
+description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into the specification. Use when testing surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,9 +9,9 @@ metadata:
 
 # Refine
 
-Use this skill when [`test`](../test/SKILL.md) surfaces a problem with the *specification itself* - an acceptance criterion that is wrong, missing, contradictory, or ambiguous - or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The output is a set of precise edits to the specification, ready to be applied by [`specify`](../specify/SKILL.md) and to flow forward through [`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md), and [`code`](../code/SKILL.md).
+Use this skill when testing surfaces a problem with the *specification itself* – an acceptance criterion that is wrong, missing, contradictory, or ambiguous – or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The output is a set of precise edits to the specification, ready to be applied to the requirements artefacts and to flow forward into design, planning, and implementation.
 
-Do NOT use this skill to fix defects in the implementation - that is [`debug`](../debug/SKILL.md) (the code does not meet a correct specification) or [`code`](../code/SKILL.md) (build missing behavior against a now-correct specification). Do NOT use it to write brand-new requirements for unrelated work (start fresh with [`specify`](../specify/SKILL.md)).
+Do NOT use this skill to fix defects in the implementation – that is the job of fixing code that does not meet a correct specification, or of building missing behavior against a now-correct specification. Do NOT use it to write brand-new requirements for unrelated work (that starts fresh as a new specification).
 
 The boundary is sharp: if the specification was right and the code was wrong, you are not refining. If the specification was wrong and the code matches it, you are.
 
@@ -21,14 +21,14 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
     State, in one sentence, what feedback prompted the refinement. Possible triggers:
 
-    - *AC failure in [`test`](../test/SKILL.md) that, on inspection, reflects a specification error*: the test correctly verified what the specification demanded, but the demand was wrong.
+    - *AC failure in testing that, on inspection, reflects a specification error*: the test correctly verified what the specification demanded, but the demand was wrong.
     - *Specification gap revealed by exploratory testing*: a scenario nobody anticipated.
     - *Stakeholder feedback on working software*: "this is what we said, but it's not what we needed".
-    - *NFR threshold mismatch*: the measured number is inside the threshold but the user experience is still unacceptable (or vice versa - the threshold was over-strict).
+    - *NFR threshold mismatch*: the measured number is inside the threshold but the user experience is still unacceptable (or vice versa – the threshold was over-strict).
     - *Out-of-scope item turns out to be in scope* (or vice versa).
     - *Contradiction between two ACs* surfaced during implementation or testing.
 
-    Without a named trigger, you are not refining - you are second-guessing.
+    Without a named trigger, you are not refining – you are second-guessing.
 
 2.  **Locate the specific specification artefact to change.**
 
@@ -39,7 +39,7 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
     - An out-of-scope entry.
     - A constraint, assumption, or stakeholder note.
 
-    If the requirement was never captured at all - a true gap - say so. The refinement is then an *addition*, not an *edit*.
+    If the requirement was never captured at all – a true gap – say so. The refinement is then an *addition*, not an *edit*.
 
 3.  **Decide the type of change.**
 
@@ -47,7 +47,7 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
     - *Correction*: an existing AC is wrong and MUST be rewritten. (The most common case.)
     - *Addition*: a missing AC MUST be added. New scenario, new NFR, new out-of-scope entry.
-    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful - users often *think* an AC is wrong when really the *implementation* is.)
+    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful – users often *think* an AC is wrong when really the *implementation* is.)
     - *Reclassification*: an item moves between scope/out-of-scope, or between functional and non-functional, or between blocking and deferred.
     - *Threshold adjustment*: an NFR target is loosened or tightened with new justification.
 
@@ -55,13 +55,13 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
 4.  **Draft the edit in the specification's own form.**
 
-    Refinements MUST land back in [`specify`](../specify/SKILL.md) using the conventions [`specify`](../specify/SKILL.md) enforces:
+    Refinements MUST land back in the requirements artefacts using the conventions those artefacts enforce:
 
     - Functional changes: Gherkin scenarios (`Feature` / `Scenario` / `Given`/`When`/`Then`).
     - NFR changes: measurable benchmark or named standard, never "must be fast".
     - Scope changes: explicit "Out of scope" entries with rationale.
 
-    Show the *before* and the *after* side by side. A bare "after" without "before" makes review hard - the reader has to diff in their head.
+    Show the *before* and the *after* side by side. A bare "after" without "before" makes review hard – the reader has to diff in their head.
 
 5.  **Record the rationale and the trigger.**
 
@@ -77,32 +77,32 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
     Refining a specification is rarely free. Before declaring the refinement done, map the ripple:
 
-    - Which [`design`](../design/SKILL.md) decisions assumed the old AC?
-    - Which planned [`plan`](../plan/SKILL.md) steps are now wrong?
-    - Which [`code`](../code/SKILL.md) increments need to change?
-    - Which [`test`](../test/SKILL.md) cases (automated or manual) need updating?
+    - Which design decisions assumed the old AC?
+    - Which planned delivery steps are now wrong?
+    - Which code increments need to change?
+    - Which test cases (automated or manual) need updating?
 
-    For each downstream artefact, flag whether it needs adjustment, re-verification, or no change. Hand the list back through the workflow; refinement on its own does not modify code.
+    For each downstream artefact, flag whether it needs adjustment, re-verification, or no change. The list is part of the output; refinement on its own does not modify code.
 
-7.  **Hand off.**
+7.  **Report the output.**
 
-    The refined specification is the artefact of this skill. Hand off to:
+    The refined specification is the artefact of this skill. Report it as:
 
-    - [`specify`](../specify/SKILL.md) for any new ACs introduced (full Gherkin / NFR treatment).
-    - [`design`](../design/SKILL.md) if the change crosses module boundaries or alters NFRs.
-    - [`plan`](../plan/SKILL.md) / [`code`](../code/SKILL.md) / [`test`](../test/SKILL.md) for the downstream work.
+    - Edits to the requirements artefacts for any new ACs introduced (full Gherkin / NFR treatment).
+    - A flag that the change crosses module boundaries or alters NFRs, where it does.
+    - The traced list of downstream work the refinement implies.
 
-    Do not implement the change inside this skill. Refinement is about *what is required*, not *how to build it*.
+    Do not implement the change inside this skill. Refinement is about *what is required*, not *how to build it*. Report the output and stop; what consumes it is the caller's decision.
 
 ##  Rules
 
 -   **Refine the specification, not the code.**
 
-    If the right response is "fix the implementation to match the existing AC", that is [`debug`](../debug/SKILL.md). Refinement happens when the AC itself was wrong, missing, or ambiguous - not when the implementation drifted from a correct AC.
+    If the right response is "fix the implementation to match the existing AC", that is a code-defect fix, not a refinement. Refinement happens when the AC itself was wrong, missing, or ambiguous – not when the implementation drifted from a correct AC.
 
 -   **Never silently rewrite a passed AC.**
 
-    An AC that previously passed - in [`test`](../test/SKILL.md) or in production - is part of the contract with users and stakeholders. Changing it without explicit acknowledgment is how regressions arrive disguised as cleanups. Always record the change, the reason, and what was previously promised.
+    An AC that previously passed – in testing or in production – is part of the contract with users and stakeholders. Changing it without explicit acknowledgment is how regressions arrive disguised as cleanups. Always record the change, the reason, and what was previously promised.
 
 -   **Refinement requires evidence.**
 
@@ -112,17 +112,17 @@ The boundary is sharp: if the specification was right and the code was wrong, yo
 
     Bundling unrelated specification edits ("while we're here, also fix the refund timeout AC") produces a diff nobody can review. Refine one AC per pass; queue the others.
 
--   **Refinements MUST conform to [specification](../specify/SKILL.md) conventions.**
+-   **Refinements MUST conform to the specification conventions.**
 
     Gherkin form, testability, measurable NFRs, explicit out-of-scope. A refined specification that breaks the conventions is no better than the unrefined one.
 
 -   **Distinguish "specification was wrong" from "user changed their mind".**
 
-    Both produce a specification edit, but the framing matters. A user who changes their mind is fine - record it as such. A specification that misrepresented what the user wanted from day one is a process failure worth noting; the next specification should not repeat it.
+    Both produce a specification edit, but the framing matters. A user who changes their mind is fine – record it as such. A specification that misrepresented what the user wanted from day one is a process failure worth noting; the next specification should not repeat it.
 
 -   **Refinement is not the place to expand scope.**
 
-    Net-new features that were never part of the original ask are not refinements - they are new specs. Treat them as such and run them through [`specify`](../specify/SKILL.md) in their own right; the refine path is for fixing what was already there.
+    Net-new features that were never part of the original ask are not refinements – they are new specs. Treat them as such and capture them as a fresh specification in their own right; the refine path is for fixing what was already there.
 
 -   **Capture follow-up items, do not absorb them.**
 
@@ -215,7 +215,7 @@ Downstream impact:
 
 -   **The refinement contradicts a recently-shipped feature.**
 
-    Treat as a breaking change to a published contract. The refinement is fine to record, but the downstream work needs a deprecation / migration story. Loop in [`design`](../design/SKILL.md) before assuming the change can land.
+    Treat as a breaking change to a published contract. The refinement is fine to record, but the downstream work needs a deprecation / migration story. Flag the need for a design pass before assuming the change can land.
 
 -   **Stakeholders disagree on whether the specification was wrong.**
 
@@ -223,15 +223,15 @@ Downstream impact:
 
 -   **The "refinement" is actually scope expansion in disguise.**
 
-    Common pattern: a stakeholder reframes a new feature as "we always wanted this". Push back and route the new ask through [`specify`](../specify/SKILL.md) as a fresh requirement. Refinement should leave the *purpose* of the original specification intact; expansion replaces it.
+    Common pattern: a stakeholder reframes a new feature as "we always wanted this". Push back and route the new ask through a fresh specification as a new requirement. Refinement should leave the *purpose* of the original specification intact; expansion replaces it.
 
 -   **No specification exists in writing.**
 
-    If the original requirement was tacit, refinement is impossible - there is nothing to revise. The first task is to write down the assumed specification (via [`specify`](../specify/SKILL.md)), then refine *that*. Skipping the write-down produces undocumented drift.
+    If the original requirement was tacit, refinement is impossible – there is nothing to revise. The first task is to write down the assumed specification, then refine *that*. Skipping the write-down produces undocumented drift.
 
 -   **Refinement reveals the original AC was untestable.**
 
-    Common when a "tested" AC was really verified by ad-hoc inspection. Rewrite the AC into a testable form per [`specify`](../specify/SKILL.md) conventions; that is itself the refinement.
+    Common when a "tested" AC was really verified by ad-hoc inspection. Rewrite the AC into a testable form per the specification conventions; that is itself the refinement.
 
 ##  Success criteria
 
@@ -241,28 +241,22 @@ Downstream impact:
 
 -   **The edit is shown as before / after.**
 
-    Reviewers see what changed without diffing in their heads. The "after" obeys [`specify`](../specify/SKILL.md) conventions (Gherkin, measurable NFRs, explicit scope).
+    Reviewers see what changed without diffing in their heads. The "after" obeys the specification conventions (Gherkin, measurable NFRs, explicit scope).
 
 -   **The rationale is recorded with the edit.**
 
     The specification or its commit history explains *why*, not just *what*. Future readers can reconstruct the decision without re-litigating it.
 
--   **Downstream impact is traced and handed off.**
+-   **Downstream impact is traced.**
 
-    A list of affected artefacts ([`design`](../design/SKILL.md), [`plan`](../plan/SKILL.md), [`code`](../code/SKILL.md), [`test`](../test/SKILL.md)) exists, with status. Nothing is silently invalidated.
+    A list of affected artefacts (design, planned steps, code, tests) exists, with status. Nothing is silently invalidated.
 
 -   **No code or test was changed inside this skill.**
 
-    The output is a specification edit and a handoff. Implementation lives in the downstream skills.
+    The output is a specification edit and a traced impact list. Implementation lives downstream.
 
-## References
+## Inputs and outputs
 
-- [`specify`](../specify/SKILL.md): The owner of requirements artefacts; every refinement lands as edits processed through here.
+- **Input**: a feedback trigger against an existing specification – a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
 
-- [`test`](../test/SKILL.md): Most common upstream trigger - a failing AC or an exploratory finding.
-
-- [`debug`](../debug/SKILL.md): When the right response is "fix the code", not "fix the specification".
-
-- [`design`](../design/SKILL.md): Downstream destination when a refinement crosses module boundaries or alters NFRs.
-
-- [`plan`](../plan/SKILL.md) / [`code`](../code/SKILL.md): Downstream destinations for the implementation work a refinement implies.
+- **Output**: precise edits to the requirements artefacts, conforming to the specification conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded trigger, type, and rationale; plus a traced list of downstream design, planning, code, and test work the refinement implies. The output is reported and the skill stops; it changes no code itself.

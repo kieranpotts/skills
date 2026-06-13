@@ -20,7 +20,7 @@ The bundled starting template lives at [`assets/skill-template/skill-name/`](./a
 
 ## How to invoke
 
-Ask the agent to create or improve a skill — eg. *"create a skill for X"*, *"draft a skill that does Y"*, *"turn this workflow into a skill"*, or *"improve the `commit` skill"*. The skill triggers on those phrasings.
+Ask the agent to create or improve a skill — eg. *"create a skill for X"*, *"draft a skill that does Y"*, *"turn this workflow into a skill"*, or *"improve the `<name>` skill"*. The skill triggers on those phrasings.
 
 ## Examples
 
@@ -28,4 +28,4 @@ Ask the agent to create or improve a skill — eg. *"create a skill for X"*, *"d
 
 - **Capture a workflow:** *"We always do A, then B, then C when releasing — make that a skill."* → a procedural `SKILL.md` encoding the steps, with success criteria.
 
-- **Improve an existing skill:** *"The `review` skill misfires on docs-only PRs — tighten its description."* → a rewritten `description` and any supporting edits, re-validated.
+- **Improve an existing skill:** *"This skill misfires on docs-only PRs — tighten its description."* → a rewritten `description` and any supporting edits, re-validated.

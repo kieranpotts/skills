@@ -1,6 +1,6 @@
 ---
 name: refactor
-description: Improve the internal quality of existing code without changing its observable behavior. Tests pass before and after. Each step is small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work - distinct from bug fixes ([`debug`](../debug/SKILL.md)) and feature work ([`code`](../code/SKILL.md)).
+description: Improve the internal quality of existing code without changing its observable behavior. Tests pass before and after. Each step is small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work – distinct from bug fixes and feature work.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,9 +9,9 @@ metadata:
 
 # Refactor
 
-Use this skill when improving internal code quality - readability, structure, coupling, naming, decomposition - without changing what the code does from the outside.
+Use this skill when improving internal code quality – readability, structure, coupling, naming, decomposition – without changing what the code does from the outside.
 
-Do NOT use this skill to fix a defect (use [`debug`](../debug/SKILL.md)) or to add behavior (use [`code`](../code/SKILL.md)). Do NOT use it for presentation-only changes like whitespace, indentation, or import ordering (use [`format`](../format/SKILL.md)) - those are noise that hides real refactoring intent. Bundling refactors with feature work or bug fixes obscures intent in the diff and complicates rollback.
+Do NOT use this skill to fix a defect or to add behavior – those change observable behavior and belong in a separate change. Do NOT use it for presentation-only changes like whitespace, indentation, or import ordering – those are noise that hides real refactoring intent. Bundling refactors with feature work or bug fixes obscures intent in the diff and complicates rollback.
 
 A change that alters externally observable behavior is not a refactor. Even a "small" behavior tweak in the middle of restructuring is a separate change.
 
@@ -19,14 +19,14 @@ A change that alters externally observable behavior is not a refactor. Even a "s
 
 1.  **Name the quality you are improving.**
 
-    Refactoring without a named target produces aimless churn. Pick from the nine design qualities (see [`design`](../design/SKILL.md)) and state it:
+    Refactoring without a named target produces aimless churn. Pick from the nine design qualities and state it:
 
-    - "Improve *cohesiveness*: this module mixes order parsing with email rendering - split them."
+    - "Improve *cohesiveness*: this module mixes order parsing with email rendering – split them."
     - "Improve *simplicity*: this 4-level inheritance hierarchy can collapse into a single function."
-    - "Improve *changeability*: the price calculation is duplicated across three call sites - extract one helper."
+    - "Improve *changeability*: the price calculation is duplicated across three call sites – extract one helper."
     - "Improve *habitability*: the variable names obscure what the function does."
 
-    If you cannot name the target quality, you are not refactoring - you are rearranging.
+    If you cannot name the target quality, you are not refactoring – you are rearranging.
 
 2.  **Verify a safety net exists.**
 
@@ -34,7 +34,7 @@ A change that alters externally observable behavior is not a refactor. Even a "s
 
     - Identify the tests that cover the code being touched.
     - Run them; confirm they pass.
-    - If coverage is thin, add *characterization tests* first - tests that pin down the current behavior, whatever it is. This is a separate prior step (commit as `step:` or `maintenance:`).
+    - If coverage is thin, add *characterization tests* first – tests that pin down the current behavior, whatever it is. This is a separate prior step (commit as `step:` or `maintenance:`).
 
     Never refactor code that has no tests and where you cannot quickly add some. Without a safety net, you are guessing.
 
@@ -55,7 +55,7 @@ A change that alters externally observable behavior is not a refactor. Even a "s
     1. Make the change.
     2. Run the relevant tests.
     3. Confirm green.
-    4. Commit as `refactor:` (see [`commit`](../commit/SKILL.md)).
+    4. Commit as `refactor:` using the project's commit format.
     5. Move to the next.
 
     Do NOT batch moves into one commit. Granularity is what makes refactors safe to roll back and easy to review.
@@ -68,7 +68,7 @@ A change that alters externally observable behavior is not a refactor. Even a "s
     - You feel the urge to "fix this bug while I'm here".
     - You feel the urge to "add this small feature while I'm restructuring".
 
-    Stop. Revert to the last green state. The behavior change is a separate task (a [`debug`](../debug/SKILL.md) fix or a [`code`](../code/SKILL.md) step), with its own commit and its own review.
+    Stop. Revert to the last green state. The behavior change is a separate task (a bug fix or a feature step), with its own commit and its own review.
 
 6.  **Re-evaluate against the named quality.**
 
@@ -79,11 +79,11 @@ A change that alters externally observable behavior is not a refactor. Even a "s
     - Coupling: imports between modules dropped.
     - Habitability: a reader can answer "what does this do" without scrolling.
 
-    If you can't point at the improvement, the refactor was speculative - consider reverting.
+    If you can't point at the improvement, the refactor was speculative – consider reverting.
 
 7.  **Commit and integrate.**
 
-    Each move is a `refactor:` commit. A series of related moves forms the branch. Integrate via [`branch`](../branch/SKILL.md) conventions - typically a short-lived `temp/*` branch fast-forwarded into `dev`.
+    Each move is a `refactor:` commit. A series of related moves forms the branch. Integrate via the project's branching conventions – typically a short-lived `temp/*` branch fast-forwarded into `dev`.
 
     The PR description names the quality being improved and the moves taken.
 
@@ -115,11 +115,11 @@ A change that alters externally observable behavior is not a refactor. Even a "s
 
 -   **Apply the deletion test.**
 
-    When considering removing or inlining a module, imagine deleting it entirely. If complexity *vanishes* - the module was a pass-through doing nothing the callers couldn't trivially do inline - delete it. If complexity *reappears spread across the callers*, the module was earning its keep through locality; either keep it as-is, or *deepen* it (move more behavior behind the interface) rather than remove it.
+    When considering removing or inlining a module, imagine deleting it entirely. If complexity *vanishes* – the module was a pass-through doing nothing the callers couldn't trivially do inline – delete it. If complexity *reappears spread across the callers*, the module was earning its keep through locality; either keep it as-is, or *deepen* it (move more behavior behind the interface) rather than remove it.
 
     The test works in reverse too: when tempted to *extract* a new module, ask whether deleting it from the imagined design would re-spread complexity across callers. If the answer is no, the extraction is premature.
 
-    This rule pairs with "Prefer deep modules to shallow ones" in [`design`](../design/SKILL.md): that rule is the *target*, this one is the *diagnostic*.
+    This rule pairs with the design principle "prefer deep modules to shallow ones": that principle is the *target*, this one is the *diagnostic*.
 
 -   **One quality at a time.**
 
@@ -167,15 +167,15 @@ commit and tracking issue. Resumed the refactor.
 
 -   **Coverage is absent and impossible to add quickly.**
 
-    Refactoring without a safety net is gambling. Two options: (a) treat the missing tests as the work itself - a `maintenance:` step to add characterization tests, before any refactor; (b) defer the refactor. Do not press on without coverage.
+    Refactoring without a safety net is gambling. Two options: (a) treat the missing tests as the work itself – a `maintenance:` step to add characterization tests, before any refactor; (b) defer the refactor. Do not press on without coverage.
 
 -   **The refactor reveals a bug.**
 
-    Common. Stop the refactor. Commit any green moves already made. Switch to [`debug`](../debug/SKILL.md) for the bug. Resume the refactor afterward.
+    Common. Stop the refactor. Commit any green moves already made. Switch to fixing the bug as its own task. Resume the refactor afterward.
 
 -   **The "refactor" is actually a design change.**
 
-    If the move you want to make redraws module boundaries, changes a public interface, or alters the data model, it is a design change, not a refactor. Loop back through [`design`](../design/SKILL.md) first.
+    If the move you want to make redraws module boundaries, changes a public interface, or alters the data model, it is a design change, not a refactor. Send it back through design first.
 
 -   **Pre-emptive refactor "to make the next feature easier".**
 
@@ -205,18 +205,8 @@ commit and tracking issue. Resumed the refactor.
 
 -   **Tests passed after every move, not just at the end.**
 
-## References
+## Inputs and outputs
 
-- [`review`](../review/SKILL.md): Common upstream trigger - review surfaces an internal-quality finding that needs structural work.
+- **Input — existing, tested code and a named target quality**: the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
 
-- [`audit`](../audit/SKILL.md): Different scope - audit's whole-codebase scan produces design-revisit candidates that flow through [`design`](../design/SKILL.md) and a new workflow iteration. Refactor is a feedback step within an in-flight iteration, not a destination for audit findings.
-
-- [`design`](../design/SKILL.md): When the change is bigger than a refactor and crosses module boundaries. Refactor escalates to design when module boundaries, interfaces, or data models would have to change.
-
-- [`debug`](../debug/SKILL.md): When a refactor uncovers a defect.
-
-- [`code`](../code/SKILL.md): When the work is adding behavior, not restructuring.
-
-- [`format`](../format/SKILL.md): When the change is presentation only (whitespace, style, ordering) and does not touch structure.
-
-- [`commit`](../commit/SKILL.md): `refactor:` type and atomic-commit rules.
+- **Output — a series of small `refactor:` commits** that improve the named quality while leaving externally observable behavior identical: tests green before and after every move, each commit independently revertable, the diff free of feature or bug-fix work. Whatever reviews, integrates, or sequences the next task is the orchestrator's concern, not this skill's.

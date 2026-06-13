@@ -83,8 +83,8 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     It determines whether an agent invokes the skill. Err toward being explicit rather than brief. A vague description leads to the skill being ignored. Follow this two-sentence pattern, written in the third person:
 
-    1. *First sentence* - what the skill does.
-    2. *Second sentence* - `Use when ...` followed by specific triggers (user phrasings, situations, file types, contexts).
+    1. *First sentence* – what the skill does.
+    2. *Second sentence* – `Use when ...` followed by specific triggers (user phrasings, situations, file types, contexts).
 
     ```
     ✅ Good:
@@ -158,9 +158,6 @@ skills/
     ├── SKILL.md
     └── README.md
 ```
-
-See the [`commit`](../commit/SKILL.md) skill for an example.
-
 
 A skill with bundled scripts and references:
 
