@@ -73,6 +73,8 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     Read the SRS repository's scaffolding skill (`draft-spec`, or the equivalent its `AGENTS.md` names) and carry out its procedure yourself: create the branch, the proposal document from the template, the draft pull request, and the discussion thread. Where that skill would prompt a human for the change description, the slug, or the change type, derive each from the PRD's outcome instead – do not pause to ask. The skill is `interactive: yes`; you are running its procedure non-interactively.
 
+    If the scaffolding procedure provides for preserving the originating PRD (the reference implementation writes it to `proposals/<slug>/product-requirements.md` and links it from the proposal's `Origin` field), supply *this skill's input PRD* as that origin artifact, verbatim. The validated PRD is no longer a transient working document: it becomes the proposal's durable, frozen origin record. Follow whatever the target repository prescribes for this; do not invent a location it does not define.
+
 6.  **Author the specification content – follow `write-spec`.**
 
     Read the SRS repository's content-authoring skill (`write-spec`, or its equivalent) and apply it. That skill owns *how* the content is written – the acceptance-criteria format, how non-functional requirements are expressed, where each artifact lives, and the Definition of Ready. Apply its rules to the validated PRD, mapping:
@@ -211,7 +213,7 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 ## Inputs and outputs
 
-- **Input — a PRD** (product-requirements / discovery report): the business-language outcome, stakeholders, rules, examples, and scope this skill validates and translates. This skill does not produce the PRD; it consumes one. Requirement *elicitation* happens upstream, separately – this skill never interviews the user.
+- **Input — a PRD** (product-requirements / discovery report): the business-language outcome, stakeholders, rules, examples, and scope this skill validates and translates. This skill does not produce the PRD; it consumes one. Requirement *elicitation* happens upstream, separately – this skill never interviews the user. The PRD is also *preserved*: if the target repository's scaffold provides for it, the input PRD is written verbatim into the proposal as its frozen origin record, rather than discarded after specification.
 
 - **Procedure source — the SRS repository's local skills** (reference-implementation names): `draft-spec` defines how the proposal is scaffolded, `write-spec` how the content is authored, and `propose-spec` how it is marked ready for review. On a valid PRD, this skill reads these three and carries out their combined procedure in sequence, non-interactively – it does not invoke them (they are `interactive: yes`). They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents. (These belong to the target repository, not to this collection.)
 

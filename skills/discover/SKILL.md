@@ -1,6 +1,6 @@
 ---
 name: discover
-description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report – a transient, business-language PRD with no Gherkin – ready for whatever turns requirements into a specification. Use when requirements are vague and an interview-style refinement is needed before a specification can be filed.
+description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report – a business-language PRD with no Gherkin – ready for whatever turns requirements into a specification. Use when requirements are vague and an interview-style refinement is needed before a specification can be filed.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -11,7 +11,7 @@ metadata:
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a discovery report. The agent acts as the business analyst, asking one question at a time. The user answers as the customer – either directly (when the user is the product owner) or as a relay (paraphrasing what real customers said in a prior conversation).
 
-The output is a **discovery report**, not Gherkin. It is the project's product-requirements document (PRD) in all but name: a business-language statement of the problem, outcome, scope, rules, and open questions. It is a transient working artifact – ready for whatever turns requirements into a testable specification, and superseded by that durable record. This report is not itself filed in any workflow repository; translating its rules and examples into testable acceptance criteria is a separate, downstream responsibility.
+The output is a **discovery report**, not Gherkin. It is the project's product-requirements document (PRD) in all but name: a business-language statement of the problem, outcome, scope, rules, and open questions. Within this session it is a working artifact – ready for whatever turns requirements into a testable specification. This skill does not itself file the report in any workflow repository; translating its rules and examples into testable acceptance criteria is a separate, downstream responsibility. (When a downstream specification step consumes it, that step MAY preserve this report as the resulting proposal's durable origin record – so the report is not necessarily discarded, but its fate is the consumer's concern, not this skill's.)
 
 Do NOT use this skill when:
 
@@ -75,7 +75,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 9.  **Produce the discovery report.**
     Confirm with the user that no further rules need to be elicited, then fill out the bundled template at [`assets/discovery-report-template.md`](./assets/discovery-report-template.md). It has these sections: *Outcome* (goal, why now, success measure), *Stakeholders*, *Scope* (in and out), *Rules*, *Examples* (an applies/doesn't-apply pair per rule), *Assumptions*, and *Open questions* (each with an owner).
 
-    This report is the project's PRD in all but name – it captures the problem, success measure, scope, rules, and open questions in business language. It is a transient working artifact: it is the input from which a durable specification record is later produced. Do NOT file this report in a workflow repository; report it as the skill's output and stop.
+    This report is the project's PRD in all but name – it captures the problem, success measure, scope, rules, and open questions in business language. It is the input from which a durable specification record is later produced; a downstream step MAY then preserve it as that record's origin artifact. Do NOT file this report in a workflow repository yourself; report it as the skill's output and stop.
 
 ##  Rules
 
@@ -140,4 +140,4 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 - **Input** – a vague business need or capability to explore, supplied by the user, who answers as the customer (directly or by relaying real customer conversations).
 
-- **Output** – a **discovery report**: a transient, business-language PRD (Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions) with no Gherkin and no technical detail. It enforces completeness – every rule with a counter-example, an explicit out-of-scope list, blocking questions resolved – so it is ready to be turned into a testable specification. This skill reports the report and stops; where it goes next is the orchestrator's concern.
+- **Output** – a **discovery report**: a business-language PRD (Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions) with no Gherkin and no technical detail. It enforces completeness – every rule with a counter-example, an explicit out-of-scope list, blocking questions resolved – so it is ready to be turned into a testable specification. This skill reports the report and stops; where it goes next is the orchestrator's concern.
