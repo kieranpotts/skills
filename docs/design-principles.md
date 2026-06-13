@@ -22,7 +22,7 @@ No `SKILL.md` links to, names as a dependency, or assumes the presence of anothe
 
 Independence and portability are two sides of the same rule: portability forbids reaching *outside the directory*; independence forbids reaching *into a sibling skill* specifically.
 
-**Scope: independence is within this collection.** The rule forbids a skill from knowing about *other skills in this collection*. It does not forbid a skill from orchestrating skills that live in a *separate, external repository* it is designed to drive – for example, a workflow skill here that runs a target project's own repository-local sub-skills. Those are not siblings in this collection; naming and sequencing them is the skill's legitimate job. The line is: no knowledge of a peer in *this* collection; orchestrating another project's skills across a repository boundary is allowed.
+**Scope: independence is within this collection.** The rule forbids a skill from knowing about *other skills in this collection*. It does not forbid a skill from driving the skills that live in a *separate, external repository* it is designed to work with – for example, a workflow skill here that carries out the procedure defined by a target project's repository-local skills (see [*driving another repository's skills*](#driving-another-repositorys-skills-read-dont-invoke) below). Those are not siblings in this collection; naming and sequencing their procedures is the skill's legitimate job. The line is: no knowledge of a peer in *this* collection; orchestrating another project's skills across a repository boundary is allowed.
 
 **Independence between skills is not isolation from everything.** A skill here is independent of its *sibling skills*, but it may be – and often is – *tightly coupled to external artifacts*: a repository structure, a file convention, a documented pattern it expects the target project to follow. For example, the `specify` skill knows nothing of any sibling skill, yet it is deliberately bound to an SRS repository that follows a specific pattern and exposes its own agent skills (scaffold, author, mark-ready) for `specify` to drive. That coupling is intentional and is what makes the skill *do* something useful in this ecosystem. The independence rule governs skill-to-*skill* relationships within the collection; it says nothing against a skill depending on an external contract, structure, or pattern. Reusability (above) is then a matter of how widely that external contract is shared – a skill bound to a common, well-documented pattern travels further than one bound to a bespoke one.
 
@@ -55,6 +55,25 @@ This reverses the older "cross-reference instead of duplicate" guidance: a cross
 ## Consequence for orchestration
 
 Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the human approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for humans) is fine, and belongs in repository documentation – not inside any skill.
+
+## Driving another repository's skills: read, don't invoke
+
+A workflow skill in this collection may drive a target repository's own skills – `specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
+
+A global workflow skill MUST NOT literally *invoke* a target repository's local skills. It **reads their rules and instructions and executes that procedure itself**, in a non-interactive mode. The local skill is the authoritative *source of the procedure*; the workflow skill is the *engine that runs it* unattended.
+
+This is a deliberate consequence of two facts about the local skills:
+
+- **Local skills are interactive by design.** Every repository-level skill across the SRS, RFC, Design, and Plans repositories declares `metadata.interactive: yes`. They are written for a human operator at a keyboard: they prompt for a description, confirm a slug, ask which change type applies, and end by directing the user to the next skill in the lifecycle. Run literally, they would block on prompts the orchestrator cannot answer, and would tell the user to perform a step the orchestrator is itself about to perform.
+
+- **A global workflow skill that consumes a PRD already holds the answers.** When `specify` drives the SRS workflow, the validated PRD supplies everything the interactive prompts would ask a human for. The skill does not need to *ask*; it needs to *apply*. So it reads what `draft-spec`/`write-spec`/`propose-spec` prescribe – the branch convention, the template, the acceptance-criteria format, the Definition of Ready, the lifecycle labels – and carries that procedure out directly, drawing every answer from the PRD instead of from a prompt.
+
+Reading-not-invoking is also what keeps the *content rules in one place*. The target repository remains the single authoritative source for how its artifacts are written and how its proposals move through their states; the workflow skill never hard-codes a second copy of those rules from memory. It reads them fresh from the target repository each run (via that repository's `AGENTS.md` and the local skills it names), so a project that tunes its own `write-spec` automatically changes how `specify` behaves – without `specify` itself changing.
+
+The division of labour, then:
+
+- **Local repository-level skills** (`draft-spec`, `write-spec`, …) are `interactive: yes`. They are the human-operable, authoritative definition of each step, and the canonical home of the content and lifecycle rules.
+- **Global workflow skills** (`specify`, …) are `interactive: no`. They consume an upstream artifact (a PRD), read the local skills' procedures, and execute them unattended – prompting for nothing, because the input already answers what the interactive path would ask.
 
 ## Presentation: skills as slash commands
 

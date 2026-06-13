@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Validate a PRD (product-requirements / discovery report) and, if complete, file it as a proposal in the project's SRS (software requirements specification) repository by autonomously running that repository's sub-skills in sequence – scaffold (draft-spec), author the testable acceptance criteria (write-spec), and mark ready for review (propose-spec). Non-interactive: rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
+description: Validate a PRD (product-requirements / discovery report) and, if complete, file it as a proposal in the project's SRS (software requirements specification) repository by carrying out that repository's own proposal procedure – scaffold, author the testable acceptance criteria, and mark ready for review – non-interactively, reading the procedure from the repository's local skills (draft-spec, write-spec, propose-spec) rather than invoking them. Rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -14,21 +14,23 @@ Use this skill to turn a **PRD** – a product-requirements document, in practic
 This skill is **non-interactive**. It does NOT interview the user or elicit missing information. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
 
 - **Rejects** the PRD, with a specific list of what is missing or ambiguous, so the requirements can be gathered before retrying; or
-- **Proceeds**: files the proposal in the SRS repository by running that repository's own sub-skills, autonomously and in sequence.
+- **Proceeds**: files the proposal in the SRS repository by carrying out that repository's own proposal procedure, autonomously and in sequence.
 
-When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – by invoking three of its sub-skills in order:
+When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – following the procedure defined by three of its local skills, in order:
 
 1. **`draft-spec`** – scaffold the proposal: branch, document from template, draft pull request, and discussion thread.
 2. **`write-spec`** – author the specification content: the PRD's rules and examples become the repository's acceptance criteria and measurable quality requirements.
 3. **`propose-spec`** – mark the proposal ready for stakeholder review once it is complete and meets the Definition of Ready.
 
-These are the reference-implementation skill names; a project MAY expose differently-named equivalents, discoverable through its SRS repository's `AGENTS.md`. Run whichever skills that repository provides for these three phases – scaffold, author, mark-ready.
+**Read these skills; do not invoke them.** The SRS repository's local skills are `interactive: yes` – written for a human operator, they prompt for input and direct the user from one step to the next. This skill instead *reads* each one's rules and instructions and **executes that procedure itself, non-interactively**, drawing every answer from the validated PRD instead of from a prompt.
+
+These are the reference-implementation skill names; a project MAY expose differently-named equivalents, discoverable through its SRS repository's `AGENTS.md`. Read whichever skills that repository provides for these three phases – scaffold, author, mark-ready.
 
 The run stops at a proposal that is `PROPOSED` – complete and open for review, but **not yet approved**. The outcome of this skill is a specification *awaiting the user's review and approval*, not an approved specification. Approval is a human decision the user makes deliberately; only an approved (`ACCEPTED`) specification unblocks the downstream design phase.
 
 Use this skill only to turn an existing PRD into a filed specification. Do NOT use it to *gather* requirements (that produces the PRD this skill consumes), to make design decisions, to plan implementation, or to run tests – those are separate responsibilities.
 
-This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository and executed through its sub-skills – this skill orchestrates them but does NOT restate their process. (2) *Whether the PRD is fit to specify from* – the validation gate below – is owned by this skill.
+This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository, defined by its local skills – this skill reads and carries out their process but does NOT restate or duplicate it. (2) *Whether the PRD is fit to specify from* – the validation gate below – is owned by this skill.
 
 ##  Instructions
 
@@ -67,24 +69,24 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     Do NOT hard-code the SRS workflow from memory or from this skill. The process lives in the target repository so it can evolve, and so the agent workflow can differ from the human one. Always read it fresh.
 
-5.  **Scaffold the proposal – run `draft-spec`.**
+5.  **Scaffold the proposal – follow `draft-spec`.**
 
-    Invoke the SRS repository's scaffolding skill (`draft-spec`, or the equivalent its `AGENTS.md` names). It creates the branch, the proposal document from the template, the draft pull request, and the discussion thread. Supply the change description derived from the PRD's outcome; do not pause to ask the user for details the PRD already provides.
+    Read the SRS repository's scaffolding skill (`draft-spec`, or the equivalent its `AGENTS.md` names) and carry out its procedure yourself: create the branch, the proposal document from the template, the draft pull request, and the discussion thread. Where that skill would prompt a human for the change description, the slug, or the change type, derive each from the PRD's outcome instead – do not pause to ask. The skill is `interactive: yes`; you are running its procedure non-interactively.
 
-6.  **Author the specification content – run `write-spec`.**
+6.  **Author the specification content – follow `write-spec`.**
 
-    Invoke the SRS repository's content-authoring skill (`write-spec`, or its equivalent). That skill owns *how* the content is written – the acceptance-criteria format, how non-functional requirements are expressed, where each artifact lives, and the Definition of Ready. Feed it the validated PRD, mapping:
+    Read the SRS repository's content-authoring skill (`write-spec`, or its equivalent) and apply it. That skill owns *how* the content is written – the acceptance-criteria format, how non-functional requirements are expressed, where each artifact lives, and the Definition of Ready. Apply its rules to the validated PRD, mapping:
 
     - The PRD's *rules* and *examples / counter-examples* → functional acceptance criteria.
     - The PRD's *non-functional requirements* → the repository's measurable quality requirements.
     - The PRD's *outcome* and *stakeholders* → the user, goal, and value.
     - The PRD's *out-of-scope* list → the specification's out-of-scope boundary, carried forward in full.
 
-    Do NOT hard-code the content format from memory; `write-spec` applies the target repository's rules. When it reports a Definition-of-Ready gap that stems from missing PRD information, treat it as a validation failure: reject the PRD (step 2) and name the gap.
+    Do NOT hard-code the content format from memory; apply the target repository's rules as `write-spec` states them. When checking the Definition of Ready surfaces a gap that stems from missing PRD information, treat it as a validation failure: reject the PRD (step 2) and name the gap.
 
-7.  **Mark the proposal ready – run `propose-spec`.**
+7.  **Mark the proposal ready – follow `propose-spec`.**
 
-    Once the content is authored and meets the Definition of Ready, invoke the SRS repository's readiness skill (`propose-spec`, or its equivalent) to verify completeness and take the pull request out of draft for stakeholder review.
+    Once the content is authored and meets the Definition of Ready, read the SRS repository's readiness skill (`propose-spec`, or its equivalent) and carry out its checks – verify completeness, then take the pull request out of draft for stakeholder review.
 
     This is where `/specify`'s autonomous run ends. The outcome is a proposal at `PROPOSED`, **awaiting the user's review and approval** – not an approved specification. Approval is a deliberate human decision (advancing the proposal to `ACCEPTED`, via `accept-spec` in the reference implementation); rejection uses `reject-spec`. Neither is part of this skill.
 
@@ -102,9 +104,9 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     When the PRD is missing a rule, an example, a counter-example, a scope boundary, or a measurable NFR target, reject – do NOT fabricate the missing material. Only purely mechanical gaps (a `Feature` title, scenario ordering, phrasing) may be filled without rejecting.
 
--   **Orchestrate the SRS repository's sub-skills; don't reimplement them.**
+-   **Follow the SRS repository's procedure; read it, don't invoke it.**
 
-    Once the PRD is validated, run the repository's scaffold → author → mark-ready skills (`draft-spec` → `write-spec` → `propose-spec`, or the equivalents its `AGENTS.md` names) in sequence, autonomously. This skill's value is the PRD gate and the orchestration – the mechanics of each phase belong to the sub-skills. Do NOT branch, write artifacts, or open PRs directly when a sub-skill owns that step.
+    Once the PRD is validated, carry out the repository's scaffold → author → mark-ready procedure (defined by `draft-spec` → `write-spec` → `propose-spec`, or the equivalents its `AGENTS.md` names) in sequence, autonomously. Read each local skill and execute *its* steps yourself, non-interactively – do NOT literally invoke them; they are `interactive: yes` and would stop to prompt. This skill's value is the PRD gate plus running that procedure unattended. The *rules* for each phase – the format, the conventions, the lifecycle – belong to the local skills and are read fresh from them, never hard-coded here.
 
 -   **Run autonomously once the PRD passes.**
 
@@ -147,7 +149,7 @@ The consuming project locates its SRS through a `Workflow repositories` declarat
 - Plans: ./docs/plans
 ```
 
-The shape of the specification content itself – Gherkin acceptance criteria, measurable non-functional requirements, the out-of-scope section – is defined by the target SRS repository's content rules (its `write-spec` skill), not here. This skill validates the PRD, then runs the repository's `draft-spec` → `write-spec` → `propose-spec` sub-skills to file the proposal to whatever format and process that repository prescribes.
+The shape of the specification content itself – Gherkin acceptance criteria, measurable non-functional requirements, the out-of-scope section – is defined by the target SRS repository's content rules (its `write-spec` skill), not here. This skill validates the PRD, then carries out the procedure that the repository's `draft-spec` → `write-spec` → `propose-spec` skills define – reading their rules and running them non-interactively – to file the proposal to whatever format and process that repository prescribes.
 
 ##  Edge cases
 
@@ -177,9 +179,9 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 ##  Success criteria
 
--   **The proposal reaches `PROPOSED` via the repository's sub-skills.**
+-   **The proposal reaches `PROPOSED` via the repository's own procedure.**
 
-    On a valid PRD, the skill runs scaffold → author → mark-ready (`draft-spec` → `write-spec` → `propose-spec`, or the repository's equivalents) autonomously, leaving an open, non-draft proposal pull request labelled for review – not an arbitrary file or a half-finished draft. The mechanics are delegated to the sub-skills, not reimplemented here.
+    On a valid PRD, the skill carries out scaffold → author → mark-ready (the procedure defined by `draft-spec` → `write-spec` → `propose-spec`, or the repository's equivalents) autonomously, leaving an open, non-draft proposal pull request labelled for review – not an arbitrary file or a half-finished draft. The format and lifecycle rules are read from the local skills, not reinvented here.
 
 -   **The user is told the specification awaits their approval.**
 
@@ -211,6 +213,6 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 - **Input — a PRD** (product-requirements / discovery report): the business-language outcome, stakeholders, rules, examples, and scope this skill validates and translates. This skill does not produce the PRD; it consumes one. Requirement *elicitation* happens upstream, separately – this skill never interviews the user.
 
-- **Target — the SRS repository's sub-skills** (reference-implementation names): `draft-spec` scaffolds the proposal, `write-spec` authors the content, and `propose-spec` marks it ready for review. This skill runs these three in sequence on a valid PRD. They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents. (These belong to the target repository, not to this collection.)
+- **Procedure source — the SRS repository's local skills** (reference-implementation names): `draft-spec` defines how the proposal is scaffolded, `write-spec` how the content is authored, and `propose-spec` how it is marked ready for review. On a valid PRD, this skill reads these three and carries out their combined procedure in sequence, non-interactively – it does not invoke them (they are `interactive: yes`). They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents. (These belong to the target repository, not to this collection.)
 
 - **Output — a `PROPOSED` specification proposal**, awaiting the user's review and approval. Only once approved (`ACCEPTED`) does it unblock the downstream design phase. Whatever consumes the approved specification is the orchestrator's concern, not this skill's.
