@@ -4,6 +4,22 @@ Specify functional and non-functional requirements as testable acceptance criter
 
 `/specify` is **non-interactive**. It does not interview the user or gather missing requirements; it consumes a PRD that was gathered separately. Its job is to *validate* the PRD, then *orchestrate*: on a valid PRD it drives the SRS repository's workflow end to end, without pausing, by running three sub-skills in sequence – **`draft-spec`** (scaffold the proposal), **`write-spec`** (author the content), **`propose-spec`** (mark it ready for review). The mechanics of each phase, and the content rules, belong to those skills; `/specify` owns the PRD gate and the orchestration. (Those are the reference-implementation names; a project may expose differently-named equivalents through its SRS repository's `AGENTS.md`.)
 
+```mermaid
+flowchart LR
+  discover["🧑 /discover"]:::tertiary
+  specify["🤖 /specify"]:::primary
+  design["🤖 /design"]:::primary
+  refine["🧑 /refine"]:::secondary
+
+  refine --> specify
+  discover <-.-> specify
+  specify ==> design
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 The skill works in two layers. *Where and how the proposal is filed* is owned by the SRS repository and read at runtime. *What makes the specification good* is the skill's own expertise.

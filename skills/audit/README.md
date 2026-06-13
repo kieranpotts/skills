@@ -2,6 +2,21 @@
 
 Evaluate the evolving architecture – modularity, consistency, security, and the other structural qualities – once a plan's increments are complete, checking the as-built design against the structure it was meant to have. Runs non-interactively (🤖). The design-level counterpart to [`/validate`](../validate/): where `/validate` asks whether the *specification* should evolve, `/audit` asks whether the *design* should.
 
+```mermaid
+flowchart LR
+  test["🤖 /test"]:::primary
+  audit["🤖 /audit"]:::primary
+  validate["🤖 /validate"]:::primary
+  refactor["🤖 /refactor"]:::secondary
+
+  test ==> audit
+  audit ==> validate
+  audit --> refactor
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
+```
+
 ## What it does
 
 After all of a plan's increments are built, reviewed, and tested, `/audit` steps back from the per-increment build loop and looks at the architecture as a whole. It reads the intended structure (ADRs, architecture and design docs) first, then walks the codebase applying the deletion test – *if this module were removed, where would its complexity go?* – and a catalog of structural smells: shallow abstractions, tangled dependencies, single-caller wrappers, repeated-but-unabstracted patterns, inverted dependencies, names that don't match content. Findings are prioritized by impact ÷ effort and bounded to the top 5–10.

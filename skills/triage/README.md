@@ -2,6 +2,16 @@
 
 Verify a reported bug or incident is real and reproducible. The reactive entry point to the workflow: it confirms the issue exists before the build loop sets about resolving it. Runs non-interactively (🤖).
 
+```mermaid
+flowchart LR
+  triage["🤖 /triage"]:::primary
+  code["🤖 /code"]:::primary
+
+  triage ==> code
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+```
+
 > **Note:** the description above reflects the skill's intended narrowed scope (bugs and incidents only). The *What it does* and *Examples* sections below still describe the current `SKILL.md`, which additionally classifies enhancements and routes issues through a label state machine. They will be brought into line when the skill itself is updated.
 
 ## What it does

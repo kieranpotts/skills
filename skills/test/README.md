@@ -2,6 +2,23 @@
 
 Conduct incremental acceptance testing of the evolving software, focusing on functional correctness and runtime qualities – verifying a completed change against its full set of acceptance criteria, mapping each to evidence and reporting pass/fail/blocked. Runs non-interactively (🤖). Use after a change has cleared review, or before tagging a release. Reports failures as defects without fixing them.
 
+```mermaid
+flowchart LR
+  resolve["🤖 /resolve"]:::primary
+  test["🤖 /test"]:::primary
+  code["🤖 /code"]:::primary
+  audit["🤖 /audit"]:::primary
+  debug["🤖 /debug"]:::tertiary
+
+  resolve ==> test
+  test ==> code
+  test ==> audit
+  test <-.-> debug
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 `/test` verifies the whole solution against the specification – it does not write fresh tests for new behavior (that's the implementation's job) or diagnose a failure (that's separate). It pulls the full AC set (functional and non-functional), runs the automated suite in order (smoke → unit → integration → system → acceptance), covers non-automatable ACs by hand with captured evidence (screenshots, recordings, logs), and verifies NFRs against their stated thresholds – recording the *measured number*, not just "ok". It spends a time-boxed exploratory pass probing adjacent edge cases, then maps every AC to a status (PASS / FAIL / BLOCKED / N/A) with a pointer to its evidence, and reports an explicit verdict.

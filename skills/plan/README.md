@@ -2,6 +2,18 @@
 
 Decompose delivery into stable increments – supporting continuous integration – by breaking a designed change into a sequence of small steps, each independently mergeable, testable, and reversible. Runs non-interactively (🤖). Use after the design is agreed and before any implementation, whenever a change is bigger than a single commit or touches multiple seams.
 
+```mermaid
+flowchart LR
+  design["🤖 /design"]:::primary
+  plan["🤖 /plan"]:::primary
+  code["🤖 /code"]:::primary
+
+  design ==> plan
+  plan ==> code
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+```
+
 ## What it does
 
 `/plan` decomposes an agreed design into a numbered checklist of deliverable steps. It restates the goal and constraints, finds the thinnest first end-to-end slice (a walking skeleton, the riskiest integration, or a feature-flagged path) to anchor the plan, then decomposes the rest so each step is independently mergeable, independently testable, reversible, and small (reviewable in under 30 minutes). It orders **by risk, not by ease** – the unknowns first, polish last – names the seams where flags, fixtures, or migrations decouple steps, and pressure-tests the result (if step N fails, can N+1 still merge? if we stop after step K, is the system coherent?). Each step gets a mode tag (`AFK` vs `HITL`), a stated pass/fail signal, and any prior-step dependency.

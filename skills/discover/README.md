@@ -2,6 +2,17 @@
 
 Run a discovery workshop with the customer to elicit product requirements – a structured session that turns a vague business need into a clear discovery report. Interactive (🧑): it interviews the customer directly. Use `/discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
 
+```mermaid
+flowchart LR
+  discover["🧑 /discover"]:::tertiary
+  specify["🤖 /specify"]:::primary
+
+  discover <-.-> specify
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 The agent acts as a business analyst and interviews the user – who answers as the customer, either directly or by relaying what real customers said. It asks **one question at a time**, letting each answer shape the next, working through a fixed arc:

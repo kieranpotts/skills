@@ -2,6 +2,18 @@
 
 Action open review comments, then mark as resolved – implementing each one in code and verifying it. Runs non-interactively (🤖). The counterpart to [`/review`](../review/) – review posts the comments, `/resolve` actions them.
 
+```mermaid
+flowchart LR
+  review["🤖 /review"]:::primary
+  resolve["🤖 /resolve"]:::primary
+  test["🤖 /test"]:::primary
+
+  review ==> resolve
+  resolve ==> test
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+```
+
 ## What it does
 
 `/resolve` takes the comments a review left open on a PR and turns each into a verified code change.

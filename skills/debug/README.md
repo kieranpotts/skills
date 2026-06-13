@@ -2,6 +2,17 @@
 
 Diagnose and fix unexpected behaviors and runtime issues observed in testing, through a disciplined diagnosis loop: reproduce → minimize → hypothesize → instrument → fix → regression-test. Runs non-interactively (🤖). Use when something is broken, throwing, failing, or has regressed in performance, and the cause is not obvious from reading the code.
 
+```mermaid
+flowchart LR
+  test["🤖 /test"]:::primary
+  debug["🤖 /debug"]:::tertiary
+
+  test <-.-> debug
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 `/debug` runs six phases, but the whole skill turns on the first one: **build a feedback loop** – a fast, deterministic, agent-runnable pass/fail signal for the bug. It offers a ranked menu of ways to construct one (failing test, curl script, CLI diff, headless-browser script, trace replay, throwaway harness, fuzz loop, bisection, differential run, human-driven script) and insists you don't proceed until you have a loop you believe in. With the loop in place, it reproduces the user's *actual* symptom, generates 3–5 ranked falsifiable hypotheses before testing any, instruments one variable at a time (with uniquely-tagged debug logs for clean removal), writes a regression test at a correct seam, applies the fix, then cleans up and records the correct hypothesis for the next person.

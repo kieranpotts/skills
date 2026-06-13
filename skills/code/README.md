@@ -2,6 +2,25 @@
 
 Write code, verified by tests, for one discrete increment – turning one already-designed step from a plan into working, tested code, test-driven by default and scope-locked to that single step. Runs non-interactively (🤖). Use when implementing one numbered plan step, or any small standalone change whose design is already obvious.
 
+```mermaid
+flowchart LR
+  plan["🤖 /plan"]:::primary
+  triage["🤖 /triage"]:::primary
+  test["🤖 /test"]:::primary
+  code["🤖 /code"]:::primary
+  review["🤖 /review"]:::primary
+  format["🤖 /format"]:::tertiary
+
+  plan ==> code
+  triage ==> code
+  test ==> code
+  code ==> review
+  code <-.-> format
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 `/code` implements exactly one plan step per session. It restates the step's scope first (so out-of-scope work is named and deferred), sets up a fast pass/fail test loop, then works red → green → refactor one cycle at a time – the smallest failing test, the simplest code to pass it, then a structural tidy-up while green. It prefers real dependencies over mocks, matches the surrounding code's idioms, reviews its own diff as the reviewer would, and ends with one conventional commit.

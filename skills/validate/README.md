@@ -2,6 +2,19 @@
 
 Evaluate the correctness and completeness of the requirements by testing the current implementation – judging completed, tested work against the users' *actual needs*, not just the agreed acceptance criteria, to decide whether the specification itself should evolve. Runs non-interactively (🤖). The product-level counterpart to [`/test`](../test/): where `/test` asks "did we build it right?", `/validate` asks "did we build the right thing?"
 
+```mermaid
+flowchart LR
+  audit["🤖 /audit"]:::primary
+  validate["🤖 /validate"]:::primary
+  refine["🧑 /refine"]:::secondary
+
+  audit ==> validate
+  validate --> refine
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
+```
+
 ## What it does
 
 Once all of a plan's increments are built, reviewed, and tested, `/validate` steps back and checks the working software against the need it was meant to serve – recovered from the preserved PRD, the specification's outcome and success measures, or the discovery report. It walks the software as the user pursuing their real goal, not scenario by scenario, and surfaces the gaps where what was *specified* diverged from what was *wanted*: unmet needs, wrong targets, missing requirements, over-specification, stale assumptions.

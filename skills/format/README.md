@@ -2,6 +2,17 @@
 
 Improve code presentation – whitespace, style, ordering, line wrapping, quotes, trailing commas, import order – without changing structure or behavior. Runs non-interactively (🤖). Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions.
 
+```mermaid
+flowchart LR
+  code["🤖 /code"]:::primary
+  format["🤖 /format"]:::tertiary
+
+  code <-.-> format
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ## What it does
 
 `/format` makes code or content changes that are visually large but semantically empty – a reviewer running `git diff -w` should see nothing. It first confirms the change really is presentation only (and stops to reclassify as a refactor if it isn't), then prefers the project's configured formatter (`.prettierrc`, `.editorconfig`, `black`/`ruff`, `rustfmt`, `gofmt`, a `format` script, a pre-commit hook) over hand-editing. It scopes the run deliberately to keep the diff legible, verifies behavior is unchanged by running the tests (significant-whitespace languages and side-effect imports can break on a "harmless" reformat), and lands the result as its own `format:` commit – never bundled with feature, fix, or refactor work.

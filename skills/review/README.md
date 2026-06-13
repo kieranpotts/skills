@@ -2,6 +2,18 @@
 
 Evaluate code for style conventions and pattern consistency, focusing on static qualities – auditing a change for correctness, design, clarity, test coverage, security, and completeness, and classifying every finding as blocking or non-blocking. Runs non-interactively (🤖). Use when reviewing a pull request, auditing a peer's branch, or self-reviewing changes before opening a PR.
 
+```mermaid
+flowchart LR
+  code["🤖 /code"]:::primary
+  review["🤖 /review"]:::primary
+  resolve["🤖 /resolve"]:::primary
+
+  code ==> review
+  review ==> resolve
+
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+```
+
 ## What it does
 
 `/review` evaluates a change as a *piece of work* against static qualities – it does not run the system end-to-end (that's verification) or chase a failing test (that's diagnosis). It understands the *why* before reading any code (description, linked issue, design notes), pins the comparison base explicitly, and reads the diff in commit order to follow the author's thinking and catch drive-by edits. It checks correctness, design, clarity, test coverage, security, and completeness, then writes findings that are specific and actionable, each carrying a severity – Blocking, Suggestion, Nit, or Praise. Findings are organized along two axes kept distinct: **Specification** (does it faithfully implement the issue/ACs, quoting the spec line) and **Standards** (does it conform to the repo's documented conventions, citing file and rule). It closes with an explicit verdict: Approve, Request changes, or Comment.
