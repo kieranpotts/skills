@@ -38,71 +38,70 @@ These skills span three categories:
 
 ### Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). The following model of the workflow distinguishes the user-initiated entry points (solid green) from the main workflow sequence (dashed blue) and optional iterative loops (dotted yellow).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC).
+
+The following model distinguishes the main workflow sequence (solid blue) from the feedback loops (dashed green) and optional callouts to helpers (dotted yellow).
 
 ```mermaid
 flowchart LR
   %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
-  discover["/discover"]:::secondary
-  audit["/audit"]:::start
-  specify["/specify"]:::start
-  design["/design"]:::main
-  plan["/plan"]:::main
-  code["/code"]:::main
-  review["/review"]:::main
-  resolve["/resolve"]:::main
-  test["/test"]:::main
-  prototype["/prototype"]:::secondary
-  elaborate["/elaborate"]:::secondary
-  format["/format"]:::secondary
-  debug["/debug"]:::secondary
+  discover["/discover"]:::tertiary
+  specify["/specify"]:::primary
+  design["/design"]:::primary
+  plan["/plan"]:::primary
+  code["/code"]:::primary
+  review["/review"]:::primary
+  resolve["/resolve"]:::primary
+  test["/test"]:::primary
+  audit["/audit"]:::primary
+  validate["/validate"]:::primary
+  prototype["/prototype"]:::tertiary
+  elaborate["/elaborate"]:::tertiary
+  format["/format"]:::tertiary
+  debug["/debug"]:::tertiary
   refactor["/refactor"]:::secondary
   refine["/refine"]:::secondary
 
-  %% Starting points.
-  audit --> design
-  specify --> design
-
   %% Main workflow sequence.
-  design --> plan
-  plan --> code
-
-  %% The build loop: code -> review -> resolve -> test, plus the format and debug repair cycles.
-  subgraph build [construction increments]
+  specify ==> design
+  design ==> plan
+  plan ==> code
+  subgraph build_increments [build increments]
     direction LR
-    code --> review
-    review --> resolve
-    resolve --> test
-    test --> code
+    code ==> review
+    review ==> resolve
+    resolve ==> test
+    test ==> code
   end
+  test ==> audit
+  audit ==> validate
 
-  %% Small iterative cycles.
+  %% Callouts to helpers.
   discover <-.-> specify
   design <-.-> prototype
   design <-.-> elaborate
   code <-.-> format
   test <-.-> debug
 
-  %% Big feedback loops.
-  review -.-> refactor
-  refactor -.-> design
-  test -.-> refine
-  refine -.-> specify
+  %% Feedback loops.
+  audit --> refactor
+  refactor --> design
+  validate --> refine
+  refine --> specify
 
   %% Class definitions.
-  classDef start fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px
-  classDef main fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px,stroke-dasharray:7 3
-  classDef secondary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
+  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 
   %% Subgraph (loop) border styling.
-  style build fill:none,stroke:#004085,stroke-width:2px,stroke-dasharray:4 4,rx:60,ry:60
+  style build_increments fill:#EEEEEE,stroke-width:0px
 ```
 
 | Skill name | Description | Interactive? |
 | ---------- | ----------- | ------------ |
 | 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. | No |
 | 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. | Yes |
-| 🚧 [`/audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. | No |
 | 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. | No |
 | 🚧 [`/prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. | No |
 | 🚧 [`/elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. | Yes |
@@ -111,9 +110,11 @@ flowchart LR
 | 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | No |
 | 🚧 [`/resolve`](./skills/resolve/) | Action the open review comments – implement each fix in code, verify it, and mark the comment resolved. | No |
 | 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | No |
-| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | No |
 | 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. | No |
 | 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. | No |
+| 🚧 [`/audit`](./skills/audit/) | Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure. Feeds the refactor → design loop. | No |
+| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | No |
+| 🚧 [`/validate`](./skills/validate/) | Evaluate completed work against the users' actual needs (not the agreed ACs) – "did we build the right thing?". Feeds the refine → specify loop. | No |
 | 🚧 [`/refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. | Yes |
 
 Most workflow skills run **non-interactively** (the `Interactive?` column above), so they can be driven agentically with no human in the loop. A non-interactive skill takes everything it needs from its initial prompt, its context, and the environment, then does its job and stops – it never pauses to ask the user a question. If it cannot get what it needs, it **fails with a specific account of what is missing** rather than falling back to interviewing the user. This is what lets an orchestrator chain them into an autonomous pipeline. The few skills marked `Yes` are the deliberate exceptions: they exist *to* interview a human (eg. [`/discover`](./skills/discover/) elicits requirements), and the non-interactive skills downstream consume what they produce. See the [design principles](./docs/design-principles.md) for the full rationale.
