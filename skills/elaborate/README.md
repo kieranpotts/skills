@@ -1,6 +1,6 @@
-# `/elaborate`
+# 🧑 `/elaborate`
 
-Interview the user one question at a time to stress-test and sharpen a draft design – turning a sketch into a design that survives implementation. Use after a draft design exists and before it is decomposed into steps, when it still has ambiguities, unstated assumptions, or contested terms.
+Refine a proposed solution by interrogating its design – interviewing the user one question at a time to stress-test a draft and turn a sketch into a design that survives implementation. Interactive (🧑): expect a back-and-forth. Use after a draft design exists and before it is decomposed into steps, when it still has ambiguities, unstated assumptions, or contested terms.
 
 ## What it does
 

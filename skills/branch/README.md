@@ -1,6 +1,6 @@
-# `/branch`
+# 🤖 `/branch`
 
-Git branching conventions: a trunk model with naming rules and a validation regex. Use when creating a new branch, naming a feature or fix branch, or checking branch names before push.
+Git branching strategy: a trunk model with naming rules and a validation regex. Runs non-interactively (🤖). Use when creating a new branch, naming a feature or fix branch, or checking branch names before push.
 
 ## What it does
 

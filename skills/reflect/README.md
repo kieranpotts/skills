@@ -1,6 +1,6 @@
-# `/reflect`
+# 🧑 `/reflect`
 
-Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory or to repo-committed convention files. Use at session end to make future sessions start smarter.
+Distill durable lessons from the session into memory and convention files – corrections, validated approaches, revealed preferences, project decisions outside the code. Interactive (🧑): it walks each candidate lesson past the user for approval before saving. Companion to [`/handoff`](../handoff/). Use at session end to make future sessions start smarter.
 
 ## What it does
 

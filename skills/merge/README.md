@@ -1,6 +1,6 @@
-# `/merge`
+# 🤖 `/merge`
 
-Consolidate divergence between two git branches using the right strategy for the branch type – fast-forward, merge commit, rebase, or squash-merge – then verify, resolve conflicts, run tests, and push. Use any time work on one branch is being integrated into another.
+Consolidate divergence between branches using the right strategy for the branch type – fast-forward, merge commit, rebase, or squash-merge – then verify, resolve conflicts, run tests, and push. Runs non-interactively (🤖). Use any time work on one branch is being integrated into another.
 
 ## What it does
 

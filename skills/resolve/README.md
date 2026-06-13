@@ -1,6 +1,6 @@
-# `/resolve`
+# 🤖 `/resolve`
 
-Clear the open review comments on a pull request: implement each one in code, verify it, and mark the comment resolved. The counterpart to [`/review`](../review/) – review posts the comments, `/resolve` actions them.
+Action open review comments, then mark as resolved – implementing each one in code and verifying it. Runs non-interactively (🤖). The counterpart to [`/review`](../review/) – review posts the comments, `/resolve` actions them.
 
 ## What it does
 

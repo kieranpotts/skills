@@ -1,6 +1,6 @@
-# `/format`
+# 🤖 `/format`
 
-Apply presentation-only changes – whitespace, indentation, line wrapping, quotes, trailing commas, import ordering – without altering behavior or structure. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions.
+Improve code presentation – whitespace, style, ordering, line wrapping, quotes, trailing commas, import order – without changing structure or behavior. Runs non-interactively (🤖). Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions.
 
 ## What it does
 

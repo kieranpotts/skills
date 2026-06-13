@@ -1,6 +1,6 @@
-# `/research`
+# 🤖 `/research`
 
-Research a topic the agent or project does not yet understand – a library, protocol, pattern, regulation, prior-art approach – by gathering current external sources, then produce a structured, cited report. Discovery and synthesis only, no code or doc changes. Use when a decision is blocked on missing knowledge.
+Gather external sources on a topic and produce a cited research report – on a library, protocol, pattern, regulation, or prior-art approach the agent or project does not yet understand. Discovery and synthesis only, no code or doc changes. Runs non-interactively (🤖). Use when a decision is blocked on missing knowledge.
 
 ## What it does
 

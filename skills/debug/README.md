@@ -1,6 +1,6 @@
-# `/debug`
+# 🤖 `/debug`
 
-A disciplined diagnosis loop for hard bugs and performance regressions: reproduce → minimize → hypothesize → instrument → fix → regression-test. Use when something is broken, throwing, failing, or has regressed in performance, and the cause is not obvious from reading the code.
+Diagnose and fix unexpected behaviors and runtime issues observed in testing, through a disciplined diagnosis loop: reproduce → minimize → hypothesize → instrument → fix → regression-test. Runs non-interactively (🤖). Use when something is broken, throwing, failing, or has regressed in performance, and the cause is not obvious from reading the code.
 
 ## What it does
 

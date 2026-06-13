@@ -1,6 +1,6 @@
-# `/test`
+# 🤖 `/test`
 
-Verify a completed change against its full set of acceptance criteria – functional and non-functional – mapping each AC to evidence and reporting pass/fail/blocked. Use after a change has cleared review, or before tagging a release. Reports failures as defects without fixing them.
+Conduct incremental acceptance testing of the evolving software, focusing on functional correctness and runtime qualities – verifying a completed change against its full set of acceptance criteria, mapping each to evidence and reporting pass/fail/blocked. Runs non-interactively (🤖). Use after a change has cleared review, or before tagging a release. Reports failures as defects without fixing them.
 
 ## What it does
 

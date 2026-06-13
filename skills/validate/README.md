@@ -1,6 +1,6 @@
-# `/validate`
+# 🤖 `/validate`
 
-Evaluate completed, tested work against the users' *actual needs* – not the agreed acceptance criteria – to judge whether the specification itself should evolve. The product-level counterpart to [`/test`](../test/): where `/test` asks "did we build it right?", `/validate` asks "did we build the right thing?"
+Evaluate the correctness and completeness of the requirements by testing the current implementation – judging completed, tested work against the users' *actual needs*, not just the agreed acceptance criteria, to decide whether the specification itself should evolve. Runs non-interactively (🤖). The product-level counterpart to [`/test`](../test/): where `/test` asks "did we build it right?", `/validate` asks "did we build the right thing?"
 
 ## What it does
 

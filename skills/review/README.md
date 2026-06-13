@@ -1,6 +1,6 @@
-# `/review`
+# 🤖 `/review`
 
-Audit a code change for correctness, design, clarity, test coverage, security, and completeness, classifying every finding as blocking or non-blocking. Use when reviewing a pull request, auditing a peer's branch, or self-reviewing changes before opening a PR.
+Evaluate code for style conventions and pattern consistency, focusing on static qualities – auditing a change for correctness, design, clarity, test coverage, security, and completeness, and classifying every finding as blocking or non-blocking. Runs non-interactively (🤖). Use when reviewing a pull request, auditing a peer's branch, or self-reviewing changes before opening a PR.
 
 ## What it does
 

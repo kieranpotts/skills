@@ -1,6 +1,6 @@
-# `/spike`
+# 🤖 `/spike`
 
-Build throwaway code to answer a specific question – feasibility, performance, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question can't be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
+Develop throwaway code (or other artifacts) to answer design questions – feasibility, performance, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Runs non-interactively (🤖). Use when a design question can't be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
 
 ## What it does
 

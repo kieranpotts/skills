@@ -1,6 +1,6 @@
-# `/audit`
+# 🤖 `/audit`
 
-Evaluate the evolving design once a plan's increments are complete – the as-built architecture against the structure it was meant to have. The design-level counterpart to [`/validate`](../validate/): where `/validate` asks whether the *specification* should evolve, `/audit` asks whether the *design* should.
+Evaluate the evolving architecture – modularity, consistency, security, and the other structural qualities – once a plan's increments are complete, checking the as-built design against the structure it was meant to have. Runs non-interactively (🤖). The design-level counterpart to [`/validate`](../validate/): where `/validate` asks whether the *specification* should evolve, `/audit` asks whether the *design* should.
 
 ## What it does
 

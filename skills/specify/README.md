@@ -1,6 +1,6 @@
-# `/specify`
+# 🤖 `/specify`
 
-Turn a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. `/specify` takes the product-requirements document – in practice a business-language discovery report – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
+Specify functional and non-functional requirements as testable acceptance criteria – turning a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. Runs non-interactively (🤖). `/specify` takes the product-requirements document – in practice a business-language discovery report – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
 
 `/specify` is **non-interactive**. It does not interview the user or gather missing requirements; it consumes a PRD that was gathered separately. Its job is to *validate* the PRD, then *orchestrate*: on a valid PRD it drives the SRS repository's workflow end to end, without pausing, by running three sub-skills in sequence – **`draft-spec`** (scaffold the proposal), **`write-spec`** (author the content), **`propose-spec`** (mark it ready for review). The mechanics of each phase, and the content rules, belong to those skills; `/specify` owns the PRD gate and the orchestration. (Those are the reference-implementation names; a project may expose differently-named equivalents through its SRS repository's `AGENTS.md`.)
 

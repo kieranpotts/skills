@@ -1,6 +1,6 @@
-# `/release`
+# 🤖 `/release`
 
-Release branching strategy – a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains – plus version-tagging conventions. Use when preparing a release, creating a release branch, or tagging a release version.
+Release trunks and branches, plus version tags – a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains, with version-tagging conventions. Runs non-interactively (🤖). Use when preparing a release, creating a release branch, or tagging a release version.
 
 ## What it does
 

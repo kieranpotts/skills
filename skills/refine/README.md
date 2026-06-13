@@ -1,6 +1,6 @@
-# `/refine`
+# 🧑 `/refine`
 
-Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Use when testing surfaces a specification gap, a stakeholder reports an unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
+Revise the requirements specification in response to acceptance testing feedback – or to use of the working software. Interactive (🧑) where stakeholders must resolve a disagreement. Use when testing surfaces a specification gap, a stakeholder reports an unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
 
 ## What it does
 

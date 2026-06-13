@@ -1,6 +1,6 @@
-# `/discover`
+# 🧑 `/discover`
 
-Run a structured customer-discovery session to turn a vague business need into a clear discovery report. Use `/discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
+Run a discovery workshop with the customer to elicit product requirements – a structured session that turns a vague business need into a clear discovery report. Interactive (🧑): it interviews the customer directly. Use `/discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
 
 ## What it does
 

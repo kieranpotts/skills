@@ -1,6 +1,6 @@
-# `/proof`
+# 🤖 `/proof`
 
-Proofread prose – Markdown, AsciiDoc, reStructuredText, plain text – making conservative copy edits only: spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalization. Never touches technical meaning, code, or markup. Use when polishing documentation, a README, release notes, or any written content before it ships.
+Proofread, then conservatively edit text content for spelling, grammar, and consistency – across Markdown, AsciiDoc, reStructuredText, and plain text, fixing typos and awkward phrasing and standardizing terminology and capitalization. Never touches technical meaning, code, or markup. Runs non-interactively (🤖). Use when polishing documentation, a README, release notes, or any written content before it ships.
 
 ## What it does
 

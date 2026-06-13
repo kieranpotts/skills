@@ -1,6 +1,6 @@
-# `/design`
+# 🤖 `/design`
 
-Explore architectural options and trade-offs for a change, evaluate them against nine design qualities, and recommend one with reasoning. Gated on an approved specification. Use when a change has architecturally significant decisions, before planning or implementation.
+Explore architectural options and their trade-offs for a change, evaluate them against nine design qualities, and recommend one with reasoning. Gated on an approved specification. Runs non-interactively (🤖). Use when a change has architecturally significant decisions, before planning or implementation.
 
 ## What it does
 

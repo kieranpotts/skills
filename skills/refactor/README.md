@@ -1,6 +1,6 @@
-# `/refactor`
+# 🤖 `/refactor`
 
-Improve the internal quality of existing code without changing its observable behavior – tests pass before and after, each step small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work. Distinct from bug fixes and feature work.
+Iterate the design while maintaining stability through system testing – improving the internal quality of existing code without changing its observable behavior, tests passing before and after, each step small and reversible. Runs non-interactively (🤖). Use when readability, structure, coupling, naming, or other design qualities need work. Distinct from bug fixes and feature work.
 
 ## What it does
 

@@ -1,6 +1,6 @@
-# `/commit`
+# 🤖 `/commit`
 
-Commit-message format and the semantics of each commit type. Use when composing a commit message, validating a branch's messages before push, or troubleshooting a failed commit-validation CI job.
+Commit message conventions: the message format and the semantics of each commit type. Runs non-interactively (🤖). Use when composing a commit message, validating a branch's messages before push, or troubleshooting a failed commit-validation CI job.
 
 ## What it does
 

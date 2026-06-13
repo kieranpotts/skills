@@ -1,6 +1,6 @@
-# `/handoff`
+# 🤖 `/handoff`
 
-Compact the current conversation into an ephemeral handoff document so a fresh agent or human can pick up the work. Use when ending a session, switching agents, approaching context limits, or pausing work someone else will resume.
+Compact a conversation for the next session to pick up – an ephemeral handoff document so a fresh agent or human can resume the work. Runs non-interactively (🤖). Use when ending a session, switching agents, approaching context limits, or pausing work someone else will resume.
 
 ## What it does
 

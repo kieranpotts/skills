@@ -1,6 +1,6 @@
-# `/create-skill`
+# 🧑 `/create-skill`
 
-The skill for authoring skills. Use it to create a new skill from scratch, or to improve an existing one.
+Author or improve a skill – in this collection or a downstream project. The skill for authoring skills. Interactive (🧑). Use it to create a new skill from scratch, or to improve an existing one.
 
 ## What it does
 

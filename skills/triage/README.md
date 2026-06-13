@@ -1,6 +1,8 @@
-# `/triage`
+# 🤖 `/triage`
 
-Move issues on the project tracker through a small state machine of category and state labels: gather context, recommend a classification, reproduce bugs, sharpen the issue, then apply the outcome – a label change, an agent brief, a needs-info request, or a wontfix closure. Use when triaging incoming issues, preparing them for AFK agents, or reviewing the backlog.
+Verify a reported bug or incident is real and reproducible. The reactive entry point to the workflow: it confirms the issue exists before the build loop sets about resolving it. Runs non-interactively (🤖).
+
+> **Note:** the description above reflects the skill's intended narrowed scope (bugs and incidents only). The *What it does* and *Examples* sections below still describe the current `SKILL.md`, which additionally classifies enhancements and routes issues through a label state machine. They will be brought into line when the skill itself is updated.
 
 ## What it does
 
