@@ -80,7 +80,7 @@ flowchart LR
   discover <-.-> specify
   design <-.-> prototype
   design <-.-> elaborate
-  review <-.-> format
+  code <-.-> format
   test <-.-> debug
 
   %% Big feedback loops.
