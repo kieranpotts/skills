@@ -47,12 +47,12 @@ flowchart LR
   audit:::start
   specify:::start
   design:::main
-  elaborate:::main
   plan:::main
   code:::main
   review:::main
   test:::main
   prototype:::secondary
+  elaborate:::secondary
   format:::secondary
   debug:::secondary
   refactor:::secondary
@@ -64,8 +64,7 @@ flowchart LR
   specify --> design
 
   %% Main workflow sequence.
-  design --> elaborate
-  elaborate --> plan
+  design --> plan
   plan --> code
 
   %% The build loop: code -> review -> test, plus the format and debug repair cycles.
@@ -84,6 +83,8 @@ flowchart LR
   specify -.-> discover
   design -.-> prototype
   prototype -.-> design
+  design -.-> elaborate
+  elaborate -.-> design
 
   %% Big feedback loops.
   review -.-> refactor
