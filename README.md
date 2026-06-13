@@ -60,7 +60,6 @@ flowchart LR
   refine["/refine"]:::secondary
 
   %% Starting points.
-  discover -.-> specify
   audit --> design
   specify --> design
 
@@ -75,18 +74,14 @@ flowchart LR
     review --> resolve
     resolve --> test
     test --> code
-    review -.-> format
-    format -.-> review
-    test -.-> debug
-    debug -.-> test
   end
 
   %% Small iterative cycles.
-  specify -.-> discover
-  design -.-> prototype
-  prototype -.-> design
-  design -.-> elaborate
-  elaborate -.-> design
+  discover <-.-> specify
+  design <-.-> prototype
+  design <-.-> elaborate
+  review <-.-> format
+  test <-.-> debug
 
   %% Big feedback loops.
   review -.-> refactor
