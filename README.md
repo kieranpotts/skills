@@ -1,32 +1,36 @@
 # ✨ Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**🚧 Under construction.** **A collection of agentic workflow skills** – also known as rules or instructions, depending on the agent.
+**🚧 UNDER CONSTRUCTION 🚧**
 
-## 📓 Overview
+**A collection of agentic workflow skills** – also known as rules or instructions.
 
-These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing. The skills also cover supporting activities like customer discovery and issue triage, and agentic workflow-optimization techniques like session reflection and handoff.
-
-The goal: consistent, predictable outputs from any mainstream coding agent and model, regardless of technology stack or business domain.
-
-This is not a grab-bag of isolated tasks. These skills form a coherent end-to-end workflow that encodes the author's [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards). The conventions are unashamedly opinionated: Gherkin acceptance criteria, ADRs for design decisions, trunk-based source control with `dev` as the default branch, sparing use of `temp/*` and `epic/*` branches… and so on.
+These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing… The skills also cover supporting activities such as customer discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and handoff.
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
-A user-level install is RECOMMENDED, since these are intended to be global workflow skills. But per-project installs work just as well. See the installation steps, below, for details.
+The goal: consistent, predictable outcomes from any mainstream coding agent and model, and regardless of the technology stack or business domain of the software under development.
 
 ## 🌐 Ecosystem
 
-This collection is the agentic workflow that operates across a coherent, version-controlled documentation ecosystem modeling the software development lifecycle. Each of those repositories is the reference implementation of an opinionated workflow that these skills drive:
+This is not a grab-bag of isolated skills. It's a cohesive collection that forms a complete end-to-end development workflow.
 
-- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): _What_ the system does, in business terms.
+It is a highly opinionated collection. These skills encode the author's [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards), and they form part of a larger ecosystem of methods, tools, and artifacts for managing change in software.
 
-- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): _How_ significant technical decisions were made, and _why_.
+Specifically, these skills depend on the existence of version-controlled systems for managing software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of these dependencies:
 
-- [**📐 Design Docs**](https://github.com/kieranpotts/design): _What the system looks like_, its as-is architecture.
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does, in business terms.
 
-- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): _When, and in what order_, the work gets done.
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): Records how significant technical decisions were made, and why.
 
-Those dedicated documentation repositories are intended for application software that spans multiple code repositories, and potentially multiple teams, where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase. For a standalone code repository – a small utility library, say – it is better to fold those artifacts, and these skills, directly into that repository, rather than maintain them separately.
+- [**📐 Design Docs**](https://github.com/kieranpotts/design): Documents what the system looks like in production, and manages proposed architectural changes.
+
+- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): Tracks when, and in what order, the work gets done.
+
+These skills are optimized for the development of application software that spans multiple code repositories, and potentially multiple teams, where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase.
+
+Since these skills are intended to be used globally across multiple code repositories, it is RECOMMENDED to install these skills at the user-level rather than the project-level. The bundled installer _does_ support per-project installs, but this is not the intended use case for these skills.
+
+For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate skills and supporting artifacts directly in that repository. These skills do not serve this use case.
 
 ## 🧩 Skills
 
