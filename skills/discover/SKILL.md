@@ -1,6 +1,6 @@
 ---
 name: discover
-description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report in business language, no Gherkin. Use when requirements are vague and an interview-style refinement is needed before `specify` can be written.
+description: Run a structured customer-discovery session to elicit business requirements before specification. Uses Example Mapping with a thin outcome layer (Impact Mapping-style). Produces a discovery report – a transient, business-language PRD with no Gherkin – that feeds `specify`. Use when requirements are vague and an interview-style refinement is needed before a specification can be filed.
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -11,11 +11,11 @@ metadata:
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a discovery report. The agent acts as the business analyst, asking one question at a time. The user answers as the customer – either directly (when the user is the product owner) or as a relay (paraphrasing what real customers said in a prior conversation).
 
-The output is a **discovery report**, not Gherkin. Translation into testable acceptance criteria is [`specify`](../specify/SKILL.md)'s job.
+The output is a **discovery report**, not Gherkin. It is the project's product-requirements document (PRD) in all but name: a business-language statement of the problem, outcome, scope, rules, and open questions. It is a transient working artifact – it feeds [`specify`](../specify/SKILL.md) and is superseded by it. The durable record is the SRS proposal that `specify` files; this report is not itself filed in any workflow repository. Translation of its rules and examples into testable acceptance criteria is [`specify`](../specify/SKILL.md)'s job.
 
 Do NOT use this skill when:
 
-- The business requirements are already clear and well-understood – go straight to [`specify`](../specify/SKILL.md).
+- A complete PRD already exists – with rules, examples, counter-examples, and an explicit scope – so go straight to [`specify`](../specify/SKILL.md). (A requirement that is merely "clear in someone's head" is not a PRD; `specify` will reject it. Run discovery to produce the artifact.)
 - The user wants to interrogate a draft *design* – use [`elaborate`](../elaborate/SKILL.md) for technical refinement.
 - The user wants implementation answers or technology choices – stay in business language; technical exploration belongs in [`design`](../design/SKILL.md).
 
@@ -73,45 +73,9 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     Any question the user/customer cannot answer in this session goes into an *Open Questions* list, with a named owner. Do NOT stall on unanswered questions – capture and move on. Discovery sessions end when no new rules emerge, not when every question is resolved.
 
 9.  **Produce the discovery report.**
-    Confirm with the user that no further rules need to be elicited, then produce:
+    Confirm with the user that no further rules need to be elicited, then fill out the bundled template at [`assets/discovery-report-template.md`](./assets/discovery-report-template.md). It has these sections: *Outcome* (goal, why now, success measure), *Stakeholders*, *Scope* (in and out), *Rules*, *Examples* (an applies/doesn't-apply pair per rule), *Assumptions*, and *Open questions* (each with an owner).
 
-    ```markdown
-    # Discovery: <feature / topic>
-
-    ## Outcome
-    **Goal:** <Business goal – what success looks like for the customer.>
-    **Why now:** <The trigger – why this matters at this moment.>
-    **Success measure:** <How we'll know it worked.>
-
-    ## Stakeholders
-    - **<role>**: <interests, decisions they make, what changes for them>
-
-    ## Scope
-    **In scope:** <what is covered>
-    **Out of scope:** <what is deliberately excluded>
-
-    ## Rules
-    1. <Rule – a single declarative sentence>
-    2. <Rule – ...>
-
-    ## Examples
-    - **Rule 1, applies:** <Concrete case in natural language>
-    - **Rule 1, doesn't apply:** <Counter-example showing the boundary>
-    - **Rule 2, applies:** ...
-
-    ## Assumptions
-    - <Assumption – to validate with the customer>
-
-    ## Open questions
-    - <Question> *(Owner: <name / role>)*
-    ```
-
-    <!--
-
-    TODO: Should this be the PRD, which /specify produces the SRS?
-    The PRD captures: problem, success criteria, scope, constraints, open questions...
-
-    -->
+    This report is the project's PRD in all but name – it captures the problem, success measure, scope, rules, and open questions in business language. It is a transient working artifact: it feeds [`specify`](../specify/SKILL.md), which produces the durable record (the SRS proposal). Do NOT file this report in a workflow repository; hand it to `specify`.
 
 ##  Rules
 
@@ -131,7 +95,7 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
     When confidence is stated without a source, ask whether the customer actually said it or we're inferring. Inferences belong in *Assumptions*, not *Rules*. An assumption that hardens into a rule without validation is a silent failure mode.
 
 -   **Pushback.**
-    Don't be a "yes" machine - don't assume the user's answers are correct, as they may be based on assumptions and biases – it's your job to discover those. Interrogate vague requests. Disagree when something's off. Flag contradictions – never silently overwrite. No sycophancy.
+    Don't be a "yes" machine – don't assume the user's answers are correct, as they may be based on assumptions and biases – it's your job to discover those. Interrogate vague requests. Disagree when something's off. Flag contradictions – never silently overwrite. No sycophancy.
 
 -   **Note-taking**
     Capture context, decisions, and open threads continuously. Checkpoint before switching domains or when a chat runs long.
@@ -164,13 +128,15 @@ Conduct the session as a structured interview. Ask one question at a time. Wait 
 
 ## References
 
+- [`assets/discovery-report-template.md`](./assets/discovery-report-template.md): The bundled discovery-report template to fill out in step 9.
+
 - [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015): The core technique – rules, examples, and questions, captured in a single session.
 
 - [Specification by Example](https://gojko.net/books/specification-by-example/) (Gojko Adzic): The broader philosophy – refine requirements through concrete cases, not abstract prose.
 
 - [Impact Mapping](https://www.impactmapping.org/) (Gojko Adzic): Source of the *goal / actor / impact* framing used in the outcome section.
 
-- [`specify`](../specify/SKILL.md): Downstream destination. The discovery report becomes input to `specify`, which translates rules + examples into Gherkin acceptance criteria.
+- [`specify`](../specify/SKILL.md): Downstream destination. The discovery report becomes input to `specify`, which validates it and – if complete – translates rules + examples into Gherkin acceptance criteria and files them as a proposal in the project's SRS repository. `specify` is non-interactive: an incomplete report is rejected with reasons and bounced back here. The completeness this skill enforces (every rule with a counter-example, an explicit out-of-scope list, blocking questions resolved) is exactly what `specify` checks for.
 
 - [`elaborate`](../elaborate/SKILL.md): Peer skill – also interrogation-style, but refines a draft *design* rather than business requirements. Discovery deals with the customer; elaborate deals with the system.
 
