@@ -1,16 +1,16 @@
 # Best practices
 
-This section covers general guidelines and best practices for designing agentic workflows.
+Generic, universal guidance for authoring any agent skill. These apply to skills anywhere, not just those in this repository. For the stricter, opinionated stance *this* collection takes – portability, independence, and no hand-offs between skills – see [design principles](./design-principles.md).
 
 ## Single responsibility
 
 Every skill MUST have a single responsibility. A skill does one job and stops at the boundary of that job. It MUST NOT reach into adjacent work, even when doing so would be convenient.
 
-For example, a skill that proofreads a document MUST NOT also commit the changes it makes to the document. Committing is a separate responsibility, and the decision of whether, when, and how to commit belongs to the caller – which might be a human, or an agent invoking another skill.
+For example, a skill that proofreads a document MUST NOT also commit the changes it makes to the document. Committing is a separate responsibility, and the decision of whether, when, and how to commit belongs to the caller – which might be a human, or an orchestrating agent.
 
-This is what makes the collection composable. Each skill is a small, sharp tool with one clear output and an explicit hand-off, so callers can chain skills in whatever order their workflow demands. A skill that bundles two responsibilities forecloses that choice and couples concerns that should stay independent.
+This is what makes a collection composable. Each skill is a small, sharp tool with one clear output, so an orchestrator can sequence skills in whatever order a workflow demands. A skill that bundles two responsibilities forecloses that choice and couples concerns that should stay independent.
 
-A single responsibility gives a skill a clear trigger condition, a clean hand-off, and a definitive point at which to stop.
+A single responsibility gives a skill a clear trigger condition, a clean output, and a definitive point at which to stop.
 
 ## When to add a skill
 
@@ -28,7 +28,7 @@ A skill is worth adding when it:
 
 - **Is opinionated.** Skills should describe one clear path for achieving a goal, not offer a menu of options.
 
-- **Fits an existing workflow** with clear boundaries with other skills in the workflow, and explicit hand-offs to and from adjacent skills.
+- **Fits an existing workflow** with a clear boundary against the work adjacent skills do, and a well-defined input it consumes and output it produces.
 
 Do _not_ create a skill when:
 
@@ -48,7 +48,7 @@ Another key design decision is whether a skill is **interactive** — ie. whethe
 
 - **Non-interactive:** The skill runs to completion without user input, taking everything it needs from its inputs and the workspace. Use this for skills meant to run in unattended pipelines, supporting parallel agentic workflows.
 
-When an interactive skill feeds a non-interactive one, the hand-off should resolve all the human-dependent decisions first, so the downstream skill receives a complete, settled input.
+When an interactive skill feeds a non-interactive one in a workflow, the human-dependent decisions should be resolved first, so the downstream skill receives a complete, settled input.
 
 ### Declaring it: `metadata.interactive`
 
@@ -67,9 +67,9 @@ Claiming `interactive: no` for a skill that might actually prompt is the mistake
 
 `metadata` is the Agent Skills standard's sanctioned place for vendor data, so the key validates against the canonical schema and the skill stays portable — hosts that do not read it simply ignore it. (See also [`metadata.preferred_model`](../skills/create-skill/references/create-skill-preferred-model.md), which lives in the same map for the same reason.)
 
-## Handoff
+## Human checkpoints in a workflow
 
-The related design decision is where a skill hands off to another agent, and where it hands off to a human. In a pipeline, the natural default is agent-to-agent – each skill passes its output to the next, and the workflow runs end-to-end without intervention. But some outcomes need a human to moderate them before the work proceeds — and choosing those checkpoints is another key design decision.
+When skills are sequenced into a workflow, a related design decision is where the workflow pauses for a human and where it runs unattended. In a pipeline, the natural default is agent-to-agent – each skill's output feeds the next, and the workflow runs end-to-end without intervention. But some outcomes need a human to moderate them before the work proceeds, and choosing those checkpoints is a key design decision. (Where this *sequencing* lives is itself a design choice: in this collection it lives in the orchestrator, never in the skills – see [design principles](./design-principles.md).)
 
 As a general rule, insert a human checkpoint where:
 
@@ -81,4 +81,4 @@ As a general rule, insert a human checkpoint where:
 
 But guard against over-gating. Route _everything_ through a human and you recreate the bottleneck the pipeline was meant to remove. The poor human is swamped with PRs to review and becomes the rate-limiter for the whole workflow, which defeats the point of parallel agentic execution.
 
-Each checkpoint should earn its place. Prefer to let agents handoff to agents wherever the outcome is low-risk, reversible, or verifiable by a deterministic check, and reserve human moderation for the decisions that genuinely warrant it.
+Each checkpoint should earn its place. Prefer to let the workflow run unattended wherever the outcome is low-risk, reversible, or verifiable by a deterministic check, and reserve human moderation for the decisions that genuinely warrant it.

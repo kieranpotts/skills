@@ -4,7 +4,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 
 ## Project overview
 
-A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely-available open-weight models. Each skill cross-references others, reflecting how development phases naturally hand off to one another.
+A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely-available open-weight models. Each skill is designed to be portable, independent, and free of hand-offs to other skills, so any one can be installed or deleted on its own; the workflow that sequences them lives in the orchestrator, not the skills. See [`docs/design-principles.md`](./docs/design-principles.md).
 
 Changes to this repository tend to be small and self-contained – eg. adding new skills, editing existing `SKILL.md` files, or updating documentation. The main constraint on all changes is that `SKILL.md` files SHOULD stay token-efficient (RECOMMENDED ≤ 300 lines) and pass the validator checks described below.
 
@@ -60,7 +60,7 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 
 - Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller.
 
-- Skills SHOULD NOT duplicate content from other skills – cross-reference with a relative markdown link instead, eg. [`commit`](./skills/commit/SKILL.md).
+- Skills MUST be portable, independent, and free of hand-offs to other skills: a `SKILL.md` MUST NOT reference any file outside its own directory, MUST NOT cross-reference another skill, and MUST NOT instruct the agent to run another skill next. Where two skills would need the same content, each carries its own copy – but prefer to draw the responsibility boundary so the duplication is not needed. See [`docs/design-principles.md`](./docs/design-principles.md).
 
 - MUST NOT commit anything under `build/` (it is gitignored; only `build/README.md` is tracked).
 
