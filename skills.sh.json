@@ -6,20 +6,22 @@
       "title": "SDLC",
       "description": "One skill for each discrete phases of the software development life cycle.",
       "skills": [
-        "specify",
-        "design",
-        "spike",
-        "elaborate",
-        "plan",
-        "code",
-        "test",
-        "debug",
-        "review",
-        "discover",
         "audit",
-        "refactor",
+        "code",
+        "debug",
+        "design",
+        "discover",
+        "elaborate",
         "format",
-        "refine"
+        "plan",
+        "refactor",
+        "refine",
+        "resolve",
+        "review",
+        "specify",
+        "spike",
+        "test",
+        "validate"
       ]
     },
     {
@@ -36,12 +38,12 @@
       "title": "Supporting",
       "description": "Cross-cutting skills that support the SDLC and version control steps.",
       "skills": [
-        "triage",
-        "research",
-        "proof",
+        "create-skill",
         "handoff",
+        "proof",
         "reflect",
-        "create-skill"
+        "research",
+        "triage"
       ]
     }
   ]
