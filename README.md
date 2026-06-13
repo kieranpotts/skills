@@ -105,24 +105,26 @@ flowchart LR
 
 | Skill name | Description | Interactive? |
 | ---------- | ----------- | ------------ |
-| 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. | No |
-| 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. | Yes |
-| 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. | No |
-| 🚧 [`/spike`](./skills/spike/) | Develop throwaway code to answer design questions. | No |
-| 🚧 [`/elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. | Yes |
-| 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | No |
-| 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | No |
-| 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | No |
-| 🚧 [`/resolve`](./skills/resolve/) | Action the open review comments – implement each fix in code, verify it, and mark the comment resolved. | No |
-| 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | No |
-| 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. | No |
-| 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. | No |
-| 🚧 [`/audit`](./skills/audit/) | Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure. Feeds the refactor → design loop. | No |
-| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | No |
-| 🚧 [`/validate`](./skills/validate/) | Evaluate completed work against the users' actual needs (not the agreed ACs) – "did we build the right thing?". Feeds the refine → specify loop. | No |
-| 🚧 [`/refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. | Yes |
+| 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. | 🤖 No |
+| 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. | 🧑 Yes |
+| 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. | 🤖 No |
+| 🚧 [`/spike`](./skills/spike/) | Develop throwaway code to answer design questions. | 🤖 No |
+| 🚧 [`/elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. | 🧑 Yes |
+| 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
+| 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
+| 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
+| 🚧 [`/resolve`](./skills/resolve/) | Action the open review comments – implement each fix in code, verify it, and mark the comment resolved. | 🤖 No |
+| 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
+| 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. | 🤖 No |
+| 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. | 🤖 No |
+| 🚧 [`/audit`](./skills/audit/) | Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure. Feeds the refactor → design loop. | 🤖 No |
+| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | 🤖 No |
+| 🚧 [`/validate`](./skills/validate/) | Evaluate completed work against the users' actual needs (not the agreed ACs) – "did we build the right thing?". Feeds the refine → specify loop. | 🤖 No |
+| 🚧 [`/refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. | 🧑 Yes |
 
-Most workflow skills run **non-interactively** (the `Interactive?` column above), so they can be driven agentically with no human in the loop. A non-interactive skill takes everything it needs from its initial prompt, its context, and the environment, then does its job and stops – it never pauses to ask the user a question. If it cannot get what it needs, it **fails with a specific account of what is missing** rather than falling back to interviewing the user. This is what lets an orchestrator chain them into an autonomous pipeline. The few skills marked `Yes` are the deliberate exceptions: they exist *to* interview a human (eg. [`/discover`](./skills/discover/) elicits requirements), and the non-interactive skills downstream consume what they produce. See the [design principles](./docs/design-principles.md) for the full rationale.
+Most workflow skills run non-interactively. These skills take everything they need from the initial prompt, its context, and the environment. They either complete their task or they fail with a specific account of what is is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous programs (🤖) – other agents or deterministic scripts – and therefore these skills can be chained in workflow pipelines.
+
+A small number of skills are interactive, prompting the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product decisions. These skills are intended to be invoked directly by human users (🧑).
 
 ### Version control skills
 
