@@ -100,22 +100,22 @@ flowchart LR
   style build fill:none,stroke:#004085,stroke-width:2px,stroke-dasharray:4 4,rx:60,ry:60
 ```
 
-| Skill name | Description |
-| ---------- | ----------- |
-| 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. |
-| 🚧 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. |
-| 🚧 [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. |
-| 🚧 [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. |
-| 🚧 [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. |
-| 🚧 [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. |
-| 🚧 [`plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. |
-| 🚧 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| 🚧 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
-| 🚧 [`format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. |
-| 🚧 [`refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. |
-| 🚧 [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. |
-| 🚧 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. |
-| 🚧 [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. |
+| Skill name | Description | Interactive? |
+| ---------- | ----------- | ------------ |
+| 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. | No |
+| 🚀 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. | Yes |
+| 🚧 [`audit`](./skills/audit/) | Proactively survey a codebase for potential design improvements. | No |
+| 🚧 [`design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. | No |
+| 🚧 [`prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. | No |
+| 🚧 [`elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. | Yes |
+| 🚧 [`plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | No |
+| 🚧 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | No |
+| 🚧 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | No |
+| 🚧 [`format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | No |
+| 🚧 [`refactor`](./skills/refactor/) | Iterate the design – logic and data structures – via experiments directly in code. Maintain stability through system testing. Update design docs. | No |
+| 🚧 [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving solution. Focus on functional correctness and dynamic quality attributes. | No |
+| 🚧 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. | No |
+| 🚧 [`refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. | Yes |
 
 ### Version control skills
 
