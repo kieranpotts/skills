@@ -4,6 +4,18 @@ These are the design principles behind *this* collection of skills. They are del
 
 The capitalized requirement keywords (MUST, MUST NOT, SHOULD, MAY, …) are used as defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
+## Skills for judgement, scripts for automation
+
+This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
+
+The deterministic parts of the lifecycle are deliberately **out of scope**. Anything that can be specified once and then run the same way every time – building, deploying, running migrations, linting, packaging, tagging an artifact – is better expressed as a script, a CI job, or a Makefile target than as a skill. There is no `/deploy` skill, and there should not be: a deployment is a fixed sequence of commands, and wrapping it in a skill only adds an unpredictable interpreter in front of a procedure that should be exact and repeatable. The same goes for `/build`, `/lint`, and their kind.
+
+The dividing line is whether the work needs *deciding* or merely *doing*. If the outcome depends on context, taste, or trade-offs that change case by case, it is a candidate for a skill. If the outcome is the same procedure every time, it belongs in a script, and the skills here are designed to sit alongside that automation – calling it, being called by it – rather than to replace it.
+
+Note that *agentic* is not a synonym for *automated*. Automation is deterministic: the same inputs yield the same outputs, every time, by a fixed procedure. Agentic work is the opposite – a model reasons through an open-ended problem and may reach a different, better answer on a different run. Both reduce human toil, but they are different tools for different kinds of work: automation for the procedures that should never vary, agentic skills for the judgements that legitimately can.
+
+(One nuance: a few skills in this collection codify a *convention* rather than a judgement – `/branch`, `/commit`, and `/release`, for instance, encode naming rules and formats. These earn their place because applying the convention still requires reading an open-ended change and choosing the right category – a judgement – even though validating the result is deterministic. The deterministic half (the validation regex) is exactly the part that is also expressed as a script or CI check.)
+
 ## Portability
 
 A skill MUST be portable: it MUST NOT reference any out-of-band material – anything outside its own directory.
@@ -46,11 +58,46 @@ A skill MAY describe *what kind of input it expects* and *what its output repres
 
 A skill MUST have a single responsibility: it does one job and stops at the boundary of that job, leaving adjacent work to the caller. (See [best practices](./best-practices.md#single-responsibility) for the general principle.)
 
+The cleanest way to see a skill's single responsibility is to state it as the one question the skill answers. The evaluation skills make this especially sharp, because each **questions an assumption that an earlier step took for granted**. Earlier steps build on the outputs of the ones before – `/specify` produces the requirements, `/design` produces the architecture, `/code` builds against both – and each evaluation step exists to re-open one of those settled outputs:
+
+- `/test` asks **"does it meet the agreed requirements?"** – the implementation against its acceptance criteria. It *trusts* the spec and the design, and questions only whether the code honours them. *Did we build it right?*
+- `/audit` asks **"is the design sound?"** – the as-built architecture against the structure it was meant to have. It still trusts the spec, but now *questions the design* that `/test` took for granted. *Is it well-built?*
+- `/validate` asks **"was this the right thing to build?"** – the working software against the users' actual need. It trusts nothing below it: it *questions the spec itself*, asking whether the agreed criteria were ever the right ones. *Did we build the right thing?*
+
+Read in order, the questioning climbs back up the stack. `/test` trusts everything beneath it; `/audit` distrusts the design; `/validate` distrusts the requirements. Each step peels back one more layer that the previous step relied on – which is exactly why the two feedback loops point where they do: `/audit` → `/refactor` → `/design` re-opens the design, and `/validate` → `/refine` → `/specify` re-opens the spec. (`/review` sits earlier and narrower: it questions a single diff – is *this change* correct and well-made? – before it ever reaches `/test`.)
+
+These are genuinely distinct jobs, and the point of single responsibility is that they stay distinct. A change can pass `/test` (meets every criterion) yet fail `/audit` (the design drifted) or `/validate` (the criteria themselves were wrong) – precisely because each interrogates a different layer of trust. Folding any two of them into one skill would blur questions that need separate answers, and separate, independently-runnable skills. The same discipline applies to the building skills: `/specify` captures *what* is required, `/design` decides *how*, `/plan` decides *in what order*, `/code` *builds one increment* – four questions, four skills, no skill answering two.
+
 Single responsibility is what makes portability, independence, and no-hand-offs *achievable rather than painful*. When two skills find themselves needing the same shared content – the same checklist, the same format definition, the same convention – that is usually a signal that a responsibility has been drawn in the wrong place, not that the content should be shared between them.
 
 Where shared content genuinely is unavoidable, **each skill carries its own copy**. Duplication is the accepted cost of independence and portability: a self-contained, deletable, individually-installable skill is worth more than a DRY one that cannot stand alone. But reach for duplication only after confirming the responsibility split is right – the better fix is almost always to draw the boundaries so the duplication is not needed in the first place.
 
 This reverses the older "cross-reference instead of duplicate" guidance: a cross-reference breaks independence and portability, so it is not an acceptable way to avoid duplication here.
+
+## Evaluate or enact, never both
+
+A skill either **evaluates and reports**, or it **enacts a change** – never both in one skill. Judging whether something is wrong is a different responsibility from putting it right, and the two are split into separate skills.
+
+This shows up across the collection as paired skills, one of each kind:
+
+| Evaluates and reports | Enacts the change |
+| --------------------- | ----------------- |
+| `/review` – finds issues in a change | `/resolve` – actions the review comments |
+| `/test` – verifies against the acceptance criteria | `/debug` – diagnoses and fixes a failure |
+| `/audit` – evaluates the evolving architecture | `/refactor` – iterates the design in code |
+| `/validate` – judges whether the right thing was built | `/refine` – revises the requirements specification |
+
+The evaluating skill produces a report and stops. It changes nothing – no code, no specification, no files. Its output is a set of findings the orchestrator can act on, discard, or route to the matching enacting skill. The enacting skill takes findings as input and makes the change, leaving the *judgement* of whether the change is warranted to whoever decided to invoke it.
+
+Keeping the two apart pays off several ways:
+
+- **The judgement is reviewable before anything changes.** A human (or orchestrator) sees what `/review` or `/audit` found and decides what to act on, rather than discovering after the fact that a skill silently rewrote the code while "reviewing" it. Evaluation with side effects is hard to trust and hard to undo.
+
+- **Each half is independently useful.** Evaluation is valuable on its own – a CI gate may run `/test` or `/audit` purely to report, with no intent to change anything. Enactment is valuable on its own – findings can come from a human, a tracker, or a prior run, not only from the paired evaluator.
+
+- **It keeps each skill single-responsibility.** "Evaluate *and* fix" is two jobs; splitting them is just [single responsibility](#single-responsibility-and-the-duplication-it-avoids) applied to this specific seam. A skill that both judged and changed would be harder to reason about and impossible to use for evaluation alone.
+
+This is a separation of responsibilities, not a hand-off: the evaluating skill does **not** name or invoke its enacting counterpart (that would break [independence](#independence) and the [no-hand-offs](#no-hand-offs-between-skills) rule). It reports neutrally and stops; the orchestrator – not the skill – decides whether to run the enactor next. The pairing is a fact of the *workflow*, documented here and shown in the repository's workflow diagram, not a link baked into either skill.
 
 ## Consequence for orchestration
 
