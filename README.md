@@ -118,6 +118,8 @@ flowchart LR
 | 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and performance issues observed during acceptance testing. | No |
 | 🚧 [`/refine`](./skills/refine/) | Revise the requirements specification in response to feedback from continuous acceptance testing. | Yes |
 
+Most workflow skills run **non-interactively** (the `Interactive?` column above), so they can be driven agentically with no human in the loop. A non-interactive skill takes everything it needs from its initial prompt, its context, and the environment, then does its job and stops – it never pauses to ask the user a question. If it cannot get what it needs, it **fails with a specific account of what is missing** rather than falling back to interviewing the user. This is what lets an orchestrator chain them into an autonomous pipeline. The few skills marked `Yes` are the deliberate exceptions: they exist *to* interview a human (eg. [`/discover`](./skills/discover/) elicits requirements), and the non-interactive skills downstream consume what they produce. See the [design principles](./docs/design-principles.md) for the full rationale.
+
 ### Version control skills
 
 The version control skills describe how revisions are committed to source control, and how stable points in the revision history are prepared for release.

@@ -56,6 +56,16 @@ This reverses the older "cross-reference instead of duplicate" guidance: a cross
 
 Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the human approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for humans) is fine, and belongs in repository documentation – not inside any skill.
 
+## Workflow skills run non-interactively
+
+The main workflow skills in this collection – `specify`, `design`, `plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a human in the loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
+
+The corollary is that **a workflow skill fails rather than prompts.** If it cannot obtain everything it needs from the prompt, the context, and the environment, it stops with a clear, specific account of what is missing – it does NOT fall back to interviewing the user to fill the gap. `specify` is the model: handed an incomplete PRD, it rejects it with an itemized list of what is absent, instead of asking the user to supply the missing rules. A clean failure is something an orchestrating agent can act on; a blocking prompt is not.
+
+This is what makes these skills composable into an autonomous pipeline. An orchestrator – a human, an agent, or a script – can chain `specify` → `design` → `plan` and let them run to completion or fail loudly, with no interactive turn in between. The place where missing information is *gathered* is a separate, explicitly interactive skill upstream (requirement elicitation is `discover`'s job, not `specify`'s); the workflow skills downstream consume what those produce and never re-open the conversation.
+
+(Declare this with `metadata.interactive: no` in the skill's front-matter. The default is `yes`; a workflow skill overrides it deliberately. The opposite case – a skill *built* to interview a human, such as `discover` – stays `interactive: yes`.)
+
 ## Driving another repository's skills: read, don't invoke
 
 A workflow skill in this collection may drive a target repository's own skills – `specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
