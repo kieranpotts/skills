@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Validate a PRD (product-requirements / discovery report) and, if complete, translate it into testable acceptance criteria (ACs) – both functional and non-functional – filed as a proposal in the project's SRS (software requirements specification) repository. Non-interactive: rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
+description: Validate a PRD (product-requirements / discovery report) and, if complete, file it as a proposal in the project's SRS (software requirements specification) repository by autonomously running that repository's sub-skills in sequence – scaffold (draft-spec), author the testable acceptance criteria (write-spec), and mark ready for review (propose-spec). Non-interactive: rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -14,11 +14,21 @@ Use this skill to turn a **PRD** – a product-requirements document, in practic
 This skill is **non-interactive**. It does NOT interview the user or elicit missing information – that is [`discover`](../discover/SKILL.md)'s job. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
 
 - **Rejects** the PRD, with a specific list of what is missing or ambiguous, directing the user to [`discover`](../discover/SKILL.md) to fill the gaps; or
-- **Proceeds**: translates the PRD's rules and examples into Gherkin acceptance criteria and measurable NFRs, and files the proposal in the SRS repository.
+- **Proceeds**: files the proposal in the SRS repository by running that repository's own sub-skills, autonomously and in sequence.
+
+When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – by invoking three of its sub-skills in order:
+
+1. **`draft-spec`** – scaffold the proposal: branch, document from template, draft pull request, and discussion thread.
+2. **`write-spec`** – author the specification content: the PRD's rules and examples become the repository's acceptance criteria and measurable quality requirements.
+3. **`propose-spec`** – mark the proposal ready for stakeholder review once it is complete and meets the Definition of Ready.
+
+These are the reference-implementation skill names; a project MAY expose differently-named equivalents, discoverable through its SRS repository's `AGENTS.md`. Run whichever skills that repository provides for these three phases – scaffold, author, mark-ready.
+
+The run stops at a proposal that is `PROPOSED` – complete and open for review, but **not yet approved**. The outcome of this skill is a specification *awaiting the user's review and approval*, not an approved specification. Approval is a human decision the user makes deliberately; only an approved (`ACCEPTED`) specification unblocks the next SDLC phase, [`design`](../design/SKILL.md).
 
 Do NOT use this skill for design decisions (use [`design`](../design/SKILL.md)), implementation planning (use [`plan`](../plan/SKILL.md)), or test execution (use [`test`](../test/SKILL.md)). Do NOT use it to *gather* requirements – use [`discover`](../discover/SKILL.md) for that.
 
-This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository and read at runtime – this skill does NOT restate that process. (2) *What makes the specification good* – the validation and content expertise below – is owned by this skill.
+This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository and executed through its sub-skills – this skill orchestrates them but does NOT restate their process. (2) *Whether the PRD is fit to specify from* – the validation gate below – is owned by this skill.
 
 ##  Instructions
 
@@ -57,82 +67,30 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     Do NOT hard-code the SRS workflow from memory or from this skill. The process lives in the target repository so it can evolve, and so the agent workflow can differ from the human one. Always read it fresh.
 
-5.  **Separate functional from non-functional requirements.**
+5.  **Scaffold the proposal – run `draft-spec`.**
 
-    - *Functional requirements (FRs)*: what the system does – operations, behaviors, outputs.
+    Invoke the SRS repository's scaffolding skill (`draft-spec`, or the equivalent its `AGENTS.md` names). It creates the branch, the proposal document from the template, the draft pull request, and the discussion thread. Supply the change description derived from the PRD's outcome; do not pause to ask the user for details the PRD already provides.
 
-    - *Non-functional requirements (NFRs)*: the constraints under which it operates – performance, security, availability, accessibility, data retention, scalability, and other dynamic qualities observed at runtime.
+6.  **Author the specification content – run `write-spec`.**
 
-    Both MUST be specified. NFRs are often architecturally significant and harder to retrofit, so identify them up-front.
+    Invoke the SRS repository's content-authoring skill (`write-spec`, or its equivalent). That skill owns *how* the content is written – the acceptance-criteria format, how non-functional requirements are expressed, where each artifact lives, and the Definition of Ready. Feed it the validated PRD, mapping:
 
-6.  **Write functional ACs in Gherkin** for any non-trivial feature.
+    - The PRD's *rules* and *examples / counter-examples* → functional acceptance criteria.
+    - The PRD's *non-functional requirements* → the repository's measurable quality requirements.
+    - The PRD's *outcome* and *stakeholders* → the user, goal, and value.
+    - The PRD's *out-of-scope* list → the specification's out-of-scope boundary, carried forward in full.
 
-    Use this structure:
+    Do NOT hard-code the content format from memory; `write-spec` applies the target repository's rules. When it reports a Definition-of-Ready gap that stems from missing PRD information, treat it as a validation failure: reject the PRD (step 2) and name the gap.
 
-    ```feature
-    Feature: <short description>
-      In order to <realize some value>
-      As a <user type>
-      I want to <achieve some goal>
+7.  **Mark the proposal ready – run `propose-spec`.**
 
-      Scenario: <determinable situation>
-        Given <state or precondition>
-         And <state or precondition>
-        When <event or action>
-        Then <expected outcome>
-         And <expected outcome>
-    ```
+    Once the content is authored and meets the Definition of Ready, invoke the SRS repository's readiness skill (`propose-spec`, or its equivalent) to verify completeness and take the pull request out of draft for stakeholder review.
 
-    Rules:
+    This is where `specify`'s autonomous run ends. The outcome is a proposal at `PROPOSED`, **awaiting the user's review and approval** – not an approved specification. Approval is a deliberate human decision (advancing the proposal to `ACCEPTED`, via `accept-spec` in the reference implementation); rejection uses `reject-spec`. Neither is part of this skill.
 
-    - One `.feature` file per feature (or per aspect of a feature).
-    - Aim for ≤5 steps per scenario; ≤2 `When` steps.
-    - Use `Background:` to factor out repeated `Given` steps.
-    - Use `Scenario Outline:` + `Examples:` for variable-driven business rules – but only when the rule itself varies, not for UI permutations.
-    - Steps describe observable outcomes (a report, a UI repaint, a response, a state change visible to the user) – NOT internal state.
+8.  **Report the outcome and the required approval.**
 
-    For simple requests where Gherkin is overkill, a structured bullet list of testable conditions is acceptable.
-
-7.  **Write NFRs as measurable benchmarks.**
-
-    Each NFR MUST be either:
-
-    - A *quantitative metric* with a target (eg. "p99 latency under 200ms at 1000 concurrent users", "99.9% uptime", "MTTR under 15 minutes"), OR
-    - *Conformance to a published standard* (eg. AES-256 at rest, TLS 1.3 in transit, WCAG 2.2 AA, GDPR Article 32), OR
-    - *A user-story-style requirement* for security/authorization concerns (eg. "As an admin, I can revoke a user's session so that...").
-
-    A PRD NFR stated in vague terms ("must be fast", "should be secure") that cannot be translated into one of the forms above is a validation failure – reject the PRD (step 2) rather than guessing a target.
-
-8.  **Carry the out-of-scope boundary into the specification.**
-
-    The PRD's *out-of-scope* list (validated in step 2) belongs in the specification. A specification that lists only what to build invites scope creep during design and implementation. Carry forward an explicit "Out of scope" section that names:
-
-    - *Deferred features* the reader might assume are in scope ("Refund flow – coming in Phase 2").
-    - *Adjacent functionality* that touches the same area but is not changing ("Order cancellation – existing behavior unchanged, not under review here").
-    - *Decisions explicitly NOT being revisited* ("Payment provider choice – stays with Stripe for this change").
-    - *Things ruled out during discovery* ("Discussed bulk refunds; decided to defer until single-refund flow is stable").
-
-    A reader of the specification – a designer, a developer, a reviewer – should finish with a clear picture of where the specification ends, not just where it starts.
-
-9.  **Verify each AC is testable.**
-
-    For every scenario or condition, ask: *what observable outcome would prove this passes or fails?* If you can't answer that without referring to implementation details, the AC is not testable – rewrite it.
-
-10. **Check against the Definition of Ready.**
-
-    Before declaring the specification complete, run through the DoR checklist:
-
-    - Are the requirements clear and unambiguous?
-    - Are the ACs in a testable, automatable form?
-    - Are stakeholders identified?
-    - Can the work be done independently of other parallel work?
-    - Can it be implemented in small increments?
-
-    A DoR item that fails because the PRD lacks the information to satisfy it is a validation failure – reject the PRD (step 2) and name the gap. A DoR item that fails for any other reason is flagged in the proposal itself, for reviewers to weigh.
-
-11. **File the proposal per the SRS repository's process.**
-
-    Write the proposal content into the artifact the SRS repository's template defines, in the location its `AGENTS.md` specifies, and file it following that repository's workflow – branch, pull request, discussion thread, and lifecycle labels exactly as its `AGENTS.md` prescribes. Do not improvise these mechanics; defer to the target repository.
+    On finishing, tell the user plainly: the specification proposal is filed and `PROPOSED`, and it now needs their review and approval before downstream work begins. State explicitly that **[`design`](../design/SKILL.md) – the next SDLC phase – MUST NOT start until this specification is approved** (`ACCEPTED`). Link the pull request and its discussion thread for the user to act on.
 
 ##  Rules
 
@@ -143,6 +101,18 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 -   **Reject substantive gaps; never invent content.**
 
     When the PRD is missing a rule, an example, a counter-example, a scope boundary, or a measurable NFR target, reject – do NOT fabricate the missing material. Only purely mechanical gaps (a `Feature` title, scenario ordering, phrasing) may be filled without rejecting.
+
+-   **Orchestrate the SRS repository's sub-skills; don't reimplement them.**
+
+    Once the PRD is validated, run the repository's scaffold → author → mark-ready skills (`draft-spec` → `write-spec` → `propose-spec`, or the equivalents its `AGENTS.md` names) in sequence, autonomously. This skill's value is the PRD gate and the orchestration – the mechanics of each phase belong to the sub-skills. Do NOT branch, write artifacts, or open PRs directly when a sub-skill owns that step.
+
+-   **Run autonomously once the PRD passes.**
+
+    After validation, drive the three phases through to `PROPOSED` without pausing for user input. The PRD is the contract; everything needed is in it. Stop only to reject (a validation failure surfaced mid-run) or at the natural end, when the proposal is ready for human review.
+
+-   **The outcome is an approval request, not an approval.**
+
+    This skill never approves its own output. It stops at `PROPOSED` and hands the specification to the user to review and approve. Do NOT advance the proposal to `ACCEPTED`, and do NOT proceed to [`design`](../design/SKILL.md), on the skill's own authority – approval is the user's decision, and it gates the next SDLC phase.
 
 -   **Read the SRS repository's `AGENTS.md`, not its `CONTRIBUTING.md`.**
 
@@ -156,93 +126,17 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     If the project's `AGENTS.md` does not declare an `SRS` location under `Workflow repositories`, do not write requirements anywhere. Tell the user the project is not wired to an SRS.
 
--   **Specify the problem, not the solution.**
+-   **Defer the content rules to the SRS repository.**
 
-    ACs describe user needs and outcomes. They MUST NOT prescribe implementation: no class names, no API endpoints, no database tables, no framework choices. Ideally, ACs do not even mention "software" – they describe what the user can do or observe.
-
--   **Use domain language, not technical jargon.**
-
-    ACs are a contract with business stakeholders. Use the vocabulary of the business domain (customer, order, refund, dosage, invoice) – not the vocabulary of the codebase (entity, repository, DTO, controller).
+    *How* the specification is written – the AC format, the way NFRs are expressed, the artifact taxonomy, and the Definition of Ready – is owned by the target SRS repository (in this ecosystem, its `write-spec` skill, reachable from `AGENTS.md`). Read and apply those rules; do NOT hard-code a format from this skill. This is what lets each project tune its own specification standards.
 
 -   **Specify the need the PRD states, not a literal transcription.**
 
     Translate the PRD's *outcome* and *rules* into criteria that meet the underlying need – not a mechanical restatement of surface wording. If the PRD itself is internally incoherent, or its stated solution plainly won't meet its own stated goal, that is a validation failure: reject it and name the contradiction. (Surfacing the real need from a vague request is [`discover`](../discover/SKILL.md)'s job, not this skill's.)
 
--   **Avoid `Then` assertions on internal state.**
-
-    Assert on outputs the user can observe: rendered UI, API responses, logged messages, command output, state visible in a downstream report. Assertions on database rows, queue contents, or in-memory data structures couple the specification to the implementation.
-
--   **Bundle authorization into functional requirements.**
-
-    Permissions and roles ("As an admin, I can...") belong in the functional specification as user stories, not in a separate NFR list. Encryption, audit logging, and compliance-driven constraints belong in NFRs.
-
--   **Identify NFRs early.**
-
-    NFRs around scalability, durability, security, and compliance often dictate fundamental architecture choices (technology stack, database, deployment topology). Surface them in the specification before any design work starts.
-
 ## Examples
 
-A minimal functional specification (Gherkin):
-
-```feature
-Feature: Refund item
-  In order to be confident in my purchases
-  As a customer
-  I want to receive refunds for faulty goods
-
-  Scenario: A customer returns a faulty microwave
-    Given a customer has bought a microwave for $100
-     And the customer has a valid receipt
-    When the customer returns the microwave
-    Then the customer should be refunded $100
-```
-
-A scenario outline for a variable business rule:
-
-```feature
-Scenario Outline: Tier-based discount
-  Given a customer is on the <tier> plan
-   And their cart subtotal is <subtotal>
-  When they apply the loyalty discount
-  Then the order total should be <total>
-
-  Examples:
-    | tier     | subtotal | total |
-    | bronze   | 100      | 95    |
-    | silver   | 100      | 90    |
-    | gold     | 100      | 80    |
-```
-
-Non-functional requirements (measurable):
-
-```
-Performance:
-- p95 API latency < 250ms at 500 RPS sustained.
-- Cold start of the order-service Lambda < 800ms.
-
-Availability:
-- 99.9% monthly uptime for the public checkout API.
-- RTO ≤ 1 hour, RPO ≤ 5 minutes for the orders database.
-
-Security & compliance:
-- All PII encrypted at rest with AES-256 and in transit with TLS 1.3.
-- Conforms to GDPR Article 32 for processing of customer data.
-- WCAG 2.2 AA for all customer-facing web pages.
-```
-
-Out-of-scope:
-
-```
-Out-of-scope:
-- Bulk refund flow – deferred to Phase 2 (tracking issue #519).
-- Refunds in non-USD currencies – existing single-currency handling
-  remains unchanged.
-- Payment-provider choice – stays with Stripe; not under review.
-- Auto-detecting fraud during refund – discussed in clarification,
-  ruled out until we have a baseline of single-currency refund data.
-```
-
-A `Workflow repositories` declaration, as it appears in the consuming project's root `AGENTS.md`:
+The consuming project locates its SRS through a `Workflow repositories` declaration in its root `AGENTS.md`:
 
 ```markdown
 ## Workflow repositories
@@ -252,6 +146,8 @@ A `Workflow repositories` declaration, as it appears in the consuming project's 
 - Design: ./docs/design
 - Plans: ./docs/plans
 ```
+
+The shape of the specification content itself – Gherkin acceptance criteria, measurable non-functional requirements, the out-of-scope section – is defined by the target SRS repository's content rules (its `write-spec` skill), not here. This skill validates the PRD, then runs the repository's `draft-spec` → `write-spec` → `propose-spec` sub-skills to file the proposal to whatever format and process that repository prescribes.
 
 ##  Edge cases
 
@@ -265,7 +161,7 @@ A `Workflow repositories` declaration, as it appears in the consuming project's 
 
 -   **Bug fix.**
 
-    The AC is usually a Gherkin scenario that fails today and should pass after the fix. Include the reproduction steps as `Given`/`When` and the correct behavior as `Then`.
+    The AC captures behavior that is wrong today and should be correct after the fix – the reproduction as preconditions and trigger, the correct behavior as the expected outcome. Express it in the SRS repository's AC format.
 
 -   **Refactor or internal change.**
 
@@ -281,17 +177,17 @@ A `Workflow repositories` declaration, as it appears in the consuming project's 
 
 ##  Success criteria
 
--   **The proposal is filed in the SRS repository.**
+-   **The proposal reaches `PROPOSED` via the repository's sub-skills.**
 
-    The specification lives in the project's declared SRS repository, in the artifact its template defines, filed through that repository's own workflow – not in an arbitrary file or the working repository.
+    On a valid PRD, the skill runs scaffold → author → mark-ready (`draft-spec` → `write-spec` → `propose-spec`, or the repository's equivalents) autonomously, leaving an open, non-draft proposal pull request labelled for review – not an arbitrary file or a half-finished draft. The mechanics are delegated to the sub-skills, not reimplemented here.
 
--   **Every AC is testable.**
+-   **The user is told the specification awaits their approval.**
 
-    For each scenario or condition, an observable pass/fail outcome is identifiable without reading implementation code.
+    The skill's closing message states that the proposal is `PROPOSED` and needs the user's review and approval, and that [`design`](../design/SKILL.md) MUST NOT begin until the specification is approved (`ACCEPTED`). The pull request and discussion thread are linked for the user to act on. The skill does not approve, and does not advance to design, itself.
 
--   **No implementation details leak into the specification.**
+-   **The specification conforms to the SRS repository's content rules.**
 
-    No class, file, endpoint, table, or framework name appears in an AC. Re-read with that filter before finishing.
+    The authored artifacts follow the target repository's format and conventions (its `write-spec` rules) – acceptance criteria in the prescribed form, non-functional requirements as that repository requires, no implementation detail leaking in.
 
 -   **Functional and non-functional requirements are both present.**
 
@@ -299,7 +195,7 @@ A `Workflow repositories` declaration, as it appears in the consuming project's 
 
 -   **Out-of-scope items are named.**
 
-    The specification includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during clarification – not just what is being built.
+    The specification includes an explicit list of deferred features, adjacent functionality not under review, and decisions ruled out during discovery – not just what is being built.
 
 -   **The user, goal, and value are carried from the PRD.**
 
@@ -315,7 +211,9 @@ A `Workflow repositories` declaration, as it appears in the consuming project's 
 
 - [`discover`](../discover/SKILL.md): Upstream source of the PRD. Its discovery report (outcome, stakeholders, rules, examples, scope) is the input this skill validates and translates. When this skill rejects a PRD as incomplete, the gaps are filled by re-running `discover`. All requirement *elicitation* happens there; this skill never interviews the user.
 
-- [`design`](../design/SKILL.md): The next step after a specification is approved.
+- **SRS repository sub-skills** (reference-implementation names): `draft-spec` scaffolds the proposal, `write-spec` authors the content, and `propose-spec` marks it ready for review. `specify` runs these three in sequence on a valid PRD. They live in the target SRS repository and are discovered through its `AGENTS.md`; a project may expose differently-named equivalents.
+
+- [`design`](../design/SKILL.md): The next SDLC phase. It is gated on this skill's output being *approved* (`ACCEPTED`) – it MUST NOT begin while the specification is only `PROPOSED`. Approval is the user's decision, made after reviewing the proposal this skill files.
 
 - [`test`](../test/SKILL.md): How specified ACs are verified.
 

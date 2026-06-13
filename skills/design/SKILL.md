@@ -1,6 +1,6 @@
 ---
 name: design
-description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Use after [`specify`](../specify/SKILL.md) is agreed and before [`plan`](../plan/SKILL.md) or [`code`](../code/SKILL.md) when the change has architecturally significant decisions.
+description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification: do not begin until the upstream [`specify`](../specify/SKILL.md) proposal is approved (ACCEPTED), not merely proposed. Use before [`plan`](../plan/SKILL.md) or [`code`](../code/SKILL.md) when the change has architecturally significant decisions.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,7 +9,9 @@ metadata:
 
 # Design
 
-Use this skill after the acceptance criteria are agreed but before any planning or coding work, whenever the change involves a non-trivial design decision - new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API.
+Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision - new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API.
+
+Design is gated on an approved specification. It MUST NOT begin while the specification is still being drafted or merely proposed for review – only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
 
 Do NOT use this skill for trivial changes whose design is obvious (bug fixes, copy edits, renames - go straight to [`code`](../code/SKILL.md) or [`refactor`](../refactor/SKILL.md)).
 
@@ -17,18 +19,26 @@ Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md
 
 ##  Instructions
 
-1.  **Gather the constraints.**
+1.  **Check the entry gate: the specification MUST be approved.**
+
+    Design is the SDLC phase *after* specification. It MUST NOT begin until the specification it builds on has been reviewed and **approved** by the user – that is, the upstream proposal is `ACCEPTED` (not merely `PROPOSED` / awaiting review), in the reference implementation produced by [`specify`](../specify/SKILL.md).
+
+    Confirm the relevant specification proposal is approved before doing anything else. If it is still `DRAFT` or `PROPOSED` – open, but not yet approved – **stop**. Tell the user the design phase is gated on an approved specification, and direct them to review and approve the proposal first. Do not design against an unapproved (or merely proposed) specification; its acceptance criteria may still change in review.
+
+    If no specification exists at all, the change has not been specified – send the user to [`specify`](../specify/SKILL.md) (and [`discover`](../discover/SKILL.md) if the requirements are still vague) before designing.
+
+2.  **Gather the constraints.**
 
     Before exploring options, write down:
 
-    - *Functional ACs* the design must satisfy (from [`specify`](../specify/SKILL.md)).
+    - *Functional ACs* the design must satisfy (from the approved [`specify`](../specify/SKILL.md) output).
     - *Non-functional requirements*: performance targets, security/compliance, availability, scalability, data retention.
     - *Existing system shape*: relevant modules, public APIs, data stores, deployment topology.
     - *Budget*: time, complexity tolerance, team familiarity, operational headroom.
 
     If any constraint is unclear, ask the user before proceeding. A design built on guessed constraints will need to be redone.
 
-2.  **Identify the decision points.**
+3.  **Identify the decision points.**
 
     List the *architecturally significant* choices the design must make - the ones that would be expensive to reverse later. Typical examples:
 
@@ -41,11 +51,11 @@ Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md
 
     Cosmetic or easily-reversed decisions (variable names, file layout) are not decision points - defer them.
 
-3.  **Enumerate 2-4 options per decision.**
+4.  **Enumerate 2-4 options per decision.**
 
     Always produce at least two. A single option masquerading as "the design" is not a design - it is an assumption. Include a do-nothing or simplest-possible option as one of the alternatives; sometimes the right answer is "don't build it that way".
 
-4.  **Evaluate each option against the nine design qualities.**
+5.  **Evaluate each option against the nine design qualities.**
 
     For each option, note its impact (positive, neutral, negative) on each quality. Be specific - "improves performance" is not useful; "removes the N+1 query, cutting p95 by ~40ms" is.
 
@@ -61,23 +71,27 @@ Do NOT use this skill to write requirements (use [`specify`](../specify/SKILL.md
 
     Most options will trade qualities against one another. Capture the trade explicitly.
 
-5.  **Recommend one, with reasoning.**
+6.  **Recommend one, with reasoning.**
 
     State which option to pick and *why* it wins on the qualities that matter most for this domain. Name the qualities being prioritized and the qualities being sacrificed. If two options are close, say so and ask the user to break the tie.
 
-6.  **Capture the decision.**
+7.  **Capture the decision.**
 
     For architecturally-significant decisions, write a short Architecture Decision Record (ADR) - context, options considered, decision, consequences. For smaller designs, a paragraph in the PR description or a comment on the issue is sufficient.
 
     Include enough that a developer six months from now can answer "why did we do it this way?" without re-running the exercise.
 
-7.  **Hand off to [`elaborate`](../elaborate/SKILL.md) (or directly to [`plan`](../plan/SKILL.md)).**
+8.  **Hand off to [`elaborate`](../elaborate/SKILL.md) (or directly to [`plan`](../plan/SKILL.md)).**
 
     If the draft has soft edges - ambiguous terms, unstated assumptions, contested trade-offs - hand off to [`elaborate`](../elaborate/SKILL.md) to stress-test it one question at a time before decomposition. Once the design is decomposition-ready, [`plan`](../plan/SKILL.md) breaks it into shippable steps.
 
     Trivial designs may skip [`elaborate`](../elaborate/SKILL.md) and go straight to [`plan`](../plan/SKILL.md).
 
 ##  Rules
+
+-   **Do not design against an unapproved specification.**
+
+    The specification is the design's contract. Until the user has approved it (`ACCEPTED`), its acceptance criteria can still change in review – designing against a moving target wastes the work. If the specification is unapproved, missing, or still `PROPOSED`, stop and send the user back to approve it (or to [`specify`](../specify/SKILL.md) / [`discover`](../discover/SKILL.md) if it does not yet exist). This is the SDLC phase gate.
 
 -   **Always produce alternatives.**
 
@@ -176,6 +190,10 @@ Consequences:
 
 ##  Success criteria
 
+-   **The entry gate was checked: the specification is approved.**
+
+    Design proceeded only against an approved (`ACCEPTED`) specification. If the specification was unapproved or merely proposed, the skill stopped and sent the user to approve it first.
+
 -   **The constraints are written down.**
 
     Functional ACs, NFRs, existing-system shape, and budget are explicit before any option is enumerated.
@@ -198,7 +216,7 @@ Consequences:
 
 ## References
 
-- [`specify`](../specify/SKILL.md): Produces the constraints this skill consumes.
+- [`specify`](../specify/SKILL.md): Produces the constraints this skill consumes. Its output is a specification *awaiting approval*; this skill's entry gate requires that approval (`ACCEPTED`) before design begins.
 
 - [`elaborate`](../elaborate/SKILL.md): Stress-tests the draft design one question at a time before decomposition.
 

@@ -1,8 +1,8 @@
 # `specify`
 
-Turn a **PRD** into a testable specification, filed in the project's SRS (software requirements specification) repository. `specify` takes the product-requirements document – in practice the discovery report from [`discover`](../discover/SKILL.md) – validates that it is complete, and either rejects it with reasons or translates it into acceptance criteria a test could later prove pass or fail.
+Turn a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. `specify` takes the product-requirements document – in practice the discovery report from [`discover`](../discover/SKILL.md) – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
 
-`specify` is **non-interactive**. It does not interview the user or gather missing requirements – that is [`discover`](../discover/SKILL.md)'s role. Its job is to validate a PRD and act on it.
+`specify` is **non-interactive**. It does not interview the user or gather missing requirements – that is [`discover`](../discover/SKILL.md)'s role. Its job is to *validate* the PRD, then *orchestrate*: on a valid PRD it drives the SRS repository's workflow end to end, without pausing, by running three sub-skills in sequence – **`draft-spec`** (scaffold the proposal), **`write-spec`** (author the content), **`propose-spec`** (mark it ready for review). The mechanics of each phase, and the content rules, belong to those skills; `specify` owns the PRD gate and the orchestration. (Those are the reference-implementation names; a project may expose differently-named equivalents through its SRS repository's `AGENTS.md`.)
 
 ## What it does
 
@@ -14,23 +14,17 @@ If the PRD passes, it **locates the SRS** – reading the project's root `AGENTS
 
 It then **reads that SRS repository's own `AGENTS.md`** – never `CONTRIBUTING.md` – to learn the repository's current workflow: its proposal template, branch convention, lifecycle states, and pull-request, thread, and label rules. The skill follows whatever it finds there rather than hard-coding the process, so it stays correct as the specification repository evolves. It follows `AGENTS.md` rather than `CONTRIBUTING.md` so the agent workflow can differ from the human one.
 
-With the PRD validated, the destination found, and the process learned, it translates the PRD into the proposal content. It:
+With the PRD validated, the destination found, and the process learned, it runs the three sub-skills in order, feeding each what the PRD provides:
 
-- **Carries the need** – who it's for, what they want to achieve, and why it matters – from the PRD's outcome and stakeholders.
+- **`draft-spec`** scaffolds the proposal – branch, document from template, draft pull request, and discussion thread – using the change description from the PRD's outcome.
 
-- **Separates functional from non-functional requirements** and insists both are present, since NFRs are architecturally significant and hard to retrofit.
+- **`write-spec`** authors the specification content. The PRD's rules and examples become functional acceptance criteria, its non-functional needs become measurable quality requirements, and its out-of-scope boundary is carried forward. This skill owns *how* that content is written – the AC format, the NFR conventions, the artifact taxonomy, and the Definition of Ready – so each project can tune its own standards.
 
-- **Writes functional acceptance criteria in Gherkin** (`Feature` / `Scenario` / `Given`-`When`-`Then`), falling back to a structured bullet list for trivial requirements.
+- **`propose-spec`** verifies the proposal is complete and meets the Definition of Ready, then takes the pull request out of draft for stakeholder review.
 
-- **Writes NFRs as measurable benchmarks** – a quantitative target, conformance to a published standard, or a security user story – rejecting the PRD if a non-functional need can't be made measurable.
+That's where the autonomous run ends – at a `PROPOSED` proposal in reviewers' hands. **The outcome is a specification awaiting the user's review and approval, not an approved one.** The skill closes by telling the user the proposal needs their approval, and that the next SDLC phase – [`design`](../design/SKILL.md) – cannot begin until the specification is approved (`ACCEPTED`). Approving (`accept-spec`) or rejecting (`reject-spec`) is a deliberate, human-gated decision the skill never makes itself.
 
-- **Carries the out-of-scope boundary** – deferred features, adjacent untouched functionality, decisions not being revisited – forward from the PRD.
-
-- **Checks testability and readiness** – every criterion maps to an observable outcome, run against a Definition of Ready before completion.
-
-Finally, it files the proposal following the SRS repository's process exactly.
-
-It carries the rules that keep a specification honest: specify the problem not the solution, use domain language not codebase jargon, and assert on observable outputs not internal state. Where the PRD is internally incoherent or its solution won't meet its own goal, that's a rejection, not something the skill quietly fixes.
+If `write-spec` surfaces a Definition-of-Ready gap that traces back to missing PRD information, `specify` treats it as a validation failure and rejects – it does not invent the missing material. Where the PRD is internally incoherent or its solution won't meet its own goal, that too is a rejection, not something the skill quietly fixes.
 
 ## How to invoke
 
@@ -49,10 +43,10 @@ The project must declare its SRS location in its root `AGENTS.md`:
 
 ## Examples
 
-- **Specify a complete PRD:** "Specify this discovery report." (report has rules, examples, counter-examples, scope, NFRs) → a proposal filed in the project's SRS repository, with `Given`-`When`-`Then` scenarios, an NFR section, and the out-of-scope list carried forward.
+- **Specify a complete PRD:** "Specify this discovery report." (report has rules, examples, counter-examples, scope, NFRs) → `specify` runs `draft-spec` → `write-spec` → `propose-spec` autonomously, ending with an open, non-draft proposal pull request in the SRS repository, ready for stakeholder review.
 
-- **Reject an incomplete PRD:** "Specify this." (report has rules but no counter-examples and an empty out-of-scope list) → an itemized rejection naming the gaps, directing the user back to [`discover`](../discover/SKILL.md). Nothing is written to the SRS.
+- **Reject an incomplete PRD:** "Specify this." (report has rules but no counter-examples and an empty out-of-scope list) → an itemized rejection naming the gaps, directing the user back to [`discover`](../discover/SKILL.md). Nothing is scaffolded or written to the SRS.
 
-- **Hand off from discover:** run `specify` immediately after a `discover` session → the in-session discovery report is validated and, if complete, translated and filed in one step.
+- **Hand off from discover:** run `specify` immediately after a `discover` session → the in-session discovery report is validated and, if complete, carried through the full scaffold-author-propose run in one step.
 
 - **No SRS wired up:** "Specify this PRD." (project `AGENTS.md` has no `SRS` entry) → the skill reports that the project isn't wired to an SRS and writes nothing.
