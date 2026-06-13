@@ -1,6 +1,6 @@
-# `discover`
+# `/discover`
 
-Run a structured customer-discovery session to turn a vague business need into a clear discovery report. Use `discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
+Run a structured customer-discovery session to turn a vague business need into a clear discovery report. Use `/discover` *before* writing a specification, when the requirements themselves are still unclear and an interview is needed to draw them out.
 
 ## What it does
 
@@ -14,7 +14,7 @@ The agent acts as a business analyst and interviews the user – who answers as 
 - **Draw out examples and counter-examples** – for every rule, a concrete case where it applies and one that looks similar but doesn't, in plain language (the Example Mapping core).
 - **Separate assumptions from observations**, and **park open questions** with named owners rather than stalling.
 
-The output is a **discovery report**: Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions – in business language, with no Gherkin and no technical detail. This report is the project's PRD in all but name, and it is *transient*: it is the input from which a durable specification is later produced, and is superseded by it. `discover` itself files nothing in a workflow repository.
+The output is a **discovery report**: Outcome, Stakeholders, Scope, Rules, Examples, Assumptions, Open questions – in business language, with no Gherkin and no technical detail. This report is the project's PRD in all but name, and it is *transient*: it is the input from which a durable specification is later produced, and is superseded by it. `/discover` itself files nothing in a workflow repository.
 
 It carries the rules that keep an interview honest: one question at a time, no leading questions, stay in business language, don't volunteer solutions, push back rather than rubber-stamp, and treat counter-examples as mandatory.
 

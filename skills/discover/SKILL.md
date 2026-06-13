@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# Discover
+# `/discover`
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a discovery report. The agent acts as the business analyst, asking one question at a time. The user answers as the customer – either directly (when the user is the product owner) or as a relay (paraphrasing what real customers said in a prior conversation).
 

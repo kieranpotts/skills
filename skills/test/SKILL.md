@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# Test
+# `/test`
 
 Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* – not to write new tests for individual steps, and not to chase a defect.
 

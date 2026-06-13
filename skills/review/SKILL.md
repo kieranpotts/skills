@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# Review
+# `/review`
 
 Use this skill when auditing a pull request, reviewing a peer's branch, or self-reviewing a change before opening a PR for others.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# Proof
+# `/proof`
 
 Use this skill to proofread prose – documentation, a README, release notes, comments-as-prose, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. Nothing more.
 

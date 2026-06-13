@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# Audit
+# `/audit`
 
 Use this skill when the user asks for a proactive architectural review of the codebase – for example, "where should we refactor next?", "find the worst parts of this codebase", or "what's worth cleaning up?".
 
@@ -19,7 +19,7 @@ Do NOT use this skill when:
 - The user wants changes applied – this skill stops at the generated report.
 - The user wants issues filed, tickets cut, or PRs opened – leave that to their workflow.
 
-This is distinct from reviewing a specific diff for style and pattern consistency. `audit` proactively scans the whole codebase for *architectural* problems – module boundaries, abstractions, dependencies.
+This is distinct from reviewing a specific diff for style and pattern consistency. `/audit` proactively scans the whole codebase for *architectural* problems – module boundaries, abstractions, dependencies.
 
 ##  Instructions
 

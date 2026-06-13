@@ -6,7 +6,7 @@ metadata:
   interactive: no
 ---
 
-# Research
+# `/research`
 
 Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a report someone can act on.
 
@@ -17,7 +17,7 @@ The output is a single research report. Where it lands (a design doc, an ADR inp
 Do NOT use this skill to:
 
 - Write or change code – that is implementation work, a separate responsibility.
-- Answer a design question by *building* something. Use `research` when the answer exists in the world already; when it has to be discovered by experiment, that is a separate, build-and-measure responsibility.
+- Answer a design question by *building* something. Use `/research` when the answer exists in the world already; when it has to be discovered by experiment, that is a separate, build-and-measure responsibility.
 - Capture session lessons – that is distilling knowledge inward from the session, a separate responsibility.
 - Elicit requirements from a human – that is requirements discovery, a separate responsibility.
 

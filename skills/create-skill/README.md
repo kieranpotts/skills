@@ -1,4 +1,4 @@
-# `create-skill`
+# `/create-skill`
 
 The skill for authoring skills. Use it to create a new skill from scratch, or to improve an existing one.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# Debug
+# `/debug`
 
 Use this skill for hard bugs and performance regressions – any defect where the cause is not immediately obvious from reading the code.
 

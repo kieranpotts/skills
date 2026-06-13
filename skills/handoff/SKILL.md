@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:27b
 ---
 
-# Handoff
+# `/handoff`
 
 Use this skill when the work is about to be picked up by someone (or something) that does not have the current session's context: a fresh agent in a new conversation, a teammate taking over, your own next session after a long break, or yourself just before a compaction event.
 

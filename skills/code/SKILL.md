@@ -7,7 +7,7 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# Code
+# `/code`
 
 Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. Implement one plan step per session: after the step's tests pass, start the next step in a fresh session.
 

@@ -56,6 +56,16 @@ This reverses the older "cross-reference instead of duplicate" guidance: a cross
 
 Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the human approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for humans) is fine, and belongs in repository documentation – not inside any skill.
 
+## Presentation: skills as slash commands
+
+A skill is presented as a slash command in documentation. Across this collection – and the wider ecosystem of repositories that expose their own agent skills – a skill name is written with a leading `/` inside backticks wherever it is presented *as an invocable command*:
+
+- **Linked references**: `` [`/specify`](./skills/specify/) `` – the `/` goes inside the backticks; the link target (the path) is never prefixed.
+- **H1 titles**: each `SKILL.md` and `README.md` opens with `` # `/specify` `` (not a prose title).
+- **Bare command mentions**: "run `` `/discover` `` first".
+
+The `/` is a presentation convention only. It is NOT added to the `name:` frontmatter field (the canonical identifier stays bare, e.g. `name: specify`), nor to file paths, code, branch names, commit types, lifecycle states, or to the word when it is used as an activity, phase, or noun rather than a command ("the discovery report", "after release"). Workflow-diagram node labels also stay bare.
+
 ## Related
 
 - [Best practices](./best-practices.md): Generic, universal guidance for authoring any agent skill – single responsibility, when a skill is worth adding, interactive vs. non-interactive execution.

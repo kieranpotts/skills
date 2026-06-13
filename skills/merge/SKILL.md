@@ -8,7 +8,7 @@ metadata:
   preferred_model: qwen3.5:35b
 ---
 
-# Merge
+# `/merge`
 
 Use this skill any time you need to integrate commits from one branch into another – reintegrating a `temp/*` branch into `dev`, promoting `dev` to `test` to `ready`, merging `dev` down into a long-lived `epic/*`, or landing an `epic/*` back into `dev`.
 

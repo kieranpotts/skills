@@ -8,7 +8,7 @@ metadata:
   preferred_model: qwen3.5:27b
 ---
 
-# Commits
+# `/commit`
 
 Do NOT use this skill for branch-naming conventions or PR titles.
 

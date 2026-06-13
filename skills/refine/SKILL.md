@@ -7,7 +7,7 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# Refine
+# `/refine`
 
 Use this skill when testing surfaces a problem with the *specification itself* – an acceptance criterion that is wrong, missing, contradictory, or ambiguous – or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The output is a set of precise edits to the specification, ready to be applied to the requirements artefacts and to flow forward into design, planning, and implementation.
 

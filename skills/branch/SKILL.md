@@ -8,7 +8,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# Branches
+# `/branch`
 
 Use this skill when creating a new branch, or validating branch names before push.
 

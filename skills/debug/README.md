@@ -1,4 +1,4 @@
-# `debug`
+# `/debug`
 
 Short introduction, restating the purpose of the skill.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:35b
 ---
 
-# Create skill
+# `/create-skill`
 
 Use this skill when creating a new skill from scratch or improving an existing one.
 

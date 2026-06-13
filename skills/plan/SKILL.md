@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# Plan
+# `/plan`
 
 Use this skill after the design is captured (and, where needed, sharpened) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system.
 

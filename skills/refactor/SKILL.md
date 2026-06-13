@@ -7,7 +7,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# Refactor
+# `/refactor`
 
 Use this skill when improving internal code quality – readability, structure, coupling, naming, decomposition – without changing what the code does from the outside.
 

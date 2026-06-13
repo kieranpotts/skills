@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:cloud
 ---
 
-# Design
+# `/design`
 
 Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision – new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API.
 
