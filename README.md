@@ -55,7 +55,7 @@ flowchart LR
   test["/test"]:::primary
   audit["/audit"]:::primary
   validate["/validate"]:::primary
-  prototype["/prototype"]:::tertiary
+  spike["/spike"]:::tertiary
   elaborate["/elaborate"]:::tertiary
   format["/format"]:::tertiary
   debug["/debug"]:::tertiary
@@ -78,7 +78,7 @@ flowchart LR
 
   %% Callouts to helpers.
   discover <-.-> specify
-  design <-.-> prototype
+  design <-.-> spike
   design <-.-> elaborate
   code <-.-> format
   test <-.-> debug
@@ -103,7 +103,7 @@ flowchart LR
 | 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional (quality) requirements as testable acceptance criteria. | No |
 | 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit business requirements. Informs the specification work. | Yes |
 | 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. Update design docs. | No |
-| 🚧 [`/prototype`](./skills/prototype/) | Develop throwaway code to answer design questions. | No |
+| 🚧 [`/spike`](./skills/spike/) | Develop throwaway code to answer design questions. | No |
 | 🚧 [`/elaborate`](./skills/elaborate/) | Validate and refine a proposed solution by interrogating its design. | Yes |
 | 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | No |
 | 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | No |

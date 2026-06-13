@@ -1,5 +1,5 @@
 ---
-name: prototype
+name: spike
 description: Build throwaway code to answer a specific question – feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
 license: CC0-1.0
 metadata:
@@ -7,13 +7,13 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/prototype`
+# `/spike`
 
 Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option.
 
 Do NOT use this skill to build something you intend to keep – production implementation is a separate responsibility. Do NOT use it to fix a bug – that is a separate responsibility.
 
-A prototype is a *byproduct*. The product is the *answer*. The code is thrown away.
+A spike is a *byproduct*. The product is the *answer*. The code is thrown away.
 
 ##  Instructions
 
@@ -26,9 +26,9 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     - ❌ "Try out the new SDK." (No question.)
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at stream close?"
 
-    If you cannot phrase the question this way, you are not ready to prototype – you are still exploring. Return to the design work first.
+    If you cannot phrase the question this way, you are not ready to for the technical spike – you are still exploring. Return to the design work first.
 
-2.  **Define the answer that ends the prototype.**
+2.  **Define the answer that ends the spike.**
 
     Before writing any code, write down what evidence would close the question. Examples:
 
@@ -40,11 +40,11 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
 3.  **Time-box.**
 
-    State the budget in hours or, at most, days. A prototype that grows past the time-box is no longer a prototype – it is unmanaged work. Common budgets:
+    State the budget in hours or, at most, days. A spike or prototype that grows past the time-box is no longer a spike – it is unmanaged work. Common budgets:
 
     - Half-day: API ergonomics, single integration check.
     - 1-2 days: performance characterization, multi-component spike.
-    - 3-5 days: hard ceiling for any one prototype. Anything bigger is multiple prototypes or actual project work.
+    - 3-5 days: hard ceiling for any one spike. Anything bigger is multiple spikes or actual project work.
 
     When the time-box expires, *stop*. Capture what you learned even if the question is not fully answered. Decide whether to invest another time-box or take a different path.
 
@@ -59,21 +59,21 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     - Hardcoded values, fixture inputs, single happy path.
     - One file is often enough.
 
-    Quality code costs time; the prototype is buying *information*, not code.
+    Quality code costs time; the spike is buying *information*, not code.
 
-5.  **Isolate the prototype.**
+5.  **Isolate the spike.**
 
-    Keep prototype code out of the production codebase. Use one of:
+    Keep spike code out of the production codebase. Use one of:
 
-    - A separate repo or `prototypes/` subdirectory clearly marked as throwaway.
-    - A branch named `temp/spike-<question>` that will not be merged.
+    - A separate repo or `spikes/` subdirectory clearly marked as throwaway.
+    - A branch named `spike/spike-<question>` that will not be merged.
     - A scratch directory outside any tracked path.
 
     Mark the entry point file with a comment naming it as a spike. Future readers should not be able to mistake it for production code.
 
 6.  **Run the experiment, capture findings.**
 
-    Run the prototype. Record:
+    Run the spike. Record:
 
     - The exact command(s) used.
     - The observed result against the expected evidence.
@@ -86,9 +86,9 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
     Based on the findings:
 
-    - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch – do not promote the prototype.
-    - *Answer is negative* → the option being prototyped is closed; the design work resumes with the alternatives.
-    - *Answer is mixed or inconclusive* → either run another time-boxed prototype to disambiguate, or escalate the decision to the user. Do not silently extend.
+    - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch – do not promote the spike.
+    - *Answer is negative* → the option being spikes is closed; the design work resumes with the alternatives.
+    - *Answer is mixed or inconclusive* → either run another time-boxed spike to disambiguate, or escalate the decision to the user. Do not silently extend.
 
 8.  **Document the answer, then throw the code away.**
 
@@ -98,17 +98,17 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
     - For a specification question → a revision to the affected acceptance criteria.
     - For a tooling/library question → a short note in the repo's decision log.
 
-    Once the answer is captured, delete the prototype – or, at minimum, move it somewhere unambiguous (`prototypes/<date>-<question>/`) with a README naming the question, the answer, and the date.
+    Once the answer is captured, delete the spike code – or, at minimum, move it somewhere unambiguous (`spikes/<date>-<question>/`) with a README naming the question, the answer, and the date.
 
 ##  Rules
 
 -   **The code is throwaway. The answer is the deliverable.**
 
-    Promoting prototype code to production removes the very property that made it cheap to write. If it must ship, re-implement it cleanly using what was learned.
+    Promoting spike code to production removes the very property that made it cheap to write. If it must ship, re-implement it cleanly using what was learned.
 
--   **One question per prototype.**
+-   **One question per spike.**
 
-    Two questions = two prototypes. Bundling them inflates the time-box, blurs the findings, and tempts scope creep.
+    Two questions = two spikes. Bundling them inflates the time-box, blurs the findings, and tempts scope creep.
 
 -   **Time-box is enforced, not aspirational.**
 
@@ -116,31 +116,31 @@ A prototype is a *byproduct*. The product is the *answer*. The code is thrown aw
 
 -   **Production concerns are explicitly skipped.**
 
-    Tests, error handling, auth, monitoring, accessibility, configuration, documentation – none of these belong in a prototype. Including them is how prototypes drift into production-track work.
+    Tests, error handling, auth, monitoring, accessibility, configuration, documentation – none of these belong in a spike. Including them is how spikes drift into production-track work.
 
 -   **Surface the state.**
 
-    After every action (for a logic / state-machine prototype) or on every variant switch (for a UI prototype), print or render the full relevant state so the user can see what changed. A prototype that requires a debugger to learn from isn't doing its job – the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a prototype keeps, because without it the prototype produces no usable evidence.
+    After every action (for a logic / state-machine spike) or on every variant switch (for a UI spike), print or render the full relevant state so the user can see what changed. A spike that requires a debugger to learn from isn't doing its job – the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a spike keeps, because without it the spike produces no usable evidence.
 
 -   **Findings MUST be reproducible from notes.**
 
     "Felt fast" is not evidence. A measurement with the command, dataset, and environment recorded is.
 
--   **Mark prototype code so it cannot be mistaken for production.**
+-   **Mark spike code so it cannot be mistaken for production.**
 
     Directory location, branch name, file header comment. All three if possible. The next reader should not have to ask.
 
 -   **Negative answers are valuable.**
 
-    A prototype that rules out an option is as useful as one that confirms one. Capture the negative finding with the same care.
+    A spike that rules out an option is as useful as one that confirms one. Capture the negative finding with the same care.
 
--   **Do not write tests for a prototype.**
+-   **Do not write tests for a spike.**
 
-    Tests anchor design. The whole point of a prototype is to discover the design. Writing tests first turns a prototype into a small project with all the costs that follow.
+    Tests anchor design. The whole point of a spike is to discover the design. Writing tests first turns a spike into a small project with all the costs that follow.
 
 ## Examples
 
-A well-framed prototype:
+A well-framed spike:
 
 ```
 Question: Can the new ImageMagick 7 API process our largest customer
@@ -162,11 +162,11 @@ Re-evaluate: yes — IM7 is viable on current hardware. Question closed;
 production version will be implemented from scratch, applying our error
 handling, telemetry, and config conventions.
 
-Code disposal: prototypes/2026-05-im7-spike/ retained with README
+Code disposal: spikes/2026-05-im7-spike/ retained with README
 noting question, answer, and date. Not merged.
 ```
 
-A prototype that returns a negative answer:
+A spike that returns a negative answer:
 
 ```
 Question: Does the candidate vector DB's Rust client support cancellable
@@ -191,19 +191,19 @@ The design work resumes, evaluating the other two candidates.
 
 -   **The prototype "almost works" and the user wants to keep it.**
 
-    Resist. Keeping prototype code skips the specification, design, and implementation discipline that the prototype was meant to *inform*, not *replace*. Re-implement cleanly. The prototype itself can stay as a reference for the re-implementation.
+    Resist. Keeping spike code skips the specification, design, and implementation discipline that the spike was meant to *inform*, not *replace*. Re-implement cleanly. The spike itself can stay as a reference for the re-implementation.
 
--   **The prototype reveals the question was wrong.**
+-   **The spike reveals the question was wrong.**
 
     Common. Capture what was learned, restate the real question, then decide whether to spend another time-box on the corrected question.
 
--   **The prototype crosses into integration territory.**
+-   **The spike crosses into integration territory.**
 
     If the question genuinely requires talking to a real production system (eg. measuring real-customer load), get explicit permission and observe production-safety rules. The "throwaway" discipline does not extend to ignoring production guardrails.
 
--   **Multiple prototypes stack up over time.**
+-   **Multiple spike stack up over time.**
 
-    Periodically review the `prototypes/` directory and prune. Old prototypes that have served their purpose should be deleted; their findings should already live in design docs, ADRs, or specs.
+    Periodically review the `spikes/` directory and prune. Old spikes that have served their purpose should be deleted; their findings should already live in design docs, ADRs, or specs.
 
 -   **The user asks for "just a quick proof of concept" with no time-box.**
 
@@ -221,7 +221,7 @@ The design work resumes, evaluating the other two candidates.
 
 -   **A time-box is set and respected.**
 
-    Hours or days. Reaching the box ends the prototype, even if the answer is incomplete.
+    Hours or days. Reaching the box ends the spike, even if the answer is incomplete.
 
 -   **Production concerns are absent from the code.**
 
@@ -239,4 +239,4 @@ The design work resumes, evaluating the other two candidates.
 
 - **Input — one falsifiable question.** A specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front.
 
-- **Output — the answer, durably captured.** A measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The prototype code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.
+- **Output — the answer, durably captured.** A measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.
