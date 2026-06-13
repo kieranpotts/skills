@@ -42,21 +42,21 @@ The workflow skills cover distinct phases of the software development lifecycle 
 
 ```mermaid
 flowchart LR
-  %% Node classes (declared up front so they hold inside and outside the subgraph).
-  discover:::secondary
-  audit:::start
-  specify:::start
-  design:::main
-  plan:::main
-  code:::main
-  review:::main
-  test:::main
-  prototype:::secondary
-  elaborate:::secondary
-  format:::secondary
-  debug:::secondary
-  refactor:::secondary
-  refine:::secondary
+  %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
+  discover["/discover"]:::secondary
+  audit["/audit"]:::start
+  specify["/specify"]:::start
+  design["/design"]:::main
+  plan["/plan"]:::main
+  code["/code"]:::main
+  review["/review"]:::main
+  test["/test"]:::main
+  prototype["/prototype"]:::secondary
+  elaborate["/elaborate"]:::secondary
+  format["/format"]:::secondary
+  debug["/debug"]:::secondary
+  refactor["/refactor"]:::secondary
+  refine["/refine"]:::secondary
 
   %% Starting points.
   discover -.-> specify
