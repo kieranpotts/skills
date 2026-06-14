@@ -33,7 +33,7 @@ Do NOT use this skill to:
 
     Before looking at the working software, recover *why* it was built. Pull the originating intent from the strongest available source, in order:
 
-    - The proposal's preserved product-requirements document (PRD) – the business-language statement of need the specification was written from.
+    - The proposal's preserved product requirements document (PRD) – the business-language statement of need the specification was written from.
     - The specification's outcome / goal / success-measure sections.
     - The discovery report, if one exists.
 

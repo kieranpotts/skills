@@ -1,5 +1,13 @@
 # 🤖 `/validate`
 
+<!-- This is an evaluation step, except it evaluates if the specifications were correct in the first place, by revealing user assumptions through testing of working software. Is the user's _actual_ need different from what we thought it was? -->
+
+<!-- Analogous to /audit, which evaluates the evolving architecture, rather than behaviors. -->
+
+<!-- both /audit and /validate hang off the end of the build loop — once an increment is built, reviewed, and tested, you step back and evaluate at the two higher levels (design fitness, product fitness) -->
+
+<!-- /validate feeds into /refine. While /validate does the actual evaluation of the evolving product, /refine is responsible for putting the findings into action. /refine is analogous to /refactor, which serves the equivalent role in the design feedback loop. -->
+
 Evaluate the correctness and completeness of the requirements by testing the current implementation – judging completed, tested work against the users' *actual needs*, not just the agreed acceptance criteria, to decide whether the specification itself should evolve. Runs non-interactively (🤖). The product-level counterpart to [`/test`](../test/): where `/test` asks "did we build it right?", `/validate` asks "did we build the right thing?"
 
 ```mermaid

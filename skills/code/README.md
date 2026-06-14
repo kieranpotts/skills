@@ -1,5 +1,7 @@
 # 🤖 `/code`
 
+<!-- 1 unit of work, taken from the issue tracker (issue created from approved plan. Outcome: PR for review. -->
+
 Write code, verified by tests, for one discrete increment – turning one already-designed step from a plan into working, tested code, test-driven by default and scope-locked to that single step. Runs non-interactively (🤖). Use when implementing one numbered plan step, or any small standalone change whose design is already obvious.
 
 ```mermaid

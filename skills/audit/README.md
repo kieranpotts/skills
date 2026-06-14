@@ -1,5 +1,13 @@
 # 🤖 `/audit`
 
+<!-- Is the evolving design still sound? against architectural principles -->
+
+<!-- Analogous to /validate, which evaluates whether the evolving behaviors are what the user actually wants (product-facing), whereas /audit evaluates whether the evolving architecture is what the technicians actually want (development-facing). /audit is the design-level analogue of /validate. -->
+
+<!-- both /audit and /validate hang off the end of the build loop — once an increment is built, reviewed, and tested, you step back and evaluate at the two higher levels (design fitness, product fitness) -->
+
+<!-- /audit feeds into /refactor. While /audit does the actual evaluation of the evolving design, /refactor is responsible for putting any design improvements into action. /refactor is analogous to /refine, which serves the equivalent role in the product feedback loop. -->
+
 Evaluate the evolving architecture – modularity, consistency, security, and the other structural qualities – once a plan's increments are complete, checking the as-built design against the structure it was meant to have. Runs non-interactively (🤖). The design-level counterpart to [`/validate`](../validate/): where `/validate` asks whether the *specification* should evolve, `/audit` asks whether the *design* should.
 
 ```mermaid

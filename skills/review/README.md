@@ -1,5 +1,13 @@
 # 🤖 `/review`
 
+<!-- Input: code PR. Outcome: commented PR. -->
+
+<!-- "in the small" - its reviewing just a small incremental change in code - a step toward realizing a bigger feature or runtime behavior. Evaluates against specified standards. -->
+
+<!-- Criteria: is this code change sound, against conventions? -->
+
+<!-- Distinct from /audit - which looks at the evolving architecture and feeds back to the design docs. -->
+
 Evaluate code for style conventions and pattern consistency, focusing on static qualities – auditing a change for correctness, design, clarity, test coverage, security, and completeness, and classifying every finding as blocking or non-blocking. Runs non-interactively (🤖). Use when reviewing a pull request, auditing a peer's branch, or self-reviewing changes before opening a PR.
 
 ```mermaid

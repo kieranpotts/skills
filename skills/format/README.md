@@ -1,5 +1,7 @@
 # 🤖 `/format`
 
+<!-- Input: existing code branch. Outcome: non-deterministic (subjective) formatting rules applied. -->
+
 Improve code presentation – whitespace, style, ordering, line wrapping, quotes, trailing commas, import order – without changing structure or behavior. Runs non-interactively (🤖). Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions.
 
 ```mermaid

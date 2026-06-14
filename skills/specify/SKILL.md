@@ -9,7 +9,7 @@ metadata:
 
 # `/specify`
 
-Use this skill to turn a **PRD** – a product-requirements document, in practice a business-language discovery report – into a testable specification, filed as a proposal in the project's SRS (software requirements specification) repository.
+Use this skill to turn a **PRD** – a product requirements document, in practice a business-language discovery report – into a testable specification, filed as a proposal in the project's SRS (software requirements specification) repository.
 
 This skill is **non-interactive**. It does NOT interview the user or elicit missing information. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
 

@@ -1,5 +1,7 @@
 # 🤖 `/plan`
 
+<!-- Design docs approved. Output: implementation plan for approval. -->
+
 Decompose delivery into stable increments – supporting continuous integration – by breaking a designed change into a sequence of small steps, each independently mergeable, testable, and reversible. Runs non-interactively (🤖). Use after the design is agreed and before any implementation, whenever a change is bigger than a single commit or touches multiple seams.
 
 ```mermaid

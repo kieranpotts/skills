@@ -1,5 +1,7 @@
 # 🤖 `/spike`
 
+<!-- Interactive? Outcome is a PR against one or more code repositories. This feeds back into design docs - not sure when these change... or is the spike based on existing proposed designs??? - yes, "provisionally approved". -->
+
 Develop throwaway code (or other artifacts) to answer design questions – feasibility, performance, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Runs non-interactively (🤖). Use when a design question can't be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
 
 ```mermaid

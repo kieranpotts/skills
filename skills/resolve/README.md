@@ -1,5 +1,7 @@
 # 🤖 `/resolve`
 
+<!-- Input: commented PR. Outcome: PR comments resolved (or commented on further if cannot be resolved. -->
+
 Action open review comments, then mark as resolved – implementing each one in code and verifying it. Runs non-interactively (🤖). The counterpart to [`/review`](../review/) – review posts the comments, `/resolve` actions them.
 
 ```mermaid

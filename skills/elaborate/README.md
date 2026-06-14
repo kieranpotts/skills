@@ -1,5 +1,7 @@
 # 🧑 `/elaborate`
 
+<!-- Interactive: refine design docs. Outcome is still a PR to approve/reject by the user. -->
+
 Refine a proposed solution by interrogating its design – interviewing the user one question at a time to stress-test a draft and turn a sketch into a design that survives implementation. Interactive (🧑): expect a back-and-forth. Use after a draft design exists and before it is decomposed into steps, when it still has ambiguities, unstated assumptions, or contested terms.
 
 ```mermaid

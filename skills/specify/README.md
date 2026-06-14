@@ -1,6 +1,6 @@
 # 🤖 `/specify`
 
-Specify functional and non-functional requirements as testable acceptance criteria – turning a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. Runs non-interactively (🤖). `/specify` takes the product-requirements document – in practice a business-language discovery report – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
+Specify functional and non-functional requirements as testable acceptance criteria – turning a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. Runs non-interactively (🤖). `/specify` takes the product requirements document – in practice a business-language discovery report – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
 
 `/specify` is **non-interactive**. It does not interview the user or gather missing requirements; it consumes a PRD that was gathered separately. Its job is to *validate* the PRD, then *orchestrate*: on a valid PRD it drives the SRS repository's workflow end to end, without pausing, by running three sub-skills in sequence – **`draft-spec`** (scaffold the proposal), **`write-spec`** (author the content), **`propose-spec`** (mark it ready for review). The mechanics of each phase, and the content rules, belong to those skills; `/specify` owns the PRD gate and the orchestration. (Those are the reference-implementation names; a project may expose differently-named equivalents through its SRS repository's `AGENTS.md`.)
 
@@ -19,6 +19,14 @@ flowchart LR
   classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
   classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
+
+<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a human-in-the-loop - as long as the actual outcome matches the desired outcome. -->
+
+<!-- The key priority of this stage is to define acceptance test criteria in a form that they are executable. -->
+
+<!-- Programming becomes defining, _in some detail_, the behavioral acceptance criteria for our system, and using those artifacts as a kind of fitness function that our agents can iterate toward solving. We are essentially programming at a higher level of abstraction - if the whole e2e workflow is fully automated/agentic, then those executable acceptance tests _are_, in a way, our program... in the same way we don't read the output of compilers, because we've tested it. -->
+
+<!-- input: product requirements document or similar artifacts. Output: PR against the SRS repository, that the user is expected to review.) -->
 
 ## What it does
 
