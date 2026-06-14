@@ -1,6 +1,6 @@
 # Best practices
 
-Generic, universal guidance for authoring any agent skill. These apply to skills anywhere, not just those in this repository. For the stricter, opinionated stance *this* collection takes – portability, independence, and no hand-offs between skills – see [design principles](./design-principles.md).
+Generic, universal guidance for authoring any agent skill. These apply to skills anywhere, not just those in this repository. For the stricter, opinionated stance *this* collection takes – portability, independence, and no hand-offs between skills – see [design notes](./design-notes.md).
 
 ## Single responsibility
 
@@ -69,7 +69,7 @@ Claiming `interactive: no` for a skill that might actually prompt is the mistake
 
 ## Human checkpoints in a workflow
 
-When skills are sequenced into a workflow, a related design decision is where the workflow pauses for a sapien and where it runs unattended. In a pipeline, the natural default is agent-to-agent – each skill's output feeds the next, and the workflow runs end-to-end without intervention. But some outcomes need a sapien to moderate them before the work proceeds, and choosing those checkpoints is a key design decision. (Where this *sequencing* lives is itself a design choice: in this collection it lives in the orchestrator, never in the skills – see [design principles](./design-principles.md).)
+When skills are sequenced into a workflow, a related design decision is where the workflow pauses for a sapien and where it runs unattended. In a pipeline, the natural default is agent-to-agent – each skill's output feeds the next, and the workflow runs end-to-end without intervention. But some outcomes need a sapien to moderate them before the work proceeds, and choosing those checkpoints is a key design decision. (Where this *sequencing* lives is itself a design choice: in this collection it lives in the orchestrator, never in the skills – see [design notes](./design-notes.md).)
 
 As a general rule, insert a human checkpoint where:
 

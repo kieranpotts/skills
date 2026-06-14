@@ -10,7 +10,7 @@ The source files conform to the [Agent Skills](https://agentskills.io/) standard
 
 The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
 
-These skills are highly opinionated and are dependent on a wider ecosystem of support tools and artifacts to enable agentic workflows. [Read more about the design principles](./docs/design-principles.md) that underpin these skills.
+These skills are highly opinionated and are dependent on a wider ecosystem of support tools and artifacts to enable agentic workflows. [Read more about the design principles](./docs/design-notes.md) that underpin these skills.
 
 ## 🧩 Skills
 

@@ -4,7 +4,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 
 ## Project overview
 
-A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely-available open-weight models. Each skill is designed to be portable, independent, and free of hand-offs to other skills, so any one can be installed or deleted on its own; the workflow that sequences them lives in the orchestrator, not the skills. See [`docs/design-principles.md`](./docs/design-principles.md).
+A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely-available open-weight models. Each skill is designed to be portable, independent, and free of hand-offs to other skills, so any one can be installed or deleted on its own; the workflow that sequences them lives in the orchestrator, not the skills. See [`docs/design-notes.md`](./docs/design-notes.md).
 
 Changes to this repository tend to be small and self-contained – eg. adding new skills, editing existing `SKILL.md` files, or updating documentation. The main constraint on all changes is that `SKILL.md` files SHOULD stay token-efficient (RECOMMENDED ≤ 300 lines) and pass the validator checks described below.
 
@@ -56,15 +56,15 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 
 - Each skill directory MUST contain a sibling `README.md`.
 
-- A `SKILL.md` is for the agent and is loaded into its context; a `README.md` is for humans and is not. References to external resources that exist for human context (the technique a skill is based on, an upstream skill it was adapted from, background reading) MUST live in the `README.md`, NOT the `SKILL.md` – a link in a `SKILL.md` invites the agent to fetch it and bloat its context for no operational gain. A `SKILL.md`'s `## References` section, if present, points only at the skill's own bundled assets. See [`docs/design-principles.md`](./docs/design-principles.md).
+- A `SKILL.md` is for the agent and is loaded into its context; a `README.md` is for humans and is not. References to external resources that exist for human context (the technique a skill is based on, an upstream skill it was adapted from, background reading) MUST live in the `README.md`, NOT the `SKILL.md` – a link in a `SKILL.md` invites the agent to fetch it and bloat its context for no operational gain. A `SKILL.md`'s `## References` section, if present, points only at the skill's own bundled assets. See [`docs/design-notes.md`](./docs/design-notes.md).
 
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
 
-- Each `SKILL.md` MUST open – immediately after its intro prose, before the first `##` heading – with prominent `**Input**:` and `**Output**:` paragraphs declaring what the skill consumes and produces. The **Input** paragraph MUST state whether the input is REQUIRED or OPTIONAL; for an `interactive: yes` skill it MUST also state that the skill gathers further input from the user through prompts during the session. See [`docs/design-principles.md`](./docs/design-principles.md).
+- Each `SKILL.md` MUST open – immediately after its intro prose, before the first `##` heading – with prominent `**Input**:` and `**Output**:` paragraphs declaring what the skill consumes and produces. The **Input** paragraph MUST state whether the input is REQUIRED or OPTIONAL; for an `interactive: yes` skill it MUST also state that the skill gathers further input from the user through prompts during the session. See [`docs/design-notes.md`](./docs/design-notes.md).
 
 - Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller.
 
-- Skills MUST be portable, independent, and free of hand-offs to other skills: a `SKILL.md` MUST NOT reference any file outside its own directory, MUST NOT cross-reference another skill, and MUST NOT instruct the agent to run another skill next. Where two skills would need the same content, each carries its own copy – but prefer to draw the responsibility boundary so the duplication is not needed. See [`docs/design-principles.md`](./docs/design-principles.md).
+- Skills MUST be portable, independent, and free of hand-offs to other skills: a `SKILL.md` MUST NOT reference any file outside its own directory, MUST NOT cross-reference another skill, and MUST NOT instruct the agent to run another skill next. Where two skills would need the same content, each carries its own copy – but prefer to draw the responsibility boundary so the duplication is not needed. See [`docs/design-notes.md`](./docs/design-notes.md).
 
 - MUST NOT commit anything under `build/` (it is gitignored; only `build/README.md` is tracked).
 
