@@ -2,6 +2,10 @@
 
 ## Outcome
 
+**Problem:**
+
+<The problem being solved – what is wrong or missing today, from the customer's point of view.>
+
 **Goal:**
 
 <Business goal – what success looks like for the customer.>
@@ -40,6 +44,10 @@
 - **Rule 1, doesn't apply:** <Counter-example showing the boundary.>
 
 - **Rule 2, applies:** ...
+
+## Non-functional requirements
+
+<Measurable quality constraints – performance, scale, availability, security, accessibility, etc. State a target where one exists. Write "None known" if the customer has none.>
 
 ## Assumptions
 
