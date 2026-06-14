@@ -4,6 +4,28 @@ These are the design principles behind *this* collection of skills. They are del
 
 The capitalized requirement keywords (MUST, MUST NOT, SHOULD, MAY, …) are used as defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
+## 🌐 Cohesive ecosystem
+
+This is not a grab-bag of isolated skills. It's a cohesive collection that forms a complete end-to-end development workflow.
+
+These skills are highly opinionated. They encode the author's [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards), and they form part of a larger ecosystem of methods, tools, and artifacts for managing change in software at scale.
+
+Specifically, these skills depend on the existence of version-controlled systems for managing software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of these dependencies:
+
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does, in business terms.
+
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): Records how significant technical decisions were made, and why.
+
+- [**📐 Design Docs**](https://github.com/kieranpotts/design): Documents what the system looks like in production, and manages proposed architectural changes.
+
+- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): Tracks when, and in what order, the work gets done.
+
+These skills are optimized for the development of application software that spans multiple code repositories – and potentially multiple teams – where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase.
+
+Since these skills are intended to be used globally across multiple code repositories, it is RECOMMENDED to install these skills in the user's home directory, or in a workspace root, rather than installing in individual code repositories. The bundled installer supports per-project installs, but this is not the intended use case for these skills.
+
+For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate agent skills and supporting artifacts directly in that repository. These skills do not serve this use case.
+
 ## Predictable outcomes from any model
 
 The overriding goal of this project is to produce **predictable, consistent, reliable outcomes from every mainstream model**. The same skill, run by different agents or on different days, should converge on the same shape of result. A skill that works beautifully on one frontier model and falls apart on another has failed this goal, however clever it is.

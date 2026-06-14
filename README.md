@@ -4,31 +4,13 @@
 
 **A collection of agentic workflow skills** – also known as rules or instructions.
 
-These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing… The skills also cover supporting activities such as customer discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and agent handoff.
+These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing… They also cover supporting activities such as business discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and agent handoff.
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
-The goal: consistent, predictable outcomes from any mainstream coding agent and model, and regardless of the technology stack or business domain of the software under development.
+The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
 
-## 🌐 Ecosystem
-
-This is not a grab-bag of isolated skills. It's a cohesive collection that forms a complete end-to-end development workflow.
-
-These skills are highly opinionated. They are optimized for the development of application software that spans multiple code repositories – and potentially multiple teams – where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase. The skills encode the author's [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards), and they form part of a larger ecosystem of methods, tools, and artifacts for managing change in software at scale.
-
-Specifically, these skills depend on the existence of version-controlled systems for managing software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of these dependencies:
-
-- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does, in business terms.
-
-- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): Records how significant technical decisions were made, and why.
-
-- [**📐 Design Docs**](https://github.com/kieranpotts/design): Documents what the system looks like in production, and manages proposed architectural changes.
-
-- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): Tracks when, and in what order, the work gets done.
-
-Since these skills are intended to be used globally across multiple code repositories, it is RECOMMENDED to install these skills at the user-level rather than the project-level. The bundled installer supports per-project installs, but this is not the intended use case for these skills.
-
-For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate agent skills and supporting artifacts directly in that repository. These skills do not serve this use case.
+[Read more about the design principles](./docs/design-principles.md) that underpin these skills.
 
 ## 🧩 Skills
 
@@ -117,7 +99,7 @@ The workflow skills are, in alphabetical order:
 | 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
 | 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 No |
 | 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
-| 🚧 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design. | 🧑 Yes |
+| 🚧 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
 | 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
 | 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
 | 🚧 [`/refactor`](./skills/refactor/) | Iterate the design while maintain stability through system testing. | 🤖 No |
@@ -128,11 +110,11 @@ The workflow skills are, in alphabetical order:
 | 🚧 [`/spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. | 🤖 No |
 | 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving software. Focus on functional correctness and runtime qualities. | 🤖 No |
 | 🚀 [`/triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. | 🤖 No |
-| 🚧 [`/validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by testing the current implementation. | 🤖 No |
+| 🚧 [`/validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current implementation. | 🤖 No |
 
-Most workflow skills run non-interactively. These skills take everything they need from the context window and the environment. They either complete their task or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) and the skills can be chained in automated pipelines – themselves orchestrated either by agents or scripts.
+Most workflow skills run non-interactively. These skills take everything they need from the context window and the environment. They either complete their task entirely autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) and the skills can be chained in automated pipelines – themselves orchestrated either by other agents or deterministic scripts.
 
-A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by sapiens (🧑) and to sit outside of automated workflows.
+A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by sapiens (🧑). They MUST NOT be included in automated workflows.
 
 ### 🔀 Version control skills
 
