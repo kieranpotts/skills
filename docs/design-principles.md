@@ -190,6 +190,22 @@ This is a separation of responsibilities, not a hand-off: the evaluating skill d
 
 Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the sapien approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for sapiens) is fine, and belongs in repository documentation – not inside any skill.
 
+## Composable in alternative workflows, not just the prescribed one
+
+The [workflow diagram](../README.md) shows *a* recommended way to sequence these skills – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. That diagram is a **suggestion, not a specification**. Because every skill is [independent](#independence), [hands off to nothing](#no-hand-offs-between-skills), and exposes a [declared input/output contract](#every-skill-declares-its-input-and-output-up-front), the skills are free-standing tools that an orchestrator can compose in orders this collection never drew – including ways the author never anticipated.
+
+This is a deliberate property, not an accident of the design. A skill's contract is "given input of this shape, I produce output of that shape" – it says nothing about *where the input came from* or *what consumes the output*. So any skill whose output happens to match another's input can feed it, regardless of their positions in the canonical diagram. The prescribed workflow is one path through the graph of possible compositions; it is not the boundary of them.
+
+Some illustrations of compositions the diagram does not draw:
+
+- **An evaluation skill as a discovery entry point.** `/validate` is positioned at the *end* of the proactive path – it judges finished software against the users' actual need. But its output is a prioritized list of gaps between what was built and what was needed, which is *exactly the raw material a discovery session feeds on*. So `/validate` can be run as the **front door** to a new round of requirements work: validate an existing system, take the gaps it surfaces, and pour them into `/discover` or straight into `/specify` – a "discover what's missing in what we already have" workflow that no arrow in the diagram describes, yet which composes cleanly from the existing contracts. The same is true of `/audit`: an architecture audit of an inherited codebase is a perfectly good *starting* point for a design conversation, not only a mid-stream checkpoint.
+
+- **Building skills run standalone.** `/commit`, `/branch`, `/format`, or `/proof` are wired into the lifecycle on the diagram, but each is independently useful on its own, invoked ad hoc, with no upstream skill having run at all.
+
+- **Loops the diagram flattens.** Nothing stops an orchestrator from running `/review` → `/resolve` → `/review` until clean, or from interleaving `/research` anywhere a knowledge gap appears, even though the diagram shows neither as a repeating sub-loop.
+
+The discipline that makes this possible is the same discipline enforced everywhere else: no skill names a successor, no skill assumes a predecessor, and every skill declares its contract. **Keep the skills ignorant of the workflow, and the workflow becomes a thing the user composes – not a thing the skills dictate.** Designing each skill to stand alone is therefore not only about deletability and reuse *across* projects (above); within a single project it is what keeps the set of possible workflows open-ended, so the collection can be recombined into interesting workflows that were never explicitly specified here.
+
 ## Driving another repository's skills: read, don't invoke
 
 A workflow skill in this collection may drive a target repository's own skills – `/specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
