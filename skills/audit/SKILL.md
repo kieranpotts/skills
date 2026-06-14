@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop.
+description: Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop. Use when the user says "audit the architecture", "is the design still sound?", or "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no

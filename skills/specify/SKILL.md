@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Validate a product requirements document (PRD) and, if complete, file it as a proposal in the project's software requirements specification (SRS) repository. Rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
+description: Validate a product requirements document (PRD) and, if complete, file it as a proposal in the project's software requirements specification (SRS) repository. Rejects an incomplete PRD with reasons, rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins, or when the user says "turn this into acceptance criteria", "turn this into a spec", or "prepare these as software requirements".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -11,7 +11,11 @@ metadata:
 
 Use this skill to turn a product requirements document (PRD) – a business-language artifact – into a testable specification, filed as a proposal in the project's software requirements specification (SRS) repository.
 
-This skill is non-interactive. It takes as **input** a PRD, which is expected to be sufficiently complete to transform to a formal software requirements specification. The **outcome** is an open pull request against the SRS repository capturing the changes as testable acceptance criteria. If the PRD is not sufficiently detailed, you MUst **reject** it with a list of what is missing or ambiguous, and not proceed further.
+This skill is **non-interactive**.
+
+**Input**: A PRD, expected to be sufficiently complete to transform into a formal software requirements specification. REQUIRED. This skill does not gather requirements or interview the user; if the PRD is not sufficiently detailed, you MUST **reject** it with a list of what is missing or ambiguous, and not proceed further.
+
+**Output**: An open pull request against the SRS repository, capturing the changes as testable acceptance criteria, at `PROPOSED` and awaiting the user's review and approval.
 
 When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – following the procedure defined by three of its local skills, in order:
 

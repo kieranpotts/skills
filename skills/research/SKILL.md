@@ -81,7 +81,7 @@ Do NOT use this skill to:
 
 -   **Distinguish fact from inference.**
 
-    Sourced facts and your own synthesis are different categories and must read as different categories. Recommendations are clearly labeled as the agent's, not the sources'.
+    Sourced facts and your own synthesis are different categories and must read as different categories. Recommendations are clearly labeled as yours, not the sources'.
 
 -   **Surface disagreement; do not launder it.**
 
@@ -162,7 +162,7 @@ here should still have what they need.>
 
 -   **Fact and inference are visibly separated.**
 
-    Nothing the agent inferred is presented as something a source asserted.
+    Nothing you inferred is presented as something a source asserted.
 
 -   **The report is actionable from its first few lines.**
 

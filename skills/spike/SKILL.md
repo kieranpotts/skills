@@ -1,6 +1,6 @@
 ---
 name: spike
-description: Build throwaway code to answer a specific question – feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence.
+description: Build throwaway code to answer a specific question – feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence, or when the user says "spike on whether X is feasible" or "prototype this to answer the open question".
 license: CC0-1.0
 metadata:
   interactive: no

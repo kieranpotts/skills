@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions start smarter.
+description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions start smarter, or when the user says "reflect on this session", "what should you remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -31,7 +31,7 @@ Do NOT use this skill to:
     Walk the session looking for four signal types:
 
     - **Corrections.** The user redirected the approach: *"no, don't do that"*, *"we don't do it that way here"*, *"stop doing X"*. Each correction is a candidate.
-    - **Validated approaches.** The user accepted a non-obvious choice without pushback, especially where the agent's first instinct would have been different. Quiet acceptance of an unusual move is a signal.
+    - **Validated approaches.** The user accepted a non-obvious choice without pushback, especially where your first instinct would have been different. Quiet acceptance of an unusual move is a signal.
     - **Revealed preferences.** How the user wants to work – response length, tone, format, levels of explanation, when to ask vs. when to act.
     - **Project decisions outside version control.** Constraints, deadlines, stakeholder requirements, business context the codebase does not encode.
 
@@ -161,7 +161,7 @@ Do NOT use this skill to:
 
 -   **The user disagrees with a proposed lesson.**
 
-    Drop it. The user's view of their own preferences trumps the agent's inference from the conversation.
+    Drop it. The user's view of their own preferences trumps your inference from the conversation.
 
 -   **The lesson is genuinely universal (about a tool's behavior, not the user or project).**
 
@@ -175,7 +175,7 @@ Do NOT use this skill to:
 
 -   **Every saved lesson is non-obvious and would change future agent behavior.**
 
-    A reader of the entry can identify what the agent would do *differently* because of it.
+    A reader of the entry can identify what you would do *differently* because of it.
 
 -   **Each `feedback` and `project` entry has both a Why: and a How to apply: line.**
 

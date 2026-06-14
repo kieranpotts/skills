@@ -1,6 +1,6 @@
 ---
 name: refine
-description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into the specification. Use when testing surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice.
+description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into the specification. Use when testing surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice, or when the user says "refine the spec based on this feedback", "the acceptance criteria are wrong – fix the requirements", or "update the specification to match what we learned".
 license: CC0-1.0
 metadata:
   interactive: yes
