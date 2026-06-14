@@ -1,16 +1,26 @@
 # Design notes
 
-These are the design principles and goals behind *this* collection of skills. They are deliberately stricter than the [generic best practices](./best-practices.md) for authoring agent skills, and they express the opinionated stance this repository takes. A skill in this collection MUST satisfy all of them.
+These are the design principles and goals behind this collection of skills.
 
-The capitalized requirement keywords (MUST, MUST NOT, SHOULD, MAY, …) are used as defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
+## Predictable outcomes
 
-## 🌐 Cohesive ecosystem
+The overriding goal of this project is to produce predictable, consistent, reliable outcomes from every mainstream coding model.
 
-This is not a grab-bag of isolated skills. It's a cohesive collection that forms a complete end-to-end development workflow.
+To achieve predictable outcomes, you need to base your agentic workflow on concrete, **verifiable success criteria**. So every skill gives the agent clear, self-verifiable criteria for what "done" and "correct" look like. These criteria are concrete enough that agents can evaluate their own work, and course-correct if necessary.
 
-These skills are highly opinionated. They encode the author's [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards), and they form part of a larger ecosystem of methods, tools, and artifacts for managing change in software at scale.
+Vague guidance (eg. "write a good spec") means outcomes are determined primarily by the quality of the underling model. Concrete success criteria produces more consistent outcomes regardless of the underlying model.
 
-Specifically, these skills depend on the existence of version-controlled systems for managing software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of these dependencies:
+Verifiable criteria require strong opinions to be enforced on the agents. You can only check work against a definitive standard, which means picking one way of doing something and encoding this in the skill.
+
+For this reason, this skills collection is **strongly opinionated**. They can't be dropped into project. The skills depend on specific conventions for the tracking of requirements, decisions, designs, and plans.
+
+This rigidity is the mechanism by which non-deterministic models are steered toward predictable outcomes.
+
+## Cohesive ecosystem
+
+This is not a grab-bag of isolated skills. It's a cohesive collection that forms a complete end-to-end development workflow. And the skills fit into a wider, structured environment of development tools and methods.
+
+Specifically, these skills depend on the existence of version-controlled systems for tracking software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of these dependencies:
 
 - [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does, in business terms.
 
@@ -24,11 +34,11 @@ These skills are optimized for the development of application software that span
 
 Since these skills are intended to be used globally across multiple code repositories, it is RECOMMENDED to install these skills in the user's home directory, or in a workspace root, rather than installing in individual code repositories. The bundled installer supports per-project installs, but this is not the intended use case for these skills.
 
-For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate agent skills and supporting artifacts directly in that repository. These skills do not serve this use case.
+For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate agentCan  skills and supporting artifacts directly in that repository. These skills do not serve this use case.
 
 ## Everything under version control
 
-Every artifact the workflow produces lives under version control – not only the code, but the requirements specification, the technical-decision records, the design docs, and the implementation plans. The [reference repositories above](#cohesive-ecosystem) (SRS, RFC, Design, Plans) are version-controlled by design, and the skills are built on the assumption that every durable output they create is committed, branched, reviewed, and merged through the same mechanism the code is. There is one notable, deliberate exception: a `/handoff` document is *ephemeral* and is written outside the repo precisely because it is a session bridge, not a durable artifact.
+That ecosystem sits on a single substrate: version control. Every artifact the workflow produces lives under version control – not only the code, but the requirements specification, the technical-decision records, the design docs, and the implementation plans. The [reference repositories above](#cohesive-ecosystem) (SRS, RFC, Design, Plans) are version-controlled by design, and the skills are built on the assumption that every durable output they create is committed, branched, reviewed, and merged through the same mechanism the code is. There is one notable, deliberate exception: a `/handoff` document is *ephemeral* and is written outside the repo precisely because it is a session bridge, not a durable artifact.
 
 Putting everything in version control is not incidental – it is load-bearing for the way these skills work:
 
@@ -42,44 +52,9 @@ Putting everything in version control is not incidental – it is load-bearing f
 
 This is also why the skills lean on git so heavily as the substrate, and why the version-control skills (`/branch`, `/commit`, `/merge`, `/release`) are first-class members of the collection rather than an afterthought: version control is not just where the code lives, it is the common fabric the entire methodology is woven through.
 
-## Predictable outcomes from any model
-
-The overriding goal of this project is to produce **predictable, consistent, reliable outcomes from every mainstream model**. The same skill, run by different agents or on different days, should converge on the same shape of result. A skill that works beautifully on one frontier model and falls apart on another has failed this goal, however clever it is.
-
-That goal sets up a chain of consequences that explains much of what follows:
-
-- **Predictable outcomes require verifiable success criteria.** A model cannot reliably hit a target it cannot check itself against. So every skill gives the agent clear, *self-verifiable* criteria for what "done" and "correct" look like – concrete enough that the agent can evaluate its own work and know whether it succeeded, rather than guessing and hoping. Vague guidance ("write a good spec") produces model-dependent results; checkable criteria ("every acceptance criterion is in Gherkin, every NFR has a measurable threshold") produce convergent ones.
-
-- **Verifiable criteria require strong, enforced opinions.** You can only check work against a definite standard, and a definite standard means picking one way and committing to it. So this collection is deliberately, sometimes arbitrarily, **opinionated** – about the format of a specification, the lifecycle states a design doc moves through, the branch and commit conventions, the structure of a plan. The specific choice often matters less than the fact that *a* choice was made and is enforced: a single enforced convention is verifiable; "whatever the model thinks best" is not.
-
-This is why the principles below are stated as hard requirements rather than suggestions, and why the skills lean on rigid external contracts (an SRS repository's templates, a fixed commit grammar, a defined set of lifecycle labels). The rigidity is not pedantry – it is the mechanism by which a non-deterministic model is steered toward a deterministic-enough outcome.
-
-## Opinionated to the point of expecting a structured environment
-
-Being highly opinionated has a single overriding purpose: **it makes verifiable success criteria far easier to express.** An agent can only reliably hit a target it can check itself against, and a checkable target needs a definite standard to check against (see [predictable outcomes](#predictable-outcomes-from-any-model)). The more the skill fixes in advance – the format, the location, the names, the structure – the more its "done" and "correct" can be stated as concrete, observable conditions the agent verifies before finishing, rather than matters of judgement it has to guess at. Opinion is the raw material that success criteria are cut from; a skill that left things open could only offer vague guidance, and vague guidance cannot be verified.
-
-And the opinion goes further than choosing a format or a grammar. These skills expect **specific, named artifacts to exist in specific, known places**, and they fail deliberately when those expectations are not met. A skill is not a self-contained instruction the agent improvises around; it is the moving part of a methodology, and it assumes the rest of that methodology is already in place.
-
-[`/specify`](#composable-in-alternative-workflows-not-just-the-prescribed-one) is the clearest example. It does not guess where requirements live or invent a place to put them. It expects:
-
-- a root `AGENTS.md` in the current project, containing a `Workflow repositories` section that names the SRS location;
-- that the named SRS location is itself a repository on the local filesystem;
-- that the SRS repository has its *own* root `AGENTS.md` declaring its workflow; and
-- that the SRS repository exposes the sub-skills (the reference implementation names them `draft-spec`, `write-spec`, `propose-spec`) the skill will read and carry out.
-
-If any of those is absent, `/specify` stops and says what is missing – it does not write into an arbitrary file or fabricate a structure. The expectation is the contract, and a violated expectation is a clean, reported failure (see [workflow skills run non-interactively](#workflow-skills-run-non-interactively)). The same shape recurs across the collection: skills expect a domain glossary at a known path, ADRs in a known location, a `CHANGELOG.md` with an `[Unreleased]` section, lifecycle labels with specific names, branch types matching a defined model. None of these are discovered or negotiated; they are *required*.
-
-This is a deliberate trade, and it cuts both ways:
-
-- **The cost.** A skill dropped into an unprepared project will not improvise its way to a result – it will refuse. These skills are not plug-and-play for an arbitrary repository; they presuppose [the version-controlled ecosystem](#everything-under-version-control) of requirements, decisions, designs, and plans described above. (For a standalone repository with none of that scaffolding, the [cohesive-ecosystem](#cohesive-ecosystem) note already recommends encapsulating bespoke skills instead.)
-
-- **The payoff.** Beyond the verifiable success criteria above, expecting a known structure is also what lets a skill be *terse and deterministic*. Because the skill knows exactly where the SRS is, what an acceptance criterion looks like, and which labels gate a proposal, it does not spend tokens hedging across the space of possible project layouts. Predictability is bought with assumptions; the more the environment is pinned down, the less is left to the model's discretion. An opinionated skill in a conforming environment converges; an accommodating skill in an arbitrary one guesses.
-
-Where the structure is allowed to vary, the skill says *how* it varies and *where to look* – it reads the SRS repository's `AGENTS.md` to learn that project's specific template, branch convention, and label names rather than hard-coding them. That is not a softening of the opinion; it is the opinion relocated. The skill is still rigid about *the contract* (there MUST be an `AGENTS.md`, it MUST declare the workflow); it is flexible only about the *content the contract points to*. The expectation that the structure exists never relaxes – only the question of who fills it in.
-
 ## Specs-to-code: executable criteria as the primary feedback loop
 
-The workflows these skills enable are deliberately **structured and disciplined**, and the discipline has a centre of gravity: **acceptance criteria specified in an executable form**. The aim is *specs-to-code* – agents that build the product exactly to specification, where the specification, not a sapien's running judgement, is the contract the agent works against.
+With the environment and substrate in place, the workflows these skills enable are deliberately **structured and disciplined**, and the discipline has a centre of gravity: **acceptance criteria specified in an executable form**. The aim is *specs-to-code* – agents that build the product exactly to specification, where the specification, not a sapien's running judgement, is the contract the agent works against.
 
 Executable acceptance criteria are the **primary feedback loop** for evaluating the agent's work. An agent cannot reliably converge on the right result without a signal that tells it, unambiguously, whether the result is right – and a passing executable test is the strongest such signal there is. It is deterministic, stable, and re-runnable: the closest thing to *truth* available about whether the built thing matches the agreed thing. This is acceptance-test-driven development applied to agentic work, and it is what makes that work trustworthy. The more of the specification that is captured as executable criteria – functional behaviour as BDD-style scenarios, and increasingly the non-functional requirements too (performance, security) expressed as runnable checks – the less a sapien needs to sit in the loop, because the desired outcome and the verified outcome can be compared by machine.
 
@@ -122,7 +97,7 @@ So the design stance is: **use skills to steer the agent toward the right outcom
 
 ## Skills for judgement, scripts for automation
 
-This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
+If deterministic checks do the enforcing, what is left for a skill to do at all? This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
 
 The deterministic parts of the lifecycle are deliberately **out of scope**. Anything that can be specified once and then run the same way every time – building, deploying, running migrations, linting, packaging, tagging an artifact – is better expressed as a script, a CI job, or a Makefile target than as a skill. There is no `/deploy` skill, and there should not be: a deployment is a fixed sequence of commands, and wrapping it in a skill only adds an unpredictable interpreter in front of a procedure that should be exact and repeatable. The same goes for `/build`, `/lint`, and their kind.
 
@@ -132,27 +107,27 @@ Note that *agentic* is not a synonym for *automated*. Automation is deterministi
 
 (One nuance: a few skills in this collection codify a *convention* rather than a judgement – `/branch`, `/commit`, and `/release`, for instance, encode naming rules and formats. These earn their place because applying the convention still requires reading an open-ended change and choosing the right category – a judgement – even though validating the result is deterministic. The deterministic half (the validation regex) is exactly the part that is also expressed as a script or CI check.)
 
-## 🧑 vs 🤖: every skill declares who drives it
+## Single responsibility, and the duplication it avoids
 
-Every skill in this collection is unambiguously one of two kinds, and it says which up front – in its `metadata.interactive` front-matter, in the H1 emoji of its `SKILL.md` and `README.md`, and in the workflow diagram:
+Having established *what* belongs in a skill, the remaining sections cover the rules that keep each skill a clean, free-standing, composable unit. The first is single responsibility.
 
-- **🧑 Interactive skills** require a sapien in the loop. They are *built* to converse: they ask questions, present options, and wait for answers, and they cannot run to completion without a human responding. `metadata.interactive: yes`. In this collection: `/discover` (elicit requirements), `/elaborate` (interrogate a design), `/refine` (revise a spec against feedback), `/reflect` (per-candidate memory approval), and `/create-skill` (author a skill). These are the skills a person invokes directly and sits *with*.
+A skill MUST have a single responsibility: it does one job and stops at the boundary of that job, leaving adjacent work to the caller. (See [best practices](./best-practices.md#single-responsibility) for the general principle.)
 
-- **🤖 Agentic skills** run entirely without a human turn. They take everything they need from the prompt, the context, and the environment, do the job, and stop – or [fail loudly](#workflow-skills-run-non-interactively) with a specific account of what was missing. They never pause mid-run to ask. `metadata.interactive: no`. This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test`, and their peers – and it is what lets an orchestrator chain them into an unattended pipeline.
+The cleanest way to see a skill's single responsibility is to state it as the one question the skill answers. The evaluation skills make this especially sharp, because each **questions an assumption that an earlier step took for granted**. Earlier steps build on the outputs of the ones before – `/specify` produces the requirements, `/design` produces the architecture, `/code` builds against both – and each evaluation step exists to re-open one of those settled outputs:
 
-The distinction is **load-bearing, not decorative**. An orchestrator – a sapien, an agent, or a script – must know, before it invokes a skill, whether that skill will block on human input. A 🤖 skill can go into an automated pipeline; a 🧑 skill MUST NOT, because it will stall waiting for an answer that no one is there to give. Marking the two kinds visibly, everywhere a skill is presented, is how a caller tells them apart at a glance and wires each into the right place.
+- `/test` asks **"does it meet the agreed requirements?"** – the implementation against its acceptance criteria. It *trusts* the spec and the design, and questions only whether the code honours them. *Did we build it right?*
+- `/audit` asks **"is the design sound?"** – the as-built architecture against the structure it was meant to have. It still trusts the spec, but now *questions the design* that `/test` took for granted. *Is it well-built?*
+- `/validate` asks **"was this the right thing to build?"** – the working software against the users' actual need. It trusts nothing below it: it *questions the spec itself*, asking whether the agreed criteria were ever the right ones. *Did we build the right thing?*
 
-The two kinds also divide the work cleanly along the [judgement-vs-elicitation seam](#workflow-skills-run-non-interactively): **gathering** information from a human is the explicit job of an upstream 🧑 skill (requirement elicitation is `/discover`'s, not `/specify`'s), while the 🤖 skills downstream *consume* what those produce and never re-open the conversation. A 🤖 skill that finds itself wanting to ask the user a question has either been handed incomplete input – in which case it fails and says so – or it has taken on a responsibility that belongs to a 🧑 skill upstream.
+Read in order, the questioning climbs back up the stack. `/test` trusts everything beneath it; `/audit` distrusts the design; `/validate` distrusts the requirements. Each step peels back one more layer that the previous step relied on – which is exactly why the two feedback loops point where they do: `/audit` → `/refactor` → `/design` re-opens the design, and `/validate` → `/refine` → `/specify` re-opens the spec. (`/review` sits earlier and narrower: it questions a single diff – is *this change* correct and well-made? – before it ever reaches `/test`.)
 
-## Workflow skills run non-interactively
+These are genuinely distinct jobs, and the point of single responsibility is that they stay distinct. A change can pass `/test` (meets every criterion) yet fail `/audit` (the design drifted) or `/validate` (the criteria themselves were wrong) – precisely because each interrogates a different layer of trust. Folding any two of them into one skill would blur questions that need separate answers, and separate, independently-runnable skills. The same discipline applies to the building skills: `/specify` captures *what* is required, `/design` decides *how*, `/plan` decides *in what order*, `/code` *builds one increment* – four questions, four skills, no skill answering two.
 
-The main workflow skills in this collection – `/specify`, `/design`, `/plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a sapien-in-the-loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
+Single responsibility is what makes portability, independence, and no-hand-offs *achievable rather than painful*. When two skills find themselves needing the same shared content – the same checklist, the same format definition, the same convention – that is usually a signal that a responsibility has been drawn in the wrong place, not that the content should be shared between them.
 
-The corollary is that **a workflow skill fails rather than prompts.** If it cannot obtain everything it needs from the prompt, the context, and the environment, it stops with a clear, specific account of what is missing – it does NOT fall back to interviewing the user to fill the gap. `/specify` is the model: handed an incomplete PRD, it rejects it with an itemized list of what is absent, instead of asking the user to supply the missing rules. A clean failure is something an orchestrating agent can act on; a blocking prompt is not.
+Where shared content genuinely is unavoidable, **each skill carries its own copy**. Duplication is the accepted cost of independence and portability: a self-contained, deletable, individually-installable skill is worth more than a DRY one that cannot stand alone. But reach for duplication only after confirming the responsibility split is right – the better fix is almost always to draw the boundaries so the duplication is not needed in the first place.
 
-This is what makes these skills composable into an autonomous pipeline. An orchestrator – a sapien, an agent, or a script – can chain `/specify` → `/design` → `/plan` and let them run to completion or fail loudly, with no interactive turn in between. The place where missing information is *gathered* is a separate, explicitly interactive skill upstream (requirement elicitation is `/discover`'s job, not `/specify`'s); the workflow skills downstream consume what those produce and never re-open the conversation.
-
-(Declare this with `metadata.interactive: no` in the skill's front-matter. The default is `yes`; a workflow skill overrides it deliberately. The opposite case – a skill *built* to interview a human, such as `/discover` – stays `interactive: yes`.)
+This reverses the older "cross-reference instead of duplicate" guidance: a cross-reference breaks independence and portability, so it is not an acceptable way to avoid duplication here.
 
 ## Portability
 
@@ -174,7 +149,7 @@ Independence and portability are two sides of the same rule: portability forbids
 
 **Scope: independence is within this collection.** The rule forbids a skill from knowing about *other skills in this collection*. It does not forbid a skill from driving the skills that live in a *separate, external repository* it is designed to work with – for example, a workflow skill here that carries out the procedure defined by a target project's repository-local skills (see [*driving another repository's skills*](#driving-another-repositorys-skills-read-dont-invoke) below). Those are not siblings in this collection; naming and sequencing their procedures is the skill's legitimate job. The line is: no knowledge of a peer in *this* collection; orchestrating another project's skills across a repository boundary is allowed.
 
-**Independence between skills is not isolation from everything.** A skill here is independent of its *sibling skills*, but it may be – and often is – *tightly coupled to external artifacts*: a repository structure, a file convention, a documented pattern it expects the target project to follow. For example, the `specify` skill knows nothing of any sibling skill, yet it is deliberately bound to an SRS repository that follows a specific pattern and exposes its own agent skills (scaffold, author, mark-ready) for `specify` to drive. That coupling is intentional and is what makes the skill *do* something useful in this ecosystem. The independence rule governs skill-to-*skill* relationships within the collection; it says nothing against a skill depending on an external contract, structure, or pattern. Reusability (above) is then a matter of how widely that external contract is shared – a skill bound to a common, well-documented pattern travels further than one bound to a bespoke one.
+**Independence between skills is not isolation from everything.** A skill here is independent of its *sibling skills*, but it may be – and often is – *tightly coupled to external artifacts*: a repository structure, a file convention, a documented pattern it expects the target project to follow. For example, the `specify` skill knows nothing of any sibling skill, yet it is deliberately bound to an SRS repository that follows a specific pattern and exposes its own agent skills (scaffold, author, mark-ready) for `specify` to drive. That coupling is intentional and is what makes the skill *do* something useful in this ecosystem. The independence rule governs skill-to-*skill* relationships within the collection; it says nothing against a skill depending on an external contract, structure, or pattern. Reusability (below) is then a matter of how widely that external contract is shared – a skill bound to a common, well-documented pattern travels further than one bound to a bespoke one.
 
 Beyond deletability, strict self-containment pays off in two further ways:
 
@@ -191,26 +166,6 @@ A skill MUST NOT instruct the agent to invoke another skill next, name "the next
 This follows from independence. A hand-off is a cross-reference with a direction, and it couples the skill to a workflow it should not assume. The same skill might be the last step in one workflow and the middle of another; baking in "next, run X" forecloses that.
 
 A skill MAY describe *what kind of input it expects* and *what its output represents* in neutral terms – that is its contract, and it does not name another skill. It MUST NOT say "then run `plan`"; it MAY say "the output is an approved specification, ready for whatever consumes it."
-
-## Single responsibility, and the duplication it avoids
-
-A skill MUST have a single responsibility: it does one job and stops at the boundary of that job, leaving adjacent work to the caller. (See [best practices](./best-practices.md#single-responsibility) for the general principle.)
-
-The cleanest way to see a skill's single responsibility is to state it as the one question the skill answers. The evaluation skills make this especially sharp, because each **questions an assumption that an earlier step took for granted**. Earlier steps build on the outputs of the ones before – `/specify` produces the requirements, `/design` produces the architecture, `/code` builds against both – and each evaluation step exists to re-open one of those settled outputs:
-
-- `/test` asks **"does it meet the agreed requirements?"** – the implementation against its acceptance criteria. It *trusts* the spec and the design, and questions only whether the code honours them. *Did we build it right?*
-- `/audit` asks **"is the design sound?"** – the as-built architecture against the structure it was meant to have. It still trusts the spec, but now *questions the design* that `/test` took for granted. *Is it well-built?*
-- `/validate` asks **"was this the right thing to build?"** – the working software against the users' actual need. It trusts nothing below it: it *questions the spec itself*, asking whether the agreed criteria were ever the right ones. *Did we build the right thing?*
-
-Read in order, the questioning climbs back up the stack. `/test` trusts everything beneath it; `/audit` distrusts the design; `/validate` distrusts the requirements. Each step peels back one more layer that the previous step relied on – which is exactly why the two feedback loops point where they do: `/audit` → `/refactor` → `/design` re-opens the design, and `/validate` → `/refine` → `/specify` re-opens the spec. (`/review` sits earlier and narrower: it questions a single diff – is *this change* correct and well-made? – before it ever reaches `/test`.)
-
-These are genuinely distinct jobs, and the point of single responsibility is that they stay distinct. A change can pass `/test` (meets every criterion) yet fail `/audit` (the design drifted) or `/validate` (the criteria themselves were wrong) – precisely because each interrogates a different layer of trust. Folding any two of them into one skill would blur questions that need separate answers, and separate, independently-runnable skills. The same discipline applies to the building skills: `/specify` captures *what* is required, `/design` decides *how*, `/plan` decides *in what order*, `/code` *builds one increment* – four questions, four skills, no skill answering two.
-
-Single responsibility is what makes portability, independence, and no-hand-offs *achievable rather than painful*. When two skills find themselves needing the same shared content – the same checklist, the same format definition, the same convention – that is usually a signal that a responsibility has been drawn in the wrong place, not that the content should be shared between them.
-
-Where shared content genuinely is unavoidable, **each skill carries its own copy**. Duplication is the accepted cost of independence and portability: a self-contained, deletable, individually-installable skill is worth more than a DRY one that cannot stand alone. But reach for duplication only after confirming the responsibility split is right – the better fix is almost always to draw the boundaries so the duplication is not needed in the first place.
-
-This reverses the older "cross-reference instead of duplicate" guidance: a cross-reference breaks independence and portability, so it is not an acceptable way to avoid duplication here.
 
 ## Evaluate or enact, never both
 
@@ -237,66 +192,27 @@ Keeping the two apart pays off several ways:
 
 This is a separation of responsibilities, not a hand-off: the evaluating skill does **not** name or invoke its enacting counterpart (that would break [independence](#independence) and the [no-hand-offs](#no-hand-offs-between-skills) rule). It reports neutrally and stops; the orchestrator – not the skill – decides whether to run the enactor next. The pairing is a fact of the *workflow*, documented here and shown in the repository's workflow diagram, not a link baked into either skill.
 
-## Consequence for orchestration
+## 🧑 vs 🤖: every skill declares who drives it
 
-Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the sapien approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for sapiens) is fine, and belongs in repository documentation – not inside any skill.
+Every skill in this collection is unambiguously one of two kinds, and it says which up front – in its `metadata.interactive` front-matter, in the H1 emoji of its `SKILL.md` and `README.md`, and in the workflow diagram:
 
-## Composable in alternative workflows, not just the prescribed one
+- **🧑 Interactive skills** require a sapien in the loop. They are *built* to converse: they ask questions, present options, and wait for answers, and they cannot run to completion without a human responding. `metadata.interactive: yes`. In this collection: `/discover` (elicit requirements), `/elaborate` (interrogate a design), `/refine` (revise a spec against feedback), `/reflect` (per-candidate memory approval), and `/create-skill` (author a skill). These are the skills a person invokes directly and sits *with*.
 
-The [workflow diagram](../README.md) shows *a* recommended way to sequence these skills – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. That diagram is a **suggestion, not a specification**. Because every skill is [independent](#independence), [hands off to nothing](#no-hand-offs-between-skills), and exposes a [declared input/output contract](#every-skill-declares-its-input-and-output-up-front), the skills are free-standing tools that an orchestrator can compose in orders this collection never drew – including ways the author never anticipated.
+- **🤖 Agentic skills** run entirely without a human turn. They take everything they need from the prompt, the context, and the environment, do the job, and stop – or [fail loudly](#workflow-skills-run-non-interactively) with a specific account of what was missing. They never pause mid-run to ask. `metadata.interactive: no`. This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test`, and their peers – and it is what lets an orchestrator chain them into an unattended pipeline.
 
-This is a deliberate property, not an accident of the design. A skill's contract is "given input of this shape, I produce output of that shape" – it says nothing about *where the input came from* or *what consumes the output*. So any skill whose output happens to match another's input can feed it, regardless of their positions in the canonical diagram. The prescribed workflow is one path through the graph of possible compositions; it is not the boundary of them.
+The distinction is **load-bearing, not decorative**. An orchestrator – a sapien, an agent, or a script – must know, before it invokes a skill, whether that skill will block on human input. A 🤖 skill can go into an automated pipeline; a 🧑 skill MUST NOT, because it will stall waiting for an answer that no one is there to give. Marking the two kinds visibly, everywhere a skill is presented, is how a caller tells them apart at a glance and wires each into the right place.
 
-Some illustrations of compositions the diagram does not draw:
+The two kinds also divide the work cleanly along the [judgement-vs-elicitation seam](#workflow-skills-run-non-interactively): **gathering** information from a human is the explicit job of an upstream 🧑 skill (requirement elicitation is `/discover`'s, not `/specify`'s), while the 🤖 skills downstream *consume* what those produce and never re-open the conversation. A 🤖 skill that finds itself wanting to ask the user a question has either been handed incomplete input – in which case it fails and says so – or it has taken on a responsibility that belongs to a 🧑 skill upstream.
 
-- **An evaluation skill as a discovery entry point.** `/validate` is positioned at the *end* of the proactive path – it judges finished software against the users' actual need. But its output is a prioritized list of gaps between what was built and what was needed, which is *exactly the raw material a discovery session feeds on*. So `/validate` can be run as the **front door** to a new round of requirements work: validate an existing system, take the gaps it surfaces, and pour them into `/discover` or straight into `/specify` – a "discover what's missing in what we already have" workflow that no arrow in the diagram describes, yet which composes cleanly from the existing contracts. The same is true of `/audit`: an architecture audit of an inherited codebase is a perfectly good *starting* point for a design conversation, not only a mid-stream checkpoint.
+## Workflow skills run non-interactively
 
-- **Building skills run standalone.** `/commit`, `/branch`, `/format`, or `/proof` are wired into the lifecycle on the diagram, but each is independently useful on its own, invoked ad hoc, with no upstream skill having run at all.
+The main workflow skills in this collection – `/specify`, `/design`, `/plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a sapien-in-the-loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
 
-- **Loops the diagram flattens.** Nothing stops an orchestrator from running `/review` → `/resolve` → `/review` until clean, or from interleaving `/research` anywhere a knowledge gap appears, even though the diagram shows neither as a repeating sub-loop.
+The corollary is that **a workflow skill fails rather than prompts.** If it cannot obtain everything it needs from the prompt, the context, and the environment, it stops with a clear, specific account of what is missing – it does NOT fall back to interviewing the user to fill the gap. `/specify` is the model: handed an incomplete PRD, it rejects it with an itemized list of what is absent, instead of asking the user to supply the missing rules. A clean failure is something an orchestrating agent can act on; a blocking prompt is not.
 
-The discipline that makes this possible is the same discipline enforced everywhere else: no skill names a successor, no skill assumes a predecessor, and every skill declares its contract. **Keep the skills ignorant of the workflow, and the workflow becomes a thing the user composes – not a thing the skills dictate.** Designing each skill to stand alone is therefore not only about deletability and reuse *across* projects (above); within a single project it is what keeps the set of possible workflows open-ended, so the collection can be recombined into interesting workflows that were never explicitly specified here.
+This is what makes these skills composable into an autonomous pipeline. An orchestrator – a sapien, an agent, or a script – can chain `/specify` → `/design` → `/plan` and let them run to completion or fail loudly, with no interactive turn in between. The place where missing information is *gathered* is a separate, explicitly interactive skill upstream (requirement elicitation is `/discover`'s job, not `/specify`'s); the workflow skills downstream consume what those produce and never re-open the conversation.
 
-## Driving another repository's skills: read, don't invoke
-
-A workflow skill in this collection may drive a target repository's own skills – `/specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
-
-A global workflow skill MUST NOT literally *invoke* a target repository's local skills. It **reads their rules and instructions and executes that procedure itself**, in a non-interactive mode. The local skill is the authoritative *source of the procedure*; the workflow skill is the *engine that runs it* unattended.
-
-This is a deliberate consequence of two facts about the local skills:
-
-- **Local skills are interactive by design.** Every repository-level skill across the SRS, RFC, Design, and Plans repositories declares `metadata.interactive: yes`. They are written for a sapien operator at a keyboard: they prompt for a description, confirm a slug, ask which change type applies, and end by directing the user to the next skill in the lifecycle. Run literally, they would block on prompts the orchestrator cannot answer, and would tell the user to perform a step the orchestrator is itself about to perform.
-
-- **A global workflow skill that consumes a PRD already holds the answers.** When `specify` drives the SRS workflow, the validated PRD supplies everything the interactive prompts would ask a sapien for. The skill does not need to *ask*; it needs to *apply*. So it reads what `draft-spec`/`write-spec`/`propose-spec` prescribe – the branch convention, the template, the acceptance-criteria format, the Definition of Ready, the lifecycle labels – and carries that procedure out directly, drawing every answer from the PRD instead of from a prompt.
-
-Reading-not-invoking is also what keeps the *content rules in one place*. The target repository remains the single authoritative source for how its artifacts are written and how its proposals move through their states; the workflow skill never hard-codes a second copy of those rules from memory. It reads them fresh from the target repository each run (via that repository's `AGENTS.md` and the local skills it names), so a project that tunes its own `write-spec` automatically changes how `specify` behaves – without `specify` itself changing.
-
-The division of labour, then:
-
-- **Local repository-level skills** (`draft-spec`, `write-spec`, …) are `interactive: yes`. They are the sapien-operable, authoritative definition of each step, and the canonical home of the content and lifecycle rules.
-- **Global workflow skills** (`specify`, …) are `interactive: no`. They consume an upstream artifact (a PRD), read the local skills' procedures, and execute them unattended – prompting for nothing, because the input already answers what the interactive path would ask.
-
-## Presentation: skills as slash commands
-
-A skill is presented as a slash command in documentation. Across this collection – and the wider ecosystem of repositories that expose their own agent skills – a skill name is written with a leading `/` inside backticks wherever it is presented *as an invocable command*:
-
-- **Linked references**: `` [`/specify`](./skills/specify/) `` – the `/` goes inside the backticks; the link target (the path) is never prefixed.
-- **H1 titles**: each `SKILL.md` and `README.md` opens with `` # `/specify` `` (not a prose title).
-- **Bare command mentions**: "run `` `/discover` `` first".
-
-The `/` is a presentation convention only. It is NOT added to the `name:` frontmatter field (the canonical identifier stays bare, e.g. `name: specify`), nor to file paths, code, branch names, commit types, lifecycle states, or to the word when it is used as an activity, phase, or noun rather than a command ("the discovery report", "after release"). Workflow-diagram node labels also stay bare.
-
-## Token efficiency: the `SKILL.md` / `README.md` split
-
-A `SKILL.md` is written for an agent, and every token it contains is loaded into the agent's context window when the skill fires. So a `SKILL.md` is written for **token efficiency**: it carries only what the agent needs to do the job, and no more. The 300-line ceiling (see [creating skills](./creating-skills.md)) is the hard limit; the spirit of the rule is to stay well under it. Token efficiency does not mean terse-to-illegibility, though – a `SKILL.md` MUST still be human-readable and cleanly formatted, with judicious use of whitespace, because sapiens author and maintain it. The two goals are compatible: cut redundancy and padding, keep the structure that makes the remaining content scannable.
-
-The sibling `README.md` is written for **sapiens** – contributors and users browsing the collection. It is NOT loaded into the agent's context. This split decides where each piece of material belongs:
-
-- **Anything the agent must read to act** – instructions, rules, success criteria, the bundled template it fills out – lives in `SKILL.md`.
-
-- **Anything that is for human benefit only** – the prose overview, the workflow diagram, invocation examples, and **references to external resources** (the technique a skill is based on, the upstream skill it was adapted from, background reading) – lives in `README.md`.
-
-The reference rule is the sharp edge of this principle. A link in a `SKILL.md` is an invitation for the agent to fetch it, pulling an unbounded external document into context and bloating it for no operational gain – the agent does not need to read the academic source behind a technique to apply the technique. So **external references that exist for human context belong in the `README.md`, never the `SKILL.md`.** A `SKILL.md` links outward only to material the agent genuinely needs to read to do its job – and per [portability](#portability), that material is almost always a bundled file inside the skill's own directory (a template, a script, a `references/` doc), not an external URL. The result: a `SKILL.md` whose `## References` section, if it has one, points only at the skill's own bundled assets, while the sapiens-facing citations sit in the `README.md` where a curious sapien can follow them without ever costing the agent a token.
+(Declare this with `metadata.interactive: no` in the skill's front-matter. The default is `yes`; a workflow skill overrides it deliberately. The opposite case – a skill *built* to interview a human, such as `/discover` – stays `interactive: yes`.)
 
 ## Every skill declares its input and output up front
 
@@ -323,6 +239,67 @@ For an **interactive** skill the **Input** paragraph carries one extra obligatio
 ### The output declaration and the success criteria are two ends of one promise
 
 The **Output** paragraph *describes* what the skill produces; the [`## Success criteria`](#predictable-outcomes-from-any-model) section *verifies* it. They are the same promise stated twice, for two different readers and two different moments. The **Output** is the up-front claim a caller reads to decide whether to use the skill; the success criteria are the self-checks the agent runs at the end to confirm the claim was met before it finishes. A well-formed skill keeps them aligned: every guarantee the **Output** advertises – an explicit out-of-scope list, a counter-example per rule, an NFR recorded even when none, a `PROPOSED` proposal awaiting approval – has a corresponding success criterion the agent can check itself against. The output declaration makes the promise; the success criteria are how the agent proves, to itself, that it kept it. If the **Output** claims something no success criterion checks, the skill is asserting an outcome it cannot verify – exactly the model-dependent, hope-it-worked behavior this collection exists to eliminate.
+
+## Driving another repository's skills: read, don't invoke
+
+A workflow skill in this collection may drive a target repository's own skills – `/specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
+
+A global workflow skill MUST NOT literally *invoke* a target repository's local skills. It **reads their rules and instructions and executes that procedure itself**, in a non-interactive mode. The local skill is the authoritative *source of the procedure*; the workflow skill is the *engine that runs it* unattended.
+
+This is a deliberate consequence of two facts about the local skills:
+
+- **Local skills are interactive by design.** Every repository-level skill across the SRS, RFC, Design, and Plans repositories declares `metadata.interactive: yes`. They are written for a sapien operator at a keyboard: they prompt for a description, confirm a slug, ask which change type applies, and end by directing the user to the next skill in the lifecycle. Run literally, they would block on prompts the orchestrator cannot answer, and would tell the user to perform a step the orchestrator is itself about to perform.
+
+- **A global workflow skill that consumes a PRD already holds the answers.** When `specify` drives the SRS workflow, the validated PRD supplies everything the interactive prompts would ask a sapien for. The skill does not need to *ask*; it needs to *apply*. So it reads what `draft-spec`/`write-spec`/`propose-spec` prescribe – the branch convention, the template, the acceptance-criteria format, the Definition of Ready, the lifecycle labels – and carries that procedure out directly, drawing every answer from the PRD instead of from a prompt.
+
+Reading-not-invoking is also what keeps the *content rules in one place*. The target repository remains the single authoritative source for how its artifacts are written and how its proposals move through their states; the workflow skill never hard-codes a second copy of those rules from memory. It reads them fresh from the target repository each run (via that repository's `AGENTS.md` and the local skills it names), so a project that tunes its own `write-spec` automatically changes how `specify` behaves – without `specify` itself changing.
+
+The division of labour, then:
+
+- **Local repository-level skills** (`draft-spec`, `write-spec`, …) are `interactive: yes`. They are the sapien-operable, authoritative definition of each step, and the canonical home of the content and lifecycle rules.
+- **Global workflow skills** (`specify`, …) are `interactive: no`. They consume an upstream artifact (a PRD), read the local skills' procedures, and execute them unattended – prompting for nothing, because the input already answers what the interactive path would ask.
+
+## Consequence for orchestration
+
+Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the sapien approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for sapiens) is fine, and belongs in repository documentation – not inside any skill.
+
+## Composable in alternative workflows, not just the prescribed one
+
+The [workflow diagram](../README.md) shows *a* recommended way to sequence these skills – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. That diagram is a **suggestion, not a specification**. Because every skill is [independent](#independence), [hands off to nothing](#no-hand-offs-between-skills), and exposes a [declared input/output contract](#every-skill-declares-its-input-and-output-up-front), the skills are free-standing tools that an orchestrator can compose in orders this collection never drew – including ways the author never anticipated.
+
+This is a deliberate property, not an accident of the design. A skill's contract is "given input of this shape, I produce output of that shape" – it says nothing about *where the input came from* or *what consumes the output*. So any skill whose output happens to match another's input can feed it, regardless of their positions in the canonical diagram. The prescribed workflow is one path through the graph of possible compositions; it is not the boundary of them.
+
+Some illustrations of compositions the diagram does not draw:
+
+- **An evaluation skill as a discovery entry point.** `/validate` is positioned at the *end* of the proactive path – it judges finished software against the users' actual need. But its output is a prioritized list of gaps between what was built and what was needed, which is *exactly the raw material a discovery session feeds on*. So `/validate` can be run as the **front door** to a new round of requirements work: validate an existing system, take the gaps it surfaces, and pour them into `/discover` or straight into `/specify` – a "discover what's missing in what we already have" workflow that no arrow in the diagram describes, yet which composes cleanly from the existing contracts. The same is true of `/audit`: an architecture audit of an inherited codebase is a perfectly good *starting* point for a design conversation, not only a mid-stream checkpoint.
+
+- **Building skills run standalone.** `/commit`, `/branch`, `/format`, or `/proof` are wired into the lifecycle on the diagram, but each is independently useful on its own, invoked ad hoc, with no upstream skill having run at all.
+
+- **Loops the diagram flattens.** Nothing stops an orchestrator from running `/review` → `/resolve` → `/review` until clean, or from interleaving `/research` anywhere a knowledge gap appears, even though the diagram shows neither as a repeating sub-loop.
+
+The discipline that makes this possible is the same discipline enforced everywhere else: no skill names a successor, no skill assumes a predecessor, and every skill declares its contract. **Keep the skills ignorant of the workflow, and the workflow becomes a thing the user composes – not a thing the skills dictate.** Designing each skill to stand alone is therefore not only about deletability and reuse *across* projects (above); within a single project it is what keeps the set of possible workflows open-ended, so the collection can be recombined into interesting workflows that were never explicitly specified here.
+
+## Presentation: skills as slash commands
+
+The remaining sections are presentation and authoring conventions. A skill is presented as a slash command in documentation. Across this collection – and the wider ecosystem of repositories that expose their own agent skills – a skill name is written with a leading `/` inside backticks wherever it is presented *as an invocable command*:
+
+- **Linked references**: `` [`/specify`](./skills/specify/) `` – the `/` goes inside the backticks; the link target (the path) is never prefixed.
+- **H1 titles**: each `SKILL.md` and `README.md` opens with `` # `/specify` `` (not a prose title).
+- **Bare command mentions**: "run `` `/discover` `` first".
+
+The `/` is a presentation convention only. It is NOT added to the `name:` frontmatter field (the canonical identifier stays bare, e.g. `name: specify`), nor to file paths, code, branch names, commit types, lifecycle states, or to the word when it is used as an activity, phase, or noun rather than a command ("the discovery report", "after release"). Workflow-diagram node labels also stay bare.
+
+## Token efficiency: the `SKILL.md` / `README.md` split
+
+A `SKILL.md` is written for an agent, and every token it contains is loaded into the agent's context window when the skill fires. So a `SKILL.md` is written for **token efficiency**: it carries only what the agent needs to do the job, and no more. The 300-line ceiling (see [creating skills](./creating-skills.md)) is the hard limit; the spirit of the rule is to stay well under it. Token efficiency does not mean terse-to-illegibility, though – a `SKILL.md` MUST still be human-readable and cleanly formatted, with judicious use of whitespace, because sapiens author and maintain it. The two goals are compatible: cut redundancy and padding, keep the structure that makes the remaining content scannable.
+
+The sibling `README.md` is written for **sapiens** – contributors and users browsing the collection. It is NOT loaded into the agent's context. This split decides where each piece of material belongs:
+
+- **Anything the agent must read to act** – instructions, rules, success criteria, the bundled template it fills out – lives in `SKILL.md`.
+
+- **Anything that is for human benefit only** – the prose overview, the workflow diagram, invocation examples, and **references to external resources** (the technique a skill is based on, the upstream skill it was adapted from, background reading) – lives in `README.md`.
+
+The reference rule is the sharp edge of this principle. A link in a `SKILL.md` is an invitation for the agent to fetch it, pulling an unbounded external document into context and bloating it for no operational gain – the agent does not need to read the academic source behind a technique to apply the technique. So **external references that exist for human context belong in the `README.md`, never the `SKILL.md`.** A `SKILL.md` links outward only to material the agent genuinely needs to read to do its job – and per [portability](#portability), that material is almost always a bundled file inside the skill's own directory (a template, a script, a `references/` doc), not an external URL. The result: a `SKILL.md` whose `## References` section, if it has one, points only at the skill's own bundled assets, while the sapiens-facing citations sit in the `README.md` where a curious sapien can follow them without ever costing the agent a token.
 
 ## Related
 
