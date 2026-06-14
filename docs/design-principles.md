@@ -43,6 +43,22 @@ The feedback loops in the workflow diagram are exactly this mechanism: they are 
 
 This is why the cost of being wrong stays bounded. A waterfall that discovers a flawed spec or design at the end has built the whole product on it; an iterative workflow discovers the flaw one increment in and adjusts. The same executable-criteria discipline that makes each increment verifiable is what makes frequent, cheap correction possible – you can afford to adjust the spec mid-stream precisely because re-verifying against it is automatic.
 
+## Enforcement lives outside the skill
+
+**Skills steer; deterministic tests evaluate.**
+
+It is worth being honest about what a skill can and cannot do. **A skill is a text file – a prompt.** It instructs, guides, and constrains a model, but it cannot *guarantee* the model's behaviour. A `MUST` in a `SKILL.md` is an instruction the agent is very likely to follow, not a law it is incapable of breaking. However carefully written, a skill steers; it does not enforce. Treating skills as if they were guarantees is the central mistake to avoid.
+
+Real enforcement is **deterministic checks that sit outside the skill** and do not depend on the model honouring anything: the commit-message validation regex, the branch-name pattern, the linter, the type-checker, the CI pipeline, and – most importantly – the **automated acceptance test suite**. These run the same way every time, pass or fail without judgement, and cannot be talked out of a verdict. They are where the actual guarantees live. The executable acceptance criteria from the [specs-to-code loop](#specs-to-code-executable-criteria-as-the-primary-feedback-loop) are the most important of these checks, because they verify the thing that matters most – that the built software does what was agreed – and they do it deterministically, with no human or model in the loop to second-guess.
+
+The two halves work together, and neither suffices alone:
+
+- **A skill without a deterministic check** is a strong suggestion with no backstop. If the only thing standing between the agent and a malformed commit is a `SKILL.md` saying "use this format", malformed commits will eventually land. The skill raises the odds of the right outcome; it does not secure it.
+
+- **A deterministic check without a skill** is a gate with no guidance. CI will reject a bad commit, but the agent wastes cycles discovering by trial and error what the gate wants. The skill front-loads the standard so the agent gets it right the first time; the check confirms that it did.
+
+So the design stance is: **use skills to steer the agent toward the right outcome, and deterministic checks to guarantee it.** Wherever a skill states a rule that can be mechanically verified, there should be – or should come to be – an automated check that actually enforces it. The skill is how the agent learns the rule; the check is what makes the rule binding. This is also why the [convention skills](#skills-for-judgement-scripts-for-automation) (`/branch`, `/commit`, `/release`) pair naturally with validation regexes and CI jobs: the skill teaches the convention, the check enforces it, and the agent is held to the outcome regardless of whether it read the skill carefully.
+
 ## Skills for judgement, scripts for automation
 
 This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
