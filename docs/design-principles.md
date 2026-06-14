@@ -16,6 +16,33 @@ That goal sets up a chain of consequences that explains much of what follows:
 
 This is why the principles below are stated as hard requirements rather than suggestions, and why the skills lean on rigid external contracts (an SRS repository's templates, a fixed commit grammar, a defined set of lifecycle labels). The rigidity is not pedantry – it is the mechanism by which a non-deterministic model is steered toward a deterministic-enough outcome.
 
+## Specs-to-code: executable criteria as the primary feedback loop
+
+The workflows these skills enable are deliberately **structured and disciplined**, and the discipline has a centre of gravity: **acceptance criteria specified in an executable form**. The aim is *specs-to-code* – agents that build the product exactly to specification, where the specification, not a human's running judgement, is the contract the agent works against.
+
+Executable acceptance criteria are the **primary feedback loop** for evaluating the agent's work. An agent cannot reliably converge on the right result without a signal that tells it, unambiguously, whether the result is right – and a passing executable test is the strongest such signal there is. It is deterministic, stable, and re-runnable: the closest thing to *truth* available about whether the built thing matches the agreed thing. This is acceptance-test-driven development applied to agentic work, and it is what makes that work trustworthy. The more of the specification that is captured as executable criteria – functional behaviour as BDD-style scenarios, and increasingly the non-functional requirements too (performance, security) expressed as runnable checks – the less a human needs to sit in the loop, because the desired outcome and the verified outcome can be compared by machine.
+
+This is *the* feedback loop, but not the *only* one. The collection builds in feedback at every layer of the work, each questioning a different assumption (see [single responsibility](#single-responsibility-and-the-duplication-it-avoids) and [evaluate or enact](#evaluate-or-enact-never-both)):
+
+- **Against the acceptance criteria** – `/test` asks whether the increment meets the agreed spec. The core, executable loop above.
+- **Against the architecture** – `/audit` asks whether the evolving design is sound, feeding `/refactor` → `/design`.
+- **Against the product–market fit** – `/validate` asks whether the agreed spec was the right thing to build at all, feeding `/refine` → `/specify`.
+
+The executable-criteria loop is primary because it is the one that can run unattended, every increment, with a deterministic verdict. The others are slower, more judgement-laden, and run less often – but they exist for the same reason: to give the work a signal it can be steered by, rather than leaving correctness to a model's unverifiable say-so.
+
+## Iterative and incremental, not agentic waterfall
+
+Specs-to-code, taken naively, collapses into an **agentic waterfall**: specify everything, design everything, then let the agent build the whole thing in one pass and ship a "big bang" release after a single trip through the lifecycle. That is *not* the workflow these skills enable, and the distinction is deliberate.
+
+This workflow is **iterative and incremental**. There is genuine up-front work – a thorough specification and a considered design before construction begins; this is not "vibe-coding" with no plan. But the up-front artifacts are **living, not frozen**. Delivery is decomposed by `/plan` into small increments, each built, reviewed, and tested on its own, and the feedback gathered as those increments land flows *back* into the spec and the design and adjusts them mid-flight:
+
+- An increment fails [`/validate`](#specs-to-code-executable-criteria-as-the-primary-feedback-loop) – the working software does not serve the real need – and `/refine` → `/specify` revises the requirements the remaining increments build toward.
+- The evolving architecture drifts under construction, `/audit` catches it, and `/refactor` → `/design` corrects the design before the next increment compounds the problem.
+
+The feedback loops in the workflow diagram are exactly this mechanism: they are what stop big-spec-and-big-design from hardening into waterfall. Up-front planning sets the initial direction; the loops let that direction be corrected by what construction actually reveals. The agent is not handed a frozen specification and left to build blind to a single deadline – it builds in increments, and the plan it builds to is allowed to learn.
+
+This is why the cost of being wrong stays bounded. A waterfall that discovers a flawed spec or design at the end has built the whole product on it; an iterative workflow discovers the flaw one increment in and adjusts. The same executable-criteria discipline that makes each increment verifiable is what makes frequent, cheap correction possible – you can afford to adjust the spec mid-stream precisely because re-verifying against it is automatic.
+
 ## Skills for judgement, scripts for automation
 
 This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
