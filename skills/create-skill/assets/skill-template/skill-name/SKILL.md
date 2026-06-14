@@ -21,6 +21,10 @@ This skill extends [this skill](https://raw.githubusercontent.com/...) – all r
 
 Do NOT use this skill for <exceptions...>.
 
+**Input**: <What the skill consumes, and how it is supplied (file paths, URLs, pasted text, an upstream artifact, the surrounding context). State whether it is REQUIRED or OPTIONAL. For an interactive skill, state explicitly that the skill ALSO gathers input from the user through prompts during the session – so the initial input may be partial or absent.>
+
+**Output**: <What the skill produces, in what form, and where it goes. Name any completeness guarantees the output enforces. State what is deliberately out of scope.>
+
 ##  Instructions
 
 _Instructions are step-by-step procedural implementation workflows._
@@ -88,10 +92,8 @@ _Warn about potential edge cases. Regular prose. OPTIONAL._
 
 ## References
 
-_List of links with extended and related information for agents. For each include an explicit triger condition._
+_Links to the skill's OWN bundled resources that the agent needs to read to do the job – each with an explicit trigger condition. OPTIONAL. Point only at files inside this skill's directory; external references that exist for human context (the technique behind the skill, an upstream skill it was adapted from, background reading) belong in the sibling `README.md`, NOT here – a link in a SKILL.md invites the agent to fetch it and bloat its context for no operational gain._
 
 - [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
 
-- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
-
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md]: Used for [purpose].
+- [`assets/some-template.md`](./assets/some-template.md): The bundled template to fill out in step N.

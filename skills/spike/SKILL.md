@@ -15,6 +15,10 @@ Do NOT use this skill to build something you intend to keep – production imple
 
 A spike is a *byproduct*. The product is the *answer*. The code is thrown away.
 
+**Input**: One falsifiable question – a specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front. REQUIRED.
+
+**Output**: The answer, durably captured – a measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.
+
 ##  Instructions
 
 1.  **Frame one question.**
@@ -234,9 +238,3 @@ The design work resumes, evaluating the other two candidates.
 -   **The code is disposed of or quarantined.**
 
     Deleted, or moved to a clearly-marked throwaway location with a README. Never merged into production paths.
-
-## Inputs and outputs
-
-- **Input — one falsifiable question.** A specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front.
-
-- **Output — the answer, durably captured.** A measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.

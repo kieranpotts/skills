@@ -15,6 +15,10 @@ Do NOT use this skill to fix a defect or to add behavior – those change observ
 
 A change that alters externally observable behavior is not a refactor. Even a "small" behavior tweak in the middle of restructuring is a separate change.
 
+**Input**: Existing, tested code and a named target quality – the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. REQUIRED. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
+
+**Output**: A series of small `refactor:` commits that improve the named quality while leaving externally observable behavior identical – tests green before and after every move, each commit independently revertable, the diff free of feature or bug-fix work. Whatever reviews, integrates, or sequences the next task is the orchestrator's concern, not this skill's.
+
 ##  Instructions
 
 1.  **Name the quality you are improving.**
@@ -204,9 +208,3 @@ commit and tracking issue. Resumed the refactor.
     The diff contains only restructuring. Anything else is in a separate commit and a separate review thread.
 
 -   **Tests passed after every move, not just at the end.**
-
-## Inputs and outputs
-
-- **Input — existing, tested code and a named target quality**: the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
-
-- **Output — a series of small `refactor:` commits** that improve the named quality while leaving externally observable behavior identical: tests green before and after every move, each commit independently revertable, the diff free of feature or bug-fix work. Whatever reviews, integrates, or sequences the next task is the orchestrator's concern, not this skill's.

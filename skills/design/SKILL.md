@@ -1,6 +1,6 @@
 ---
 name: design
-description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification: do not begin until the upstream specification proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally significant decisions, before planning or implementation.
+description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification – do not begin until the upstream specification proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally significant decisions, before planning or implementation.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -16,6 +16,10 @@ Design is gated on an approved specification. It MUST NOT begin while the specif
 Do NOT use this skill for trivial changes whose design is obvious (bug fixes, copy edits, renames – go straight to implementation).
 
 Do NOT use this skill to write requirements, or to break delivery into steps – those are separate responsibilities.
+
+**Input**: An approved specification – functional acceptance criteria and non-functional requirements, already reviewed and approved (`ACCEPTED`). REQUIRED. This skill consumes that specification; it does not write it, and its entry gate refuses to begin until the approval is in place.
+
+**Output**: A recommended design – the chosen option with its evaluation against the nine qualities, the rejected alternatives and why, and a durable decision record (ADR, design doc, or PR description). Where a design question cannot be answered by reasoning alone, a time-boxed prototype produces the evidence that feeds back into the evaluation. Whatever consumes the design – decomposition into steps, implementation – is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -209,9 +213,3 @@ Consequences:
 -   **The decision is captured durably.**
 
     ADR, design doc, or PR description – somewhere a future reader can find it without asking.
-
-## Inputs and outputs
-
-- **Input — an approved specification.** Functional acceptance criteria and non-functional requirements, already reviewed and approved (`ACCEPTED`). This skill consumes that specification; it does not write it, and its entry gate refuses to begin until the approval is in place.
-
-- **Output — a recommended design.** The chosen option with its evaluation against the nine qualities, the rejected alternatives and why, and a durable decision record (ADR, design doc, or PR description). Where a design question cannot be answered by reasoning alone, a time-boxed prototype produces the evidence that feeds back into the evaluation. Whatever consumes the design – decomposition into steps, implementation – is the orchestrator's concern, not this skill's.

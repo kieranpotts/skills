@@ -15,6 +15,10 @@ Do NOT use this skill to explore design options from scratch, to write requireme
 
 This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
+**Input**: A draft design with soft edges – an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
+
+**Output**: A decomposition-ready design – every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
+
 ##  Instructions
 
 1.  **Load the context.**
@@ -291,9 +295,3 @@ response time. If that becomes a problem we revisit.
 -   **The output is decomposition-ready.**
 
     A reader can pick up the design and break it into steps without re-asking the questions this skill resolved.
-
-## Inputs and outputs
-
-- **Input — a draft design with soft edges**: an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. This skill does not originate the design; it consumes a draft to sharpen.
-
-- **Output — a decomposition-ready design**: every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.

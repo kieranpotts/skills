@@ -231,6 +231,32 @@ The sibling `README.md` is written for **sapiens** – contributors and users br
 
 The reference rule is the sharp edge of this principle. A link in a `SKILL.md` is an invitation for the agent to fetch it, pulling an unbounded external document into context and bloating it for no operational gain – the agent does not need to read the academic source behind a technique to apply the technique. So **external references that exist for human context belong in the `README.md`, never the `SKILL.md`.** A `SKILL.md` links outward only to material the agent genuinely needs to read to do its job – and per [portability](#portability), that material is almost always a bundled file inside the skill's own directory (a template, a script, a `references/` doc), not an external URL. The result: a `SKILL.md` whose `## References` section, if it has one, points only at the skill's own bundled assets, while the sapiens-facing citations sit in the `README.md` where a curious sapien can follow them without ever costing the agent a token.
 
+## Every skill declares its input and output up front
+
+Every `SKILL.md` opens – immediately after its intro prose, before the first `##` heading – with two prominent, bold-lead paragraphs:
+
+```
+**Input**: <what the skill consumes, how it is supplied, and whether it is REQUIRED or OPTIONAL>
+
+**Output**: <what the skill produces, in what form, where it goes, and what completeness it guarantees>
+```
+
+This is the **contract** an orchestrator (agent or sapien) reads to decide whether the skill applies and how to wire it into a workflow. A skill is a tool; **Input**/**Output** is the shape of its socket – and prominence is what makes the collection composable.
+
+The prominence is not cosmetic. It follows directly from the things this collection is built on:
+
+- **Composition needs a declared contract.** Because the [workflow lives outside the skills](#consequence-for-orchestration) – no skill names, sequences, or hands off to another – the only way an orchestrator can chain skills is by matching one skill's output to the next skill's input. That matching is impossible if the contract is implicit or scattered through the prose. Stating **Input** and **Output** explicitly, in a fixed place and a fixed shape, is what lets `/discover` → `/specify` → `/design` → `/plan` → `/code` be assembled (and re-assembled in other orders) by a caller that knows nothing of any skill's internals. The contract *is* the composition seam.
+
+- **Up front, because it is read first.** A caller decides *whether to use the skill at all* before it reads the instructions – does my situation match this input? is this output the thing I need? Burying that in a closing "Inputs and outputs" section forces the reader through the whole procedure to answer a gating question. So the contract goes immediately after the intro, before the first `##`: the agent encounters the shape of the job before its mechanics, and a sapien skimming the file gets the same answer in the first few lines.
+
+- **A clean failure is a contract violation, made legible.** A [workflow skill fails rather than prompts](#workflow-skills-run-non-interactively): handed input that does not meet its declared **Input**, it stops with a specific account of what is missing. That behavior only makes sense against an explicit input contract – the declaration is the thing the failure is measured against. Without it, "missing input" is a judgement call; with it, it is a checkable fact.
+
+For an **interactive** skill the **Input** paragraph carries one extra obligation: it MUST state that the skill *also* gathers input from the user through prompts during the session. Otherwise the contract reads as if the initial input is the whole input, when in fact an interactive skill (`/discover`, `/elaborate`, `/refine`, `/reflect`, `/create-skill`) deliberately starts from a partial or even absent seed and elicits the rest in conversation. A caller who does not know this cannot tell a "missing input" failure from a "will be asked for interactively" by-design – so the distinction is stated, not left implicit.
+
+### The output declaration and the success criteria are two ends of one promise
+
+The **Output** paragraph *describes* what the skill produces; the [`## Success criteria`](#predictable-outcomes-from-any-model) section *verifies* it. They are the same promise stated twice, for two different readers and two different moments. The **Output** is the up-front claim a caller reads to decide whether to use the skill; the success criteria are the self-checks the agent runs at the end to confirm the claim was met before it finishes. A well-formed skill keeps them aligned: every guarantee the **Output** advertises – an explicit out-of-scope list, a counter-example per rule, an NFR recorded even when none, a `PROPOSED` proposal awaiting approval – has a corresponding success criterion the agent can check itself against. The output declaration makes the promise; the success criteria are how the agent proves, to itself, that it kept it. If the **Output** claims something no success criterion checks, the skill is asserting an outcome it cannot verify – exactly the model-dependent, hope-it-worked behavior this collection exists to eliminate.
+
 ## Related
 
 - [Best practices](./best-practices.md): Generic, universal guidance for authoring any agent skill – single responsibility, when a skill is worth adding, interactive vs. non-interactive execution.

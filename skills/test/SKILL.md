@@ -13,6 +13,10 @@ Use this skill after the change has cleared review, or before tagging a release.
 
 Do NOT use this skill to write fresh test cases for newly-added behavior – that belongs with the implementation work. Do NOT use it to investigate a failing test – diagnosing a defect is a separate responsibility. Do NOT use it to revise the specification when an AC turns out to be wrong – editing requirements is a separate responsibility.
 
+**Input**: A completed change and its specification. REQUIRED. The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
+
+**Output**: A verification report – every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified – an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) – and reported, not fixed. Whatever consumes the report – diagnosing a defect, editing the specification, releasing – is the orchestrator's concern, not this skill's.
+
 ##  Instructions
 
 1.  **Pull the acceptance criteria.**
@@ -204,9 +208,3 @@ not delete.
 -   **The verdict is explicit.**
 
     "Ready to ship", "ready for review", or "blocked on X" – not implied.
-
-## Inputs and outputs
-
-- **Input — a completed change and its specification.** The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
-
-- **Output — a verification report.** Every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified – an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) – and reported, not fixed. Whatever consumes the report – diagnosing a defect, editing the specification, releasing – is the orchestrator's concern, not this skill's.

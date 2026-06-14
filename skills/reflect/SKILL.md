@@ -20,6 +20,10 @@ Do NOT use this skill to:
 - Save standard best practices any reasonable agent would already follow.
 - Save one-off task details (a specific bug fix, a specific filename) that won't generalize.
 
+**Input**: The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED. This skill is **interactive**: it seeks per-candidate user approval through prompts before persisting anything.
+
+**Output**: Zero or more persisted lessons – memory entries (indexed in `MEMORY.md`) and/or appended convention rules – each non-obvious and capable of changing future agent behavior, written only after per-candidate user approval. Universal lessons better encoded as a new skill are flagged, not saved.
+
 ##  Instructions
 
 1.  **Scan the conversation for non-obvious lessons.**
@@ -182,9 +186,3 @@ Do NOT use this skill to:
 -   **No saved lesson duplicates an existing memory or convention doc entry.**
 
 -   **No credentials, PII, or internal URLs appear in any saved entry.**
-
-## Inputs and outputs
-
-- **Input.** The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md).
-
-- **Output.** Zero or more persisted lessons – memory entries (indexed in `MEMORY.md`) and/or appended convention rules – each non-obvious and capable of changing future agent behavior, written only after per-candidate user approval. Universal lessons better encoded as a new skill are flagged, not saved.

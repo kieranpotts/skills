@@ -13,6 +13,10 @@ Use this skill when creating a new skill from scratch or improving an existing o
 
 Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic, model-agnostic prompts.
 
+**Input**: A description of the skill to create, or a path to an existing skill to improve, plus whatever the surrounding conversation already reveals about its purpose and triggers. OPTIONAL – the seed may be just a rough idea. This skill is **interactive**: it gathers what it still needs (scope, trigger conditions, bundled resources) from the user through prompts during the session.
+
+**Output**: A complete skill directory – a `SKILL.md` conforming to the bundled template (valid front-matter, prominent Input/Output paragraphs, Instructions and/or Rules, Success criteria), a sibling `README.md`, and any bundled `assets/`, `references/`, or `scripts/` – passing the validator. This skill authors the skill and stops; installing it into target agents is a separate step.
+
 ## Instructions
 
 1.  **Clarify intent.**
@@ -40,6 +44,8 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
     Use the [bundled template](./assets/skill-template/skill-name/SKILL.md). The REQUIRED sections are:
 
     - **Front-matter**: `name` and `description` are REQUIRED. `compatibility` and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model via `preferred_model` (see [create-skill-preferred-model.md](./references/create-skill-preferred-model.md); most skills omit it), and MAY declare `interactive: no` if it never blocks on the user (see [create-skill-interactive.md](./references/create-skill-interactive.md); the default is `yes`).
+
+    - **Input / Output paragraphs**: Immediately after the intro prose (before the first `##` heading), two prominent bold-lead paragraphs – `**Input**:` and `**Output**:` – stating what the skill consumes and produces. REQUIRED. State whether the input is REQUIRED or OPTIONAL; for an interactive skill, the **Input** paragraph MUST say the skill also gathers input from the user through prompts during the session (so the initial input may be partial or absent).
 
     - **Instructions** or **Rules**: MUST include at least one of these two sections.
 
@@ -183,7 +189,9 @@ skills/
 
 - **Front-matter is valid.** `name` and `description` fields are present and non-empty. `name` matches the directory name.
 
-- **All REQUIRED sections are present.** At minimum: a titled intro paragraph, `## Instructions`, and `## Success criteria`.
+- **All REQUIRED sections are present.** At minimum: a titled intro paragraph, the `**Input**:` and `**Output**:` paragraphs, `## Instructions`, and `## Success criteria`.
+
+- **The Input / Output paragraphs are present and prominent.** Both appear immediately after the intro, before the first `##`. The **Input** paragraph states whether input is REQUIRED or OPTIONAL, and – for an interactive skill – that the skill also prompts the user for input during the session.
 
 - **The skill is token-efficient.** No section is padded with detail that belongs in a `references/` file. SKILL.md is under ~300 lines.
 

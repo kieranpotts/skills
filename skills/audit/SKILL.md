@@ -24,6 +24,10 @@ Do NOT use this skill when:
 
 This is distinct from reviewing a specific diff for style and pattern consistency. `/audit` evaluates the *architecture* as a whole – module boundaries, abstractions, dependencies – against its intended design.
 
+**Input**: The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. REQUIRED. Run once all increments are complete.
+
+**Output**: A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.
+
 ##  Instructions
 
 1.  **Read available architecture documentation first.**
@@ -122,9 +126,3 @@ This is distinct from reviewing a specific diff for style and pattern consistenc
 -   **The report is bounded.**
 
     Top 5–10 candidates. Not an exhaustive enumeration.
-
-## Inputs and outputs
-
-- **Input.** The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. Run once all increments are complete.
-
-- **Output.** A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.

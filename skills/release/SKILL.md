@@ -14,6 +14,10 @@ Use this skill when preparing releases, creating release branches, or tagging re
 
 Do NOT use this skill for commit message conventions or general branch naming.
 
+**Input**: A request to prepare a release, plus the project's release model (a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED.
+
+**Output**: The release branch created or advanced per the model, and the release tagged with a correctly-formatted version. This skill applies the release branching and tagging convention and stops; it does not author commit messages or define the general branch model.
+
 ## Instructions
 
 Choose one release strategy:

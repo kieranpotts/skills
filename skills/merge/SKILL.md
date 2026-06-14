@@ -30,6 +30,10 @@ flowchart LR
   dev -.->|merge-down| epic
 ```
 
+**Input**: A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
+
+**Output**: The target branch updated with the integrated work using the strategy correct for the branch type, conflicts resolved deliberately, tests and build green on the merged result before push, and disposable source branches (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill integrates and stops; it neither defines the branching convention nor cuts releases.
+
 ##  Instructions
 
 1.  **Identify source and target.**
@@ -287,9 +291,3 @@ npm test
 -   **For `epic/*` → `dev`: CHANGELOG updated in a pre-merge commit on the epic branch.**
 
     The `[Unreleased]` section contains an entry for the epic's changes, committed to the `epic/*` branch before the squash-merge.
-
-## Inputs and outputs
-
-- **Input**: a source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats.
-
-- **Output**: the target branch updated with the integrated work using the strategy correct for the branch type, conflicts resolved deliberately, tests and build green on the merged result before push, and disposable source branches (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill integrates and stops; it neither defines the branching convention nor cuts releases.

@@ -15,6 +15,10 @@ Do NOT use this skill to fix bugs, implement features, or write requirements fro
 
 This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
 
+**Input**: One or more freshly-filed or in-flight issues on the project's tracker, the full thread and any prior triage notes, and the relevant code for reproduction. REQUIRED. The category/state label vocabulary is assumed present (or is set up first).
+
+**Output**: A recommended classification per issue, applied as the outcome once the maintainer confirms – a label change, an agent brief (problem statement, repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a needs-info request, or a durably-captured wontfix rationale. This skill recommends and routes; it does not implement the fix or write the specification that follows.
+
 ##  Instructions
 
 1.  **Establish the label vocabulary.**

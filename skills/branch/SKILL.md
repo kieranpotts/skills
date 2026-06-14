@@ -31,6 +31,10 @@ flowchart LR
   dev -.->|cut from| epic
 ```
 
+**Input**: A request to create or name a branch, or one or more existing branch names to validate. REQUIRED. The project's branch model (trunk names, `temp/*` and `epic/*` conventions) and the naming regex supply what is checked against.
+
+**Output**: A correctly-named branch created from the right base, or a pass/fail verdict on the supplied names with the specific rule each one violates. This skill names and validates branches and stops; it does not merge, cut releases, or author commit messages.
+
 ##  Rules
 
 -  **Allowed branches:**

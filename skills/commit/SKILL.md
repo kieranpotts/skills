@@ -16,6 +16,10 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
 <!-- TODO: Allow direct commits to dev? -->
 
+**Input**: A description of a change to compose a message for, or one or more existing commit messages to validate (a branch's history before push). REQUIRED. For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope.
+
+**Output**: A conforming commit message in the `<type>: <description>` format (with any optional flag, body, and footers), or a pass/fail verdict on the supplied messages naming the rule each one violates. Where required, the matching `[Unreleased]` changelog entry is produced too. This skill composes and validates messages and stops; it neither stages nor commits.
+
 ##  Rules
 
 -   **Use this exact format**:

@@ -21,6 +21,10 @@ Do NOT use this skill to:
 - Capture session lessons – that is distilling knowledge inward from the session, a separate responsibility.
 - Elicit requirements from a human – that is requirements discovery, a separate responsibility.
 
+**Input**: A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase – how a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current. REQUIRED.
+
+**Output**: A single, cited research report – a direct answer to the framed question, the supporting evidence (each decision-bearing claim sourced and, where time-sensitive, dated), the open questions, and a suggested destination for the findings. This skill produces the report and stops; writing the findings into a design doc, an ADR, persisted memory, or anywhere else is a separate, explicit step the caller initiates.
+
 ## Instructions
 
 1.  **Frame the question.**
@@ -167,9 +171,3 @@ here should still have what they need.>
 -   **No production artifact was changed.**
 
     Code, project docs, and shipped skills are untouched; the output is a report plus a suggested destination.
-
-## Inputs and outputs
-
-- **Input** – a topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase: how a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
-
-- **Output** – a single, cited research report: a direct answer to the framed question, the supporting evidence (each decision-bearing claim sourced and, where time-sensitive, dated), the open questions, and a suggested destination for the findings. This skill produces the report and stops; writing the findings into a design doc, an ADR, persisted memory, or anywhere else is a separate, explicit step the caller initiates.

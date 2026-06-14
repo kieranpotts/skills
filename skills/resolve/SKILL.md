@@ -15,6 +15,10 @@ Do NOT use this skill to *make* review findings (that is [`/review`](../review/S
 
 **The author has already curated the comments.** Between review and this skill, the author resolves – dismisses – any comments they disagree with or choose to defer. This skill therefore does not negotiate, defer, or reject: every comment still open is one the author wants implemented. The job is to implement each, faithfully and minimally, then mark it resolved.
 
+**Input**: A pull request carrying open (un-dismissed) review comments from [`/review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
+
+**Output**: A branch with each open comment implemented as a minimal, verified code change; each thread replied to and marked resolved; the fixes committed and pushed. Any comment that could not be honestly actioned is left open and reported with a reason. The verified change is ready for [`/test`](../test/SKILL.md); what runs next is the orchestrator's concern.
+
 ##  Instructions
 
 1.  **Collect the open comments.**
@@ -183,9 +187,3 @@ Open comments on PR #482: 2
 -   **Resolution work is committed and pushed.**
 
     In its own commit(s), separate from the original implementation, with the branch pushed so the re-review and [`/test`](../test/SKILL.md) see the fixes.
-
-## Inputs and outputs
-
-- **Input** – a pull request carrying open (un-dismissed) review comments from [`/review`](../review/SKILL.md), and the code under review. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
-
-- **Output** – a branch with each open comment implemented as a minimal, verified code change; each thread replied to and marked resolved; the fixes committed and pushed. Any comment that could not be honestly actioned is left open and reported with a reason. The verified change is ready for [`/test`](../test/SKILL.md); what runs next is the orchestrator's concern.

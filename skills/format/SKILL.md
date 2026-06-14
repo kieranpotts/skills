@@ -15,6 +15,10 @@ Do NOT use this skill to alter logic, data structures, names, module boundaries,
 
 A formatting pass that "while we're here" renames a variable, splits a function, or tweaks a conditional is no longer a formatting pass. It is a refactor, and belongs in a separate commit under structural-change conventions.
 
+**Input**: The code or content to normalize – a set of files, a diff, or the working tree – plus the project's configured formatter and style conventions where they exist. REQUIRED.
+
+**Output**: The same files with presentation-only edits applied (whitespace, indentation, wrapping, quotes, ordering), behavior and structure provably unchanged, ideally via the project's automated formatter, ready to commit under a `format:` commit. This skill normalizes presentation and stops; it makes no structural or behavioral change.
+
 ##  Instructions
 
 1.  **Confirm the change is presentation only.**

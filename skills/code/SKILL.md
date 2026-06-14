@@ -15,6 +15,10 @@ Do NOT use this skill to specify requirements, evaluate design options, decompos
 
 Do NOT bundle multiple plan steps into one coding session. One step per session keeps the diff reviewable and the rollback clean.
 
+**Input**: One numbered plan step (or a small standalone change whose design is already obvious) – a scoped, already-designed unit of work. REQUIRED. This skill does not design or decompose; it consumes a step that is ready to implement.
+
+**Output**: A committed, tested change for that single step – the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.
+
 ##  Instructions
 
 1.  **Restate the step's scope.**
@@ -205,9 +209,3 @@ Refs: #482
 -   **The commit follows the project's commit format.**
 
     Correct type, lowercase imperative description, atomic scope.
-
-## Inputs and outputs
-
-- **Input — one numbered plan step** (or a small standalone change whose design is already obvious): a scoped, already-designed unit of work. This skill does not design or decompose; it consumes a step that is ready to implement.
-
-- **Output — a committed, tested change** for that single step: the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.

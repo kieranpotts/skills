@@ -60,6 +60,8 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
 
+- Each `SKILL.md` MUST open – immediately after its intro prose, before the first `##` heading – with prominent `**Input**:` and `**Output**:` paragraphs declaring what the skill consumes and produces. The **Input** paragraph MUST state whether the input is REQUIRED or OPTIONAL; for an `interactive: yes` skill it MUST also state that the skill gathers further input from the user through prompts during the session. See [`docs/design-principles.md`](./docs/design-principles.md).
+
 - Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller.
 
 - Skills MUST be portable, independent, and free of hand-offs to other skills: a `SKILL.md` MUST NOT reference any file outside its own directory, MUST NOT cross-reference another skill, and MUST NOT instruct the agent to run another skill next. Where two skills would need the same content, each carries its own copy – but prefer to draw the responsibility boundary so the duplication is not needed. See [`docs/design-principles.md`](./docs/design-principles.md).

@@ -13,6 +13,10 @@ Use this skill when the work is about to be picked up by someone (or something) 
 
 Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo. A handoff document is *ephemeral* – a bridge across the gap between sessions – and should not survive longer than the next session that absorbs it.
 
+**Input**: The current session's context – the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase. REQUIRED.
+
+**Output**: A single, ephemeral handoff document written to the OS temp directory (not the repo), referencing those durable artifacts by path or URL rather than duplicating them. It captures what's done, what's open, the codebase state, suggested next steps, and gotchas. This skill reports the file's absolute path and stops; whether the next session is an agent or a human is the orchestrator's concern.
+
 ##  Instructions
 
 1.  **Identify what the next session needs to know.**
@@ -185,9 +189,3 @@ A compact handoff:
 -   **Outstanding questions are stated specifically, with their blockers named.**
 
 -   **The next session could read the handoff alone and know what to do next.**
-
-## Inputs and outputs
-
-- **Input** – the current session's context: the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
-
-- **Output** – a single, ephemeral handoff document written to the OS temp directory (not the repo), referencing those durable artifacts by path or URL rather than duplicating them. It captures what's done, what's open, the codebase state, suggested next steps, and gotchas. This skill reports the file's absolute path and stops; whether the next session is an agent or a human is the orchestrator's concern.

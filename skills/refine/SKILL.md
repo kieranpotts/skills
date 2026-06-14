@@ -15,6 +15,10 @@ Do NOT use this skill to fix defects in the implementation – that is the job o
 
 The boundary is sharp: if the specification was right and the code was wrong, you are not refining. If the specification was wrong and the code matches it, you are.
 
+**Input**: A feedback trigger against an existing specification – a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session.
+
+**Output**: Precise edits to the requirements artefacts, conforming to the specification conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded trigger, type, and rationale; plus a traced list of downstream design, planning, code, and test work the refinement implies. The output is reported and the skill stops; it changes no code itself.
+
 ##  Instructions
 
 1.  **Name the trigger.**
@@ -254,9 +258,3 @@ Downstream impact:
 -   **No code or test was changed inside this skill.**
 
     The output is a specification edit and a traced impact list. Implementation lives downstream.
-
-## Inputs and outputs
-
-- **Input**: a feedback trigger against an existing specification – a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
-
-- **Output**: precise edits to the requirements artefacts, conforming to the specification conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded trigger, type, and rationale; plus a traced list of downstream design, planning, code, and test work the refinement implies. The output is reported and the skill stops; it changes no code itself.

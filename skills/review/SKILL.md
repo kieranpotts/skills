@@ -36,6 +36,10 @@ VERDICT: FAIL — <one-line reason>
 
 -->
 
+**Input**: A code change to audit (a pull request, a peer's branch, or one's own diff before opening a PR), together with the specification or acceptance criteria it claims to satisfy and any captured design decision. REQUIRED. The comparison base is pinned explicitly.
+
+**Output**: A set of findings, each carrying a severity label (Blocking, Suggestion, Nit, Praise) and organized along two axes (Specification and Standards), closed with an explicit verdict (Approve, Request changes, or Comment). Review reports its findings and stops; acting on them – fixing presentation, restructuring, re-running the system – is a separate, downstream responsibility.
+
 ##  Instructions
 
 1.  **Understand what the change is and why.**
@@ -259,9 +263,3 @@ on the Specification finding; Standards finding non-blocking.
 -   **The verdict is explicit.**
 
     Approve, Request changes, or Comment. Not implied.
-
-## Inputs and outputs
-
-- **Input** – a code change to audit (a pull request, a peer's branch, or one's own diff before opening a PR), together with the specification or acceptance criteria it claims to satisfy and any captured design decision. The comparison base is pinned explicitly.
-
-- **Output** – a set of findings, each carrying a severity label (Blocking, Suggestion, Nit, Praise) and organized along two axes (Specification and Standards), closed with an explicit verdict (Approve, Request changes, or Comment). Review reports its findings and stops; acting on them – fixing presentation, restructuring, re-running the system – is a separate, downstream responsibility.

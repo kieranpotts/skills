@@ -27,6 +27,10 @@ Do NOT use this skill to:
 - Edit the specification – this skill suggests; [`/refine`](../refine/SKILL.md) edits.
 - Evaluate the *design* or architecture – that is [`/audit`](../audit/SKILL.md), the design-level counterpart that feeds [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md).
 
+**Input**: Completed work that has already passed [`/test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need – the preserved PRD, the specification's outcome and success measures, or the discovery report. REQUIRED. Run once all of a plan's increments are complete.
+
+**Output**: A bounded, prioritized validation report – an explicit verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the specification should evolve, each classified by gap type, backed by evidence, and ready to seed a [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass. No specification or code is changed; what consumes the report is the orchestrator's concern.
+
 ##  Instructions
 
 1.  **Recover the original need, not just the ACs.**
@@ -154,9 +158,3 @@ Do NOT use this skill to:
 -   **The report is bounded.**
 
     Top 5–10 candidates, prioritized by need-impact ÷ change-cost.
-
-## Inputs and outputs
-
-- **Input** – completed work that has already passed [`/test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need: the preserved PRD, the specification's outcome and success measures, or the discovery report. Run once all of a plan's increments are complete.
-
-- **Output** – a bounded, prioritized validation report: an explicit verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the specification should evolve, each classified by gap type, backed by evidence, and ready to seed a [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass. No specification or code is changed; what consumes the report is the orchestrator's concern.

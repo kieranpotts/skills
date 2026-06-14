@@ -22,6 +22,10 @@ Do NOT use this skill to:
 - Translate, localize, or change the register/voice of the writing.
 - Change technical facts, even wrong-looking ones (see edge cases).
 
+**Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL – defaults to the prose files changed in the working tree when no set is given.
+
+**Output**: The same files, edited in place with conservative copy edits only – prose words corrected, code/markup/structure untouched – plus a per-file summary of the edits made and any items flagged for the author. Nothing is staged, committed, or pushed; version control is left to a separate step.
+
 ## Instructions
 
 1.  **Resolve the set of files to proofread.**
@@ -131,9 +135,3 @@ Do NOT use this skill to:
 -   **A per-file summary of edits was reported, and nothing was committed.**
 
     The user can see what changed in each file and decide when and how to commit it.
-
-## Inputs and outputs
-
-- **Input.** A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text), or an unstated set that defaults to the prose files changed in the working tree.
-
-- **Output.** The same files, edited in place with conservative copy edits only – prose words corrected, code/markup/structure untouched – plus a per-file summary of the edits made and any items flagged for the author. Nothing is staged, committed, or pushed; version control is left to a separate step.

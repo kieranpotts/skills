@@ -29,6 +29,10 @@ flowchart LR
   F -.->|fix exposes more| H
 ```
 
+**Input**: A reported bug or performance regression whose cause is not obvious from reading the code – the symptom, where it shows up, and any reproduction the user already has. REQUIRED. For performance work, a numerical baseline and threshold stand in for the symptom.
+
+**Output**: A verified fix landed with a regression test that locks the bug out, the diagnostic instrumentation removed, and the correct cause recorded in the commit or PR message for the next reader. If no reliable feedback loop can be built, the skill stops and says so – listing what it tried and what it needs – rather than guessing.
+
 ##  Instructions
 
 1.  **Build a feedback loop.**
