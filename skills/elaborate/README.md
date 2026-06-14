@@ -34,3 +34,13 @@ Invoke it after a draft design exists (an ADR, design doc, or PR description) an
 Reading "cancellation revokes the order", `/elaborate` offers two readings – status-only (what the code does today) versus status-plus-refund – leans toward the refund reading because the spec mentions a refund flow, and asks which is meant. When the user confirms refunds (partial, when only some items were paid), it queues the follow-ups (instrument vs store credit; what happens when the refund fails), updates the "Cancellation" glossary entry inline, and moves on.
 
 It ends when every open decision is resolved or explicitly deferred, terms match the glossary, and no code-versus-design contradictions remain – reporting either a decomposition-ready design or, if elaboration exposed a structural flaw, that the draft needs rework before proceeding.
+
+## References
+
+- [Original source — mattpocock/skills `grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md): The relentless one-question-at-a-time interview pattern this skill is built on.
+
+- [Original source — mattpocock/skills `grill-with-docs`](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md): The doc-update discipline integrated into the grill loop. This skill uses `docs/domain-model.md` rather than mattpocock's `CONTEXT.md` convention.
+
+- [CONTEXT-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/CONTEXT-FORMAT.md): The glossary format the `docs/domain-model.md` entries are modeled on. Read for term-style conventions (one or two sentences, aliases to avoid).
+
+- [ADR-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/ADR-FORMAT.md): The ADR format and the three-criteria filter for when to write one.

@@ -200,7 +200,3 @@ Closes: #123
 -   **CHANGELOG is updated for direct commits to `dev` and `temp/*` branches, unless the type is `chore:`.**
 
     The `[Unreleased]` section exists and contains a bullet for this commit, using the same `type: description` format as the subject line.
-
-## References
-
-- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.

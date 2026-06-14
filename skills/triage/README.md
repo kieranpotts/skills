@@ -33,3 +33,7 @@ Invoke it to work the incoming queue or prep issues for agents. It assumes an is
 For a pool-exhaustion bug, `/triage` reproduces it locally, finds the real issue is a `500` where a `503` is expected, and recommends `ready-for-agent` – posting an agent brief with the problem statement, reproduction command, acceptance criteria, likely files, and explicit out-of-scope items, prefixed with the AI disclaimer.
 
 For an enhancement the maintainer declines, it writes the rationale to `docs/out-of-scope/bulk-import-via-csv.md` and links it from a polite closing comment, so the next person to file the same idea gets a reasoned reply by reference rather than re-litigation.
+
+## References
+
+- [Original source — mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.

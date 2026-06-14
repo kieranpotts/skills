@@ -219,6 +219,18 @@ A skill is presented as a slash command in documentation. Across this collection
 
 The `/` is a presentation convention only. It is NOT added to the `name:` frontmatter field (the canonical identifier stays bare, e.g. `name: specify`), nor to file paths, code, branch names, commit types, lifecycle states, or to the word when it is used as an activity, phase, or noun rather than a command ("the discovery report", "after release"). Workflow-diagram node labels also stay bare.
 
+## Token efficiency: the `SKILL.md` / `README.md` split
+
+A `SKILL.md` is written for an agent, and every token it contains is loaded into the agent's context window when the skill fires. So a `SKILL.md` is written for **token efficiency**: it carries only what the agent needs to do the job, and no more. The 300-line ceiling (see [creating skills](./creating-skills.md)) is the hard limit; the spirit of the rule is to stay well under it. Token efficiency does not mean terse-to-illegibility, though – a `SKILL.md` MUST still be human-readable and cleanly formatted, with judicious use of whitespace, because humans author and maintain it. The two goals are compatible: cut redundancy and padding, keep the structure that makes the remaining content scannable.
+
+The sibling `README.md` is written for **humans** – contributors and users browsing the collection. It is NOT loaded into the agent's context. This split decides where each piece of material belongs:
+
+- **Anything the agent must read to act** – instructions, rules, success criteria, the bundled template it fills out – lives in `SKILL.md`.
+
+- **Anything that is for human benefit only** – the prose overview, the workflow diagram, invocation examples, and **references to external resources** (the technique a skill is based on, the upstream skill it was adapted from, background reading) – lives in `README.md`.
+
+The reference rule is the sharp edge of this principle. A link in a `SKILL.md` is an invitation for the agent to fetch it, pulling an unbounded external document into context and bloating it for no operational gain – the agent does not need to read the academic source behind a technique to apply the technique. So **external references that exist for human context belong in the `README.md`, never the `SKILL.md`.** A `SKILL.md` links outward only to material the agent genuinely needs to read to do its job – and per [portability](#portability), that material is almost always a bundled file inside the skill's own directory (a template, a script, a `references/` doc), not an external URL. The result: a `SKILL.md` whose `## References` section, if it has one, points only at the skill's own bundled assets, while the sapiens-facing citations sit in the `README.md` where a curious human can follow them without ever costing the agent a token.
+
 ## Related
 
 - [Best practices](./best-practices.md): Generic, universal guidance for authoring any agent skill – single responsibility, when a skill is worth adding, interactive vs. non-interactive execution.

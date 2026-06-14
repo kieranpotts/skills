@@ -22,3 +22,7 @@ With no argument it covers the full state of the current work; an argument scope
 Ending a session on an orders endpoint, `/handoff` writes `$TMPDIR/handoff-orders-2026-05-26.md`: spec agreed (#482), design as ADR-0007, plan of 6 steps with 1–4 merged, step 5 blocked on SRE sign-off, a `[DEBUG-a4f2]` log still in `handlers/orders.ts:42` to remove, and a warning not to "fix" the deliberately case-sensitive header parsing without reading the relevant commit – then prints the path.
 
 If the session covered two unrelated streams it writes two handoffs; if nothing substantive happened, it says there's nothing to hand off rather than inventing state.
+
+## References
+
+- [Original source — mattpocock/skills `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): The skill this one is adapted from.

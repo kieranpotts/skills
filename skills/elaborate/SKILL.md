@@ -297,13 +297,3 @@ response time. If that becomes a problem we revisit.
 - **Input — a draft design with soft edges**: an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. This skill does not originate the design; it consumes a draft to sharpen.
 
 - **Output — a decomposition-ready design**: every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
-
-## References
-
-- [Original source — mattpocock/skills `grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md): The relentless one-question-at-a-time interview pattern this skill is built on.
-
-- [Original source — mattpocock/skills `grill-with-docs`](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md): The doc-update discipline integrated into the grill loop. This skill uses `docs/domain-model.md` rather than mattpocock's `CONTEXT.md` convention.
-
-- [CONTEXT-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/CONTEXT-FORMAT.md): The glossary format the `docs/domain-model.md` entries are modeled on. Read for term-style conventions (one or two sentences, aliases to avoid).
-
-- [ADR-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/ADR-FORMAT.md): The ADR format and the three-criteria filter for when to write one.

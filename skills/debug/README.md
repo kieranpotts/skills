@@ -32,3 +32,7 @@ Describe the bug or regression – the symptom, where it shows up, any repro you
 For a cache returning tenant A's response to tenant B, `/debug` builds a failing integration test, ranks hypotheses (key omits tenant ID ~50%, session token consumed ~25%, worker/writer race ~15%, stale upstream ~10%), instruments the cache key with a `[DEBUG-a4f2]` log to confirm the top hypothesis, fixes `cache.ts`, locks it with a regression test, greps the tag to zero, and states the cause in the commit.
 
 If it genuinely cannot build a loop, it stops and says so explicitly – listing what it tried and asking for a reproducing environment, a captured artifact, or permission to add production instrumentation – rather than guessing.
+
+## References
+
+- [Original source — mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md): The skill this one is adapted from. Read when the user asks for the original phrasing, additional context, or related Pocock skills.

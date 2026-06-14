@@ -19,3 +19,7 @@ Invoke it to author a message, to vet a branch's messages before push, or to und
 ## Examples
 
 For a defect fix it produces `fix: handle empty repository in git-amend`; for incremental non-user-facing work, `step: extract search algorithm to separate module`; for a breaking removal, `feature: remove legacy auth endpoint - BREAKING`. Faced with `feature(parser): add support`, it rejects the scope parenthetical and rewrites it as `feature: add parser support`. For a commit to `dev`, it also adds the matching `[Unreleased]` changelog bullet.
+
+## References
+
+- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.

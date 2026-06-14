@@ -236,7 +236,3 @@ scratch. Closing.
 -   **AI-generated comments are marked.**
 
 -   **Outstanding questions are specific and actionable.**
-
-## References
-
-- [Original source — mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.

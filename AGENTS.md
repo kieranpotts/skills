@@ -56,6 +56,8 @@ Changes to this repository tend to be small and self-contained – eg. adding ne
 
 - Each skill directory MUST contain a sibling `README.md`.
 
+- A `SKILL.md` is for the agent and is loaded into its context; a `README.md` is for humans and is not. References to external resources that exist for human context (the technique a skill is based on, an upstream skill it was adapted from, background reading) MUST live in the `README.md`, NOT the `SKILL.md` – a link in a `SKILL.md` invites the agent to fetch it and bloat its context for no operational gain. A `SKILL.md`'s `## References` section, if present, points only at the skill's own bundled assets. See [`docs/design-principles.md`](./docs/design-principles.md).
+
 - Each `SKILL.md` MUST include at least one of `## Instructions` or `## Rules`, and MUST include `## Success criteria`.
 
 - Each skill MUST have a single responsibility – it does one job and stops at its boundary, leaving adjacent work (eg. committing a proofread change) to the caller.

@@ -231,7 +231,3 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 -   **The correct hypothesis is stated in the commit or PR message.**
 
     Future readers learn what the real cause was, not just what the fix changed.
-
-## References
-
-- [Original source — mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md): The skill this one is adapted from. Read when the user asks for the original phrasing, additional context, or related Pocock skills.
