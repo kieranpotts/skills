@@ -132,6 +132,18 @@ Note that *agentic* is not a synonym for *automated*. Automation is deterministi
 
 (One nuance: a few skills in this collection codify a *convention* rather than a judgement – `/branch`, `/commit`, and `/release`, for instance, encode naming rules and formats. These earn their place because applying the convention still requires reading an open-ended change and choosing the right category – a judgement – even though validating the result is deterministic. The deterministic half (the validation regex) is exactly the part that is also expressed as a script or CI check.)
 
+## 🧑 vs 🤖: every skill declares who drives it
+
+Every skill in this collection is unambiguously one of two kinds, and it says which up front – in its `metadata.interactive` front-matter, in the H1 emoji of its `SKILL.md` and `README.md`, and in the workflow diagram:
+
+- **🧑 Interactive skills** require a sapien in the loop. They are *built* to converse: they ask questions, present options, and wait for answers, and they cannot run to completion without a human responding. `metadata.interactive: yes`. In this collection: `/discover` (elicit requirements), `/elaborate` (interrogate a design), `/refine` (revise a spec against feedback), `/reflect` (per-candidate memory approval), and `/create-skill` (author a skill). These are the skills a person invokes directly and sits *with*.
+
+- **🤖 Agentic skills** run entirely without a human turn. They take everything they need from the prompt, the context, and the environment, do the job, and stop – or [fail loudly](#workflow-skills-run-non-interactively) with a specific account of what was missing. They never pause mid-run to ask. `metadata.interactive: no`. This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test`, and their peers – and it is what lets an orchestrator chain them into an unattended pipeline.
+
+The distinction is **load-bearing, not decorative**. An orchestrator – a sapien, an agent, or a script – must know, before it invokes a skill, whether that skill will block on human input. A 🤖 skill can go into an automated pipeline; a 🧑 skill MUST NOT, because it will stall waiting for an answer that no one is there to give. Marking the two kinds visibly, everywhere a skill is presented, is how a caller tells them apart at a glance and wires each into the right place.
+
+The two kinds also divide the work cleanly along the [judgement-vs-elicitation seam](#workflow-skills-run-non-interactively): **gathering** information from a human is the explicit job of an upstream 🧑 skill (requirement elicitation is `/discover`'s, not `/specify`'s), while the 🤖 skills downstream *consume* what those produce and never re-open the conversation. A 🤖 skill that finds itself wanting to ask the user a question has either been handed incomplete input – in which case it fails and says so – or it has taken on a responsibility that belongs to a 🧑 skill upstream.
+
 ## Workflow skills run non-interactively
 
 The main workflow skills in this collection – `/specify`, `/design`, `/plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a sapien-in-the-loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
