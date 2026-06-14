@@ -10,7 +10,7 @@ The source files conform to the [Agent Skills](https://agentskills.io/) standard
 
 The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
 
-[Read more about the design principles](./docs/design-principles.md) that underpin these skills.
+These skills are highly opinionated and are dependent on a wider ecosystem of support tools and artifacts to enable agentic workflows. [Read more about the design principles](./docs/design-principles.md) that underpin these skills.
 
 ## 🧩 Skills
 
@@ -86,7 +86,7 @@ flowchart LR
 
 Work enters the lifecycle through one of two front doors:
 
-- The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`/specify`](./skills/specify/)), potentially supported by an interactive discovery workshop with the customer ([`/discover`](./skills/discover/)). From there, the work flows through design, planning, construction, and evaluation.
+- The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`/specify`](./skills/specify/)), potentially supported by an interactive discovery workshop with the customer ([`/discover`](./skills/discover/)). From there, the work flows through design, planning, construction, and multiple evaluation steps.
 
 - The **reactive** path, triggered by an issue – typically a bug or incident – raised in the tracker. First, the issue is triaged ([`/triage`](./skills/triage/)), which verifies the reported issue is real and reproducible. From there, the workflow goes straight into the build loop, until the issue is resolved.
 
@@ -98,7 +98,7 @@ The workflow skills are, in alphabetical order:
 | 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
 | 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
 | 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 No |
-| 🚀 [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
+| ✅ [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
 | 🚧 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
 | 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
 | 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
@@ -112,9 +112,9 @@ The workflow skills are, in alphabetical order:
 | 🚀 [`/triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. | 🤖 No |
 | 🚧 [`/validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current implementation. | 🤖 No |
 
-Most workflow skills run non-interactively. These skills take everything they need from the context window and the environment. They either complete their task entirely autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) and the skills can be chained in automated pipelines – themselves orchestrated either by other agents or deterministic scripts.
+Most workflow skills run non-interactively. These skills take everything they need from the context window and the environment. They either complete their task autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) and the skills can be chained in automated pipelines – themselves orchestrated either by other agents or deterministic scripts.
 
-A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by sapiens (🧑). They MUST NOT be included in automated workflows.
+A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by sapiens (🧑). They MUST NOT be included in automated delivery pipelines.
 
 ### 🔀 Version control skills
 
