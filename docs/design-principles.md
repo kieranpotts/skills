@@ -4,6 +4,18 @@ These are the design principles behind *this* collection of skills. They are del
 
 The capitalized requirement keywords (MUST, MUST NOT, SHOULD, MAY, …) are used as defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
+## Predictable outcomes from any model
+
+The overriding goal of this project is to produce **predictable, consistent, reliable outcomes from every mainstream model**. The same skill, run by different agents or on different days, should converge on the same shape of result. A skill that works beautifully on one frontier model and falls apart on another has failed this goal, however clever it is.
+
+That goal sets up a chain of consequences that explains much of what follows:
+
+- **Predictable outcomes require verifiable success criteria.** A model cannot reliably hit a target it cannot check itself against. So every skill gives the agent clear, *self-verifiable* criteria for what "done" and "correct" look like – concrete enough that the agent can evaluate its own work and know whether it succeeded, rather than guessing and hoping. Vague guidance ("write a good spec") produces model-dependent results; checkable criteria ("every acceptance criterion is in Gherkin, every NFR has a measurable threshold") produce convergent ones.
+
+- **Verifiable criteria require strong, enforced opinions.** You can only check work against a definite standard, and a definite standard means picking one way and committing to it. So this collection is deliberately, sometimes arbitrarily, **opinionated** – about the format of a specification, the lifecycle states a design doc moves through, the branch and commit conventions, the structure of a plan. The specific choice often matters less than the fact that *a* choice was made and is enforced: a single enforced convention is verifiable; "whatever the model thinks best" is not.
+
+This is why the principles below are stated as hard requirements rather than suggestions, and why the skills lean on rigid external contracts (an SRS repository's templates, a fixed commit grammar, a defined set of lifecycle labels). The rigidity is not pedantry – it is the mechanism by which a non-deterministic model is steered toward a deterministic-enough outcome.
+
 ## Skills for judgement, scripts for automation
 
 This collection covers the parts of the software development lifecycle that call for *judgement* – the work that cannot be reduced to a deterministic procedure. Specifying requirements, weighing design trade-offs, decomposing delivery, reviewing a change, deciding whether the right thing was built: each demands reasoning about an open-ended problem, the kind of work an agent is well suited to and a script is not. These are the phases where a capable model earns its keep.
@@ -15,6 +27,16 @@ The dividing line is whether the work needs *deciding* or merely *doing*. If the
 Note that *agentic* is not a synonym for *automated*. Automation is deterministic: the same inputs yield the same outputs, every time, by a fixed procedure. Agentic work is the opposite – a model reasons through an open-ended problem and may reach a different, better answer on a different run. Both reduce human toil, but they are different tools for different kinds of work: automation for the procedures that should never vary, agentic skills for the judgements that legitimately can.
 
 (One nuance: a few skills in this collection codify a *convention* rather than a judgement – `/branch`, `/commit`, and `/release`, for instance, encode naming rules and formats. These earn their place because applying the convention still requires reading an open-ended change and choosing the right category – a judgement – even though validating the result is deterministic. The deterministic half (the validation regex) is exactly the part that is also expressed as a script or CI check.)
+
+## Workflow skills run non-interactively
+
+The main workflow skills in this collection – `/specify`, `/design`, `/plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a human in the loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
+
+The corollary is that **a workflow skill fails rather than prompts.** If it cannot obtain everything it needs from the prompt, the context, and the environment, it stops with a clear, specific account of what is missing – it does NOT fall back to interviewing the user to fill the gap. `/specify` is the model: handed an incomplete PRD, it rejects it with an itemized list of what is absent, instead of asking the user to supply the missing rules. A clean failure is something an orchestrating agent can act on; a blocking prompt is not.
+
+This is what makes these skills composable into an autonomous pipeline. An orchestrator – a human, an agent, or a script – can chain `/specify` → `/design` → `/plan` and let them run to completion or fail loudly, with no interactive turn in between. The place where missing information is *gathered* is a separate, explicitly interactive skill upstream (requirement elicitation is `/discover`'s job, not `/specify`'s); the workflow skills downstream consume what those produce and never re-open the conversation.
+
+(Declare this with `metadata.interactive: no` in the skill's front-matter. The default is `yes`; a workflow skill overrides it deliberately. The opposite case – a skill *built* to interview a human, such as `/discover` – stays `interactive: yes`.)
 
 ## Portability
 
@@ -103,19 +125,9 @@ This is a separation of responsibilities, not a hand-off: the evaluating skill d
 
 Because skills neither reference nor hand off to one another, the *workflow* – the order in which skills run, the conditions under which one follows another, the human approval gates between phases – lives entirely outside the skills. It is the orchestrator's concern. A skill is a tool; the workflow is how the tools are wielded. Documenting a recommended workflow (for humans) is fine, and belongs in repository documentation – not inside any skill.
 
-## Workflow skills run non-interactively
-
-The main workflow skills in this collection – `specify`, `design`, `plan`, and their peers – are designed to run **non-interactively**, so they can be driven agentically without a human in the loop. A workflow skill takes everything it needs from its initial prompt, its surrounding context, and the environment (the repository, the project's `AGENTS.md`, the upstream artifact it consumes), does its job, and stops. It does not stop partway to ask the user a question.
-
-The corollary is that **a workflow skill fails rather than prompts.** If it cannot obtain everything it needs from the prompt, the context, and the environment, it stops with a clear, specific account of what is missing – it does NOT fall back to interviewing the user to fill the gap. `specify` is the model: handed an incomplete PRD, it rejects it with an itemized list of what is absent, instead of asking the user to supply the missing rules. A clean failure is something an orchestrating agent can act on; a blocking prompt is not.
-
-This is what makes these skills composable into an autonomous pipeline. An orchestrator – a human, an agent, or a script – can chain `specify` → `design` → `plan` and let them run to completion or fail loudly, with no interactive turn in between. The place where missing information is *gathered* is a separate, explicitly interactive skill upstream (requirement elicitation is `discover`'s job, not `specify`'s); the workflow skills downstream consume what those produce and never re-open the conversation.
-
-(Declare this with `metadata.interactive: no` in the skill's front-matter. The default is `yes`; a workflow skill overrides it deliberately. The opposite case – a skill *built* to interview a human, such as `discover` – stays `interactive: yes`.)
-
 ## Driving another repository's skills: read, don't invoke
 
-A workflow skill in this collection may drive a target repository's own skills – `specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
+A workflow skill in this collection may drive a target repository's own skills – `/specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`, for instance. There are two ways it could do that, and only one of them is allowed here.
 
 A global workflow skill MUST NOT literally *invoke* a target repository's local skills. It **reads their rules and instructions and executes that procedure itself**, in a non-interactive mode. The local skill is the authoritative *source of the procedure*; the workflow skill is the *engine that runs it* unattended.
 
