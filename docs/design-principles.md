@@ -54,6 +54,29 @@ That goal sets up a chain of consequences that explains much of what follows:
 
 This is why the principles below are stated as hard requirements rather than suggestions, and why the skills lean on rigid external contracts (an SRS repository's templates, a fixed commit grammar, a defined set of lifecycle labels). The rigidity is not pedantry – it is the mechanism by which a non-deterministic model is steered toward a deterministic-enough outcome.
 
+## Opinionated to the point of expecting a structured environment
+
+Being highly opinionated has a single overriding purpose: **it makes verifiable success criteria far easier to express.** An agent can only reliably hit a target it can check itself against, and a checkable target needs a definite standard to check against (see [predictable outcomes](#predictable-outcomes-from-any-model)). The more the skill fixes in advance – the format, the location, the names, the structure – the more its "done" and "correct" can be stated as concrete, observable conditions the agent verifies before finishing, rather than matters of judgement it has to guess at. Opinion is the raw material that success criteria are cut from; a skill that left things open could only offer vague guidance, and vague guidance cannot be verified.
+
+And the opinion goes further than choosing a format or a grammar. These skills expect **specific, named artifacts to exist in specific, known places**, and they fail deliberately when those expectations are not met. A skill is not a self-contained instruction the agent improvises around; it is the moving part of a methodology, and it assumes the rest of that methodology is already in place.
+
+[`/specify`](#composable-in-alternative-workflows-not-just-the-prescribed-one) is the clearest example. It does not guess where requirements live or invent a place to put them. It expects:
+
+- a root `AGENTS.md` in the current project, containing a `Workflow repositories` section that names the SRS location;
+- that the named SRS location is itself a repository on the local filesystem;
+- that the SRS repository has its *own* root `AGENTS.md` declaring its workflow; and
+- that the SRS repository exposes the sub-skills (the reference implementation names them `draft-spec`, `write-spec`, `propose-spec`) the skill will read and carry out.
+
+If any of those is absent, `/specify` stops and says what is missing – it does not write into an arbitrary file or fabricate a structure. The expectation is the contract, and a violated expectation is a clean, reported failure (see [workflow skills run non-interactively](#workflow-skills-run-non-interactively)). The same shape recurs across the collection: skills expect a domain glossary at a known path, ADRs in a known location, a `CHANGELOG.md` with an `[Unreleased]` section, lifecycle labels with specific names, branch types matching a defined model. None of these are discovered or negotiated; they are *required*.
+
+This is a deliberate trade, and it cuts both ways:
+
+- **The cost.** A skill dropped into an unprepared project will not improvise its way to a result – it will refuse. These skills are not plug-and-play for an arbitrary repository; they presuppose [the version-controlled ecosystem](#everything-under-version-control) of requirements, decisions, designs, and plans described above. (For a standalone repository with none of that scaffolding, the [cohesive-ecosystem](#cohesive-ecosystem) note already recommends encapsulating bespoke skills instead.)
+
+- **The payoff.** Beyond the verifiable success criteria above, expecting a known structure is also what lets a skill be *terse and deterministic*. Because the skill knows exactly where the SRS is, what an acceptance criterion looks like, and which labels gate a proposal, it does not spend tokens hedging across the space of possible project layouts. Predictability is bought with assumptions; the more the environment is pinned down, the less is left to the model's discretion. An opinionated skill in a conforming environment converges; an accommodating skill in an arbitrary one guesses.
+
+Where the structure is allowed to vary, the skill says *how* it varies and *where to look* – it reads the SRS repository's `AGENTS.md` to learn that project's specific template, branch convention, and label names rather than hard-coding them. That is not a softening of the opinion; it is the opinion relocated. The skill is still rigid about *the contract* (there MUST be an `AGENTS.md`, it MUST declare the workflow); it is flexible only about the *content the contract points to*. The expectation that the structure exists never relaxes – only the question of who fills it in.
+
 ## Specs-to-code: executable criteria as the primary feedback loop
 
 The workflows these skills enable are deliberately **structured and disciplined**, and the discipline has a centre of gravity: **acceptance criteria specified in an executable form**. The aim is *specs-to-code* – agents that build the product exactly to specification, where the specification, not a sapien's running judgement, is the contract the agent works against.
