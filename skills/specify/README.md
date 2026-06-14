@@ -26,7 +26,7 @@ flowchart LR
 
 The `/specify` skill runs non-interactively, supporting agentic workflows (🤖). It validates the inputted PRD and either rejects it as incomplete, or it autonomously completes the transformation to the SRS. If the business needs are vague, ambiguous, or unclear in any way, a discovery workshop (`/discover`) SHOULD be conducted beforehand, to produce a comprehensive PRD that becomes the input to `/specify`.
 
-The `/specify` skill closes by returning a URL to the pull request, telling the user the PR needs their approval, and that the next SDLC phase – `/design` – cannot begin until it is approved. Accepting (or rejecting) the proposed changes to the requirements specification is a deliberate human-gated decision.
+The `/specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval, and reminding that the next SDLC phase – `/design` – cannot begin until the PR is approved. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens, not agents.
 
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
@@ -54,11 +54,11 @@ Agents following this skill will have the following expectations:
   - Plans: ./docs/plans
   ```
 
-- The SRS repository MUST have its own root-level `AGENTS.md` file, which MUST specify the SRS's own workflow. This file MUST specify the availability of the following repository-level skills, which serve the following purposes:
+- The SRS repository MUST have its own root-level `AGENTS.md` file, which MUST specify the SRS's own workflow. This file MUST declare the availability of the following repository-level skills, which serve the following purposes:
 
-- `/draft-spec`: Scaffolds the specification artifacts.
-- `/write-spec`: Writes the requirements as verifiable acceptance criteria, based on the high-level requirements defined in the PRD.
-- `/propose-spec`: Opens a pull request, ready for the user to review the new artifacts.
+  - `/draft-spec`: Scaffolds the specification artifacts.
+  - `/write-spec`: Writes the requirements as verifiable acceptance criteria, based on the high-level requirements defined in the PRD.
+  - `/propose-spec`: Opens a pull request, ready for the user to review the new artifacts.
 
 > [!NOTE]
 > Agents are explicitly instructed to follow `AGENTS.md` rather than `CONTRIBUTING.md`. This provides the flexibility of specifying different workflows for agents and sapiens.

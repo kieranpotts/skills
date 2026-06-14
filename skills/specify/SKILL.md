@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Validate a PRD (product-requirements / discovery report) and, if complete, file it as a proposal in the project's SRS (software requirements specification) repository by carrying out that repository's own proposal procedure – scaffold, author the testable acceptance criteria, and mark ready for review – non-interactively, reading the procedure from the repository's local skills (draft-spec, write-spec, propose-spec) rather than invoking them. Rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
+description: Validate a product requirements document (PRD) and, if complete, file it as a proposal in the project's software requirements specification (SRS) repository. Rejects an incomplete PRD with reasons rather than asking questions. Use when a PRD exists and is ready to be turned into a specification, before any design or coding work begins.
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,12 +9,9 @@ metadata:
 
 # `/specify`
 
-Use this skill to turn a **PRD** – a product requirements document, in practice a business-language discovery report – into a testable specification, filed as a proposal in the project's SRS (software requirements specification) repository.
+Use this skill to turn a product requirements document (PRD) – a business-language artifact – into a testable specification, filed as a proposal in the project's software requirements specification (SRS) repository.
 
-This skill is **non-interactive**. It does NOT interview the user or elicit missing information. It takes a PRD as input, validates that the PRD is complete enough to specify from, and then either:
-
-- **Rejects** the PRD, with a specific list of what is missing or ambiguous, so the requirements can be gathered before retrying; or
-- **Proceeds**: files the proposal in the SRS repository by carrying out that repository's own proposal procedure, autonomously and in sequence.
+This skill is non-interactive. It takes as **input** a PRD, which is expected to be sufficiently complete to transform to a formal software requirements specification. The **outcome** is an open pull request against the SRS repository capturing the changes as testable acceptance criteria. If the PRD is not sufficiently detailed, you MUst **reject** it with a list of what is missing or ambiguous, and not proceed further.
 
 When the PRD passes validation, this skill drives the SRS repository's workflow end to end – without pausing for the user – following the procedure defined by three of its local skills, in order:
 
@@ -32,15 +29,11 @@ Use this skill only to turn an existing PRD into a filed specification. Do NOT u
 
 This skill has two layers: (1) *Where and how the proposal is filed* is owned by the SRS repository, defined by its local skills – this skill reads and carries out their process but does NOT restate or duplicate it. (2) *Whether the PRD is fit to specify from* – the validation gate below – is owned by this skill.
 
-**Input**: A PRD (product-requirements / discovery report) – the business-language outcome, stakeholders, rules, examples, and scope this skill validates and translates. REQUIRED. This skill does not produce the PRD; it consumes one, and never interviews the user (requirement elicitation happens upstream). The PRD is also *preserved*: if the target repository's scaffold provides for it, the input PRD is written verbatim into the proposal as its frozen origin record. The procedure itself comes from the SRS repository's local skills (`draft-spec`, `write-spec`, `propose-spec`, or the equivalents its `AGENTS.md` names), which this skill reads and carries out non-interactively – it does not invoke them.
-
-**Output**: A `PROPOSED` specification proposal, awaiting the user's review and approval. Only once approved (`ACCEPTED`) does it unblock the downstream design phase. Whatever consumes the approved specification is the orchestrator's concern, not this skill's.
-
 ##  Instructions
 
 1.  **Read the PRD.**
 
-    Obtain the PRD however it is supplied – a file path, pasted report text, or a discovery report produced earlier in this session. Read it in full before doing anything else.
+    Obtain the PRD however it is supplied – a file path, pasted text, or a PRD produced earlier in this session. Read it in full before doing anything else.
 
     If no PRD is supplied and none can be found, reject immediately: there is nothing to specify. Tell the user a PRD must be gathered first.
 
@@ -48,7 +41,7 @@ This skill has two layers: (1) *Where and how the proposal is filed* is owned by
 
     This is the gate. A PRD is ready to specify from only if it supplies all of the following. Check each:
 
-    - **User, goal, and value** – *who* it is for, *what* outcome they want, and *why* it matters. (A discovery report's *Outcome* and *Stakeholders* sections.)
+    - **User, goal, and value** – *who* it is for, *what* outcome they want, and *why* it matters. (The PRD's *Outcome* and *Stakeholders* sections.)
     - **Rules** – the business rules that govern the behavior, each a clear declarative statement.
     - **Examples and counter-examples** – for each rule, at least one concrete case where it applies and one similar case where it does not. Without the counter-example, the rule's boundary is undefined and cannot be specified.
     - **Scope, in both directions** – an explicit *out-of-scope* list, not just what is in.
