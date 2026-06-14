@@ -20,7 +20,7 @@ flowchart LR
   classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a human-in-the-loop - as long as the actual outcome matches the desired outcome. -->
+<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a sapien-in-the-loop - as long as the actual outcome matches the desired outcome. -->
 
 <!-- The key priority of this stage is to define acceptance test criteria in a form that they are executable. -->
 
@@ -36,7 +36,7 @@ It first **reads the PRD** – supplied as a file path, pasted text, or a discov
 
 If the PRD passes, it **locates the SRS** – reading the project's root `AGENTS.md`, finding the `Workflow repositories` section, and resolving the `SRS` entry to the repository where requirements live. If no SRS is declared, it stops and says so rather than writing into an arbitrary file.
 
-It then **reads that SRS repository's own `AGENTS.md`** – never `CONTRIBUTING.md` – to learn the repository's current workflow: its proposal template, branch convention, lifecycle states, and pull-request, thread, and label rules. The skill follows whatever it finds there rather than hard-coding the process, so it stays correct as the specification repository evolves. It follows `AGENTS.md` rather than `CONTRIBUTING.md` so the agent workflow can differ from the human one.
+It then **reads that SRS repository's own `AGENTS.md`** – never `CONTRIBUTING.md` – to learn the repository's current workflow: its proposal template, branch convention, lifecycle states, and pull-request, thread, and label rules. The skill follows whatever it finds there rather than hard-coding the process, so it stays correct as the specification repository evolves. It follows `AGENTS.md` rather than `CONTRIBUTING.md` so the agent workflow can differ from the sapien one.
 
 With the PRD validated, the destination found, and the process learned, it runs the three sub-skills in order, feeding each what the PRD provides:
 

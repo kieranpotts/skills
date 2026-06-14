@@ -4,7 +4,7 @@
 
 <!-- Test = does the increment meet the agreed ACs? This is verification - against the spec as written. This is distinct from /validate, which asks the question: was the specification right in the first place? -->
 
-<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a human-in-the-loop - as long as the actual outcome matches the desired outcome. -->
+<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a sapien-in-the-loop - as long as the actual outcome matches the desired outcome. -->
 
 Conduct incremental acceptance testing of the evolving software, focusing on functional correctness and runtime qualities – verifying a completed change against its full set of acceptance criteria, mapping each to evidence and reporting pass/fail/blocked. Runs non-interactively (🤖). Use after a change has cleared review, or before tagging a release. Reports failures as defects without fixing them.
 

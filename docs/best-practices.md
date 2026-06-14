@@ -6,7 +6,7 @@ Generic, universal guidance for authoring any agent skill. These apply to skills
 
 Every skill MUST have a single responsibility. A skill does one job and stops at the boundary of that job. It MUST NOT reach into adjacent work, even when doing so would be convenient.
 
-For example, a skill that proofreads a document MUST NOT also commit the changes it makes to the document. Committing is a separate responsibility, and the decision of whether, when, and how to commit belongs to the caller – which might be a human, or an orchestrating agent.
+For example, a skill that proofreads a document MUST NOT also commit the changes it makes to the document. Committing is a separate responsibility, and the decision of whether, when, and how to commit belongs to the caller – which might be a sapien, or an orchestrating agent.
 
 This is what makes a collection composable. Each skill is a small, sharp tool with one clear output, so an orchestrator can sequence skills in whatever order a workflow demands. A skill that bundles two responsibilities forecloses that choice and couples concerns that should stay independent.
 
@@ -44,11 +44,11 @@ Do _not_ create a skill when:
 
 Another key design decision is whether a skill is **interactive** — ie. whether it may prompt the user for input mid-flow. Decide this deliberately for each skill:
 
-- **Interactive:** The skill MAY block on user input. Reserve this for stages where human interaction is essential to the outcome. An example is this repository's [`discover`](../skills/discover/SKILL.md), a structured agent-human interview whose entire value is the dialogue. The same is true of any skill that elicits judgement, preferences, or context only the user holds. An interactive skill MUST make clear in its body when and why it prompts.
+- **Interactive:** The skill MAY block on user input. Reserve this for stages where sapien interaction is essential to the outcome. An example is this repository's [`discover`](../skills/discover/SKILL.md), a structured agent-sapien interview whose entire value is the dialogue. The same is true of any skill that elicits judgement, preferences, or context only the user holds. An interactive skill MUST make clear in its body when and why it prompts.
 
 - **Non-interactive:** The skill runs to completion without user input, taking everything it needs from its inputs and the workspace. Use this for skills meant to run in unattended pipelines, supporting parallel agentic workflows.
 
-When an interactive skill feeds a non-interactive one in a workflow, the human-dependent decisions should be resolved first, so the downstream skill receives a complete, settled input.
+When an interactive skill feeds a non-interactive one in a workflow, the sapien-dependent decisions should be resolved first, so the downstream skill receives a complete, settled input.
 
 ### Declaring it: `metadata.interactive`
 
@@ -59,7 +59,7 @@ metadata:
   interactive: no   # this skill never blocks on the user
 ```
 
-The value is `yes` or `no`. The default, when the field is omitted, is `yes` — so a skill is assumed to be interactive unless it explicitly states otherwise. This is the safe default. A host that auto-runs skills unattended will not silently run a skill that might have needed a human.
+The value is `yes` or `no`. The default, when the field is omitted, is `yes` — so a skill is assumed to be interactive unless it explicitly states otherwise. This is the safe default. A host that auto-runs skills unattended will not silently run a skill that might have needed a sapien.
 
 Set `interactive: no` only on skills you are confident run start-to-finish without ever blocking on the user. Leave the field off (defaulting to `yes`) for skills that are interactive, or *conditionally* interactive — those that usually run through but may stop to ask when a constraint is unclear.
 
@@ -69,16 +69,16 @@ Claiming `interactive: no` for a skill that might actually prompt is the mistake
 
 ## Human checkpoints in a workflow
 
-When skills are sequenced into a workflow, a related design decision is where the workflow pauses for a human and where it runs unattended. In a pipeline, the natural default is agent-to-agent – each skill's output feeds the next, and the workflow runs end-to-end without intervention. But some outcomes need a human to moderate them before the work proceeds, and choosing those checkpoints is a key design decision. (Where this *sequencing* lives is itself a design choice: in this collection it lives in the orchestrator, never in the skills – see [design principles](./design-principles.md).)
+When skills are sequenced into a workflow, a related design decision is where the workflow pauses for a sapien and where it runs unattended. In a pipeline, the natural default is agent-to-agent – each skill's output feeds the next, and the workflow runs end-to-end without intervention. But some outcomes need a sapien to moderate them before the work proceeds, and choosing those checkpoints is a key design decision. (Where this *sequencing* lives is itself a design choice: in this collection it lives in the orchestrator, never in the skills – see [design principles](./design-principles.md).)
 
 As a general rule, insert a human checkpoint where:
 
 - The cost of an undetected error is high, or hard to reverse downstream (eg. a flawed specification that propagates through design and implementation).
 
-- The decision is genuinely the human's to make — a judgement call about scope, risk, or priorities that the agent should not settle alone.
+- The decision is genuinely the sapien's to make — a judgement call about scope, risk, or priorities that the agent should not settle alone.
 
-- The output is the thing the human ultimately owns and signs off on (a release, a merged PR, a published artifact).
+- The output is the thing the sapien ultimately owns and signs off on (a release, a merged PR, a published artifact).
 
-But guard against over-gating. Route _everything_ through a human and you recreate the bottleneck the pipeline was meant to remove. The poor human is swamped with PRs to review and becomes the rate-limiter for the whole workflow, which defeats the point of parallel agentic execution.
+But guard against over-gating. Route _everything_ through a sapien and you recreate the bottleneck the pipeline was meant to remove. The poor, mortal sapien is swamped with PRs to review and becomes the rate-limiter for the whole workflow, which defeats the point of parallel agentic execution.
 
-Each checkpoint should earn its place. Prefer to let the workflow run unattended wherever the outcome is low-risk, reversible, or verifiable by a deterministic check, and reserve human moderation for the decisions that genuinely warrant it.
+Each checkpoint should earn its place. Prefer to let the workflow run unattended wherever the outcome is low-risk, reversible, or verifiable by a deterministic check, and reserve sapien moderation for the decisions that genuinely warrant it.

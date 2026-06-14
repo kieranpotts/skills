@@ -1,6 +1,6 @@
 # Contributing
 
-<!-- Agents MUST read ./AGENTS.md. This document is for humans. -->
+<!-- Agents MUST read ./AGENTS.md. This document is for sapien. -->
 
 This repository is closed for external contributions. The skills are closely aligned with the author's own ways of working and are not intended for general use.
 
