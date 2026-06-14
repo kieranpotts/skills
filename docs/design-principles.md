@@ -26,6 +26,22 @@ Since these skills are intended to be used globally across multiple code reposit
 
 For a standalone code repository – a small utility library, say – it is RECOMMENDED instead to encapsulate agent skills and supporting artifacts directly in that repository. These skills do not serve this use case.
 
+## Everything under version control
+
+Every artifact the workflow produces lives under version control – not only the code, but the requirements specification, the technical-decision records, the design docs, and the implementation plans. The [reference repositories above](#cohesive-ecosystem) (SRS, RFC, Design, Plans) are version-controlled by design, and the skills are built on the assumption that every durable output they create is committed, branched, reviewed, and merged through the same mechanism the code is. There is one notable, deliberate exception: a `/handoff` document is *ephemeral* and is written outside the repo precisely because it is a session bridge, not a durable artifact.
+
+Putting everything in version control is not incidental – it is load-bearing for the way these skills work:
+
+- **One consistent process, end to end.** Requirements, decisions, designs, plans, and code all move through the same verbs: branch, commit, review, merge, tag. There is no separate tool, lifecycle, or permission model for "the spec" versus "the code". A contributor – sapien or agent – who knows how to change the code already knows how to change the specification, and the version-control skills (`/branch`, `/commit`, `/merge`, `/release`) apply uniformly across all of it. A single process is also a single thing to verify, which is exactly what [predictable outcomes](#predictable-outcomes-from-any-model) require.
+
+- **Artifacts stay close to the code.** The specification a change implements, the decision that justified it, and the plan that sequenced it are all reachable from the same history as the change itself – not scattered across a wiki, a ticketing tool, and a documents drive that drift out of sync. Traceability (a criterion back to its requirement, a requirement back to its decision) is a matter of following commits and links within one system, not reconciling four.
+
+- **Auditing and undo are built in.** Version control already answers *who changed what, when, and why* (the commit history and its messages) and already provides *undo* (revert, reset, branch) for every artifact – not just code. A wrong turn in the requirements or the design is as recoverable as a wrong turn in the implementation. Nothing bespoke needs to be built to get history, blame, diffing, or rollback; they come for free the moment an artifact is a tracked file.
+
+- **It integrates cleanly with deterministic pipelines.** A committed artifact is something an automated, deterministic pipeline can act on: a CI job can validate a commit message, lint a specification against its template, gate a merge on an approval label, or trigger the next phase when a proposal reaches a given state. Because the artifacts are files in a repository and the transitions are git operations, the same machinery that already drives the code can drive the whole workflow – which is what lets these skills be [composed and orchestrated](#consequence-for-orchestration) without a sapien manually shuttling artifacts between systems.
+
+This is also why the skills lean on git so heavily as the substrate, and why the version-control skills (`/branch`, `/commit`, `/merge`, `/release`) are first-class members of the collection rather than an afterthought: version control is not just where the code lives, it is the common fabric the entire methodology is woven through.
+
 ## Predictable outcomes from any model
 
 The overriding goal of this project is to produce **predictable, consistent, reliable outcomes from every mainstream model**. The same skill, run by different agents or on different days, should converge on the same shape of result. A skill that works beautifully on one frontier model and falls apart on another has failed this goal, however clever it is.
