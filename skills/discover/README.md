@@ -26,7 +26,7 @@ If the requirements are already clearly articulated in a written artifact, you c
 ## How to invoke
 
 - `/discover`, `/skill:discover` (prompt varies by agent harness).
-- `/discover <url or path to existing business requirements artifacts>`
+- `/discover <URL or path to existing business requirements artifacts>`
 - "Let's discover the requirements for…"
 - "Run a discovery session on…"
 - "Help me understand what the customer actually needs."

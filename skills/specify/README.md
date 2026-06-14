@@ -1,18 +1,22 @@
 # 🤖 `/specify`
 
-Specify functional and non-functional requirements as testable acceptance criteria – turning a **PRD** into a filed specification proposal in the project's SRS (software requirements specification) repository. Runs non-interactively (🤖). `/specify` takes the product requirements document – in practice a business-language discovery report – validates that it is complete, and either rejects it with reasons or files it by autonomously running the SRS repository's own sub-skills.
+Transform a business-oriented product requirements document (PRD), or similar artifacts, into testable acceptance criteria.
 
-`/specify` is **non-interactive**. It does not interview the user or gather missing requirements; it consumes a PRD that was gathered separately. Its job is to *validate* the PRD, then *orchestrate*: on a valid PRD it drives the SRS repository's workflow end to end, without pausing, by running three sub-skills in sequence – **`draft-spec`** (scaffold the proposal), **`write-spec`** (author the content), **`propose-spec`** (mark it ready for review). The mechanics of each phase, and the content rules, belong to those skills; `/specify` owns the PRD gate and the orchestration. (Those are the reference-implementation names; a project may expose differently-named equivalents through its SRS repository's `AGENTS.md`.)
+The PRD may come from two sources: a business discovery workshop (`/discover`), or a product refinement workshop (`/refine`) that is run in response to feedback from real people using working software (`/validate`).
+
+The outcome is a PR opened against the project's software requirements specification (SRS) repository, ready for the user to review. If approved, the (`/design`) skill can be triggered to propose solutions to realize the requirements.
 
 ```mermaid
 flowchart LR
   discover["🧑 /discover"]:::tertiary
   specify["🤖 /specify"]:::primary
   design["🤖 /design"]:::primary
+  validate["🤖 /validate"]:::primary
   refine["🧑 /refine"]:::secondary
 
-  refine --> specify
   discover <-.-> specify
+  validate --> refine
+  refine --> specify
   specify ==> design
 
   classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -20,57 +24,53 @@ flowchart LR
   classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-<!-- This is acceptance test-driven development. This is an effective way of driving agentic software development. The outcome you want is deterministic and stable. It is the "truth". This is why it is so valuable in agentic workflows because all you really care about is the agent satisfying those tests. This becomes the contract the AI is operating against. ... The closer you get to achieving this, eg. covering performance tests with BDD-style tests too, the less need you have for a sapien-in-the-loop - as long as the actual outcome matches the desired outcome. -->
+The `/specify` skill runs non-interactively, supporting agentic workflows (🤖). It validates the inputted PRD and either rejects it as incomplete, or it autonomously completes the transformation to the SRS. If the business needs are vague, ambiguous, or unclear in any way, a discovery workshop (`/discover`) SHOULD be conducted beforehand, to produce a comprehensive PRD that becomes the input to `/specify`.
 
-<!-- The key priority of this stage is to define acceptance test criteria in a form that they are executable. -->
+The `/specify` skill closes by returning a URL to the pull request, telling the user the PR needs their approval, and that the next SDLC phase – `/design` – cannot begin until it is approved. Accepting (or rejecting) the proposed changes to the requirements specification is a deliberate human-gated decision.
 
-<!-- Programming becomes defining, _in some detail_, the behavioral acceptance criteria for our system, and using those artifacts as a kind of fitness function that our agents can iterate toward solving. We are essentially programming at a higher level of abstraction - if the whole e2e workflow is fully automated/agentic, then those executable acceptance tests _are_, in a way, our program... in the same way we don't read the output of compilers, because we've tested it. -->
+> [!IMPORTANT]
+> This is a critical step in an agentic workflow.
+>
+> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools – and not rely on judgement – to decide whether their work is done.
+>
+> The acceptance criteria act thus as a fitness function that the agent can iterate toward – a deterministic, stable signal of how close the current implementation is to the desired outcome. This is acceptance test-driven development (ATDD) applied to agentic workflows.
+>
+> The better the quality of the acceptance tests, the more effective they will be at driving agents to predictable, reliable outcomes, and so the less need there will be for humans-in-the-loop. In a fully end-to-end agentic workflow, humans need not read the generated code at all – in the same way we do not read a compiler's output – because the trust comes from the acceptance tests.
+>
+> We're now programming at a higher level of abstraction – our programming language is structured English, in the form of executable acceptance tests.
 
-<!-- input: product requirements document or similar artifacts. Output: PR against the SRS repository, that the user is expected to review.) -->
+## Requirements
 
-## What it does
+Agents following this skill will have the following expectations:
 
-The skill works in two layers. *Where and how the proposal is filed* is owned by the SRS repository and read at runtime. *What makes the specification good* is the skill's own expertise.
+- The current project MUST have a file named `AGENTS.md` at the root. This file MUST have a section named "Workflow repositories" that specifies the location of the project's software requirements specification (SRS), which itself MUST be another repository on the local filesystem. Example:
 
-It first **reads the PRD** – supplied as a file path, pasted text, or a discovery report gathered earlier in the session – then **validates it for completeness**. A PRD is ready only if it supplies the user/goal/value, the business rules, an example *and* counter-example for each rule, an explicit out-of-scope boundary, measurable NFRs (or an explicit "none"), and resolution of any open question that blocks a criterion. If the PRD falls short, the skill **rejects it** with an itemized list of what's missing so the requirements can be gathered before retrying, and writes nothing. (Purely mechanical gaps – a missing `Feature` title, scenario ordering – it normalizes without rejecting.)
+  ```markdown
+  ## Workflow repositories
 
-If the PRD passes, it **locates the SRS** – reading the project's root `AGENTS.md`, finding the `Workflow repositories` section, and resolving the `SRS` entry to the repository where requirements live. If no SRS is declared, it stops and says so rather than writing into an arbitrary file.
+  - SRS: ./docs/specs
+  - RFC: ./docs/rfc
+  - Design: ./docs/design
+  - Plans: ./docs/plans
+  ```
 
-It then **reads that SRS repository's own `AGENTS.md`** – never `CONTRIBUTING.md` – to learn the repository's current workflow: its proposal template, branch convention, lifecycle states, and pull-request, thread, and label rules. The skill follows whatever it finds there rather than hard-coding the process, so it stays correct as the specification repository evolves. It follows `AGENTS.md` rather than `CONTRIBUTING.md` so the agent workflow can differ from the sapien one.
+- The SRS repository MUST have its own root-level `AGENTS.md` file, which MUST specify the SRS's own workflow. This file MUST specify the availability of the following repository-level skills, which serve the following purposes:
 
-With the PRD validated, the destination found, and the process learned, it runs the three sub-skills in order, feeding each what the PRD provides:
+- `/draft-spec`: Scaffolds the specification artifacts.
+- `/write-spec`: Writes the requirements as verifiable acceptance criteria, based on the high-level requirements defined in the PRD.
+- `/propose-spec`: Opens a pull request, ready for the user to review the new artifacts.
 
-- **`draft-spec`** scaffolds the proposal – branch, document from template, draft pull request, and discussion thread – using the change description from the PRD's outcome.
+> [!NOTE]
+> Agents are explicitly instructed to follow `AGENTS.md` rather than `CONTRIBUTING.md`. This provides the flexibility of specifying different workflows for agents and sapiens.
 
-- **`write-spec`** authors the specification content. The PRD's rules and examples become functional acceptance criteria, its non-functional needs become measurable quality requirements, and its out-of-scope boundary is carried forward. This skill owns *how* that content is written – the AC format, the NFR conventions, the artifact taxonomy, and the Definition of Ready – so each project can tune its own standards.
+This `/specify` skill instructs the agent to follow the guidelines in those named sub-skills that are expected to be defined in the SRS repository. The sub-skills are responsible for driving the software requirements workflow through to the point of a new or updated software requirement being proposed via an open pull request.
 
-- **`propose-spec`** verifies the proposal is complete and meets the Definition of Ready, then takes the pull request out of draft for stakeholder review.
-
-That's where the autonomous run ends – at a `PROPOSED` proposal in reviewers' hands. **The outcome is a specification awaiting the user's review and approval, not an approved one.** The skill closes by telling the user the proposal needs their approval, and that the next SDLC phase – design – cannot begin until the specification is approved (`ACCEPTED`). Approving (`accept-spec`) or rejecting (`reject-spec`) is a deliberate, human-gated decision the skill never makes itself.
-
-If `write-spec` surfaces a Definition-of-Ready gap that traces back to missing PRD information, `/specify` treats it as a validation failure and rejects – it does not invent the missing material. Where the PRD is internally incoherent or its solution won't meet its own goal, that too is a rejection, not something the skill quietly fixes.
+See the [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) repository for a reference implementation.
 
 ## How to invoke
 
-Give the agent a PRD and ask it to specify – eg. "specify this PRD", "turn this discovery report into a spec", or "validate and file these requirements". The skill triggers when a PRD is ready to become a specification. If the requirements are still vague, gather them into a PRD first – `/specify` will reject an incomplete PRD rather than interview you.
-
-The project must declare its SRS location in its root `AGENTS.md`:
-
-```markdown
-## Workflow repositories
-
-- SRS: ./docs/specs
-- RFC: ./docs/rfc
-- Design: ./docs/design
-- Plans: ./docs/plans
-```
-
-## Examples
-
-- **Specify a complete PRD:** "Specify this discovery report." (report has rules, examples, counter-examples, scope, NFRs) → `/specify` runs `draft-spec` → `write-spec` → `propose-spec` autonomously, ending with an open, non-draft proposal pull request in the SRS repository, ready for stakeholder review.
-
-- **Reject an incomplete PRD:** "Specify this." (report has rules but no counter-examples and an empty out-of-scope list) → an itemized rejection naming the gaps. Nothing is scaffolded or written to the SRS.
-
-- **Carry a fresh report through:** hand `/specify` a just-gathered discovery report → it is validated and, if complete, carried through the full scaffold-author-propose run in one step.
-
-- **No SRS wired up:** "Specify this PRD." (project `AGENTS.md` has no `SRS` entry) → the skill reports that the project isn't wired to an SRS and writes nothing.
+* `/specify`, `/skill:specify` (prompt varies by agent harness).
+* `/specify <URL or path to PRD or equivalent>`
+* "Turn this into acceptance criteria."
+* "Turn this into a spec."
+* "Prepare these as software requirements."
