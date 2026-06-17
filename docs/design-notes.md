@@ -89,29 +89,19 @@ Coupling through contracts rather than handoffs also makes individual skills eas
 
 Because no skill refers to or hands off to another, the workflow – the order the skills run in, when one follows another, the approval steps between phases – lives entirely outside the skills.
 
-A skill is a tool. The workflow is how you use the tools.
-
-<!-- TODO: Expand on this point -->
+A skill is a tool. The workflow is how you use the tools. The same skill might be the last step in one workflow and a middle step in another. Baking "next, run X" into a skill would foreclose that. So the order, the conditions under which one skill follows another, and the approval gates between phases all belong to the orchestrator. The orchestrator might be a sapien, an agent, or a script. It is never the skills themselves. Documenting a recommended workflow is fine. But it belongs in repository documentation, such as these notes, not inside any skill.
 
 ## Skills hierarchy
 
 While these skills are loosely coupled to one another, they are tightly coupled to external development tools. Specifically, they expect requirements specifications, technical decision logs, design docs, and implementation plans to exist in very particular formats. This is necessary to achieve predictable outcomes – the ultimate objective.
 
-<!--
+A workflow skill here may drive another repository's own skills. `/specify`, for instance, drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`. But it MUST NOT actually *run* them. Instead it **reads their instructions and carries them out itself**, without stopping for input. The other repository's skill is the authoritative *description of the steps*. The workflow skill is the thing that *runs those steps* on its own.
 
-A workflow skill here may drive another repository's own skills – `/specify` drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`. But it MUST NOT actually *run* them. Instead it **reads their instructions and carries them out itself**, without stopping for input. The other repository's skill is the authoritative *description of the steps*; the workflow skill is the thing that *runs those steps* on its own.
-
-Reading rather than running also keeps the rules in one place. The target repository stays the single source for how its documents are written; the workflow skill never keeps its own copy of those rules, but reads them fresh each time. So if a project changes its own `write-spec`, that changes how `specify` behaves there – without `specify` itself having to change.
-
--->
+Reading rather than running keeps the rules in one place. The target repository stays the single source for how its documents are written. The workflow skill never keeps its own copy of those rules. It reads them fresh each time. So if a project changes its own `write-spec`, that changes how `/specify` behaves there, without `/specify` itself having to change.
 
 ## Well-defined inputs and outputs
 
-Achieving loose coupling requires each skill to have well-defined inputs and outputs.
-
-<!--
-
-Every `SKILL.md` opens – immediately after its intro prose, before the first `##` heading – with two prominent, bold-lead paragraphs:
+Achieving loose coupling requires each skill to have well-defined inputs and outputs. So every `SKILL.md` opens – immediately after its intro prose, before the first `##` heading – with two prominent, bold-lead paragraphs:
 
 ```
 **Input**: <what the skill consumes, how it is supplied, and whether it is REQUIRED or OPTIONAL>
@@ -121,15 +111,13 @@ Every `SKILL.md` opens – immediately after its intro prose, before the first `
 
 This is the **contract** the caller reads to decide whether the skill fits and how to connect it. The **Input** and **Output** are put up top for two reasons:
 
-- **You can only chain skills if each one states what it takes and gives.** Since the [workflow lives outside the skills](#consequence-for-orchestration), the only way to connect them is to match one skill's output to the next one's input. That's impossible if the contract is buried or vague.
+- **You can only chain skills if each one states what it takes and gives.** Since the [workflow lives outside the skills](#external-drivers), the only way to connect them is to match one skill's output to the next one's input. That's impossible if the contract is buried or vague.
 
 - **It's read first.** A caller decides *whether to use the skill at all* before reading the steps. Putting the contract at the end would force them through the whole thing just to answer that.
 
 For an **interactive** skill, the **Input** paragraph MUST also say that the skill asks the user for input during the session – otherwise it reads as if the starting input is all there is, and a caller can't tell a real "missing input" failure from "it will ask for the rest".
 
-The **Output** paragraph *says* what the skill produces; the [`## Success criteria`](#predictable-outcomes) section *checks* it. They are the same promise written twice – one for the caller up front, one for the agent to check against at the end. A good skill keeps them matched: everything the **Output** promises has a success criterion that confirms it. If the **Output** claims something no criterion checks, the skill is promising a result it can't actually verify – exactly the hope-it-worked behavior this collection exists to avoid.
-
--->
+The **Output** paragraph *says* what the skill produces. The [`## Success criteria`](#predictable-outcomes) section *checks* it. They are the same promise written twice – one for the caller up front, one for the agent to check against at the end. A good skill keeps them matched. Everything the **Output** promises has a success criterion that confirms it. If the **Output** claims something no criterion checks, the skill is promising a result it can't actually verify – exactly the hope-it-worked behavior this collection exists to avoid.
 
 ## Single responsibility
 
@@ -150,13 +138,9 @@ Keeping these two concerns apart means humans can review findings before anythin
 
 ## Composable
 
-If each skill is a small, sharp tool with well-defined input and output, an orchestrator can compose the skill into new, interesting workflows.
+If each skill is a small, sharp tool with well-defined input and output, an orchestrator can compose the skills into new, interesting workflows.
 
-<!--
-
-Composable in alternative workflows, not just the prescribed one
-
-The [workflow diagram](../README.md) shows *one* recommended order – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. It is a **suggestion, not a rule**. Because every skill is [independent](#standalone-skills), [hands off to nothing](#standalone-skills), and states its [input and output](#every-skill-declares-its-input-and-output-up-front), any skill whose output matches another's input can feed into it, wherever they sit in the diagram.
+The [workflow diagram](../README.md) shows *one* recommended order – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. It is a **suggestion, not a rule**. Because every skill is [loosely coupled](#loose-coupling), hands off to nothing, and states its [input and output](#well-defined-inputs-and-outputs), any skill whose output matches another's input can feed into it, wherever they sit in the diagram.
 
 A few combinations the diagram doesn't show:
 
@@ -167,8 +151,6 @@ A few combinations the diagram doesn't show:
 - **Loops the diagram leaves out.** Nothing stops you running `/review` → `/resolve` → `/review` until it's clean, or dropping in `/research` wherever you hit a gap in knowledge.
 
 **Keep the skills unaware of the workflow, and the workflow becomes something the user puts together – not something the skills dictate.** Within a single project, this is what keeps the range of possible workflows open.
-
--->
 
 ## Specs-to-code
 
@@ -188,9 +170,9 @@ Incremental delivery keeps the cost of a mistake small. A flaw is caught one inc
 
 ## Interactive versus non-interactive
 
-To support end-to-end agentic workflows, most skills are **non-interactive** (🤖): they run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides. This is what lets them run unattended, in parallel pipelines. A few skills are deliberately **interactive** (🧑) and may block on input – used sparingly, only where the human interaction *is* the value. An example is this repository's [`discover`](../skills/discover/SKILL.md), a structured interview whose entire point is the dialogue.
+To support end-to-end agentic workflows, most skills are **non-interactive** (🤖). They run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides. This is what lets them run unattended, in parallel pipelines. A few skills are deliberately **interactive** (🧑) and may block on input. These are used sparingly, only where the human interaction *is* the value. An example is this repository's [`discover`](../skills/discover/SKILL.md), a structured interview whose entire point is the dialogue.
 
-Choosing where a workflow pauses for a human is itself a design decision. Insert a checkpoint where the cost of an undetected error is high or hard to reverse, where the call is genuinely the human's to make, or where the output is theirs to own and sign off. But each checkpoint should earn its place: gate *everything* and you recreate the bottleneck the pipeline was meant to remove. Let the workflow run unattended wherever the outcome is low-risk, reversible, or verifiable by a deterministic check.
+Choosing where a workflow pauses for a human is itself a design decision. Insert a checkpoint where the cost of an undetected error is high or hard to reverse, where the call is genuinely the human's to make, or where the output is theirs to own and sign off. But each checkpoint should earn its place. Gate *everything* and you recreate the bottleneck the pipeline was meant to remove. Let the workflow run unattended wherever the outcome is low-risk, reversible, or verifiable by a deterministic check.
 
 A skill MAY declare its mode in front-matter so hosts can route on it:
 
@@ -199,70 +181,27 @@ metadata:
   interactive: no   # this skill never blocks on the user
 ```
 
-The default, when the field is omitted, is `yes` – a skill is assumed interactive unless it says otherwise. This is the safe default: a host running skills unattended will not silently run one that might have needed a human. So set `interactive: no` only on skills you are confident run start-to-finish without ever blocking, and leave the field off for skills that are interactive or only *conditionally* interactive. Claiming `interactive: no` for a skill that might actually prompt is the mistake this field exists to prevent.
+The default, when the field is omitted, is `yes` – a skill is assumed interactive unless it says otherwise. This is the safe default. A host running skills unattended will not silently run one that might have needed a human. So set `interactive: no` only on skills you are confident run start-to-finish without ever blocking, and leave the field off for skills that are interactive or only *conditionally* interactive. Claiming `interactive: no` for a skill that might actually prompt is the mistake this field exists to prevent.
 
 The field lives under `metadata`, the Agent Skills standard's sanctioned place for vendor data, so it validates against the canonical schema and stays portable – hosts that do not read it simply ignore it. (See also [`metadata.preferred_model`](../skills/create-skill/references/create-skill-preferred-model.md), in the same map for the same reason.)
 
-<!--
-
-Every skill is unambiguously one of two kinds, and says which up front – in its `metadata.interactive` front-matter, in the H1 emoji of its `SKILL.md` and `README.md`, and in the workflow diagram:
+Every skill says which kind it is up front – in its `metadata.interactive` front-matter, in the H1 emoji of its `SKILL.md` and `README.md`, and in the workflow diagram:
 
 - **🧑 Interactive skills** (`metadata.interactive: yes`) require a sapien in the loop. They are *built* to converse – ask, present options, wait for answers – and cannot complete without a human responding: `/discover`, `/elaborate`, `/refine`, `/reflect`, `/create-skill`.
 
-- **🤖 Agentic skills** (`metadata.interactive: no`) run with no human turn. They take everything from the prompt, context, and environment, do the job, and stop – or [fail loudly](#workflow-skills-run-non-interactively). This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test` – and it is what lets an orchestrator chain them into an unattended pipeline.
+- **🤖 Agentic skills** (`metadata.interactive: no`) run with no human turn. They take everything from the prompt, context, and environment, do the job, and stop. This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test` – and it is what lets an orchestrator chain them into an unattended pipeline.
 
-This distinction really matters: before running a skill, the caller needs to know whether it will stop and wait for a person. A 🤖 skill can go into an automated pipeline; a 🧑 skill cannot, because it will stall. Marking the two kinds everywhere a skill is shown is how a caller tells them apart at a glance.
-
-The split also draws a clean line: **asking a person for input** is the job of a 🧑 skill upstream (gathering requirements is `/discover`'s job, not `/specify`'s), and the 🤖 skills downstream just *use* what those produce. A 🤖 skill that finds itself wanting to ask the user a question has either been given incomplete input – in which case it fails and says so – or taken on work that belongs to a 🧑 skill instead.
-
-
-''''
-
-The 🤖 workflow skills run **without stopping for input**, which leads to one important rule: **a workflow skill fails instead of asking.** If it can't get everything it needs from the prompt, the context, and the environment, it stops and says exactly what is missing – it does NOT fall back to questioning the user. `/specify` is the example: given an incomplete PRD, it rejects it with a list of what's absent. A clean failure is something the caller can act on; a skill stuck waiting for an answer is not.
-
-This is what lets the skills run as an automatic pipeline: the caller can chain `/specify` → `/design` → `/plan` and let each one finish or fail clearly, with no question in between. Missing information is *gathered* earlier, by a separate interactive skill (`/discover`, not `/specify`).
-
-(Set this with `metadata.interactive: no`; the default is `yes`, which a workflow skill overrides on purpose.)
-
--->
+The split draws a clean line. **Asking a person for input** is the job of a 🧑 skill upstream (gathering requirements is `/discover`'s job, not `/specify`'s), and the 🤖 skills downstream just *use* what those produce. This leads to one important rule. **A 🤖 skill fails instead of asking.** If it can't get everything it needs from the prompt, the context, and the environment, it stops and says exactly what is missing – it does NOT fall back to questioning the user. Take `/specify` as the example. Given an incomplete PRD, it rejects it with a list of what's absent. A clean failure is something the caller can act on. A skill stuck waiting for an answer is not. So a 🤖 skill that finds itself wanting to ask the user a question has either been given incomplete input – in which case it fails and says so – or taken on work that belongs to a 🧑 skill instead.
 
 ## Other design decisions
 
-<!--
+A few further conventions, in brief:
 
-## Portability
+- **Portability.** A skill MUST NOT depend on anything outside its own directory. Everything it needs – the `SKILL.md`, plus any bundled `assets/`, `references/`, or `scripts/` – lives inside `skills/<name>/`, so a single skill can be lifted out and installed on its own and still work. Bundled files are uniquely named to avoid clashing when installed alongside others (see [collision safety](../skills/create-skill/references/create-skill-collision-safety.md)).
 
-A skill MUST be portable: it MUST NOT depend on anything outside its own directory.
+- **Naming convention.** In documentation, a skill is shown as a slash command with the `/` inside backticks wherever it names a runnable command (`` `/specify` ``, an H1 `` # `/specify` ``, a linked `` [`/specify`](./skills/specify/) `` with the path unprefixed). The `/` is presentation only – it is NOT added to the `name:` front-matter, file paths, branch names, commit types, or the word used as a plain noun ("after release").
 
-Everything a skill needs MUST live inside `skills/<name>/`: the `SKILL.md` itself, plus any `assets/`, `references/`, or `scripts/` it bundles. A skill MUST NOT link to a file elsewhere in the repository (a root `docs/` page, a shared reference, the project `AGENTS.md`), nor to another skill's folder. If it needs a piece of reference material, it keeps its own copy under its own `references/`.
-
-This is what lets you lift a single skill out, install it on its own in any project, and have it still work. The moment a skill relies on a file outside its folder, that file gets left behind on install, and the skill breaks.
-
-When you bundle files, give them unique names so they don't clash if the skill is later installed next to others – see [collision safety](../skills/create-skill/references/create-skill-collision-safety.md). The Copilot and Cursor installers flatten every skill's `assets/`, `references/`, and `scripts/` into one shared folder, so a plainly-named file can silently overwrite another.
-
-
-## Naming convention
-
-The last two sections are about presentation and writing style. In documentation, a skill is shown as a slash command. Across this collection – and the other repositories that have their own agent skills – a skill name is written with a leading `/` inside backticks wherever it is shown *as a command you can run*:
-
-- **Linked references**: `` [`/specify`](./skills/specify/) `` – the `/` goes inside the backticks; the link target (the path) is never prefixed.
-- **H1 titles**: each `SKILL.md` and `README.md` opens with `` # `/specify` `` (not a prose title).
-- **Bare command mentions**: "run `` `/discover` `` first".
-
-The `/` is a presentation convention only. It is NOT added to the `name:` frontmatter field (the canonical identifier stays bare, e.g. `name: specify`), nor to file paths, code, branch names, commit types, lifecycle states, or to the word when it is used as an activity, phase, or noun rather than a command ("the discovery report", "after release"). Workflow-diagram node labels also stay bare.
-
-## Token efficiency: the `SKILL.md` / `README.md` split
-
-A `SKILL.md` is loaded into the agent's context every time the skill runs, so it is written to be **short** – only what the agent needs, nothing more. The 300-line limit (see [creating skills](./creating-skills.md)) is a hard ceiling; aim well below it. Short doesn't mean cramped: a `SKILL.md` MUST still be readable and well laid out, because people write and maintain it.
-
-The matching `README.md` is written for **people** and is NOT loaded into the agent's context. That split decides where each thing goes:
-
-- **Anything the agent must read to do the job** – instructions, rules, success criteria, the bundled template – goes in `SKILL.md`.
-- **Anything that's only for people** – the overview, the diagram, examples of how to run it, and **links to outside resources** – goes in `README.md`.
-
-The rule about links is the important one. A link in a `SKILL.md` is an invitation for the agent to go and read it, pulling a large document into context for no real benefit – it doesn't need the research paper behind a technique in order to use the technique. So **outside links that are there for human background belong in the `README.md`, never the `SKILL.md`.** A `SKILL.md` should only link to something the agent actually needs to read, and per [portability](#portability) that is almost always a file bundled in its own folder, not a web address.
-
--->
+- **Token efficiency: the `SKILL.md` / `README.md` split.** A `SKILL.md` is loaded into the agent's context every run, so it carries only what the agent needs (under the 300-line ceiling). The matching `README.md` is for people and is not loaded. Anything the agent must read to do the job goes in `SKILL.md`. The overview, diagram, usage examples, and **links to outside resources** go in `README.md`. A link in a `SKILL.md` invites the agent to pull a large document into context for no real benefit, and per the portability point above, what it does link to is almost always a file bundled in its own folder.
 
 ## Related
 
