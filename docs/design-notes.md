@@ -6,7 +6,7 @@ These are the design principles and goals that underpin this collection of skill
 
 The overriding goal of this project is to produce predictable, consistent, reliable outcomes from every mainstream coding model.
 
-To achieve predictable outcomes, you need to base your agentic workflow on concrete, **verifiable success criteria**. Skill should give the agent clear, self-verifiable criteria for what "done" and "correct" look like. The success criteria should be concrete enough that the agent can evaluate its own work and course-correct if necessary.
+To achieve predictable outcomes, you need to base your agentic workflow on concrete, **verifiable success criteria**. A skill should give the agent clear, self-verifiable criteria for what "done" and "correct" look like. The success criteria should be concrete enough that the agent can evaluate its own work and course-correct if necessary.
 
 Vague guidance (eg. "write a good spec") leaves outcomes determined primarily by the quality of the underlying model. Concrete success criteria produce more consistent outcomes across a wider range of models – frontier and mid-tier, closed-weight and open-weight.
 
@@ -67,6 +67,14 @@ This has numerous benefits:
 
 - **Integration with existing automation.** Continuous integration systems can apply deterministic verification to agent output.
 
+## Skills hierarchy
+
+While these skills are loosely coupled to one another, they are tightly coupled to external development tools. Specifically, they expect requirements specifications, technical decision logs, design docs, and implementation plans to exist in very particular formats. This is necessary to achieve predictable outcomes – the ultimate objective.
+
+A workflow skill here may drive another repository's own skills. `/specify`, for instance, drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`. But it MUST NOT actually *run* them. Instead it **reads their instructions and carries them out itself**, without stopping for input. The other repository's skill is the authoritative *description of the steps*. The workflow skill is the thing that *runs those steps* on its own.
+
+Reading rather than running keeps the rules in one place. The target repository stays the single source for how its documents are written. The workflow skill never keeps its own copy of those rules. It reads them fresh each time. So if a project changes its own `write-spec`, that changes how `/specify` behaves there, without `/specify` itself having to change.
+
 ## Global skills
 
 These skills are optimized for the development of application software that spans multiple code repositories – and potentially multiple teams – where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase.
@@ -91,14 +99,6 @@ Because no skill refers to or hands off to another, the workflow – the order t
 
 A skill is a tool. The workflow is how you use the tools. The same skill might be the last step in one workflow and a middle step in another. Baking "next, run X" into a skill would foreclose that. So the order, the conditions under which one skill follows another, and the approval gates between phases all belong to the orchestrator. The orchestrator might be a sapien, an agent, or a script. It is never the skills themselves. Documenting a recommended workflow is fine. But it belongs in repository documentation, such as these notes, not inside any skill.
 
-## Skills hierarchy
-
-While these skills are loosely coupled to one another, they are tightly coupled to external development tools. Specifically, they expect requirements specifications, technical decision logs, design docs, and implementation plans to exist in very particular formats. This is necessary to achieve predictable outcomes – the ultimate objective.
-
-A workflow skill here may drive another repository's own skills. `/specify`, for instance, drives an SRS repository's `draft-spec` → `write-spec` → `propose-spec`. But it MUST NOT actually *run* them. Instead it **reads their instructions and carries them out itself**, without stopping for input. The other repository's skill is the authoritative *description of the steps*. The workflow skill is the thing that *runs those steps* on its own.
-
-Reading rather than running keeps the rules in one place. The target repository stays the single source for how its documents are written. The workflow skill never keeps its own copy of those rules. It reads them fresh each time. So if a project changes its own `write-spec`, that changes how `/specify` behaves there, without `/specify` itself having to change.
-
 ## Well-defined inputs and outputs
 
 Achieving loose coupling requires each skill to have well-defined inputs and outputs. So every `SKILL.md` opens – immediately after its intro prose, before the first `##` heading – with two prominent, bold-lead paragraphs:
@@ -121,7 +121,7 @@ The **Output** paragraph *says* what the skill produces. The [`## Success criter
 
 ## Single responsibility
 
-A skill should have a single responsibility. It should do one job and stop at a well-defined boundary. A skill should not reach into adjacent work, even we doing so would be convenient.
+A skill should have a single responsibility. It should do one job and stop at a well-defined boundary. A skill should not reach into adjacent work, even if doing so would be convenient.
 
 An important design constraint on this skills collection is that no one skill does both _evaluation_ and _implementation_. A skill either analyzes and reports its findings, or it enacts a change – but never both. For example, a skill that proofreads a document (`/proof`) does not also commit the changes it makes to the document (`/commit`). The decision of whether, when, and how to commit belongs to the caller – which might be a sapien, or an orchestrating agent or script.
 
@@ -135,38 +135,6 @@ The following pairs of skills represent other splits between these two responsib
 | `/validate` judges whether the right thing was built | `/refine` updates the requirements specification |
 
 Keeping these two concerns apart means humans can review findings before anything changes. Having a single responsibility gives each skill a clear trigger condition, too. And each skill becomes more useful on its own. For example, you could reuse an evaluator skill to report into a CI gate, and you could feed an enacting skill findings recorded in an issue or inputted directly by a human.
-
-## Composable
-
-If each skill is a small, sharp tool with well-defined input and output, an orchestrator can compose the skills into new, interesting workflows.
-
-The [workflow diagram](../README.md) shows *one* recommended order – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. It is a **suggestion, not a rule**. Because every skill is [loosely coupled](#loose-coupling), hands off to nothing, and states its [input and output](#well-defined-inputs-and-outputs), any skill whose output matches another's input can feed into it, wherever they sit in the diagram.
-
-A few combinations the diagram doesn't show:
-
-- **An evaluation skill as a starting point.** `/validate` sits at the *end* of the main path, but its output – a ranked list of gaps between what was built and what was needed – is exactly what a discovery session works from. So it can be the **way in** to a fresh round of requirements work. The same goes for running `/audit` on a codebase you've inherited.
-
-- **Building skills used on their own.** `/commit`, `/branch`, `/format`, and `/proof` are each useful on their own, run as needed, with no earlier skill having run first.
-
-- **Loops the diagram leaves out.** Nothing stops you running `/review` → `/resolve` → `/review` until it's clean, or dropping in `/research` wherever you hit a gap in knowledge.
-
-**Keep the skills unaware of the workflow, and the workflow becomes something the user puts together – not something the skills dictate.** Within a single project, this is what keeps the range of possible workflows open.
-
-## Specs-to-code
-
-The skills are designed to be composable into end-to-end agentic workflows.
-
-Critical to achieving a complete specs-to-code workflow is the requirements specification (`/specify`). The more of the spec you can capture as executable acceptance tests – covering both functional behavior and non-functional runtime qualities – the more an agent will be capable of verifying its own progress.
-
-As outcomes become less dependent on judgment, you need fewer humans-in-the-loop.
-
-## Iterative and incremental
-
-Specs-to-code workflows risk becoming an **agentic waterfall**, in which large-scale code changes all land at once – resulting in fragile **big bang** releases.
-
-This is resolved by breaking down deliverables into an incremental development plan (`/plan`). That up-front planning depends on a thorough spec and a considered design being in place – it's not vibe coding.
-
-Incremental delivery keeps the cost of a mistake small. A flaw is caught one increment in, when correction is easier.
 
 ## Interactive versus non-interactive
 
@@ -192,6 +160,38 @@ Every skill says which kind it is up front – in its `metadata.interactive` fro
 - **🤖 Agentic skills** (`metadata.interactive: no`) run with no human turn. They take everything from the prompt, context, and environment, do the job, and stop. This is most of the collection – `/specify`, `/design`, `/plan`, `/code`, `/review`, `/test` – and it is what lets an orchestrator chain them into an unattended pipeline.
 
 The split draws a clean line. **Asking a person for input** is the job of a 🧑 skill upstream (gathering requirements is `/discover`'s job, not `/specify`'s), and the 🤖 skills downstream just *use* what those produce. This leads to one important rule. **A 🤖 skill fails instead of asking.** If it can't get everything it needs from the prompt, the context, and the environment, it stops and says exactly what is missing – it does NOT fall back to questioning the user. Take `/specify` as the example. Given an incomplete PRD, it rejects it with a list of what's absent. A clean failure is something the caller can act on. A skill stuck waiting for an answer is not. So a 🤖 skill that finds itself wanting to ask the user a question has either been given incomplete input – in which case it fails and says so – or taken on work that belongs to a 🧑 skill instead.
+
+## Composable
+
+If each skill is a small, sharp tool with well-defined input and output, an orchestrator can compose the skills into new, interesting workflows.
+
+The [workflow diagram](../README.md) shows *one* recommended order – the proactive `/discover` → `/specify` → `/design` → `/plan` → build-loop path, and the reactive `/triage` → build-loop path. It is a **suggestion, not a rule**. Because every skill is [loosely coupled](#loose-coupling), hands off to nothing, and states its [input and output](#well-defined-inputs-and-outputs), any skill whose output matches another's input can feed into it, wherever they sit in the diagram.
+
+A few combinations the diagram doesn't show:
+
+- **An evaluation skill as a starting point.** `/validate` sits at the *end* of the main path, but its output – a ranked list of gaps between what was built and what was needed – is exactly what a discovery session works from. So it can be the **way in** to a fresh round of requirements work. The same goes for running `/audit` on a codebase you've inherited.
+
+- **Building skills used on their own.** `/commit`, `/branch`, `/format`, and `/proof` are each useful on their own, run as needed, with no earlier skill having run first.
+
+- **Loops the diagram leaves out.** Nothing stops you running `/review` → `/resolve` → `/review` until it's clean, or dropping in `/research` wherever you hit a gap in knowledge.
+
+**Keep the skills unaware of the workflow, and the workflow becomes something the user puts together – not something the skills dictate.** Within a single project, this is what keeps the range of possible workflows open.
+
+## Specs-to-code
+
+Composed together, these skills support a complete **specs-to-code** workflow – one where the specification, captured as executable acceptance criteria, is what drives and verifies the build.
+
+The pivot is the requirements specification (`/specify`). The more of the spec you can capture as executable acceptance tests – covering both functional behavior and non-functional runtime qualities – the more an agent can verify its own progress against the [primary feedback loop](#predictable-outcomes), with no human needed to judge whether it is done.
+
+As outcomes become less dependent on judgment, you need fewer humans-in-the-loop.
+
+## Iterative and incremental
+
+Specs-to-code workflows risk becoming an **agentic waterfall**, in which large-scale code changes all land at once – resulting in fragile **big bang** releases.
+
+This is resolved by breaking down deliverables into an incremental development plan (`/plan`). That up-front planning depends on a thorough spec and a considered design being in place – it's not vibe coding.
+
+Incremental delivery keeps the cost of a mistake small. A flaw is caught one increment in, when correction is easier.
 
 ## Other design decisions
 
