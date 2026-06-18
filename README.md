@@ -4,19 +4,15 @@
 
 **A collection of agentic workflow skills** – also known as rules or instructions.
 
-<!--
-
-This is no grab-bag of random skills. It's a cohesive collection that forms a complete end-to-end development workflow. As such, it assumes a broader, structured environment of development methods and tools.
-
--->
-
 These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing… They also cover supporting activities such as business discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and agent handoff.
 
-The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
+This is no grab-bag of random skills. It's a cohesive collection that forms a complete end-to-end development workflow. That workflow is highly opinionated, and it assumes a broader, structured environment of development methods and tools to enable agentic workflows.
 
 The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
 
-These skills are highly opinionated and are dependent on a wider ecosystem of support tools and artifacts to enable agentic workflows. [Read more about the design principles](./docs/design-notes.md) that underpin these skills.
+[Read more about the design principles](./docs/design-notes.md) that underpin these skills.
+
+The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
 ## 🧩 Skills
 
