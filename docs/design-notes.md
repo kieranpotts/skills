@@ -100,11 +100,11 @@ Keeping these two concerns apart means humans can review findings before anythin
 
 For skills to be composable into different workflows, they need to be loosely coupled from one another. And for skills to be loosely coupled, they must be connected by contracts, not by handoffs.
 
-One skill's output is the next skill's input. But no skill should name, refers to, or invokes another skill. Each does its one job, reports the result, and stops.
+One skill's output is the next skill's input. But no skill should name, refer to, or invoke another skill. Each does its one job, reports the result, and stops.
 
-Deciding what runs next is the responsibility of whoever is running the workflow – the orchestrator – not to the individual skills within that workflow.
+Deciding what runs next is the responsibility of whoever is running the workflow – the orchestrator – not the individual skills within that workflow.
 
-This allows the skills be composed into workflows in different ways. Coupling through contracts rather than handoffs also makes individual skills easier to maintain and to reuse.
+This allows the skills to be composed into workflows in different ways. Coupling through contracts rather than handoffs also makes individual skills easier to maintain and to reuse.
 
 ## Well-defined inputs and outputs
 
@@ -116,7 +116,7 @@ The input/output definitions are the contract the orchestrator reads to decide w
 
 ## Interactive versus non-interactive
 
-An important part of the interface definition of an agent skill is whether the skill can be executed non-interactivity.
+An important part of the interface definition of an agent skill is whether the skill can be executed non-interactively.
 
 **Non-interactive** (🤖) execution supports agentic workflows that run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides for input. Non-interactive skills can be run unattended and – depending on how they fit into a workflow – in parallel.
 
@@ -126,7 +126,7 @@ Interactive skills should be used sparingly. They should be used only where huma
 
 Choosing where a workflow pauses for input is a critical design decision. Human checkpoints should be inserted where the cost of an undetected error is high or hard to reverse, or where the call is genuinely the human's to make.
 
-If, in testing your agentic workflow, you fail to consistently achieve predictable outcomes, then need more humans-in-the-loop. You need to add more checkpoints.
+If, in testing your agentic workflow, you fail to consistently achieve predictable outcomes, then you need more humans-in-the-loop. You need to add more checkpoints.
 
 The emerging goal of the **specs-to-code** movement is for all interactive sessions to be upstream in an agentic workflow. Humans are in-the-loop only in the initial phases of the software development lifecycle. The promise of AI tools is that predictable, production-grade code can be realized via fully end-to-end agentic workflows triggered from requirements specifications inputted as executable acceptance criteria.
 
@@ -136,7 +136,7 @@ One of the risks of specs-to-code workflows is that you end up with an **agentic
 
 This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then the poor sapiens will have to contend with sprawling pull requests – such a big bottleneck that overall delivery may not be any faster than if the reviewers had written the code themselves. Worse still are all the risks associated with the resulting **big bang** releases.
 
-This can be resolved by enforcing **continuous integration** in agentic workflows. This involves breaking down deliverables into an incremental development plan. That up-front planning depends on a thorough spec and a considered design being in place from the start – it's a world away from vibe coding – but incremental delivery catches mistakes early, allows for course-correction when its still easy to do, and substantially reduces the inherent risk in agentic programming.
+This can be resolved by enforcing **continuous integration** in agentic workflows. This involves breaking down deliverables into an incremental development plan. That up-front planning depends on a thorough spec and a considered design being in place from the start – it's a world away from vibe coding – but incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and substantially reduces the inherent risk in agentic programming.
 
 ```mermaid
 flowchart LR
