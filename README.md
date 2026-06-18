@@ -27,9 +27,11 @@ These skills span four categories:
 
 The workflow skills cover distinct phases of the software development lifecycle (SDLC).
 
-Each skill's place in the SDLC is shown in the model below. This is a representation only – the individual skills are designed to be independent of one another, and so can be composed into all sorts of interesting workflows.
+No skill in this collection hands off to another explicitly. They're loosely coupled by design, free to be composed into whatever workflow a supervisor agent, script, or human assembles.
 
-The diagram distinguishes the main workflow sequence (solid blue and grey) from the feedback loops (dashed green) and optional callouts to helpers (dotted yellow). It differentiates between agent-human interactive steps (🧑), non-interactive agentic steps (🤖), and scripted steps (⚙️).
+The diagram below is just one such possible composition. It shows a proposed main sequence (solid blue/grey), its feedback loops (dashed green), and optional helper callouts (dotted yellow).
+
+Steps are marked human-agent interactive (🧑), autonomous-agentic (🤖), or scripted (⚙️). Only steps in the the first two categories have corresponding agent skills.
 
 ```mermaid
 flowchart LR
