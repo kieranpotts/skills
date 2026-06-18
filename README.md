@@ -4,6 +4,12 @@
 
 **A collection of agentic workflow skills** – also known as rules or instructions.
 
+<!--
+
+This is no grab-bag of random skills. It's a cohesive collection that forms a complete end-to-end development workflow. As such, it assumes a broader, structured environment of development methods and tools.
+
+-->
+
 These skills cover universal phases of the software development lifecycle: specifying, designing, planning, branching, coding, committing, reviewing, testing, merging, releasing… They also cover supporting activities such as business discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and agent handoff.
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard – natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
@@ -28,23 +34,27 @@ The workflow skills cover distinct phases of the software development lifecycle 
 ```mermaid
 flowchart LR
   %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
-  discover["🧑 /discover"]:::tertiary
-  specify["🤖 /specify"]:::primary
-  design["🤖 /design"]:::primary
-  triage["🤖 /triage"]:::primary
-  plan["🤖 /plan"]:::primary
-  code["🤖 /code"]:::primary
-  review["🤖 /review"]:::primary
-  resolve["🤖 /resolve"]:::primary
-  test["🤖 /test"]:::primary
-  audit["🤖 /audit"]:::primary
-  validate["🤖 /validate"]:::primary
-  spike["🤖 /spike"]:::tertiary
-  elaborate["🧑 /elaborate"]:::tertiary
-  format["🤖 /format"]:::tertiary
-  debug["🤖 /debug"]:::tertiary
-  refactor["🤖 /refactor"]:::secondary
-  refine["🧑 /refine"]:::secondary
+  discover["🧑 discover"]:::tertiary
+  specify["🤖 specify"]:::primary
+  design["🤖 design"]:::primary
+  triage["🤖 triage"]:::primary
+  plan["🤖 plan"]:::primary
+  code["🤖 code"]:::primary
+  review["🤖 review"]:::primary
+  resolve["🤖 resolve"]:::primary
+  lint["⚙️ lint"]:::scripted
+  build["⚙️ build"]:::scripted
+  test["⚙️ test"]:::scripted
+  integrate["⚙️ integrate"]:::scripted
+  audit["🤖 audit"]:::primary
+  validate["🤖 validate"]:::primary
+  deploy["⚙️ deploy"]:::scripted
+  spike["🤖 spike"]:::tertiary
+  elaborate["🧑 elaborate"]:::tertiary
+  format["🤖 format"]:::tertiary
+  debug["🤖 debug"]:::tertiary
+  refactor["🤖 refactor"]:::secondary
+  refine["🧑 refine"]:::secondary
 
   %% Main workflow sequence.
   specify ==> design
@@ -53,13 +63,17 @@ flowchart LR
   plan ==> code
   subgraph build_increments [build increments]
     direction LR
-    code ==> review
+    code ==> lint
+    lint ==> review
     review ==> resolve
-    resolve ==> test
-    test ==> code
+    resolve ==> build
+    build ==> test
+    test ==> integrate
+    integrate ==> code
   end
-  test ==> audit
+  integrate ==> audit
   audit ==> validate
+  validate ==> deploy
 
   %% Callouts to helpers.
   discover <-.-> specify
@@ -78,6 +92,7 @@ flowchart LR
   classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
   classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   %% classDef reactive fill:#f8d7da,stroke:#721c24,color:#721c24,stroke-width:2px
 
   %% Subgraph (loop) border styling.
@@ -182,7 +197,11 @@ Whenever you install skills using this CLI, anonymous telemetry data will be col
 
 ### Custom installer
 
-The custom [`./run/install`](./run/install) script supports fewer agents than skills.sh, but it can install at the user level as an alternative to installing on a per-project basis. Clone this repository, then execute `./run/install` from its root.
+Since these skills are intended to be used globally across multiple code repositories, it is recommended to install these skills in the user's home directory or in a workspace root, rather than in individual code repositories. Unfortunately, the skills.sh installer supports only project-level skills.
+
+The custom [`./run/install`](./run/install) script supports fewer agents than skills.sh, but it can install at the user level as an alternative to installing on a per-project basis.
+
+Clone this repository, then execute `./run/install` from its root.
 
 ```sh
 # Claude only, installed at the user-level.
