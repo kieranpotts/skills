@@ -179,7 +179,7 @@ flowchart LR
 
 -   **Update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
 
-    Add a commit to the `epic/*` branch — after the final merge-down from `dev` — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line. This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
+    Add a commit to the `epic/*` branch – after the final merge-down from `dev` – that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line. This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
 
 -   **Clean up integrated branches.**
 

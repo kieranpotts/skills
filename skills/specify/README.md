@@ -31,7 +31,7 @@ The `/specify` skill closes by returning the URL to the pull request, telling th
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
 >
-> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools – and not rely on judgement – to decide whether their work is done.
+> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools – and not rely on judgment – to decide whether their work is done.
 >
 > The acceptance criteria act thus as a fitness function that the agent can iterate toward – a deterministic, stable signal of how close the current implementation is to the desired outcome. This is acceptance test-driven development (ATDD) applied to agentic workflows.
 >

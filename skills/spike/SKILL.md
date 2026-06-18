@@ -30,7 +30,7 @@ A spike is a *byproduct*. The product is the *answer*. The code is thrown away.
     - ❌ "Try out the new SDK." (No question.)
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at stream close?"
 
-    If you cannot phrase the question this way, you are not ready to for the technical spike – you are still exploring. Return to the design work first.
+    If you cannot phrase the question this way, you are not ready for the technical spike – you are still exploring. Return to the design work first.
 
 2.  **Define the answer that ends the spike.**
 
@@ -91,7 +91,7 @@ A spike is a *byproduct*. The product is the *answer*. The code is thrown away.
     Based on the findings:
 
     - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch – do not promote the spike.
-    - *Answer is negative* → the option being spikes is closed; the design work resumes with the alternatives.
+    - *Answer is negative* → the option being spiked is closed; the design work resumes with the alternatives.
     - *Answer is mixed or inconclusive* → either run another time-boxed spike to disambiguate, or escalate the decision to the user. Do not silently extend.
 
 8.  **Document the answer, then throw the code away.**
@@ -205,7 +205,7 @@ The design work resumes, evaluating the other two candidates.
 
     If the question genuinely requires talking to a real production system (eg. measuring real-customer load), get explicit permission and observe production-safety rules. The "throwaway" discipline does not extend to ignoring production guardrails.
 
--   **Multiple spike stack up over time.**
+-   **Multiple spikes stack up over time.**
 
     Periodically review the `spikes/` directory and prune. Old spikes that have served their purpose should be deleted; their findings should already live in design docs, ADRs, or specs.
 

@@ -158,7 +158,7 @@ that two ways:
       already paid for.
 
 I'd lean (b), because the specification mentions a refund flow and the existing
-`cancelOrder()` doesn't trigger refunds today - so this is a
+`cancelOrder()` doesn't trigger refunds today – so this is a
 behavior change either way.
 
 Which is it?

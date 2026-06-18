@@ -142,7 +142,7 @@ Catching a behavior change pretending to be format:
 ```
 While "formatting" auth.py I noticed the function `_normalize_token`
 was renamed to `normalize_token` (removing the underscore). That is
-a refactor, not a formatting change - it alters the public surface
+a refactor, not a formatting change – it alters the public surface
 of the module. Reverted the rename; recorded a refactor: follow-up.
 ```
 

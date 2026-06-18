@@ -12,7 +12,7 @@ metadata:
 
 Do NOT use this skill for branch-naming conventions or PR titles.
 
-This convention is NOT compatible with Conventional Commits. Scopes/parentheticals (`feature(parser): …`) fail validation — the colon comes immediately after the type.
+This convention is NOT compatible with Conventional Commits. Scopes/parentheticals (`feature(parser): …`) fail validation – the colon comes immediately after the type.
 
 <!-- TODO: Allow direct commits to dev? -->
 
@@ -56,7 +56,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     `<description>` MUST be full lowercase and use the imperative mood (eg. "add", not "added" or "adds"). No period at the end of the description.
 
-    An optional flag MAY be appended - `<type>: <description> - <flag>` where `<flag>` is one of:
+    An optional flag MAY be appended – `<type>: <description> - <flag>` where `<flag>` is one of:
 
     - `BREAKING`
     - `EXPERIMENT`
@@ -76,7 +76,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     One logical change per commit. Split large changes into multiple commits.
 
-    A user-facing change typically arrives as a bundle of atomic commits — `refactor:`, `format:`, `step:`, `chore:` — culminating in the `feature:` or `runtime:` commit that makes the requirement verifiable through the system's UI.
+    A user-facing change typically arrives as a bundle of atomic commits – `refactor:`, `format:`, `step:`, `chore:` – culminating in the `feature:` or `runtime:` commit that makes the requirement verifiable through the system's UI.
 
 -   **Pick the most appropriate commit type.**
 
@@ -88,7 +88,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - `fix`: Resolves a defect – bug, regression, vulnerability, or incident (including silencing spurious error log entries).
 
-    - `format`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
+    - `format`: Presentation-only code or content changes – whitespace, indentation, line wrapping, style. Distinct from `refactor`.
 
     - `maintenance`: Required upkeep – dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
 
@@ -110,7 +110,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     - `refactor` vs. `format`: `refactor` improves internal structure; `format` improves code presentation only.
 
-    - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the changelog (deps, infra, CI). `chore` is repository housekeeping that doesn't (README tweaks, typos) — noise that can be omitted from the changelog.
+    - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the changelog (deps, infra, CI). `chore` is repository housekeeping that doesn't (README tweaks, typos) – noise that can be omitted from the changelog.
 
 -   **Add a flag** to the subject line in the following special cases:
 
@@ -128,7 +128,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
 
     When committing directly to `dev` or a `temp/*` branch, update the project's `CHANGELOG.md` (or equivalent) as part of the same commit. Document the change under an `[Unreleased]` section at the top of the file.
 
-    All commit types SHOULD be recorded — including `format:` and `refactor:`. The only exception is `chore:`, which is housekeeping too minor to warrant a changelog entry.
+    All commit types SHOULD be recorded – including `format:` and `refactor:`. The only exception is `chore:`, which is housekeeping too minor to warrant a changelog entry.
 
     Each entry is a bullet point using the same `type: description` format as the commit subject line, including any flag. Newest entries are at the top.
 
@@ -144,7 +144,7 @@ This convention is NOT compatible with Conventional Commits. Scopes/parenthetica
     - step: increment toward new feature - EXPERIMENT
     ```
 
-    A changelog is for contributors and developers. Release notes — a separate artifact — is for end users. So we _are_ interesting in recording in the changelog internal changes like refactorings and reformattings.
+    A changelog is for contributors and developers. Release notes – a separate artifact – is for end users. So we _are_ interested in recording in the changelog internal changes like refactorings and reformattings.
 
 ## Examples
 
@@ -191,7 +191,7 @@ Closes: #123
 
 -   **Type semantics fit the changeset.**
 
-    Re-read the type's description above. If two types feel applicable, consult the *Subtle distinctions* note — that's where the hard cases are resolved.
+    Re-read the type's description above. If two types feel applicable, consult the *Subtle distinctions* note – that's where the hard cases are resolved.
 
 -   **Subject line length is within budget.**
 

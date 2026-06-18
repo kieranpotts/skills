@@ -15,7 +15,7 @@ The plan is consumed one step at a time by the downstream implement → review �
 
 Do NOT use this skill to enumerate options or evaluate trade-offs – that is design work. Do NOT use it to write acceptance criteria – that is specification work. This skill decomposes an already-agreed design into deliverable steps, and nothing more.
 
-**Input**: An agreed design (the chosen option) and the acceptance criteria it must deliver, for a change larger than one atomic commit or touching multiple seams. REQUIRED. The project's commit-type vocabulary and branch model inform how steps are labelled and integrated.
+**Input**: An agreed design (the chosen option) and the acceptance criteria it must deliver, for a change larger than one atomic commit or touching multiple seams. REQUIRED. The project's commit-type vocabulary and branch model inform how steps are labeled and integrated.
 
 **Output**: A numbered checklist of small steps, each independently mergeable, testable, and reversible, ordered riskiest-first, with a mode tag (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and any flag, fixture, or migration named where used. The plan is reported as the artefact and the skill stops; it writes no code itself.
 

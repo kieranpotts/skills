@@ -59,7 +59,7 @@ Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, ru
     temporary instrumentation in place.
 
     ## Suggested next steps
-    The work the next session should pick up - eg. decomposition if
+    The work the next session should pick up – eg. decomposition if
     the plan is incomplete, implementation if the design is settled,
     diagnosis if a test is failing. Name the specific step if known,
     and any tool or skill suited to it.

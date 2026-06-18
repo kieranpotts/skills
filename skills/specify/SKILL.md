@@ -184,7 +184,7 @@ The shape of the specification content itself – Gherkin acceptance criteria, m
 
 -   **The proposal reaches `PROPOSED` via the repository's own procedure.**
 
-    On a valid PRD, the skill carries out scaffold → author → mark-ready (the procedure defined by `draft-spec` → `write-spec` → `propose-spec`, or the repository's equivalents) autonomously, leaving an open, non-draft proposal pull request labelled for review – not an arbitrary file or a half-finished draft. The format and lifecycle rules are read from the local skills, not reinvented here.
+    On a valid PRD, the skill carries out scaffold → author → mark-ready (the procedure defined by `draft-spec` → `write-spec` → `propose-spec`, or the repository's equivalents) autonomously, leaving an open, non-draft proposal pull request labeled for review – not an arbitrary file or a half-finished draft. The format and lifecycle rules are read from the local skills, not reinvented here.
 
 -   **The user is told the specification awaits their approval.**
 

@@ -84,9 +84,9 @@ Validation regex (for both):
 
 -   **Promote the `[Unreleased]` CHANGELOG section at release time.**
 
-    Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md` to the version and date (e.g., `## [1.2.0] - 2026-05-27`), and add a new empty `[Unreleased]` section above it. Include this as part of the `release:` commit on the release branch. This ties each changelog entry to a specific shipped version.
+    Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md` to the version and date (eg. `## [1.2.0] - 2026-05-27`), and add a new empty `[Unreleased]` section above it. Include this as part of the `release:` commit on the release branch. This ties each changelog entry to a specific shipped version.
 
--   **Prepare release notes for end users.** *(Draft — process to be defined.)*
+-   **Prepare release notes for end users.** *(Draft – process to be defined.)*
 
     Release notes are distinct from the CHANGELOG. Where the CHANGELOG records all changes for contributors and developers, release notes are curated for end users: user-facing features, bug fixes, and breaking changes, written in plain non-technical language. Derive them from the newly-promoted versioned section of `CHANGELOG.md`, filtering out internal changes (`refactor:`, `format:`, `step:`, `maintenance:`). The format and publication channel are project-specific.
 
@@ -117,11 +117,11 @@ v2.0.0
 
 -   **A single release strategy is in use.**
 
-    Either the `release` trunk (continuous deployment) or `release/<version>` branches (release trains) — not both. The name matches `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+    Either the `release` trunk (continuous deployment) or `release/<version>` branches (release trains) – not both. The name matches `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
 -   **The release was cut from `ready`.**
 
-    Release branches branch from the `ready` trunk tip, whose artifacts are production-grade — never from `dev` or `test`.
+    Release branches branch from the `ready` trunk tip, whose artifacts are production-grade – never from `dev` or `test`.
 
 -   **The release is tagged.**
 
@@ -133,7 +133,7 @@ v2.0.0
 
 -   **Artifacts live outside Git.**
 
-    Compiled artifacts are shipped to an external registry (Docker, npm, PyPI, S3, …) and referenced by tag — never committed to the repository.
+    Compiled artifacts are shipped to an external registry (Docker, npm, PyPI, S3, …) and referenced by tag – never committed to the repository.
 
 -   **No fix was committed to a release branch.**
 

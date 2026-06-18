@@ -4,7 +4,7 @@ The capitalized words REQUIRED, MUST, MUST NOT, RECOMMENDED, SHOULD, SHOULD NOT,
 
 ## Project overview
 
-A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely-available open-weight models. Each skill is designed to be portable, independent, and free of hand-offs to other skills, so any one can be installed or deleted on its own; the workflow that sequences them lives in the orchestrator, not the skills. See [`docs/design-notes.md`](./docs/design-notes.md).
+A curated collection of agent skills for AI-assisted software development. The primary purpose is to encode established development practices – SDLC phases, version control conventions – into high-quality, reliable prompts that produce consistent, predictable outputs across mainstream coding agents backed by freely available open-weight models. Each skill is designed to be portable, independent, and free of hand-offs to other skills, so any one can be installed or deleted on its own; the workflow that sequences them lives in the orchestrator, not the skills. See [`docs/design-notes.md`](./docs/design-notes.md).
 
 Changes to this repository tend to be small and self-contained – eg. adding new skills, editing existing `SKILL.md` files, or updating documentation. The main constraint on all changes is that `SKILL.md` files SHOULD stay token-efficient (RECOMMENDED ≤ 300 lines) and pass the validator checks described below.
 

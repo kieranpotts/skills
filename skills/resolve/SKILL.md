@@ -42,7 +42,7 @@ Do NOT use this skill to *make* review findings (that is [`/review`](../review/S
 
 4.  **Implement each comment as the smallest faithful change.**
 
-    For each open comment, make exactly the change it asks for – no more. A comment is a scoped instruction, not a licence to refactor the surrounding code. Resist "while I'm here" edits: they enlarge the diff, blur which change answers which comment, and invite a second review round.
+    For each open comment, make exactly the change it asks for – no more. A comment is a scoped instruction, not a license to refactor the surrounding code. Resist "while I'm here" edits: they enlarge the diff, blur which change answers which comment, and invite a second review round.
 
     If a comment names a concrete fix ("validate `amount > 0` and return 400"), apply that fix. If it names a problem without a fix ("this doesn't handle the empty case"), apply the smallest change that resolves the problem, in the style of the surrounding code.
 

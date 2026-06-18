@@ -4,7 +4,7 @@
 
 <!-- Analogous to /audit, which evaluates the evolving architecture, rather than behaviors. -->
 
-<!-- both /audit and /validate hang off the end of the build loop — once an increment is built, reviewed, and tested, you step back and evaluate at the two higher levels (design fitness, product fitness) -->
+<!-- both /audit and /validate hang off the end of the build loop – once an increment is built, reviewed, and tested, you step back and evaluate at the two higher levels (design fitness, product fitness) -->
 
 <!-- /validate feeds into /refine. While /validate does the actual evaluation of the evolving product, /refine is responsible for putting the findings into action. /refine is analogous to /refactor, which serves the equivalent role in the design feedback loop. -->
 

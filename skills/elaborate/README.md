@@ -32,9 +32,9 @@ Invoke it after a draft design exists (an ADR, design doc, or PR description) an
 
 ## References
 
-- [Original source — mattpocock/skills `grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md): The relentless one-question-at-a-time interview pattern this skill is built on.
+- [Original source – mattpocock/skills `grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md): The relentless one-question-at-a-time interview pattern this skill is built on.
 
-- [Original source — mattpocock/skills `grill-with-docs`](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md): The doc-update discipline integrated into the grill loop. This skill uses `docs/domain-model.md` rather than mattpocock's `CONTEXT.md` convention.
+- [Original source – mattpocock/skills `grill-with-docs`](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md): The doc-update discipline integrated into the grill loop. This skill uses `docs/domain-model.md` rather than mattpocock's `CONTEXT.md` convention.
 
 - [CONTEXT-FORMAT.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/CONTEXT-FORMAT.md): The glossary format the `docs/domain-model.md` entries are modeled on. Read for term-style conventions (one or two sentences, aliases to avoid).
 

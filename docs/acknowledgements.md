@@ -1,6 +1,6 @@
 # Acknowledgements
 
-This collection of agent skills are my own. They're derived primarily from my [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards).
+This collection of agent skills is my own. They're derived primarily from my [software development playbook](https://github.com/kieranpotts/playbook) and [technical standards](https://github.com/kieranpotts/standards).
 
 But this project has, inevitably, been shaped by the prior work of others. I would like to acknowledge the following sources of inspiration and influence:
 

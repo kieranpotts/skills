@@ -117,8 +117,8 @@ The workflow skills are, in alphabetical order:
 | 🚧 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
 | 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
 | 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
-| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design while maintain stability through system testing. | 🤖 No |
-| 🚧 [`/refine`](./skills/refine/) | Produces new business requirements in response to acceptance testing feedback. | 🧑 Yes |
+| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. | 🤖 No |
+| 🚧 [`/refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. | 🧑 Yes |
 | 🚧 [`/resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. | 🤖 No |
 | 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
 | 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. | 🤖 No |

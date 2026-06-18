@@ -27,7 +27,7 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
     - In what specific situations should it trigger? (This informs the `description` field.)
 
-    - What is the expected output — format, location, content?
+    - What is the expected output – format, location, content?
 
     - Are there hard constraints, edge cases, or failure modes to document?
 
@@ -106,17 +106,17 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 -   **Instructions versus rules.**
 
-    Instructions are ordered steps — the procedural workflow the agent follows. Rules are individual, non-sequential guidelines, recommendations, and constraints – the most important ones come first.
+    Instructions are ordered steps – the procedural workflow the agent follows. Rules are individual, non-sequential guidelines, recommendations, and constraints – the most important ones come first.
 
     Keep them separate. Don't embed rules inside instructions.
 
 -   **Explain the why behind non-obvious requirements.**
 
-    Instead of bare imperatives (`ALWAYS do X`), explain the reasoning so the agent can apply judgment in edge cases. Well-reasoned instructions are more robust than rigid rules. When multiple approaches are valid, prefer explaining the *purpose* over prescribing exact steps — an agent that understands the why makes better context-dependent decisions.
+    Instead of bare imperatives (`ALWAYS do X`), explain the reasoning so the agent can apply judgment in edge cases. Well-reasoned instructions are more robust than rigid rules. When multiple approaches are valid, prefer explaining the *purpose* over prescribing exact steps – an agent that understands the why makes better context-dependent decisions.
 
 -   **Match prescriptiveness to fragility.**
 
-    Be prescriptive — exact commands, flags, ordering — when operations are fragile, consistency is critical, or a specific sequence must be followed. Otherwise, avoid enumerating every edge case in the body; handle genuinely tricky ones in an "edge cases" section or a `references/` file. Simple skills need only Instructions and Success criteria.
+    Be prescriptive – exact commands, flags, ordering – when operations are fragile, consistency is critical, or a specific sequence must be followed. Otherwise, avoid enumerating every edge case in the body; handle genuinely tricky ones in an "edge cases" section or a `references/` file. Simple skills need only Instructions and Success criteria.
 
 -   **Provide defaults, not menus.**
 
@@ -128,13 +128,13 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 -   **Write for token efficiency.**
 
-    Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files; link them with a trigger condition so they're only read when needed. If the same logic recurs across runs — parsing a format, validating output, building a fixture — extract it to `scripts/` rather than duplicating it in prose.
+    Skills are loaded into the agent's context window. Keep SKILL.md under ~300 lines. Offload deep detail to `references/` files; link them with a trigger condition so they're only read when needed. If the same logic recurs across runs – parsing a format, validating output, building a fixture – extract it to `scripts/` rather than duplicating it in prose.
 
     Balance token efficiency against human readability/edit-ability.
 
 -   **Gotchas live in `SKILL.md`, not in references.**
 
-    Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) MUST stay in the main file — the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
+    Environment-specific facts that defy reasonable assumptions (wrong field names, soft-delete filters, non-obvious API constraints) MUST stay in the main file – the agent needs them *before* it encounters the situation. When an agent makes a mistake you have to correct, add the correction to the edge cases section.
 
 -   **Use imperative form in instructions.**
 
@@ -142,17 +142,17 @@ Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-spec
 
 -   **Use consistent terminology.**
 
-    One word means one thing. Avoid synonyms. For example
+    One word means one thing. Avoid synonyms.
 
 -   **Reach for proven structural techniques**, eg.:
 
     - *Step checklists* (`- [ ] Step N`) for multi-step workflows where the agent must track progress across dependencies or validation gates.
 
-    - *Output templates* — provide a concrete template rather than a prose description; agents pattern-match against structure more reliably than they interpret descriptions. Long or conditional templates belong in `assets/`.
+    - *Output templates* – provide a concrete template rather than a prose description; agents pattern-match against structure more reliably than they interpret descriptions. Long or conditional templates belong in `assets/`.
 
-    - *Validation loops* — instruct the agent to run a validator, fix any failures, and repeat until it passes.
+    - *Validation loops* – instruct the agent to run a validator, fix any failures, and repeat until it passes.
 
-    - *Plan-validate-execute* — for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator MUST produce error messages specific enough for the agent to self-correct.
+    - *Plan-validate-execute* – for batch or destructive operations, have the agent produce a plan, validate it against a source of truth, then execute. The validator MUST produce error messages specific enough for the agent to self-correct.
 
 ## Examples
 
@@ -183,7 +183,7 @@ skills/
 
 - **Improving an existing skill:** Read the current SKILL.md first, then treat the improvement like a new draft. Rewrite rather than patch. Preserve the `name` field unchanged.
 
-- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.Use it as a reference for domain knowledge, but adapt the instructions and format to the bundled template and the conventions of the project you are authoring in. Don't copy verbatim.
+- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo. Use it as a reference for domain knowledge, but adapt the instructions and format to the bundled template and the conventions of the project you are authoring in. Don't copy verbatim.
 
 ## Success criteria
 
@@ -195,7 +195,7 @@ skills/
 
 - **The skill is token-efficient.** No section is padded with detail that belongs in a `references/` file. SKILL.md is under ~300 lines.
 
-- **The `description` is specific enough to trigger correctly.** It names both the capability and the contexts that should invoke it — not just a one-line summary of what the skill does.
+- **The `description` is specific enough to trigger correctly.** It names both the capability and the contexts that should invoke it – not just a one-line summary of what the skill does.
 
 - **A `README.md` exists alongside the `SKILL.md`.**
 

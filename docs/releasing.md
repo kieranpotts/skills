@@ -2,7 +2,7 @@
 
 Releases are cut directly from the `dev` trunk and tagged with a semantic version number.
 
-Releases are for the maintainer's benefit only — to mark significant milestones in the project's history. They have no effect on installation behavior.
+Releases are for the maintainer's benefit only – to mark significant milestones in the project's history. They have no effect on installation behavior.
 
 ## Steps
 

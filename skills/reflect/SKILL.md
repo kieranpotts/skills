@@ -147,7 +147,7 @@ Do NOT use this skill to:
 
 -   **Distinguish rules from facts.**
 
-    `feedback` (how to work) and `project` (what's true now) need the **Why:** + **How to apply:** structure – their reason gives future agents room for judgement on edge cases. `user` and `reference` types are statements of fact and need no such scaffolding.
+    `feedback` (how to work) and `project` (what's true now) need the **Why:** + **How to apply:** structure – their reason gives future agents room for judgment on edge cases. `user` and `reference` types are statements of fact and need no such scaffolding.
 
 -   **Update rather than duplicate.**
 

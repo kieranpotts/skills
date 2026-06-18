@@ -115,7 +115,7 @@ flowchart LR
 
     - Reintegrate with `dev` using squash-merge strategy. One fresh commit hits the trunk.
 
-    - Delete after integration into `dev`. Recreate a fresh epic branch is further long-running development work required.
+    - Delete after integration into `dev`. Recreate a fresh epic branch if further long-running development work is required.
 
 -   **General practices:**
 
@@ -157,7 +157,7 @@ epic/major-ui-redesign
 
 -   **The branch name validates.**
 
-    It matches `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$` — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case description.
+    It matches `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$` – one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case description.
 
 -   **The name is well-formed.**
 
