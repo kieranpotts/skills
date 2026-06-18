@@ -25,32 +25,36 @@ These skills span four categories:
 
 ### ➡️ Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC). Each skill's place in the SDLC is shown in the model below. The diagram distinguishes the main workflow sequence (solid blue) from the feedback loops (dashed green) and optional callouts to helpers (dotted yellow).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC).
+
+Each skill's place in the SDLC is shown in the model below. This is a representation only – the individual skills are designed to be independent of one another, and so can be composed into all sorts of interesting workflows.
+
+The diagram distinguishes the main workflow sequence (solid blue and grey) from the feedback loops (dashed green) and optional callouts to helpers (dotted yellow). It differentiates between agent-human interactive steps (🧑), non-interactive agentic steps (🤖), and scripted steps (⚙️).
 
 ```mermaid
 flowchart LR
   %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
-  discover["🧑 discover"]:::tertiary
-  specify["🤖 specify"]:::primary
-  design["🤖 design"]:::primary
-  triage["🤖 triage"]:::primary
-  plan["🤖 plan"]:::primary
-  code["🤖 code"]:::primary
-  review["🤖 review"]:::primary
-  resolve["🤖 resolve"]:::primary
-  lint["⚙️ lint"]:::scripted
-  build["⚙️ build"]:::scripted
-  test["⚙️ test"]:::scripted
-  integrate["⚙️ integrate"]:::scripted
-  audit["🤖 audit"]:::primary
-  validate["🤖 validate"]:::primary
-  deploy["⚙️ deploy"]:::scripted
-  spike["🤖 spike"]:::tertiary
-  elaborate["🧑 elaborate"]:::tertiary
-  format["🤖 format"]:::tertiary
-  debug["🤖 debug"]:::tertiary
-  refactor["🤖 refactor"]:::secondary
-  refine["🧑 refine"]:::secondary
+  discover["🧑\ndiscover"]:::tertiary
+  specify["🤖\nspecify"]:::primary
+  design["🤖\ndesign"]:::primary
+  triage["🤖\ntriage"]:::primary
+  plan["🤖\nplan"]:::primary
+  code["🤖\ncode"]:::primary
+  review["🤖\nreview"]:::primary
+  resolve["🤖\nresolve"]:::primary
+  lint["⚙️\nlint"]:::scripted
+  build["⚙️\nbuild"]:::scripted
+  test["⚙️\ntest"]:::scripted
+  integrate["⚙️\nintegrate"]:::scripted
+  audit["🤖\naudit"]:::primary
+  validate["🤖\nvalidate"]:::primary
+  deploy["⚙️\ndeploy"]:::scripted
+  spike["🤖\nspike"]:::tertiary
+  elaborate["🧑\nelaborate"]:::tertiary
+  format["🤖\nformat"]:::tertiary
+  debug["🤖\ndebug"]:::tertiary
+  refactor["🤖\nrefactor"]:::secondary
+  refine["🧑\nrefine"]:::secondary
 
   %% Main workflow sequence.
   specify ==> design
