@@ -9,11 +9,7 @@ metadata:
 
 # `/review`
 
-Use this skill when auditing a pull request, reviewing a peer's branch, or self-reviewing a change before opening a PR for others.
-
-Do NOT use this skill to verify acceptance criteria end-to-end (that is dynamic verification of the running system, a separate responsibility) or to investigate a failing test (that is diagnosis, also separate). Review evaluates the *change as a piece of work* against static qualities; dynamic verification then evaluates the *running system* against dynamic qualities.
-
-Review surfaces findings and classifies them; it does not itself fix them. Presentational issues, structural rework, and architecturally significant changes are each separate downstream responsibilities the findings are handed off to.
+Use this skill when auditing a pull request, reviewing a peer's branch, or self-reviewing a change before opening a PR. It evaluates the *change as a piece of work* against static qualities – correctness, design, clarity, test coverage, security, completeness – surfacing and classifying findings but not fixing them.
 
 <!--
 

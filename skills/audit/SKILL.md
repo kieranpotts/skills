@@ -9,20 +9,7 @@ metadata:
 
 # `/audit`
 
-Use this skill once all of a plan's increments are complete – built, reviewed, and tested – as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. The output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.
-
-This is the architectural counterpart to [`/validate`](../validate/SKILL.md): `/audit` judges whether the *design* should evolve (feeding [`/refactor`](../refactor/SKILL.md)); `/validate` judges whether the *specification* should evolve (feeding [`/refine`](../refine/SKILL.md)). Both run after the increments are done, evaluate only, and change nothing themselves.
-
-This skill is **evaluation only**. The output is a prioritized report. Each finding becomes input to a [`/refactor`](../refactor/SKILL.md) pass that iterates the design and updates the design docs; it is not itself an in-flight refactoring step. The loop is `audit → refactor → design`: this skill judges, `/refactor` enacts, `/design` re-establishes the intended structure.
-
-Do NOT use this skill when:
-
-- The increments are not yet complete – this is a post-plan checkpoint, not a per-increment step. Low-level code review within the build loop is [`/review`](../review/SKILL.md).
-- The user wants changes applied – this skill stops at the generated report; applying them is [`/refactor`](../refactor/SKILL.md).
-- The user wants the *specification* evaluated against user need – that is [`/validate`](../validate/SKILL.md).
-- The user wants issues filed, tickets cut, or PRs opened – leave that to their workflow.
-
-This is distinct from reviewing a specific diff for style and pattern consistency. `/audit` evaluates the *architecture* as a whole – module boundaries, abstractions, dependencies – against its intended design.
+Use this skill once all of a plan's increments are complete – built, reviewed, and tested – as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** – the output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass; it changes no code itself.
 
 **Input**: The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. REQUIRED. Run once all increments are complete.
 

@@ -9,18 +9,7 @@ metadata:
 
 # `/proof`
 
-Use this skill to proofread prose – documentation, a README, release notes, comments-as-prose, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. Nothing more.
-
-It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) – it edits the *prose* and leaves the *markup* and any embedded code untouched.
-
-This skill edits files in place and stops. It does NOT branch, commit, or open pull requests – that is the job of your version-control and release flow, invoked separately once the edits are reviewed. Keeping proofreading and version control separate lets you proofread on any branch and commit on your own terms.
-
-Do NOT use this skill to:
-
-- Rewrite, restructure, or re-argue content – this is copy editing, not structural restructuring of prose. Structural change needs a human's intent.
-- Edit code, configuration, or data files – it works on prose. Code presentation is a separate, code-formatting concern.
-- Translate, localize, or change the register/voice of the writing.
-- Change technical facts, even wrong-looking ones (see edge cases).
+Use this skill to proofread prose – documentation, a README, release notes, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) – it edits the *prose* and leaves the *markup* and any embedded code untouched. It edits files in place and stops; it does NOT branch, commit, or open pull requests.
 
 **Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL – defaults to the prose files changed in the working tree when no set is given.
 

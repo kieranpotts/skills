@@ -9,11 +9,7 @@ metadata:
 
 # `/plan`
 
-Use this skill after the design is captured (and, where needed, sharpened) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system.
-
-The plan is consumed one step at a time by the downstream implement → review → verify cycle: each step is built, audited, and verified, and on success the loop returns for the next step. The plan is the script for that loop.
-
-Do NOT use this skill to enumerate options or evaluate trade-offs – that is design work. Do NOT use it to write acceptance criteria – that is specification work. This skill decomposes an already-agreed design into deliverable steps, and nothing more.
+Use this skill after the design is captured (and, where needed, sharpened) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system. It decomposes an already-agreed design into a sequence of deliverable steps, consumed one at a time by the downstream build loop; it writes no code itself.
 
 **Input**: An agreed design (the chosen option) and the acceptance criteria it must deliver, for a change larger than one atomic commit or touching multiple seams. REQUIRED. The project's commit-type vocabulary and branch model inform how steps are labeled and integrated.
 

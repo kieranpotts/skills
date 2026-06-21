@@ -9,9 +9,7 @@ metadata:
 
 # `/test`
 
-Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* – not to write new tests for individual steps, and not to chase a defect.
-
-Do NOT use this skill to write fresh test cases for newly-added behavior – that belongs with the implementation work. Do NOT use it to investigate a failing test – diagnosing a defect is a separate responsibility. Do NOT use it to revise the specification when an AC turns out to be wrong – editing requirements is a separate responsibility.
+Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* – mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
 
 **Input**: A completed change and its specification. REQUIRED. The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
 

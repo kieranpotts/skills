@@ -11,8 +11,6 @@ metadata:
 
 Use this skill for hard bugs and performance regressions – any defect where the cause is not immediately obvious from reading the code.
 
-Do NOT use this skill for trivial fixes where the cause and fix are both obvious from the stack trace. Do NOT use it for refactoring or design changes.
-
 Skip phases below ONLY when explicitly justified, and state the justification. When exploring the codebase, use the project's domain glossary and check any ADRs (architecture decision records) in the area being touched.
 
 The six phases:

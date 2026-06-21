@@ -9,9 +9,7 @@ metadata:
 
 # `/triage`
 
-Use this skill to move issues on the project's issue tracker through a deliberate state machine. The goal is to take a freshly-filed issue and decide what happens next: implement it, defer it, reject it, or get more information.
-
-Do NOT use this skill to fix bugs, implement features, or write requirements from scratch. Triage classifies and routes issues; it does not do the implementation or specification work that follows.
+Use this skill to move issues on the project's issue tracker through a deliberate state machine: take a freshly-filed issue and decide what happens next – implement it, defer it, reject it, or get more information – classifying and routing it without doing the implementation or specification work that follows.
 
 This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
 

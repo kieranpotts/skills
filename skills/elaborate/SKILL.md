@@ -9,9 +9,7 @@ metadata:
 
 # `/elaborate`
 
-Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges – unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation.
-
-Do NOT use this skill to explore design options from scratch, to write requirements, or to break work into steps. This skill sharpens an existing draft; it does not originate the design, the requirements, or the step breakdown.
+Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges – unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
 
 This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 

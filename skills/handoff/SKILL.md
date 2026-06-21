@@ -9,9 +9,7 @@ metadata:
 
 # `/handoff`
 
-Use this skill when the work is about to be picked up by someone (or something) that does not have the current session's context: a fresh agent in a new conversation, a teammate taking over, your own next session after a long break, or yourself just before a compaction event.
-
-Do NOT use this skill to author durable project artifacts. PRDs, plans, ADRs, runbooks, and specs belong in the repo. A handoff document is *ephemeral* – a bridge across the gap between sessions – and should not survive longer than the next session that absorbs it.
+Use this skill when the work is about to be picked up by someone (or something) without the current session's context. It produces an *ephemeral* handoff document – a bridge across the gap between sessions, not a durable project artifact – that references existing artifacts (PRDs, plans, ADRs, issues, commits) rather than duplicating them.
 
 **Input**: The current session's context – the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase. REQUIRED.
 

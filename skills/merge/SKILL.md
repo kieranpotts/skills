@@ -10,11 +10,7 @@ metadata:
 
 # `/merge`
 
-Use this skill any time you need to integrate commits from one branch into another – reintegrating a `temp/*` branch into `dev`, promoting `dev` to `test` to `ready`, merging `dev` down into a long-lived `epic/*`, or landing an `epic/*` back into `dev`.
-
-Do NOT use this skill to choose or define a branching strategy, to cut a release, or to author commit messages – it applies an existing branching convention to integrate one branch into another, and nothing more.
-
-This skill assumes a working tree with no uncommitted changes. If you have uncommitted work, stash or commit first.
+Use this skill to integrate commits from one branch into another, applying the project's existing branching convention to pick the right strategy for the branch type. It assumes a working tree with no uncommitted changes – if you have uncommitted work, stash or commit first.
 
 **Merge strategies at-a-glance**:
 

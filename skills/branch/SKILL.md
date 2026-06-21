@@ -10,13 +10,7 @@ metadata:
 
 # `/branch`
 
-Use this skill when creating a new branch, or validating branch names before push.
-
-Do NOT use this skill for commit message conventions or PR titles.
-
-Do NOT use this skill for preparing or tagging releases.
-
-Do NOT use this skill for integrating changes (merging) between divergent branches.
+Use this skill when creating a new branch, or validating branch names before push. It names and validates branches against the trunk model below; it does not merge, cut releases, or author commit messages.
 
 **Branch model at-a-glance**:
 

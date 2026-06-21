@@ -9,16 +9,7 @@ metadata:
 
 # `/reflect`
 
-Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
-
-This skill bridges *working-style* continuity – how to collaborate effectively with this user, in this codebase. It is distinct from *task* continuity – what's done, what's open – which belongs in a separate session-handoff document. Durable lessons go to memory; ephemeral task state goes to that document.
-
-Do NOT use this skill to:
-
-- Capture task progress – that belongs in a session-handoff document, not memory.
-- Save anything derivable from the current code, git history, or existing project docs (CLAUDE.md, AGENTS.md, README, ADRs).
-- Save standard best practices any reasonable agent would already follow.
-- Save one-off task details (a specific bug fix, a specific filename) that won't generalize.
+Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project – durable working-style lessons, not task progress. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
 
 **Input**: The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED. This skill is **interactive**: it seeks per-candidate user approval through prompts before persisting anything.
 

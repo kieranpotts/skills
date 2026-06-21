@@ -9,11 +9,7 @@ metadata:
 
 # `/spike`
 
-Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option.
-
-Do NOT use this skill to build something you intend to keep – production implementation is a separate responsibility. Do NOT use it to fix a bug – that is a separate responsibility.
-
-A spike is a *byproduct*. The product is the *answer*. The code is thrown away.
+Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option. The spike is a *byproduct* and the *answer* is the deliverable – the code is time-boxed, scope-collapsed, and thrown away, never promoted to production.
 
 **Input**: One falsifiable question – a specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front. REQUIRED.
 

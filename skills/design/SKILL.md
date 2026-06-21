@@ -9,13 +9,7 @@ metadata:
 
 # `/design`
 
-Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision – new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API.
-
-Design is gated on an approved specification. It MUST NOT begin while the specification is still being drafted or merely proposed for review – only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
-
-Do NOT use this skill for trivial changes whose design is obvious (bug fixes, copy edits, renames – go straight to implementation).
-
-Do NOT use this skill to write requirements, or to break delivery into steps – those are separate responsibilities.
+Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision – new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API. Design is gated on an approved specification: it MUST NOT begin while the specification is still being drafted or merely proposed for review – only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
 
 **Input**: An approved specification – functional acceptance criteria and non-functional requirements, already reviewed and approved (`ACCEPTED`). REQUIRED. This skill consumes that specification; it does not write it, and its entry gate refuses to begin until the approval is in place.
 

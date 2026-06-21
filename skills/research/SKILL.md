@@ -8,18 +8,7 @@ metadata:
 
 # `/research`
 
-Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a report someone can act on.
-
-Research looks *outward*: it pulls knowledge inward from external sources, rather than distilling lessons from the current session. It does not write production code or project docs – it produces an input that other work consumes.
-
-The output is a single research report. Where it lands (a design doc, an ADR input, a memory entry, a message back to the user) is the *caller's* decision, stated when the skill is invoked or chosen by the user afterward. This skill does not edit shipped skills, project documentation, or code.
-
-Do NOT use this skill to:
-
-- Write or change code – that is implementation work, a separate responsibility.
-- Answer a design question by *building* something. Use `/research` when the answer exists in the world already; when it has to be discovered by experiment, that is a separate, build-and-measure responsibility.
-- Capture session lessons – that is distilling knowledge inward from the session, a separate responsibility.
-- Elicit requirements from a human – that is requirements discovery, a separate responsibility.
+Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a single research report someone can act on. It is discovery only – it does not edit code, project docs, or shipped skills; where the report lands is the caller's decision.
 
 **Input**: A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase – how a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current. REQUIRED.
 

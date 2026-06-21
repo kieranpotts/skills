@@ -9,11 +9,7 @@ metadata:
 
 # `/refactor`
 
-Use this skill when improving internal code quality – readability, structure, coupling, naming, decomposition – without changing what the code does from the outside.
-
-Do NOT use this skill to fix a defect or to add behavior – those change observable behavior and belong in a separate change. Do NOT use it for presentation-only changes like whitespace, indentation, or import ordering – those are noise that hides real refactoring intent. Bundling refactors with feature work or bug fixes obscures intent in the diff and complicates rollback.
-
-A change that alters externally observable behavior is not a refactor. Even a "small" behavior tweak in the middle of restructuring is a separate change.
+Use this skill when improving internal code quality – readability, structure, coupling, naming, decomposition – without changing what the code does from the outside. Behavior preservation is non-negotiable: a change that alters externally observable behavior is not a refactor but a separate change, even a "small" tweak made mid-restructuring.
 
 **Input**: Existing, tested code and a named target quality – the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. REQUIRED. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
 

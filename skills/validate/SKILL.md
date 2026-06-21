@@ -9,23 +9,7 @@ metadata:
 
 # `/validate`
 
-Use this skill once all of a plan's increments are complete – built, reviewed, and tested – to evaluate the working software against the users' *actual needs*, and judge whether the specification itself should evolve. The output is a prioritized set of suggestions, each seeding a separate [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass.
-
-This is **validation**, not verification, and the distinction is the whole point:
-
-- [`/test`](../test/SKILL.md) asks *did we build the thing right?* – the increment against its **agreed acceptance criteria**.
-- `/validate` asks *did we build the right thing?* – the working software against the **users' real need**, questioning whether the agreed criteria were ever the right ones.
-
-A change can pass every AC in `/test` and still fail `/validate`: it does exactly what was specified, and what was specified is not what the user needed. That gap is what this skill surfaces.
-
-This skill is **evaluation only**. It outputs suggestions; it changes no specification and no code. Acting on a suggestion – editing the requirements – is [`/refine`](../refine/SKILL.md)'s job, which in turn flows into [`/specify`](../specify/SKILL.md). The loop is `validate → refine → specify`: this skill judges, `/refine` enacts, `/specify` re-establishes the requirement.
-
-Do NOT use this skill to:
-
-- Verify the increment against its acceptance criteria – that is [`/test`](../test/SKILL.md).
-- Fix a defect where the code fails a *correct* AC – the specification is right, so there is nothing to validate; that is implementation work.
-- Edit the specification – this skill suggests; [`/refine`](../refine/SKILL.md) edits.
-- Evaluate the *design* or architecture – that is [`/audit`](../audit/SKILL.md), the design-level counterpart that feeds [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md).
+Use this skill once all of a plan's increments are complete – built, reviewed, and tested – to evaluate the working software against the users' *actual needs*, and judge whether the specification itself should evolve. This is **validation**, not verification: it asks *did we build the right thing?*, not *did we build the thing right?* – so a change can pass every AC and still surface a gap here. This skill is **evaluation only** – the output is a prioritized set of suggestions, each seeding a separate [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass; it changes no specification and no code itself.
 
 **Input**: Completed work that has already passed [`/test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need – the preserved PRD, the specification's outcome and success measures, or the discovery report. REQUIRED. Run once all of a plan's increments are complete.
 

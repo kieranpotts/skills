@@ -9,11 +9,7 @@ metadata:
 
 # `/refine`
 
-Use this skill when testing surfaces a problem with the *specification itself* – an acceptance criterion that is wrong, missing, contradictory, or ambiguous – or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The output is a set of precise edits to the specification, ready to be applied to the requirements artefacts and to flow forward into design, planning, and implementation.
-
-Do NOT use this skill to fix defects in the implementation – that is the job of fixing code that does not meet a correct specification, or of building missing behavior against a now-correct specification. Do NOT use it to write brand-new requirements for unrelated work (that starts fresh as a new specification).
-
-The boundary is sharp: if the specification was right and the code was wrong, you are not refining. If the specification was wrong and the code matches it, you are.
+Use this skill when testing surfaces a problem with the *specification itself* – an acceptance criterion that is wrong, missing, contradictory, or ambiguous – or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The boundary is sharp: if the specification was right and the code was wrong, you are not refining; if the specification was wrong and the code matches it, you are. The output is a set of precise edits to the specification, ready to flow forward into design, planning, and implementation; it changes no code itself.
 
 **Input**: A feedback trigger against an existing specification – a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session.
 

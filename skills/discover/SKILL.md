@@ -17,12 +17,6 @@ Use this skill to run a structured discovery session that refines a customer's b
 
 This skill produces the PRD and stops. It does NOT file the PRD in any workflow repository, and it does NOT translate the rules and examples into testable acceptance criteria. These are separate downstream responsibilities.
 
-Do NOT use this skill when:
-
-- A complete PRD (or similar artifact) already exists – with rules, examples, counter-examples, and an explicit scope – so it is ready to specify from directly (jump to [`/specify`](../specify/SKILL.md)).
-
-- The user wants to interrogate a draft solution design – that is technical refinement of a system, not business discovery (see [`/elaborate`](../elaborate/SKILL.md)).
-
 ## Instructions
 
 Conduct the session as a structured interview. Ask one question at a time, in the order below. Wait for the answer before asking the next. Let each answer shape the question that follows.

@@ -9,11 +9,7 @@ metadata:
 
 # `/resolve`
 
-Use this skill to clear the **open** review comments on a pull request: implement each one as a code change, verify it, and mark the comment resolved on the thread. It is the counterpart to [`/review`](../review/SKILL.md) – review posts the comments, this skill acts on them.
-
-Do NOT use this skill to *make* review findings (that is [`/review`](../review/SKILL.md)), to write fresh behavior beyond what a comment asks for (that is implementation work), to diagnose a failing test (that is a separate responsibility), or to decide *whether* a comment is worth actioning. That decision has already been made: a comment is open precisely because the author left it open.
-
-**The author has already curated the comments.** Between review and this skill, the author resolves – dismisses – any comments they disagree with or choose to defer. This skill therefore does not negotiate, defer, or reject: every comment still open is one the author wants implemented. The job is to implement each, faithfully and minimally, then mark it resolved.
+Use this skill to clear the **open** review comments on a pull request: implement each one as a minimal code change, verify it, and mark the comment resolved on the thread. The author has already curated the comments – any they disagree with or want to defer were dismissed before this runs – so this skill does not negotiate, defer, or reject: every comment still open is one the author wants implemented faithfully.
 
 **Input**: A pull request carrying open (un-dismissed) review comments from [`/review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
 

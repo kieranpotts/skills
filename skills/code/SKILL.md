@@ -9,11 +9,7 @@ metadata:
 
 # `/code`
 
-Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. Implement one plan step per session: after the step's tests pass, start the next step in a fresh session.
-
-Do NOT use this skill to specify requirements, evaluate design options, decompose work into steps, or diagnose a failure. This skill turns one already-designed step into working, tested code – nothing upstream of that.
-
-Do NOT bundle multiple plan steps into one coding session. One step per session keeps the diff reviewable and the rollback clean.
+Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. It turns one already-designed step into working, tested code. Implement one plan step per session – never bundle multiple steps – so the diff stays reviewable and rollback stays clean; after the step's tests pass, start the next step in a fresh session.
 
 **Input**: One numbered plan step (or a small standalone change whose design is already obvious) – a scoped, already-designed unit of work. REQUIRED. This skill does not design or decompose; it consumes a step that is ready to implement.
 

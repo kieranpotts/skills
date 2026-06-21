@@ -9,11 +9,7 @@ metadata:
 
 # `/format`
 
-Use this skill when applying presentation-only changes to code or content – whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged.
-
-Do NOT use this skill to alter logic, data structures, names, module boundaries, or any other internal structure – that is structural refactoring. Do NOT use it to fix defects or add behavior.
-
-A formatting pass that "while we're here" renames a variable, splits a function, or tweaks a conditional is no longer a formatting pass. It is a refactor, and belongs in a separate commit under structural-change conventions.
+Use this skill when applying presentation-only changes to code or content – whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a format pass.
 
 **Input**: The code or content to normalize – a set of files, a diff, or the working tree – plus the project's configured formatter and style conventions where they exist. REQUIRED.
 
