@@ -111,18 +111,18 @@ The workflow skills are, in alphabetical order:
 
 | Skill name | Description | Interactive? |
 | ---------- | ----------- | ------------ |
-| 🚧 [`/audit`](./skills/audit/) | Evaluate the evolving architecture – modularity, consistency, security, etc. | 🤖 No |
-| 🚧 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
-| 🚧 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
-| 🚧 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 No |
+| 🚀 [`/audit`](./skills/audit/) | Evaluate the evolving architecture – modularity, consistency, security, etc. | 🤖 No |
+| 🚀 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
+| 🚀 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
+| 🚀 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 Maybe |
 | ✅ [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
-| 🚧 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
-| 🚧 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
-| 🚧 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
-| 🚧 [`/refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. | 🤖 No |
+| 🚀 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
+| 🚀 [`/format`](./skills/format/) | Improve code presentation – whitespace, style, ordering – without changing structure. | 🤖 No |
+| 🚀 [`/plan`](./skills/plan/) | Decompose delivery into stable increments – supporting continuous integration. | 🤖 No |
+| 🚀 [`/refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. | 🤖 No |
 | 🚧 [`/refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. | 🧑 Yes |
-| 🚧 [`/resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. | 🤖 No |
-| 🚧 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
+| 🚀 [`/resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. | 🤖 No |
+| 🚀 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
 | 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. | 🤖 No |
 | 🚧 [`/spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. | 🤖 No |
 | 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving software. Focus on functional correctness and runtime qualities. | 🤖 No |
@@ -136,6 +136,9 @@ A small number of skills will prompt the user to make decisions as the agent exp
 ### 🔀 Version control skills
 
 The version control skills describe how revisions are committed to source control, and how stable points in the revision history are prepared for release.
+
+<!-- TODO: Add push, merge request, etc. -->
+<!-- TODO: Add a diagram showing how these skills may be knitted into the workflow skills. -->
 
 | Skill name | Description |
 | ---------- | ----------- |
