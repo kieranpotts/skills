@@ -1,32 +1,20 @@
 # 🤖 `/specify`
 
-Transform a business-oriented product requirements document (PRD), or similar artifacts, into testable acceptance criteria.
+This skill instructs the agent to transform a business-oriented product requirements document (PRD), or similar artifacts, into testable acceptance criteria. The outcome is a PR opened against the project's software requirements specification (SRS) repository, ready for the user to review.
 
-The PRD may come from two sources: a business discovery workshop (`/discover`), or a product refinement workshop (`/refine`) that is run in response to feedback from real people using working software (`/validate`).
+Use it once business needs are recorded in a written artifact. This artifact This artifact may come from a discovery workshop (`/discover`) or a refinement workshop (`/refine`) run in response to feedback from real people using working software (`/validate`). If approved, its output PR enables the `/design` skill to propose solutions to realize the requirements.
 
-The outcome is a PR opened against the project's software requirements specification (SRS) repository, ready for the user to review. If approved, the (`/design`) skill can be triggered to propose solutions to realize the requirements.
+This skill instructs the agent to run non-interactively (🤖). The agent is instructed to validate the inputted PRD and either reject it as incomplete, or it autonomously completes the transformation to the SRS.
 
-```mermaid
-flowchart LR
-  discover["🧑 /discover"]:::tertiary
-  specify["🤖 /specify"]:::primary
-  design["🤖 /design"]:::primary
-  validate["🤖 /validate"]:::primary
-  refine["🧑 /refine"]:::secondary
 
-  discover <-.-> specify
-  validate --> refine
-  refine --> specify
-  specify ==> design
 
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
-  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
-```
 
-The `/specify` skill runs non-interactively, supporting agentic workflows (🤖). It validates the inputted PRD and either rejects it as incomplete, or it autonomously completes the transformation to the SRS. If the business needs are vague, ambiguous, or unclear in any way, a discovery workshop (`/discover`) SHOULD be conducted beforehand, to produce a comprehensive PRD that becomes the input to `/specify`.
 
-The `/specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval, and reminding that the next SDLC phase – `/design` – cannot begin until the PR is approved. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens, not agents.
+
+
+The `/specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval.
+
+Once a proposed specification is approved, work can begin on the solution design – see the [`/design`](../design) skill. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens – not agents.
 
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
@@ -69,7 +57,7 @@ See the [**📋 Software Requirements Specification (SRS)**](https://github.com/
 
 ## How to invoke
 
-* `/specify`, `/skill:specify` (prompt varies by agent harness).
+* `/specify`, `/skill:specify` (prompts vary by harness).
 * `/specify <URL or path to PRD or equivalent>`
 * "Turn this into acceptance criteria."
 * "Turn this into a spec."

@@ -1,38 +1,31 @@
 # 🤖 `/review`
 
-<!-- Input: code PR. Outcome: commented PR. -->
+Performs code review.
 
-<!-- "in the small" - its reviewing just a small incremental change in code - a step toward realizing a bigger feature or runtime behavior. Evaluates against specified standards. -->
+This skill instructs the agent to statically analyze the diff in an open pull request.
 
-<!-- Criteria: is this code change sound, against conventions? -->
+The agent is instructed to check correctness, design, clarity, test coverage, security, and completeness, writing findings that are specific and actionable, each carrying a severity (blocking, suggestion, nitpick, praise) and organized along two axes:
 
-<!-- Distinct from /audit - which looks at the evolving architecture and feeds back to the design docs. -->
+- **Specification**: Does it faithfully implement the issue/ACs.
+- **Standards**: Does it conform to the repo's conventions.
 
-Evaluate code for style conventions and pattern consistency, focusing on static qualities – auditing a change for correctness, design, clarity, test coverage, security, and completeness, and classifying every finding as blocking or non-blocking. Runs non-interactively (🤖). Use when reviewing a pull request, auditing a peer's branch, or self-reviewing changes before opening a PR.
+It closes with an explicit verdict, one of:
 
-```mermaid
-flowchart LR
-  code["🤖 /code"]:::primary
-  review["🤖 /review"]:::primary
-  resolve["🤖 /resolve"]:::primary
+- Approve
+- Request changes
+- Comment
 
-  code ==> review
-  review ==> resolve
+Use this skill when auditing a coworker's branch, or self-reviewing changes before opening a PR.
 
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-```
+The agent is instructed to surface findings without fixing them. Orchestrators may handoff to the [`/resolve`](../resolve/) skill to resolve open PR comments.
 
-## What it does
+For a wider architectural review, refer to the [`/audit`](../audit/) skill.
 
-`/review` evaluates a change as a *piece of work* against static qualities – it does not run the system end-to-end (that's verification) or chase a failing test (that's diagnosis). It checks correctness, design, clarity, test coverage, security, and completeness, writing findings that are specific and actionable, each carrying a severity (Blocking, Suggestion, Nit, Praise) and organized along two axes: **Specification** (does it faithfully implement the issue/ACs) and **Standards** (does it conform to the repo's conventions). It closes with an explicit verdict: Approve, Request changes, or Comment.
-
-It is non-interactive and surfaces findings without fixing them – fixing, restructuring, and re-running are downstream responsibilities. It approves at "good enough", not "perfect".
+This skill instructs the agent to run non-interactively (🤖).
 
 ## How to invoke
 
-Invoke it on a PR, a peer's branch, or your own diff before opening a PR. Self-review runs the identical procedure. Give it the change and the spec/ACs it claims to satisfy; it pins the base itself if not told.
-
-- `/review`, `/skill:review` (prompt varies by agent harness).
+- `/review`, `/skill:review` (prompts vary by harness).
 - "Review this PR."
 - "Review my changes before I push."
 - "Check this diff against the spec and our conventions."

@@ -1,32 +1,16 @@
 # 🤖 `/resolve`
 
-<!-- Input: commented PR. Outcome: PR comments resolved (or commented on further if cannot be resolved. -->
+The skill instructs the agent to take the comments left on an open pull request, to review each in turn, and responding with a comment and – where appropriate – a code change.
 
-Action open review comments, then mark as resolved – implementing each one in code and verifying it. Runs non-interactively (🤖). The counterpart to [`/review`](../review/) – review posts the comments, `/resolve` actions them.
+The agent is instructed to assume that the user has already curated the review, such that every comment still open requires resolution. Comments that do not require a resolution are assumed to be already closed and "marked as resolved".
 
-```mermaid
-flowchart LR
-  review["🤖 /review"]:::primary
-  resolve["🤖 /resolve"]:::primary
-  test["🤖 /test"]:::primary
+This skill is the counterpart to [`/review`](../review/), which performs static code analysis on a PR's diff and leaves comments. `/resolve` actions those comments.
 
-  review ==> resolve
-  resolve ==> test
-
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-```
-
-## What it does
-
-`/resolve` takes the comments a review left open on a PR and turns each into a verified code change. It assumes the author has already curated the review – every comment still open is one to implement, so it does not negotiate or reject. For each, it makes the smallest faithful change, verifies it, replies on the thread, and marks it resolved. Fixes land in their own commit, separate from the original implementation, so each review round stays legible in the history.
-
-It runs non-interactively. Anything it genuinely cannot action is left open and reported with a reason, never silently skipped.
+This skill instructs the agent to run non-interactively (🤖). Any comments that the agent cannot action are left open, with a comment left by the agent to explain why it was skipped.
 
 ## How to invoke
 
-Invoke it on a pull request once a review has posted its comments and the author has dismissed the ones they don't want actioned.
-
-- `/resolve`, `/skill:resolve` (prompt varies by agent harness).
+- `/resolve`, `/skill:resolve` (prompts vary by harness).
 - `/resolve PR #482`
 - "Action the review comments."
 - "Address the feedback on this PR."
