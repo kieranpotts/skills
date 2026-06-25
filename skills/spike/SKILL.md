@@ -1,6 +1,6 @@
 ---
 name: spike
-description: Build throwaway code to answer a specific question – feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence, or when the user says "spike on whether X is feasible" or "prototype this to answer the open question".
+description: Build throwaway code to answer a specific question — feasibility, performance characteristics, API ergonomics, integration risk. Time-boxed, scope-collapsed, never promoted to production. Use when a design question cannot be answered by reasoning alone, or when a specification is too speculative to commit to without evidence, or when the user says "spike on whether X is feasible" or "prototype this to answer the open question".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,11 +9,11 @@ metadata:
 
 # `/spike`
 
-Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option. The spike is a *byproduct* and the *answer* is the deliverable – the code is time-boxed, scope-collapsed, and thrown away, never promoted to production.
+Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option. The spike is a *byproduct* and the *answer* is the deliverable — the code is time-boxed, scope-collapsed, and thrown away, never promoted to production.
 
-**Input**: One falsifiable question – a specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front. REQUIRED.
+**Input**: One falsifiable question — a specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front. REQUIRED.
 
-**Output**: The answer, durably captured – a measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer – resuming design, revising the specification, the production re-implementation – is the orchestrator's concern, not this skill's.
+**Output**: The answer, durably captured — a measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer — resuming design, revising the specification, the production re-implementation — is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -26,7 +26,7 @@ Use this skill when a question must be answered with running code rather than an
     - ❌ "Try out the new SDK." (No question.)
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at stream close?"
 
-    If you cannot phrase the question this way, you are not ready for the technical spike – you are still exploring. Return to the design work first.
+    If you cannot phrase the question this way, you are not ready for the technical spike — you are still exploring. Return to the design work first.
 
 2.  **Define the answer that ends the spike.**
 
@@ -40,7 +40,7 @@ Use this skill when a question must be answered with running code rather than an
 
 3.  **Time-box.**
 
-    State the budget in hours or, at most, days. A spike or prototype that grows past the time-box is no longer a spike – it is unmanaged work. Common budgets:
+    State the budget in hours or, at most, days. A spike or prototype that grows past the time-box is no longer a spike — it is unmanaged work. Common budgets:
 
     - Half-day: API ergonomics, single integration check.
     - 1-2 days: performance characterization, multi-component spike.
@@ -78,7 +78,7 @@ Use this skill when a question must be answered with running code rather than an
     - The exact command(s) used.
     - The observed result against the expected evidence.
     - Numerical measurements with environment details (hardware, dataset, traffic).
-    - Surprises – anything observed that the question did not ask about but matters.
+    - Surprises — anything observed that the question did not ask about but matters.
 
     "It worked" is not a finding. A finding is reproducible by someone else from the notes alone.
 
@@ -86,7 +86,7 @@ Use this skill when a question must be answered with running code rather than an
 
     Based on the findings:
 
-    - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch – do not promote the spike.
+    - *Answer is positive* → the design question is closed. The production version is re-implemented properly from scratch — do not promote the spike.
     - *Answer is negative* → the option being spiked is closed; the design work resumes with the alternatives.
     - *Answer is mixed or inconclusive* → either run another time-boxed spike to disambiguate, or escalate the decision to the user. Do not silently extend.
 
@@ -98,7 +98,7 @@ Use this skill when a question must be answered with running code rather than an
     - For a specification question → a revision to the affected acceptance criteria.
     - For a tooling/library question → a short note in the repo's decision log.
 
-    Once the answer is captured, delete the spike code – or, at minimum, move it somewhere unambiguous (`spikes/<date>-<question>/`) with a README naming the question, the answer, and the date.
+    Once the answer is captured, delete the spike code — or, at minimum, move it somewhere unambiguous (`spikes/<date>-<question>/`) with a README naming the question, the answer, and the date.
 
 ##  Rules
 
@@ -116,11 +116,11 @@ Use this skill when a question must be answered with running code rather than an
 
 -   **Production concerns are explicitly skipped.**
 
-    Tests, error handling, auth, monitoring, accessibility, configuration, documentation – none of these belong in a spike. Including them is how spikes drift into production-track work.
+    Tests, error handling, auth, monitoring, accessibility, configuration, documentation — none of these belong in a spike. Including them is how spikes drift into production-track work.
 
 -   **Surface the state.**
 
-    After every action (for a logic / state-machine spike) or on every variant switch (for a UI spike), print or render the full relevant state so the user can see what changed. A spike that requires a debugger to learn from isn't doing its job – the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a spike keeps, because without it the spike produces no usable evidence.
+    After every action (for a logic / state-machine spike) or on every variant switch (for a UI spike), print or render the full relevant state so the user can see what changed. A spike that requires a debugger to learn from isn't doing its job — the whole point is fast, legible feedback on the question being answered. This is the one production-style discipline a spike keeps, because without it the spike produces no usable evidence.
 
 -   **Findings MUST be reproducible from notes.**
 
@@ -229,7 +229,7 @@ The design work resumes, evaluating the other two candidates.
 
 -   **The findings are captured durably.**
 
-    ADR, design doc, specification update, or decision log – somewhere the answer survives after the code is gone.
+    ADR, design doc, specification update, or decision log — somewhere the answer survives after the code is gone.
 
 -   **The code is disposed of or quarantined.**
 

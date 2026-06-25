@@ -1,6 +1,6 @@
 ---
 name: refine
-description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into the specification. Use when testing surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice, or when the user says "refine the spec based on this feedback", "the acceptance criteria are wrong – fix the requirements", or "update the specification to match what we learned".
+description: Revise the requirements specification in response to feedback from acceptance testing or use of the working software. Capture what was learned, identify which ACs are wrong, missing, or ambiguous, and propose precise edits back into the specification. Use when testing surfaces a specification gap, a stakeholder reports unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice, or when the user says "refine the spec based on this feedback", "the acceptance criteria are wrong — fix the requirements", or "update the specification to match what we learned".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,9 +9,9 @@ metadata:
 
 # `/refine`
 
-Use this skill when testing surfaces a problem with the *specification itself* – an acceptance criterion that is wrong, missing, contradictory, or ambiguous – or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The boundary is sharp: if the specification was right and the code was wrong, you are not refining; if the specification was wrong and the code matches it, you are. The output is a set of precise edits to the specification, ready to flow forward into design, planning, and implementation; it changes no code itself.
+Use this skill when testing surfaces a problem with the *specification itself* — an acceptance criterion that is wrong, missing, contradictory, or ambiguous — or when a stakeholder reviewing the working software identifies a requirement the specification failed to capture. The boundary is sharp: if the specification was right and the code was wrong, you are not refining; if the specification was wrong and the code matches it, you are. The output is a set of precise edits to the specification, ready to flow forward into design, planning, and implementation; it changes no code itself.
 
-**Input**: A feedback trigger against an existing specification – a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session.
+**Input**: A feedback trigger against an existing specification — a failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session.
 
 **Output**: Precise edits to the requirements artefacts, conforming to the specification conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded trigger, type, and rationale; plus a traced list of downstream design, planning, code, and test work the refinement implies. The output is reported and the skill stops; it changes no code itself.
 
@@ -24,11 +24,11 @@ Use this skill when testing surfaces a problem with the *specification itself* �
     - *AC failure in testing that, on inspection, reflects a specification error*: the test correctly verified what the specification demanded, but the demand was wrong.
     - *Specification gap revealed by exploratory testing*: a scenario nobody anticipated.
     - *Stakeholder feedback on working software*: "this is what we said, but it's not what we needed".
-    - *NFR threshold mismatch*: the measured number is inside the threshold but the user experience is still unacceptable (or vice versa – the threshold was over-strict).
+    - *NFR threshold mismatch*: the measured number is inside the threshold but the user experience is still unacceptable (or vice versa — the threshold was over-strict).
     - *Out-of-scope item turns out to be in scope* (or vice versa).
     - *Contradiction between two ACs* surfaced during implementation or testing.
 
-    Without a named trigger, you are not refining – you are second-guessing.
+    Without a named trigger, you are not refining — you are second-guessing.
 
 2.  **Locate the specific specification artefact to change.**
 
@@ -39,7 +39,7 @@ Use this skill when testing surfaces a problem with the *specification itself* �
     - An out-of-scope entry.
     - A constraint, assumption, or stakeholder note.
 
-    If the requirement was never captured at all – a true gap – say so. The refinement is then an *addition*, not an *edit*.
+    If the requirement was never captured at all — a true gap — say so. The refinement is then an *addition*, not an *edit*.
 
 3.  **Decide the type of change.**
 
@@ -47,7 +47,7 @@ Use this skill when testing surfaces a problem with the *specification itself* �
 
     - *Correction*: an existing AC is wrong and MUST be rewritten. (The most common case.)
     - *Addition*: a missing AC MUST be added. New scenario, new NFR, new out-of-scope entry.
-    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful – users often *think* an AC is wrong when really the *implementation* is.)
+    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful — users often *think* an AC is wrong when really the *implementation* is.)
     - *Reclassification*: an item moves between scope/out-of-scope, or between functional and non-functional, or between blocking and deferred.
     - *Threshold adjustment*: an NFR target is loosened or tightened with new justification.
 
@@ -61,7 +61,7 @@ Use this skill when testing surfaces a problem with the *specification itself* �
     - NFR changes: measurable benchmark or named standard, never "must be fast".
     - Scope changes: explicit "Out of scope" entries with rationale.
 
-    Show the *before* and the *after* side by side. A bare "after" without "before" makes review hard – the reader has to diff in their head.
+    Show the *before* and the *after* side by side. A bare "after" without "before" makes review hard — the reader has to diff in their head.
 
 5.  **Record the rationale and the trigger.**
 
@@ -98,11 +98,11 @@ Use this skill when testing surfaces a problem with the *specification itself* �
 
 -   **Refine the specification, not the code.**
 
-    If the right response is "fix the implementation to match the existing AC", that is a code-defect fix, not a refinement. Refinement happens when the AC itself was wrong, missing, or ambiguous – not when the implementation drifted from a correct AC.
+    If the right response is "fix the implementation to match the existing AC", that is a code-defect fix, not a refinement. Refinement happens when the AC itself was wrong, missing, or ambiguous — not when the implementation drifted from a correct AC.
 
 -   **Never silently rewrite a passed AC.**
 
-    An AC that previously passed – in testing or in production – is part of the contract with users and stakeholders. Changing it without explicit acknowledgment is how regressions arrive disguised as cleanups. Always record the change, the reason, and what was previously promised.
+    An AC that previously passed — in testing or in production — is part of the contract with users and stakeholders. Changing it without explicit acknowledgment is how regressions arrive disguised as cleanups. Always record the change, the reason, and what was previously promised.
 
 -   **Refinement requires evidence.**
 
@@ -118,11 +118,11 @@ Use this skill when testing surfaces a problem with the *specification itself* �
 
 -   **Distinguish "specification was wrong" from "user changed their mind".**
 
-    Both produce a specification edit, but the framing matters. A user who changes their mind is fine – record it as such. A specification that misrepresented what the user wanted from day one is a process failure worth noting; the next specification should not repeat it.
+    Both produce a specification edit, but the framing matters. A user who changes their mind is fine — record it as such. A specification that misrepresented what the user wanted from day one is a process failure worth noting; the next specification should not repeat it.
 
 -   **Refinement is not the place to expand scope.**
 
-    Net-new features that were never part of the original ask are not refinements – they are new specs. Treat them as such and capture them as a fresh specification in their own right; the refine path is for fixing what was already there.
+    Net-new features that were never part of the original ask are not refinements — they are new specs. Treat them as such and capture them as a fresh specification in their own right; the refine path is for fixing what was already there.
 
 -   **Capture follow-up items, do not absorb them.**
 
@@ -227,7 +227,7 @@ Downstream impact:
 
 -   **No specification exists in writing.**
 
-    If the original requirement was tacit, refinement is impossible – there is nothing to revise. The first task is to write down the assumed specification, then refine *that*. Skipping the write-down produces undocumented drift.
+    If the original requirement was tacit, refinement is impossible — there is nothing to revise. The first task is to write down the assumed specification, then refine *that*. Skipping the write-down produces undocumented drift.
 
 -   **Refinement reveals the original AC was untestable.**
 

@@ -9,9 +9,9 @@ metadata:
 
 # `/handoff`
 
-Use this skill when the work is about to be picked up by someone (or something) without the current session's context. It produces an *ephemeral* handoff document – a bridge across the gap between sessions, not a durable project artifact – that references existing artifacts (PRDs, plans, ADRs, issues, commits) rather than duplicating them.
+Use this skill when the work is about to be picked up by someone (or something) without the current session's context. It produces an *ephemeral* handoff document — a bridge across the gap between sessions, not a durable project artifact — that references existing artifacts (PRDs, plans, ADRs, issues, commits) rather than duplicating them.
 
-**Input**: The current session's context – the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase. REQUIRED.
+**Input**: The current session's context — the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase. REQUIRED.
 
 **Output**: A single, ephemeral handoff document written to the OS temp directory (not the repo), referencing those durable artifacts by path or URL rather than duplicating them. It captures what's done, what's open, the codebase state, suggested next steps, and gotchas. This skill reports the file's absolute path and stops; whether the next session is an agent or a human is the orchestrator's concern.
 
@@ -35,7 +35,7 @@ Use this skill when the work is about to be picked up by someone (or something) 
     - Recent commits worth pointing at.
     - Any updated entries in `docs/domain-model.md`.
 
-    The handoff document references these by path or URL – it does NOT duplicate their content. Duplication rots: if the artifact changes, the handoff lies.
+    The handoff document references these by path or URL — it does NOT duplicate their content. Duplication rots: if the artifact changes, the handoff lies.
 
 3.  **Draft the document.**
 
@@ -57,7 +57,7 @@ Use this skill when the work is about to be picked up by someone (or something) 
     temporary instrumentation in place.
 
     ## Suggested next steps
-    The work the next session should pick up – eg. decomposition if
+    The work the next session should pick up — eg. decomposition if
     the plan is incomplete, implementation if the design is settled,
     diagnosis if a test is failing. Name the specific step if known,
     and any tool or skill suited to it.
@@ -102,7 +102,7 @@ Use this skill when the work is about to be picked up by someone (or something) 
 
 -   **Be specific about what's open.**
 
-    "Some questions remain about the API" is unhelpful. "Two questions remain on the API: (1) idempotency behavior on retry; (2) whether to accept partial updates – both blocked on product input" is actionable.
+    "Some questions remain about the API" is unhelpful. "Two questions remain on the API: (1) idempotency behavior on retry; (2) whether to accept partial updates — both blocked on product input" is actionable.
 
 -   **Suggest next steps, don't dictate them.**
 
@@ -160,11 +160,11 @@ A compact handoff:
 
 -   **Multiple parallel threads of work.**
 
-    If the session covered two unrelated streams, write two handoffs – one per stream. Mixing them produces a document the next session has to triage before using.
+    If the session covered two unrelated streams, write two handoffs — one per stream. Mixing them produces a document the next session has to triage before using.
 
 -   **Handing off to a human, not an agent.**
 
-    Same skill, same structure – but replace "Suggested next steps" with "Suggested first action", describing the concrete next step the human should take.
+    Same skill, same structure — but replace "Suggested next steps" with "Suggested first action", describing the concrete next step the human should take.
 
 -   **The user provided no topic and the conversation covered nothing substantive.**
 

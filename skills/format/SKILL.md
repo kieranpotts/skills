@@ -1,6 +1,6 @@
 ---
 name: format
-description: Apply presentation-only code or content changes – whitespace, indentation, line wrapping, quotes, trailing commas, import ordering – without altering behavior or structure. Prefer automated formatters configured at the project level. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions – distinct from structural improvements to the code – or when the user says "format this file", "fix the formatting / lint errors", or "tidy up the whitespace and style here".
+description: Apply presentation-only code or content changes — whitespace, indentation, line wrapping, quotes, trailing commas, import ordering — without altering behavior or structure. Prefer automated formatters configured at the project level. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions — distinct from structural improvements to the code — or when the user says "format this file", "fix the formatting / lint errors", or "tidy up the whitespace and style here".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,9 +9,9 @@ metadata:
 
 # `/format`
 
-Use this skill when applying presentation-only changes to code or content – whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a format pass.
+Use this skill when applying presentation-only changes to code or content — whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a format pass.
 
-**Input**: The code or content to normalize – a set of files, a diff, or the working tree – plus the project's configured formatter and style conventions where they exist. REQUIRED.
+**Input**: The code or content to normalize — a set of files, a diff, or the working tree — plus the project's configured formatter and style conventions where they exist. REQUIRED.
 
 **Output**: The same files with presentation-only edits applied (whitespace, indentation, wrapping, quotes, ordering), behavior and structure provably unchanged, ideally via the project's automated formatter, ready to commit under a `format:` commit. This skill normalizes presentation and stops; it makes no structural or behavioral change.
 
@@ -27,7 +27,7 @@ Use this skill when applying presentation-only changes to code or content – wh
     - Casing of literals (eg. hex `0xFF` vs `0xff`) where the language treats them as equivalent.
     - File-level concerns: line endings (LF/CRLF), final newline, BOM, encoding.
 
-    If you cannot describe the change in those terms, you are not formatting. Stop and re-classify – most likely a structural refactor.
+    If you cannot describe the change in those terms, you are not formatting. Stop and re-classify — most likely a structural refactor.
 
 2.  **Prefer the project's configured formatter.**
 
@@ -37,15 +37,15 @@ Use this skill when applying presentation-only changes to code or content – wh
     - A formatter script in `package.json`, `Makefile`, `justfile`, or similar (`npm run format`, `make fmt`).
     - A pre-commit hook (`.pre-commit-config.yaml`) that already configures the formatter.
 
-    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a formatting commit – that is a `maintenance:` change.
+    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a formatting commit — that is a `maintenance:` change.
 
 3.  **Scope the run deliberately.**
 
     Decide what to format:
 
-    - *The file or files I just touched* (most common – normalize before commit).
+    - *The file or files I just touched* (most common — normalize before commit).
     - *A single directory* being brought into line with project conventions.
-    - *The whole repo* (rare – a one-off normalization, usually justified by adopting or upgrading a formatter).
+    - *The whole repo* (rare — a one-off normalization, usually justified by adopting or upgrading a formatter).
 
     Wider scope means a noisier diff. Reviewers cannot distinguish behavior changes from formatting noise when they are mixed. Format in its own commit, on its own scope.
 
@@ -88,9 +88,9 @@ Use this skill when applying presentation-only changes to code or content – wh
 
     A formatting change that alters runtime behavior is mislabeled. Tests pass before and after; observable output is byte-identical for any given input. If you cannot promise that, it is not a format change.
 
--   **Presentation only – no structural edits.**
+-   **Presentation only — no structural edits.**
 
-    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional – all are structural refactors, not format. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
+    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional — all are structural refactors, not format. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
 
 -   **Never bundle with feature, fix, or refactor work.**
 
@@ -98,7 +98,7 @@ Use this skill when applying presentation-only changes to code or content – wh
 
 -   **Prefer automated formatters over hand-edits.**
 
-    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix – via a `maintenance:` commit – before the next manual format pass.
+    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix — via a `maintenance:` commit — before the next manual format pass.
 
 -   **Do not change formatter configuration in a format commit.**
 
@@ -106,7 +106,7 @@ Use this skill when applying presentation-only changes to code or content – wh
 
 -   **Respect generated and vendored files.**
 
-    Generated code (codegen output, transpiled bundles, vendored third-party files) should not be reformatted – the generator owns the format. Add such paths to the formatter's ignore list.
+    Generated code (codegen output, transpiled bundles, vendored third-party files) should not be reformatted — the generator owns the format. Add such paths to the formatter's ignore list.
 
 -   **Watch significant-whitespace languages.**
 
@@ -138,7 +138,7 @@ Catching a behavior change pretending to be format:
 ```
 While "formatting" auth.py I noticed the function `_normalize_token`
 was renamed to `normalize_token` (removing the underscore). That is
-a refactor, not a formatting change – it alters the public surface
+a refactor, not a formatting change — it alters the public surface
 of the module. Reverted the rename; recorded a refactor: follow-up.
 ```
 
@@ -167,7 +167,7 @@ format: convert tab indentation to spaces across src/
 
 -   **Formatting "fixes" a CI failure.**
 
-    If CI fails because of formatting, fix the formatting. But also check whether the formatter check is missing as a local pre-commit hook – if it is, file a `maintenance:` task. Catching format issues at push time is friction.
+    If CI fails because of formatting, fix the formatting. But also check whether the formatter check is missing as a local pre-commit hook — if it is, file a `maintenance:` task. Catching format issues at push time is friction.
 
 -   **Significant-whitespace breakage.**
 

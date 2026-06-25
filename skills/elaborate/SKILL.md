@@ -1,6 +1,6 @@
 ---
 name: elaborate
-description: Interview the user one question at a time to stress-test and sharpen a draft design – walking the decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft design exists and before it is decomposed into steps, when the design has ambiguities, unstated assumptions, or contested terms, or when the user says "interrogate this design", "grill me on this draft", or "stress-test this design before we build it".
+description: Interview the user one question at a time to stress-test and sharpen a draft design — walking the decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft design exists and before it is decomposed into steps, when the design has ambiguities, unstated assumptions, or contested terms, or when the user says "interrogate this design", "grill me on this draft", or "stress-test this design before we build it".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,13 +9,13 @@ metadata:
 
 # `/elaborate`
 
-Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges – unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
+Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges — unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
 
 This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
-**Input**: A draft design with soft edges – an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
+**Input**: A draft design with soft edges — an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
 
-**Output**: A decomposition-ready design – every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
+**Output**: A decomposition-ready design — every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -38,7 +38,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - Which terms are used loosely and need pinning down?
     - Which assumptions are stated as if obvious but actually have alternatives?
 
-    Plan to walk the tree top-down, resolving parents before children. Do not write the list out for the user – it is your scratchpad. The user sees questions one at a time.
+    Plan to walk the tree top-down, resolving parents before children. Do not write the list out for the user — it is your scratchpad. The user sees questions one at a time.
 
 3.  **Ask one question. Wait. Then the next.**
 
@@ -56,10 +56,10 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     When the user uses a vague or overloaded term, stop and pin it down:
 
-    - "You said 'account' – do you mean the Customer or the User? Those are different in the existing glossary."
-    - "You said 'cancel' – the codebase has both `cancelOrder()` and `voidOrder()`; which behavior do you mean?"
+    - "You said 'account' — do you mean the Customer or the User? Those are different in the existing glossary."
+    - "You said 'cancel' — the codebase has both `cancelOrder()` and `voidOrder()`; which behavior do you mean?"
 
-    If the glossary already defines the term differently from how the user is using it, surface the conflict explicitly. Update `docs/domain-model.md` (or create it if missing) the moment a term is resolved – inline, not at the end.
+    If the glossary already defines the term differently from how the user is using it, surface the conflict explicitly. Update `docs/domain-model.md` (or create it if missing) the moment a term is resolved — inline, not at the end.
 
 5.  **Probe with concrete scenarios.**
 
@@ -74,7 +74,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     When the user states "we do X", check whether the code agrees. If you find a contradiction, surface it:
 
-    > "You just said partial cancellation is supported, but the `OrderService.cancel()` method takes only an order ID and marks the whole order cancelled. Which is right – is the code out of date, or is the design wrong?"
+    > "You just said partial cancellation is supported, but the `OrderService.cancel()` method takes only an order ID and marks the whole order cancelled. Which is right — is the code out of date, or is the design wrong?"
 
     Contradictions between stated behavior and implemented behavior are some of the highest-leverage findings of this skill.
 
@@ -86,9 +86,9 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     - *Architectural decision settled* → ADR, but only if all three are true:
 
-        1. *Hard to reverse* – the cost of changing your mind later is meaningful.
-        2. *Surprising without context* – a future reader will wonder "why did they do it this way?"
-        3. *The result of a real trade-off* – there were genuine alternatives.
+        1. *Hard to reverse* — the cost of changing your mind later is meaningful.
+        2. *Surprising without context* — a future reader will wonder "why did they do it this way?"
+        3. *The result of a real trade-off* — there were genuine alternatives.
 
         If any of the three is missing, skip the ADR. Most decisions during elaboration do NOT meet all three.
 
@@ -102,7 +102,7 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - The terms in use match the glossary.
     - No contradictions remain between stated design and existing code.
 
-    Report the result and stop: either a decomposition-ready design, or – if elaboration uncovered a flaw too large to resolve here – a note that the draft needs structural rework before it can proceed. Whatever consumes the elaborated design is the orchestrator's concern.
+    Report the result and stop: either a decomposition-ready design, or — if elaboration uncovered a flaw too large to resolve here — a note that the draft needs structural rework before it can proceed. Whatever consumes the elaborated design is the orchestrator's concern.
 
 ##  Rules
 
@@ -156,7 +156,7 @@ that two ways:
       already paid for.
 
 I'd lean (b), because the specification mentions a refund flow and the existing
-`cancelOrder()` doesn't trigger refunds today – so this is a
+`cancelOrder()` doesn't trigger refunds today — so this is a
 behavior change either way.
 
 Which is it?
@@ -246,7 +246,7 @@ response time. If that becomes a problem we revisit.
 
 -   **The user is AFK.**
 
-    Do not push ahead silently. Pause, leave a one-line note ("queued questions: 1, 2, 3 – asking 1 when you're back"), and stop. The skill's value comes from the dialogue; producing a unilateral decision-doc defeats it.
+    Do not push ahead silently. Pause, leave a one-line note ("queued questions: 1, 2, 3 — asking 1 when you're back"), and stop. The skill's value comes from the dialogue; producing a unilateral decision-doc defeats it.
 
 -   **The draft turns out to be too unfinished to elaborate.**
 
@@ -258,7 +258,7 @@ response time. If that becomes a problem we revisit.
 
 -   **The user disagrees with the recommended answer.**
 
-    Good – that is the signal that the recommendation surfaced a real choice. Ask one follow-up to understand the reasoning, then move on. Do not relitigate.
+    Good — that is the signal that the recommendation surfaced a real choice. Ask one follow-up to understand the reasoning, then move on. Do not relitigate.
 
 -   **The session keeps spawning new questions faster than it resolves them.**
 

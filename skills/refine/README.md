@@ -2,7 +2,7 @@
 
 `/refine` = specification revision. It edits the *specification*, not the code, in response to acceptance testing feedback or to use of the working software. The boundary is sharp: if the spec was right and the code was wrong, this is a defect fix, not a refinement; refinement is for when the acceptance criterion itself is wrong, missing, contradictory, or ambiguous. It drafts the edit in the specification's own conventions (Gherkin scenarios, measurable NFRs, explicit out-of-scope) shown before-and-after, records the rationale and evidence, and traces the downstream impact on design, plan, code, and tests.
 
-Use it when testing surfaces a specification gap, a stakeholder reports an unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice. It is disciplined: one logical change per pass, never a silent rewrite of a passed AC, never scope expansion in disguise. It changes no code – the output is a specification edit plus a traced impact list, ready to flow into `/specify`.
+Use it when testing surfaces a specification gap, a stakeholder reports an unmet need against shipped behavior, or an NFR threshold turns out to be wrong in practice. It is disciplined: one logical change per pass, never a silent rewrite of a passed AC, never scope expansion in disguise. It changes no code — the output is a specification edit plus a traced impact list, ready to flow into `/specify`.
 
 It is the companion to [`/validate`](../validate/), which supplies the suggestions it acts on. It is analogous to [`/refactor`](../refactor/), which serves the equivalent role for the design.
 
@@ -25,5 +25,5 @@ flowchart LR
 
 - `/refine`, `/skill:refine` (prompts vary by harness).
 - "Refine the spec based on this feedback."
-- "The acceptance criteria are wrong – fix the requirements."
+- "The acceptance criteria are wrong — fix the requirements."
 - "Update the specification to match what we learned."

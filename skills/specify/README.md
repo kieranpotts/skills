@@ -14,18 +14,18 @@ This skill instructs the agent to run non-interactively (🤖). The agent is ins
 
 The `/specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval.
 
-Once a proposed specification is approved, work can begin on the solution design – see the [`/design`](../design) skill. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens – not agents.
+Once a proposed specification is approved, work can begin on the solution design — see the [`/design`](../design) skill. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens — not agents.
 
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
 >
-> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools – and not rely on judgment – to decide whether their work is done.
+> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools — and not rely on judgment — to decide whether their work is done.
 >
-> The acceptance criteria act thus as a fitness function that the agent can iterate toward – a deterministic, stable signal of how close the current implementation is to the desired outcome. This is acceptance test-driven development (ATDD) applied to agentic workflows.
+> The acceptance criteria act thus as a fitness function that the agent can iterate toward — a deterministic, stable signal of how close the current implementation is to the desired outcome. This is acceptance test-driven development (ATDD) applied to agentic workflows.
 >
-> The better the quality of the acceptance tests, the more effective they will be at driving agents to predictable, reliable outcomes, and so the less need there will be for humans-in-the-loop. In a fully end-to-end agentic workflow, humans need not read the generated code at all – in the same way we do not read a compiler's output – because the trust comes from the acceptance tests.
+> The better the quality of the acceptance tests, the more effective they will be at driving agents to predictable, reliable outcomes, and so the less need there will be for humans-in-the-loop. In a fully end-to-end agentic workflow, humans need not read the generated code at all — in the same way we do not read a compiler's output — because the trust comes from the acceptance tests.
 >
-> We're now programming at a higher level of abstraction – our programming language is structured English, in the form of executable acceptance tests.
+> We're now programming at a higher level of abstraction — our programming language is structured English, in the form of executable acceptance tests.
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 ---
 name: resolve
-description: Action the open review comments on a pull request – implement each fix in code, verify it, and mark the comment resolved. Use after a review has posted its comments and the author has dismissed any they do not want actioned, to clear the remaining open comments before re-testing, or when the user says "action the review comments" or "address the feedback on this PR".
+description: Action the open review comments on a pull request — implement each fix in code, verify it, and mark the comment resolved. Use after a review has posted its comments and the author has dismissed any they do not want actioned, to clear the remaining open comments before re-testing, or when the user says "action the review comments" or "address the feedback on this PR".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,7 +9,7 @@ metadata:
 
 # `/resolve`
 
-Use this skill to clear the **open** review comments on a pull request: implement each one as a minimal code change, verify it, and mark the comment resolved on the thread. The author has already curated the comments – any they disagree with or want to defer were dismissed before this runs – so this skill does not negotiate, defer, or reject: every comment still open is one the author wants implemented faithfully.
+Use this skill to clear the **open** review comments on a pull request: implement each one as a minimal code change, verify it, and mark the comment resolved on the thread. The author has already curated the comments — any they disagree with or want to defer were dismissed before this runs — so this skill does not negotiate, defer, or reject: every comment still open is one the author wants implemented faithfully.
 
 **Input**: A pull request carrying open (un-dismissed) review comments from [`/review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
 
@@ -19,14 +19,14 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 1.  **Collect the open comments.**
 
-    Pull the full set of *unresolved* review comments on the PR – the ones the author has not dismissed. Use the host's review-thread API, not a scrape of the diff:
+    Pull the full set of *unresolved* review comments on the PR — the ones the author has not dismissed. Use the host's review-thread API, not a scrape of the diff:
 
     ```sh
     gh pr view <number> --json reviewThreads \
       --jq '.reviewThreads[] | select(.isResolved == false)'
     ```
 
-    Each open thread is one unit of work: capture its comment ID, the file and line it is anchored to, and the requested change. If there are no open comments, report that and stop – there is nothing to resolve.
+    Each open thread is one unit of work: capture its comment ID, the file and line it is anchored to, and the requested change. If there are no open comments, report that and stop — there is nothing to resolve.
 
 2.  **Pin the working base.**
 
@@ -38,7 +38,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 4.  **Implement each comment as the smallest faithful change.**
 
-    For each open comment, make exactly the change it asks for – no more. A comment is a scoped instruction, not a license to refactor the surrounding code. Resist "while I'm here" edits: they enlarge the diff, blur which change answers which comment, and invite a second review round.
+    For each open comment, make exactly the change it asks for — no more. A comment is a scoped instruction, not a license to refactor the surrounding code. Resist "while I'm here" edits: they enlarge the diff, blur which change answers which comment, and invite a second review round.
 
     If a comment names a concrete fix ("validate `amount > 0` and return 400"), apply that fix. If it names a problem without a fix ("this doesn't handle the empty case"), apply the smallest change that resolves the problem, in the style of the surrounding code.
 
@@ -54,7 +54,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 6.  **Reply, then resolve, each thread.**
 
-    For each actioned comment, leave a one-line reply stating what changed and where (`Fixed in <sha> – validates amount at the boundary, returns 400`), then mark the thread resolved:
+    For each actioned comment, leave a one-line reply stating what changed and where (`Fixed in <sha> — validates amount at the boundary, returns 400`), then mark the thread resolved:
 
     ```sh
     gh api graphql -f query='
@@ -73,13 +73,13 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 8.  **Report what could not be resolved.**
 
-    If any open comment could **not** be actioned – it contradicts another open comment, depends on a decision outside this change, or rests on a misunderstanding the code cannot satisfy – do not silently skip it. Leave the thread open, and report it with a specific account of why. This is the only acceptable way for a comment to remain open after this skill runs: not dismissed, not quietly ignored, but surfaced.
+    If any open comment could **not** be actioned — it contradicts another open comment, depends on a decision outside this change, or rests on a misunderstanding the code cannot satisfy — do not silently skip it. Leave the thread open, and report it with a specific account of why. This is the only acceptable way for a comment to remain open after this skill runs: not dismissed, not quietly ignored, but surfaced.
 
 ##  Rules
 
 -   **Every open comment is a commitment to implement.**
 
-    The author's curation happened before this skill ran. A comment that is still open is one the author wants done – this skill does not re-litigate that. Disagreeing with, deferring, or rejecting a comment is out of scope; if the author wanted that, they would have dismissed it.
+    The author's curation happened before this skill ran. A comment that is still open is one the author wants done — this skill does not re-litigate that. Disagreeing with, deferring, or rejecting a comment is out of scope; if the author wanted that, they would have dismissed it.
 
 -   **One comment, one minimal change.**
 
@@ -87,7 +87,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 -   **Resolve only what you verified.**
 
-    A thread is marked resolved only after its fix is shown to work – a passing test, or a run of the existing tests over the touched code. An unverified resolution is a regression waiting for [`/test`](../test/SKILL.md) to catch.
+    A thread is marked resolved only after its fix is shown to work — a passing test, or a run of the existing tests over the touched code. An unverified resolution is a regression waiting for [`/test`](../test/SKILL.md) to catch.
 
 -   **Reply before you resolve.**
 
@@ -150,13 +150,13 @@ Open comments on PR #482: 2
 
     The author left both open, but they cannot both be satisfied. Do not pick one silently. Resolve neither; report the contradiction so the author can dismiss one.
 
--   **A comment asks for more than a fix – a redesign.**
+-   **A comment asks for more than a fix — a redesign.**
 
     If actioning a comment would mean restructuring beyond the change under review, it is not a resolve-loop task. Surface it as out of scope for this skill rather than ballooning the diff; architecturally significant rework is a separate, upstream responsibility.
 
 -   **A "nit" or "praise" comment is still open.**
 
-    A praise comment needs no code change – reply acknowledging it and resolve. A nit the author left open is, by the curation rule, one they want done: action it like any other.
+    A praise comment needs no code change — reply acknowledging it and resolve. A nit the author left open is, by the curation rule, one they want done: action it like any other.
 
 -   **The host has no resolvable-thread API.**
 

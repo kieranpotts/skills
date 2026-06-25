@@ -2,7 +2,7 @@
 
 This is a highly interactive session (🧑), involving lots of back-and-forth between the agent and the user, with one objective: to nail down an architectural design and mitigate major risks within it.
 
-For input, the agent requires architectural design artifacts – anything in a textual formats (some models will also process images). The skill instructs the agent to interrogate the design, and then interview the user, one question at a time, on the rationale for the design choices.
+For input, the agent requires architectural design artifacts — anything in a textual formats (some models will also process images). The skill instructs the agent to interrogate the design, and then interview the user, one question at a time, on the rationale for the design choices.
 
 Each question carries a recommended answer, so the user can agree quickly or articulate a disagreement.
 

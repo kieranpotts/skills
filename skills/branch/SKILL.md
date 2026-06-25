@@ -115,7 +115,7 @@ flowchart LR
 
     - All changes originate on `dev` and flow forward through `test` → `ready` → release.
 
-    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix MUST be committed to `dev` and flow forward from there – no direct commits to downstream trunks.
+    - Trunk branches are fixed-forward only. If a problem is discovered downstream, the fix MUST be committed to `dev` and flow forward from there — no direct commits to downstream trunks.
 
     - Periodically review stale `temp/*` and `epic/*` branches with no commits in ~90 days and delete or revive them.
 
@@ -151,7 +151,7 @@ epic/major-ui-redesign
 
 -   **The branch name validates.**
 
-    It matches `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$` – one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case description.
+    It matches `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$` — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case description.
 
 -   **The name is well-formed.**
 

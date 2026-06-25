@@ -1,6 +1,6 @@
 ---
 name: refactor
-description: Improve the internal quality of existing code without changing its observable behavior. Tests pass before and after. Each step is small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work – distinct from bug fixes and feature work – or when the user says "refactor this for readability", "clean up the structure of this module", or "reduce the coupling here without changing behavior".
+description: Improve the internal quality of existing code without changing its observable behavior. Tests pass before and after. Each step is small and reversible. Use when readability, structure, coupling, naming, or other design qualities need work — distinct from bug fixes and feature work — or when the user says "refactor this for readability", "clean up the structure of this module", or "reduce the coupling here without changing behavior".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,11 +9,11 @@ metadata:
 
 # `/refactor`
 
-Use this skill when improving internal code quality – readability, structure, coupling, naming, decomposition – without changing what the code does from the outside. Behavior preservation is non-negotiable: a change that alters externally observable behavior is not a refactor but a separate change, even a "small" tweak made mid-restructuring.
+Use this skill when improving internal code quality — readability, structure, coupling, naming, decomposition — without changing what the code does from the outside. Behavior preservation is non-negotiable: a change that alters externally observable behavior is not a refactor but a separate change, even a "small" tweak made mid-restructuring.
 
-**Input**: Existing, tested code and a named target quality – the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. REQUIRED. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
+**Input**: Existing, tested code and a named target quality — the code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. REQUIRED. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
 
-**Output**: A series of small `refactor:` commits that improve the named quality while leaving externally observable behavior identical – tests green before and after every move, each commit independently revertable, the diff free of feature or bug-fix work. Whatever reviews, integrates, or sequences the next task is the orchestrator's concern, not this skill's.
+**Output**: A series of small `refactor:` commits that improve the named quality while leaving externally observable behavior identical — tests green before and after every move, each commit independently revertable, the diff free of feature or bug-fix work. Whatever reviews, integrates, or sequences the next task is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -21,12 +21,12 @@ Use this skill when improving internal code quality – readability, structure, 
 
     Refactoring without a named target produces aimless churn. Pick from the nine design qualities and state it:
 
-    - "Improve *cohesiveness*: this module mixes order parsing with email rendering – split them."
+    - "Improve *cohesiveness*: this module mixes order parsing with email rendering — split them."
     - "Improve *simplicity*: this 4-level inheritance hierarchy can collapse into a single function."
-    - "Improve *changeability*: the price calculation is duplicated across three call sites – extract one helper."
+    - "Improve *changeability*: the price calculation is duplicated across three call sites — extract one helper."
     - "Improve *habitability*: the variable names obscure what the function does."
 
-    If you cannot name the target quality, you are not refactoring – you are rearranging.
+    If you cannot name the target quality, you are not refactoring — you are rearranging.
 
 2.  **Verify a safety net exists.**
 
@@ -34,7 +34,7 @@ Use this skill when improving internal code quality – readability, structure, 
 
     - Identify the tests that cover the code being touched.
     - Run them; confirm they pass.
-    - If coverage is thin, add *characterization tests* first – tests that pin down the current behavior, whatever it is. This is a separate prior step (commit as `step:` or `maintenance:`).
+    - If coverage is thin, add *characterization tests* first — tests that pin down the current behavior, whatever it is. This is a separate prior step (commit as `step:` or `maintenance:`).
 
     Never refactor code that has no tests and where you cannot quickly add some. Without a safety net, you are guessing.
 
@@ -79,11 +79,11 @@ Use this skill when improving internal code quality – readability, structure, 
     - Coupling: imports between modules dropped.
     - Habitability: a reader can answer "what does this do" without scrolling.
 
-    If you can't point at the improvement, the refactor was speculative – consider reverting.
+    If you can't point at the improvement, the refactor was speculative — consider reverting.
 
 7.  **Commit and integrate.**
 
-    Each move is a `refactor:` commit. A series of related moves forms the branch. Integrate via the project's branching conventions – typically a short-lived `temp/*` branch fast-forwarded into `dev`.
+    Each move is a `refactor:` commit. A series of related moves forms the branch. Integrate via the project's branching conventions — typically a short-lived `temp/*` branch fast-forwarded into `dev`.
 
     The PR description names the quality being improved and the moves taken.
 
@@ -115,7 +115,7 @@ Use this skill when improving internal code quality – readability, structure, 
 
 -   **Apply the deletion test.**
 
-    When considering removing or inlining a module, imagine deleting it entirely. If complexity *vanishes* – the module was a pass-through doing nothing the callers couldn't trivially do inline – delete it. If complexity *reappears spread across the callers*, the module was earning its keep through locality; either keep it as-is, or *deepen* it (move more behavior behind the interface) rather than remove it.
+    When considering removing or inlining a module, imagine deleting it entirely. If complexity *vanishes* — the module was a pass-through doing nothing the callers couldn't trivially do inline — delete it. If complexity *reappears spread across the callers*, the module was earning its keep through locality; either keep it as-is, or *deepen* it (move more behavior behind the interface) rather than remove it.
 
     The test works in reverse too: when tempted to *extract* a new module, ask whether deleting it from the imagined design would re-spread complexity across callers. If the answer is no, the extraction is premature.
 
@@ -167,7 +167,7 @@ commit and tracking issue. Resumed the refactor.
 
 -   **Coverage is absent and impossible to add quickly.**
 
-    Refactoring without a safety net is gambling. Two options: (a) treat the missing tests as the work itself – a `maintenance:` step to add characterization tests, before any refactor; (b) defer the refactor. Do not press on without coverage.
+    Refactoring without a safety net is gambling. Two options: (a) treat the missing tests as the work itself — a `maintenance:` step to add characterization tests, before any refactor; (b) defer the refactor. Do not press on without coverage.
 
 -   **The refactor reveals a bug.**
 

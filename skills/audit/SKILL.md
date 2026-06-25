@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Evaluate the evolving design once a plan's increments are complete – the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns – and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop. Use when the user says "audit the architecture", "is the design still sound?", or "check the codebase for structural drift".
+description: Evaluate the evolving design once a plan's increments are complete — the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns — and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop. Use when the user says "audit the architecture", "is the design still sound?", or "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,7 +9,7 @@ metadata:
 
 # `/audit`
 
-Use this skill once all of a plan's increments are complete – built, reviewed, and tested – as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** – the output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass; it changes no code itself.
+Use this skill once all of a plan's increments are complete — built, reviewed, and tested — as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** — the output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass; it changes no code itself.
 
 **Input**: The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. REQUIRED. Run once all increments are complete.
 
@@ -32,8 +32,8 @@ Use this skill once all of a plan's increments are complete – built, reviewed,
 
     For each significant module, ask: *if I removed this module, where would its complexity go?*
 
-    - If complexity would **concentrate elsewhere in a worse arrangement** – the module is **deep**, earning its keep.
-    - If complexity would **simply redistribute** without becoming worse – the module is **shallow**, not earning its keep. Flag it.
+    - If complexity would **concentrate elsewhere in a worse arrangement** — the module is **deep**, earning its keep.
+    - If complexity would **simply redistribute** without becoming worse — the module is **shallow**, not earning its keep. Flag it.
 
     A shallow module's primary value is hiding a thin layer of behavior behind an interface wider than the behavior justifies.
 
@@ -51,7 +51,7 @@ Use this skill once all of a plan's increments are complete – built, reviewed,
     - **Impact**: how much the rest of the codebase simplifies if this is fixed. Findings that unlock other improvements rank high.
     - **Effort**: how invasive the change would be. Local renames rank above cross-cutting restructures.
 
-    The top entry is the cheapest high-impact fix. Cap the report at 5–10 candidates – a 30-item backlog won't be acted on.
+    The top entry is the cheapest high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't be acted on.
 
 5.  **Produce the report.**
 
@@ -61,7 +61,7 @@ Use this skill once all of a plan's increments are complete – built, reviewed,
     # Audit report
 
     ## Summary
-    <2–3 sentences on the dominant themes – what's working, what's not.>
+    <2–3 sentences on the dominant themes — what's working, what's not.>
 
     ## Findings (prioritized)
 
@@ -82,7 +82,7 @@ Use this skill once all of a plan's increments are complete – built, reviewed,
 
 -   **Cite files and lines.**
 
-    Every finding names specific paths. Vague findings ("the API layer is messy") are useless – be concrete.
+    Every finding names specific paths. Vague findings ("the API layer is messy") are useless — be concrete.
 
 -   **Distinguish observation from prescription.**
 

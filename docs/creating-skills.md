@@ -1,8 +1,8 @@
 # Creating skills
 
-To author a new skill – or improve an existing one – use the [`create-skill`](../skills/create-skill/SKILL.md) skill. It is the single authoring path, for skills both in this repository and in downstream projects. It carries the full procedure, authoring rules, the bundled template, the validator, and reference material on naming, requirement levels, collision safety, and model pinning.
+To author a new skill — or improve an existing one — use the [`create-skill`](../skills/create-skill/SKILL.md) skill. It is the single authoring path, for skills both in this repository and in downstream projects. It carries the full procedure, authoring rules, the bundled template, the validator, and reference material on naming, requirement levels, collision safety, and model pinning.
 
-See also [design notes](./design-notes.md) for the opinionated stance this collection takes – portability, single-responsibility, no hand-offs between skills, interactive versus non-interactive execution, and so on.
+See also [design notes](./design-notes.md) for the opinionated stance taken in the design of this collection of agent skills.
 
 ## References
 

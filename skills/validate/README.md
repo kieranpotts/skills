@@ -1,6 +1,6 @@
 # 🤖 `/validate`
 
-`/validate` = product fitness review. Once all of a plan's increments are built, reviewed, and tested, it steps back and checks the working software against the need it was meant to serve – recovered from the preserved PRD or the specification's outcome and success measures. It walks the software as the user pursuing their real goal, not scenario by scenario, and surfaces the gaps where what was *specified* diverged from what was *wanted*. A change can pass every acceptance criterion in `/test` and still fail `/validate` – it does exactly what was specified, and what was specified wasn't what the user needed. That gap is the point of the skill.
+`/validate` = product fitness review. Once all of a plan's increments are built, reviewed, and tested, it steps back and checks the working software against the need it was meant to serve — recovered from the preserved PRD or the specification's outcome and success measures. It walks the software as the user pursuing their real goal, not scenario by scenario, and surfaces the gaps where what was *specified* diverged from what was *wanted*. A change can pass every acceptance criterion in `/test` and still fail `/validate` — it does exactly what was specified, and what was specified wasn't what the user needed. That gap is the point of the skill.
 
 Use it once a plan's increments are all complete and have cleared [`/test`](../test/). It evaluates the whole completed body of work, so it takes no per-increment argument.
 

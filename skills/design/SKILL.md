@@ -1,6 +1,6 @@
 ---
 name: design
-description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification – do not begin until the upstream specification proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally significant decisions, before planning or implementation, or when the user says "design this feature", "what are the options for building this?", or "work out the architecture for this change".
+description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification — do not begin until the upstream specification proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally significant decisions, before planning or implementation, or when the user says "design this feature", "what are the options for building this?", or "work out the architecture for this change".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,21 +9,21 @@ metadata:
 
 # `/design`
 
-Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision – new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API. Design is gated on an approved specification: it MUST NOT begin while the specification is still being drafted or merely proposed for review – only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
+Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision — new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API. Design is gated on an approved specification: it MUST NOT begin while the specification is still being drafted or merely proposed for review — only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
 
-**Input**: An approved specification – functional acceptance criteria and non-functional requirements, already reviewed and approved (`ACCEPTED`). REQUIRED. This skill consumes that specification; it does not write it, and its entry gate refuses to begin until the approval is in place.
+**Input**: An approved specification — functional acceptance criteria and non-functional requirements, already reviewed and approved (`ACCEPTED`). REQUIRED. This skill consumes that specification; it does not write it, and its entry gate refuses to begin until the approval is in place.
 
-**Output**: A recommended design – the chosen option with its evaluation against the nine qualities, the rejected alternatives and why, and a durable decision record (ADR, design doc, or PR description). Where a design question cannot be answered by reasoning alone, a time-boxed prototype produces the evidence that feeds back into the evaluation. Whatever consumes the design – decomposition into steps, implementation – is the orchestrator's concern, not this skill's.
+**Output**: A recommended design — the chosen option with its evaluation against the nine qualities, the rejected alternatives and why, and a durable decision record (ADR, design doc, or PR description). Where a design question cannot be answered by reasoning alone, a time-boxed prototype produces the evidence that feeds back into the evaluation. Whatever consumes the design — decomposition into steps, implementation — is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
 1.  **Check the entry gate: the specification MUST be approved.**
 
-    Design is the SDLC phase *after* specification. It MUST NOT begin until the specification it builds on has been reviewed and **approved** by the user – that is, the upstream proposal is `ACCEPTED` (not merely `PROPOSED` / awaiting review).
+    Design is the SDLC phase *after* specification. It MUST NOT begin until the specification it builds on has been reviewed and **approved** by the user — that is, the upstream proposal is `ACCEPTED` (not merely `PROPOSED` / awaiting review).
 
-    Confirm the relevant specification proposal is approved before doing anything else. If it is still `DRAFT` or `PROPOSED` – open, but not yet approved – **stop**. Tell the user the design phase is gated on an approved specification, and direct them to review and approve the proposal first. Do not design against an unapproved (or merely proposed) specification; its acceptance criteria may still change in review.
+    Confirm the relevant specification proposal is approved before doing anything else. If it is still `DRAFT` or `PROPOSED` — open, but not yet approved — **stop**. Tell the user the design phase is gated on an approved specification, and direct them to review and approve the proposal first. Do not design against an unapproved (or merely proposed) specification; its acceptance criteria may still change in review.
 
-    If no specification exists at all, the change has not been specified – send the user to write and approve one (clarifying the requirements first if they are still vague) before designing.
+    If no specification exists at all, the change has not been specified — send the user to write and approve one (clarifying the requirements first if they are still vague) before designing.
 
 2.  **Gather the constraints.**
 
@@ -38,7 +38,7 @@ Use this skill after the specification has been **approved** but before any plan
 
 3.  **Identify the decision points.**
 
-    List the *architecturally significant* choices the design must make – the ones that would be expensive to reverse later. Typical examples:
+    List the *architecturally significant* choices the design must make — the ones that would be expensive to reverse later. Typical examples:
 
     - Module/service boundaries.
     - Synchronous vs asynchronous communication.
@@ -47,15 +47,15 @@ Use this skill after the specification has been **approved** but before any plan
     - Public API shape.
     - Concurrency / parallelism model.
 
-    Cosmetic or easily-reversed decisions (variable names, file layout) are not decision points – defer them.
+    Cosmetic or easily-reversed decisions (variable names, file layout) are not decision points — defer them.
 
 4.  **Enumerate 2-4 options per decision.**
 
-    Always produce at least two. A single option masquerading as "the design" is not a design – it is an assumption. Include a do-nothing or simplest-possible option as one of the alternatives; sometimes the right answer is "don't build it that way".
+    Always produce at least two. A single option masquerading as "the design" is not a design — it is an assumption. Include a do-nothing or simplest-possible option as one of the alternatives; sometimes the right answer is "don't build it that way".
 
 5.  **Evaluate each option against the nine design qualities.**
 
-    For each option, note its impact (positive, neutral, negative) on each quality. Be specific – "improves performance" is not useful; "removes the N+1 query, cutting p95 by ~40ms" is.
+    For each option, note its impact (positive, neutral, negative) on each quality. Be specific — "improves performance" is not useful; "removes the N+1 query, cutting p95 by ~40ms" is.
 
     - *Completeness*: does it cover all the functional ACs?
     - *Correctness*: can it maintain valid, consistent state under the expected workload?
@@ -75,19 +75,19 @@ Use this skill after the specification has been **approved** but before any plan
 
 7.  **Capture the decision.**
 
-    For architecturally-significant decisions, write a short Architecture Decision Record (ADR) – context, options considered, decision, consequences. For smaller designs, a paragraph in the PR description or a comment on the issue is sufficient.
+    For architecturally-significant decisions, write a short Architecture Decision Record (ADR) — context, options considered, decision, consequences. For smaller designs, a paragraph in the PR description or a comment on the issue is sufficient.
 
     Include enough that a developer six months from now can answer "why did we do it this way?" without re-running the exercise.
 
 8.  **Report the design and stop.**
 
-    The output is a recommended design with its rejected alternatives and a durable decision record (step 7). Flag any soft edges that remain – ambiguous terms, unstated assumptions, contested trade-offs – so they can be stress-tested before decomposition. Report the design and stop; what consumes it is the orchestrator's concern.
+    The output is a recommended design with its rejected alternatives and a durable decision record (step 7). Flag any soft edges that remain — ambiguous terms, unstated assumptions, contested trade-offs — so they can be stress-tested before decomposition. Report the design and stop; what consumes it is the orchestrator's concern.
 
 ##  Rules
 
 -   **Do not design against an unapproved specification.**
 
-    The specification is the design's contract. Until the user has approved it (`ACCEPTED`), its acceptance criteria can still change in review – designing against a moving target wastes the work. If the specification is unapproved, missing, or still `PROPOSED`, stop and send the user back to approve it (or to write one, clarifying the requirements first, if it does not yet exist). This is the SDLC phase gate.
+    The specification is the design's contract. Until the user has approved it (`ACCEPTED`), its acceptance criteria can still change in review — designing against a moving target wastes the work. If the specification is unapproved, missing, or still `PROPOSED`, stop and send the user back to approve it (or to write one, clarifying the requirements first, if it does not yet exist). This is the SDLC phase gate.
 
 -   **Always produce alternatives.**
 
@@ -115,13 +115,13 @@ Use this skill after the specification has been **approved** but before any plan
 
 -   **Prefer deep modules to shallow ones.**
 
-    A module is *deep* when a small, simple interface hides a lot of useful behavior – callers benefit from leverage. A module is *shallow* when its interface is nearly as complex as its implementation – it gives callers little for the cost of learning it. When two designs satisfy the same ACs and NFRs, the one with deeper modules wins on simplicity, habitability, and changeability simultaneously.
+    A module is *deep* when a small, simple interface hides a lot of useful behavior — callers benefit from leverage. A module is *shallow* when its interface is nearly as complex as its implementation — it gives callers little for the cost of learning it. When two designs satisfy the same ACs and NFRs, the one with deeper modules wins on simplicity, habitability, and changeability simultaneously.
 
     Signs of a shallow module: the interface is a thin wrapper around the implementation; it passes most of its arguments straight through; deleting it would not concentrate complexity. Signs of a deep module: many callers; a small, stable interface; the implementation can be rewritten without changing any caller. Aim for depth when enumerating options, not just when evaluating them.
 
 -   **Document the rejected options too.**
 
-    The "why not" is often more useful to future readers than the "why". Future requirements may reopen one of the rejected options – the prior reasoning saves a re-evaluation.
+    The "why not" is often more useful to future readers than the "why". Future requirements may reopen one of the rejected options — the prior reasoning saves a re-evaluation.
 
 ## Examples
 
@@ -168,7 +168,7 @@ Consequences:
 
 -   **The design is forced by an existing constraint.**
 
-    If there is genuinely only one viable option (eg. a regulatory requirement names the encryption standard; an existing contract fixes the API shape), state the constraint, name the option, and skip the alternatives. But verify the constraint is real before skipping – "we've always done it that way" is not a constraint.
+    If there is genuinely only one viable option (eg. a regulatory requirement names the encryption standard; an existing contract fixes the API shape), state the constraint, name the option, and skip the alternatives. But verify the constraint is real before skipping — "we've always done it that way" is not a constraint.
 
 -   **Prototype or spike.**
 
@@ -176,7 +176,7 @@ Consequences:
 
 -   **Mid-build pivot.**
 
-    If a design choice is failing under implementation, stop and redo the design – do not patch around it. Sunk cost is not a quality.
+    If a design choice is failing under implementation, stop and redo the design — do not patch around it. Sunk cost is not a quality.
 
 -   **Two options are genuinely tied.**
 
@@ -206,4 +206,4 @@ Consequences:
 
 -   **The decision is captured durably.**
 
-    ADR, design doc, or PR description – somewhere a future reader can find it without asking.
+    ADR, design doc, or PR description — somewhere a future reader can find it without asking.

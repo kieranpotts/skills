@@ -10,7 +10,7 @@ metadata:
 
 # `/merge`
 
-Use this skill to integrate commits from one branch into another, applying the project's existing branching convention to pick the right strategy for the branch type. It assumes a working tree with no uncommitted changes – if you have uncommitted work, stash or commit first.
+Use this skill to integrate commits from one branch into another, applying the project's existing branching convention to pick the right strategy for the branch type. It assumes a working tree with no uncommitted changes — if you have uncommitted work, stash or commit first.
 
 **Merge strategies at-a-glance**:
 
@@ -65,7 +65,7 @@ flowchart LR
 
     - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged *down* into the epic (`git checkout epic/x && git merge --no-ff dev`). Conflicts are resolved on the epic side, not at integration time. Then, still on the `epic/*` branch, add a commit that updates `CHANGELOG.md` under the `[Unreleased]` section (using the project's changelog entry format). This commit is squashed in with the rest of the epic's changes and is how the CHANGELOG lands on `dev`.
 
-    - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the downstream target. If `git merge --ff-only` would fail, do NOT switch to a regular merge – the workflow has been violated, escalate.
+    - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the downstream target. If `git merge --ff-only` would fail, do NOT switch to a regular merge — the workflow has been violated, escalate.
 
 4.  **Run pre-merge checks on the source.**
 
@@ -107,7 +107,7 @@ flowchart LR
 
     - List them: `git status` shows the conflicted files.
     - Open each, resolve manually. Prefer the change that preserves the target branch's contract over local convenience.
-    - Watch for *semantic conflicts*: both sides apply cleanly textually but the combined behavior is wrong (renamed symbol still referenced by the other side, two new functions with the same name in different files, etc.). The compiler / type-checker / test suite catches most of these – run them after each non-trivial resolution.
+    - Watch for *semantic conflicts*: both sides apply cleanly textually but the combined behavior is wrong (renamed symbol still referenced by the other side, two new functions with the same name in different files, etc.). The compiler / type-checker / test suite catches most of these — run them after each non-trivial resolution.
     - Stage resolutions (`git add <file>`).
     - For rebase: `git rebase --continue`. For merge: `git commit`.
 
@@ -153,7 +153,7 @@ flowchart LR
 
 -   **Never use `--no-ff` to forward-promote trunks.**
 
-    `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk indicates that a fix was committed downstream – which is forbidden by the trunk model. If `--ff-only` fails on a trunk merge, escalate.
+    `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk indicates that a fix was committed downstream — which is forbidden by the trunk model. If `--ff-only` fails on a trunk merge, escalate.
 
 -   **Never squash a `temp/*` branch.**
 
@@ -175,11 +175,11 @@ flowchart LR
 
 -   **Update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
 
-    Add a commit to the `epic/*` branch – after the final merge-down from `dev` – that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line. This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
+    Add a commit to the `epic/*` branch — after the final merge-down from `dev` — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same `type: description` format as a commit subject line. This commit is squashed in with the rest of the epic's changes; do NOT update the CHANGELOG separately on `dev` after the squash.
 
 -   **Clean up integrated branches.**
 
-    `temp/*` and `epic/*` branches are deleted after integration – locally and remotely. Stale branches accumulate and obscure active work.
+    `temp/*` and `epic/*` branches are deleted after integration — locally and remotely. Stale branches accumulate and obscure active work.
 
 ## Examples
 
@@ -244,7 +244,7 @@ npm test
 
 -   **A rebase rewrites already-pushed commits on a shared branch.**
 
-    Don't, unless the branch is explicitly yours. If the source is a shared `epic/*`, do not rebase it – use merge-down to sync, per the rule above.
+    Don't, unless the branch is explicitly yours. If the source is a shared `epic/*`, do not rebase it — use merge-down to sync, per the rule above.
 
 -   **The source branch's commits don't pass commit-message validation.**
 
@@ -256,7 +256,7 @@ npm test
 
 -   **The merge succeeds, tests pass, but production breaks.**
 
-    Treat it as a defect to be diagnosed and fixed downstream, outside this skill. Do not bypass the verification step next time as a result – the failure means something else (test coverage, NFR check) needs strengthening, not that verification is unnecessary.
+    Treat it as a defect to be diagnosed and fixed downstream, outside this skill. Do not bypass the verification step next time as a result — the failure means something else (test coverage, NFR check) needs strengthening, not that verification is unnecessary.
 
 -   **`epic/*` integration produces an enormous squash diff.**
 

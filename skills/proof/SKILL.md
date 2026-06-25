@@ -1,6 +1,6 @@
 ---
 name: proof
-description: Proofread prose – Markdown, AsciiDoc, reStructuredText, plain text – making conservative copy edits only – spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalization. Never touches technical meaning, code, or markup syntax. Edits in place and reports a summary; committing is left to the version-control skills. Use when polishing documentation, a README, release notes, or any written content before it ships, or when the user says "proofread this document" or "check this for spelling and grammar".
+description: Proofread prose — Markdown, AsciiDoc, reStructuredText, plain text — making conservative copy edits only — spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalization. Never touches technical meaning, code, or markup syntax. Edits in place and reports a summary; committing is left to the version-control skills. Use when polishing documentation, a README, release notes, or any written content before it ships, or when the user says "proofread this document" or "check this for spelling and grammar".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,11 +9,11 @@ metadata:
 
 # `/proof`
 
-Use this skill to proofread prose – documentation, a README, release notes, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) – it edits the *prose* and leaves the *markup* and any embedded code untouched. It edits files in place and stops; it does NOT branch, commit, or open pull requests.
+Use this skill to proofread prose — documentation, a README, release notes, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) — it edits the *prose* and leaves the *markup* and any embedded code untouched. It edits files in place and stops; it does NOT branch, commit, or open pull requests.
 
-**Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL – defaults to the prose files changed in the working tree when no set is given.
+**Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL — defaults to the prose files changed in the working tree when no set is given.
 
-**Output**: The same files, edited in place with conservative copy edits only – prose words corrected, code/markup/structure untouched – plus a per-file summary of the edits made and any items flagged for the author. Nothing is staged, committed, or pushed; version control is left to a separate step.
+**Output**: The same files, edited in place with conservative copy edits only — prose words corrected, code/markup/structure untouched — plus a per-file summary of the edits made and any items flagged for the author. Nothing is staged, committed, or pushed; version control is left to a separate step.
 
 ## Instructions
 
@@ -21,19 +21,19 @@ Use this skill to proofread prose – documentation, a README, release notes, a 
 
     From the user's request, build the list of target files. The target may be a single file, a glob, a directory (recurse it for prose files), or unstated. If unstated, proofread the prose files changed in the working tree (`git status --porcelain`), falling back to asking the user which files if the working tree is clean.
 
-    Include only prose files – by extension `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`, `.txt`, and extensionless prose like `README`, `CHANGELOG`, `LICENSE` text. Skip code, config, lockfiles, and generated files.
+    Include only prose files — by extension `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`, `.txt`, and extensionless prose like `README`, `CHANGELOG`, `LICENSE` text. Skip code, config, lockfiles, and generated files.
 
 2.  **Detect the markup language and the line-wrapping convention per file.**
 
-    Before editing a file, note its format (so you know which syntax to protect) and its existing wrapping style – one-sentence-per-line, hard-wrapped at a column, or unwrapped paragraphs. You will preserve whichever it uses.
+    Before editing a file, note its format (so you know which syntax to protect) and its existing wrapping style — one-sentence-per-line, hard-wrapped at a column, or unwrapped paragraphs. You will preserve whichever it uses.
 
 3.  **Proofread one file at a time, editing in place.**
 
-    Work through the files individually. For each file, apply the allowed edits below and protect the forbidden zones below. Make the edits directly in the file. After finishing a file, record which changes you made (for the summary) and drop the file from working memory before opening the next – do not re-read a completed file.
+    Work through the files individually. For each file, apply the allowed edits below and protect the forbidden zones below. Make the edits directly in the file. After finishing a file, record which changes you made (for the summary) and drop the file from working memory before opening the next — do not re-read a completed file.
 
 4.  **Report a summary and stop.**
 
-    When every target file is processed, print a concise summary grouped by file: for each file that changed, a short bullet list of the kinds of edits made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -> 'website'"). Name any files reviewed but left unchanged. Then stop – do not stage, commit, or push.
+    When every target file is processed, print a concise summary grouped by file: for each file that changed, a short bullet list of the kinds of edits made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -> 'website'"). Name any files reviewed but left unchanged. Then stop — do not stage, commit, or push.
 
 ## Rules
 
@@ -41,13 +41,13 @@ Use this skill to proofread prose – documentation, a README, release notes, a 
 
 -   **Fix spelling, grammar, punctuation, and obvious typos.**
 
--   **Smooth genuinely awkward phrasing in prose** – but only where the meaning is unambiguous and preserved. When in doubt, leave it.
+-   **Smooth genuinely awkward phrasing in prose** — but only where the meaning is unambiguous and preserved. When in doubt, leave it.
 
 -   **Make terminology and capitalization consistent** within and across the target files (eg. pick one of "GitHub"/"Github", "set up" vs "setup" by part of speech).
 
 -   **Default to the project's established English variety.** Infer it from the surrounding text (eg. "colour"/"color"). If genuinely ambiguous, leave existing spellings and flag the inconsistency in the summary rather than imposing a variety.
 
-### Forbidden – never change
+### Forbidden — never change
 
 -   **Technical meaning, facts, version numbers, commands, API names, or identifiers.** A factual error is for a human to fix, not a copy editor (see edge cases).
 
@@ -75,7 +75,7 @@ Use this skill to proofread prose – documentation, a README, release notes, a 
 
 -   **Prefer the project's configured formatter for pure whitespace/style.**
 
-    If a deterministic prose linter or formatter is configured (eg. Vale, markdownlint, Prettier for Markdown), pure presentation issues are its job, not this skill's – this skill is for the language-level edits a formatter cannot make.
+    If a deterministic prose linter or formatter is configured (eg. Vale, markdownlint, Prettier for Markdown), pure presentation issues are its job, not this skill's — this skill is for the language-level edits a formatter cannot make.
 
 -   **Edit in place only.**
 
@@ -83,25 +83,25 @@ Use this skill to proofread prose – documentation, a README, release notes, a 
 
 -   **When a "fix" is really a rewrite, stop and flag it.**
 
-    If correcting something would require changing meaning or structure, do not do it – note it in the summary as a suggestion for the author.
+    If correcting something would require changing meaning or structure, do not do it — note it in the summary as a suggestion for the author.
 
 ## Edge cases
 
 -   **A technical fact looks wrong.**
 
-    Do not "correct" it. A version number, command flag, or API name that looks off may be deliberate or may be a real bug – either way it is the author's call. Leave it unchanged and flag it in the summary: *"docs/install.md:42 – `--recurse` may be a typo for `--recursive`; left unchanged for author review."*
+    Do not "correct" it. A version number, command flag, or API name that looks off may be deliberate or may be a real bug — either way it is the author's call. Leave it unchanged and flag it in the summary: *"docs/install.md:42 — `--recurse` may be a typo for `--recursive`; left unchanged for author review."*
 
 -   **Mixed English varieties within the corpus.**
 
-    If the files mix British and American spellings and no project convention is discoverable, do not impose one – that is an editorial decision. Report the inconsistency and let the author choose.
+    If the files mix British and American spellings and no project convention is discoverable, do not impose one — that is an editorial decision. Report the inconsistency and let the author choose.
 
 -   **A typo appears inside a code span or block.**
 
-    Leave it. Code is verbatim, even when it contains a misspelling – the misspelling may be a real identifier. Flag it in the summary only if it is plausibly prose that was wrongly marked as code.
+    Leave it. Code is verbatim, even when it contains a misspelling — the misspelling may be a real identifier. Flag it in the summary only if it is plausibly prose that was wrongly marked as code.
 
 -   **The target file is generated or vendored.**
 
-    Skip it and say so. Editing generated output is wasted – the fix belongs in the source. Skip anything under conventional generated/vendor paths unless the user explicitly names it.
+    Skip it and say so. Editing generated output is wasted — the fix belongs in the source. Skip anything under conventional generated/vendor paths unless the user explicitly names it.
 
 -   **Front matter and metadata.**
 
@@ -111,7 +111,7 @@ Use this skill to proofread prose – documentation, a README, release notes, a 
 
 -   **Only prose changed; code, markup, and structure are byte-identical except where prose words were corrected.**
 
-    A diff shows word-level prose edits and nothing else – no reflowed blocks, no moved sections, no touched code.
+    A diff shows word-level prose edits and nothing else — no reflowed blocks, no moved sections, no touched code.
 
 -   **No technical fact, identifier, version, or command was altered.**
 

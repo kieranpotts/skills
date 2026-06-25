@@ -1,6 +1,6 @@
 # 🤖 `/triage`
 
-`/triage` = bug and incident verification. It takes a freshly-filed issue and decides what happens next: implement, defer, reject, or get more information. It moves issues through a state machine of category and state labels – gathering context from the thread and code, reproducing bugs before anything else, grilling under-specified issues into shape, and applying the outcome (an agent brief, a needs-info request, or a durably-captured wontfix rationale).
+`/triage` = bug and incident verification. It takes a freshly-filed issue and decides what happens next: implement, defer, reject, or get more information. It moves issues through a state machine of category and state labels — gathering context from the thread and code, reproducing bugs before anything else, grilling under-specified issues into shape, and applying the outcome (an agent brief, a needs-info request, or a durably-captured wontfix rationale).
 
 Use it as the reactive entry point to the workflow, to work the incoming queue or prep issues for agents, before the build loop sets about resolving the issue. It assumes an issue tracker with category/state labels (and sets up the vocabulary if missing).
 
@@ -29,4 +29,4 @@ flowchart LR
 
 ## References
 
-- [Original source – mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.
+- [Original source — mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.

@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Extract durable lessons from the current session – corrections, validated approaches, revealed preferences, project decisions outside the code – and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions start smarter, or when the user says "reflect on this session", "what should you remember from this?", or "save the lessons from our work today".
+description: Extract durable lessons from the current session — corrections, validated approaches, revealed preferences, project decisions outside the code — and persist them to the agent's memory system or to repo-committed convention files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions start smarter, or when the user says "reflect on this session", "what should you remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -9,11 +9,11 @@ metadata:
 
 # `/reflect`
 
-Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project – durable working-style lessons, not task progress. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
+Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project — durable working-style lessons, not task progress. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
 
 **Input**: The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED. This skill is **interactive**: it seeks per-candidate user approval through prompts before persisting anything.
 
-**Output**: Zero or more persisted lessons – memory entries (indexed in `MEMORY.md`) and/or appended convention rules – each non-obvious and capable of changing future agent behavior, written only after per-candidate user approval. Universal lessons better encoded as a new skill are flagged, not saved.
+**Output**: Zero or more persisted lessons — memory entries (indexed in `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of changing future agent behavior, written only after per-candidate user approval. Universal lessons better encoded as a new skill are flagged, not saved.
 
 ##  Instructions
 
@@ -23,7 +23,7 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
     - **Corrections.** The user redirected the approach: *"no, don't do that"*, *"we don't do it that way here"*, *"stop doing X"*. Each correction is a candidate.
     - **Validated approaches.** The user accepted a non-obvious choice without pushback, especially where your first instinct would have been different. Quiet acceptance of an unusual move is a signal.
-    - **Revealed preferences.** How the user wants to work – response length, tone, format, levels of explanation, when to ask vs. when to act.
+    - **Revealed preferences.** How the user wants to work — response length, tone, format, levels of explanation, when to ask vs. when to act.
     - **Project decisions outside version control.** Constraints, deadlines, stakeholder requirements, business context the codebase does not encode.
 
 2.  **Filter ruthlessly.**
@@ -39,13 +39,13 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
 3.  **Classify each surviving candidate.**
 
-    Assign one of these types – the type drives the format and the destination:
+    Assign one of these types — the type drives the format and the destination:
 
-    - **`user`** – The user's role, expertise, working preferences. *Destination: user-level memory if universal across projects; project-level memory if specific to this project.*
-    - **`feedback`** – Guidance on how to approach work. Corrections and validated approaches both fit here. *Destination: project-level memory (usually); user-level if it applies regardless of project.*
-    - **`project`** – Facts, decisions, or constraints about ongoing work that aren't captured in version control. *Destination: project-level memory.*
-    - **`reference`** – Pointers to where information lives in external systems (Linear, Slack, Confluence, dashboards). *Destination: project-level memory.*
-    - **Codebase convention** – A repository-specific rule or pattern other contributors (human and agent) should see. *Destination: AGENTS.md or CLAUDE.md – committed to the repo, not private memory.*
+    - **`user`** — The user's role, expertise, working preferences. *Destination: user-level memory if universal across projects; project-level memory if specific to this project.*
+    - **`feedback`** — Guidance on how to approach work. Corrections and validated approaches both fit here. *Destination: project-level memory (usually); user-level if it applies regardless of project.*
+    - **`project`** — Facts, decisions, or constraints about ongoing work that aren't captured in version control. *Destination: project-level memory.*
+    - **`reference`** — Pointers to where information lives in external systems (Linear, Slack, Confluence, dashboards). *Destination: project-level memory.*
+    - **Codebase convention** — A repository-specific rule or pattern other contributors (human and agent) should see. *Destination: AGENTS.md or CLAUDE.md — committed to the repo, not private memory.*
 
 4.  **Walk the user through each candidate, one at a time.**
 
@@ -66,7 +66,7 @@ Use this skill at the end of a session to distill what was *learned* about worki
     ```markdown
     ---
     name: <short-kebab-case-slug>
-    description: <one-line summary – specific, used by future agents to decide relevance>
+    description: <one-line summary — specific, used by future agents to decide relevance>
     metadata:
       type: <user | feedback | project | reference>
     ---
@@ -75,14 +75,14 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
     <For `feedback` and `project` types, follow with:>
 
-    **Why:** <The reason – the past incident, preference, or constraint that makes this matter.>
+    **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
 
     **How to apply:** <When and where this guidance kicks in.>
     ```
 
     Cross-link related memories with `[[name]]`.
 
-    For codebase-convention destinations, append a concise rule to `AGENTS.md` (or `CLAUDE.md`, whichever the project uses) in the section that fits – usually `## Rules` or a project-specific equivalent.
+    For codebase-convention destinations, append a concise rule to `AGENTS.md` (or `CLAUDE.md`, whichever the project uses) in the section that fits — usually `## Rules` or a project-specific equivalent.
 
 6.  **Update the `MEMORY.md` index.**
 
@@ -126,7 +126,7 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
 -   **Reference external systems; don't duplicate them.**
 
-    If the lesson is about a Linear ticket, Slack thread, or external dashboard, save a `reference` memory that points at it – do not paste its content. The external system is the source of truth.
+    If the lesson is about a Linear ticket, Slack thread, or external dashboard, save a `reference` memory that points at it — do not paste its content. The external system is the source of truth.
 
 -   **Codebase conventions go to AGENTS.md / CLAUDE.md, not memory.**
 
@@ -138,7 +138,7 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
 -   **Distinguish rules from facts.**
 
-    `feedback` (how to work) and `project` (what's true now) need the **Why:** + **How to apply:** structure – their reason gives future agents room for judgment on edge cases. `user` and `reference` types are statements of fact and need no such scaffolding.
+    `feedback` (how to work) and `project` (what's true now) need the **Why:** + **How to apply:** structure — their reason gives future agents room for judgment on edge cases. `user` and `reference` types are statements of fact and need no such scaffolding.
 
 -   **Update rather than duplicate.**
 
@@ -160,7 +160,7 @@ Use this skill at the end of a session to distill what was *learned* about worki
 
 -   **The agent's memory system has no obvious file path.**
 
-    Some agents (Cursor, Copilot) do not expose a standard memory directory. In that case, fall back to `AGENTS.md` for codebase conventions and skip the memory-file steps for `user` / `feedback` / `project` / `reference` types – flag them in the report as deferred.
+    Some agents (Cursor, Copilot) do not expose a standard memory directory. In that case, fall back to `AGENTS.md` for codebase conventions and skip the memory-file steps for `user` / `feedback` / `project` / `reference` types — flag them in the report as deferred.
 
 ##  Success criteria
 

@@ -2,7 +2,7 @@
 
 This skill is all about architectural decision making.
 
-This skill takes a formal software requirements specification (SRS) – something more substantial than a vague product requirements document (PRD) written in business language – and enumerates design options for each significant architectural decision required to realize a solution.
+This skill takes a formal software requirements specification (SRS) — something more substantial than a vague product requirements document (PRD) written in business language — and enumerates design options for each significant architectural decision required to realize a solution.
 
 For each option, the agent is instructed to evaluate it against nine design qualities: completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, and simplicity.
 

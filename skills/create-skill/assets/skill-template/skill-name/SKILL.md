@@ -1,6 +1,6 @@
 ---
 name: skill-name
-description: <One sentence describing what the skill does.> Use when <specific triggers – user phrasings, situations, file types, contexts>.
+description: <One sentence describing what the skill does.> Use when <specific triggers — user phrasings, situations, file types, contexts>.
 compatibility: requires <tool> or <tool>
 license: <license>
 metadata:
@@ -17,11 +17,11 @@ metadata:
 
 Use this skill when <scenario>.
 
-This skill extends [this skill](https://raw.githubusercontent.com/...) – all rules there apply here.
+This skill extends [this skill](https://raw.githubusercontent.com/...) — all rules there apply here.
 
 Do NOT use this skill for <exceptions...>.
 
-**Input**: <What the skill consumes, and how it is supplied (file paths, URLs, pasted text, an upstream artifact, the surrounding context). State whether it is REQUIRED or OPTIONAL. For an interactive skill, state explicitly that the skill ALSO gathers input from the user through prompts during the session – so the initial input may be partial or absent.>
+**Input**: <What the skill consumes, and how it is supplied (file paths, URLs, pasted text, an upstream artifact, the surrounding context). State whether it is REQUIRED or OPTIONAL. For an interactive skill, state explicitly that the skill ALSO gathers input from the user through prompts during the session — so the initial input may be partial or absent.>
 
 **Output**: <What the skill produces, in what form, and where it goes. Name any completeness guarantees the output enforces. State what is deliberately out of scope.>
 
@@ -84,15 +84,15 @@ _Warn about potential edge cases. Regular prose. OPTIONAL._
 
 ##  Success criteria
 
-- **The output matches the expected format.** [Optionally, describe the specific structural or syntactic requirement – eg. the regex passes, the file is in the right location, the required fields are present.]
+- **The output matches the expected format.** [Optionally, describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.]
 
 - **All rules have been respected.** Review the completed output against the rules above before finishing.
 
-- **[Domain-specific check.]** [Add one or two concrete, observable conditions specific to this skill – things the agent can verify without running external tooling.]
+- **[Domain-specific check.]** [Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
 
 ## References
 
-_Links to the skill's OWN bundled resources that the agent needs to read to do the job – each with an explicit trigger condition. OPTIONAL. Point only at files inside this skill's directory; external references that exist for human context (the technique behind the skill, an upstream skill it was adapted from, background reading) belong in the sibling `README.md`, NOT here – a link in a SKILL.md invites the agent to fetch it and bloat its context for no operational gain._
+_Links to the skill's OWN bundled resources that the agent needs to read to do the job — each with an explicit trigger condition. OPTIONAL. Point only at files inside this skill's directory; external references that exist for human context (the technique behind the skill, an upstream skill it was adapted from, background reading) belong in the sibling `README.md`, NOT here — a link in a SKILL.md invites the agent to fetch it and bloat its context for no operational gain._
 
 - [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
 

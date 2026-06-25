@@ -4,15 +4,15 @@
 
 **Problem:**
 
-<The problem being solved – what is wrong or missing today, from the customer's point of view.>
+<The problem being solved — what is wrong or missing today, from the customer's point of view.>
 
 **Goal:**
 
-<Business goal – what success looks like for the customer.>
+<Business goal — what success looks like for the customer.>
 
 **Why now:**
 
-<The trigger – why this matters at this moment.>
+<The trigger — why this matters at this moment.>
 
 **Success measure:**
 
@@ -34,8 +34,8 @@
 
 ## Rules
 
-1. <Rule – a single declarative sentence.>
-2. <Rule – ...>
+1. <Rule — a single declarative sentence.>
+2. <Rule — ...>
 
 ## Examples
 
@@ -47,11 +47,11 @@
 
 ## Non-functional requirements
 
-<Measurable quality constraints – performance, scale, availability, security, accessibility, etc. State a target where one exists. Write "None known" if the customer has none.>
+<Measurable quality constraints — performance, scale, availability, security, accessibility, etc. State a target where one exists. Write "None known" if the customer has none.>
 
 ## Assumptions
 
-- <Assumption – to validate with the customer.>
+- <Assumption — to validate with the customer.>
 
 ## Open questions
 

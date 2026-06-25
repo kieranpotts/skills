@@ -9,11 +9,11 @@ metadata:
 
 # `/discover`
 
-Use this skill to run a structured discovery session that refines a customer's business needs into a product requirements document (PRD). The agent acts as the business analyst, asking one question at a time. The user answers as the customer – either directly (as a real customer) or as a relay (paraphrasing what real customers said in prior conversations).
+Use this skill to run a structured discovery session that refines a customer's business needs into a product requirements document (PRD). The agent acts as the business analyst, asking one question at a time. The user answers as the customer — either directly (as a real customer) or as a relay (paraphrasing what real customers said in prior conversations).
 
-**Input**: The user MAY provide a draft PRD or similar artifacts (via file paths, URLs, or pasted text) to be edited in place, or to use as a basis for a fresh PRD. This is OPTIONAL – the seed may be vague, incomplete, or absent. This skill is **interactive** – it gathers the rest of the input from the user through prompts during the session, asking one question at a time. Crystallizing a vague business need into a complete PRD is the purpose of the discovery session.
+**Input**: The user MAY provide a draft PRD or similar artifacts (via file paths, URLs, or pasted text) to be edited in place, or to use as a basis for a fresh PRD. This is OPTIONAL — the seed may be vague, incomplete, or absent. This skill is **interactive** — it gathers the rest of the input from the user through prompts during the session, asking one question at a time. Crystallizing a vague business need into a complete PRD is the purpose of the discovery session.
 
-**Output**: A new or modified PRD in business language, covering outcomes, stakeholders, scope, rules, examples, non-functional requirements, assumptions, and open questions. The PRD enforces completeness by having a counter-example for every rule, an explicit out-of-scope list, non-functional requirements explicitly recorded (even if none), and blocking questions resolved. Technical implementation and validation details are out-of-scope – this is not a specification or design document.
+**Output**: A new or modified PRD in business language, covering outcomes, stakeholders, scope, rules, examples, non-functional requirements, assumptions, and open questions. The PRD enforces completeness by having a counter-example for every rule, an explicit out-of-scope list, non-functional requirements explicitly recorded (even if none), and blocking questions resolved. Technical implementation and validation details are out-of-scope — this is not a specification or design document.
 
 This skill produces the PRD and stops. It does NOT file the PRD in any workflow repository, and it does NOT translate the rules and examples into testable acceptance criteria. These are separate downstream responsibilities.
 
@@ -23,7 +23,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 1.  **Confirm the seed.**
 
-    Restate what the user has brought you, in one sentence: *"You want to understand the requirements for <feature/capability> – is that right?"*
+    Restate what the user has brought you, in one sentence: *"You want to understand the requirements for <feature/capability> — is that right?"*
 
     Clarify before proceeding if the seed is ambiguous. A discovery built on a misread seed produces an invalid PRD.
 
@@ -31,7 +31,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
     - *"Refine these existing artifacts in place?"*: Interrogate and extend what is already written, keeping its structure, filling its gaps. Treat the supplied content as the working draft.
 
-    - *"Produce a fresh PRD using these as a basis?"*: Extract the problem, outcome, scope, rules, and so on from the artifacts as raw material, then build a clean PRD to this skill's template. Confirm each extracted item with the user before adopting it – do NOT carry anything over unverified – the artifacts may be stale, partial, or wrong.
+    - *"Produce a fresh PRD using these as a basis?"*: Extract the problem, outcome, scope, rules, and so on from the artifacts as raw material, then build a clean PRD to this skill's template. Confirm each extracted item with the user before adopting it — do NOT carry anything over unverified — the artifacts may be stale, partial, or wrong.
 
     Do NOT assume either mode. Wait for the user to choose before continuing the interview.
 
@@ -44,7 +44,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
     - *"Why now? What's the trigger for this requirement?"*
     - *"What measurable change would tell the customer this worked?"*
 
-    Capture as *Problem*, *Goal*, *Why now*, *Success measure*. This is the Impact Mapping layer – it keeps the *why* alive for downstream skills.
+    Capture as *Problem*, *Goal*, *Why now*, *Success measure*. This is the Impact Mapping layer — it keeps the *why* alive for downstream skills.
 
 3.  **Identify the stakeholders.**
 
@@ -82,9 +82,9 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 7.  **Elicit non-functional requirements.**
 
-    Ask: *"Beyond what it must do, are there constraints on how well it must do it – how fast, how many at once, how available, how secure, who must be able to use it?"*
+    Ask: *"Beyond what it must do, are there constraints on how well it must do it — how fast, how many at once, how available, how secure, who must be able to use it?"*
 
-    Capture each as a measurable target where one exists (*"checkout completes within 2 seconds for 95% of requests"*), still in business language – no implementation detail.
+    Capture each as a measurable target where one exists (*"checkout completes within 2 seconds for 95% of requests"*), still in business language — no implementation detail.
 
     If the customer has no non-functional requirements, record *"None known"* explicitly rather than leaving the section blank. A downstream specification step may read an empty section as an omission, not a decision.
 
@@ -94,7 +94,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 9.  **Capture open questions.**
 
-    Any question the user/customer cannot answer in this session goes into an *Open Questions* list, with a named owner. Do NOT stall on unanswered questions – capture and move on. Discovery sessions end when no new rules emerge, not when every question is resolved.
+    Any question the user/customer cannot answer in this session goes into an *Open Questions* list, with a named owner. Do NOT stall on unanswered questions — capture and move on. Discovery sessions end when no new rules emerge, not when every question is resolved.
 
 10. **Produce the PRD.**
 
@@ -112,11 +112,11 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Stay in business language.**
 
-    No technical jargon. No data structures, APIs, schemas, or code. The PRD MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here – defer it to the technical design phase (see [`/design`](../design/SKILL.md).
+    No technical jargon. No data structures, APIs, schemas, or code. The PRD MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here — defer it to the technical design phase (see [`/design`](../design/SKILL.md).
 
 -   **Do not volunteer solutions.**
 
-    This skill is for understanding the problem. If the user starts proposing implementations, redirect: *"Let's park that – I want to understand the requirement first."* Solutions captured in discovery anchor the design prematurely.
+    This skill is for understanding the problem. If the user starts proposing implementations, redirect: *"Let's park that — I want to understand the requirement first."* Solutions captured in discovery anchor the design prematurely.
 
 -   **No leading questions.**
 
@@ -128,7 +128,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Push back.**
 
-    Don't be a "yes" machine. Don't assume the user's answers are correct, as they may be based on assumptions and biases – it's your job to discover those. Interrogate vague requests. Disagree when something's off. Flag contradictions – never silently overwrite.
+    Don't be a "yes" machine. Don't assume the user's answers are correct, as they may be based on assumptions and biases — it's your job to discover those. Interrogate vague requests. Disagree when something's off. Flag contradictions — never silently overwrite.
 
     No sycophancy.
 
@@ -148,7 +148,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Every rule has at least one example AND one counter-example.**
 
-    A rule without a counter-example is not ready to specify from – its boundaries are unclear.
+    A rule without a counter-example is not ready to specify from — its boundaries are unclear.
 
 -   **Scope is explicit in both directions.**
 
@@ -156,7 +156,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Assumptions are flagged as assumptions.**
 
-    No statement of confidence without a source survives in *Rules* – it has been moved to *Assumptions* if the customer did not directly say it.
+    No statement of confidence without a source survives in *Rules* — it has been moved to *Assumptions* if the customer did not directly say it.
 
 -   **Open questions name their owners.**
 
@@ -164,7 +164,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Non-functional requirements are recorded, even if none.**
 
-    The *Non-functional requirements* section states measurable targets where they exist, or *"None known"* – never left blank, which a downstream step would read as an omission.
+    The *Non-functional requirements* section states measurable targets where they exist, or *"None known"* — never left blank, which a downstream step would read as an omission.
 
 -   **The PRD reads in business language.**
 

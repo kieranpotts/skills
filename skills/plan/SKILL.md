@@ -19,7 +19,7 @@ Use this skill after the design is captured (and, where needed, sharpened) and b
 
 1.  **Restate the goal and constraints.**
 
-    Pull the acceptance criteria from the specification and the chosen option from the design. State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the specification or design is not ready – go back.
+    Pull the acceptance criteria from the specification and the chosen option from the design. State in one or two sentences what is being built and what the user-visible end state is. If this can't be stated cleanly, the specification or design is not ready — go back.
 
 2.  **Find the thinnest first slice.**
 
@@ -44,7 +44,7 @@ Use this skill after the design is captured (and, where needed, sharpened) and b
 
 4.  **Order by risk, not by ease.**
 
-    Schedule the *riskiest* steps first – the integrations you are unsure about, the assumptions that might not hold, the components you don't fully understand. Discovering a flaw early costs one step's worth of rework; discovering it after eight steps costs eight.
+    Schedule the *riskiest* steps first — the integrations you are unsure about, the assumptions that might not hold, the components you don't fully understand. Discovering a flaw early costs one step's worth of rework; discovering it after eight steps costs eight.
 
     Easy and decorative work (polish, copy, secondary error paths) goes last.
 
@@ -63,12 +63,12 @@ Use this skill after the design is captured (and, where needed, sharpened) and b
     Output a numbered checklist. For each step include:
 
     - A short imperative title (eg. "Step 3: add `/orders` POST endpoint, stubbed response").
-    - A *mode tag*: `HITL` (human-in-the-loop – requires synchronous human input such as an architectural call, design review, or UI/UX sign-off) or `AFK` (away-from-keyboard – can be implemented and merged without further human input).
+    - A *mode tag*: `HITL` (human-in-the-loop — requires synchronous human input such as an architectural call, design review, or UI/UX sign-off) or `AFK` (away-from-keyboard — can be implemented and merged without further human input).
     - The pass/fail signal (test name, behavior to verify, metric to check).
     - Any dependency on a prior step.
     - Any flag, fixture, or migration involved.
 
-    Keep step descriptions tight. The plan is a checklist, not a design doc – the design lives elsewhere.
+    Keep step descriptions tight. The plan is a checklist, not a design doc — the design lives elsewhere.
 
 7.  **Pressure-test the plan.**
 
@@ -96,7 +96,7 @@ Use this skill after the design is captured (and, where needed, sharpened) and b
 
 -   **Plans are revisable, not sacred.**
 
-    The plan made before step 1 is the plan with the least information. Update it after each step as you learn. Re-order, split, drop steps – and note why.
+    The plan made before step 1 is the plan with the least information. Update it after each step as you learn. Re-order, split, drop steps — and note why.
 
 -   **Feature flags are tools, not asks.**
 
@@ -104,7 +104,7 @@ Use this skill after the design is captured (and, where needed, sharpened) and b
 
 -   **Prefer AFK over HITL.**
 
-    Steps an agent can complete and merge without human input are cheaper, faster, and parallelizable. When a step truly requires a human (architectural call, design or UI review, manual verification, security sign-off), tag it `HITL` explicitly so the dependency on human time is visible up front – and so the plan can be re-ordered to cluster or front-load those steps when synchronous time is scarce.
+    Steps an agent can complete and merge without human input are cheaper, faster, and parallelizable. When a step truly requires a human (architectural call, design or UI review, manual verification, security sign-off), tag it `HITL` explicitly so the dependency on human time is visible up front — and so the plan can be re-ordered to cluster or front-load those steps when synchronous time is scarce.
 
 -   **No step is "do everything else".**
 
@@ -189,7 +189,7 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 -   **Each step has a stated pass/fail signal.**
 
-    A test name, a curl command, a metric threshold – something observable.
+    A test name, a curl command, a metric threshold — something observable.
 
 -   **Feature flags, fixtures, and migrations are named where used.**
 

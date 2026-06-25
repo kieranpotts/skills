@@ -1,6 +1,6 @@
 ---
 name: test
-description: Verify a completed change against its full set of acceptance criteria – functional and non-functional. Map each AC to evidence (test run, observed behavior, measurement) and report pass/fail/blocked. Use after the change has cleared review, or before tagging a release. Reports failures as either implementation defects or specification defects, without fixing them. Use when the user says "test this against the spec", "verify this meets the acceptance criteria", or "run acceptance testing on this change".
+description: Verify a completed change against its full set of acceptance criteria — functional and non-functional. Map each AC to evidence (test run, observed behavior, measurement) and report pass/fail/blocked. Use after the change has cleared review, or before tagging a release. Reports failures as either implementation defects or specification defects, without fixing them. Use when the user says "test this against the spec", "verify this meets the acceptance criteria", or "run acceptance testing on this change".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,11 +9,11 @@ metadata:
 
 # `/test`
 
-Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* – mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
+Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* — mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
 
 **Input**: A completed change and its specification. REQUIRED. The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
 
-**Output**: A verification report – every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified – an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) – and reported, not fixed. Whatever consumes the report – diagnosing a defect, editing the specification, releasing – is the orchestrator's concern, not this skill's.
+**Output**: A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified — an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) — and reported, not fixed. Whatever consumes the report — diagnosing a defect, editing the specification, releasing — is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -27,23 +27,23 @@ Use this skill after the change has cleared review, or before tagging a release.
 
     Execute, in this order:
 
-    1. *Smoke tests* (if any) – fail-fast on a broken build.
-    2. *Unit tests* – localize defects.
-    3. *Integration tests* – exercise boundaries between components.
-    4. *System / end-to-end tests* – verify whole-system flows.
-    5. *Acceptance tests* – the Gherkin scenarios from the specification, if automated.
+    1. *Smoke tests* (if any) — fail-fast on a broken build.
+    2. *Unit tests* — localize defects.
+    3. *Integration tests* — exercise boundaries between components.
+    4. *System / end-to-end tests* — verify whole-system flows.
+    5. *Acceptance tests* — the Gherkin scenarios from the specification, if automated.
 
     Any failure at any level pauses the run: investigate before continuing. Do not interpret a green higher-level suite as cancellation of a red lower-level one.
 
 3.  **Cover the gaps manually for non-automatable ACs.**
 
-    Some ACs cannot be automated – visual layout, copy, UX feel, animation, accessibility under a screen reader. Run them by hand:
+    Some ACs cannot be automated — visual layout, copy, UX feel, animation, accessibility under a screen reader. Run them by hand:
 
     - Walk each scenario from the specification end-to-end through the running application.
     - Capture observable evidence: screenshot, screen recording, console output, log excerpt.
     - For accessibility: keyboard navigation, screen-reader pass, contrast check.
 
-    Record what was checked and what was observed – "checked it works" is not evidence.
+    Record what was checked and what was observed — "checked it works" is not evidence.
 
 4.  **Verify non-functional requirements.**
 
@@ -51,10 +51,10 @@ Use this skill after the change has cleared review, or before tagging a release.
 
     - *Performance*: run the load/benchmark/profiling check against the stated threshold (eg. p95 < 250ms at 500 RPS). Record the measured number, not just "ok".
     - *Security*: run any required scans (SAST, dependency CVE check, secret scan). Verify auth/authz changes by attempting unauthorized access.
-    - *Reliability*: verify retry, timeout, and failure-mode behavior – kill a dependency, throttle a network, confirm graceful degradation.
+    - *Reliability*: verify retry, timeout, and failure-mode behavior — kill a dependency, throttle a network, confirm graceful degradation.
     - *Conformance*: where the NFR cites a standard (WCAG, GDPR, PCI), run the corresponding check.
 
-    If an NFR has no objective check, flag it – it is not really an NFR, it is a hope.
+    If an NFR has no objective check, flag it — it is not really an NFR, it is a hope.
 
 5.  **Do a short exploratory pass.**
 
@@ -84,7 +84,7 @@ Use this skill after the change has cleared review, or before tagging a release.
 
 7.  **Report the verdict.**
 
-    Classify the outcome and report it; do not act on it – what runs next is the orchestrator's concern.
+    Classify the outcome and report it; do not act on it — what runs next is the orchestrator's concern.
 
     - All PASS, more increments remain → the change is verified for this increment; the implement-review-verify cycle continues per remaining step.
     - All PASS, work complete → verified and ready to release.
@@ -100,7 +100,7 @@ Use this skill after the change has cleared review, or before tagging a release.
 
 -   **Record observable evidence for every AC.**
 
-    "Manually verified" is not evidence. A test name, a measurement, a screenshot, a log excerpt – something a reviewer can re-examine without re-running the work.
+    "Manually verified" is not evidence. A test name, a measurement, a screenshot, a log excerpt — something a reviewer can re-examine without re-running the work.
 
 -   **NFRs are first-class.**
 
@@ -205,4 +205,4 @@ not delete.
 
 -   **The verdict is explicit.**
 
-    "Ready to ship", "ready for review", or "blocked on X" – not implied.
+    "Ready to ship", "ready for review", or "blocked on X" — not implied.

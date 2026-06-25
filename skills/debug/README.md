@@ -14,8 +14,8 @@ This skill instructs the agent to run non-interactively (🤖). But the agent fa
 - "Debug this."
 - "Diagnose this failure."
 - "Something is broken / throwing / failing."
-- "This got slower – find out why."
+- "This got slower — find out why."
 
 ## References
 
-- [Original source – mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md)
+- [Original source — mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md)

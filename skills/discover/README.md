@@ -2,7 +2,7 @@
 
 This skill runs an interactive product requirements discovery workshop with the user (🧑).
 
-It is a structured chat session that turns a vague business need into a clear product requirements document (PRD) – covering the outcome, stakeholders, scope, business rules with examples, non-functional requirements, assumptions, and open questions.
+It is a structured chat session that turns a vague business need into a clear product requirements document (PRD) — covering the outcome, stakeholders, scope, business rules with examples, non-functional requirements, assumptions, and open questions.
 
 The agent acts as a business analyst and interviews the user, who answers as the customer, either directly or by relaying what real customers have said.
 
@@ -21,8 +21,8 @@ The scope of the skill is confined to business requirements discovery. Formal sp
 
 ## References
 
-- [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015): The core technique – rules, examples, and questions, captured in a single session.
+- [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015): The core technique — rules, examples, and questions, captured in a single session.
 
-- [Specification by Example](https://gojko.net/books/specification-by-example/) (Gojko Adzic): The broader philosophy – refine requirements through concrete cases, not abstract prose.
+- [Specification by Example](https://gojko.net/books/specification-by-example/) (Gojko Adzic): The broader philosophy — refine requirements through concrete cases, not abstract prose.
 
 - [Impact Mapping](https://www.impactmapping.org/) (Gojko Adzic): Source of the *goal / actor / impact* framing used in the outcome section.

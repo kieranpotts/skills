@@ -9,17 +9,17 @@ metadata:
 
 # `/code`
 
-Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. It turns one already-designed step into working, tested code. Implement one plan step per session – never bundle multiple steps – so the diff stays reviewable and rollback stays clean; after the step's tests pass, start the next step in a fresh session.
+Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. It turns one already-designed step into working, tested code. Implement one plan step per session — never bundle multiple steps — so the diff stays reviewable and rollback stays clean; after the step's tests pass, start the next step in a fresh session.
 
-**Input**: One numbered plan step (or a small standalone change whose design is already obvious) – a scoped, already-designed unit of work. REQUIRED. This skill does not design or decompose; it consumes a step that is ready to implement.
+**Input**: One numbered plan step (or a small standalone change whose design is already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill does not design or decompose; it consumes a step that is ready to implement.
 
-**Output**: A committed, tested change for that single step – the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.
+**Output**: A committed, tested change for that single step — the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
 1.  **Restate the step's scope.**
 
-    Quote the step from the plan. Say in one sentence what is in-scope and, more importantly, what is out-of-scope. Anything not in the step is for a future step – including refactors, error handling for unreached paths, and "while I'm here" cleanups.
+    Quote the step from the plan. Say in one sentence what is in-scope and, more importantly, what is out-of-scope. Anything not in the step is for a future step — including refactors, error handling for unreached paths, and "while I'm here" cleanups.
 
     If the step is ambiguous, clarify before coding. Mid-implementation scope drift is the most common cause of unmergeable PRs.
 
@@ -41,7 +41,7 @@ Use this skill when implementing one numbered step from a plan, or any small sta
     - *Green*: write the simplest code that makes the test pass. No design improvements yet.
     - *Refactor*: improve the structure of code and test while all tests stay green.
 
-    Repeat for each piece of behavior, one cycle at a time – never batch the reds (see "Slice vertically, not horizontally" below). Each cycle is a few minutes, not hours.
+    Repeat for each piece of behavior, one cycle at a time — never batch the reds (see "Slice vertically, not horizontally" below). Each cycle is a few minutes, not hours.
 
     Skip TDD only when the design is in genuine flux (early exploration, spikes). Explain the skip in the commit body if so.
 
@@ -55,7 +55,7 @@ Use this skill when implementing one numbered step from a plan, or any small sta
 
 5.  **Apply the project's coding standards.**
 
-    Match the surrounding code's idioms – naming, file layout, error handling, logging. If unsure, read 2-3 nearby files first. New code should be indistinguishable in style from existing code unless the existing code is what the step is replacing.
+    Match the surrounding code's idioms — naming, file layout, error handling, logging. If unsure, read 2-3 nearby files first. New code should be indistinguishable in style from existing code unless the existing code is what the step is replacing.
 
     Adhere to the broader TS-13 principles: meaningful names, low coupling, explicit error handling at boundaries (not interior), comments only where the *why* is non-obvious.
 
@@ -103,11 +103,11 @@ Use this skill when implementing one numbered step from a plan, or any small sta
       RED → GREEN: test3 → impl3
     ```
 
-    Tests written in bulk verify *imagined* behavior, not actual behavior. They drift toward testing the *shape* of things (function signatures, data structures) rather than user-facing behavior, and they become insensitive to real changes – passing when behavior breaks and failing when behavior is fine. Each test only earns its keep by being written *after* the previous implementation taught you what to verify.
+    Tests written in bulk verify *imagined* behavior, not actual behavior. They drift toward testing the *shape* of things (function signatures, data structures) rather than user-facing behavior, and they become insensitive to real changes — passing when behavior breaks and failing when behavior is fine. Each test only earns its keep by being written *after* the previous implementation taught you what to verify.
 
 -   **Don't write speculative code.**
 
-    No abstractions for hypothetical futures. No flexibility points for changes that aren't on the plan. Three similar lines beats a premature abstraction. Trim every "might need this" – if you might need it, you don't need it now.
+    No abstractions for hypothetical futures. No flexibility points for changes that aren't on the plan. Three similar lines beats a premature abstraction. Trim every "might need this" — if you might need it, you don't need it now.
 
 -   **Don't write defensive code at internal boundaries.**
 
@@ -115,11 +115,11 @@ Use this skill when implementing one numbered step from a plan, or any small sta
 
 -   **Default to no comments.**
 
-    Well-named identifiers do the explaining. Add a comment only when the *why* is non-obvious – a hidden constraint, a workaround for a specific bug, a surprising invariant. Don't narrate what the code does.
+    Well-named identifiers do the explaining. Add a comment only when the *why* is non-obvious — a hidden constraint, a workaround for a specific bug, a surprising invariant. Don't narrate what the code does.
 
 -   **Match TDD discipline to risk.**
 
-    TDD is the default. For trivial code (a config tweak, a rename, a one-line copy change) it's overkill – skip it. For complex logic or anything with corner cases, the test-first discipline pays for itself many times over.
+    TDD is the default. For trivial code (a config tweak, a rename, a one-line copy change) it's overkill — skip it. For complex logic or anything with corner cases, the test-first discipline pays for itself many times over.
 
 -   **Stop when the step is done.**
 
@@ -178,7 +178,7 @@ Refs: #482
 
 -   **Tests are missing for the area being touched.**
 
-    Add *characterization tests* first – tests that pin down the current behavior – before changing it. This is a separate step from the change itself.
+    Add *characterization tests* first — tests that pin down the current behavior — before changing it. This is a separate step from the change itself.
 
 -   **A spike or prototype.**
 
