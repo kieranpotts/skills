@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# `/proof`
+# `proof`
 
 Use this skill to proofread prose — documentation, a README, release notes, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) — it edits the *prose* and leaves the *markup* and any embedded code untouched. It edits files in place and stops; it does NOT branch, commit, or open pull requests.
 

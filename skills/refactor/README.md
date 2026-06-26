@@ -1,4 +1,4 @@
-# 🤖 `/refactor`
+# 🤖 `refactor`
 
 This skill restructures source code, while preserving existing behavior, to improve a single named target quality.
 
@@ -6,7 +6,7 @@ The agent is instructed to work in a sequence of small steps: rename one symbol,
 
 The outcome is restructured code with externally observable behavior identical, tests green throughout.
 
-Use this skill on existing code that has comprehensive test coverage, especially at the system level. The skill works best when you have a target quality in mind: readability, data structures, coupling, naming, etc. Structural code qualities that require attention may be flagged by the architectural [`/audit`](../audit/) skill.
+Use this skill on existing code that has comprehensive test coverage, especially at the system level. The skill works best when you have a target quality in mind: readability, data structures, coupling, naming, etc. Structural code qualities that require attention may be flagged by the architectural [`audit`](../audit/) skill.
 
 Refactoring work is distinct from bug fixes and feature delivery.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# `/code`
+# `code`
 
 Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. It turns one already-designed step into working, tested code. Implement one plan step per session — never bundle multiple steps — so the diff stays reviewable and rollback stays clean; after the step's tests pass, start the next step in a fresh session.
 

@@ -8,7 +8,7 @@ metadata:
   preferred_model: qwen3.5:27b
 ---
 
-# `/commit`
+# `commit`
 
 Use this skill when composing a commit message or validating a branch's messages before push. It composes and validates messages and stops; it neither stages nor commits. This convention is NOT compatible with Conventional Commits: scopes/parentheticals (`feature(parser): …`) fail validation — the colon comes immediately after the type.
 

@@ -1,4 +1,4 @@
-# 🤖 `/debug`
+# 🤖 `debug`
 
 Use this skill for bug diagnosis. Use it when something is broken, throwing, failing, or has regressed in performance, and the cause is not obvious from reading the code.
 

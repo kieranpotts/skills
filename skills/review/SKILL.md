@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# `/review`
+# `review`
 
 Use this skill when auditing a pull request, reviewing a peer's branch, or self-reviewing a change before opening a PR. It evaluates the *change as a piece of work* against static qualities — correctness, design, clarity, test coverage, security, completeness — surfacing and classifying findings but not fixing them.
 

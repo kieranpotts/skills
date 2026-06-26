@@ -8,7 +8,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# `/branch`
+# `branch`
 
 Use this skill when creating a new branch, or validating branch names before push. It names and validates branches against the trunk model below; it does not merge, cut releases, or author commit messages.
 

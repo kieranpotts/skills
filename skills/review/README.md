@@ -1,4 +1,4 @@
-# 🤖 `/review`
+# 🤖 `review`
 
 Performs code review.
 
@@ -17,9 +17,9 @@ It closes with an explicit verdict, one of:
 
 Use this skill when auditing a coworker's branch, or self-reviewing changes before opening a PR.
 
-The agent is instructed to surface findings without fixing them. Orchestrators may handoff to the [`/resolve`](../resolve/) skill to resolve open PR comments.
+The agent is instructed to surface findings without fixing them. Orchestrators may handoff to the [`resolve`](../resolve/) skill to resolve open PR comments.
 
-For a wider architectural review, refer to the [`/audit`](../audit/) skill.
+For a wider architectural review, refer to the [`audit`](../audit/) skill.
 
 This skill instructs the agent to run non-interactively (🤖).
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:27b
 ---
 
-# `/handoff`
+# `handoff`
 
 Use this skill when the work is about to be picked up by someone (or something) without the current session's context. It produces an *ephemeral* handoff document — a bridge across the gap between sessions, not a durable project artifact — that references existing artifacts (PRDs, plans, ADRs, issues, commits) rather than duplicating them.
 

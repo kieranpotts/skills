@@ -1,4 +1,4 @@
-# 🤖 `/format`
+# 🤖 `format`
 
 This skill focused on cleaning up code presentation.
 

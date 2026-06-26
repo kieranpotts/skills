@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:35b
 ---
 
-# `/create-skill`
+# `create-skill`
 
 Use this skill when creating a new skill from scratch or improving an existing one.
 
@@ -209,6 +209,6 @@ skills/
 
 - [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md): Read when wording requirement levels — the RFC 2119 keyword subset (MUST, SHOULD, MAY, …) and when to use each.
 
-- [create-skill-preferred-model.md](./references/create-skill-preferred-model.md): Read when deciding whether to pin a model via `metadata.preferred_model`, and how hosts like Pi's `/realize` interpret it.
+- [create-skill-preferred-model.md](./references/create-skill-preferred-model.md): Read when deciding whether to pin a model via `metadata.preferred_model`, and how hosts like Pi's `realize` interpret it.
 
 - [create-skill-interactive.md](./references/create-skill-interactive.md): Read when deciding whether a skill prompts the user mid-flow, and whether to declare `metadata.interactive` (default `yes`).

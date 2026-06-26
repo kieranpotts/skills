@@ -1,4 +1,4 @@
-# 🤖 `/design`
+# 🤖 `design`
 
 This skill is all about architectural decision making.
 
@@ -8,7 +8,7 @@ For each option, the agent is instructed to evaluate it against nine design qual
 
 The outcome is the agent recommending one option, with well-articulated reasoning, for each major architectural decision. This is captured in a durable architectural decision record (ADR).
 
-For trivial changes, the user may strip straight from specifying requirements ([`/specify`](../specify/)) to implementing the necessary changes ([`/code`](../code/)). This step is required when there are genuine architectural trade-offs to be considered in the design.
+For trivial changes, the user may strip straight from specifying requirements ([`specify`](../specify/)) to implementing the necessary changes ([`code`](../code/)). This step is required when there are genuine architectural trade-offs to be considered in the design.
 
 This skill instructs agents to run non-interactively (🤖) if possible, but to prompt to clarify unclear constraints.
 

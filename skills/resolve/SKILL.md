@@ -7,13 +7,13 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# `/resolve`
+# `resolve`
 
 Use this skill to clear the **open** review comments on a pull request: implement each one as a minimal code change, verify it, and mark the comment resolved on the thread. The author has already curated the comments — any they disagree with or want to defer were dismissed before this runs — so this skill does not negotiate, defer, or reject: every comment still open is one the author wants implemented faithfully.
 
-**Input**: A pull request carrying open (un-dismissed) review comments from [`/review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
+**Input**: A pull request carrying open (un-dismissed) review comments from [`review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
 
-**Output**: A branch with each open comment implemented as a minimal, verified code change; each thread replied to and marked resolved; the fixes committed and pushed. Any comment that could not be honestly actioned is left open and reported with a reason. The verified change is ready for [`/test`](../test/SKILL.md); what runs next is the orchestrator's concern.
+**Output**: A branch with each open comment implemented as a minimal, verified code change; each thread replied to and marked resolved; the fixes committed and pushed. Any comment that could not be honestly actioned is left open and reported with a reason. The verified change is ready for [`test`](../test/SKILL.md); what runs next is the orchestrator's concern.
 
 ##  Instructions
 
@@ -30,7 +30,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 2.  **Pin the working base.**
 
-    State the branch and base commit you are working against, exactly as [`/review`](../review/SKILL.md) pinned its comparison base. Resolving comments against a branch that has moved since the review produces fixes that don't line up with the comments. If the branch has advanced past the reviewed commit, note it and re-anchor each comment to its current location before editing.
+    State the branch and base commit you are working against, exactly as [`review`](../review/SKILL.md) pinned its comparison base. Resolving comments against a branch that has moved since the review produces fixes that don't line up with the comments. If the branch has advanced past the reviewed commit, note it and re-anchor each comment to its current location before editing.
 
 3.  **Order the comments by dependency, not by line.**
 
@@ -50,7 +50,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
     - If the comment was a correctness finding, add or extend a test that fails before the fix and passes after, then run it.
     - Otherwise, run the existing tests covering the touched code.
 
-    Do not mark a comment resolved on the strength of an edit alone. The whole point of resolving before re-testing is to hand [`/test`](../test/SKILL.md) a change that already holds together.
+    Do not mark a comment resolved on the strength of an edit alone. The whole point of resolving before re-testing is to hand [`test`](../test/SKILL.md) a change that already holds together.
 
 6.  **Reply, then resolve, each thread.**
 
@@ -87,7 +87,7 @@ Use this skill to clear the **open** review comments on a pull request: implemen
 
 -   **Resolve only what you verified.**
 
-    A thread is marked resolved only after its fix is shown to work — a passing test, or a run of the existing tests over the touched code. An unverified resolution is a regression waiting for [`/test`](../test/SKILL.md) to catch.
+    A thread is marked resolved only after its fix is shown to work — a passing test, or a run of the existing tests over the touched code. An unverified resolution is a regression waiting for [`test`](../test/SKILL.md) to catch.
 
 -   **Reply before you resolve.**
 
@@ -182,4 +182,4 @@ Open comments on PR #482: 2
 
 -   **Resolution work is committed and pushed.**
 
-    In its own commit(s), separate from the original implementation, with the branch pushed so the re-review and [`/test`](../test/SKILL.md) see the fixes.
+    In its own commit(s), separate from the original implementation, with the branch pushed so the re-review and [`test`](../test/SKILL.md) see the fixes.

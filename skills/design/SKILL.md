@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:cloud
 ---
 
-# `/design`
+# `design`
 
 Use this skill after the specification has been **approved** but before any planning or coding work, whenever the change involves a non-trivial design decision — new module boundaries, a data-flow change, a new dependency, a persistence choice, a concurrency model, a public API. Design is gated on an approved specification: it MUST NOT begin while the specification is still being drafted or merely proposed for review — only once the user has approved it (the upstream proposal is `ACCEPTED`). See the entry gate in step 1.
 

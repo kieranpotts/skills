@@ -7,13 +7,13 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/audit`
+# `audit`
 
-Use this skill once all of a plan's increments are complete — built, reviewed, and tested — as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** — the output is a prioritized report of suggestions, each seeding a separate [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass; it changes no code itself.
+Use this skill once all of a plan's increments are complete — built, reviewed, and tested — as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** — the output is a prioritized report of suggestions, each seeding a separate [`refactor`](../refactor/SKILL.md) → [`design`](../design/SKILL.md) pass; it changes no code itself.
 
 **Input**: The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. REQUIRED. Run once all increments are complete.
 
-**Output**: A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`/refactor`](../refactor/SKILL.md) → [`/design`](../design/SKILL.md) pass.
+**Output**: A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`refactor`](../refactor/SKILL.md) → [`design`](../design/SKILL.md) pass.
 
 ##  Instructions
 
@@ -67,7 +67,7 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
 
     ### 1. <Module / area>
     **Problem.** <One sentence, citing files and lines.>
-    **Direction.** <Proposed change for `/refactor` to take into design, or "leave it" with rationale.>
+    **Direction.** <Proposed change for `refactor` to take into design, or "leave it" with rationale.>
     **Effort.** <Small / medium / large.>
 
     ### 2. <Module / area>

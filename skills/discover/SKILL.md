@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/discover`
+# `discover`
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a product requirements document (PRD). The agent acts as the business analyst, asking one question at a time. The user answers as the customer — either directly (as a real customer) or as a relay (paraphrasing what real customers said in prior conversations).
 
@@ -112,7 +112,7 @@ Conduct the session as a structured interview. Ask one question at a time, in th
 
 -   **Stay in business language.**
 
-    No technical jargon. No data structures, APIs, schemas, or code. The PRD MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here — defer it to the technical design phase (see [`/design`](../design/SKILL.md).
+    No technical jargon. No data structures, APIs, schemas, or code. The PRD MUST read sensibly to a non-technical customer. If a concept can only be expressed in technical terms, it does not belong here — defer it to the technical design phase (see [`design`](../design/SKILL.md).
 
 -   **Do not volunteer solutions.**
 

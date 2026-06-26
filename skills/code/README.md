@@ -1,4 +1,4 @@
-# 🤖 `/code`
+# 🤖 `code`
 
 This skill implements changes in software code and configuration, following the test-driven development (TDD) methodology (red → green → refactor).
 

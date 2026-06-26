@@ -7,7 +7,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# `/elaborate`
+# `elaborate`
 
 Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges — unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
 

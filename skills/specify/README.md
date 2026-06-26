@@ -1,8 +1,8 @@
-# 🤖 `/specify`
+# 🤖 `specify`
 
 This skill instructs the agent to transform a business-oriented product requirements document (PRD), or similar artifacts, into testable acceptance criteria. The outcome is a PR opened against the project's software requirements specification (SRS) repository, ready for the user to review.
 
-Use it once business needs are recorded in a written artifact. This artifact This artifact may come from a discovery workshop (`/discover`) or a refinement workshop (`/refine`) run in response to feedback from real people using working software (`/validate`). If approved, its output PR enables the `/design` skill to propose solutions to realize the requirements.
+Use it once business needs are recorded in a written artifact. This artifact This artifact may come from a discovery workshop (`discover`) or a refinement workshop (`refine`) run in response to feedback from real people using working software (`validate`). If approved, its output PR enables the `design` skill to propose solutions to realize the requirements.
 
 This skill instructs the agent to run non-interactively (🤖). The agent is instructed to validate the inputted PRD and either reject it as incomplete, or it autonomously completes the transformation to the SRS.
 
@@ -12,14 +12,14 @@ This skill instructs the agent to run non-interactively (🤖). The agent is ins
 
 
 
-The `/specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval.
+The `specify` skill closes by returning the URL to the pull request, telling the user the PR needs their approval.
 
-Once a proposed specification is approved, work can begin on the solution design — see the [`/design`](../design) skill. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens — not agents.
+Once a proposed specification is approved, work can begin on the solution design — see the [`design`](../design) skill. Accepting (or rejecting) the proposed changes to the requirements specification is an important decision left to sapiens — not agents.
 
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
 >
-> The outcome of the `/specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `/test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools — and not rely on judgment — to decide whether their work is done.
+> The outcome of the `specify` step is testable acceptance criteria, written in an executable form, covering both functional behaviors and non-functional runtime qualities. Those acceptance criteria become a stable contract that agents subsequently operate against. Later in the workflow, in the `test` phase, agents will validate their progress against the acceptance tests. Because the contract is executable, it means the agents can use deterministic tools — and not rely on judgment — to decide whether their work is done.
 >
 > The acceptance criteria act thus as a fitness function that the agent can iterate toward — a deterministic, stable signal of how close the current implementation is to the desired outcome. This is acceptance test-driven development (ATDD) applied to agentic workflows.
 >
@@ -44,14 +44,14 @@ Agents following this skill will have the following expectations:
 
 - The SRS repository MUST have its own root-level `AGENTS.md` file, which MUST specify the SRS's own workflow. This file MUST declare the availability of the following repository-level skills, which serve the following purposes:
 
-  - `/draft-spec`: Scaffolds the specification artifacts.
-  - `/write-spec`: Writes the requirements as verifiable acceptance criteria, based on the high-level requirements defined in the PRD.
-  - `/propose-spec`: Opens a pull request, ready for the user to review the new artifacts.
+  - `draft-spec`: Scaffolds the specification artifacts.
+  - `write-spec`: Writes the requirements as verifiable acceptance criteria, based on the high-level requirements defined in the PRD.
+  - `propose-spec`: Opens a pull request, ready for the user to review the new artifacts.
 
 > [!NOTE]
 > Agents are explicitly instructed to follow `AGENTS.md` rather than `CONTRIBUTING.md`. This provides the flexibility of specifying different workflows for agents and sapiens.
 
-This `/specify` skill instructs the agent to follow the guidelines in those named sub-skills that are expected to be defined in the SRS repository. The sub-skills are responsible for driving the software requirements workflow through to the point of a new or updated software requirement being proposed via an open pull request.
+This `specify` skill instructs the agent to follow the guidelines in those named sub-skills that are expected to be defined in the SRS repository. The sub-skills are responsible for driving the software requirements workflow through to the point of a new or updated software requirement being proposed via an open pull request.
 
 See the [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) repository for a reference implementation.
 

@@ -7,13 +7,13 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/validate`
+# `validate`
 
-Use this skill once all of a plan's increments are complete — built, reviewed, and tested — to evaluate the working software against the users' *actual needs*, and judge whether the specification itself should evolve. This is **validation**, not verification: it asks *did we build the right thing?*, not *did we build the thing right?* — so a change can pass every AC and still surface a gap here. This skill is **evaluation only** — the output is a prioritized set of suggestions, each seeding a separate [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass; it changes no specification and no code itself.
+Use this skill once all of a plan's increments are complete — built, reviewed, and tested — to evaluate the working software against the users' *actual needs*, and judge whether the specification itself should evolve. This is **validation**, not verification: it asks *did we build the right thing?*, not *did we build the thing right?* — so a change can pass every AC and still surface a gap here. This skill is **evaluation only** — the output is a prioritized set of suggestions, each seeding a separate [`refine`](../refine/SKILL.md) → [`specify`](../specify/SKILL.md) pass; it changes no specification and no code itself.
 
-**Input**: Completed work that has already passed [`/test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need — the preserved PRD, the specification's outcome and success measures, or the discovery report. REQUIRED. Run once all of a plan's increments are complete.
+**Input**: Completed work that has already passed [`test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need — the preserved PRD, the specification's outcome and success measures, or the discovery report. REQUIRED. Run once all of a plan's increments are complete.
 
-**Output**: A bounded, prioritized validation report — an explicit verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the specification should evolve, each classified by gap type, backed by evidence, and ready to seed a [`/refine`](../refine/SKILL.md) → [`/specify`](../specify/SKILL.md) pass. No specification or code is changed; what consumes the report is the orchestrator's concern.
+**Output**: A bounded, prioritized validation report — an explicit verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the specification should evolve, each classified by gap type, backed by evidence, and ready to seed a [`refine`](../refine/SKILL.md) → [`specify`](../specify/SKILL.md) pass. No specification or code is changed; what consumes the report is the orchestrator's concern.
 
 ##  Instructions
 
@@ -35,7 +35,7 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
     - Is the path to it as direct as the need warrants, or has the specification mandated friction the user will not tolerate?
     - Does it meet the *success measure* (the metric the PRD said would prove it worked), where one was stated?
 
-    Capture observed behavior, not assumed behavior — the same evidence discipline as [`/test`](../test/SKILL.md). "The flow works" is not a finding; "the user must re-enter the address at step 4, which the need says they should never have to" is.
+    Capture observed behavior, not assumed behavior — the same evidence discipline as [`test`](../test/SKILL.md). "The flow works" is not a finding; "the user must re-enter the address at step 4, which the need says they should never have to" is.
 
 3.  **Surface the gaps between specification and need.**
 
@@ -75,7 +75,7 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
     over-specification / stale assumption — one sentence, with evidence.>
     **Evidence.** <Observed behavior, measurement, or flow step.>
     **Suggested direction.** <What the specification should say instead,
-    for `/refine` to draft — or "leave it" with rationale.>
+    for `refine` to draft — or "leave it" with rationale.>
     **Change cost.** <Small / medium / large.>
 
     ### 2. <Outcome / need>
@@ -85,17 +85,17 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
 6.  **Report the verdict and stop.**
 
     - **MEETS THE NEED** — the working software serves the user's real need; no specification change is warranted. The work is validated.
-    - **GAPS FOUND** — report the prioritized suggestions. Each is input to a [`/refine`](../refine/SKILL.md) pass, which drafts the specification edit and flows into [`/specify`](../specify/SKILL.md). Do not draft the edits here; suggest the direction and stop. What consumes the report is the orchestrator's concern.
+    - **GAPS FOUND** — report the prioritized suggestions. Each is input to a [`refine`](../refine/SKILL.md) pass, which drafts the specification edit and flows into [`specify`](../specify/SKILL.md). Do not draft the edits here; suggest the direction and stop. What consumes the report is the orchestrator's concern.
 
 ##  Rules
 
 -   **Validate against the need, not the specification.**
 
-    The specification is the thing under suspicion. Judging the software against the ACs only re-runs [`/test`](../test/SKILL.md). Judge it against the originating need — the PRD, the outcome, the success measure — so a passing-but-wrong specification can be caught.
+    The specification is the thing under suspicion. Judging the software against the ACs only re-runs [`test`](../test/SKILL.md). Judge it against the originating need — the PRD, the outcome, the success measure — so a passing-but-wrong specification can be caught.
 
 -   **Evaluation only — suggest, never edit.**
 
-    This skill changes no specification artefact and no code. It outputs a report of suggestions. Editing the requirements is [`/refine`](../refine/SKILL.md)'s responsibility; this skill's job ends at the suggestion.
+    This skill changes no specification artefact and no code. It outputs a report of suggestions. Editing the requirements is [`refine`](../refine/SKILL.md)'s responsibility; this skill's job ends at the suggestion.
 
 -   **Every finding carries evidence.**
 
@@ -103,7 +103,7 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
 
 -   **Distinguish a specification gap from an implementation defect.**
 
-    If the software fails because the code does not meet a *correct* AC, that is a defect for [`/test`](../test/SKILL.md) and diagnosis — not a validation finding. Validation fires only when the AC itself, faithfully implemented, fails to serve the need.
+    If the software fails because the code does not meet a *correct* AC, that is a defect for [`test`](../test/SKILL.md) and diagnosis — not a validation finding. Validation fires only when the AC itself, faithfully implemented, fails to serve the need.
 
 -   **"Meets the need" is a valid verdict.**
 
@@ -129,7 +129,7 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
 
 -   **Each finding names its gap type and a suggested direction.**
 
-    Unmet need / wrong target / missing requirement / over-specification / stale assumption, plus what the specification should say instead, ready for [`/refine`](../refine/SKILL.md).
+    Unmet need / wrong target / missing requirement / over-specification / stale assumption, plus what the specification should say instead, ready for [`refine`](../refine/SKILL.md).
 
 -   **The verdict is explicit.**
 

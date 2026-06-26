@@ -6,7 +6,7 @@ metadata:
   interactive: no
 ---
 
-# `/research`
+# `research`
 
 Use this skill when progress is blocked on knowledge the agent does not currently hold and cannot derive from the codebase: how a third-party library actually behaves, what a protocol mandates, how others have solved a comparable problem, what a regulation requires, whether an approach is still current. The job is to look *outward*, gather authoritative sources, and synthesize them into a single research report someone can act on. It is discovery only — it does not edit code, project docs, or shipped skills; where the report lands is the caller's decision.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:27b
 ---
 
-# `/reflect`
+# `reflect`
 
 Use this skill at the end of a session to distill what was *learned* about working with the user, in this codebase, or on this project — durable working-style lessons, not task progress. Output is persistent: file-based memory entries the agent reads on future sessions, and/or additions to repo-committed convention files.
 

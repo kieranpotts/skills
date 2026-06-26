@@ -1,4 +1,4 @@
-# 🤖 `/plan`
+# 🤖 `plan`
 
 The scope of this skill is to decompose a proposed design into a sequenced checklist of deliverable steps. This is a how a big up-front design can be implemented through an iterative loop of incremental construction steps — supporting continuous integration.
 

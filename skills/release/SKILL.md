@@ -8,7 +8,7 @@ metadata:
   preferred_model: qwen3.5:35b
 ---
 
-# `/release`
+# `release`
 
 Use this skill when preparing releases, creating release branches, or tagging release versions.
 

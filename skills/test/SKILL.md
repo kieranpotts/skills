@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/test`
+# `test`
 
 Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* — mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
 

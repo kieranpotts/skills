@@ -7,7 +7,7 @@ metadata:
   preferred_model: gemma4:31b
 ---
 
-# `/spike`
+# `spike`
 
 Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option. The spike is a *byproduct* and the *answer* is the deliverable — the code is time-boxed, scope-collapsed, and thrown away, never promoted to production.
 

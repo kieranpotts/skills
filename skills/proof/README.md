@@ -1,6 +1,6 @@
-# 🤖 `/proof`
+# 🤖 `proof`
 
-`/proof` = conservative proofreading. It makes the edits a careful human editor would make on a final pass, and nothing more, across Markdown, AsciiDoc, reStructuredText, and plain text. It fixes spelling, grammar, punctuation, and typos; smooths genuinely awkward phrasing where meaning is preserved; and makes terminology and capitalization consistent, editing in place one file at a time. It protects the forbidden zones absolutely: code, markup syntax, links, identifiers, version numbers, and technical facts — a fact that looks wrong is flagged for the author, never silently "corrected".
+`proof` = conservative proofreading. It makes the edits a careful human editor would make on a final pass, and nothing more, across Markdown, AsciiDoc, reStructuredText, and plain text. It fixes spelling, grammar, punctuation, and typos; smooths genuinely awkward phrasing where meaning is preserved; and makes terminology and capitalization consistent, editing in place one file at a time. It protects the forbidden zones absolutely: code, markup syntax, links, identifiers, version numbers, and technical facts — a fact that looks wrong is flagged for the author, never silently "corrected".
 
 Use it when polishing documentation, a README, release notes, or any written content before it ships. With no argument it proofreads the prose files changed in the working tree (falling back to asking); otherwise point it at a file, glob, or directory.
 

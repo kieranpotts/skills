@@ -7,7 +7,7 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# `/format`
+# `format`
 
 Use this skill when applying presentation-only changes to code or content — whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a format pass.
 

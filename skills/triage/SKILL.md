@@ -7,7 +7,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# `/triage`
+# `triage`
 
 Use this skill to move issues on the project's issue tracker through a deliberate state machine: take a freshly-filed issue and decide what happens next — implement it, defer it, reject it, or get more information — classifying and routing it without doing the implementation or specification work that follows.
 

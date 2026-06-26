@@ -1,4 +1,4 @@
-# ✨ Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+# ✨Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
 **🚧 UNDER CONSTRUCTION 🚧**
 
@@ -16,6 +16,54 @@ The goal: consistent, predictable outcomes from any mainstream coding agent and 
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard — natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
+<!--
+
+## Global skills
+
+The skills in this collection are optimized for the development of application software that spans multiple code repositories — and potentially multiple teams — where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase.
+
+For skills to be truly global, reusable across multiple projects, they must be technology-agnostic and domain-agnostic. Skills may, however, instruct agents to extract things like coding conventions and domain language from local artifacts — these are reference resources bundled in the code repositories on which the agent is operating, independent of the skills files. The agent can thus extract the information it needs on-demand.
+
+Skills should specialize in the definition of individual steps of the software development _workflow_, not the encoding of _knowledge_.
+
+For a standalone code repository — a small utility library, say — it is recommended instead to encapsulate bespoke skills and supporting reference artifacts directly in that repository. These skills do not serve that use case.
+
+## Cohesive ecosystem
+
+The overriding objective of this project is to produce predictable, consistent, reliable outcomes from every mainstream coding model. But you can't achieve that from agent skills alone.
+
+To achieve predictable outcomes, you need to base your agentic workflow on concrete, verifiable success criteria. The strongest guardrails are automated acceptance tests, ie. success criteria written in an executable form. A passing acceptance test is the strongest signal an agent can have that it is on the right track. And the same tests can be rerun by a subsequent deterministic gate to verify an agent's output.
+
+While these skills are loosely coupled to one another, they are tightly coupled to external development tools. This has proven to be necessary to encode clear, unambiguous instructions that produce predictable outcomes.
+
+Specifically, these skills depend on version-controlled systems for tracking software requirements, technical decisions, design documentation, and implementation plans. The following are reference implementations of those dependencies:
+
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does, in business terms.
+
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc): Records how significant technical decisions were made, and why.
+
+- [**📐 Design Docs**](https://github.com/kieranpotts/design): Documents what the system looks like in production, and manages proposed architectural changes.
+
+- [**🗺️ Implementation Plans**](https://github.com/kieranpotts/plans): Tracks when, and in what order, the work gets done.
+
+The whole ecosystem runs on version control. Everything the workflow produces is kept there — not just the code, but the requirements, decisions, designs, and plans too.
+
+This has numerous benefits:
+
+- **One consistent process for everything.** Code, requirements, decisions, designs, and plans are all branched, committed, reviewed, and merged using the same version control workflow. There are no separate methods and tools for "the spec" and "the code," for example.
+
+- **Everything stays together.** Related artifacts are not scattered across different systems — wikis, trackers, a shared filesystem, and so on. All development artifacts — specs, decisions, designs, plans, and code — coexist in the same version control system.
+
+- **Audit trails and undo operations are built-in.** Because every agent-generated artifact is kept under version control, you get auditability and rollback for free.
+
+- **Integration with existing automation.** Continuous integration systems can apply deterministic verification to agent output.
+
+The workflow skills in this repository have dependencies on lower-level skills defined in each repository for specifications, technical decisions, design docs, and implementation plans. The `specify` skill, for example, drives the SRS repository's `draft-spec` → `write-spec` → `propose-spec` workflow. This produces a hierarchy of skills. Reusable workflow skills drive the project-specific processes defined in lower-level skills files.
+
+The end result is that these skills fit into a broader, structured environment of tools and methods that, together, form a unified end-to-end development workflow. The trade-off is that these skills can't be easily dropped into any project — they encode a strongly opinionated workflow and are dependent on specific devtools.
+
+-->
+
 ## 🧩 Skills
 
 These skills span four categories:
@@ -27,16 +75,40 @@ These skills span four categories:
 
 ### ➡️ Workflow skills
 
-The workflow skills cover distinct phases of the software development lifecycle (SDLC).
+The workflow skills cover distinct phases of the software development lifecycle (SDLC). They available workflow skills are:
 
-No skill in this collection hands off to another explicitly. They're loosely coupled by design, free to be composed into whatever workflow a supervisor agent, script, or human assembles.
+| Skill name | Description | Interactive? |
+| ---------- | ----------- | ------------ |
+| 🚀 [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, security, etc. | 🤖 No |
+| 🚀 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
+| 🚀 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
+| 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 Maybe |
+| ✅ [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
+| 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
+| 🚀 [`format`](./skills/format/) | Improve code presentation — whitespace, style, ordering — without changing structure. | 🤖 No |
+| 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. | 🤖 No |
+| 🚀 [`refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. | 🤖 No |
+| 🚧 [`refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. | 🧑 Yes |
+| 🚀 [`resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. | 🤖 No |
+| 🚀 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
+| 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. | 🤖 No |
+| 🚧 [`spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. | 🤖 No |
+| 🚧 [`test`](./skills/test/) | Conduct incremental acceptance testing of the evolving software. Focus on functional correctness and runtime qualities. | 🤖 No |
+| 🚀 [`triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. | 🤖 No |
+| 🚧 [`validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current implementation. | 🤖 No |
 
-The diagram below is just one such possible composition. It shows a proposed main sequence (solid blue/grey), its feedback loops (dashed green), and optional helper callouts (dotted yellow). Steps are labelled as human-agent interactive (🧑), autonomous-agentic (🤖), or scripted (⚙️) — no skills exist in this collection for the last category.
+Most workflow skills run non-interactively. They take everything they need from the context window and the environment. They either complete their task autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) or scripts (⚙️).
+
+A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by humans (🧑) and are not intended to be used in automated pipelines.
+
+No skills in this collection explicitly handoff to other skills. They're loosely coupled by design. This means the skills can be composed into various workflows, orchestrated by a supervisor agent, a deterministic script, or a human.
+
+The diagram below is just one such possible composition. It shows a proposed main sequence (solid blue/grey), its feedback loops (dashed green), and optional helper callouts (dotted yellow). Steps are labelled as human (🧑), human-agent interactive (🤖🧑), autonomous-agentic (🤖), or scripted (⚙️) — no skills exist in this collection for the last category.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
-  discover["🧑\ndiscover"]:::tertiary
+  discover["🤖🧑\ndiscover"]:::tertiary
   specify["🤖\nspecify"]:::primary
   design["🤖\ndesign"]:::primary
   triage["🤖\ntriage"]:::primary
@@ -52,11 +124,11 @@ flowchart LR
   validate["🤖\nvalidate"]:::primary
   deploy["⚙️\ndeploy"]:::scripted
   spike["🤖\nspike"]:::tertiary
-  elaborate["🧑\nelaborate"]:::tertiary
+  elaborate["🤖🧑\nelaborate"]:::tertiary
   format["🤖\nformat"]:::tertiary
   debug["🤖\ndebug"]:::tertiary
   refactor["🤖\nrefactor"]:::secondary
-  refine["🧑\nrefine"]:::secondary
+  refine["🤖🧑\nrefine"]:::secondary
 
   %% Main workflow sequence.
   specify ==> design
@@ -103,35 +175,9 @@ flowchart LR
 
 Work enters the lifecycle through one of two front doors:
 
-- The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`/specify`](./skills/specify/)), potentially supported by an interactive discovery workshop with the customer ([`/discover`](./skills/discover/)). From there, the work flows through design, planning, construction, and multiple evaluation steps.
+- The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`specify`](./skills/specify/)), potentially supported by an interactive discovery workshop with the customer ([`discover`](./skills/discover/)). From there, the work flows through design, planning, construction, and multiple evaluation steps.
 
-- The **reactive** path, triggered by an issue — typically a bug or incident — raised in the tracker. First, the issue is triaged ([`/triage`](./skills/triage/)), which verifies the reported issue is real and reproducible. From there, the workflow goes straight into the build loop, until the issue is resolved.
-
-The workflow skills are, in alphabetical order:
-
-| Skill name | Description | Interactive? |
-| ---------- | ----------- | ------------ |
-| 🚀 [`/audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, security, etc. | 🤖 No |
-| 🚀 [`/code`](./skills/code/) | Write code, verified by tests, for one discrete increment. | 🤖 No |
-| 🚀 [`/debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. | 🤖 No |
-| 🚀 [`/design`](./skills/design/) | Explore architectural options and their trade-offs. | 🤖 Maybe |
-| ✅ [`/discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. | 🧑 Yes |
-| 🚀 [`/elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating its design docs. | 🧑 Yes |
-| 🚀 [`/format`](./skills/format/) | Improve code presentation — whitespace, style, ordering — without changing structure. | 🤖 No |
-| 🚀 [`/plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. | 🤖 No |
-| 🚀 [`/refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. | 🤖 No |
-| 🚧 [`/refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. | 🧑 Yes |
-| 🚀 [`/resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. | 🤖 No |
-| 🚀 [`/review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. | 🤖 No |
-| 🚀 [`/specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. | 🤖 No |
-| 🚧 [`/spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. | 🤖 No |
-| 🚧 [`/test`](./skills/test/) | Conduct incremental acceptance testing of the evolving software. Focus on functional correctness and runtime qualities. | 🤖 No |
-| 🚀 [`/triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. | 🤖 No |
-| 🚧 [`/validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current implementation. | 🤖 No |
-
-Most workflow skills run non-interactively. These skills take everything they need from the context window and the environment. They either complete their task autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) and the skills can be chained in automated pipelines — themselves orchestrated either by other agents or deterministic scripts.
-
-A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`/discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by sapiens (🧑). They MUST NOT be included in automated delivery pipelines.
+- The **reactive** path, triggered by an issue — typically a bug or incident — raised in the tracker. First, the issue is triaged ([`triage`](./skills/triage/)), which verifies the reported issue is real and reproducible. From there, the workflow goes straight into the build loop, until the issue is resolved.
 
 ### 🔀 Version control skills
 
@@ -142,10 +188,10 @@ The version control skills describe how revisions are committed to source contro
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`/branch`](./skills/branch/) | Git branching strategy. |
-| 🚧 [`/commit`](./skills/commit/) | Commit message conventions. |
-| 🚧 [`/merge`](./skills/merge/) | Consolidate divergence between branches. |
-| 🚧 [`/release`](./skills/release/) | Release trunks and branches. Version tags. |
+| 🚧 [`branch`](./skills/branch/) | Git branching strategy. |
+| 🚧 [`commit`](./skills/commit/) | Commit message conventions. |
+| 🚧 [`merge`](./skills/merge/) | Consolidate divergence between branches. |
+| 🚧 [`release`](./skills/release/) | Release trunks and branches. Version tags. |
 
 ### 📎 Auxiliary skills
 
@@ -153,8 +199,8 @@ These skills support peripheral activities in the software development life cycl
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`/research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. |
-| 🚧 [`/proof`](./skills/proof/) | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
+| 🚧 [`research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. |
+| 🚧 [`proof`](./skills/proof/) | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
 
 ### 🤖 Agentic workflow-optimization skills
 
@@ -162,9 +208,9 @@ These skills support agentic development workflows.
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`/handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
-| 🚧 [`/reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`/handoff`](./skills/handoff/). |
-| ✅ [`/create-skill`](./skills/create-skill/) | Author or improve a skill — in this collection or a downstream project. |
+| 🚧 [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
+| 🚧 [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
+| ✅ [`create-skill`](./skills/create-skill/) | Author or improve a skill — in this collection or a downstream project. |
 
 ## 📦 Installation
 

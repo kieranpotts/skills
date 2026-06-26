@@ -7,7 +7,7 @@ metadata:
   preferred_model: glm-5.1:cloud
 ---
 
-# `/refactor`
+# `refactor`
 
 Use this skill when improving internal code quality — readability, structure, coupling, naming, decomposition — without changing what the code does from the outside. Behavior preservation is non-negotiable: a change that alters externally observable behavior is not a refactor but a separate change, even a "small" tweak made mid-restructuring.
 

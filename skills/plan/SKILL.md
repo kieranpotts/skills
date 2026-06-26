@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:9b
 ---
 
-# `/plan`
+# `plan`
 
 Use this skill after the design is captured (and, where needed, sharpened) and before writing any code, whenever the change is larger than one atomic commit or touches multiple seams of the system. It decomposes an already-agreed design into a sequence of deliverable steps, consumed one at a time by the downstream build loop; it writes no code itself.
 

@@ -7,7 +7,7 @@ metadata:
   preferred_model: qwen3.5:cloud
 ---
 
-# `/specify`
+# `specify`
 
 Use this skill to turn a product requirements document (PRD) — a business-language artifact — into a testable specification, filed as a proposal in the project's software requirements specification (SRS) repository. It is **non-interactive**: it validates the PRD and either rejects it with reasons or transforms it autonomously, never interviewing the user to fill gaps.
 
@@ -75,7 +75,7 @@ This skill owns one thing the SRS repository does not: the validation gate that 
 
     Once the content is authored and meets the Definition of Ready, read the SRS repository's readiness skill (`propose-spec`, or its equivalent) and carry out its checks — verify completeness, then take the pull request out of draft for stakeholder review.
 
-    This is where `/specify`'s autonomous run ends. The outcome is a proposal at `PROPOSED`, **awaiting the user's review and approval** — not an approved specification. Approval is a deliberate human decision (advancing the proposal to `ACCEPTED`, via `accept-spec` in the reference implementation); rejection uses `reject-spec`. Neither is part of this skill.
+    This is where `specify`'s autonomous run ends. The outcome is a proposal at `PROPOSED`, **awaiting the user's review and approval** — not an approved specification. Approval is a deliberate human decision (advancing the proposal to `ACCEPTED`, via `accept-spec` in the reference implementation); rejection uses `reject-spec`. Neither is part of this skill.
 
 8.  **Report the outcome and the required approval.**
 

@@ -8,7 +8,7 @@ metadata:
   preferred_model: qwen3.5:35b
 ---
 
-# `/merge`
+# `merge`
 
 Use this skill to integrate commits from one branch into another, applying the project's existing branching convention to pick the right strategy for the branch type. It assumes a working tree with no uncommitted changes — if you have uncommitted work, stash or commit first.
 

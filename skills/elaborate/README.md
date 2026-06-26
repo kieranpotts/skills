@@ -1,4 +1,4 @@
-# 🧑 `/elaborate`
+# 🧑 `elaborate`
 
 This is a highly interactive session (🧑), involving lots of back-and-forth between the agent and the user, with one objective: to nail down an architectural design and mitigate major risks within it.
 
