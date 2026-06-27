@@ -34,6 +34,8 @@ Wherever a skill states a rule that a machine can verify, there should be a dete
 
 The less that validation of outcomes is dependent on judgment, and the more it is handled by deterministic checks, the more predictably your agentic workflows will behave. And, as your trust in your agentic workflows increases, you'll gain the confidence to have fewer humans in the loop.
 
+The same principle applies where a step genuinely requires judgment rather than a deterministic check — for example, evaluating code quality or design coherence, which a linter cannot fully capture. Here, too, an agent must not be the sole judge of its own output. **The agent that writes the code must not be the one that reviews it.** Models exhibit sycophancy: an agent asked to critique its own recent work is biased toward judging it favorably, since it is, in effect, grading its own homework a second time. A fresh agent — with no investment in the prior output, and ideally no visibility into the reasoning that produced it — is far more likely to surface real defects. This is why `review`, `audit`, `test`, and `validate` are independent skills in this collection, deliberately separated from the `code` skill whose output they evaluate, and why an orchestrator should always invoke them as a distinct agent session rather than asking the implementing agent to mark its own work.
+
 ## Agentic versus automated
 
 An agentic workflow must consist of a mix of both agentic (🤖) and automated (⚙️) steps. Humans (🧑) enter the loop where steps cannot be reliably handled by some combination of agents and automation.
@@ -52,13 +54,15 @@ Linting, building, packaging, deploying, migrating… these steps in the softwar
 
 An agentic workflow is not a single linear pipeline with one front door. Work can enter the lifecycle at different points, depending on what triggered it.
 
-The two most common entry points are:
+The most common entry points are:
 
 - The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`specify`](../skills/specify/SKILL.md)), potentially supported by an interactive discovery workshop with the customer ([`discover`](../skills/discover/SKILL.md)). From there, the work flows through design, planning, construction, and multiple evaluation steps.
 
 - The **reactive** path, triggered by an issue — typically a bug or incident — raised in the tracker. First, the issue is triaged ([`triage`](../skills/triage/SKILL.md)), which verifies the reported issue is real and reproducible. From there, the workflow goes straight into the build loop, until the issue is resolved.
 
-A third, less obvious entry point is discovery work initiated by an agent rather than a human: an agent proactively looking for things to do, eg. scanning CI pipelines for recurring failures, triaging the open issue queue, or auditing the architecture for drift. This blurs the line between "triggered by a human requirement" and "triggered by an agent's own observation," but it still resolves into one of the two paths above — a self-discovered bug still goes through `triage`, and a self-discovered improvement still goes through `specify` or `design`.
+A third entry point is discovery work initiated by an agent rather than a human: an agent proactively looking for things to do, eg. scanning CI pipelines for recurring failures, triaging the open issue queue, or auditing the architecture for drift. This blurs the line between "triggered by a human requirement" and "triggered by an agent's own observation," but it still resolves into one of the two paths above — a self-discovered bug still goes through `triage`, and a self-discovered improvement still goes through `specify` or `design`.
+
+A fourth entry point is the **scheduled** path, triggered not by an event at all but by the clock — a cron job that kicks off a workflow at a fixed interval, independent of any new requirement, issue, or agent observation. Scheduled triggers are how the agent-initiated discovery path above is usually realized in practice: nothing prompts the agent to go looking for CI failures or stale issues except a recurring schedule. The same scheduling mechanism can drive routine maintenance workflows, too — periodic dependency audits, recurring documentation reviews, and the like.
 
 Recognizing that a workflow has multiple entry points matters for composability: each skill must be able to slot into the pipeline at the point where its trigger condition is met, not only at the front of a single fixed sequence.
 
@@ -135,6 +139,16 @@ Each skill must also be explicit about what output it produces, in what formats,
 Every output should also have corresponding success criteria against which it can be evaluated.
 
 The input/output definitions are the contract the orchestrator reads to decide where a skill can fit into a workflow, how to connect it, and how to validate it.
+
+## Persistence
+
+Loose coupling and well-defined interfaces only get you so far if a step's output lives nowhere but the context window that produced it. For an orchestrator to actually hand a task off — to a different agent, a different session, or a deterministic script — the output of each step must be persisted to disk, not merely held in conversation state.
+
+This is what makes handoff possible at all. An agent that finishes a `design` step and writes its decisions to a design doc has produced something the next agent, in a fresh session with an empty context window, can read and act on. An agent that only ever *says* its decisions, with nothing committed to a file, has produced nothing the next step can consume — the only "interface" left is the transcript itself, which is exactly the kind of direct handoff that [loose coupling](#loose-coupling) rules out.
+
+Persisting to disk also serves a second, independent purpose: it keeps the context window clean. Agentic workflows accumulate noise — exploratory dead ends, intermediate reasoning, tool output that mattered for five minutes and then didn't. If every step's full working state has to be carried forward in-context so the next step can use it, context windows fill with noise, recall degrades, and costs climb. Writing only the *distilled* output of a step to disk — a spec, a design doc, a plan, a set of review findings — lets the next step start from a clean slate and load just what it needs.
+
+This is why the artifacts this collection's skills produce — specifications, RFCs, design docs, implementation plans, review reports — are designed to be files committed to version control, not paragraphs left behind in a chat transcript. Version control gives persistence for free: every artifact is durable, diffable, auditable, and addressable by path, which is exactly what an orchestrator needs to wire one step's output into the next step's input.
 
 ## Interactive versus non-interactive
 

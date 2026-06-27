@@ -12,7 +12,7 @@ This is no grab-bag of random skills. It's a cohesive collection that forms a co
 
 The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
 
-[Read more about the design principles](./docs/design-notes.md) that underpin these skills.
+**[Read more about the design principles](./docs/design-notes.md) that underpin these skills.**
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard — natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
