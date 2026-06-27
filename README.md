@@ -8,25 +8,17 @@ These skills cover universal phases of the software development lifecycle: speci
 
 They also cover supporting activities such as business discovery and issue triage, and agentic workflow-optimization techniques such as session reflection and agent handoff.
 
-This is no grab-bag of random skills. It's a cohesive collection that forms a complete end-to-end development workflow. That workflow is highly opinionated, and it assumes a broader, structured environment of development methods and tools to enable agentic workflows.
+This is no grab-bag of random skills. It's a cohesive collection that can be composed into all sorts of agentic loops. The skills are designed to be installed globally and be invoked on software projects that span multiple code repositories.
 
-The goal: consistent, predictable outcomes from any mainstream coding agent and model, regardless of the technology stack or business domain of the software under development.
+These skills impose strong opinions, and they assume the presence of a broader, structured suite of development tools. Specifically, these skills depend on version-controlled [software requirements specifications](https://github.com/kieranpotts/specs), [requests for comments](https://github.com/kieranpotts/rfc), [design docs](https://github.com/kieranpotts/design), and [implementation plans](https://github.com/kieranpotts/plans).
+
+The goal is to be able to compose end-to-agent agentic workflows that produce consistent, predictable outcomes — regardless of the size of the underlying large-language model, and regardless of the technology stack or business domain of the software under development.
 
 **[Read more about the design principles](./docs/design-notes.md) that underpin these skills.**
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard — natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agents are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills).
 
 <!--
-
-## Global skills
-
-The skills in this collection are optimized for the development of application software that spans multiple code repositories — and potentially multiple teams — where requirements, decisions, designs, and plans are shared concerns that sit above any single codebase.
-
-For skills to be truly global, reusable across multiple projects, they must be technology-agnostic and domain-agnostic. Skills may, however, instruct agents to extract things like coding conventions and domain language from local artifacts — these are reference resources bundled in the code repositories on which the agent is operating, independent of the skills files. The agent can thus extract the information it needs on-demand.
-
-Skills should specialize in the definition of individual steps of the software development _workflow_, not the encoding of _knowledge_.
-
-For a standalone code repository — a small utility library, say — it is recommended instead to encapsulate bespoke skills and supporting reference artifacts directly in that repository. These skills do not serve that use case.
 
 ## Cohesive ecosystem
 
@@ -69,8 +61,11 @@ The end result is that these skills fit into a broader, structured environment o
 These skills span four categories:
 
 - **Workflow skills**, one for each discrete step in the software development lifecycle.
+
 - **Version control skills**, for managing revisions and triggering releases via Git.
+
 - **Auxiliary skills** for peripheral tasks, eg. proofreading technical documentation.
+
 - **Agentic workflow-optimization skills**, eg. agent handoff and session reflection.
 
 ### ➡️ Workflow skills
