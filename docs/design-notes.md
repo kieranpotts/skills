@@ -150,6 +150,29 @@ Persisting to disk also serves a second, independent purpose: it keeps the conte
 
 This is why the artifacts this collection's skills produce — specifications, RFCs, design docs, implementation plans, review reports — are designed to be files committed to version control, not paragraphs left behind in a chat transcript. Version control gives persistence for free: every artifact is durable, diffable, auditable, and addressable by path, which is exactly what an orchestrator needs to wire one step's output into the next step's input.
 
+This means the skills in this collection are only one part of a broader agentic infrastructure, not a self-contained solution. A skill like `specify` or `design` is just instructions for *producing* an artifact — it has nothing to say about *where that artifact lives* between sessions, or how the next skill in the pipeline is supposed to find it. That's the job of dedicated persistence layers, sitting outside the skills themselves: a Software Requirements Specification (SRS) repository capturing what the system does, an RFC repository recording how significant technical decisions were made and why, a design docs repository documenting what the system looks like in production, and an implementation plans repository tracking when and in what order work gets done. Skills depend on these stores existing; they don't replace them.
+
+## Version control as the substrate
+
+Version control specifically — not just "a disk," but a system with commits, branches, and history — is the right substrate for these persistence layers, because the whole ecosystem then runs on one consistent mechanism. Everything the workflow produces is kept there: not just the code, but the requirements, decisions, designs, and plans too. This has numerous benefits:
+
+- **One consistent process for everything.** Code, requirements, decisions, designs, and plans are all branched, committed, reviewed, and merged using the same version control workflow. There are no separate methods and tools for "the spec" and "the code," for example.
+- **Everything stays together.** Related artifacts are not scattered across different systems — wikis, trackers, a shared filesystem, and so on. All development artifacts — specs, decisions, designs, plans, and code — coexist in the same version control system.
+- **Audit trails and undo operations are built-in.** Because every agent-generated artifact is kept under version control, you get auditability and rollback for free.
+- **Integration with existing automation.** Continuous integration systems can apply deterministic verification to agent output.
+
+## Isolated environments
+
+Persisting state to a shared repository solves handoff between sequential steps. But it creates a new problem the moment more than one agent or script needs to operate on that repository concurrently — whether that's parallel subagents building independent increments, or a human still working in the same checkout while an agent runs.
+
+Two processes writing to the same working tree at the same time will corrupt each other's work: one process's uncommitted edits become visible, half-finished, to the other; checked-out branches conflict; build artifacts and lockfiles collide. So wherever a workflow runs multiple agents or scripts against a single code repository at once, each must be given its own isolated working copy to operate on, rather than sharing one.
+
+For most local and agentic workflows, the right tool for this is a Git worktree — a second working directory checked out from the same repository, on its own branch, without the overhead of a full clone. This lets an orchestrator spin up one worktree per parallel agent, hand each agent its own isolated copy of the codebase, and only resolve the resulting branches back together at integration time.
+
+This isn't always necessary. In CI systems, for example, isolation is typically already provided by the platform — each job clones the repository fresh into its own ephemeral environment, so there is no shared working tree to corrupt. Worktrees matter specifically where multiple processes would otherwise share one checkout: parallel agents on a developer's machine, or multiple long-running agent sessions against the same local repository.
+
+Whether isolation is needed at all, and which mechanism provides it — a worktree, a fresh clone, a container — is a decision for the orchestrator, not for the skills themselves. A skill operates on "the repository it's given"; it has no need to know whether that repository is the only copy in play or one of several running in parallel.
+
 ## Interactive versus non-interactive
 
 A key design decision in the interface definition of an agent skill is whether the skill can be executed non-interactively.
