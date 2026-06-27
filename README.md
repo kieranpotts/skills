@@ -173,12 +173,6 @@ flowchart LR
   style build_increments fill:#EEEEEE,stroke-width:0px
 ```
 
-Work enters the lifecycle through one of two front doors:
-
-- The **proactive** path, triggered by a new product requirement. Work begins by specifying the requirement ([`specify`](./skills/specify/)), potentially supported by an interactive discovery workshop with the customer ([`discover`](./skills/discover/)). From there, the work flows through design, planning, construction, and multiple evaluation steps.
-
-- The **reactive** path, triggered by an issue — typically a bug or incident — raised in the tracker. First, the issue is triaged ([`triage`](./skills/triage/)), which verifies the reported issue is real and reproducible. From there, the workflow goes straight into the build loop, until the issue is resolved.
-
 ### 🔀 Version control skills
 
 The version control skills describe how revisions are committed to source control, and how stable points in the revision history are prepared for release.
