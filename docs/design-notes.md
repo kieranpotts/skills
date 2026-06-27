@@ -1,6 +1,6 @@
 # Design notes
 
-These notes cover the design principles and objectives that underpin this collection of agent skills. These notes also cover general best practices for designing and implementing agentic workflows (also known as agent loop engineering).
+These notes cover the design principles and objectives that underpin this collection of agent skills. These notes also cover general best practices for designing and implementing agentic workflows.
 
 ## Predictable outcomes
 
@@ -20,6 +20,8 @@ This means imposing opinions. You can only computationally verify something agai
 
 Skills work best when they DO NOT offer agents a menu of options. Agent skills require a certain rigidity — clear, unambiguous, step-by-step instructions for the agent to follow, and success criteria that can be verified with a deterministic test. This rigidity is how we can steer non-deterministic models toward predictable outcomes.
 
+Reliability in agentic workflows comes from the quality of these constraints, not from the size or sophistication of the underlying model. A frontier model given vague, optional guidance will behave less predictably than a smaller model given a tightly specified skill and a deterministic gate to pass. Tightening the constraints is a more reliable lever than swapping in a stronger model.
+
 ## External enforcement
 
 We steer agents with skills, and enforce their behaviors with deterministic checks.
@@ -36,17 +38,19 @@ The less that validation of outcomes is dependent on judgment, and the more it i
 
 The same principle applies where a step genuinely requires judgment rather than a deterministic check — for example, evaluating code quality or design coherence, which a linter cannot fully capture. Here, too, an agent must not be the sole judge of its own output. **The agent that writes the code must not be the one that reviews it.** Models exhibit sycophancy: an agent asked to critique its own recent work is biased toward judging it favorably, since it is, in effect, grading its own homework a second time. A fresh agent — with no investment in the prior output, and ideally no visibility into the reasoning that produced it — is far more likely to surface real defects. This is why `review`, `audit`, `test`, and `validate` are independent skills in this collection, deliberately separated from the `code` skill whose output they evaluate, and why an orchestrator should always invoke them as a distinct agent session rather than asking the implementing agent to mark its own work.
 
+The evaluator skill should also be framed adversarially, not just structurally separated. A reviewing agent instructed to assume the work is correct and check for obvious problems will tend to agree with what it reads. A reviewing agent instructed to assume the work is broken, and to actively verify that claim — running the tests itself, exercising the behavior, inspecting actual output rather than trusting the code's account of itself — is far less prone to rubber-stamping. Passive reading is a weaker check than active verification, regardless of which agent is doing the reading.
+
 ## Agentic versus automated
 
 An agentic workflow must consist of a mix of both agentic (🤖) and automated (⚙️) steps. Humans (🧑) enter the loop where steps cannot be reliably handled by some combination of agents and automation.
 
-We should be clear about the definitions of automated versus agentic. **Automated** tasks are deterministic. They involve computation using the traditional, instructions-based programming model. Given a set of inputs, the outputs are entirely predictable. **Agentic** tasks, by contrast, apply judgement, make decisions, learn and adapt, and come up with novel ideas. Agents have _agency_. Give an agent the same set of inputs in different sessions, and you'll get different outputs every time.
+We should be clear about the definitions of automated versus agentic. **Automated** tasks are deterministic. They involve computation using the traditional, instructions-based programming model. Given a set of inputs, the outputs are entirely predictable. **Agentic** tasks, by contrast, apply judgment, make decisions, learn and adapt, and come up with novel ideas. Agents have _agency_. Give an agent the same set of inputs in different sessions, and you'll get different outputs every time.
 
 Choosing which steps to automate, and which to hand off to agents, is a key design decision in agentic workflows.
 
 Agents should not be used where regular computation will suffice. Use agents for tasks that only large-language models have the capability — open-ended problems that require judgment to weigh up trade-offs, experimentation to try different paths, and reflection to evaluate one's own progress toward a goal.
 
-An agentic step, encoded in a skill file, is worth adding wherever judgement can't be reduced to a deterministic rule.
+An agentic step, encoded in a skill file, is worth adding wherever judgment can't be reduced to a deterministic rule.
 
 Linting, building, packaging, deploying, migrating… these steps in the software development lifecycle are best left scripted. This is why you won't find `build` or `deploy` skills in this collection. Those steps do not belong here. Agent skills are for the parts of the software development life cycle that resist automation by conventional tools.
 
@@ -101,6 +105,10 @@ To realize workflows like this, the skills that specify the agentic steps, and t
 
 Composability requires each skill and each script to be a small, sharp tool with well-defined input and output. This way, an orchestrator — which itself may be an agent, a script, or a human — can compose the skills into new, interesting workflows.
 
+One particular composition worth naming is **loop engineering**: a fully autonomous workflow whose explicit objective is to remove the human from the loop entirely — an agent system that prompts itself, discovers its own work, and keeps running with no human checkpoint in the cycle. The paper that coined the term describes a specific five-move playbook for this — [discovery](#entry-points) of work to do, [handoff](#persistence) of that work between steps, [verification](#external-enforcement) of the output, [persistence](#persistence) of results to disk, and [scheduling](#entry-points) of the next iteration — and that playbook maps cleanly onto concepts already covered elsewhere in these notes. But the skills in this collection are not committed to that one playbook. They are deliberately more general-purpose building blocks, composable into a fully autonomous loop, a human-checkpointed pipeline, or anything in between — loop engineering is the limiting case where composition pushes every human checkpoint out of the cycle, not the shape these skills are designed around. The architectural principle that makes the fully autonomous limiting case safe to leave unattended is the same one covered under [external enforcement](#external-enforcement): the agent that generates output in a loop iteration must not be the one that evaluates it, since a single self-critical agent tends to overpraise its own work.
+
+Removing the human from each iteration also removes the moment at which costs would normally get noticed, so they accumulate silently instead. Watch for four in particular: **verification debt**, where checks get deferred or skipped and the gap compounds across iterations; **comprehension rot**, where the humans nominally supervising the loop gradually lose track of what it's actually doing; **cognitive surrender**, where the loop's judgment is trusted on decisions that still warranted a human; and **token blowout**, where per-iteration cost looks negligible but compounds into something significant over many cycles. None of these show up by inspecting a single iteration — they only become visible by looking at the loop's behavior over time, which is itself a reason to keep a [human checkpoint](#human-in-the-loop) somewhere in the cycle, even a loosely engaged one.
+
 ## Single responsibility
 
 To achieve composable agentic workflows, each agent skill — which represents a single agentic step — should have only a single responsibility. It should do one job and stop at a well-defined boundary. A skill should not reach into adjacent work, even if doing so would be convenient.
@@ -118,6 +126,14 @@ The following pairs of skills represent other splits between these two responsib
 
 Keeping these two concerns — evaluation and implementation — apart brings numerous benefits. Orchestrators have the option to review findings from evaluation steps before applying changes. Having a single responsibility gives each skill a clear trigger condition, too. And each skill becomes more useful on its own. For example, you could reuse an evaluator skill to report into a CI gate.
 
+## Rules, not knowledge
+
+A skill is better thought of as a set of rules or instructions for performing one step of the workflow, not as a store of knowledge about the project that step operates on. Keeping this distinction sharp is itself a single-responsibility concern — a skill that drifts into encoding domain knowledge has taken on a second job.
+
+A skill may instruct an agent to go and *extract* knowledge it needs — coding conventions, domain language, architectural constraints — from reference material that lives elsewhere: bundled in the repository the agent is operating on, or in the persistence layers described above. But the skill itself should not contain that knowledge. It says how to look something up and what to do with it, not what the answer is.
+
+This separation is what makes a skill reusable across projects in the first place. A skill that specializes in defining a workflow step stays technology-agnostic and domain-agnostic, and can run unmodified against any codebase that supplies its own reference material on demand. A skill that hard-codes project-specific knowledge stops being portable the moment it leaves the project it was written for. If a piece of bespoke knowledge genuinely belongs nowhere but a single repository, it belongs in a skill — or a reference document — local to that repository, not in this collection.
+
 ## Loose coupling
 
 For skills to be composable into different workflows, they need to be loosely coupled from one another. And for skills to be loosely coupled, they must be connected by contracts, not by direct handoffs.
@@ -128,7 +144,11 @@ This means the workflow definition lives externally to the skills files. The ord
 
 An orchestrator may be a human, manually invoking each skill via their agent harness. Or it might be a deterministic script, perhaps running the workflow in a continuous integration system. The orchestrator might even be a God-like agent that manages multiple subagents and executes the deterministic scripts that validate their output.
 
-The critical design constraint is that skills, and the subagents that read them, are unaware of the workflow. The workflow becomes something the user puts together — whether that user be a human, a script, or another agent. Coupling through contracts rather than handoffs also makes individual skills easier to maintain and to reuse.
+The critical design constraint is that skills, and the subagents that read them, are unaware of the workflow. The workflow becomes something the user puts together — whether that user is a human, a script, or another agent. Coupling through contracts rather than handoffs also makes individual skills easier to maintain and to reuse.
+
+Loose coupling between skills is not the same as independence from external tooling, though, and it's worth being honest about that distinction. These skills are loosely coupled to *one another*, but they are tightly coupled to the external development tools that make their contracts enforceable in the first place — the persistence layers described above, the deterministic gates described under [external enforcement](#external-enforcement), the version control system everything runs on. That tight coupling is not an oversight to be designed away; it has proven necessary to encode clear, unambiguous instructions that produce predictable outcomes. A skill that tried to be loosely coupled to its devtools too — making no assumptions about where artifacts persist or how output gets verified — would have nothing concrete to hand off to or be checked against, which is the failure mode the rest of these notes argue against.
+
+The trade-off is that these skills can't be dropped, unmodified, into just any project. They encode a strongly opinionated workflow, and they assume a broader, structured environment of devtools is in place to support them — not just any version control system, but one organized around the persistence layers, deterministic gates, and isolation mechanisms these notes describe. That trade-off is deliberate: predictable outcomes were never available for free, and these notes consistently choose concrete, enforceable constraints over portability wherever the two are in tension.
 
 ## Interface definitions
 
@@ -203,7 +223,7 @@ One of the risks of fully agentic/automated specs-to-code workflows is that you 
 
 This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then those poor humans will have to contend with large diffs to review via pull requests — a big bottleneck in delivery. Worse still are all the risks associated with the resulting big bang releases.
 
-This can be resolved by breaking down deliverables into an incremental development plan, enabling continuos integration.
+This can be resolved by breaking down deliverables into an incremental development plan, enabling continuous integration.
 
 This requires big up-front planning, which itself is dependent on a complete specification and design being in place from the start. The trade-off for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risk in agentic programming.
 
@@ -234,6 +254,16 @@ flowchart LR
   classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
 ```
+
+## Context window management
+
+There is a second, independent reason for breaking agentic workflows into small steps, beyond the delivery-risk argument above: managing the context window.
+
+A large language model has no working memory beyond its context window. Everything the model "knows" about the current task — the instructions, the code it has read, the tool output it has seen, its own prior reasoning — has to fit inside that one finite window, presented afresh on every inference call. There is no separate scratch memory a model consults outside of it. When the window fills up, something has to give: older content gets truncated or summarized, and whatever predictive power was packed into the specifics of that content is gone with it.
+
+This produces a predictable failure mode, not a random one. As a context window fills, irrelevant or stale content competes with the content that actually matters for the next decision, recall of details from early in the session degrades, and the model's outputs grow less consistent — exactly the kind of variance these notes are trying to design out. A single agent session asked to specify, design, plan, and implement a large feature end-to-end will, at some point, be reasoning with a context window dominated by its own accumulated exploration rather than the task at hand. This is an architectural property of how transformer-based models process input, not a quality bar a better model or a cleverer prompt can buy your way past — bigger context windows push the threshold further out, but the same dynamic resurfaces at a larger scale.
+
+This is the second reason this collection insists on small, narrowly-scoped steps, each handed off through a fresh context window: not only does it bound the size of a single deliverable (the [iterative and incremental](#iterative-and-incremental) argument), it also bounds the amount of accumulated noise any one agent has to reason over. A `code` step that implements one increment starts with an empty context window and loads only what that increment needs — the relevant section of the plan, the relevant files — rather than inheriting the full history of how the design was debated. Combined with [persistence](#persistence), where each step's distilled output is written to disk rather than carried forward in conversation state, this is what keeps every step's context window small enough that the model reasoning within it stays reliable. Skipping the decomposition and running a sprawling task in one long session is not just a delivery-risk problem — it is the direct cause of the context window filling with noise that these notes warn about elsewhere.
 
 ## See also
 
