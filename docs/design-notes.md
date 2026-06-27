@@ -1,12 +1,12 @@
 # Design notes
 
-These notes cover design principles and objectives that underpin agentic software development workflows, and where agent skills fit into those workflows.
+These notes cover the design principles and objectives that underpin this collection of agent skills.
 
 ## Predictable outcomes
 
-The overriding objective of this project is to produce predictable, consistent outcomes from every mainstream coding model.
+The overriding objective of this project is to produce predictable outcomes from agentic software development workflows, and for those outcomes to be highly consistent across all mainstream coding models.
 
-To achieve predictable, consistent outcomes, you need to base your agentic workflow on concrete, verifiable success criteria. This means giving agents clear, self-verifiable criteria for what "done" and "correct" look like.
+To achieve predictable, consistent outcomes, you need to base your agentic workflows on concrete, verifiable success criteria. This means giving agents clear, self-verifiable criteria for what "done" and "correct" look like.
 
 Vague guidance leaves outcomes determined primarily by the quality of the underlying model. Concrete success criteria produce more consistent outcomes across a wider range of models — frontier and mid-tier, closed-weight and open-weight.
 
@@ -14,11 +14,9 @@ The strongest guardrails are automated acceptance tests, ie. success criteria wr
 
 ## Strong opinions
 
-Automated acceptance tests are the main feedback loop in agentic workflows.
+Automated acceptance tests are the main feedback loop in agentic workflows. But for them to be effective, the success criteria need to be sufficiently concrete that an agent can evaluate its own work and course-correct if necessary.
 
-But for them to be effective, the success criteria need to be sufficiently concrete that an agent can evaluate its own work and course-correct if necessary.
-
-This means imposing opinions. You can only computationally verify something against a definitive standard. This means you need to pick one way to do something, and encode that opinion in the skill for that particular task.
+This means imposing opinions. You can only computationally verify something against a definitive standard. So you need to pick one way to do something, and encode that opinion in the skill for that particular task.
 
 Skills work best when they DO NOT offer agents a menu of options. Agent skills require a certain rigidity — clear, unambiguous, step-by-step instructions for the agent to follow, and success criteria that can be verified with a deterministic test. This rigidity is how we can steer non-deterministic models toward predictable outcomes.
 
@@ -26,25 +24,25 @@ Skills work best when they DO NOT offer agents a menu of options. Agent skills r
 
 We steer agents with skills, and enforce their behaviors with deterministic checks.
 
-A skill is just a prompt. It guides a model, but it cannot _guarantee_ what the model does. Real enforcement comes from automated, deterministic checks: linters, type-checkers, and above all the test suite.
+It is good practice to encode in agent skills deterministic checks that the agent can invoke to evaluate its progress toward its goal. But there are no guarantees that agents will actually do this — no matter how well written the skill, and no matter how well the underlying model has been trained and fine-tuned for the task at hand.
 
-It is good practice to specify subtasks that produce a deterministic check, which the agent can invoke to evaluate its progress toward its goal. But there are no guarantees that agents will actually do this — no matter how well the underlying model has been trained and fine-tuned for the task at hand.
+A skill is just a prompt. It steers a model, but it cannot _guarantee_ what the model does. We can't rely on agents marking their own homework.
 
-We can't rely on agents marking their own homework. So deterministic checks must be executed independently of agents.
+So the verification of an agent's output must be done independently of the agent. Real enforcement of agent behaviors comes from automated, deterministic checks — linters, type-checkers, and above all the test suite — run in external processes.
 
-Wherever a skill states a rule that a machine can verify, there should be a deterministic check — run by an external process — that verifies the agent's conformance to the rule. This is particularly critical for the acceptance tests — the main quality gate in agentic workflows.
+Wherever a skill states a rule that a machine can verify, there should be a deterministic check, run by an external process, that verifies the agent's conformance to the rule. This is particularly critical for the acceptance tests — the main quality gate in agentic workflows.
 
-The less that validation of outcomes is dependent on judgment, and the more it is handled by deterministic checks, the fewer humans you'll need in-the-loop.
+The less that validation of outcomes is dependent on judgment, and the more it is handled by deterministic checks, the more predictably your agentic workflows will behave. And, as your trust in your agentic workflows increases, you'll gain the confidence to have fewer humans in the loop.
 
 ## Agentic versus automated
 
-An agentic workflow must consist of a mix of both agentic (🤖) and automated (⚙️) steps. Humans (🧑) enter the loop where steps cannot be fully handled by a combination of agents and automation.
+An agentic workflow must consist of a mix of both agentic (🤖) and automated (⚙️) steps. Humans (🧑) enter the loop where steps cannot be reliably handled by some combination of agents and automation.
 
-We need to be clear about the definitions of automated versus agentic. **Automated** tasks are deterministic. They involve computation using the traditional, instructions-based programming model. **Agentic** tasks, by contrast, apply judgement and throw in a bit of randomness. Outputs are inconsistent by design.
+We should be clear about the definitions of automated versus agentic. **Automated** tasks are deterministic. They involve computation using the traditional, instructions-based programming model. Given a set of inputs, the outputs are entirely predictable. **Agentic** tasks, by contrast, apply judgement, make decisions, learn and adapt, and come up with novel ideas. Agents have _agency_. Give an agent the same set of inputs in different sessions, and you'll get different outputs every time.
 
-Choosing which steps to automate, and which to handoff to agents, is a key design decision in agentic workflows.
+Choosing which steps to automate, and which to hand off to agents, is a key design decision in agentic workflows.
 
-Agents should not be used where regular computation will suffice. Use agents for tasks that only large-language models have the capability — in general, that's open-ended problems that require judgment to weigh up trade-offs, experimentation to try different paths, and reflection to evaluate one's own progress toward a goal.
+Agents should not be used where regular computation will suffice. Use agents for tasks that only large-language models have the capability — open-ended problems that require judgment to weigh up trade-offs, experimentation to try different paths, and reflection to evaluate one's own progress toward a goal.
 
 An agentic step, encoded in a skill file, is worth adding wherever judgement can't be reduced to a deterministic rule.
 
@@ -52,7 +50,7 @@ Linting, building, packaging, deploying, migrating… these steps in the softwar
 
 ## Composable pipelines
 
-An effective agentic workflow involves a pipeline of agents (🤖) and scripts (⚙️), each given a narrowly-scoped task. The output from one agent or script is the input to the next one in the pipeline. Example:
+An effective agentic workflow involves a pipeline of agents (🤖) and scripts (⚙️), each given a narrowly-scoped task. The output from one agent or script is the input to the next one in the pipeline.
 
 ```mermaid
 flowchart LR
@@ -79,11 +77,11 @@ flowchart LR
   classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-The scripted steps are the critical deterministic checkpoints that verify the outputs of the agentic steps. They catch failure modes and either feed back to prior steps or trip circuit breakers. Humans (🧑) are brought into the loop when the pipeline fails, or wherever steps cannot be fully handled by a combination of agents (🤖) and scripts (⚙️).
+The scripted steps are the critical deterministic checkpoints that verify the outputs of the agentic steps. They catch failure modes and either feed back to prior steps or trip circuit breakers. Humans (🧑) are brought into the loop when the pipeline fails, or wherever steps cannot be fully handled by a combination of agents and scripts.
 
 To realize workflows like this, the skills that specify the agentic steps, and the scripts that are executed in the automated steps, must be designed to be composable.
 
-Composability requires each skill to be a small, sharp tool with well-defined input and output. This way, an orchestrator — which itself may be an agent, a script, or a human — can compose the skills into new, interesting workflows.
+Composability requires each skill and each script to be a small, sharp tool with well-defined input and output. This way, an orchestrator — which itself may be an agent, a script, or a human — can compose the skills into new, interesting workflows.
 
 ## Single responsibility
 
@@ -104,13 +102,13 @@ Keeping these two concerns — evaluation and implementation — apart brings nu
 
 ## Loose coupling
 
-For skills to be composable into different workflows, they need to be loosely coupled from one another. For skills to be loosely coupled, they must be connected by contracts, not by direct handoffs.
+For skills to be composable into different workflows, they need to be loosely coupled from one another. And for skills to be loosely coupled, they must be connected by contracts, not by direct handoffs.
 
-One skill's output is the next skill's input. That data dependency is the contract. But no skill should refer to, invoke, or hand off to another skill directly. Each does its one job, reports the result, and stops.
+One skill's output is the input to the next skill in the pipeline. But no skill should directly refer to, invoke, or hand off to another skill. Each does its one job, reports the result, and stops.
 
-Because no skill refers to or hands off to another, the workflow definition — the order skills run in, when one follows another, the approval steps between phases — lives entirely outside the skills. Deciding what runs next, and connecting one skill's output to the next skill's input, is the responsibility of whoever is running the workflow — the orchestrator — not the individual skills that happen to be composed into a workflow pipeline.
+This means the workflow definition lives externally to the skills files. The order in which skills are run, and the deterministic approval gates that are injected between the agentic steps, is the responsibility of the orchestrator — the person or thing that is running the workflow.
 
-An orchestrator may be a human, manually activating each skill in their agent harness. Or it might be a deterministic script that runs the workflow, perhaps in a continuous integration system. The orchestrator might even be a God-like agent that manages all the subagents and executes the deterministic steps within the overall workflow.
+An orchestrator may be a human, manually invoking each skill via their agent harness. Or it might be a deterministic script, perhaps running the workflow in a continuous integration system. The orchestrator might even be a God-like agent that manages multiple subagents and executes the deterministic scripts that validate their output.
 
 The critical design constraint is that skills, and the subagents that read them, are unaware of the workflow. The workflow becomes something the user puts together — whether that user be a human, a script, or another agent. Coupling through contracts rather than handoffs also makes individual skills easier to maintain and to reuse.
 
@@ -122,19 +120,19 @@ Each skill must also be explicit about what output it produces, in what formats,
 
 Every output should also have corresponding success criteria against which it can be evaluated.
 
-The input/output definitions are the contract the orchestrator reads to decide where a skill can fit into a workflow, and how to connect it.
+The input/output definitions are the contract the orchestrator reads to decide where a skill can fit into a workflow, how to connect it, and how to validate it.
 
 ## Interactive versus non-interactive
 
 A key design decision in the interface definition of an agent skill is whether the skill can be executed non-interactively.
 
-Non-interactive execution supports agentic workflows that run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides for input. Non-interactive skills can be run unattended. And, depending on where they fit in a workflow, non-interactive instructions may be followed in parallel, by separate agents, too.
+Non-interactive execution supports agentic workflows that run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides for input. Non-interactive skills can be run unattended. And, depending on where they fit in a workflow, non-interactive instructions may be followed by parallel subagents, too.
 
 But some skills are necessarily interactive. They may instruct the agent to block for user input: to ask questions, present options, and wait for answers.
 
 Interactive skills should be used sparingly. They should be used only where human interaction *is* the value in the skill. An example is this collection's [`discover`](../skills/discover/SKILL.md) skill, which is a structured interview whose entire point is the dialogue.
 
-The emerging goal of the specs-to-code movement is for all interactive sessions to happen upstream. Humans are in-the-loop only in the initial phases of the software development lifecycle. The objective is for predictable, production-grade code to be realize from requirements specifications inputted as executable acceptance criteria, with minimal human involvement further downstream.
+The emerging goal of the specs-to-code movement is for all interactive sessions to happen upstream. Humans are in-the-loop only in the initial phases of the software development lifecycle. The objective is for predictable, production-grade code to be realized from requirements specifications inputted as executable acceptance criteria, with minimal human involvement further downstream.
 
 ## Human-in-the-loop
 
@@ -150,15 +148,15 @@ There is no universal ratio of human checkpoints to automated and agentic steps.
 
 ## Iterative and incremental
 
-One of the risks of fully agentic/automated specs-to-code workflows is that you end up with, essentially, a waterfall process. Large-scale code changes land at once.
+One of the risks of fully agentic/automated specs-to-code workflows is that you end up with a waterfall process. Large-scale code changes land at once.
 
 This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then those poor humans will have to contend with large diffs to review via pull requests — a big bottleneck in delivery. Worse still are all the risks associated with the resulting big bang releases.
 
 This can be resolved by breaking down deliverables into an incremental development plan, enabling continuos integration.
 
-This requires big up-front planning, which itself is dependent on a complete specification and design being in place from the start. The trade-off of for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risk in agentic programming.
+This requires big up-front planning, which itself is dependent on a complete specification and design being in place from the start. The trade-off for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risk in agentic programming.
 
-An incremental build accommodates iterative design, in which the design of the product is continuously refined throughout the development process.
+An incremental build also accommodates iterative design, in which the solution is continuously refined throughout the development process, responding to feedback on the experience of using, reviewing, debugging, and maintaining real working software.
 
 The following diagram represents one possible incremental agentic workflow. A `plan` step is responsible for decomposing deliverables into small increments of work, which are subsequently integrated in a piecemeal fashion while keeping the system stable.
 
