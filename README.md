@@ -6,7 +6,7 @@
 
 This is no grab-bag of random skills. It's a cohesive collection, designed to be composable into all sorts of agentic loops, and intended to be installed globally and invoked across multiple code repositories and software projects.
 
-The goal is predictable, consistent outcomes from any mainstream coding model — regardless of model size, technology stack, or business domain. But skills alone can't guarantee that. To achieve predictable, consistent outcomes from agentic workflows you need concrete, unambiguous, testable success criteria, and you need deterministic gates independently verifying the output of agents against those criteria.
+The goal is predictable, consistent outcomes from any mainstream coding model — regardless of model size, technology stack, or business domain. But skills alone can't guarantee that. That requires concrete, unambiguous, testable success criteria, and deterministic gates that independently verify agent output against those criteria.
 
 So, while these skills are loosely coupled to one another, to support composability, they are tightly coupled to a broader ecosystem of development tools — specifically, version-controlled stores for software requirements, technical decisions, system designs, and delivery plans. The following code repositories are templates for these external dependencies:
 
@@ -19,7 +19,7 @@ These repositories act as persistence layers between agents executing different 
 
 Running the whole ecosystem on version control means requirements, decisions, designs, plans, and code all coexist in the same system. All the artifacts that are read and written by agents are branched, committed, reviewed, and merged the same way. Auditability and rollback is built in.
 
-The trade-off is that these skills can't just be dropped into any project. They encode a strongly opinionated workflow and depend on this broader suite of development tools and methods being in place.
+These skills can't just be dropped into any project. They encode a strongly opinionated workflow, and depend on this broader suite of development tools and methods being in place. This is the trade-off for achieving predictable, consistent outcomes from agentic workflows.
 
 **👉 [Read more about the design principles](./docs/design-notes.md) that underpin these skills.**
 
@@ -88,82 +88,71 @@ These skills span four categories:
 
 ## 🪡 Composition
 
-<!-- TODO: Add a diagram showing how VCS skills may be knitted into the workflow skills. -->
+None of the skills in this collection explicitly handoff to one another. No skill refers to, invokes, or knows about another. Instead, skills are connected by contracts. One skill's output is the next skill's input. Each does its one job, reports the result, and stops.
 
-Most workflow skills run non-interactively. They take everything they need from the context window and the environment. They either complete their task autonomously, or they fail with a specific account of what input is missing. They never prompt users for input beyond the initial prompt. This means the users of these skills can be autonomous agents (🤖) or scripts (⚙️).
+Critically, those inputs and outputs are artifacts persisted to disk — a spec, a design doc, a plan, a review report — not state held in a conversation or context window. This decouples skills temporally as well as structurally. A downstream skill doesn't need to run in the same session, or even on the same day, as the upstream skill that produced its input.
 
-A small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by humans (🧑) and are not intended to be used in automated pipelines.
-
-No skills in this collection explicitly handoff to other skills. They're loosely coupled by design. This means the skills can be composed into various workflows, orchestrated by a supervisor agent, a deterministic script, or a human.
-
-The diagram below is just one such possible composition. It shows a proposed main sequence (solid blue/grey), its feedback loops (dashed green), and optional helper callouts (dotted yellow). Steps are labelled as human (🧑), human-agent interactive (🤖🧑), autonomous-agentic (🤖), or scripted (⚙️) — no skills exist in this collection for the last category.
+These design constraints allow these skills to be composed into all sorts of different agentic loops. This flow diagram represents one possible composition. It shows a workflow composed not only of agentic steps (🤖) but also traditional scripts (⚙️). Humans are brought into the loop (🧑) where failures in the pipeline cannot be fully handled by only agentic and automated steps.
 
 ```mermaid
 flowchart LR
-  %% Node labels and classes (declared up front so they hold inside and outside the subgraph).
-  discover["🤖🧑\ndiscover"]:::tertiary
-  specify["🤖\nspecify"]:::primary
-  design["🤖\ndesign"]:::primary
-  triage["🤖\ntriage"]:::primary
-  plan["🤖\nplan"]:::primary
-  code["🤖\ncode"]:::primary
-  review["🤖\nreview"]:::primary
-  resolve["🤖\nresolve"]:::primary
-  lint["⚙️\nlint"]:::scripted
+  specify["🤖\nspecify"]:::agentic
+  design["🤖\ndesign"]:::agentic
+  plan["🤖\nplan"]:::agentic
+  code["🤖\ncode"]:::agentic
   build["⚙️\nbuild"]:::scripted
   test["⚙️\ntest"]:::scripted
-  integrate["⚙️\nintegrate"]:::scripted
-  audit["🤖\naudit"]:::primary
-  validate["🤖\nvalidate"]:::primary
+  review["🤖\nreview"]:::agentic
+  resolve["🤖\nresolve"]:::agentic
   deploy["⚙️\ndeploy"]:::scripted
-  spike["🤖\nspike"]:::tertiary
-  elaborate["🤖🧑\nelaborate"]:::tertiary
-  styleSkill["🤖\nstyle"]:::tertiary
-  debug["🤖\ndebug"]:::tertiary
-  refactor["🤖\nrefactor"]:::secondary
-  refine["🤖🧑\nrefine"]:::secondary
+  human["🧑\nreview"]:::anthropic
 
-  %% Main workflow sequence.
   specify ==> design
   design ==> plan
-  triage ==> code
   plan ==> code
-  subgraph build_increments [build increments]
-    direction LR
-    code ==> lint
-    lint ==> review
-    review ==> resolve
-    resolve ==> build
-    build ==> test
-    test ==> integrate
-    integrate ==> code
-  end
-  integrate ==> audit
-  audit ==> validate
-  validate ==> deploy
+  code ==> build
+  build == pass ==> test
+  test == pass ==> review
+  review == pass ==> deploy
+  resolve == pass ==> deploy
+  human == pass ==> deploy
 
-  %% Callouts to helpers.
+  build -- fail --> code
+  test -- fail --> code
+  review -- fail --> resolve
+  resolve -- fail --> human
+
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
+Agentic loops like this may themselves be orchestrated  by a supervisor agent (🤖), a script (⚙️), or a human (🧑) — or a combination of all three.
+
+To allow for fully agentic loops, in which no human checkpoints are needed at all, most of the workflow skills are designed to be run non-interactively. Most skills instruct the agents to take everything they need from the context window and the environment. The agents either complete their tasks autonomously, or they fail with a specific account of what input is missing. They're instructed not to prompt users for input beyond the initial prompt.
+
+But a small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the [`discover`](./skills/discover/) skill asks questions to elicit product requirements. These interactive skills are intended to be invoked directly by humans (🧑). They are not intended to be incorporated into automated delivery pipelines, though these interactive activities tend to happen upstream in the software development lifecycle. Delivery pipelines may be configured to kick off agentic workflows based on the outputs of these interactive skills.
+
+```mermaid
+flowchart LR
+  specify["🤖\nspecify"]:::agentic
+  design["🤖\ndesign"]:::agentic
+  plan["🤖\nplan"]:::agentic
+  code["🤖\ncode"]:::agentic
+
+  discover["🤖🧑\ndiscover"]:::anthropic
+  elaborate["🤖🧑\nelaborate"]:::anthropic
+
+  specify ==> design
+  design ==> plan
+  plan ==> code
+
   discover <-.-> specify
-  design <-.-> spike
   design <-.-> elaborate
-  code <-.-> styleSkill
-  test <-.-> debug
-
-  %% Feedback loops.
-  audit --> refactor
-  refactor --> design
-  validate --> refine
-  refine --> specify
 
   %% Class definitions.
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef secondary fill:#d4edda,stroke:#155724,color:#155724,stroke-width:2px,stroke-dasharray:7 3
-  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
-  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
-  %% classDef reactive fill:#f8d7da,stroke:#721c24,color:#721c24,stroke-width:2px
-
-  %% Subgraph (loop) border styling.
-  style build_increments fill:#EEEEEE,stroke-width:0px
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
 ## 📦 Installation
