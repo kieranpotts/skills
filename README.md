@@ -47,6 +47,7 @@ These skills span four categories:
 | 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
 | ✅ [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. |
 | 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs. |
+| 🚀 [`fix`](./skills/fix/) | Audit and fix anything generally broken — failing builds, lint, type-checks — distinct from `debug`. |
 | 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. |
 | 🚀 [`refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. |
 | 🚧 [`refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. |
