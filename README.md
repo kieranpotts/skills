@@ -47,7 +47,6 @@ These skills span four categories:
 | 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
 | ✅ [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. |
 | 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs. |
-| 🚀 [`format`](./skills/format/) | Improve code presentation — whitespace, style, ordering — without changing structure. |
 | 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. |
 | 🚀 [`refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. |
 | 🚧 [`refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. |
@@ -55,6 +54,7 @@ These skills span four categories:
 | 🚀 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
 | 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. |
 | 🚧 [`spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. |
+| 🚀 [`style`](./skills/style/) | Improve code presentation — whitespace, style, ordering — without changing structure. |
 | 🚧 [`test`](./skills/test/) | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
 | 🚀 [`triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. |
 | 🚧 [`validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current system. |
@@ -117,7 +117,7 @@ flowchart LR
   deploy["⚙️\ndeploy"]:::scripted
   spike["🤖\nspike"]:::tertiary
   elaborate["🤖🧑\nelaborate"]:::tertiary
-  format["🤖\nformat"]:::tertiary
+  styleSkill["🤖\nstyle"]:::tertiary
   debug["🤖\ndebug"]:::tertiary
   refactor["🤖\nrefactor"]:::secondary
   refine["🤖🧑\nrefine"]:::secondary
@@ -145,7 +145,7 @@ flowchart LR
   discover <-.-> specify
   design <-.-> spike
   design <-.-> elaborate
-  code <-.-> format
+  code <-.-> styleSkill
   test <-.-> debug
 
   %% Feedback loops.

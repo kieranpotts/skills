@@ -86,7 +86,7 @@ Validation regex (for both):
 
 -   **Prepare release notes for end users.** *(Draft — process to be defined.)*
 
-    Release notes are distinct from the CHANGELOG. Where the CHANGELOG records all changes for contributors and developers, release notes are curated for end users: user-facing features, bug fixes, and breaking changes, written in plain non-technical language. Derive them from the newly-promoted versioned section of `CHANGELOG.md`, filtering out internal changes (`refactor:`, `format:`, `step:`, `maintenance:`). The format and publication channel are project-specific.
+    Release notes are distinct from the CHANGELOG. Where the CHANGELOG records all changes for contributors and developers, release notes are curated for end users: user-facing features, bug fixes, and breaking changes, written in plain non-technical language. Derive them from the newly-promoted versioned section of `CHANGELOG.md`, filtering out internal changes (`refactor:`, `style:`, `step:`, `maintenance:`). The format and publication channel are project-specific.
 
 ## Examples
 

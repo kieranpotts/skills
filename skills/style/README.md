@@ -1,4 +1,4 @@
-# 🤖 `format`
+# 🤖 `style`
 
 This skill focused on cleaning up code presentation.
 
@@ -12,7 +12,7 @@ This skill instructs the agent to run non-interactively (🤖).
 
 ## How to invoke
 
-- `/format`, `/skill:format` (prompts vary by harness).
+- `/style`, `/skill:style` (prompts vary by harness).
 - "Format this file."
 - "Fix the formatting / lint errors."
 - "Tidy up the whitespace and style here."

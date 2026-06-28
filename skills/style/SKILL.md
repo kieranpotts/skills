@@ -1,5 +1,5 @@
 ---
-name: format
+name: style
 description: Apply presentation-only code or content changes — whitespace, indentation, line wrapping, quotes, trailing commas, import ordering — without altering behavior or structure. Prefer automated formatters configured at the project level. Use when normalizing style after a feature, fixing CI lint failures, or aligning a file to project conventions — distinct from structural improvements to the code — or when the user says "format this file", "fix the formatting / lint errors", or "tidy up the whitespace and style here".
 license: CC0-1.0
 metadata:
@@ -7,13 +7,13 @@ metadata:
   preferred_model: kimi-k2.6:cloud
 ---
 
-# `format`
+# `style`
 
-Use this skill when applying presentation-only changes to code or content — whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a format pass.
+Use this skill when applying presentation-only changes to code or content — whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a style pass.
 
 **Input**: The code or content to normalize — a set of files, a diff, or the working tree — plus the project's configured formatter and style conventions where they exist. REQUIRED.
 
-**Output**: The same files with presentation-only edits applied (whitespace, indentation, wrapping, quotes, ordering), behavior and structure provably unchanged, ideally via the project's automated formatter, ready to commit under a `format:` commit. This skill normalizes presentation and stops; it makes no structural or behavioral change.
+**Output**: The same files with presentation-only edits applied (whitespace, indentation, wrapping, quotes, ordering), behavior and structure provably unchanged, ideally via the project's automated formatter, ready to commit under a `style:` commit. This skill normalizes presentation and stops; it makes no structural or behavioral change.
 
 ##  Instructions
 
@@ -37,7 +37,7 @@ Use this skill when applying presentation-only changes to code or content — wh
     - A formatter script in `package.json`, `Makefile`, `justfile`, or similar (`npm run format`, `make fmt`).
     - A pre-commit hook (`.pre-commit-config.yaml`) that already configures the formatter.
 
-    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a formatting commit — that is a `maintenance:` change.
+    Use the configured tool with the configured options. Do not introduce a new formatter or change config inside a style commit — that is a `maintenance:` change.
 
 3.  **Scope the run deliberately.**
 
@@ -60,14 +60,14 @@ Use this skill when applying presentation-only changes to code or content — wh
 
     Run the test suite after the formatting pass. Tests passing is the proof, not the assumption.
 
-5.  **Commit as `format:`.**
+5.  **Commit as `style:`.**
 
     One formatting commit per scope:
 
     ```
-    format: apply prettier to src/
-    format: normalize line endings to LF
-    format: sort imports in api/handlers
+    style: apply prettier to src/
+    style: normalize line endings to LF
+    style: sort imports in api/handlers
     ```
 
     Do not bundle formatting changes with `feature:`, `fix:`, `refactor:`, or `step:` commits. A mixed diff hides the real change inside the noise.
@@ -86,23 +86,23 @@ Use this skill when applying presentation-only changes to code or content — wh
 
 -   **Behavior preservation is non-negotiable.**
 
-    A formatting change that alters runtime behavior is mislabeled. Tests pass before and after; observable output is byte-identical for any given input. If you cannot promise that, it is not a format change.
+    A formatting change that alters runtime behavior is mislabeled. Tests pass before and after; observable output is byte-identical for any given input. If you cannot promise that, it is not a style change.
 
 -   **Presentation only — no structural edits.**
 
-    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional — all are structural refactors, not format. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
+    Renaming a variable, extracting a function, reordering parameters, simplifying a conditional — all are structural refactors, not style. Even renames that "look like" formatting (eg. casing a constant from `myConst` to `MY_CONST`) change identifier resolution and are structural.
 
 -   **Never bundle with feature, fix, or refactor work.**
 
-    Mixed commits hide the substantive change inside formatting noise and make `git blame` useless. Format first as `format:` commits; then change behavior as `feature:`, `fix:`, `refactor:`, or `step:` commits. Or, more commonly: format *after* the change is complete, as a follow-up commit.
+    Mixed commits hide the substantive change inside formatting noise and make `git blame` useless. Format first as `style:` commits; then change behavior as `feature:`, `fix:`, `refactor:`, or `step:` commits. Or, more commonly: format *after* the change is complete, as a follow-up commit.
 
 -   **Prefer automated formatters over hand-edits.**
 
-    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix — via a `maintenance:` commit — before the next manual format pass.
+    A formatter applies the same rule everywhere and is reproducible. Hand-edits drift, vary by author, and re-emerge in the next diff. If the project has no formatter, that is the bug to fix — via a `maintenance:` commit — before the next manual style pass.
 
--   **Do not change formatter configuration in a format commit.**
+-   **Do not change formatter configuration in a style commit.**
 
-    Changing `.prettierrc` then re-running the formatter changes two things at once. Split: one `maintenance:` commit changes the config; one `format:` commit applies the new style.
+    Changing `.prettierrc` then re-running the formatter changes two things at once. Split: one `maintenance:` commit changes the config; one `style:` commit applies the new style.
 
 -   **Respect generated and vendored files.**
 
@@ -127,13 +127,13 @@ A clean formatting commit after a feature:
 ```
 Sequence:
   feature: add bulk export endpoint     # the change
-  format:  apply prettier to handlers/  # normalize style
+  style:   apply prettier to handlers/  # normalize style
 
-The feature commit shows the actual logic. The format commit shows
+The feature commit shows the actual logic. The style commit shows
 the style normalization separately, reviewable in seconds.
 ```
 
-Catching a behavior change pretending to be format:
+Catching a behavior change pretending to be style:
 
 ```
 While "formatting" auth.py I noticed the function `_normalize_token`
@@ -145,7 +145,7 @@ of the module. Reverted the rename; recorded a refactor: follow-up.
 A repo-wide normalization, scoped:
 
 ```
-format: convert tab indentation to spaces across src/
+style: convert tab indentation to spaces across src/
 
   Applied via .editorconfig + `npm run format`. No source files
   outside src/ changed. Tests pass.
@@ -155,15 +155,15 @@ format: convert tab indentation to spaces across src/
 
 -   **The formatter wants to rewrite a file your change just touched.**
 
-    Common when joining a project mid-flight. Format the file *first* in a `format:` commit on the same branch, then make your behavior change against the now-canonical baseline. Reviewers see two clean diffs instead of one noisy one.
+    Common when joining a project mid-flight. Format the file *first* in a `style:` commit on the same branch, then make your behavior change against the now-canonical baseline. Reviewers see two clean diffs instead of one noisy one.
 
 -   **The formatter and a linter disagree.**
 
     Pick one as authoritative (usually the formatter for whitespace and the linter for everything else) and configure the linter to ignore overlapping rules. Document the decision via a `maintenance:` commit.
 
--   **The format change is enormous because the codebase was never formatted.**
+-   **The style change is enormous because the codebase was never formatted.**
 
-    A one-off "big bang" reformat is acceptable when adopting or upgrading a formatter. Land it as a single `format:` commit, ideally on its own merge, so `git blame` can be navigated with `git blame --ignore-rev`. Record the commit SHA in `.git-blame-ignore-revs`.
+    A one-off "big bang" reformat is acceptable when adopting or upgrading a formatter. Land it as a single `style:` commit, ideally on its own merge, so `git blame` can be navigated with `git blame --ignore-rev`. Record the commit SHA in `.git-blame-ignore-revs`.
 
 -   **Formatting "fixes" a CI failure.**
 
@@ -177,13 +177,13 @@ format: convert tab indentation to spaces across src/
 
 -   **External behavior is unchanged.**
 
-    Tests pass after the format pass. `git diff -w` between pre and post shows no changes.
+    Tests pass after the style pass. `git diff -w` between pre and post shows no changes.
 
 -   **The diff contains only presentation changes.**
 
     No renames, no logic edits, no structural moves. A reviewer can scan it in seconds and approve without close reading.
 
--   **The commit is a single `format:` commit per scope.**
+-   **The commit is a single `style:` commit per scope.**
 
     No bundled feature, fix, refactor, or config changes.
 
@@ -201,6 +201,6 @@ format: convert tab indentation to spaces across src/
 
 TODO: Reinstate TS-* cross-references when those are republished.
 
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines the `format:` commit type used here.
+- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines the `style:` commit type used here.
 
 -->

@@ -35,7 +35,7 @@ Use this skill when composing a commit message or validating a branch's messages
     Validation regex (only the subject line is checked):
 
     ```
-    ^((chore|feature|fix|format|maintenance|merge|refactor|release|revert|runtime|step): [a-z].*)$
+    ^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$
     ```
 
     `<type>` MUST be one of these literal strings:
@@ -43,7 +43,6 @@ Use this skill when composing a commit message or validating a branch's messages
     - `chore`
     - `feature`
     - `fix`
-    - `format`
     - `maintenance`
     - `merge`
     - `refactor`
@@ -51,6 +50,7 @@ Use this skill when composing a commit message or validating a branch's messages
     - `revert`
     - `runtime`
     - `step`
+    - `style`
 
     `<description>` MUST be full lowercase and use the imperative mood (eg. "add", not "added" or "adds"). No period at the end of the description.
 
@@ -74,7 +74,7 @@ Use this skill when composing a commit message or validating a branch's messages
 
     One logical change per commit. Split large changes into multiple commits.
 
-    A user-facing change typically arrives as a bundle of atomic commits — `refactor:`, `format:`, `step:`, `chore:` — culminating in the `feature:` or `runtime:` commit that makes the requirement verifiable through the system's UI.
+    A user-facing change typically arrives as a bundle of atomic commits — `refactor:`, `style:`, `step:`, `chore:` — culminating in the `feature:` or `runtime:` commit that makes the requirement verifiable through the system's UI.
 
 -   **Pick the most appropriate commit type.**
 
@@ -85,8 +85,6 @@ Use this skill when composing a commit message or validating a branch's messages
     - `feature`: User-facing operation or behavior change (new commands, flags, endpoints, features, deprecations, removals), verifiable via the UI.
 
     - `fix`: Resolves a defect — bug, regression, vulnerability, or incident (including silencing spurious error log entries).
-
-    - `format`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
 
     - `maintenance`: Required upkeep — dependency bumps, test improvements, CI workflow reconfig, documentation, security patches.
 
@@ -102,11 +100,13 @@ Use this skill when composing a commit message or validating a branch's messages
 
     - `step`: Incremental change toward a larger feature or fix that is not yet user-facing.
 
+    - `style`: Presentation-only code or content changes — whitespace, indentation, line wrapping, style. Distinct from `refactor`.
+
     *Subtle distinctions*:
 
     - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a user-facing change. `feature`/`runtime` is the commit where the change becomes verifiable.
 
-    - `refactor` vs. `format`: `refactor` improves internal structure; `format` improves code presentation only.
+    - `refactor` vs. `style`: `refactor` improves internal structure; `style` improves code presentation only.
 
     - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the changelog (deps, infra, CI). `chore` is repository housekeeping that doesn't (README tweaks, typos) — noise that can be omitted from the changelog.
 
@@ -126,7 +126,7 @@ Use this skill when composing a commit message or validating a branch's messages
 
     When committing directly to `dev` or a `temp/*` branch, update the project's `CHANGELOG.md` (or equivalent) as part of the same commit. Document the change under an `[Unreleased]` section at the top of the file.
 
-    All commit types SHOULD be recorded — including `format:` and `refactor:`. The only exception is `chore:`, which is housekeeping too minor to warrant a changelog entry.
+    All commit types SHOULD be recorded — including `style:` and `refactor:`. The only exception is `chore:`, which is housekeeping too minor to warrant a changelog entry.
 
     Each entry is a bullet point using the same `type: description` format as the commit subject line, including any flag. Newest entries are at the top.
 
@@ -138,7 +138,7 @@ Use this skill when composing a commit message or validating a branch's messages
     - runtime: cut p95 latency on the search endpoint
     - maintenance: update dependencies
     - refactor: refactor code
-    - format: apply prettier to src
+    - style: apply prettier to src
     - step: increment toward new feature - EXPERIMENT
     ```
 
@@ -152,7 +152,7 @@ Minimal (subject line only):
 feature: add git uncommit
 fix: handle empty repository in git-amend
 refactor: simplify test repo interface
-format: apply prettier to src
+style: apply prettier to src
 step: extract search algorithm to separate module
 maintenance: bump typescript to 5.0
 chore: fix typo in readme
@@ -185,7 +185,7 @@ Closes: #123
 
 -   **Subject line passes the validation regex.**
 
-    Test against `^((chore|feature|fix|format|maintenance|merge|refactor|release|revert|runtime|step): [a-z].*)$` before considering the message done.
+    Test against `^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$` before considering the message done.
 
 -   **Type semantics fit the changeset.**
 
