@@ -105,18 +105,19 @@ flowchart LR
   build["⚙️\nbuild"]:::scripted
   test["⚙️\ntest"]:::scripted
   review["🤖\nreview"]:::primary
-  deploy["⚙️\ndeploy"]:::scripted
+  integrate["⚙️\nintegrate"]:::scripted
   human["🧑\nreview"]:::tertiary
 
   plan ==> code
   code ==> build
   build == pass ==> test
   test == pass ==> review
-  review ==> deploy
+  review ==> integrate
 
   build -- fail --> code
   test -- fail --> code
   review -- fail --> human
+  integrate == incremental loop ==> plan
 
   classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
@@ -134,6 +135,20 @@ Composability requires each skill and each script to be a small, sharp tool with
 This is known as agentic loop engineering. A fully agentic loop involves no humans-in-the-loop after an initial trigger.
 
 An agentic workflow is not a single linear pipeline with one front door. Work can enter the lifecycle at different points, depending on what triggered it. There may be a combination of proactive paths, triggered by new product requirements (eg. a "specify" skill), reactive paths, triggered by bugs or incidents (eg. a "triage" skill), and scheduled paths, triggered by cron jobs that kick off recurring workflows at fixed intervals (eg. an "audit" skill).
+
+## Iterative and incremental
+
+One of the risks of fully agentic/automated specs-to-code workflows is that you end up with a waterfall process. Large-scale code changes land at once.
+
+This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then those poor humans will have to contend with large diffs to review via pull requests — a big bottleneck in delivery. Worse still are all the risks associated with the resulting big bang releases.
+
+This can be resolved by breaking down deliverables into an incremental development plan, enabling continuous integration. The `integrate` step in the pipeline above is where this happens — notice the loop it closes back to `plan`. A `plan` step is responsible for decomposing deliverables into small increments of work, which are subsequently integrated in a piecemeal fashion while keeping the system stable.
+
+This requires big up-front planning, which itself is dependent on a complete specification and design being in place from the start. The trade-off for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risk in agentic programming.
+
+An incremental build also accommodates iterative design, in which the solution is continuously refined throughout the development process, responding to feedback on the experience of using, reviewing, debugging, and maintaining real working software.
+
+Small steps also have a second, independent benefit: they bound the context window. A large language model has no working memory beyond its context window, so a single session asked to specify, design, plan, and implement a large feature end-to-end will eventually be reasoning over a window dominated by its own accumulated exploration rather than the task at hand. A `code` step scoped to one increment starts with an empty window and loads only what that increment needs, which — combined with [persistence](#persistence) of each step's distilled output — keeps every step's reasoning reliable.
 
 ## Single responsibility
 
@@ -217,13 +232,11 @@ This isn't always necessary. In CI systems, for example, isolation is typically 
 
 Whether isolation is needed at all, and which mechanism provides it — a worktree, a fresh clone, a container — is a decision for the orchestrator, not for the skills themselves.
 
-## Harness infrastructure
+Persistence, version control, and isolation are not incidental tooling choices. Together, they compose the agent harness. The harness is more than a lightweight wrapper that gives a model access to tools. It is the whole surrounding development infrastructure.
 
-An agent harness is not just a lightweight wrapper for a model, to give the model access to tools. It is a whole development infrastructure. It consists of the persistence layers that agents write their output to, the sensors that verify that output, and the isolation mechanisms that let multiple steps be run concurrently.
+So, while agentic steps should be loosely coupled from one another to support composability, each one is necessarily tightly coupled to this wider harness.
 
-Thus, while agentic steps should be loosely coupled from one another, to support composability, they are necessarily tightly coupled to a wider infrastructure of development tools and methods.
-
-The trade-off is that a well-designed agentic step cannot be dropped, unmodified, into just any development environment. It assumes a structured harness already in place around it.
+This means a well-designed agentic workflow cannot just be dropped, unmodified, into any development environment. It assumes a structured harness already in place around it.
 
 ## Interactive versus non-interactive
 
@@ -248,46 +261,6 @@ If, in testing your agentic workflow, you fail to consistently achieve predictab
 How frequently humans need to enter the loop varies between domains and teams. High-integrity software — code with safety, financial, or regulatory consequences — will typically require a human checkpoint at every significant step. A personal project or a low-stakes website may need none at all, relying entirely on automated checks and agent judgment to reach a workable outcome.
 
 There is no universal ratio of human checkpoints to automated and agentic steps. The right level of human involvement is a judgment call, tuned to the cost of failure in the domain you're working in, and revisited as your confidence in your pipeline's reliability grows or falls.
-
-## Iterative and incremental
-
-One of the risks of fully agentic/automated specs-to-code workflows is that you end up with a waterfall process. Large-scale code changes land at once.
-
-This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then those poor humans will have to contend with large diffs to review via pull requests — a big bottleneck in delivery. Worse still are all the risks associated with the resulting big bang releases.
-
-This can be resolved by breaking down deliverables into an incremental development plan, enabling continuous integration.
-
-This requires big up-front planning, which itself is dependent on a complete specification and design being in place from the start. The trade-off for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risk in agentic programming.
-
-An incremental build also accommodates iterative design, in which the solution is continuously refined throughout the development process, responding to feedback on the experience of using, reviewing, debugging, and maintaining real working software.
-
-The following diagram represents one possible incremental agentic workflow. A `plan` step is responsible for decomposing deliverables into small increments of work, which are subsequently integrated in a piecemeal fashion while keeping the system stable.
-
-```mermaid
-flowchart LR
-  plan["🤖\nplan"]:::primary
-  code["🤖\ncode"]:::primary
-  build["⚙️\nbuild"]:::scripted
-  test["⚙️\ntest"]:::scripted
-  review["🤖\nreview"]:::primary
-  integrate["⚙️\nintegrate"]:::scripted
-
-  plan ==> code
-  code ==> build
-  build == pass ==> test
-  test == pass ==> review
-  review ==> integrate
-
-  build -- fail --> code
-  test -- fail --> code
-  review -- fail --> code
-  integrate == incremental loop ==> plan
-
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
-```
-
-Small steps also have a second, independent benefit: they bound the context window. A large language model has no working memory beyond its context window, so a single session asked to specify, design, plan, and implement a large feature end-to-end will eventually be reasoning over a window dominated by its own accumulated exploration rather than the task at hand. A `code` step scoped to one increment starts with an empty window and loads only what that increment needs, which — combined with [persistence](#persistence) of each step's distilled output — keeps every step's reasoning reliable.
 
 ## See also
 
