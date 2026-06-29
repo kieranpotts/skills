@@ -1,6 +1,12 @@
 # Design notes
 
-These notes cover design principles and best practices for agentic workflows, of which these agent skills form a part.
+These notes cover design principles and best practices for agentic software development.
+
+We should be clear, first, about what we mean by "agentic development". Agentic development is the deliberate change in emphasis in the software development lifecycle from writing code to expressing intent, and trusting intelligent systems to translate that intent into working software. The intent is captured in artifacts — specifications, designs, plans — precise enough for an agent to act on, and for a human, a script, or another agent to verify against.
+
+Agentic development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, guides, and checks and balances, carefully engineered into an cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
+
+Agent skills are just one part of this infrastructure.
 
 **TL;DR**
 - The goal is to achieve predictable, consistent outcomes.
