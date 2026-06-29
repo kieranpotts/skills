@@ -4,13 +4,13 @@ These notes cover design principles and best practices for agentic software deve
 
 We should be clear, first, about what we mean by agentic software development.
 
-For decades, the developer's primary interface with the machine has been syntax — curly braces, type annotations, and the grammar of programming languages. in the 2020s a new paradigm has arrived in which software developers express what they want to build, rather than how to build it. The human programmer provides intent, architecture, and judgment. A machine writes the syntax.
+For decades, the developer's primary interface with the machine has been syntax — curly braces, type annotations, and the grammar of programming languages. In the 2020s, a new paradigm has arrived in which software developers express what they want to build, rather than how to build it. The human programmer provides intent, architecture, and judgment. A machine writes the syntax.
 
 Agentic software development is the deliberate change in emphasis in the software development lifecycle from writing code to expressing intent, and trusting intelligent systems to translate that intent into working software.
 
 Our intent is captured in artifacts — instructions, rules, standards, specifications, designs, plans — written precisely enough for an agent to act on, and for a human, a script, or another agent to verify against.
 
-Agentic software development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, and checks and balances, carefully engineered into an cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
+Agentic software development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, and checks and balances, carefully engineered into a cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
 
 Agent skills are just one component of this agentic development infrastructure.
 
@@ -133,7 +133,7 @@ Composability requires each skill and each script to be a small, sharp tool with
 
 This is known as agentic loop engineering. A fully agentic loop involves no humans-in-the-loop after an initial trigger.
 
-An agentic workflow is not a single linear pipeline with one front door. Work can enter the lifecycle at different points, depending on what triggered it. There may be a combination of proactive paths, triggered by nw product requirements (eg. a "specify" skill), reactive paths, triggered by bugs or incidents (eg. a "triage" skill), and scheduled paths, triggered by cron jobs that kick off recurring workflows at fixed intervals (eg. an "audit" skill).
+An agentic workflow is not a single linear pipeline with one front door. Work can enter the lifecycle at different points, depending on what triggered it. There may be a combination of proactive paths, triggered by new product requirements (eg. a "specify" skill), reactive paths, triggered by bugs or incidents (eg. a "triage" skill), and scheduled paths, triggered by cron jobs that kick off recurring workflows at fixed intervals (eg. an "audit" skill).
 
 ## Single responsibility
 
@@ -169,7 +169,7 @@ Coupling through contracts rather than handoffs also makes individual skills eas
 
 ## Interface definitions
 
-Achieving loose coupling requires each step to have a well-defined sets of inputs and outputs. Each agent skill must be explicit in what it consumes, whether that input is optional or required, and whether the skill requires an interactive session in which the agent is free to prompt the user for further input.
+Achieving loose coupling requires each step to have a well-defined set of inputs and outputs. Each agent skill must be explicit in what it consumes, whether that input is optional or required, and whether the skill requires an interactive session in which the agent is free to prompt the user for further input.
 
 Each skill must also be explicit about what output it produces, in what formats, and where the output is written.
 
@@ -179,7 +179,7 @@ The input/output definitions are the contract the orchestrator reads to decide w
 
 ## Persistence
 
-For an orchestrator to handoff a task — to a different agent, a different session, or a deterministic script — the output of each step must be persisted to disk, not merely held in conversation state.
+For an orchestrator to hand off a task — to a different agent, a different session, or a deterministic script — the output of each step must be persisted to disk, not merely held in conversation state.
 
 An agent that finishes a "design" step and writes its decisions to a design doc has produced something the next agent, in a fresh session with an empty context window, can read and act on.
 
