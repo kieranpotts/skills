@@ -2,27 +2,17 @@
 
 These notes cover design principles and best practices for agentic software development.
 
-For decades, the developer's primary interface with the machine has been syntax: curly braces, semicolons, type annotations, and the precise grammar of programming languages. A new paradigm has arrived in which developers express what they want to build rather than how to build it. The human provides intent, architecture, and judgment; the machine provides the syntax.
+We should be clear, first, about what we mean by agentic software development.
 
-We should be clear, first, about what we mean by "agentic development". Agentic development is the deliberate change in emphasis in the software development lifecycle from writing code to expressing intent, and trusting intelligent systems to translate that intent into working software. The intent is captured in artifacts — specifications, designs, plans — precise enough for an agent to act on, and for a human, a script, or another agent to verify against.
+For decades, the developer's primary interface with the machine has been syntax — curly braces, type annotations, and the grammar of programming languages. in the 2020s a new paradigm has arrived in which software developers express what they want to build, rather than how to build it. The human programmer provides intent, architecture, and judgment. A machine writes the syntax.
 
-Agentic development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, guides, and checks and balances, carefully engineered into an cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
+Agentic software development is the deliberate change in emphasis in the software development lifecycle from writing code to expressing intent, and trusting intelligent systems to translate that intent into working software.
 
-Agent skills are just one part of this infrastructure.
+Our intent is captured in artifacts — instructions, rules, standards, specifications, designs, plans — written precisely enough for an agent to act on, and for a human, a script, or another agent to verify against.
 
-> [!NOTE]
-> **TL;DR:**
-> - The goal of agentic development is to achieve predictable, consistent outcomes.
-> - Well-design agentic loops depend less on model size and capability.
-> - Agent harnesses are composed of a mix of guides (skills and reference materials) and sensors (deterministic checkpoints).
-> - The most important sensor is concrete, verifiable success criteria — ie. executable acceptance tests. This is the most reliable way to verify agentic output.
-> - Deterministic sensors must be executed via scripts, independently of agents. Don't depend on agents to mark their own homework.
-> - Thus, agentic workflows are composed from both agentic and automated steps.
-> - Preference should always be for automation. Add agentic steps where _judgment_ is required, which traditional computation doesn't provide.
-> - The more effective the deterministic checkpoints, the fewer humans needed in-the-loop. This is the path to fully agentic loops.
-> - Inferential sensors (eg. agent code review) can help to improve quality by adding more perspectives. These must be separate agent sessions to avoid context pollution. Prompt engineering is important here to counterbalance a model's leaning toward sycophancy.
-> - Agentic workflows may be composed in different ways. This requires both agent skills and automation scripts to be loosely coupled (input/output contracts, persistence layers at the breakpoints between steps) and have singular responsibilities (separate evaluation from implementation, and rules from knowledge).
-> - Orchestrators of agentic workflows may be humans, scripts, or agents — or some mix of all three.
+Agentic software development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, and checks and balances, carefully engineered into an cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
+
+Agent skills are just one component of this agentic development infrastructure.
 
 ## Predictable outcomes
 
