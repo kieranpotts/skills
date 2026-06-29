@@ -10,7 +10,7 @@ Agentic software development is the deliberate change in emphasis in the softwar
 
 Our intent is captured in artifacts — instructions, rules, standards, specifications, designs, plans — written precisely enough for an agent to act on, and for a human, a script, or another agent to verify against.
 
-Agentic software development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, and checks and balances, carefully engineered into a cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
+Agentic software development is distinct from vibe coding, which is more improvisational. Agentic development requires an extensive suite of tools, providing carefully choreographed checks and balances, engineered into a cohesive agent harness, in order to steer agent output to the level of correctness, completeness, and quality that we desire.
 
 Agent skills are just one component of this agentic development infrastructure.
 
@@ -158,6 +158,8 @@ For maximum composability, no one skill should do both _evaluation_ and _impleme
 
 Keeping these two concerns — evaluation and implementation — apart brings numerous benefits. Orchestrators have the option to review findings from evaluation steps before applying changes. Having a single responsibility gives each skill a clear trigger condition, too. And each skill becomes more useful on its own. For example, you could reuse an evaluator skill to report into a CI gate.
 
+A single responsibility is a question of scope, not just of boundary. Size a skill the way you would size a well-designed function or a Unix tool — small, focused, and free of overlapping responsibility with its neighbors. Pitch its abstraction level to match how an agent naturally reasons about the task — a single composite step that does one coherent unit of work beats several low-level steps that mirror an implementation decomposition, because the latter forces the agent to manage intermediate state and multiplies the turns needed to get anything done.
+
 ## Rules, not knowledge
 
 An agent skill is a set of rules or instructions for performing one step of the workflow. To maintain the single responsibility principle, a skill should not drift into encoding knowledge, too.
@@ -167,6 +169,8 @@ A skill may instruct an agent to go and *extract* knowledge it needs — coding 
 This separation is what makes a skill reusable across projects. A skill that specializes in defining a workflow step stays technology-agnostic and domain-agnostic, and can run unmodified against any codebase that supplies its own reference material on demand. A skill that hard-codes project-specific knowledge stops being portable the moment it leaves the project it was written for.
 
 If a piece of bespoke knowledge genuinely belongs nowhere but a single repository, it belongs in a skill — or a reference document — that is local to that repository.
+
+Boundaries settle what a skill covers. The prose inside it still has to be written well. Match the specificity of an instruction to the fragility of what it governs — give the agent latitude, and explain *why*, where several approaches are valid and the task tolerates variation. Be prescriptive, with exact steps, where a specific sequence must be followed. Prefer a stated default with named alternatives over a menu of equally-weighted options, and prefer teaching a reusable procedure over hard-coding the answer to one instance of the problem.
 
 ## Loose coupling
 
@@ -232,7 +236,7 @@ This isn't always necessary. In CI systems, for example, isolation is typically 
 
 Whether isolation is needed at all, and which mechanism provides it — a worktree, a fresh clone, a container — is a decision for the orchestrator, not for the skills themselves.
 
-Persistence, version control, and isolation are not incidental tooling choices. Together, they compose the agent harness. The harness is more than a lightweight wrapper that gives a model access to tools. It is the whole surrounding development infrastructure.
+Persistence, version control, and isolation are not incidental tooling choices. Together, they compose the agent harness. The harness is more than a lightweight wrapper that gives a model access to tools. An agent is usefully decomposed into three parts: a *brain* (the model itself, reasoning over the current state), *memory* (short-term — the live context window — and long-term — the persisted artifacts this document is mostly about), and *tools* (the actions it can take in the world). The harness is the infrastructure that supplies and manages all three — it is the whole surrounding development infrastructure, not just the model.
 
 So, while agentic steps should be loosely coupled from one another to support composability, each one is necessarily tightly coupled to this wider harness.
 
