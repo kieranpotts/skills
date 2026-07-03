@@ -82,7 +82,7 @@ Include a ist of links with extended and related information. For each, include 
 
 - [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
 
-- [`assets/some-template.md`](./assets/some-template.md): The bundled template to fill out in step N.
+- [`assets/some-template.md`](./assets/template.md): The bundled template to fill out in step N.
 
 - [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
 
