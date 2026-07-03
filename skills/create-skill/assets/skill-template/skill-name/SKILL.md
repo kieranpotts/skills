@@ -1,53 +1,39 @@
 ---
 name: skill-name
-description: <One sentence describing what the skill does.> Use when <specific triggers — user phrasings, situations, file types, contexts>.
-compatibility: requires <tool> or <tool>
-license: <license>
+description: One sentence describing what the skill does. Use when [specific triggers — user phrasings, situations, file types, contexts]. Do NOT use this skill for [exceptions...].
+compatibility: requires [tool] or [tool], and [tool]
+license: [license]
 metadata:
-  <key>: <value>
-  # Set to `no` to enable non-interactive execution of the skill.
-  # Compatible agents will not prompt the user. OPTIONAL (default: yes).
+  [key]: [value]
   interactive: no
-  # Proprietary metadata used by my own tools.
-  # OPTIONAL (default: use host agent).
-  preferred_model: <model-id>
+  preferred_model: [model-id]
 ---
 
-# <Skill name>
+# [Skill name]
 
-Use this skill when <scenario>.
+Short introduction here.
 
 This skill extends [this skill](https://raw.githubusercontent.com/...) — all rules there apply here.
 
-Do NOT use this skill for <exceptions...>.
+## Interface
 
-**Input**: <What the skill consumes, and how it is supplied (file paths, URLs, pasted text, an upstream artifact, the surrounding context). State whether it is REQUIRED or OPTIONAL. For an interactive skill, state explicitly that the skill ALSO gathers input from the user through prompts during the session — so the initial input may be partial or absent.>
+**Input**: What input the skill consumes — a file, a prompt, a selection — and whether it is OPTIONAL or REQUIRED. State any default behavior when no input is given.
 
-**Output**: <What the skill produces, in what form, and where it goes. Name any completeness guarantees the output enforces. State what is deliberately out of scope.>
+**Interactive**: Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+
+**Output**: What the skill produces, in what format, and where it is written — a report, a direct edit, a file, a commit, the conversation itself.
 
 ##  Instructions
 
-_Instructions are step-by-step procedural implementation workflows._
-
-1.  **[Short description.]**
-
-    [Extended details.]
-
-2.  **Run the execution script.**
+1.  **Run the extract script.**
 
     ```sh
     $ python3 scripts/extract.py
     ```
 
-3.  ...
+2.  ...
 
 ##  Rules
-
-_Rules are an unordered list of guidelines, recommendations, and best practices._
-
--   **[Short description.]**
-
-    [Extended details.]
 
 -   **Base new scripts on this template:**
 
@@ -76,24 +62,28 @@ _Rules are an unordered list of guidelines, recommendations, and best practices.
 
 ## Examples
 
-_A small number of canonical input/output examples. Regular prose. OPTIONAL._
+A small number of canonical input/output examples. Regular prose. OPTIONAL.
 
 ## Edge cases
 
-_Warn about potential edge cases. Regular prose. OPTIONAL._
+Warn about potential edge cases. Regular prose. OPTIONAL.
 
-##  Success criteria
+## Success criteria
 
-- **The output matches the expected format.** [Optionally, describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.]
+**The output matches the expected format.** Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.
 
-- **All rules have been respected.** Review the completed output against the rules above before finishing.
+**All rules have been respected.** Review the completed output against the rules above before finishing.
 
-- **[Domain-specific check.]** [Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
+**Some domain-specific check.** Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
 
 ## References
 
-_Links to the skill's OWN bundled resources that the agent needs to read to do the job — each with an explicit trigger condition. OPTIONAL. Point only at files inside this skill's directory; external references that exist for human context (the technique behind the skill, an upstream skill it was adapted from, background reading) belong in the sibling `README.md`, NOT here — a link in a SKILL.md invites the agent to fetch it and bloat its context for no operational gain._
+Include a ist of links with extended and related information. For each, include an explicit trigger condition.
 
 - [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
 
 - [`assets/some-template.md`](./assets/some-template.md): The bundled template to fill out in step N.
+
+- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
+
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md): Used for [purpose].
