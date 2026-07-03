@@ -4,10 +4,10 @@ description: Audit a code change for correctness, design, clarity, test coverage
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:9b
+  preferred_model: [modelfile-name]
 ---
 
-# `review`
+# Review
 
 Use this skill when auditing a pull request, reviewing a peer's branch, or self-reviewing a change before opening a PR. It evaluates the *change as a piece of work* against static qualities — correctness, design, clarity, test coverage, security, completeness — surfacing and classifying findings but not fixing them.
 
@@ -32,7 +32,11 @@ VERDICT: FAIL — <one-line reason>
 
 -->
 
+## Interface
+
 **Input**: A code change to audit (a pull request, a peer's branch, or one's own diff before opening a PR), together with the specification or acceptance criteria it claims to satisfy and any captured design decision. REQUIRED. The comparison base is pinned explicitly.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A set of findings, each carrying a severity label (Blocking, Suggestion, Nit, Praise) and organized along two axes (Specification and Standards), closed with an explicit verdict (Approve, Request changes, or Comment). Review reports its findings and stops; acting on them — fixing presentation, restructuring, re-running the system — is a separate, downstream responsibility.
 

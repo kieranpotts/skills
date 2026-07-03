@@ -5,10 +5,10 @@ compatibility: requires git
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: glm-5.1:cloud
+  preferred_model: [modelfile-name]
 ---
 
-# `branch`
+# Branch
 
 Use this skill when creating a new branch, or validating branch names before push. It names and validates branches against the trunk model below; it does not merge, cut releases, or author commit messages.
 
@@ -25,7 +25,11 @@ flowchart LR
   dev -.->|cut from| epic
 ```
 
+## Interface
+
 **Input**: A request to create or name a branch, or one or more existing branch names to validate. REQUIRED. The project's branch model (trunk names, `temp/*` and `epic/*` conventions) and the naming regex supply what is checked against.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A correctly-named branch created from the right base, or a pass/fail verdict on the supplied names with the specific rule each one violates. This skill names and validates branches and stops; it does not merge, cut releases, or author commit messages.
 

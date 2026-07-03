@@ -4,14 +4,18 @@ description: Verify a completed change against its full set of acceptance criter
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: gemma4:31b
+  preferred_model: [modelfile-name]
 ---
 
-# `test`
+# Test
 
 Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* — mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
 
+## Interface
+
 **Input**: A completed change and its specification. REQUIRED. The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified — an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) — and reported, not fixed. Whatever consumes the report — diagnosing a defect, editing the specification, releasing — is the orchestrator's concern, not this skill's.
 

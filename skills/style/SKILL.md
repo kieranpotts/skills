@@ -4,14 +4,18 @@ description: Apply presentation-only code or content changes — whitespace, ind
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: kimi-k2.6:cloud
+  preferred_model: [modelfile-name]
 ---
 
-# `style`
+# Style
 
 Use this skill when applying presentation-only changes to code or content — whitespace, indentation, line breaks, quote style, trailing commas, import ordering, casing of literals, file encoding, line endings. The semantics of the code MUST be unchanged: any structural edit (renaming, extracting, reordering) is a refactor, not a style pass.
 
+## Interface
+
 **Input**: The code or content to normalize — a set of files, a diff, or the working tree — plus the project's configured formatter and style conventions where they exist. REQUIRED.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: The same files with presentation-only edits applied (whitespace, indentation, wrapping, quotes, ordering), behavior and structure provably unchanged, ideally via the project's automated formatter, ready to commit under a `style:` commit. This skill normalizes presentation and stops; it makes no structural or behavioral change.
 

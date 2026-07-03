@@ -4,14 +4,18 @@ description: Run a structured customer-discovery session to elicit business requ
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: gemma4:31b
+  preferred_model: [modelfile-name]
 ---
 
-# `discover`
+# Discover
 
 Use this skill to run a structured discovery session that refines a customer's business needs into a product requirements document (PRD). The agent acts as the business analyst, asking one question at a time. The user answers as the customer — either directly (as a real customer) or as a relay (paraphrasing what real customers said in prior conversations).
 
+## Interface
+
 **Input**: The user MAY provide a draft PRD or similar artifacts (via file paths, URLs, or pasted text) to be edited in place, or to use as a basis for a fresh PRD. This is OPTIONAL — the seed may be vague, incomplete, or absent. This skill is **interactive** — it gathers the rest of the input from the user through prompts during the session, asking one question at a time. Crystallizing a vague business need into a complete PRD is the purpose of the discovery session.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A new or modified PRD in business language, covering outcomes, stakeholders, scope, rules, examples, non-functional requirements, assumptions, and open questions. The PRD enforces completeness by having a counter-example for every rule, an explicit out-of-scope list, non-functional requirements explicitly recorded (even if none), and blocking questions resolved. Technical implementation and validation details are out-of-scope — this is not a specification or design document.
 

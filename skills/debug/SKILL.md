@@ -4,10 +4,10 @@ description: Disciplined diagnosis loop for hard bugs and performance regression
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:9b
+  preferred_model: [modelfile-name]
 ---
 
-# `debug`
+# Debug
 
 Use this skill for hard bugs and performance regressions — any defect where the cause is not immediately obvious from reading the code.
 
@@ -27,7 +27,11 @@ flowchart LR
   F -.->|fix exposes more| H
 ```
 
+## Interface
+
 **Input**: A reported bug or performance regression whose cause is not obvious from reading the code — the symptom, where it shows up, and any reproduction the user already has. REQUIRED. For performance work, a numerical baseline and threshold stand in for the symptom.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A verified fix landed with a regression test that locks the bug out, the diagnostic instrumentation removed, and the correct cause recorded in the commit or PR message for the next reader. If no reliable feedback loop can be built, the skill stops and says so — listing what it tried and what it needs — rather than guessing.
 

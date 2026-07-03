@@ -4,14 +4,18 @@ description: Validate a product requirements document (PRD) and, if complete, fi
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:cloud
+  preferred_model: [modelfile-name]
 ---
 
-# `specify`
+# Specify
 
 Use this skill to turn a product requirements document (PRD) — a business-language artifact — into a testable specification, filed as a proposal in the project's software requirements specification (SRS) repository. It is **non-interactive**: it validates the PRD and either rejects it with reasons or transforms it autonomously, never interviewing the user to fill gaps.
 
+## Interface
+
 **Input**: A PRD, expected to be sufficiently complete to transform into a formal software requirements specification. REQUIRED. This skill does not gather requirements or interview the user; if the PRD is not sufficiently detailed, you MUST **reject** it with a list of what is missing or ambiguous, and not proceed further.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: An open pull request against the SRS repository, capturing the changes as testable acceptance criteria, at `PROPOSED` and awaiting the user's review and approval.
 

@@ -4,14 +4,18 @@ description: Build throwaway code to answer a specific question — feasibility,
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: gemma4:31b
+  preferred_model: [modelfile-name]
 ---
 
-# `spike`
+# Spike
 
 Use this skill when a question must be answered with running code rather than analysis: feasibility of a library, performance of an algorithm, ergonomics of an API, behavior of an external dependency, viability of an architectural option. The spike is a *byproduct* and the *answer* is the deliverable — the code is time-boxed, scope-collapsed, and thrown away, never promoted to production.
 
+## Interface
+
 **Input**: One falsifiable question — a specific feasibility, performance, ergonomics, or integration-risk question that cannot be answered by reasoning alone, with the evidence that would close it defined up front. REQUIRED.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: The answer, durably captured — a measurement, observable behavior, or working integration, recorded so it is reproducible from the notes alone, and landed in the appropriate artifact (an ADR or design-doc update, a revision to acceptance criteria, or a decision-log note). The spike code is thrown away or quarantined in a clearly-marked throwaway location, never promoted. Whatever consumes the answer — resuming design, revising the specification, the production re-implementation — is the orchestrator's concern, not this skill's.
 

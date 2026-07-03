@@ -4,14 +4,18 @@ description: Compact the current conversation into a handoff document so a fresh
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:27b
+  preferred_model: [modelfile-name]
 ---
 
-# `handoff`
+# Handoff
 
 Use this skill when the work is about to be picked up by someone (or something) without the current session's context. It produces an *ephemeral* handoff document — a bridge across the gap between sessions, not a durable project artifact — that references existing artifacts (PRDs, plans, ADRs, issues, commits) rather than duplicating them.
 
+## Interface
+
 **Input**: The current session's context — the work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase. REQUIRED.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A single, ephemeral handoff document written to the OS temp directory (not the repo), referencing those durable artifacts by path or URL rather than duplicating them. It captures what's done, what's open, the codebase state, suggested next steps, and gotchas. This skill reports the file's absolute path and stops; whether the next session is an agent or a human is the orchestrator's concern.
 

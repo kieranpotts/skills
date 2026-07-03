@@ -60,6 +60,20 @@ This skill extends [this skill](https://raw.githubusercontent.com/...) — all r
     export MY_APP_LOG_LEVEL="info"
     ```
 
+##  Success criteria
+
+-   **The output matches the expected format.**
+
+    Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.
+
+-   **All rules have been respected.**
+
+    Review the completed output against the rules above before finishing.
+
+-   **Some domain-specific check.**
+
+    Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
+
 ## Examples
 
 A small number of canonical input/output examples. Regular prose. OPTIONAL.
@@ -67,14 +81,6 @@ A small number of canonical input/output examples. Regular prose. OPTIONAL.
 ## Edge cases
 
 Warn about potential edge cases. Regular prose. OPTIONAL.
-
-## Success criteria
-
-**The output matches the expected format.** Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.
-
-**All rules have been respected.** Review the completed output against the rules above before finishing.
-
-**Some domain-specific check.** Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
 
 ## References
 

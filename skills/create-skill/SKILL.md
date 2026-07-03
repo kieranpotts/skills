@@ -4,16 +4,20 @@ description: Create a new skill (SKILL.md) or improve an existing one, in this s
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: qwen3.5:35b
+  preferred_model: [modelfile-name]
 ---
 
-# `create-skill`
+# Create skill
 
 Use this skill when creating a new skill from scratch or improving an existing one.
 
 Do NOT use this skill for one-off instructions or CLAUDE.md (or other agent-specific configuration). Skills are reusable, agent-agnostic, model-agnostic prompts.
 
+## Interface
+
 **Input**: A description of the skill to create, or a path to an existing skill to improve, plus whatever the surrounding conversation already reveals about its purpose and triggers. OPTIONAL — the seed may be just a rough idea. This skill is **interactive**: it gathers what it still needs (scope, trigger conditions, bundled resources) from the user through prompts during the session.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A complete skill directory — a `SKILL.md` conforming to the bundled template (valid front-matter, prominent Input/Output paragraphs, Instructions and/or Rules, Success criteria), a sibling `README.md`, and any bundled `assets/`, `references/`, or `scripts/` — passing the validator. This skill authors the skill and stops; installing it into target agents is a separate step.
 

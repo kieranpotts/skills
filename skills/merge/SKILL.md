@@ -5,10 +5,10 @@ compatibility: requires git
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:35b
+  preferred_model: [modelfile-name]
 ---
 
-# `merge`
+# Merge
 
 Use this skill to integrate commits from one branch into another, applying the project's existing branching convention to pick the right strategy for the branch type. It assumes a working tree with no uncommitted changes — if you have uncommitted work, stash or commit first.
 
@@ -26,7 +26,11 @@ flowchart LR
   dev -.->|merge-down| epic
 ```
 
+## Interface
+
 **Input**: A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: The target branch updated with the integrated work using the strategy correct for the branch type, conflicts resolved deliberately, tests and build green on the merged result before push, and disposable source branches (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill integrates and stops; it neither defines the branching convention nor cuts releases.
 

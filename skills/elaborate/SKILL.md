@@ -4,16 +4,20 @@ description: Interview the user one question at a time to stress-test and sharpe
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: glm-5.1:cloud
+  preferred_model: [modelfile-name]
 ---
 
-# `elaborate`
+# Elaborate
 
 Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges — unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
 
 This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
 
-**Input**: A draft design with soft edges — an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED. This skill is **interactive**: it gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
+## Interface
+
+**Input**: A draft design with soft edges — an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED.
+
+**Interactive**: This skill is interactive. It gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
 
 **Output**: A decomposition-ready design — every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
 

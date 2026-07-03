@@ -1,17 +1,21 @@
 ---
 name: validate
-description: Evaluate completed, tested work against the users' actual needs — not against the agreed acceptance criteria — to judge whether the specification itself should evolve. Produce prioritized suggestions for specification change. Use once all of a plan's increments are built and tested, as a product-level checkpoint that asks "did we build the right thing?" and feeds the specification feedback loop. Also use when the user says "validate this against what the user actually needed" or "check the working software against the original goal".
+description: Evaluate completed, tested work against the users' actual needs — not against the agreed acceptance criteria — to judge whether the specification itself should evolve. Produce prioritized suggestions for changes to the requirements specification. Use once all of a plan's increments are built and tested, as a product-level checkpoint that asks "did we build the right thing?" and feeds the specification feedback loop. Also use when the user says "validate this against what the user actually needed" or "check the working software against the original goal".
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: gemma4:31b
+  preferred_model: [modelfile-name]
 ---
 
-# `validate`
+# Validate
 
 Use this skill once all of a plan's increments are complete — built, reviewed, and tested — to evaluate the working software against the users' *actual needs*, and judge whether the specification itself should evolve. This is **validation**, not verification: it asks *did we build the right thing?*, not *did we build the thing right?* — so a change can pass every AC and still surface a gap here. This skill is **evaluation only** — the output is a prioritized set of suggestions, each seeding a separate [`refine`](../refine/SKILL.md) → [`specify`](../specify/SKILL.md) pass; it changes no specification and no code itself.
 
+## Interface
+
 **Input**: Completed work that has already passed [`test`](../test/SKILL.md) (verified against its ACs), together with the originating statement of need — the preserved PRD, the specification's outcome and success measures, or the discovery report. REQUIRED. Run once all of a plan's increments are complete.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A bounded, prioritized validation report — an explicit verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the specification should evolve, each classified by gap type, backed by evidence, and ready to seed a [`refine`](../refine/SKILL.md) → [`specify`](../specify/SKILL.md) pass. No specification or code is changed; what consumes the report is the orchestrator's concern.
 

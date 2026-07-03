@@ -4,16 +4,20 @@ description: Audit and fix anything in the codebase that is broken in an obvious
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:9b
+  preferred_model: [modelfile-name]
 ---
 
-# `fix`
+# Fix
 
 Use this skill when something in the codebase is broken in a way that's already evident — a failing build or compile, a linter or type-checker violation, a deprecation warning, a misconfigured tool — and the fix doesn't require figuring out an unknown cause. The tool or compiler already tells you what's wrong and usually where.
 
 This is distinct from [`debug`](../debug/SKILL.md): debug is for unexpected *behavior* whose cause is not obvious and needs a hypothesis-driven investigation (reproduce, hypothesize, instrument). `fix` is for breakage where the cause is already known — named by a build error, a compiler error, a lint rule, a type error, a deprecation notice. If you find yourself forming hypotheses about why something is broken, you've crossed into `debug`; stop and switch skills.
 
+## Interface
+
 **Input**: The broken thing — a failing build/compile/lint/type-check command, an error message, or an instruction to audit a part of the codebase for things that are broken. REQUIRED.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: The build, compile, lint, or type-check passes; the reported breakage is resolved at its source, or explicitly suppressed with a recorded justification. No unrelated behavior change.
 

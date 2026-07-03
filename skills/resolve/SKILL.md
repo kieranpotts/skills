@@ -4,14 +4,18 @@ description: Action the open review comments on a pull request — implement eac
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: kimi-k2.6:cloud
+  preferred_model: [modelfile-name]
 ---
 
-# `resolve`
+# Resolve
 
 Use this skill to clear the **open** review comments on a pull request: implement each one as a minimal code change, verify it, and mark the comment resolved on the thread. The author has already curated the comments — any they disagree with or want to defer were dismissed before this runs — so this skill does not negotiate, defer, or reject: every comment still open is one the author wants implemented faithfully.
 
+## Interface
+
 **Input**: A pull request carrying open (un-dismissed) review comments from [`review`](../review/SKILL.md), and the code under review. REQUIRED. The author has already resolved any comments they do not want actioned; what remains is the work list. The base commit is pinned.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: A branch with each open comment implemented as a minimal, verified code change; each thread replied to and marked resolved; the fixes committed and pushed. Any comment that could not be honestly actioned is left open and reported with a reason. The verified change is ready for [`test`](../test/SKILL.md); what runs next is the orchestrator's concern.
 

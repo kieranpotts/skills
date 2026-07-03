@@ -4,14 +4,18 @@ description: Proofread prose — Markdown, AsciiDoc, reStructuredText, plain tex
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: qwen3.5:9b
+  preferred_model: [modelfile-name]
 ---
 
-# `proof`
+# Proof
 
 Use this skill to proofread prose — documentation, a README, release notes, a design doc, a blog post. It makes the conservative copy edits a careful human editor would make on a final pass: fixing spelling, grammar, punctuation, and typos; smoothing genuinely awkward phrasing; and making terminology and capitalization consistent. It is format-aware across the common prose markup languages (Markdown, AsciiDoc, reStructuredText, plain text) — it edits the *prose* and leaves the *markup* and any embedded code untouched. It edits files in place and stops; it does NOT branch, commit, or open pull requests.
 
+## Interface
+
 **Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL — defaults to the prose files changed in the working tree when no set is given.
+
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
 
 **Output**: The same files, edited in place with conservative copy edits only — prose words corrected, code/markup/structure untouched — plus a per-file summary of the edits made and any items flagged for the author. Nothing is staged, committed, or pushed; version control is left to a separate step.
 
