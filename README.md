@@ -95,13 +95,13 @@ These skills span four categories:
 
 None of the skills in this collection explicitly handoff to other skills. No skill invokes, or even knows about, another skill. Each does its one job, reports the result, and stops.
 
-Instead, skills are connected by contracts. One skill's output is the next skill's input.
+Instead, skills are connected by contracts. One skill's output is another skill's input.
 
-Critically, those inputs and outputs are artifacts persisted to disk — a spec, a design doc, a plan, a review report — not state held in a conversation or context window. This decouples skills temporally as well as structurally. A downstream skill doesn't need to run in the same session, or even on the same day, as the upstream skill that produced its input.
+Critically, those inputs and outputs are artifacts persisted to disk — eg. a requirements spec, a design doc, or a delivery plan — not state held in a conversation thread or context window. This decouples skills temporally as well as structurally. A downstream skill doesn't need to be loaded into the same agent session as the upstream skill that produced its input.
 
-These design constraints allow these skills to be composed into all sorts of different agentic workflows.
+These design constraints are what allow these skills to be composed into all sorts of different agentic workflows.
 
-The below flow diagram represents one possible workflow composition. It agentic steps (🤖) and traditional automation scripts (⚙️) being used in combination. Humans are brought into the loop (🧑) where failures in the pipeline cannot be fully handled by only agentic and automated steps.
+The below flow diagram represents one possible workflow composition. It shows agentic steps (🤖) and traditional automation scripts (⚙️) being used in combination. Humans are brought into the loop (🧑) where failure modes in the pipeline cannot be fully handled by only the agentic and automated steps.
 
 ```mermaid
 flowchart LR
@@ -136,7 +136,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-Agentic workflows like this may themselves be orchestrated  by a supervisor agent (🤖), a script (⚙️), or a human (🧑) — or a combination of all three.
+Agentic workflows like this may themselves be orchestrated by a supervisor agent (🤖), a script (⚙️), or a human (🧑) — or a combination of all three.
 
 To allow for fully agentic workflows, in which no human checkpoints are needed at all, most of the workflow skills are designed to be run non-interactively. Most skills instruct the agents to take everything they need from the context window and the environment. The agents either complete their tasks autonomously, or they fail with a specific account of what input is missing. They're instructed not to prompt users for input beyond the initial prompt.
 
