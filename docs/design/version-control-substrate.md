@@ -1,6 +1,6 @@
 # Version control as the substrate
 
-Version control specifically — not just "a disk," but a system with commits, branches, and history — is the right substrate for these persistence layers, because the whole ecosystem then runs on one consistent mechanism.
+Version control specifically — not just "a disk," but a system with commits, branches, and history — is the right substrate for the [persistence](./persistence.md) of agent outputs, because the whole ecosystem then runs on one consistent mechanism.
 
 Everything an agentic workflow produces — not just the code, but the requirements, decisions, designs, and plans too — should be kept under version control.
 

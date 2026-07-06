@@ -9,3 +9,5 @@ We steer agents with skills, technical standards, and other guidelines, and we e
 An agent steered only by guides can repeat the same undetected mistakes indefinitely. An agent steered only by sensors will run in a slow, expensive trial-and-error loop.
 
 Reliable, efficient agentic workflows need a mix of both guides and sensors.
+
+Sensors themselves come in two categories — [deterministic sensors](./deterministic-sensors.md) and [inferential sensors](./inferential-sensors.md) — and both guides and sensors need to be [calibrated](./calibration.md) to the fragility of the task they constrain.

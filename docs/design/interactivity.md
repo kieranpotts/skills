@@ -1,6 +1,6 @@
 # Interactive versus non-interactive
 
-A key design decision in the interface definition of an agent skill is whether the skill can be executed non-interactively.
+A key design decision in the [interface definition](./interface-definitions.md) of an agent skill is whether the skill can be executed non-interactively.
 
 Non-interactive execution supports agentic workflows that run to completion without stopping to ask the user, taking only the initial prompt and what the environment provides for input. Non-interactive skills can be run unattended. And, depending on where they fit in a workflow, non-interactive instructions may be followed by parallel subagents, too.
 

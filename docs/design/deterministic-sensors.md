@@ -1,6 +1,6 @@
 # Deterministic sensors
 
-Sensors regulate the quality of the evolving software. There are two types: deterministic sensors, and inferential sensors.
+[Sensors](./guides-and-sensors.md) regulate the quality of the evolving software. There are two types: deterministic sensors, and [inferential sensors](./inferential-sensors.md).
 
 The deterministic sensors are our automated quality gates in which we impose our strong opinions on the expected outcomes from our agents. The deterministic sensors include our linters, build and packaging scripts, deployment pipelines, and of course the all-important acceptance tests.
 

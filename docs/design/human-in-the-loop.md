@@ -1,8 +1,8 @@
 # Human-in-the-loop
 
-Choosing where a workflow pauses for input is another key design decision in agentic workflows.
+Choosing where a workflow pauses for human input is a key design decision in agentic workflows.
 
-Interactive steps and human checkpoints should be inserted where decisions are genuinely the human's to make, or where the cost of an undetected error is unacceptably high.
+[Interactive steps](./interactivity.md) and human checkpoints should be inserted where decisions are genuinely the human's to make, or where the cost of an undetected error is unacceptably high.
 
 If, in testing your agentic workflow, you fail to consistently achieve predictable outcomes, then you need more humans-in-the-loop.
 

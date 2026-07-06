@@ -1,6 +1,6 @@
 # Agentic versus automated
 
-An agentic workflow consists of a mix of both agentic and automated steps. Humans enter the loop where steps cannot be reliably handled by some combination of agents and automation.
+An agentic workflow consists of a mix of both agentic and automated steps. [Humans enter the loop](./human-in-the-loop.md) where steps cannot be reliably handled by some combination of agents and automation.
 
 We should be clear about the definitions of automated versus agentic.
 
@@ -10,7 +10,7 @@ We should be clear about the definitions of automated versus agentic.
 
 Choosing which steps to automate, and which to hand off to agents, is a key design decision in agentic workflows.
 
-Agents should not be used where regular computation will suffice. Use agents for tasks that only large-language models have the capability. Use then for open-ended problems that require judgment to weigh up trade-offs, experimentation to try different paths forward, and reflection to evaluate one's own progress toward solving the problem.
+Agents should not be used where regular computation will suffice. Use agents only for tasks that demand the capabilities of large language models: open-ended problems that require judgment to weigh up trade-offs, experimentation to try different paths forward, and reflection to evaluate one's own progress toward solving the problem.
 
 An agentic step, encoded in a skill file, is worth adding wherever judgment can't be reduced to a deterministic rule.
 

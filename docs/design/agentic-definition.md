@@ -1,6 +1,6 @@
 # What is agentic software development?
 
-First, we should be clear about what we mean by "agentic software development".
+We should be clear about what we mean by "agentic software development".
 
 For decades, the developer's primary interface with the machine has been syntax — curly braces, type annotations, and the grammar of programming languages. In the 2020s, a new paradigm has arrived in which software developers express what they want to build, rather than how to build it. The human programmer provides intent, architecture, and judgment. A machine writes the syntax.
 

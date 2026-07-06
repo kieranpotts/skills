@@ -1,8 +1,8 @@
 # Composable pipelines
 
-So, an agentic workflow involves a pipeline of autonomous agents (🤖) and conventional scripts (⚙️), each given a narrowly-scoped task. The output from one agent or script is the input to the next one in the pipeline.
+An agentic workflow is a pipeline of autonomous agents (🤖) and conventional scripts (⚙️), each given a narrowly-scoped task. The output from one agent or script is the input to the next one in the pipeline.
 
-The scripted steps are the critical deterministic checkpoints that verify the outputs of the agentic steps. They catch failure modes and either feed back to prior steps or trip circuit breakers.
+The scripted steps are the critical [deterministic checkpoints](./deterministic-sensors.md) that verify the outputs of the agentic steps. They catch failure modes and either feed back to prior steps or trip circuit breakers.
 
 Humans (🧑) are brought into the loop when the pipeline fails, or wherever steps cannot be fully handled by a combination of agents and scripts.
 
