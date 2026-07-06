@@ -26,7 +26,7 @@ The following repositories are templates for these external dependencies:
 
 Running the whole ecosystem on version control means requirements, decisions, designs, plans, and code all coexist in the same system. All the artifacts that are read and written by agents are branched, committed, reviewed, and merged the same way. Auditability and rollback are built-in for free.
 
-**👉 [Read more about the design principles](./docs/design-notes.md) that underpin these skills.**
+**👉 [Read more about the design principles](./docs/design/) that underpin these skills.**
 
 The source files conform to the [Agent Skills](https://agentskills.io/) standard — natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source files to Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agent harnesses are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for more details.
 
