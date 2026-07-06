@@ -4,7 +4,7 @@ One of the risks of fully agentic/automated specs-to-code workflows is that you 
 
 This has numerous problems. If you have humans-in-the-loop downstream to review agent output, then those poor humans will have to contend with large diffs to review via pull requests — a big bottleneck in delivery. Worse still are all the risks associated with the resulting big bang releases.
 
-This can be resolved by breaking down deliverables into an incremental development plan, enabling continuous integration. This is represented in the flow diagram above. Here, a "plan" step is responsible for decomposing deliverables into small increments of work, which are subsequently integrated (in the "integrate" step) in a piecemeal fashion while keeping the system stable.
+This can be resolved by breaking down deliverables into an incremental development plan, enabling continuous integration. This is represented in the flow diagram in the section on [composable pipelines](./composable-pipelines.md), where a "plan" step is responsible for decomposing deliverables into small increments of work, which are subsequently integrated (in the "integrate" step) in a piecemeal fashion while keeping the system stable.
 
 Automated incremental build-outs like this require big up-front design, which itself is dependent on a complete specification being in place from the start. The trade-off for this extra front-loaded effort is that incremental delivery catches mistakes early, allows for course-correction when it's still easy to do, and it substantially reduces the inherent risks in agentic programming.
 
