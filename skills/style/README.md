@@ -90,3 +90,7 @@ flowchart LR
 - "Format this file."
 - "Fix the formatting / lint errors."
 - "Tidy up the whitespace and style here."
+
+## Recommended models
+
+Pure formatting changes need no reasoning at all — a small, fast model is the right choice, and an automated formatter is often better still.

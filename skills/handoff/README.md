@@ -87,6 +87,10 @@ flowchart LR
 - "Hand this off to the next session."
 - "Write up where we got to before I stop."
 
+## Recommended models
+
+Compacting a conversation into a handoff document is mostly summarization and cross-referencing existing artifacts. A mid-tier model handles this well; the main requirement is faithful compression, not deep reasoning.
+
 ## References
 
 - [Original source — mattpocock/skills `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): The skill this one is adapted from.

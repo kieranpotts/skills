@@ -25,3 +25,7 @@ flowchart LR
 - `/spike can Postgres LISTEN/NOTIFY sustain 5000 dispatches/sec at p95 < 50ms?`
 - "Spike on whether X is feasible."
 - "Prototype this to answer the open question."
+
+## Recommended models
+
+A spike answers a specific feasibility or performance question with throwaway code, so a mid-tier coding model is usually enough. Reach for a frontier reasoning model when the open question itself is subtle (e.g. concurrency or API ergonomics) and getting the experiment design wrong would waste the time-box.

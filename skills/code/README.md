@@ -88,3 +88,7 @@ flowchart LR
 - "Implement step 3 of the plan."
 - "Code this up."
 - "Build this change, test-first."
+
+## Recommended models
+
+Implementation of a single, already-scoped step benefits from a strong coding-tuned model, but the design decisions have already been made upstream, so a mid-tier coding model is usually enough. Reserve frontier reasoning models for steps with subtle algorithmic or concurrency complexity.

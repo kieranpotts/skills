@@ -4,7 +4,7 @@ description: Proofread prose — Markdown, AsciiDoc, reStructuredText, plain tex
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/technical-writer
 ---
 
 # Proof

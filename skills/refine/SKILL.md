@@ -4,7 +4,7 @@ description: Revise the requirements specification in response to feedback from 
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/product-manager
 ---
 
 # Refine

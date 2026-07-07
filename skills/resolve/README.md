@@ -88,3 +88,7 @@ flowchart LR
 - `/resolve PR #482`
 - "Action the review comments."
 - "Address the feedback on this PR."
+
+## Recommended models
+
+Actioning review comments is implementation work against an already-specified fix, so a mid-tier coding model is usually sufficient. Escalate to a frontier model only when a review comment is ambiguous enough to require re-deriving intent.

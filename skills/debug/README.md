@@ -90,6 +90,10 @@ flowchart LR
 - "Something is broken / throwing / failing."
 - "This got slower — find out why."
 
+## Recommended models
+
+Debugging hard, non-obvious failures is a hypothesis-driven investigation, and that calls for a frontier reasoning or extended-thinking model. The skill's value is in generating and discriminating between competing explanations under uncertainty — shallow pattern-matching tends to fixate on the first plausible cause.
+
 ## References
 
 - [Original source — mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md)

@@ -89,6 +89,10 @@ flowchart LR
 - "Grill me on this draft."
 - "Stress-test this design before we build it."
 
+## Recommended models
+
+Interrogating a draft design one question at a time, sharpening fuzzy language, and cross-referencing the codebase is judgment-heavy, interactive work. Use a frontier reasoning model — this is one of the few skills where the entire value proposition is the model's ability to find the weak point in an argument.
+
 ## References
 
 - Inspired by Matt Pocock's [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md) skill.

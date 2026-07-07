@@ -103,3 +103,7 @@ flowchart LR
 - "Review this PR."
 - "Review my changes before I push."
 - "Check this diff against the spec and our conventions."
+
+## Recommended models
+
+Reviewing a change for correctness, design, security, and completeness is judgment-heavy and adversarial by nature — you're looking for what the author missed. Use a frontier reasoning model; mid-tier models tend to under-report subtle defects and over-report style nitpicks.

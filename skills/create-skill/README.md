@@ -12,3 +12,7 @@ This skill is interactive (🧑). The agent may prompt the user for input.
 - "Create a skill for X."
 - "Turn this workflow into a skill."
 - "Improve the `<name>` skill."
+
+## Recommended models
+
+A mid-tier model handles most skill authoring well, since the schema and structure are well defined. Reach for a frontier reasoning model when drafting a genuinely new skill from scratch, where getting the scope, triggers, and boundaries right requires weighing trade-offs rather than following a template.

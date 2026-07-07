@@ -4,7 +4,7 @@ description: Extract durable lessons from the current session — corrections, v
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/technical-writer
 ---
 
 # Reflect

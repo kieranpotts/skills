@@ -4,7 +4,7 @@ description: Interview the user one question at a time to stress-test and sharpe
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/software-architect
 ---
 
 # Elaborate

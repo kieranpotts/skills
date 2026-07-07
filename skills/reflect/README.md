@@ -90,3 +90,7 @@ flowchart LR
 - "Reflect on this session."
 - "What should you remember from this?"
 - "Save the lessons from our work today."
+
+## Recommended models
+
+Extracting durable lessons from a session is a synthesis task over a conversation the model already has in context. A mid-tier model is sufficient — the bar is faithful, well-organized extraction, not novel reasoning.

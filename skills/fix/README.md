@@ -87,3 +87,7 @@ flowchart LR
 - "Fix the lint errors."
 - "Make the type-checker pass."
 - "This is broken."
+
+## Recommended models
+
+The cause is already known or evident from tool output, so this is mechanical remediation. A mid-tier coding model is sufficient; frontier reasoning is unnecessary overhead for well-diagnosed lint, build, or type errors.

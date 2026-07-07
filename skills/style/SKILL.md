@@ -4,7 +4,7 @@ description: Apply presentation-only code or content changes — whitespace, ind
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/computer-programmer
 ---
 
 # Style

@@ -12,3 +12,7 @@ It is reference-and-apply. It runs non-interactively (🤖).
 - "Cut a release."
 - "Tag version 2.1.0."
 - "Prepare a release branch."
+
+## Recommended models
+
+Release branching and versioning follow a fixed convention, so a small, fast model is sufficient. This is rule application, not judgment.

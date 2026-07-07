@@ -32,3 +32,7 @@ flowchart LR
 - "Test this against the spec."
 - "Verify this meets the acceptance criteria."
 - "Run acceptance testing on this change."
+
+## Recommended models
+
+Mapping acceptance criteria to evidence and classifying pass/fail/blocked is careful, structured verification work. A mid-tier model is generally sufficient; escalate to a frontier reasoning model when acceptance criteria are non-functional and require judgment about whether observed behavior actually satisfies intent.

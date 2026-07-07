@@ -4,7 +4,7 @@ description: Compact the current conversation into a handoff document so a fresh
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/technical-writer
 ---
 
 # Handoff

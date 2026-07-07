@@ -136,3 +136,7 @@ See the [**📋 Software Requirements Specification (SRS)**](https://github.com/
 * "Turn this into acceptance criteria."
 * "Turn this into a spec."
 * "Prepare these as software requirements."
+
+## Recommended models
+
+Validating a PRD against the specification schema and rejecting incomplete input is largely rule-based, so a mid-tier model handles it well. A frontier model helps when judging whether examples are genuinely unambiguous, which is a softer, more contestable call.

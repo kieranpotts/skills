@@ -32,3 +32,7 @@ flowchart LR
 - "Validate this against what the user actually needed."
 - "Did we build the right thing?"
 - "Check the working software against the original goal."
+
+## Recommended models
+
+Judging whether completed work actually meets the user's real need — as opposed to the letter of the acceptance criteria — is a subjective, high-stakes call. Use a frontier reasoning model; this skill exists precisely to catch the gap between "met the spec" and "solved the problem," which requires stepping outside the documented requirements.

@@ -27,3 +27,7 @@ flowchart LR
 - "Refine the spec based on this feedback."
 - "The acceptance criteria are wrong — fix the requirements."
 - "Update the specification to match what we learned."
+
+## Recommended models
+
+Revising a specification from acceptance-testing feedback requires understanding what was learned and why it invalidates existing acceptance criteria. A mid-tier reasoning model is generally sufficient; escalate to frontier when the feedback reveals a deeper misunderstanding of the requirements rather than a simple gap.

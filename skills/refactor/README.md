@@ -92,3 +92,7 @@ flowchart LR
 - "Refactor this for readability."
 - "Clean up the structure of this module."
 - "Reduce the coupling here without changing behavior."
+
+## Recommended models
+
+Improving internal quality without changing behavior requires judgment about design trade-offs, so a frontier reasoning model is the safer default, especially for anything beyond mechanical renames. Simple, well-scoped refactors can run on a mid-tier coding model.

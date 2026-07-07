@@ -92,3 +92,7 @@ flowchart LR
 - "Audit the architecture."
 - "Is the design still sound?"
 - "Check the codebase for structural drift."
+
+## Recommended models
+
+A frontier reasoning model is the right fit here. The skill's value comes from independent, unbiased judgment about structural quality — shallow abstractions, tangled dependencies, repeated patterns — and that kind of holistic, contestable judgment is where reasoning depth pays off most. A mid-tier model tends to default to generic, checklist-style observations rather than genuinely novel structural insight.

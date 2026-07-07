@@ -4,7 +4,7 @@ description: Improve the internal quality of existing code without changing its 
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/computer-programmer
 ---
 
 # Refactor

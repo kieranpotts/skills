@@ -14,3 +14,7 @@ This skill instructs the agent to run non-interactively (🤖).
 - "Merge this branch into `dev`."
 - "Integrate `temp/...` back into the trunk."
 - "Promote `dev` to `test`."
+
+## Recommended models
+
+Most merges are mechanical (choosing a strategy, resolving trivial conflicts), which a mid-tier model handles fine. Escalate to a frontier reasoning model only when conflicts are semantically tangled and resolving them requires understanding intent on both branches, not just diff lines.

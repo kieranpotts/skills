@@ -92,3 +92,7 @@ flowchart LR
 - "Design this feature."
 - "What are the options for building this?"
 - "Work out the architecture for this change."
+
+## Recommended models
+
+This is squarely a job for a frontier reasoning model, ideally with extended thinking enabled. Enumerating real alternatives and weighing them against competing design qualities (performance vs. simplicity, changeability vs. completeness) requires the kind of deliberate, multi-step reasoning that separates frontier models from mid-tier ones.

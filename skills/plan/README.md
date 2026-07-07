@@ -88,3 +88,7 @@ flowchart LR
 - "Break this design into steps."
 - "Plan the implementation."
 - "How should we sequence this work?"
+
+## Recommended models
+
+Decomposing a design into small, safely sequenced, independently mergeable steps is a reasoning-heavy planning task. A frontier reasoning model, ideally with extended thinking, produces materially better sequencing than a mid-tier model, which tends to under-think dependencies between steps.

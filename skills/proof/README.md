@@ -14,3 +14,7 @@ This skill instructs the agent to run non-interactively (🤖).
 - `/proof docs/`, `/proof README.md CHANGELOG.md`
 - "Proofread this document."
 - "Check this for spelling and grammar."
+
+## Recommended models
+
+Proofreading is precise but shallow work — spelling, grammar, consistency — with no technical judgment involved. A small, fast model is sufficient and often preferable, since it won't second-guess or rewrite content beyond the brief.

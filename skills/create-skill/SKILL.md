@@ -4,7 +4,7 @@ description: Create a new skill (SKILL.md) or improve an existing one, in this s
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/technical-writer
 ---
 
 # Create skill

@@ -4,7 +4,7 @@ description: Run a structured customer-discovery session to elicit business requ
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/product-manager
 ---
 
 # Discover

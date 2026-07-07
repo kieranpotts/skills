@@ -13,6 +13,10 @@ This skill instructs the agent to run non-interactively (🤖).
 - "Is this commit message valid?"
 - "Why did commit validation fail in CI?"
 
+## Recommended models
+
+A small, fast model is sufficient. Composing or validating a commit message against a fixed format and a set of allowed types is pattern-matching, not judgment.
+
 ## References
 
 - [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.

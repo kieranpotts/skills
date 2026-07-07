@@ -13,3 +13,7 @@ This skill instructs the agent to run non-interactively (🤖).
 - `/research`, `/skill:research` (prompts vary by harness).
 - `/research does library X support streaming responses, and from which version?`
 - "Research X." / "Look into X." / "Find out how X works."
+
+## Recommended models
+
+Research and synthesis over current external sources benefits from a frontier reasoning model with strong long-context handling — the value is in weighing conflicting sources and building a coherent, cited argument, not just retrieving facts. Extended thinking helps when the topic has genuine trade-offs to reconcile.

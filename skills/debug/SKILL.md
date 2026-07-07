@@ -4,7 +4,7 @@ description: Disciplined diagnosis loop for hard bugs and performance regression
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/computer-programmer
 ---
 
 # Debug

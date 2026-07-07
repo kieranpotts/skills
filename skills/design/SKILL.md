@@ -4,7 +4,7 @@ description: Explore architectural options and trade-offs for a feature or chang
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/software-architect
 ---
 
 # Design

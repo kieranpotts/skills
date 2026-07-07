@@ -101,6 +101,10 @@ flowchart LR
 - "Work the incoming issue queue."
 - "Prep this issue for an agent."
 
+## Recommended models
+
+Classifying issues and moving them through a state machine is largely rule-based, so a mid-tier model is sufficient for most of the workflow. A frontier model helps when reproducing an ambiguous bug report or judging whether an issue needs to be "grilled into shape" before it's ready for an agent.
+
 ## References
 
 - [Original source — mattpocock/skills `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md): The skill this one is adapted from, including the agent-brief and out-of-scope conventions.

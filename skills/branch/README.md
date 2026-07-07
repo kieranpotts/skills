@@ -12,3 +12,7 @@ This skill instructs the agent to run non-interactively (🤖).
 - "What should I call this branch?"
 - "Create a branch for this work."
 - "Is this branch name valid?"
+
+## Recommended models
+
+This is a rule-lookup task — apply a naming convention and a validation regex. A small, fast model is sufficient; no extended reasoning is needed.

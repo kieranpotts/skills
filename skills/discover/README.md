@@ -93,6 +93,10 @@ flowchart LR
 - "Help me understand what the customer actually needs."
 - "Interview me about this feature."
 
+## Recommended models
+
+Requirements elicitation is an interactive, ambiguity-resolving conversation, best run on a frontier model with strong conversational reasoning. The skill needs to notice when an answer is vague, contradictory, or incomplete and probe further — a capability that degrades noticeably in smaller models.
+
 ## References
 
 - [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015): The core technique — rules, examples, and questions, captured in a single session.

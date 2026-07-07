@@ -4,7 +4,7 @@ description: Audit a code change for correctness, design, clarity, test coverage
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: [modelfile-name]
+  preferred_model: ollama/code-reviewer
 ---
 
 # Review
