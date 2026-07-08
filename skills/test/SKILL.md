@@ -144,49 +144,49 @@ orchestrator's concern, not this skill's.
 
 ##  Rules
 
--   **Test against the specification, not the implementation.**
+-   **You MUST test against the specification, not the implementation.**
 
-    Read ACs and run them as a user would. Reading the code first biases testing
-    toward what the code does, not what it should do. Specification-first
-    testing is how you catch features that pass their own tests but miss the
-    requirement.
+    You MUST read ACs and run them as a user would. Reading the code first
+    biases testing toward what the code does, not what it should do.
+    Specification-first testing is how you catch features that pass their own
+    tests but miss the requirement.
 
--   **Record observable evidence for every AC.**
+-   **You MUST record observable evidence for every AC.**
 
     "Manually verified" is not evidence. A test name, a measurement, a
     screenshot, a log excerpt — something a reviewer can re-examine without
     re-running the work.
 
--   **NFRs are first-class.**
+-   **NFRs MUST be treated as first-class.**
 
-    A solution that meets all functional ACs but misses an NFR is incomplete.
-    Performance, security, and accessibility get the same rigor as functional
-    verification.
+    A solution that meets all functional ACs but misses an NFR MUST be treated
+    as incomplete. Performance, security, and accessibility MUST get the same
+    rigor as functional verification.
 
--   **A failure pauses the run.**
+-   **A failure MUST pause the run.**
 
-    Do not push through reds to "see what else breaks". A higher-level failure
-    usually masks lower-level ones; a lower-level failure invalidates
+    You MUST NOT push through reds to "see what else breaks". A higher-level
+    failure usually masks lower-level ones; a lower-level failure invalidates
     higher-level results.
 
--   **Do not weaken the specification to make a test pass.**
+-   **You MUST NOT weaken the specification to make a test pass.**
 
     If a test fails because the AC is wrong, that is a specification change,
-    processed through the same review path as any other change to requirements.
-    Silently relaxing an AC to ship is how regressions arrive in production
-    months later.
+    and MUST be processed through the same review path as any other change to
+    requirements. Silently relaxing an AC to ship is how regressions arrive in
+    production months later.
 
--   **Time-box exploratory testing.**
+-   **You MUST time-box exploratory testing.**
 
-    Exploratory testing is unbounded by nature. Time-box it (15-30 min for a
-    typical change; longer for high-risk areas). The point is fresh-eyes
-    probing, not exhaustive coverage.
+    Exploratory testing is unbounded by nature. You MUST time-box it (15-30
+    min for a typical change; longer for high-risk areas). The point is
+    fresh-eyes probing, not exhaustive coverage.
 
--   **Distinguish blocked from skipped.**
+-   **You MUST distinguish blocked from skipped.**
 
     Blocked = could not evaluate (environment broken, dependency unavailable, AC
-    undefined). Skipped = chose not to evaluate. Blockers need resolving; skips
-    need justifying.
+    undefined). Skipped = chose not to evaluate. Blockers MUST be resolved;
+    skips MUST be justified.
 
 ## Examples
 
@@ -263,25 +263,25 @@ not delete.
 
 ##  Success criteria
 
--   **Every AC has a status and evidence.**
+-   **Every AC MUST have a status and evidence.**
 
     PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence (test,
     measurement, recording, log).
 
--   **Functional and non-functional ACs are both covered.**
+-   **Functional and non-functional ACs MUST both be covered.**
 
-    Neither is silently skipped.
+    Neither MUST be skipped.
 
--   **Failures and blockers are not downgraded.**
+-   **Failures and blockers MUST NOT be downgraded.**
 
-    A FAIL reported as a defect is not flipped to PASS without re-verification.
-    A BLOCKED is not silently dropped.
+    A FAIL reported as a defect MUST NOT be flipped to PASS without
+    re-verification. A BLOCKED MUST NOT be silently dropped.
 
--   **The verification environment is recorded.**
+-   **The verification environment MUST be recorded.**
 
-    Especially for NFR measurements, the environment (hardware, dataset, traffic
-    profile) is captured alongside the numbers.
+    Especially for NFR measurements, the environment (hardware, dataset,
+    traffic profile) MUST be captured alongside the numbers.
 
--   **The verdict is explicit.**
+-   **The verdict MUST be explicit.**
 
     "Ready to ship", "ready for review", or "blocked on X" — not implied.

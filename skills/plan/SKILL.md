@@ -125,47 +125,49 @@ artefact and the skill stops; it writes no code itself.
 
 ##  Rules
 
--   **Each step ships independently.**
+-   **Each step MUST ship independently.**
 
     "Step 5 of 8 is half-done in `dev`" is a planning failure. Either step 5 is
     mergeable on its own, or it is not a step.
 
--   **Risky first, easy last.**
+-   **You MUST sequence risky first, easy last.**
 
     A plan that front-loads polish and back-loads the unknown maximizes the cost
     of being wrong. Reverse it.
 
--   **One concern per step.**
+-   **Each step MUST address one concern.**
 
     Mixing a schema migration, a new endpoint, and a UI change into a single
     step turns a small problem into a tangled rollback. Split on concerns.
 
 -   **Plans are revisable, not sacred.**
 
-    The plan made before step 1 is the plan with the least information. Update
-    it after each step as you learn. Re-order, split, drop steps — and note why.
+    The plan made before step 1 is the plan with the least information. You SHOULD
+    update it after each step as you learn: re-order, split, drop steps — and
+    note why.
 
 -   **Feature flags are tools, not asks.**
 
-    Use a flag when it lets you ship a step independently without exposing it.
-    Don't add a flag to support a hypothetical future toggle. Remove the flag
-    after the feature lands (track the cleanup as a final step).
+    You SHOULD use a flag when it lets you ship a step independently without
+    exposing it. You MUST NOT add a flag to support a hypothetical future toggle.
+    You MUST remove the flag after the feature lands (track the cleanup as a final
+    step).
 
--   **Prefer AFK over HITL.**
+-   **You SHOULD prefer AFK over HITL.**
 
     Steps an agent can complete and merge without human input are cheaper,
     faster, and parallelizable. When a step truly requires a human
     (architectural call, design or UI review, manual verification, security
-    sign-off), tag it `HITL` explicitly so the dependency on human time is
-    visible up front — and so the plan can be re-ordered to cluster or
+    sign-off), you MUST tag it `HITL` explicitly so the dependency on human time
+    is visible up front — and so the plan can be re-ordered to cluster or
     front-load those steps when synchronous time is scarce.
 
--   **No step is "do everything else".**
+-   **No step MUST be "do everything else".**
 
-    A vague final step ("polish and tests") hides scope. Enumerate what's in it,
-    even briefly.
+    A vague final step ("polish and tests") hides scope. You MUST enumerate
+    what's in it, even briefly.
 
--   **Match commit type to step type.**
+-   **You MUST match commit type to step type.**
 
     Use the project's commit-type vocabulary. Most plan steps are `step:`
     commits (building blocks toward a user-facing change), with the final
@@ -238,22 +240,23 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
 ##  Success criteria
 
--   **Every step is independently mergeable, testable, and reversible.**
+-   **Every step MUST be independently mergeable, testable, and reversible.**
 
-    Re-read each step with that filter. Anything that fails the filter is split.
+    Re-read each step with that filter. Anything that fails the filter MUST be
+    split.
 
--   **The first step is the thinnest plausible end-to-end slice.**
+-   **The first step MUST be the thinnest plausible end-to-end slice.**
 
     Not the easiest. Not the most polished. The thinnest.
 
--   **Riskier steps come before easier ones.**
+-   **Riskier steps MUST come before easier ones.**
 
     Front-loaded risk is a feature of a good plan, not a flaw.
 
--   **Each step has a stated pass/fail signal.**
+-   **Each step MUST have a stated pass/fail signal.**
 
     A test name, a curl command, a metric threshold — something observable.
 
--   **Feature flags, fixtures, and migrations are named where used.**
+-   **Feature flags, fixtures, and migrations MUST be named where used.**
 
-    Implicit coupling between steps is called out.
+    Implicit coupling between steps MUST be called out.

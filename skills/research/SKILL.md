@@ -113,45 +113,45 @@ explicit step the caller initiates.
 
 ## Rules
 
--   **Cite everything that matters.**
+-   **You MUST cite everything that matters.**
 
-    Every claim the decision rests on carries a source URL and an access date.
+    Every claim the decision rests on MUST carry a source URL and an access date.
     An uncited claim in a research report is just an opinion.
 
--   **Primary sources beat secondary; recent beats old.**
+-   **You SHOULD prefer primary sources over secondary, and recent over old.**
 
     Prefer the spec over the blog post about the spec. Prefer the current docs
-    over a three-year-old tutorial. When you must rely on something older, flag
-    its age.
+    over a three-year-old tutorial. When you must rely on something older, you
+    MUST flag its age.
 
--   **Date version- and time-sensitive facts.**
+-   **You MUST date version- and time-sensitive facts.**
 
-    "As of version 4.2" or "as of 2026-06" attached to a claim is mandatory
+    "As of version 4.2" or "as of 2026-06" attached to a claim is REQUIRED
     whenever the fact can change. The world moves; the report should say when it
     was photographed.
 
--   **Distinguish fact from inference.**
+-   **You MUST distinguish fact from inference.**
 
-    Sourced facts and your own synthesis are different categories and must read
-    as different categories. Recommendations are clearly labeled as yours, not
-    the sources'.
+    Sourced facts and your own synthesis are different categories and MUST read
+    as different categories. Recommendations MUST be clearly labeled as yours,
+    not the sources'.
 
--   **Surface disagreement; do not launder it.**
+-   **You MUST surface disagreement, not launder it.**
 
     When sources conflict, present the conflict and your read of which is more
-    credible and why. Do not silently collapse it into a single confident
+    credible and why. You MUST NOT silently collapse it into a single confident
     answer.
 
--   **Discovery only — no production changes.**
+-   **Discovery only: you MUST NOT make production changes.**
 
-    This skill never edits code, project docs, or shipped skills. It produces a
+    This skill MUST NOT edit code, project docs, or shipped skills. It produces a
     report. Acting on the report is a separate, explicit step.
 
--   **Stop when the framed question is answered.**
+-   **You MUST stop when the framed question is answered.**
 
     Research expands to fill the time available. When the questions from step 1
-    are answered to the confidence the decision needs, stop — do not keep
-    reading for completeness.
+    are answered to the confidence the decision needs, you MUST stop — you MUST
+    NOT keep reading for completeness.
 
 ## Report format
 
@@ -219,26 +219,26 @@ here should still have what they need.>
 
 ## Success criteria
 
--   **The framed question is answered, or its unanswerability is explained.**
+-   **The framed question MUST be answered, or its unanswerability explained.**
 
     The report opens with a direct answer, or with a clear statement of why no
     answer was reachable and what would be needed.
 
--   **Every decision-bearing claim is cited and, where time-sensitive, dated.**
+-   **Every decision-bearing claim MUST be cited and, where time-sensitive, dated.**
 
     A reader can follow each material claim to a source and judge whether it is
     still current.
 
--   **Fact and inference are visibly separated.**
+-   **Fact and inference MUST be visibly separated.**
 
     Nothing you inferred is presented as something a source asserted.
 
--   **The report is actionable from its first few lines.**
+-   **The report MUST be actionable from its first few lines.**
 
     The conclusion leads; the evidence supports. The reader is not made to
     assemble the answer themselves.
 
--   **No production artifact was changed.**
+-   **No production artifact MUST have been changed.**
 
     Code, project docs, and shipped skills are untouched; the output is a report
     plus a suggested destination.

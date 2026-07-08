@@ -126,60 +126,61 @@ structural or behavioral change.
 
 ##  Rules
 
--   **Behavior preservation is non-negotiable.**
+-   **Behavior preservation MUST be non-negotiable.**
 
-    A formatting change that alters runtime behavior is mislabeled. Tests pass
-    before and after; observable output is byte-identical for any given input.
-    If you cannot promise that, it is not a style change.
+    A formatting change that alters runtime behavior is mislabeled. Tests MUST
+    pass before and after; observable output MUST be byte-identical for any
+    given input. If you cannot promise that, it is not a style change.
 
--   **Presentation only — no structural edits.**
+-   **Presentation only — there MUST be no structural edits.**
 
     Renaming a variable, extracting a function, reordering parameters,
     simplifying a conditional — all are structural refactors, not style. Even
     renames that "look like" formatting (eg. casing a constant from `myConst` to
     `MY_CONST`) change identifier resolution and are structural.
 
--   **Never bundle with feature, fix, or refactor work.**
+-   **You MUST NOT bundle with feature, fix, or refactor work.**
 
     Mixed commits hide the substantive change inside formatting noise and make
-    `git blame` useless. Format first as `style:` commits; then change behavior
-    as `feature:`, `fix:`, `refactor:`, or `step:` commits. Or, more commonly:
-    format *after* the change is complete, as a follow-up commit.
+    `git blame` useless. You MUST keep formatting separate: format first as
+    `style:` commits, then change behavior as `feature:`, `fix:`, `refactor:`,
+    or `step:` commits. Or, more commonly: format *after* the change is
+    complete, as a follow-up commit.
 
--   **Prefer automated formatters over hand-edits.**
+-   **You SHOULD prefer automated formatters over hand-edits.**
 
     A formatter applies the same rule everywhere and is reproducible. Hand-edits
     drift, vary by author, and re-emerge in the next diff. If the project has no
     formatter, that is the bug to fix — via a `maintenance:` commit — before the
     next manual style pass.
 
--   **Do not change formatter configuration in a style commit.**
+-   **You MUST NOT change formatter configuration in a style commit.**
 
     Changing `.prettierrc` then re-running the formatter changes two things at
-    once. Split: one `maintenance:` commit changes the config; one `style:`
-    commit applies the new style.
+    once. You MUST split: one `maintenance:` commit changes the config; one
+    `style:` commit applies the new style.
 
--   **Respect generated and vendored files.**
+-   **You MUST respect generated and vendored files.**
 
     Generated code (codegen output, transpiled bundles, vendored third-party
-    files) should not be reformatted — the generator owns the format. Add such
-    paths to the formatter's ignore list.
+    files) MUST NOT be reformatted — the generator owns the format. You MUST add
+    such paths to the formatter's ignore list.
 
--   **Watch significant-whitespace languages.**
+-   **You MUST watch significant-whitespace languages.**
 
     In Python, YAML, Make, and similar, indentation is syntax. A "harmless"
-    re-indent can change meaning. Always run the test suite; for YAML/config
-    files, run a parser/loader after the change.
+    re-indent can change meaning. You MUST always run the test suite; for
+    YAML/config files, you MUST run a parser/loader after the change.
 
--   **Reformat in its own scope.**
+-   **You MUST reformat in its own scope.**
 
     A formatting commit that touches a hundred unrelated files because the
     formatter happened to find them is harder to review than one that names a
-    directory and stops there. Pick a scope and stick to it.
+    directory and stops there. You MUST pick a scope and stick to it.
 
--   **The diff should be visually large but semantically empty.**
+-   **The diff SHOULD be visually large but semantically empty.**
 
-    A reviewer should be able to run `git diff --ignore-all-space` (or `git diff
+    A reviewer MUST be able to run `git diff --ignore-all-space` (or `git diff
     -w`) and see an empty diff. If `-w` still shows changes, the commit is not
     pure formatting.
 
@@ -251,28 +252,29 @@ style: convert tab indentation to spaces across src/
 
 ##  Success criteria
 
--   **External behavior is unchanged.**
+-   **External behavior MUST be unchanged.**
 
-    Tests pass after the style pass. `git diff -w` between pre and post shows no
-    changes.
+    Tests MUST pass after the style pass. `git diff -w` between pre and post
+    MUST show no changes.
 
--   **The diff contains only presentation changes.**
+-   **The diff MUST contain only presentation changes.**
 
-    No renames, no logic edits, no structural moves. A reviewer can scan it in
-    seconds and approve without close reading.
+    There MUST be no renames, no logic edits, no structural moves. A reviewer
+    can scan it in seconds and approve without close reading.
 
--   **The commit is a single `style:` commit per scope.**
+-   **The commit MUST be a single `style:` commit per scope.**
 
-    No bundled feature, fix, refactor, or config changes.
+    There MUST be no bundled feature, fix, refactor, or config changes.
 
--   **The formatter, if any, was used as configured.**
+-   **The formatter, if any, MUST have been used as configured.**
 
-    Not hand-edited around the formatter. Not run with non-standard options.
+    It MUST NOT be hand-edited around the formatter. It MUST NOT be run with
+    non-standard options.
 
--   **Tooling gap, if any, is captured.**
+-   **Tooling gap, if any, MUST be captured.**
 
-    If hand-formatting was necessary, a follow-up `maintenance:` task exists to
-    add or fix the automation.
+    If hand-formatting was necessary, a follow-up `maintenance:` task MUST exist
+    to add or fix the automation.
 
 ## References
 

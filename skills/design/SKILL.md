@@ -150,53 +150,53 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
 
 ##  Rules
 
--   **Do not design against an unapproved specification.**
+-   **You MUST NOT design against an unapproved specification.**
 
     The specification is the design's contract. Until the user has approved it
     (`ACCEPTED`), its acceptance criteria can still change in review — designing
     against a moving target wastes the work. If the specification is unapproved,
-    missing, or still `PROPOSED`, stop and send the user back to approve it (or
-    to write one, clarifying the requirements first, if it does not yet exist).
-    This is the SDLC phase gate.
+    missing, or still `PROPOSED`, you MUST stop and send the user back to approve
+    it (or to write one, clarifying the requirements first, if it does not yet
+    exist). This is the SDLC phase gate.
 
--   **Always produce alternatives.**
+-   **You MUST always produce alternatives.**
 
     A design that considers only one option is not a design. Even an
     obviously-best choice gets stronger when its alternatives are written down
     and rejected for stated reasons.
 
--   **Evaluate against the qualities, not against personal preference.**
+-   **You MUST evaluate against the qualities, not against personal preference.**
 
     The nine qualities are universal. Personal preference and habit are not.
     When you reach for "I prefer X", restate it as which quality you are
     optimizing and why it matters here.
 
--   **Identify the qualities that dominate this domain.**
+-   **You MUST identify the qualities that dominate this domain.**
 
     Not all qualities matter equally in every domain. A financial ledger weights
     correctness over experience; a marketing site weights experience over
     performance; a long-lived internal tool weights habitability over
-    simplicity. Name the priority ordering before evaluating options.
+    simplicity. You MUST name the priority ordering before evaluating options.
 
--   **Surface NFRs early.**
+-   **You MUST surface NFRs early.**
 
     NFRs around scalability, durability, security, and compliance often dictate
     the design (technology stack, database, deployment topology) and are
-    expensive to retrofit. If the specification omitted them, stop and clarify
-    before continuing.
+    expensive to retrofit. If the specification omitted them, you MUST stop and
+    clarify before continuing.
 
--   **Cost the operational tail.**
+-   **You MUST cost the operational tail.**
 
     Designs do not end at "shipped". Account for monitoring, alerting, on-call
     burden, backup/restore, schema migration, dependency lifecycle. Cheap to
     build does not mean cheap to own.
 
--   **Prefer the boring option when qualities are close.**
+-   **You SHOULD prefer the boring option when qualities are close.**
 
     Familiar technology, fewer moving parts, smaller blast radius. Novelty has a
     cost the design qualities do not fully capture.
 
--   **Prefer deep modules to shallow ones.**
+-   **You SHOULD prefer deep modules to shallow ones.**
 
     A module is *deep* when a small, simple interface hides a lot of useful
     behavior — callers benefit from leverage. A module is *shallow* when its
@@ -209,10 +209,10 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
     implementation; it passes most of its arguments straight through; deleting
     it would not concentrate complexity. Signs of a deep module: many callers; a
     small, stable interface; the implementation can be rewritten without
-    changing any caller. Aim for depth when enumerating options, not just when
-    evaluating them.
+    changing any caller. You SHOULD aim for depth when enumerating options, not
+    just when evaluating them.
 
--   **Document the rejected options too.**
+-   **You MUST document the rejected options too.**
 
     The "why not" is often more useful to future readers than the "why". Future
     requirements may reopen one of the rejected options — the prior reasoning
@@ -287,31 +287,31 @@ Consequences:
 
 ##  Success criteria
 
--   **The entry gate was checked: the specification is approved.**
+-   **The entry gate MUST have been checked: the specification is approved.**
 
-    Design proceeded only against an approved (`ACCEPTED`) specification. If the
-    specification was unapproved or merely proposed, the skill stopped and sent
-    the user to approve it first.
+    Design MUST proceed only against an approved (`ACCEPTED`) specification. If
+    the specification was unapproved or merely proposed, the skill MUST have
+    stopped and sent the user to approve it first.
 
--   **The constraints are written down.**
+-   **The constraints MUST be written down.**
 
-    Functional ACs, NFRs, existing-system shape, and budget are explicit before
-    any option is enumerated.
+    Functional ACs, NFRs, existing-system shape, and budget MUST be explicit
+    before any option is enumerated.
 
--   **At least two alternatives are evaluated per decision point.**
+-   **At least two alternatives MUST be evaluated per decision point.**
 
-    No decision is presented as the only option.
+    No decision MUST be presented as the only option.
 
--   **Each option has been evaluated against the nine qualities.**
+-   **Each option MUST have been evaluated against the nine qualities.**
 
     Not every quality needs detailed treatment for every option, but the
-    dominant qualities for the domain are explicitly weighed.
+    dominant qualities for the domain MUST be explicitly weighed.
 
--   **The recommendation names which qualities it prioritizes.**
+-   **The recommendation MUST name which qualities it prioritizes.**
 
     "We pick X because it optimizes for Y and Z, accepting weaker W."
 
--   **The decision is captured durably.**
+-   **The decision MUST be captured durably.**
 
     ADR, design doc, or PR description — somewhere a future reader can find it
     without asking.

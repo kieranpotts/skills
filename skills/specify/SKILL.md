@@ -179,81 +179,84 @@ stop to prompt.
 
 ##  Rules
 
--   **Non-interactive. Validate, don't elicit.**
+-   **You MUST validate non-interactively, and MUST NOT elicit.**
 
-    This skill does NOT ask the user questions or gather missing requirements.
-    Its input is a PRD. If the PRD is incomplete, reject it with reasons so the
-    requirements can be gathered separately — never interview the user to fill
-    the gap yourself.
+    This skill MUST NOT ask the user questions or gather missing requirements.
+    Its input is a PRD. If the PRD is incomplete, you MUST reject it with
+    reasons so the requirements can be gathered separately — you MUST NOT
+    interview the user to fill the gap yourself.
 
--   **Reject substantive gaps; never invent content.**
+-   **You MUST reject substantive gaps, and MUST NOT invent content.**
 
     When the PRD is missing a rule, an example, a counter-example, a scope
-    boundary, or a measurable NFR target, reject — do NOT fabricate the missing
-    material. Only purely mechanical gaps (a `Feature` title, scenario ordering,
-    phrasing) may be filled without rejecting.
+    boundary, or a measurable NFR target, you MUST reject — you MUST NOT
+    fabricate the missing material. Only purely mechanical gaps (a `Feature`
+    title, scenario ordering, phrasing) MAY be filled without rejecting.
 
--   **Follow the SRS repository's procedure; read it, don't invoke it.**
+-   **You MUST follow the SRS repository's procedure; read it, and MUST NOT
+    invoke it.**
 
-    Once the PRD is validated, carry out the repository's scaffold → author →
-    mark-ready procedure (defined by `draft-spec` → `write-spec` →
+    Once the PRD is validated, you MUST carry out the repository's scaffold →
+    author → mark-ready procedure (defined by `draft-spec` → `write-spec` →
     `propose-spec`, or the equivalents its `AGENTS.md` names) in sequence,
-    autonomously. Read each local skill and execute *its* steps yourself,
-    non-interactively — do NOT literally invoke them; they are `interactive:
-    yes` and would stop to prompt. This skill's value is the PRD gate plus
-    running that procedure unattended. The *rules* for each phase — the format,
-    the conventions, the lifecycle — belong to the local skills and are read
-    fresh from them, never hard-coded here.
+    autonomously. You MUST read each local skill and execute *its* steps
+    yourself, non-interactively — you MUST NOT literally invoke them; they are
+    `interactive: yes` and would stop to prompt. This skill's value is the PRD
+    gate plus running that procedure unattended. The *rules* for each phase —
+    the format, the conventions, the lifecycle — belong to the local skills and
+    are read fresh from them, never hard-coded here.
 
--   **Run autonomously once the PRD passes.**
+-   **You MUST run autonomously once the PRD passes.**
 
-    After validation, drive the three phases through to `PROPOSED` without
-    pausing for user input. The PRD is the contract; everything needed is in it.
-    Stop only to reject (a validation failure surfaced mid-run) or at the
-    natural end, when the proposal is ready for human review.
+    After validation, you MUST drive the three phases through to `PROPOSED`
+    without pausing for user input. The PRD is the contract; everything needed
+    is in it. You MUST stop only to reject (a validation failure surfaced
+    mid-run) or at the natural end, when the proposal is ready for human
+    review.
 
--   **The outcome is an approval request, not an approval.**
+-   **The outcome MUST be an approval request, not an approval.**
 
-    This skill never approves its own output. It stops at `PROPOSED` and hands
-    the specification to the user to review and approve. Do NOT advance the
-    proposal to `ACCEPTED`, and do NOT proceed to the design phase, on the
-    skill's own authority — approval is the user's decision, and it gates the
-    next SDLC phase.
+    This skill MUST NOT approve its own output. It MUST stop at `PROPOSED` and
+    hand the specification to the user to review and approve. You MUST NOT
+    advance the proposal to `ACCEPTED`, and MUST NOT proceed to the design
+    phase, on the skill's own authority — approval is the user's decision, and
+    it gates the next SDLC phase.
 
--   **Read the SRS repository's `AGENTS.md`, not its `CONTRIBUTING.md`.**
+-   **You MUST read the SRS repository's `AGENTS.md`, not its
+    `CONTRIBUTING.md`.**
 
     `AGENTS.md` is the agent's workflow; `CONTRIBUTING.md` is the human's. They
-    may differ deliberately. Follow `AGENTS.md`.
+    may differ deliberately. You MUST follow `AGENTS.md`.
 
--   **Never hard-code the SRS workflow.**
+-   **You MUST NOT hard-code the SRS workflow.**
 
     The branch convention, proposal template, lifecycle states, and filing
-    mechanics live in the target repository. Read them fresh each time. Do not
-    assume them from memory.
+    mechanics live in the target repository. You MUST read them fresh each
+    time. You MUST NOT assume them from memory.
 
--   **Stop if no SRS is declared.**
+-   **You MUST stop if no SRS is declared.**
 
     If the project's `AGENTS.md` does not declare an `SRS` location under
-    `Workflow repositories`, do not write requirements anywhere. Tell the user
-    the project is not wired to an SRS.
+    `Workflow repositories`, you MUST NOT write requirements anywhere. You
+    MUST tell the user the project is not wired to an SRS.
 
--   **Defer the content rules to the SRS repository.**
+-   **You MUST defer the content rules to the SRS repository.**
 
     *How* the specification is written — the AC format, the way NFRs are
-    expressed, the artifact taxonomy, and the Definition of Ready — is owned by
-    the target SRS repository (in this ecosystem, its `write-spec` skill,
-    reachable from `AGENTS.md`). Read and apply those rules; do NOT hard-code a
-    format from this skill. This is what lets each project tune its own
-    specification standards.
+    expressed, the artifact taxonomy, and the Definition of Ready — is owned
+    by the target SRS repository (in this ecosystem, its `write-spec` skill,
+    reachable from `AGENTS.md`). You MUST read and apply those rules; you MUST
+    NOT hard-code a format from this skill. This is what lets each project
+    tune its own specification standards.
 
--   **Specify the need the PRD states, not a literal transcription.**
+-   **You MUST specify the need the PRD states, not a literal transcription.**
 
-    Translate the PRD's *outcome* and *rules* into criteria that meet the
-    underlying need — not a mechanical restatement of surface wording. If the
-    PRD itself is internally incoherent, or its stated solution plainly won't
-    meet its own stated goal, that is a validation failure: reject it and name
-    the contradiction. (Surfacing the real need from a vague request is the
-    upstream discovery step's job, not this skill's.)
+    You MUST translate the PRD's *outcome* and *rules* into criteria that meet
+    the underlying need — not a mechanical restatement of surface wording. If
+    the PRD itself is internally incoherent, or its stated solution plainly
+    won't meet its own stated goal, that is a validation failure: you MUST
+    reject it and name the contradiction. (Surfacing the real need from a
+    vague request is the upstream discovery step's job, not this skill's.)
 
 ## Examples
 
@@ -317,51 +320,51 @@ whatever format and process that repository prescribes.
 
 ##  Success criteria
 
--   **The proposal reaches `PROPOSED` via the repository's own procedure.**
+-   **The proposal MUST reach `PROPOSED` via the repository's own procedure.**
 
-    On a valid PRD, the skill carries out scaffold → author → mark-ready (the
-    procedure defined by `draft-spec` → `write-spec` → `propose-spec`, or the
-    repository's equivalents) autonomously, leaving an open, non-draft proposal
-    pull request labeled for review — not an arbitrary file or a half-finished
-    draft. The format and lifecycle rules are read from the local skills, not
-    reinvented here.
+    On a valid PRD, the skill MUST carry out scaffold → author → mark-ready
+    (the procedure defined by `draft-spec` → `write-spec` → `propose-spec`, or
+    the repository's equivalents) autonomously, leaving an open, non-draft
+    proposal pull request labeled for review — not an arbitrary file or a
+    half-finished draft. The format and lifecycle rules MUST be read from the
+    local skills, not reinvented here.
 
--   **The user is told the specification awaits their approval.**
+-   **The user MUST be told the specification awaits their approval.**
 
-    The skill's closing message states that the proposal is `PROPOSED` and needs
-    the user's review and approval, and that the design phase MUST NOT begin
-    until the specification is approved (`ACCEPTED`). The pull request and
-    discussion thread are linked for the user to act on. The skill does not
-    approve, and does not advance to design, itself.
+    The skill's closing message states that the proposal is `PROPOSED` and
+    needs the user's review and approval, and that the design phase MUST NOT
+    begin until the specification is approved (`ACCEPTED`). The pull request
+    and discussion thread are linked for the user to act on. The skill MUST
+    NOT approve, and MUST NOT advance to design, itself.
 
--   **The specification conforms to the SRS repository's content rules.**
+-   **The specification MUST conform to the SRS repository's content rules.**
 
-    The authored artifacts follow the target repository's format and conventions
-    (its `write-spec` rules) — acceptance criteria in the prescribed form,
-    non-functional requirements as that repository requires, no implementation
-    detail leaking in.
+    The authored artifacts MUST follow the target repository's format and
+    conventions (its `write-spec` rules) — acceptance criteria in the
+    prescribed form, non-functional requirements as that repository requires,
+    and implementation detail MUST NOT leak in.
 
--   **Functional and non-functional requirements are both present.**
+-   **Functional and non-functional requirements MUST both be present.**
 
-    Even if the NFR section is "no new NFRs — inherits from system baseline", it
-    is stated explicitly, not omitted.
+    Even if the NFR section is "no new NFRs — inherits from system baseline",
+    it MUST be stated explicitly, not omitted.
 
--   **Out-of-scope items are named.**
+-   **Out-of-scope items MUST be named.**
 
-    The specification includes an explicit list of deferred features, adjacent
-    functionality not under review, and decisions ruled out during discovery —
-    not just what is being built.
+    The specification MUST include an explicit list of deferred features,
+    adjacent functionality not under review, and decisions ruled out during
+    discovery — not just what is being built.
 
--   **The user, goal, and value are carried from the PRD.**
+-   **The user, goal, and value MUST be carried from the PRD.**
 
-    Each feature block names *who* it is for, *what* they achieve, and *why* —
-    traceable to the PRD's outcome and stakeholders.
+    Each feature block MUST name *who* it is for, *what* they achieve, and
+    *why* — traceable to the PRD's outcome and stakeholders.
 
--   **The Definition of Ready is satisfied, or the PRD was rejected for the
-    gap.**
+-   **The Definition of Ready MUST be satisfied, or the PRD MUST have been
+    rejected for the gap.**
 
--   **An incomplete PRD is rejected, not patched.**
+-   **An incomplete PRD MUST be rejected, not patched.**
 
-    When the PRD lacks substantive content, the skill produces an itemized
-    rejection naming the gaps — not a specification built on invented or assumed
-    material, and nothing written to the SRS.
+    When the PRD lacks substantive content, the skill MUST produce an itemized
+    rejection naming the gaps — not a specification built on invented or
+    assumed material, and nothing MUST be written to the SRS.

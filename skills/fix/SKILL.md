@@ -104,40 +104,41 @@ justification. No unrelated behavior change.
 
 ##  Rules
 
--   **If the cause isn't already evident, this is the wrong skill.**
+-   **If the cause isn't already evident, you MUST NOT use this skill.**
 
     `fix` resolves breakage a tool has already diagnosed. If you need to form
-    and test hypotheses about why something is failing, switch to
+    and test hypotheses about why something is failing, you MUST switch to
     [`debug`](../debug/SKILL.md).
 
 -   **The check's pass/fail verdict is the success criterion.**
 
-    Not "does this look right" — does the check now exit zero. If it still
-    fails, the task isn't done, regardless of how reasonable the code looks.
+    Not "does this look right" — the check MUST now exit zero. If it still
+    fails, the task MUST NOT be considered done, regardless of how reasonable the
+    code looks.
 
--   **Fix the problem, don't relocate it.**
+-   **You MUST fix the problem, not relocate it.**
 
     Suppressing a rule project-wide, or widening a type to `any`/`unknown` to
     make an error disappear, doesn't fix anything — it hides the signal the tool
-    exists to give. Prefer the narrowest fix that genuinely resolves the rule's
-    intent.
+    exists to give. You SHOULD prefer the narrowest fix that genuinely resolves
+    the rule's intent.
 
--   **Never bundle with feature or style work.**
+-   **You MUST NOT bundle with feature or style work.**
 
     A diff that fixes build/lint/type errors alongside unrelated logic or
     presentation changes makes it hard to tell which change introduced a
-    regression. Land these fixes in their own commit.
+    regression. These fixes MUST land in their own commit.
 
--   **Suppressions require a stated reason, every time.**
+-   **Suppressions MUST carry a stated reason, every time.**
 
-    `// eslint-disable-next-line` with no comment is not acceptable. State which
-    case the rule doesn't apply to and why.
+    `// eslint-disable-next-line` with no comment MUST NOT appear. You MUST state
+    which case the rule doesn't apply to and why.
 
--   **Re-run after every fix, not just at the end.**
+-   **You MUST re-run after every fix, not just at the end.**
 
     Especially for type-checkers and compilers, fixing one error can surface (or
-    hide) another. Treat each fix as provisional until the whole check passes
-    clean.
+    hide) another. You MUST treat each fix as provisional until the whole check
+    passes clean.
 
 ## Examples
 
@@ -217,21 +218,21 @@ const client: any = createLegacyClient()
 
 ##  Success criteria
 
--   **The check exits zero.**
+-   **The check MUST exit zero.**
 
-    Re-running the exact command that originally failed now passes, with no
+    Re-running the exact command that originally failed MUST now pass, with no
     remaining violations.
 
--   **No new issues were introduced.**
+-   **No new issues MUST have been introduced.**
 
-    The full set of checks — not just the one that originally failed — passes
+    The full set of checks — not just the one that originally failed — MUST pass
     after the change.
 
--   **Every suppression states a reason.**
+-   **Every suppression MUST state a reason.**
 
-    `grep` for suppression directives in the diff; each one has an inline
+    `grep` for suppression directives in the diff; each one MUST have an inline
     justification.
 
--   **The commit is scoped to the fix.**
+-   **The commit MUST be scoped to the fix.**
 
-    No unrelated feature or `style:` changes bundled in.
+    No unrelated feature or `style:` changes MUST be bundled in.

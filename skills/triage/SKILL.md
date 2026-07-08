@@ -155,51 +155,53 @@ that follows.
 
 ##  Rules
 
--   **Triage is a maintainer's decision.**
+-   **You MUST treat triage as a maintainer's decision.**
 
-    Recommend; do not unilaterally label, comment, or close. The maintainer
+    Recommend; you MUST NOT unilaterally label, comment, or close. The maintainer
     applies labels and closes issues; the skill makes that decision cheap.
 
--   **One category and one state per issue.**
+-   **Each issue MUST carry one category and one state label.**
 
     No exceptions. If state labels conflict (eg. an issue is both `needs-info`
-    and `ready-for-agent`), flag the inconsistency and ask before resolving.
+    and `ready-for-agent`), you MUST flag the inconsistency and ask before
+    resolving.
 
--   **State transitions follow the machine.**
+-   **State transitions MUST follow the machine.**
 
     Typical path: *unlabeled* → `needs-triage` → (`needs-info` |
     `ready-for-agent` | `ready-for-human` | `wontfix`). `needs-info` returns to
     `needs-triage` once the reporter replies. Unusual transitions (eg. jumping
-    straight from unlabeled to `wontfix`) get flagged explicitly.
+    straight from unlabeled to `wontfix`) MUST be flagged explicitly.
 
--   **Read prior notes before asking anything.**
+-   **You MUST read prior notes before asking anything.**
 
     Re-asking questions the reporter already answered erodes their willingness
     to engage. Parse `Triage Notes` blocks and existing comments before you
     compose a single question.
 
--   **A confirmed repro is the gold standard for bugs.**
+-   **A confirmed repro SHOULD be the gold standard for bugs.**
 
     Issues that can be reliably reproduced are much faster to fix and much
     harder to mis-classify. Reproducibility is also the strongest signal a bug
     is `ready-for-agent`.
 
--   **Out-of-scope rejections are durable.**
+-   **Out-of-scope rejections MUST be durable.**
 
-    A one-line "wontfix" close on an enhancement is easily lost. Capture the
-    reasoning in `docs/out-of-scope/<topic>.md` so the next person to file the
-    same idea gets the explanation by reference, not by re-litigation.
+    A one-line "wontfix" close on an enhancement is easily lost. You MUST
+    capture the reasoning in `docs/out-of-scope/<topic>.md` so the next person
+    to file the same idea gets the explanation by reference, not by
+    re-litigation.
 
--   **`ready-for-agent` requires a brief.**
+-   **`ready-for-agent` issues MUST have a brief.**
 
     An issue with the label but no brief is a setup for failure. If the
-    maintainer asks to apply the label without grilling, ask whether they want a
-    brief first.
+    maintainer asks to apply the label without grilling, you MUST ask whether
+    they want a brief first.
 
--   **Specific, actionable questions only in `needs-info`.**
+-   **Questions in `needs-info` MUST be specific and actionable.**
 
-    "Please provide more info" is not a question. Each question names what is
-    missing and why it matters.
+    "Please provide more info" is not a question. Each question MUST name what
+    is missing and why it matters.
 
 ## Examples
 
@@ -302,19 +304,19 @@ scratch. Closing.
 
 ##  Success criteria
 
--   **Every triaged issue carries one category and one state label.**
+-   **Every triaged issue MUST carry one category and one state label.**
 
--   **State transitions follow the machine.**
+-   **State transitions MUST follow the machine.**
 
-    Unusual transitions are flagged, not silently performed.
+    Unusual transitions MUST be flagged, not silently performed.
 
--   **`ready-for-agent` issues have a brief.**
+-   **`ready-for-agent` issues MUST have a brief.**
 
     Problem statement, ACs, files likely involved, and explicit out-of-scope
     items.
 
--   **`wontfix` enhancement closures are captured in `docs/out-of-scope/`.**
+-   **`wontfix` enhancement closures MUST be captured in `docs/out-of-scope/`.**
 
--   **AI-generated comments are marked.**
+-   **AI-generated comments MUST be marked.**
 
--   **Outstanding questions are specific and actionable.**
+-   **Outstanding questions MUST be specific and actionable.**

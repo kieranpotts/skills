@@ -188,7 +188,7 @@ responsibility.
 
 ## Rules
 
--   **Organize findings into two axes: Specification and Standards.**
+-   **You MUST organize findings into two axes: Specification and Standards.**
 
     A change can pass one axis and fail the other:
 
@@ -198,59 +198,60 @@ responsibility.
       conventions → *Specification pass, Standards fail.*
 
     *Specification axis*: does the change faithfully implement the originating
-    issue, ACs, or PRD? Covers correctness and completeness. Quote the
+    issue, ACs, or PRD? Covers correctness and completeness. You MUST quote the
     specification line for each finding.
 
     *Standards axis*: does the change conform to the repo's documented standards
     — CLAUDE.md, CONTRIBUTING.md, ADRs, naming conventions, architectural
-    patterns? Covers design, clarity, test style, and security idioms. Cite the
-    standard (file + rule) for each finding.
+    patterns? Covers design, clarity, test style, and security idioms. You MUST
+    cite the standard (file + rule) for each finding.
 
-    Keep the axes distinct in the review output — don't merge them. Reporting
-    them separately stops one axis from masking the other.
+    You MUST keep the axes distinct in the review output — you MUST NOT merge
+    them. Reporting them separately stops one axis from masking the other.
 
--   **Approve at "good enough", not "perfect".**
+-   **You SHOULD approve at "good enough", not "perfect".**
 
     Holding out for perfection blocks delivery and signals that the reviewer's
     preference outranks the change's purpose. If a comment is genuinely
-    optional, label it Suggestion or Nit and approve.
+    optional, you SHOULD label it Suggestion or Nit and approve.
 
--   **Distinguish blocking from non-blocking explicitly.**
+-   **You MUST distinguish blocking from non-blocking explicitly.**
 
-    Unlabeled comments leave the author guessing what must change. Every comment
-    carries a severity.
+    Unlabeled comments leave the author guessing what must change. Every
+    comment MUST carry a severity.
 
--   **Focus on what machines can't check.**
+-   **You SHOULD focus on what machines can't check.**
 
-    Style, formatting, and lint issues belong to automated tooling. Spend human
-    attention on correctness, design, security, and clarity.
+    Style, formatting, and lint issues belong to automated tooling. You SHOULD
+    spend human attention on correctness, design, security, and clarity.
 
--   **Do not bikeshed.**
+-   **You MUST NOT bikeshed.**
 
     Personal preference is not feedback. If a difference is purely stylistic and
-    the existing code is consistent, leave it alone.
+    the existing code is consistent, you MUST leave it alone.
 
--   **Review promptly.**
+-   **You SHOULD review promptly.**
 
     A delayed review blocks integration, forces the author to context-switch,
-    and stale diffs grow harder to merge. Aim to complete within one working
-    day; if you can't, say so so the author can find another reviewer.
+    and stale diffs grow harder to merge. You SHOULD aim to complete within one
+    working day; if you can't, you SHOULD say so so the author can find another
+    reviewer.
 
--   **Comments are about the code, not the author.**
+-   **Comments MUST be about the code, not the author.**
 
     "This is wrong" stings; "This does not handle X" describes the code. Same
     content, different framing.
 
--   **Catch the missing test, not the missing tab.**
+-   **You MUST catch the missing test, not the missing tab.**
 
     The highest-leverage review finding is "you added behavior with no test for
-    it". Lower-leverage findings (style, naming nits) should not dominate the
+    it". Lower-leverage findings (style, naming nits) SHOULD NOT dominate the
     comment count.
 
--   **Self-review is the same skill.**
+-   **Self-review MUST apply the same skill.**
 
-    Run the full procedure on your own diff before opening the PR. Most of the
-    easy findings can be fixed before another human sees them.
+    You MUST run the full procedure on your own diff before opening the PR. Most
+    of the easy findings can be fixed before another human sees them.
 
 ## Examples
 
@@ -330,24 +331,24 @@ on the Specification finding; Standards finding non-blocking.
 
 ##  Success criteria
 
--   **The *why* of the change is understood before any code is read.**
+-   **The *why* of the change MUST be understood before any code is read.**
 
-    Description, linked issue, design notes — all consulted first.
+    Description, linked issue, design notes — all MUST be consulted first.
 
--   **Every comment carries a severity label.**
+-   **Every comment MUST carry a severity label.**
 
-    Blocking, Suggestion, Nit, or Praise. No bare comments.
+    Blocking, Suggestion, Nit, or Praise. There MUST be no bare comments.
 
--   **Findings are specific and actionable.**
+-   **Findings MUST be specific and actionable.**
 
-    Each comment names the file/line, describes the issue, and suggests a
+    Each comment MUST name the file/line, describe the issue, and suggest a
     direction.
 
 -   **Correctness, design, clarity, test coverage, security, and completeness
-    are all considered.**
+    MUST all be considered.**
 
-    Even if a category has no findings, it has been thought about.
+    Even if a category has no findings, it MUST have been thought about.
 
--   **The verdict is explicit.**
+-   **The verdict MUST be explicit.**
 
-    Approve, Request changes, or Comment. Not implied.
+    Approve, Request changes, or Comment. It MUST NOT be implied.

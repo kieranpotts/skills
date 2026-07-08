@@ -197,56 +197,56 @@ releases.
 
 ##  Rules
 
--   **Strategy is determined by branch type, not by preference.**
+-   **The strategy MUST be determined by branch type, not by preference.**
 
     `temp/*` → rebase-up + FF. `epic/*` → squash-merge. Trunks → FF-only.
     Picking a different strategy violates the branching conventions and corrupts
     history.
 
--   **Never use `--no-ff` to forward-promote trunks.**
+-   **You MUST NOT use `--no-ff` to forward-promote trunks.**
 
     `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk
     indicates that a fix was committed downstream — which is forbidden by the
-    trunk model. If `--ff-only` fails on a trunk merge, escalate.
+    trunk model. If `--ff-only` fails on a trunk merge, you MUST escalate.
 
--   **Never squash a `temp/*` branch.**
+-   **You MUST NOT squash a `temp/*` branch.**
 
     Temporary branches preserve their atomic commit history into `dev`.
     Squashing them defeats the purpose of `step:` commits and loses the per-step
     rollback granularity.
 
--   **Resolve conflicts where the work was done.**
+-   **You MUST resolve conflicts where the work was done.**
 
     Conflicts between `dev` and `epic/*` are resolved by merging `dev` *down*
     into the epic, where the epic author has context. They are not resolved at
     the moment of squash-merge into `dev`.
 
--   **Run tests after every non-trivial conflict resolution.**
+-   **You MUST run tests after every non-trivial conflict resolution.**
 
     A textual merge that compiles is not the same as a correct merge. Semantic
     conflicts are real and only the test suite catches them.
 
--   **No `--no-verify`, no `--allow-empty`, no `-X theirs`/`-X ours` shortcuts**
-    unless the user has explicitly asked. Skipping hooks or silently preferring
-    one side hides legitimate conflicts.
+-   **You MUST NOT use `--no-verify`, `--allow-empty`, or `-X theirs`/`-X ours`
+    shortcuts** unless the user has explicitly asked. Skipping hooks or silently
+    preferring one side hides legitimate conflicts.
 
--   **Push only after the merged result passes locally.**
+-   **You MUST push only after the merged result passes locally.**
 
     Pushing a broken merge to a shared trunk wastes everyone's CI cycle and can
     block teammates.
 
--   **Update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
+-   **You MUST update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
 
     Add a commit to the `epic/*` branch — after the final merge-down from `dev`
     — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same
     `type: description` format as a commit subject line. This commit is squashed
-    in with the rest of the epic's changes; do NOT update the CHANGELOG
+    in with the rest of the epic's changes; you MUST NOT update the CHANGELOG
     separately on `dev` after the squash.
 
--   **Clean up integrated branches.**
+-   **You MUST clean up integrated branches.**
 
-    `temp/*` and `epic/*` branches are deleted after integration — locally and
-    remotely. Stale branches accumulate and obscure active work.
+    `temp/*` and `epic/*` branches MUST be deleted after integration — locally
+    and remotely. Stale branches accumulate and obscure active work.
 
 ## Examples
 
@@ -344,31 +344,31 @@ npm test
 
 ##  Success criteria
 
--   **The strategy used matches the branch type.**
+-   **The strategy used MUST match the branch type.**
 
-    Per the table in step 2. Document the choice in the merge commit body if it
-    is non-obvious.
+    Per the table in step 2. The choice SHOULD be documented in the merge commit
+    body if it is non-obvious.
 
--   **The merged result builds and tests green before push.**
+-   **The merged result MUST build and test green before push.**
 
     Verified locally, not assumed from CI.
 
--   **Trunk history is linear after a trunk merge.**
+-   **Trunk history MUST be linear after a trunk merge.**
 
     `git log --oneline --graph` shows no merge bubbles on `dev`, `test`,
     `ready`, or `release`.
 
--   **All conflicts were resolved deliberately.**
+-   **All conflicts MUST have been resolved deliberately.**
 
     No `-X ours`, no `-X theirs`, no skipped hooks. Each resolution was
     reviewed.
 
--   **The source branch is deleted after integration.**
+-   **The source branch MUST be deleted after integration.**
 
     `temp/*` and `epic/*` are gone locally and remotely once landed.
 
--   **For `epic/*` → `dev`: CHANGELOG updated in a pre-merge commit on the epic
-    branch.**
+-   **For `epic/*` → `dev`: the CHANGELOG MUST be updated in a pre-merge commit on
+    the epic branch.**
 
-    The `[Unreleased]` section contains an entry for the epic's changes,
+    The `[Unreleased]` section MUST contain an entry for the epic's changes,
     committed to the `epic/*` branch before the squash-merge.

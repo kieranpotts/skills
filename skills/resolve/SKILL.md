@@ -134,42 +134,44 @@ reported with a reason. The verified change is ready for
 
 ##  Rules
 
--   **Every open comment is a commitment to implement.**
+-   **Every open comment MUST be treated as a commitment to implement.**
 
     The author's curation happened before this skill ran. A comment that is
     still open is one the author wants done — this skill does not re-litigate
     that. Disagreeing with, deferring, or rejecting a comment is out of scope;
     if the author wanted that, they would have dismissed it.
 
--   **One comment, one minimal change.**
+-   **You MUST make one minimal change per comment.**
 
-    Action exactly what the comment asks. Do not expand scope, refactor adjacent
-    code, or fix problems the comment didn't raise. Scope creep here defeats the
-    purpose of a tight review-resolve loop and forces another review pass.
+    You MUST action exactly what the comment asks. You MUST NOT expand scope,
+    refactor adjacent code, or fix problems the comment didn't raise. Scope creep
+    here defeats the purpose of a tight review-resolve loop and forces another
+    review pass.
 
--   **Resolve only what you verified.**
+-   **You MUST resolve only what you verified.**
 
-    A thread is marked resolved only after its fix is shown to work — a passing
-    test, or a run of the existing tests over the touched code. An unverified
-    resolution is a regression waiting for [`test`](../test/SKILL.md) to catch.
+    A thread MUST be marked resolved only after its fix is shown to work — a
+    passing test, or a run of the existing tests over the touched code. An
+    unverified resolution is a regression waiting for
+    [`test`](../test/SKILL.md) to catch.
 
--   **Reply before you resolve.**
+-   **You MUST reply before you resolve.**
 
-    Every resolved thread carries a one-line note of what changed and where. The
-    reviewer must be able to confirm the resolution from the reply, without
+    Every resolved thread MUST carry a one-line note of what changed and where.
+    The reviewer MUST be able to confirm the resolution from the reply, without
     reconstructing it from the diff.
 
--   **Keep resolution commits separate.**
+-   **You MUST keep resolution commits separate.**
 
-    The fixes that answer a review go in their own commit(s), distinct from the
-    original implementation. This keeps each review round visible in the history
-    and makes a re-review diff easy to scope.
+    The fixes that answer a review MUST go in their own commit(s), distinct from
+    the original implementation. This keeps each review round visible in the
+    history and makes a re-review diff easy to scope.
 
--   **Surface, never bury, what you can't resolve.**
+-   **You MUST surface, never bury, what you can't resolve.**
 
-    A comment that cannot be honestly actioned stays open and is reported with a
-    reason. Marking it resolved without a real fix, or silently leaving it open
-    without a word, both hide the problem.
+    A comment that cannot be honestly actioned MUST stay open and MUST be reported
+    with a reason. Marking it resolved without a real fix, or silently leaving it
+    open without a word, both hide the problem.
 
 ## Examples
 
@@ -247,27 +249,28 @@ Open comments on PR #482: 2
 
 ##  Success criteria
 
--   **Every open comment is dispositioned.**
+-   **Every open comment MUST be dispositioned.**
 
-    Each unresolved comment is either resolved (fixed, verified, replied, marked
-    resolved) or surfaced as blocked with a reason. None is silently skipped.
+    Each unresolved comment MUST be either resolved (fixed, verified, replied,
+    marked resolved) or surfaced as blocked with a reason. None MUST be silently
+    skipped.
 
--   **Every resolution is verified.**
+-   **Every resolution MUST be verified.**
 
-    No thread is marked resolved without a passing test or a run of the existing
-    tests over the touched code.
+    No thread MUST be marked resolved without a passing test or a run of the
+    existing tests over the touched code.
 
--   **Every resolved thread has a reply.**
+-   **Every resolved thread MUST have a reply.**
 
     Stating what changed and where, so the reviewer can confirm it without
     re-reading the diff.
 
--   **The diff is minimal.**
+-   **The diff MUST be minimal.**
 
-    Each change answers a specific comment. No scope creep, no unrequested
+    Each change MUST answer a specific comment. No scope creep, no unrequested
     refactors.
 
--   **Resolution work is committed and pushed.**
+-   **Resolution work MUST be committed and pushed.**
 
     In its own commit(s), separate from the original implementation, with the
     branch pushed so the re-review and [`test`](../test/SKILL.md) see the fixes.

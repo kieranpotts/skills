@@ -167,51 +167,51 @@ the sharpened design is the orchestrator's concern, not this skill's.
 
 ##  Rules
 
--   **One question at a time. Wait for the answer.**
+-   **You MUST ask one question at a time, and MUST wait for the answer.**
 
     Batched questions force the user to context-switch and produce shallow
     answers. The whole skill is the discipline of single-question turns.
 
--   **Always recommend an answer.**
+-   **You MUST always recommend an answer.**
 
     A question with no recommendation pushes the cognitive load back onto the
     user. "Which is it?" alone is lazy. "I'd lean A because <reason>. Which is
     it?" lets the user agree quickly or articulate the disagreement.
 
--   **Prefer reading code over asking.**
+-   **You SHOULD prefer reading code over asking.**
 
     If the question is "how does X work today" or "what does Y currently
     return", read the code. Asking is for things only the user knows: intent,
     trade-offs, constraints, future direction.
 
--   **Walk the tree parents-first.**
+-   **You MUST walk the tree parents-first.**
 
     Resolving a child decision before its parent often forces a re-decision.
     Identify dependencies and ask in dependency order.
 
--   **Sharpen language inline.**
+-   **You MUST sharpen language inline.**
 
     A vague term left in the conversation infects every subsequent decision.
     Stop, pin it down, update `docs/domain-model.md`, then proceed.
 
--   **Surface code-versus-specification contradictions immediately.**
+-   **You MUST surface code-versus-specification contradictions immediately.**
 
     When stated design and implemented behavior disagree, that is the most
-    valuable thing this skill can find. Don't gloss over it.
+    valuable thing this skill can find. You MUST NOT gloss over it.
 
--   **Offer ADRs sparingly.**
+-   **You SHOULD offer ADRs sparingly.**
 
     Most elaboration decisions do not need an ADR. Apply the three-criteria
     filter (hard to reverse, surprising without context, real trade-off). When
-    in doubt, don't.
+    in doubt, you SHOULD NOT.
 
 -   **`docs/domain-model.md` is a glossary, not a specification.**
 
-    Keep implementation details out. An entry is what the term IS, in one or two
-    sentences. Behavior, persistence, and protocols belong in code, ADRs, or the
-    specification.
+    You MUST keep implementation details out. An entry is what the term IS, in
+    one or two sentences. Behavior, persistence, and protocols belong in code,
+    ADRs, or the specification.
 
--   **Create artifacts lazily.**
+-   **You SHOULD create artifacts lazily.**
 
     No `docs/domain-model.md` yet? Create it when the first term is resolved,
     not at session start. No `docs/adr/`? Create it when the first ADR is
@@ -357,30 +357,30 @@ response time. If that becomes a problem we revisit.
 
 ##  Success criteria
 
--   **Every open decision in the draft is resolved or deferred with a stated
+-   **Every open decision in the draft MUST be resolved or deferred with a stated
     reason.**
 
     Nothing left dangling in the "we'll figure that out later" pile without
     "later" being named.
 
--   **Each question was asked one at a time, with a recommended answer.**
+-   **Each question MUST have been asked one at a time, with a recommended answer.**
 
     No batched questions, no open-ended prompts without a lean.
 
--   **Terms used in the conversation match the glossary.**
+-   **Terms used in the conversation MUST match the glossary.**
 
     Either they already did, or `docs/domain-model.md` was updated inline as
     they were resolved.
 
--   **Contradictions between stated design and existing code were surfaced.**
+-   **Contradictions between stated design and existing code MUST have been surfaced.**
 
     Not glossed, not assumed away.
 
--   **Decisions that meet the three-criteria filter became ADRs.**
+-   **Decisions that meet the three-criteria filter MUST have become ADRs.**
 
     Decisions that did not, did not.
 
--   **The output is decomposition-ready.**
+-   **The output MUST be decomposition-ready.**
 
     A reader can pick up the design and break it into steps without re-asking
     the questions this skill resolved.

@@ -82,28 +82,28 @@ committed, or pushed; version control is left to a separate step.
 
 ### Allowed edits
 
--   **Fix spelling, grammar, punctuation, and obvious typos.**
+-   **You MAY fix spelling, grammar, punctuation, and obvious typos.**
 
--   **Smooth genuinely awkward phrasing in prose** — but only where the meaning
-    is unambiguous and preserved. When in doubt, leave it.
+-   **You MAY smooth genuinely awkward phrasing in prose** — but only where the
+    meaning is unambiguous and preserved. When in doubt, leave it.
 
--   **Make terminology and capitalization consistent** within and across the
-    target files (eg. pick one of "GitHub"/"Github", "set up" vs "setup" by part
-    of speech).
+-   **You SHOULD make terminology and capitalization consistent** within and
+    across the target files (eg. pick one of "GitHub"/"Github", "set up" vs
+    "setup" by part of speech).
 
--   **Default to the project's established English variety.** Infer it from the
-    surrounding text (eg. "colour"/"color"). If genuinely ambiguous, leave
-    existing spellings and flag the inconsistency in the summary rather than
+-   **You SHOULD default to the project's established English variety.** Infer it
+    from the surrounding text (eg. "colour"/"color"). If genuinely ambiguous,
+    leave existing spellings and flag the inconsistency in the summary rather than
     imposing a variety.
 
 ### Forbidden — never change
 
--   **Technical meaning, facts, version numbers, commands, API names, or
-    identifiers.** A factual error is for a human to fix, not a copy editor (see
-    edge cases).
+-   **You MUST NOT change technical meaning, facts, version numbers, commands, API
+    names, or identifiers.** A factual error is for a human to fix, not a copy
+    editor (see edge cases).
 
--   **Anything inside code.** Fenced/indented code blocks, inline code spans,
-    and their language-specific equivalents:
+-   **You MUST NOT change anything inside code.** Fenced/indented code blocks,
+    inline code spans, and their language-specific equivalents:
 
     - Markdown: ` ``` ` fences, `~~~` fences, indented blocks, `` `inline` ``.
     - AsciiDoc: `----`, `....`, `[source,...]` blocks, `+inline+`/`` `inline`
@@ -113,44 +113,44 @@ committed, or pushed; version control is left to a separate step.
 
     Leave code, commands, and sample output verbatim.
 
--   **Markup syntax and structure.** Links and link targets, image refs, macros,
+-   **You MUST NOT change markup syntax and structure.** Links and link targets, image refs, macros,
     cross-references (`xref:`, `<<>>`, `:ref:`), anchors/IDs, includes,
     directives, conditionals, comments, attribute/front-matter entries,
     admonition labels (NOTE:, TIP:, WARNING:, etc.), heading levels, and section
     ordering.
 
--   **The file's structure.** Do not add, remove, reorder, merge, or split
-    sections, paragraphs, or list items. Proofreading changes words, not
-    architecture.
+-   **You MUST NOT change the file's structure.** You MUST NOT add, remove,
+    reorder, merge, or split sections, paragraphs, or list items. Proofreading
+    changes words, not architecture.
 
 ### Discipline
 
--   **One file at a time; do not re-read a finished file.**
+-   **You MUST work one file at a time, and MUST NOT re-read a finished file.**
 
     Finish each file before opening the next, and remove it from context once
     done. This keeps the working set small and the edits focused.
 
--   **Preserve the existing line-wrapping convention.**
+-   **You MUST preserve the existing line-wrapping convention.**
 
     If the file is one-sentence-per-line, keep it. If it is hard-wrapped at a
-    column, re-wrap edited lines to match. Never reflow the whole file.
+    column, re-wrap edited lines to match. You MUST NOT reflow the whole file.
 
--   **Prefer the project's configured formatter for pure whitespace/style.**
+-   **You SHOULD prefer the project's configured formatter for pure whitespace/style.**
 
     If a deterministic prose linter or formatter is configured (eg. Vale,
     markdownlint, Prettier for Markdown), pure presentation issues are its job,
     not this skill's — this skill is for the language-level edits a formatter
     cannot make.
 
--   **Edit in place only.**
+-   **You MUST edit in place only.**
 
-    Modify the target files. Do not create new files, rename, move, or touch any
-    file not on the target list.
+    Modify the target files. You MUST NOT create new files, rename, move, or touch
+    any file not on the target list.
 
--   **When a "fix" is really a rewrite, stop and flag it.**
+-   **When a "fix" is really a rewrite, you MUST stop and flag it.**
 
-    If correcting something would require changing meaning or structure, do not
-    do it — note it in the summary as a suggestion for the author.
+    If correcting something would require changing meaning or structure, you MUST
+    NOT do it — note it in the summary as a suggestion for the author.
 
 ## Edge cases
 
@@ -188,22 +188,23 @@ committed, or pushed; version control is left to a separate step.
 
 ## Success criteria
 
--   **Only prose changed; code, markup, and structure are byte-identical except
-    where prose words were corrected.**
+-   **Only prose MUST have changed; code, markup, and structure MUST be
+    byte-identical except where prose words were corrected.**
 
     A diff shows word-level prose edits and nothing else — no reflowed blocks,
     no moved sections, no touched code.
 
--   **No technical fact, identifier, version, or command was altered.**
+-   **No technical fact, identifier, version, or command MUST have been altered.**
 
-    Anything that looked wrong was flagged for the author, not silently changed.
+    Anything that looked wrong MUST have been flagged for the author, not silently
+    changed.
 
--   **The file's markup remains valid and its wrapping convention intact.**
+-   **The file's markup MUST remain valid and its wrapping convention intact.**
 
     The document still parses/renders as before; line-wrapping style is
     unchanged.
 
--   **A per-file summary of edits was reported, and nothing was committed.**
+-   **A per-file summary of edits MUST have been reported, and nothing MUST have been committed.**
 
     The user can see what changed in each file and decide when and how to commit
     it.

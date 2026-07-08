@@ -132,41 +132,41 @@ orchestrator's concern, not this skill's.
 
 ##  Rules
 
--   **Behavior preservation is non-negotiable.**
+-   **Behavior preservation is REQUIRED.**
 
     A refactor that changes externally observable behavior is mislabeled. The
-    contract with reviewers and operators is that tests pass before and after,
-    and runtime behavior is identical. If you cannot promise that, it is not a
-    refactor.
+    contract with reviewers and operators is that tests MUST pass before and
+    after, and runtime behavior MUST be identical. If you cannot promise that, it
+    is not a refactor.
 
--   **Small, reversible moves.**
+-   **You MUST work in small, reversible moves.**
 
     Big-bang restructuring is a recipe for unreviewable diffs and unrevertable
     mistakes. Refactor in moves a reviewer can hold in their head.
 
--   **Never bundle a refactor with a feature or a bug fix.**
+-   **You MUST NOT bundle a refactor with a feature or a bug fix.**
 
     Mixed commits make it impossible to tell what changed behavior and what
     didn't. Refactor first as `refactor:` commits; then change behavior as
     `feature:`, `fix:`, or `step:` commits.
 
--   **Tests pass after every move, not just at the end.**
+-   **Tests MUST pass after every move, not just at the end.**
 
     "I'll fix the tests at the end" is how subtly wrong refactors ship. If a
-    test fails mid-refactor, stop and resolve before moving on.
+    test fails mid-refactor, you MUST stop and resolve before moving on.
 
--   **Add characterization tests when coverage is thin.**
+-   **You MUST add characterization tests when coverage is thin.**
 
     No tests = no safety net = no refactor. Adding pin-down tests for current
     behavior is a separate prior commit, not part of the refactor itself.
 
--   **Stop before adding speculative flexibility.**
+-   **You MUST stop before adding speculative flexibility.**
 
     A refactor that introduces an abstraction for a future need is usually a
-    guess. Wait for the second or third use case before extracting; one
-    occurrence is just code.
+    guess. You SHOULD wait for the second or third use case before extracting;
+    one occurrence is just code.
 
--   **Apply the deletion test.**
+-   **You MUST apply the deletion test.**
 
     When considering removing or inlining a module, imagine deleting it
     entirely. If complexity *vanishes* — the module was a pass-through doing
@@ -182,12 +182,12 @@ orchestrator's concern, not this skill's.
     This rule pairs with the design principle "prefer deep modules to shallow
     ones": that principle is the *target*, this one is the *diagnostic*.
 
--   **One quality at a time.**
+-   **You MUST improve one quality at a time.**
 
     Trying to improve cohesion, simplicity, and naming in the same commit
     produces a diff nobody can review. Pick one. The others can be follow-ups.
 
--   **The diff should be smaller than expected.**
+-   **The diff SHOULD be smaller than expected.**
 
     A refactor that *grows* the codebase substantially is usually disguised
     feature work or premature abstraction. Be suspicious of large positive
@@ -261,23 +261,23 @@ commit and tracking issue. Resumed the refactor.
 
 ##  Success criteria
 
--   **External behavior is unchanged.**
+-   **External behavior MUST be unchanged.**
 
-    Every test that passed before passes after. Manual smoke of the affected
-    paths confirms no observable difference.
+    Every test that passed before MUST pass after. Manual smoke of the affected
+    paths MUST confirm no observable difference.
 
--   **The named quality is measurably improved.**
+-   **The named quality MUST be measurably improved.**
 
     State which quality and how it changed (lines, dependencies,
     responsibilities, names). Vague "this is cleaner" is not enough.
 
--   **Each commit is a single small move.**
+-   **Each commit MUST be a single small move.**
 
     Reviewable in minutes. Revertable on its own.
 
--   **No feature or bug-fix work is mixed in.**
+-   **No feature or bug-fix work MUST be mixed in.**
 
-    The diff contains only restructuring. Anything else is in a separate commit
-    and a separate review thread.
+    The diff MUST contain only restructuring. Anything else MUST be in a separate
+    commit and a separate review thread.
 
--   **Tests passed after every move, not just at the end.**
+-   **Tests MUST have passed after every move, not just at the end.**

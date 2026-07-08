@@ -41,7 +41,7 @@ validates messages and stops; it neither stages nor commits.
 
 ##  Rules
 
--   **Use this exact format**:
+-   **You MUST use this exact format**:
 
     ```
     <type>: <description>
@@ -74,7 +74,7 @@ validates messages and stops; it neither stages nor commits.
     - `style`
 
     `<description>` MUST be full lowercase and use the imperative mood (eg.
-    "add", not "added" or "adds"). No period at the end of the description.
+    "add", not "added" or "adds"). The description MUST NOT end with a period.
 
     An optional flag MAY be appended — `<type>: <description> - <flag>` where
     `<flag>` is one of:
@@ -90,25 +90,26 @@ validates messages and stops; it neither stages nor commits.
 
     Bodies and footers are OPTIONAL and do not require validation.
 
-    - Use the body to explain the _why_ of the change, not the _what_. Separate
-      from subject line with a single blank line. Proper English sentences.
-      Markdown formatting allowed, but prefer plain text. Wrap lines at 72
-      characters.
+    - The body SHOULD explain the _why_ of the change, not the _what_. It MUST
+      be separated from the subject line with a single blank line, use proper
+      English sentences, and wrap lines at 72 characters. Markdown formatting is
+      allowed, but plain text is preferred.
 
     - The footer section is a contiguous block consisting of key-value pairs,
       one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name
       <email>`. Separated from body by a single blank line.
 
--   **Atomic commits.**
+-   **Commits MUST be atomic.**
 
-    One logical change per commit. Split large changes into multiple commits.
+    One logical change per commit. Large changes MUST be split into multiple
+    commits.
 
     A user-facing change typically arrives as a bundle of atomic commits —
     `refactor:`, `style:`, `step:`, `chore:` — culminating in the `feature:` or
     `runtime:` commit that makes the requirement verifiable through the system's
     UI.
 
--   **Pick the most appropriate commit type.**
+-   **You MUST pick the most appropriate commit type.**
 
     Choice based on the semantics of the changeset being committed:
 
@@ -160,7 +161,7 @@ validates messages and stops; it neither stages nor commits.
       doesn't (README tweaks, typos) — noise that can be omitted from the
       changelog.
 
--   **Add a flag** to the subject line in the following special cases:
+-   **You MUST add a flag** to the subject line in the following special cases:
 
     - `BREAKING`: Breaking change to external API. Automated tools MAY bump
       major version of next release in response.
@@ -179,7 +180,7 @@ validates messages and stops; it neither stages nor commits.
     - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to
       `origin/dev` or other trunks in multi-contributor repositories.
 
--   **Update the CHANGELOG for commits to `dev` and `temp/*`.**
+-   **You MUST update the CHANGELOG for commits to `dev` and `temp/*`.**
 
     When committing directly to `dev` or a `temp/*` branch, update the project's
     `CHANGELOG.md` (or equivalent) as part of the same commit. Document the
@@ -247,29 +248,29 @@ Closes: #123
 
 ##  Success criteria
 
--   **Subject line passes the validation regex.**
+-   **The subject line MUST pass the validation regex.**
 
     Test against
     `^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style):
     [a-z].*)$` before considering the message done.
 
--   **Type semantics fit the changeset.**
+-   **The type semantics MUST fit the changeset.**
 
     Re-read the type's description above. If two types feel applicable, consult
     the *Subtle distinctions* note — that's where the hard cases are resolved.
 
--   **Subject line length is within budget.**
+-   **The subject line length MUST be within budget.**
 
-    ≤50 characters preferred, ≤72 characters maximum. Includes the optional
+    ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the optional
     flag.
 
--   **No Conventional Commits artefacts.**
+-   **There MUST be no Conventional Commits artefacts.**
 
     No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing
-    `:` artefacts. The colon comes immediately after the type, nothing else.
+    `:` artefacts. The colon MUST come immediately after the type, nothing else.
 
--   **CHANGELOG is updated for direct commits to `dev` and `temp/*` branches,
-    unless the type is `chore:`.**
+-   **The CHANGELOG MUST be updated for direct commits to `dev` and `temp/*`
+    branches, unless the type is `chore:`.**
 
-    The `[Unreleased]` section exists and contains a bullet for this commit,
-    using the same `type: description` format as the subject line.
+    The `[Unreleased]` section MUST exist and MUST contain a bullet for this
+    commit, using the same `type: description` format as the subject line.

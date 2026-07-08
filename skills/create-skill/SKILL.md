@@ -154,9 +154,10 @@ step.
 
 -   **The `description` field is the primary trigger mechanism.**
 
-    It determines whether an agent invokes the skill. Err toward being explicit
-    rather than brief. A vague description leads to the skill being ignored.
-    Follow this two-sentence pattern, written in the third person:
+    It determines whether an agent invokes the skill. You SHOULD err toward being
+    explicit rather than brief; a vague description leads to the skill being
+    ignored. You MUST follow this two-sentence pattern, written in the third
+    person:
 
     1. *First sentence* — what the skill does.
     2. *Second sentence* — `Use when ...` followed by specific triggers (user
@@ -182,9 +183,9 @@ step.
     Rules are individual, non-sequential guidelines, recommendations, and
     constraints — the most important ones come first.
 
-    Keep them separate. Don't embed rules inside instructions.
+    You MUST keep them separate, and MUST NOT embed rules inside instructions.
 
--   **Explain the why behind non-obvious requirements.**
+-   **You SHOULD explain the why behind non-obvious requirements.**
 
     Instead of bare imperatives (`ALWAYS do X`), explain the reasoning so the
     agent can apply judgment in edge cases. Well-reasoned instructions are more
@@ -192,7 +193,7 @@ step.
     explaining the *purpose* over prescribing exact steps — an agent that
     understands the why makes better context-dependent decisions.
 
--   **Match prescriptiveness to fragility.**
+-   **You MUST match prescriptiveness to fragility.**
 
     Be prescriptive — exact commands, flags, ordering — when operations are
     fragile, consistency is critical, or a specific sequence must be followed.
@@ -200,29 +201,29 @@ step.
     tricky ones in an "edge cases" section or a `references/` file. Simple
     skills need only Instructions and Success criteria.
 
--   **Provide defaults, not menus.**
+-   **You SHOULD provide defaults, not menus.**
 
     When multiple tools or approaches could work, pick one as the default and
-    mention alternatives as escape hatches. The agent should follow the default
+    mention alternatives as escape hatches. The agent SHOULD follow the default
     unless there is a specific reason not to.
 
--   **Favor procedures over declarations.**
+-   **You SHOULD favor procedures over declarations.**
 
     Teach the agent *how to approach* a class of problems, not what to produce
     for a single instance. A reusable method that generalizes beats a hardcoded
     answer.
 
--   **Write for token efficiency.**
+-   **You SHOULD write for token efficiency.**
 
-    Skills are loaded into the agent's context window. Keep SKILL.md under ~300
-    lines. Offload deep detail to `references/` files; link them with a trigger
+    Skills are loaded into the agent's context window. SKILL.md SHOULD stay under
+    ~300 lines. Offload deep detail to `references/` files; link them with a trigger
     condition so they're only read when needed. If the same logic recurs across
     runs — parsing a format, validating output, building a fixture — extract it
     to `scripts/` rather than duplicating it in prose.
 
     Balance token efficiency against human readability/edit-ability.
 
--   **Gotchas live in `SKILL.md`, not in references.**
+-   **Gotchas MUST live in `SKILL.md`, not in references.**
 
     Environment-specific facts that defy reasonable assumptions (wrong field
     names, soft-delete filters, non-obvious API constraints) MUST stay in the
@@ -230,15 +231,15 @@ step.
     an agent makes a mistake you have to correct, add the correction to the edge
     cases section.
 
--   **Use imperative form in instructions.**
+-   **You MUST use imperative form in instructions.**
 
     "Use this format", not "You should use this format".
 
--   **Use consistent terminology.**
+-   **You MUST use consistent terminology.**
 
-    One word means one thing. Avoid synonyms.
+    One word MUST mean one thing; avoid synonyms.
 
--   **Reach for proven structural techniques**, eg.:
+-   **You SHOULD reach for proven structural techniques**, eg.:
 
     - *Step checklists* (`- [ ] Step N`) for multi-step workflows where the
       agent must track progress across dependencies or validation gates.
@@ -294,26 +295,27 @@ skills/
 
 ## Success criteria
 
-- **Front-matter is valid.** `name` and `description` fields are present and
-  non-empty. `name` matches the directory name.
+- **Front-matter MUST be valid.** The `name` and `description` fields MUST be
+  present and non-empty, and `name` MUST match the directory name.
 
-- **All REQUIRED sections are present.** At minimum: a titled intro paragraph,
+- **All REQUIRED sections MUST be present.** At minimum: a titled intro paragraph,
   the `**Input**:` and `**Output**:` paragraphs, `## Instructions`, and `##
   Success criteria`.
 
-- **The Input / Output paragraphs are present and prominent.** Both appear
-  immediately after the intro, before the first `##`. The **Input** paragraph
-  states whether input is REQUIRED or OPTIONAL, and — for an interactive skill —
-  that the skill also prompts the user for input during the session.
+- **The Input / Output paragraphs MUST be present and prominent.** Both MUST
+  appear immediately after the intro, before the first `##`. The **Input**
+  paragraph MUST state whether input is REQUIRED or OPTIONAL, and — for an
+  interactive skill — that the skill also prompts the user for input during the
+  session.
 
-- **The skill is token-efficient.** No section is padded with detail that
-  belongs in a `references/` file. SKILL.md is under ~300 lines.
+- **The skill MUST be token-efficient.** No section is padded with detail that
+  belongs in a `references/` file, and SKILL.md SHOULD be under ~300 lines.
 
-- **The `description` is specific enough to trigger correctly.** It names both
-  the capability and the contexts that should invoke it — not just a one-line
-  summary of what the skill does.
+- **The `description` MUST be specific enough to trigger correctly.** It MUST
+  name both the capability and the contexts that should invoke it — not just a
+  one-line summary of what the skill does.
 
-- **A `README.md` exists alongside the `SKILL.md`.**
+- **A `README.md` MUST exist alongside the `SKILL.md`.**
 
 ## Assets
 

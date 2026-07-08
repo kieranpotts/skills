@@ -149,31 +149,31 @@ reported and the skill stops; it changes no code itself.
 
 ##  Rules
 
--   **Refine the specification, not the code.**
+-   **You MUST refine the specification, not the code.**
 
     If the right response is "fix the implementation to match the existing AC",
     that is a code-defect fix, not a refinement. Refinement happens when the AC
     itself was wrong, missing, or ambiguous — not when the implementation
     drifted from a correct AC.
 
--   **Never silently rewrite a passed AC.**
+-   **You MUST NOT silently rewrite a passed AC.**
 
     An AC that previously passed — in testing or in production — is part of the
     contract with users and stakeholders. Changing it without explicit
-    acknowledgment is how regressions arrive disguised as cleanups. Always
-    record the change, the reason, and what was previously promised.
+    acknowledgment is how regressions arrive disguised as cleanups. You MUST
+    always record the change, the reason, and what was previously promised.
 
--   **Refinement requires evidence.**
+-   **Refinement REQUIRES evidence.**
 
-    A specification change driven by "I thought about it more" is suspect. Tie
-    the change to an observation: a failing test, a stakeholder quote, a
+    A specification change driven by "I thought about it more" is suspect. You
+    MUST tie the change to an observation: a failing test, a stakeholder quote, a
     measurement, a UX session. The evidence belongs in the rationale.
 
--   **One refinement, one logical change.**
+-   **You MUST make one refinement per logical change.**
 
     Bundling unrelated specification edits ("while we're here, also fix the
-    refund timeout AC") produces a diff nobody can review. Refine one AC per
-    pass; queue the others.
+    refund timeout AC") produces a diff nobody can review. You MUST refine one AC
+    per pass; queue the others.
 
 -   **Refinements MUST conform to the specification conventions.**
 
@@ -181,24 +181,24 @@ reported and the skill stops; it changes no code itself.
     specification that breaks the conventions is no better than the unrefined
     one.
 
--   **Distinguish "specification was wrong" from "user changed their mind".**
+-   **You MUST distinguish "specification was wrong" from "user changed their mind".**
 
     Both produce a specification edit, but the framing matters. A user who
     changes their mind is fine — record it as such. A specification that
     misrepresented what the user wanted from day one is a process failure worth
     noting; the next specification should not repeat it.
 
--   **Refinement is not the place to expand scope.**
+-   **Refinement MUST NOT be used to expand scope.**
 
     Net-new features that were never part of the original ask are not
     refinements — they are new specs. Treat them as such and capture them as a
     fresh specification in their own right; the refine path is for fixing what
     was already there.
 
--   **Capture follow-up items, do not absorb them.**
+-   **You MUST capture follow-up items, not absorb them.**
 
     A refinement session often surfaces other latent gaps. Note them, raise
-    tracking issues, but do not stuff them into the current refinement. One
+    tracking issues, but you MUST NOT stuff them into the current refinement. One
     change at a time, traceable.
 
 ## Examples
@@ -321,27 +321,27 @@ Downstream impact:
 
 ##  Success criteria
 
--   **Every refinement names its trigger and its type.**
+-   **Every refinement MUST name its trigger and its type.**
 
     Correction / addition / removal / reclassification / threshold-adjustment,
     plus the observation that prompted it.
 
--   **The edit is shown as before / after.**
+-   **The edit MUST be shown as before / after.**
 
-    Reviewers see what changed without diffing in their heads. The "after" obeys
-    the specification conventions (Gherkin, measurable NFRs, explicit scope).
+    Reviewers see what changed without diffing in their heads. The "after" MUST
+    obey the specification conventions (Gherkin, measurable NFRs, explicit scope).
 
--   **The rationale is recorded with the edit.**
+-   **The rationale MUST be recorded with the edit.**
 
     The specification or its commit history explains *why*, not just *what*.
     Future readers can reconstruct the decision without re-litigating it.
 
--   **Downstream impact is traced.**
+-   **Downstream impact MUST be traced.**
 
-    A list of affected artefacts (design, planned steps, code, tests) exists,
-    with status. Nothing is silently invalidated.
+    A list of affected artefacts (design, planned steps, code, tests) MUST exist,
+    with status. Nothing MUST be silently invalidated.
 
--   **No code or test was changed inside this skill.**
+-   **No code or test MUST have been changed inside this skill.**
 
     The output is a specification edit and a traced impact list. Implementation
     lives downstream.

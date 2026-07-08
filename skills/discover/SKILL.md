@@ -178,59 +178,59 @@ shape the question that follows.
 
 ##  Rules
 
--   **One question at a time.**
+-   **You MUST ask one question at a time.**
 
-    Never batch. A user (or customer) cannot answer four questions in a row
-    without losing context, and batching erases the chance to let one answer
+    You MUST NOT batch. A user (or customer) cannot answer four questions in a
+    row without losing context, and batching erases the chance to let one answer
     shape the next.
 
--   **Stay in business language.**
+-   **You MUST stay in business language.**
 
     No technical jargon. No data structures, APIs, schemas, or code. The PRD
     MUST read sensibly to a non-technical customer. If a concept can only be
     expressed in technical terms, it does not belong here — defer it to the
     technical design phase (see [`design`](../design/SKILL.md).
 
--   **Do not volunteer solutions.**
+-   **You MUST NOT volunteer solutions.**
 
     This skill is for understanding the problem. If the user starts proposing
     implementations, redirect: *"Let's park that — I want to understand the
     requirement first."* Solutions captured in discovery anchor the design
     prematurely.
 
--   **No leading questions.**
+-   **You MUST NOT ask leading questions.**
 
     Avoid *"You'd want X, right?"* or *"Presumably the customer expects Y?"*.
     Use open, neutral questions: *"What does the customer expect here?"*.
     Leading questions seed the answers and erase information.
 
--   **Distinguish observation from assumption.**
+-   **You MUST distinguish observation from assumption.**
 
     When confidence is stated without a source, ask whether the customer
     actually said it or we're inferring. Inferences belong in *Assumptions*, not
     *Rules*. An assumption that hardens into a rule without validation is a
     silent failure mode.
 
--   **Push back.**
+-   **You MUST push back.**
 
-    Don't be a "yes" machine. Don't assume the user's answers are correct, as
-    they may be based on assumptions and biases — it's your job to discover
-    those. Interrogate vague requests. Disagree when something's off. Flag
-    contradictions — never silently overwrite.
+    You MUST NOT be a "yes" machine, and MUST NOT assume the user's answers are
+    correct, as they may be based on assumptions and biases — it's your job to
+    discover those. Interrogate vague requests. Disagree when something's off.
+    Flag contradictions — never silently overwrite.
 
     No sycophancy.
 
--   **Note-taking**
+-   **You MUST take notes.**
 
-    Capture context, decisions, and open threads continuously. Checkpoint before
-    switching domains or when a chat runs long.
+    You MUST capture context, decisions, and open threads continuously, and MUST
+    checkpoint before switching domains or when a chat runs long.
 
--   **Tone.**
+-   **The tone MUST be rigorous.**
 
-    Rigorous. Direct. No fluff. Cover things properly but don't pad responses.
-    Remove filler. Show reasoning, not just conclusions.
+    Rigorous. Direct. No fluff. Cover things properly, but you MUST NOT pad
+    responses. Remove filler. Show reasoning, not just conclusions.
 
--   **Counter-examples are mandatory.**
+-   **Counter-examples are REQUIRED.**
 
     A rule without a counter-example has fuzzy boundaries. The contrast between
     *"this case applies"* and *"this case looks similar but doesn't"* is where
@@ -238,35 +238,36 @@ shape the question that follows.
 
 ##  Success criteria
 
--   **Every rule has at least one example AND one counter-example.**
+-   **Every rule MUST have at least one example AND one counter-example.**
 
     A rule without a counter-example is not ready to specify from — its
     boundaries are unclear.
 
--   **Scope is explicit in both directions.**
+-   **Scope MUST be explicit in both directions.**
 
-    The *Out of scope* list is non-empty. Discovery without explicit exclusions
-    hides ambiguity.
+    The *Out of scope* list MUST be non-empty. Discovery without explicit
+    exclusions hides ambiguity.
 
--   **Assumptions are flagged as assumptions.**
+-   **Assumptions MUST be flagged as assumptions.**
 
-    No statement of confidence without a source survives in *Rules* — it has
-    been moved to *Assumptions* if the customer did not directly say it.
+    A statement of confidence without a source MUST NOT survive in *Rules* — it
+    MUST have been moved to *Assumptions* if the customer did not directly say
+    it.
 
--   **Open questions name their owners.**
+-   **Open questions MUST name their owners.**
 
-    Each unanswered question identifies who should answer it next.
+    Each unanswered question MUST identify who should answer it next.
 
--   **Non-functional requirements are recorded, even if none.**
+-   **Non-functional requirements MUST be recorded, even if none.**
 
-    The *Non-functional requirements* section states measurable targets where
-    they exist, or *"None known"* — never left blank, which a downstream step
-    would read as an omission.
+    The *Non-functional requirements* section MUST state measurable targets where
+    they exist, or *"None known"* — it MUST NOT be left blank, which a downstream
+    step would read as an omission.
 
--   **The PRD reads in business language.**
+-   **The PRD MUST read in business language.**
 
-    A non-technical reader can follow every sentence. No code, no API names, no
-    schema details.
+    A non-technical reader MUST be able to follow every sentence. No code, no API
+    names, no schema details.
 
 ## References
 

@@ -120,22 +120,22 @@ is the orchestrator's concern, not this skill's.
 
 ##  Rules
 
--   **One step per session.**
+-   **You MUST implement one step per session.**
 
     Bundling steps multiplies review surface, hides bugs, and makes rollback
-    painful. If you finish a step fast, commit, branch, start the next one.
+    painful. If you finish a step fast, commit, branch, and start the next one.
 
--   **In-scope only.**
+-   **You MUST stay in scope.**
 
-    Out-of-scope work goes in a follow-up step or a separate `temp/*` branch.
+    Out-of-scope work MUST go in a follow-up step or a separate `temp/*` branch.
     "While I'm here" is how scope creep starts.
 
--   **Tests live with the code.**
+-   **Tests MUST live with the code.**
 
-    A behavior added in this step is tested in this step. A step that adds
-    untested behavior is incomplete.
+    A behavior added in this step MUST be tested in this step. A step that adds
+    untested behavior MUST be treated as incomplete.
 
--   **Slice vertically, not horizontally.**
+-   **You MUST slice vertically, not horizontally.**
 
     Red-green-refactor is a single-cycle discipline: one test → one
     implementation → repeat. Resist the urge to batch the reds.
@@ -158,31 +158,31 @@ is the orchestrator's concern, not this skill's.
     fine. Each test only earns its keep by being written *after* the previous
     implementation taught you what to verify.
 
--   **Don't write speculative code.**
+-   **You MUST NOT write speculative code.**
 
     No abstractions for hypothetical futures. No flexibility points for changes
     that aren't on the plan. Three similar lines beats a premature abstraction.
     Trim every "might need this" — if you might need it, you don't need it now.
 
--   **Don't write defensive code at internal boundaries.**
+-   **You MUST NOT write defensive code at internal boundaries.**
 
-    Validate at system boundaries (user input, network, external APIs). Trust
-    internal code. Null-checking, type-guarding, and error-wrapping inside the
-    system are usually code smells.
+    You MUST validate at system boundaries (user input, network, external APIs),
+    and SHOULD trust internal code. Null-checking, type-guarding, and
+    error-wrapping inside the system are usually code smells.
 
--   **Default to no comments.**
+-   **You SHOULD default to no comments.**
 
-    Well-named identifiers do the explaining. Add a comment only when the *why*
-    is non-obvious — a hidden constraint, a workaround for a specific bug, a
-    surprising invariant. Don't narrate what the code does.
+    Well-named identifiers do the explaining. You SHOULD add a comment only when
+    the *why* is non-obvious — a hidden constraint, a workaround for a specific
+    bug, a surprising invariant. You MUST NOT narrate what the code does.
 
--   **Match TDD discipline to risk.**
+-   **You MUST match TDD discipline to risk.**
 
     TDD is the default. For trivial code (a config tweak, a rename, a one-line
-    copy change) it's overkill — skip it. For complex logic or anything with
-    corner cases, the test-first discipline pays for itself many times over.
+    copy change) it is overkill and MAY be skipped. For complex logic or anything
+    with corner cases, the test-first discipline pays for itself many times over.
 
--   **Stop when the step is done.**
+-   **You MUST stop when the step is done.**
 
     "Done" = test passes, diff is clean, commit message is written. Not "done
     plus a bit more". The bit more is the next step.
@@ -257,25 +257,26 @@ Refs: #482
 
 ##  Success criteria
 
--   **The diff stays within the step's stated scope.**
+-   **The diff MUST stay within the step's stated scope.**
 
     Re-read the diff with the step quoted next to it. Anything outside the scope
-    is removed or moved to its own step.
+    MUST be removed or moved to its own step.
 
--   **All new behavior is tested.**
+-   **All new behavior MUST be tested.**
 
-    Each piece of added behavior has at least one test that fails when the
+    Each piece of added behavior MUST have at least one test that fails when the
     behavior is removed.
 
--   **The test loop is fast and runs clean.**
+-   **The test loop MUST be fast and run clean.**
 
-    `<10s` for the relevant suite. No skipped, pending, or flaky tests added.
+    `<10s` for the relevant suite. No skipped, pending, or flaky tests MUST be
+    added.
 
--   **The code matches the surrounding style.**
+-   **The code MUST match the surrounding style.**
 
-    Naming, layout, error handling, and comment density are consistent with
+    Naming, layout, error handling, and comment density MUST be consistent with
     nearby files.
 
--   **The commit follows the project's commit format.**
+-   **The commit MUST follow the project's commit format.**
 
     Correct type, lowercase imperative description, atomic scope.

@@ -150,53 +150,53 @@ production re-implementation — is the orchestrator's concern, not this skill's
 
 ##  Rules
 
--   **The code is throwaway. The answer is the deliverable.**
+-   **The code MUST be throwaway. The answer is the deliverable.**
 
     Promoting spike code to production removes the very property that made it
-    cheap to write. If it must ship, re-implement it cleanly using what was
+    cheap to write. If it MUST ship, re-implement it cleanly using what was
     learned.
 
--   **One question per spike.**
+-   **You MUST pursue one question per spike.**
 
     Two questions = two spikes. Bundling them inflates the time-box, blurs the
     findings, and tempts scope creep.
 
--   **Time-box is enforced, not aspirational.**
+-   **The time-box MUST be enforced, not aspirational.**
 
-    When the budget is gone, stop. The decision to extend is explicit and made
-    with the user, not absorbed quietly into the work.
+    When the budget is gone, you MUST stop. The decision to extend MUST be
+    explicit and made with the user, not absorbed quietly into the work.
 
--   **Production concerns are explicitly skipped.**
+-   **Production concerns MUST be explicitly skipped.**
 
     Tests, error handling, auth, monitoring, accessibility, configuration,
-    documentation — none of these belong in a spike. Including them is how
+    documentation — these MUST NOT appear in a spike. Including them is how
     spikes drift into production-track work.
 
--   **Surface the state.**
+-   **You MUST surface the state.**
 
     After every action (for a logic / state-machine spike) or on every variant
-    switch (for a UI spike), print or render the full relevant state so the user
-    can see what changed. A spike that requires a debugger to learn from isn't
-    doing its job — the whole point is fast, legible feedback on the question
-    being answered. This is the one production-style discipline a spike keeps,
-    because without it the spike produces no usable evidence.
+    switch (for a UI spike), you MUST print or render the full relevant state so
+    the user can see what changed. A spike that requires a debugger to learn
+    from isn't doing its job — the whole point is fast, legible feedback on the
+    question being answered. This is the one production-style discipline a
+    spike keeps, because without it the spike produces no usable evidence.
 
 -   **Findings MUST be reproducible from notes.**
 
     "Felt fast" is not evidence. A measurement with the command, dataset, and
     environment recorded is.
 
--   **Mark spike code so it cannot be mistaken for production.**
+-   **You MUST mark spike code so it cannot be mistaken for production.**
 
-    Directory location, branch name, file header comment. All three if possible.
-    The next reader should not have to ask.
+    Directory location, branch name, file header comment. All three SHOULD be
+    used if possible. The next reader MUST NOT have to ask.
 
--   **Negative answers are valuable.**
+-   **Negative answers SHOULD be treated as valuable.**
 
     A spike that rules out an option is as useful as one that confirms one.
-    Capture the negative finding with the same care.
+    You MUST capture the negative finding with the same care.
 
--   **Do not write tests for a spike.**
+-   **You MUST NOT write tests for a spike.**
 
     Tests anchor design. The whole point of a spike is to discover the design.
     Writing tests first turns a spike into a small project with all the costs
@@ -286,30 +286,30 @@ The design work resumes, evaluating the other two candidates.
 
 ##  Success criteria
 
--   **A single falsifiable question is stated up front.**
+-   **A single falsifiable question MUST be stated up front.**
 
     Not a topic, not an area to explore.
 
--   **The closing evidence is defined before any code is written.**
+-   **The closing evidence MUST be defined before any code is written.**
 
     Numerical threshold, observable behavior, working integration.
 
--   **A time-box is set and respected.**
+-   **A time-box MUST be set and respected.**
 
-    Hours or days. Reaching the box ends the spike, even if the answer is
+    Hours or days. Reaching the box MUST end the spike, even if the answer is
     incomplete.
 
--   **Production concerns are absent from the code.**
+-   **Production concerns MUST be absent from the code.**
 
-    No tests, no error handling, no auth, no abstractions beyond what the
-    question requires.
+    There MUST be no tests, no error handling, no auth, no abstractions beyond
+    what the question requires.
 
--   **The findings are captured durably.**
+-   **The findings MUST be captured durably.**
 
     ADR, design doc, specification update, or decision log — somewhere the
     answer survives after the code is gone.
 
--   **The code is disposed of or quarantined.**
+-   **The code MUST be disposed of or quarantined.**
 
     Deleted, or moved to a clearly-marked throwaway location with a README.
-    Never merged into production paths.
+    It MUST NOT be merged into production paths.

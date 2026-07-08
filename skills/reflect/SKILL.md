@@ -159,44 +159,44 @@ Universal lessons better encoded as a new skill are flagged, not saved.
 
 ##  Rules
 
--   **One candidate at a time.**
+-   **You MUST walk one candidate at a time.**
 
     Walk through proposals individually. Batching invites blind approval;
     one-at-a-time invites scrutiny.
 
--   **Filter ruthlessly.**
+-   **You MUST filter ruthlessly.**
 
     A memory entry that doesn't change future agent behavior is clutter. Better
     to surface ten candidates and save two than to save ten that dilute the
     signal.
 
--   **Reference external systems; don't duplicate them.**
+-   **You MUST reference external systems, not duplicate them.**
 
     If the lesson is about a Linear ticket, Slack thread, or external dashboard,
-    save a `reference` memory that points at it — do not paste its content. The
-    external system is the source of truth.
+    you MUST save a `reference` memory that points at it — you MUST NOT paste its
+    content. The external system is the source of truth.
 
--   **Codebase conventions go to AGENTS.md / CLAUDE.md, not memory.**
+-   **Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.**
 
-    Things other contributors need to see are committed to the repo. Memory
+    Things other contributors need to see MUST be committed to the repo. Memory
     files are agent-private; committed convention files are team-visible. Pick
     the right destination.
 
--   **Redact aggressively.**
+-   **You MUST redact aggressively.**
 
-    Memory persists. Strip API keys, tokens, real names, internal-only URLs, and
-    anything else that would embarrass if leaked.
+    Memory persists. You MUST strip API keys, tokens, real names, internal-only
+    URLs, and anything else that would embarrass if leaked.
 
--   **Distinguish rules from facts.**
+-   **You MUST distinguish rules from facts.**
 
-    `feedback` (how to work) and `project` (what's true now) need the **Why:** +
-    **How to apply:** structure — their reason gives future agents room for
-    judgment on edge cases. `user` and `reference` types are statements of fact
-    and need no such scaffolding.
+    `feedback` (how to work) and `project` (what's true now) MUST carry the
+    **Why:** + **How to apply:** structure — their reason gives future agents room
+    for judgment on edge cases. `user` and `reference` types are statements of
+    fact and need no such scaffolding.
 
--   **Update rather than duplicate.**
+-   **You SHOULD update rather than duplicate.**
 
-    A new lesson close to an existing memory should usually edit the existing
+    A new lesson close to an existing memory SHOULD usually edit the existing
     entry, not create a sibling. Two entries saying nearly-the-same thing is
     worse than one entry saying it accurately.
 
@@ -229,19 +229,19 @@ Universal lessons better encoded as a new skill are flagged, not saved.
 
 ##  Success criteria
 
--   **Every saved lesson is non-obvious and would change future agent
+-   **Every saved lesson MUST be non-obvious and MUST change future agent
     behavior.**
 
     A reader of the entry can identify what you would do *differently* because
     of it.
 
--   **Each `feedback` and `project` entry has both a Why: and a How to apply:
+-   **Each `feedback` and `project` entry MUST have both a Why: and a How to apply:
     line.**
 
--   **Every new memory file is indexed in `MEMORY.md`.**
+-   **Every new memory file MUST be indexed in `MEMORY.md`.**
 
     An unindexed memory file is invisible to future sessions.
 
--   **No saved lesson duplicates an existing memory or convention doc entry.**
+-   **No saved lesson MUST duplicate an existing memory or convention doc entry.**
 
--   **No credentials, PII, or internal URLs appear in any saved entry.**
+-   **No credentials, PII, or internal URLs MUST appear in any saved entry.**

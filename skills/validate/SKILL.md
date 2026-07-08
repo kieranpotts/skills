@@ -150,27 +150,27 @@ consumes the report is the orchestrator's concern.
 
 ##  Rules
 
--   **Validate against the need, not the specification.**
+-   **You MUST validate against the need, not the specification.**
 
     The specification is the thing under suspicion. Judging the software against
-    the ACs only re-runs [`test`](../test/SKILL.md). Judge it against the
-    originating need — the PRD, the outcome, the success measure — so a
+    the ACs only re-runs [`test`](../test/SKILL.md). You MUST judge it against
+    the originating need — the PRD, the outcome, the success measure — so a
     passing-but-wrong specification can be caught.
 
--   **Evaluation only — suggest, never edit.**
+-   **Evaluation only — you MUST suggest, and MUST NOT edit.**
 
-    This skill changes no specification artefact and no code. It outputs a
-    report of suggestions. Editing the requirements is
+    This skill MUST NOT change any specification artefact and MUST NOT change
+    any code. It outputs a report of suggestions. Editing the requirements is
     [`refine`](../refine/SKILL.md)'s responsibility; this skill's job ends at
     the suggestion.
 
--   **Every finding carries evidence.**
+-   **Every finding MUST carry evidence.**
 
     An observed behavior, a measurement against a success metric, a concrete
-    step in the user's flow. A gap asserted without evidence is a preference and
-    does not belong in the report.
+    step in the user's flow. A gap asserted without evidence is a preference
+    and MUST NOT belong in the report.
 
--   **Distinguish a specification gap from an implementation defect.**
+-   **You MUST distinguish a specification gap from an implementation defect.**
 
     If the software fails because the code does not meet a *correct* AC, that is
     a defect for [`test`](../test/SKILL.md) and diagnosis — not a validation
@@ -180,48 +180,48 @@ consumes the report is the orchestrator's concern.
 -   **"Meets the need" is a valid verdict.**
 
     Validation is not obliged to find fault. If the working software serves the
-    user's real need, say so and report no specification change. Manufacturing
-    gaps to justify the pass wastes a refine cycle.
+    user's real need, you MUST say so and report no specification change. You
+    MUST NOT manufacture gaps to justify the pass; that wastes a refine cycle.
 
--   **The report is bounded.**
+-   **The report MUST be bounded.**
 
     Top 5–10 candidates, prioritized. An exhaustive backlog of every conceivable
     improvement will not be acted on and buries the findings that matter.
 
--   **Scope expansion is not validation.**
+-   **Scope expansion MUST NOT be treated as validation.**
 
     A brand-new capability nobody asked for is not a gap against the original
-    need — it is a new requirement. Note it as a follow-up, but do not smuggle
-    it into the validation report as though the specification was wrong to omit
-    it.
+    need — it is a new requirement. You MUST note it as a follow-up, but MUST
+    NOT smuggle it into the validation report as though the specification was
+    wrong to omit it.
 
 ##  Success criteria
 
--   **The originating need is recovered before the software is judged.**
+-   **The originating need MUST be recovered before the software is judged.**
 
-    PRD, outcome, or success measure consulted first. Validation against the ACs
-    alone is verification, not validation.
+    PRD, outcome, or success measure MUST be consulted first. Validation against
+    the ACs alone is verification, not validation.
 
--   **Every finding cites evidence.**
+-   **Every finding MUST cite evidence.**
 
     Observed behavior, a measurement, or a flow step — not an assertion of
     preference.
 
--   **Each finding names its gap type and a suggested direction.**
+-   **Each finding MUST name its gap type and a suggested direction.**
 
     Unmet need / wrong target / missing requirement / over-specification / stale
     assumption, plus what the specification should say instead, ready for
     [`refine`](../refine/SKILL.md).
 
--   **The verdict is explicit.**
+-   **The verdict MUST be explicit.**
 
-    MEETS THE NEED or GAPS FOUND — not implied.
+    MEETS THE NEED or GAPS FOUND — it MUST NOT be implied.
 
--   **No specification or code was changed.**
+-   **No specification or code MUST have been changed.**
 
-    The git tree is unchanged. The output is a report of suggestions; enacting
-    them is downstream.
+    The git tree MUST be unchanged. The output is a report of suggestions;
+    enacting them is downstream.
 
--   **The report is bounded.**
+-   **The report MUST be bounded.**
 
     Top 5–10 candidates, prioritized by need-impact ÷ change-cost.

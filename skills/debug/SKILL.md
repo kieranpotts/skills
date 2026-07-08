@@ -195,16 +195,17 @@ rather than guessing.
 -   **The feedback loop is the skill.**
 
     Build the right loop and the bug is 90% fixed. Without one, you are
-    guessing. Treat loop construction as the primary task, not a setup step.
+    guessing. You MUST treat loop construction as the primary task, not a setup
+    step.
 
--   **For non-deterministic bugs, raise the reproduction rate.**
+-   **For non-deterministic bugs, you MUST raise the reproduction rate.**
 
     The goal is not a clean repro but a *higher* reproduction rate. Loop the
     trigger 100×, parallelize, add stress, narrow timing windows, inject sleeps.
     A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is
     debuggable.
 
--   **If you genuinely cannot build a loop, stop and say so explicitly.**
+-   **If you genuinely cannot build a loop, you MUST stop and say so explicitly.**
 
     List what you tried. Ask the user for one of:
 
@@ -213,29 +214,29 @@ rather than guessing.
       timestamps).
     - Permission to add temporary production instrumentation.
 
-    Do NOT proceed to hypothesize without a loop.
+    You MUST NOT proceed to hypothesize without a loop.
 
--   **Generate hypotheses in a ranked set before testing any.**
+-   **You MUST generate hypotheses in a ranked set before testing any.**
 
-    Single-hypothesis generation anchors on the first plausible idea. Always
+    Single-hypothesis generation anchors on the first plausible idea. You MUST
     produce 3-5 alternatives so the leading candidate is chosen by comparison,
     not by default.
 
--   **One variable at a time when instrumenting.**
+-   **You MUST change one variable at a time when instrumenting.**
 
     Changing two things at once turns a successful test into ambiguous evidence.
 
--   **Tag all debug instrumentation with a unique prefix.**
+-   **You MUST tag all debug instrumentation with a unique prefix.**
 
     eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds every
     probe to remove.
 
--   **For performance work, measure before you change.**
+-   **For performance work, you MUST measure before you change.**
 
     Establish a baseline with a profiler, timing harness, query plan, or
     `performance.now()`. Then bisect. Logs are the wrong tool for performance.
 
--   **State the correct hypothesis in the commit or PR message.**
+-   **You MUST state the correct hypothesis in the commit or PR message.**
 
     The next person debugging this area benefits from knowing what the real
     cause was — not just what the fix is.
@@ -298,24 +299,24 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 
 ##  Success criteria
 
--   **A feedback loop exists and is recorded.**
+-   **A feedback loop MUST exist and MUST be recorded.**
 
-    The exact command, script, or test that reproduces the bug is committed or
-    pasted into the PR/commit message. A future debugger can re-run it.
+    The exact command, script, or test that reproduces the bug MUST be committed
+    or pasted into the PR/commit message. A future debugger can re-run it.
 
--   **The original repro no longer reproduces.**
+-   **The original repro MUST no longer reproduce.**
 
-    Re-running the loop after the fix shows the bug is gone.
+    Re-running the loop after the fix MUST show the bug is gone.
 
--   **A regression test exists, or its absence is documented.**
+-   **A regression test MUST exist, or its absence MUST be documented.**
 
-    The test passes after the fix and fails when the fix is reverted. If no
-    correct seam was available, that finding is recorded.
+    The test MUST pass after the fix and fail when the fix is reverted. If no
+    correct seam was available, that finding MUST be recorded.
 
--   **All tagged instrumentation has been removed.**
+-   **All tagged instrumentation MUST have been removed.**
 
-    `grep` for the debug prefix returns zero hits in the committed code.
+    `grep` for the debug prefix MUST return zero hits in the committed code.
 
--   **The correct hypothesis is stated in the commit or PR message.**
+-   **The correct hypothesis MUST be stated in the commit or PR message.**
 
     Future readers learn what the real cause was, not just what the fix changed.

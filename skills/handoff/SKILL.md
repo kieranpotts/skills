@@ -126,39 +126,39 @@ orchestrator's concern.
 
 ##  Rules
 
--   **Reference, don't duplicate.**
+-   **You MUST reference, not duplicate.**
 
     Every fact already captured in a specification, plan, ADR, issue, commit, or
-    diff is referenced by path or URL. Duplication invites drift.
+    diff MUST be referenced by path or URL. Duplication invites drift.
 
 -   **The handoff is ephemeral.**
 
-    It lives outside the repo. Discard once the next session has absorbed it. If
-    a piece of the handoff turns out to be durable, promote it to the relevant
-    project artifact (ADR, specification update, runbook) and remove it from the
-    handoff.
+    It MUST live outside the repo, and MUST be discarded once the next session
+    has absorbed it. If a piece of the handoff turns out to be durable, you MUST
+    promote it to the relevant project artifact (ADR, specification update,
+    runbook) and remove it from the handoff.
 
--   **Be specific about what's open.**
+-   **You MUST be specific about what's open.**
 
     "Some questions remain about the API" is unhelpful. "Two questions remain on
     the API: (1) idempotency behavior on retry; (2) whether to accept partial
     updates — both blocked on product input" is actionable.
 
--   **Suggest next steps, don't dictate them.**
+-   **You SHOULD suggest next steps, and MUST NOT dictate them.**
 
     Name the work relevant to the road ahead, but the next session decides what
-    to do. Don't pretend to know what the next session will encounter.
+    to do. You MUST NOT pretend to know what the next session will encounter.
 
--   **Redact aggressively.**
+-   **You MUST redact aggressively.**
 
     Anything that looks remotely like a credential, real identity, or internal
-    URL is removed. The bar is: "could this embarrass anyone if pasted into a
-    public channel?"
+    URL MUST be removed. The bar is: "could this embarrass anyone if pasted into
+    a public channel?"
 
--   **Do not fabricate state to fill the template.**
+-   **You MUST NOT fabricate state to fill the template.**
 
-    If a section has nothing to say, omit it or write "none" explicitly. An
-    empty section is honest; an invented one is misleading.
+    If a section has nothing to say, you MUST omit it or write "none" explicitly.
+    An empty section is honest; an invented one is misleading.
 
 ## Examples
 
@@ -230,15 +230,16 @@ A compact handoff:
 
 ##  Success criteria
 
--   **The handoff lives outside the repo.**
+-   **The handoff MUST live outside the repo.**
 
     Written to a temp-directory path, not the project tree.
 
--   **Every artifact referenced has a path or URL, not pasted content.**
+-   **Every artifact referenced MUST have a path or URL, not pasted content.**
 
--   **All credentials, PII, and internal-only URLs are redacted.**
+-   **All credentials, PII, and internal-only URLs MUST be redacted.**
 
--   **Outstanding questions are stated specifically, with their blockers
+-   **Outstanding questions MUST be stated specifically, with their blockers
     named.**
 
--   **The next session could read the handoff alone and know what to do next.**
+-   **The next session MUST be able to read the handoff alone and know what to do
+    next.**
