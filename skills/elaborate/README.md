@@ -1,12 +1,20 @@
 # 🧑 `elaborate`
 
-This is a highly interactive session (🧑), involving lots of back-and-forth between the agent and the user, with one objective: to nail down an architectural design and mitigate major risks within it.
+This is a highly interactive session (🧑), involving lots of back-and-forth
+between the agent and the user, with one objective: to nail down an
+architectural design and mitigate major risks within it.
 
-For input, the agent requires architectural design artifacts — anything in a textual formats (some models will also process images). The skill instructs the agent to interrogate the design, and then interview the user, one question at a time, on the rationale for the design choices.
+For input, the agent requires architectural design artifacts — anything in a
+textual formats (some models will also process images). The skill instructs the
+agent to interrogate the design, and then interview the user, one question at a
+time, on the rationale for the design choices.
 
-Each question carries a recommended answer, so the user can agree quickly or articulate a disagreement.
+Each question carries a recommended answer, so the user can agree quickly or
+articulate a disagreement.
 
-The agent is instructed to sharpen fuzzy terms, probe assertions with concrete scenarios, and surface contradictions between the stated design and what the code actually does.
+The agent is instructed to sharpen fuzzy terms, probe assertions with concrete
+scenarios, and surface contradictions between the stated design and what the
+code actually does.
 
 ```mermaid
 flowchart LR
@@ -91,10 +99,17 @@ flowchart LR
 
 ## Recommended models
 
-Interrogating a draft design one question at a time, sharpening fuzzy language, and cross-referencing the codebase is judgment-heavy, interactive work. Use a frontier reasoning model — this is one of the few skills where the entire value proposition is the model's ability to find the weak point in an argument.
+Interrogating a draft design one question at a time, sharpening fuzzy language,
+and cross-referencing the codebase is judgment-heavy, interactive work. Use a
+frontier reasoning model — this is one of the few skills where the entire value
+proposition is the model's ability to find the weak point in an argument.
 
 ## References
 
-- Inspired by Matt Pocock's [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md) skill.
+- Inspired by Matt Pocock's
+  [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md)
+  skill.
 
-- The name of this skill is taken from the elaboration phase in the [Unified Process](https://www.amazon.co.uk/dp/0201571692). The goal of this phase is to establish and validate a proposed system architecture.
+- The name of this skill is taken from the elaboration phase in the [Unified
+  Process](https://www.amazon.co.uk/dp/0201571692). The goal of this phase is to
+  establish and validate a proposed system architecture.

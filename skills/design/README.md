@@ -2,15 +2,26 @@
 
 This skill is all about architectural decision making.
 
-This skill takes a formal software requirements specification (SRS) — something more substantial than a vague product requirements document (PRD) written in business language — and enumerates design options for each significant architectural decision required to realize a solution.
+This skill takes a formal software requirements specification (SRS) — something
+more substantial than a vague product requirements document (PRD) written in
+business language — and enumerates design options for each significant
+architectural decision required to realize a solution.
 
-For each option, the agent is instructed to evaluate it against nine design qualities: completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, and simplicity.
+For each option, the agent is instructed to evaluate it against nine design
+qualities: completeness, correctness, performance, reliability, experience,
+habitability, cohesiveness, changeability, and simplicity.
 
-The outcome is the agent recommending one option, with well-articulated reasoning, for each major architectural decision. This is captured in a durable architectural decision record (ADR).
+The outcome is the agent recommending one option, with well-articulated
+reasoning, for each major architectural decision. This is captured in a durable
+architectural decision record (ADR).
 
-For trivial changes, the user may strip straight from specifying requirements ([`specify`](../specify/)) to implementing the necessary changes ([`code`](../code/)). This step is required when there are genuine architectural trade-offs to be considered in the design.
+For trivial changes, the user may strip straight from specifying requirements
+([`specify`](../specify/)) to implementing the necessary changes
+([`code`](../code/)). This step is required when there are genuine architectural
+trade-offs to be considered in the design.
 
-This skill instructs agents to run non-interactively (🤖) if possible, but to prompt to clarify unclear constraints.
+This skill instructs agents to run non-interactively (🤖) if possible, but to
+prompt to clarify unclear constraints.
 
 ```mermaid
 flowchart LR
@@ -95,4 +106,8 @@ flowchart LR
 
 ## Recommended models
 
-This is squarely a job for a frontier reasoning model, ideally with extended thinking enabled. Enumerating real alternatives and weighing them against competing design qualities (performance vs. simplicity, changeability vs. completeness) requires the kind of deliberate, multi-step reasoning that separates frontier models from mid-tier ones.
+This is squarely a job for a frontier reasoning model, ideally with extended
+thinking enabled. Enumerating real alternatives and weighing them against
+competing design qualities (performance vs. simplicity, changeability vs.
+completeness) requires the kind of deliberate, multi-step reasoning that
+separates frontier models from mid-tier ones.

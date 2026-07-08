@@ -1,10 +1,11 @@
 ---
 name: audit
 description: >-
-  Evaluate the as-built architecture of a software system. Report code smells and anti-patterns like
-  shallow abstractions, tangled dependencies, and single-caller wrappers. Evaluation only – no code
-  changes. Use this skill when the user says "audit the architecture", "is the design still sound?",
-  or "check the codebase for structural drift".
+  Evaluate the as-built architecture of a software system. Report code smells
+  and anti-patterns like shallow abstractions, tangled dependencies, and
+  single-caller wrappers. Evaluation only – no code changes. Use this skill when
+  the user says "audit the architecture", "is the design still sound?", or
+  "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,66 +16,121 @@ metadata:
 
 **Input:**
 
-- **The target codebase. REQUIRED.** Unless an explicit path is provided, this is the code repository whose root is the current working directory, else all code repositories nested in subdirectories of the current working directory. Also check `AGENTS.md` in the current working directory for references to other repositories in the workspace — if present, include those too.
+- **The target codebase. REQUIRED.** Unless an explicit path is provided, this
+  is the code repository whose root is the current working directory, else all
+  code repositories nested in subdirectories of the current working directory.
+  Also check `AGENTS.md` in the current working directory for references to
+  other repositories in the workspace — if present, include those too.
 
-- **Where to write the report. REQUIRED.** The project's audit-report collection. If the current repository has an `audits/` directory, that is the collection. If the design documentation is kept in a separate repository, `AGENTS.md` in the current working directory will reference it — its `audits/` directory is the collection. This is a **write target only**. The audit does NOT read the design documentation. If the project has no audit-report collection, fall back to a sensible default (see step 5).
+- **Where to write the report. REQUIRED.** The project's audit-report
+  collection. If the current repository has an `audits/` directory, that is the
+  collection. If the design documentation is kept in a separate repository,
+  `AGENTS.md` in the current working directory will reference it — its `audits/`
+  directory is the collection. This is a **write target only**. The audit does
+  NOT read the design documentation. If the project has no audit-report
+  collection, fall back to a sensible default (see step 5).
 
 **Output:**
 
-A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, stating what is observed and the cost it imposes, and optionally pointing toward a fix.
+A prioritized, bounded report of architectural improvement candidates, each
+citing specific files and lines, stating what is observed and the cost it
+imposes, and optionally pointing toward a fix.
 
-The audit evaluates the as-built system **on its own terms**. It does NOT read the design documentation, does NOT compare the code against the intended architecture, and does NOT report drift from the docs — catching drift is the job of a project's `reconcile-design` skill, where one exists. This deliberate blindness keeps the review unbiased, so it surfaces genuinely novel suggestions rather than re-litigating trade-offs already settled.
+The audit evaluates the as-built system **on its own terms**. It does NOT read
+the design documentation, does NOT compare the code against the intended
+architecture, and does NOT report drift from the docs — catching drift is the
+job of a project's `reconcile-design` skill, where one exists. This deliberate
+blindness keeps the review unbiased, so it surfaces genuinely novel suggestions
+rather than re-litigating trade-offs already settled.
 
-The report is written to the project's audit-report collection, following that collection's own conventions — its `TEMPLATE.md` and `README.md`, which govern the report's path, structure, and lifecycle. Where the project has no such collection, use the fallback in step 5.
+The report is written to the project's audit-report collection, following that
+collection's own conventions — its `TEMPLATE.md` and `README.md`, which govern
+the report's path, structure, and lifecycle. Where the project has no such
+collection, use the fallback in step 5.
 
 **Interactivity:**
 
-Agents MUST NOT block for user input after the initial prompt. Agents MUST follow this skill's instructions to completion, or fail with an error message.
+Agents MUST NOT block for user input after the initial prompt. Agents MUST
+follow this skill's instructions to completion, or fail with an error message.
 
 ##  Instructions
 
 1.  **Establish scope and pin the subject.**
 
-    Decide what is in scope — which repositories, services, or directories the audit covers — and record the exact commit of each (`owner/repo@<commit-sha>`), so the report is a reproducible point-in-time snapshot of what was examined.
+    Decide what is in scope — which repositories, services, or directories the
+    audit covers — and record the exact commit of each
+    (`owner/repo@<commit-sha>`), so the report is a reproducible point-in-time
+    snapshot of what was examined.
 
-    Do NOT open the design documentation. This audit forms its judgment from the code alone. Reading the intended architecture would bias the review toward the trade-offs already considered — the opposite of what this skill is for.
+    Do NOT open the design documentation. This audit forms its judgment from the
+    code alone. Reading the intended architecture would bias the review toward
+    the trade-offs already considered — the opposite of what this skill is for.
 
 2.  **Walk the codebase applying the deletion test.**
 
-    For each significant module, ask: *if I removed this module, where would its complexity go?*
+    For each significant module, ask: *if I removed this module, where would its
+    complexity go?*
 
-    - If complexity would **concentrate elsewhere in a worse arrangement** — the module is **deep**, earning its keep.
-    - If complexity would **simply redistribute** without becoming worse — the module is **shallow**, not earning its keep. Flag it.
+    - If complexity would **concentrate elsewhere in a worse arrangement** — the
+      module is **deep**, earning its keep.
+    - If complexity would **simply redistribute** without becoming worse — the
+      module is **shallow**, not earning its keep. Flag it.
 
-    A shallow module's primary value is hiding a thin layer of behavior behind an interface wider than the behavior justifies.
+    A shallow module's primary value is hiding a thin layer of behavior behind
+    an interface wider than the behavior justifies.
 
 3.  **Look for these specific smells.**
 
-    - **Wide interfaces relative to behavior.** Many exported functions for thin underlying logic. Often the boundary is in the wrong place.
-    - **Tangled dependencies.** Modules importing each other directly or via chains that resist independent change. Touching one requires touching several.
-    - **Single-caller abstractions.** An interface, base class, or helper used by exactly one caller. The abstraction wasn't earned.
-    - **Repeated patterns not yet abstracted.** Three or more places doing the same shape of work, none extracted. Worth promoting to a named concept.
-    - **Inverted dependencies.** Lower-level modules importing higher-level ones; stable code depending on volatile code.
-    - **Names that don't match content.** A `util` doing domain logic, a `Manager` with one method, a `Service` that's a thin DAO.
+    - **Wide interfaces relative to behavior.** Many exported functions for thin
+      underlying logic. Often the boundary is in the wrong place.
+    - **Tangled dependencies.** Modules importing each other directly or via
+      chains that resist independent change. Touching one requires touching
+      several.
+    - **Single-caller abstractions.** An interface, base class, or helper used
+      by exactly one caller. The abstraction wasn't earned.
+    - **Repeated patterns not yet abstracted.** Three or more places doing the
+      same shape of work, none extracted. Worth promoting to a named concept.
+    - **Inverted dependencies.** Lower-level modules importing higher-level
+      ones; stable code depending on volatile code.
+    - **Names that don't match content.** A `util` doing domain logic, a
+      `Manager` with one method, a `Service` that's a thin DAO.
 
 4.  **Prioritize findings by impact ÷ effort.**
 
-    - **Impact**: how much the rest of the codebase simplifies if this is fixed. Findings that unlock other improvements rank high.
-    - **Effort**: how invasive the change would be. Local renames rank above cross-cutting restructures.
+    - **Impact**: how much the rest of the codebase simplifies if this is fixed.
+      Findings that unlock other improvements rank high.
+    - **Effort**: how invasive the change would be. Local renames rank above
+      cross-cutting restructures.
 
-    Assign each finding a **Priority** — High, Medium, or Low — from this ranking, and order the report by it. The top entry is the cheapest high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't be acted on.
+    Assign each finding a **Priority** — High, Medium, or Low — from this
+    ranking, and order the report by it. The top entry is the cheapest
+    high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't
+    be acted on.
 
 5.  **Write the report.**
 
-    Write the report into the project's audit-report collection, following its conventions:
+    Write the report into the project's audit-report collection, following its
+    conventions:
 
-    - **If the project has an `audits/` collection**, copy its `TEMPLATE.md` and save the report at the path its `README.md` specifies (typically `audits/YYYY-MM-DD-<slug>/README.md`). Fill the metadata header — Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope — and leave workflow fields (eg. the audit PR number) blank for the user. The collection's `TEMPLATE.md` is authoritative for structure.
+    - **If the project has an `audits/` collection**, copy its `TEMPLATE.md` and
+      save the report at the path its `README.md` specifies (typically
+      `audits/YYYY-MM-DD-<slug>/README.md`). Fill the metadata header —
+      Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope —
+      and leave workflow fields (eg. the audit PR number) blank for the user.
+      The collection's `TEMPLATE.md` is authoritative for structure.
 
-    - **Do NOT commit, branch, or open a pull request.** The collection's own workflow — a human, or a companion skill — owns branching, committing, and indexing. Writing the report file is where this skill stops.
+    - **Do NOT commit, branch, or open a pull request.** The collection's own
+      workflow — a human, or a companion skill — owns branching, committing, and
+      indexing. Writing the report file is where this skill stops.
 
-    - **If the project has no audit-report collection**, check `AGENTS.md` for naming and location conventions. Failing that, write `audit-report-<timestamp>.md` to a sensible location — the repository root, or the OS temp directory if the target is not a git repository — using the fallback structure below.
+    - **If the project has no audit-report collection**, check `AGENTS.md` for
+      naming and location conventions. Failing that, write
+      `audit-report-<timestamp>.md` to a sensible location — the repository
+      root, or the OS temp directory if the target is not a git repository —
+      using the fallback structure below.
 
-    Fallback structure (a project's `TEMPLATE.md`, where present, supersedes this):
+    Fallback structure (a project's `TEMPLATE.md`, where present, supersedes
+    this):
 
     ```markdown
     # Audit report — <subject>
@@ -114,45 +170,64 @@ Agents MUST NOT block for user input after the initial prompt. Agents MUST follo
 
 -   **Discovery only.**
 
-    Do not change any code in the audited repositories, and do not file issues or open pull requests to implement the findings. The output is the report; the user decides what to act on.
+    Do not change any code in the audited repositories, and do not file issues
+    or open pull requests to implement the findings. The output is the report;
+    the user decides what to act on.
 
 -   **Do not commit the report.**
 
-    Write it to disk so it persists and can be referenced by [`refactor`](../refactor/) and the collection's own workflow, but leave committing — or discarding — to the user.
+    Write it to disk so it persists and can be referenced by
+    [`refactor`](../refactor/) and the collection's own workflow, but leave
+    committing — or discarding — to the user.
 
 -   **Cite files and lines.**
 
-    Every finding names specific paths. Vague findings ("the API layer is messy") are useless — be concrete.
+    Every finding names specific paths. Vague findings ("the API layer is
+    messy") are useless — be concrete.
 
 -   **Observation first; any pointer is optional.**
 
-    State what you see and the cost it imposes before offering any suggestion. A pointer toward a fix is optional, and MUST stay a pointer — never a worked-out alternative design (that is the job of `design`, downstream). The observation is the deliverable; a reader may reject the pointer and still find the observation valuable.
+    State what you see and the cost it imposes before offering any suggestion. A
+    pointer toward a fix is optional, and MUST stay a pointer — never a
+    worked-out alternative design (that is the job of `design`, downstream). The
+    observation is the deliverable; a reader may reject the pointer and still
+    find the observation valuable.
 
 -   **"Not worth fixing" is a valid conclusion.**
 
-    Not every smell earns a fix. If the cost of the change would exceed the cost of the smell, say so — record it as low priority, with the rationale.
+    Not every smell earns a fix. If the cost of the change would exceed the cost
+    of the smell, say so — record it as low priority, with the rationale.
 
 -   **Stay within the codebase's idioms.**
 
-    Don't flag style choices that are consistent across the codebase as smells just because you'd prefer a different style. Audit is for structural problems, not preferences.
+    Don't flag style choices that are consistent across the codebase as smells
+    just because you'd prefer a different style. Audit is for structural
+    problems, not preferences.
 
 ##  Success criteria
 
 -   **The report cites specific files for every finding.**
 
-    No vague platitudes. Each finding names a module/file path and a concrete observation.
+    No vague platitudes. Each finding names a module/file path and a concrete
+    observation.
 
 -   **Findings are prioritized by impact ÷ effort.**
 
-    Each carries a Priority (High / Medium / Low) derived from the ranking, and the report is ordered by it. A reader can stop after the top three entries and still have something actionable.
+    Each carries a Priority (High / Medium / Low) derived from the ranking, and
+    the report is ordered by it. A reader can stop after the top three entries
+    and still have something actionable.
 
 -   **No code was changed in the audited repositories.**
 
-    Their tracked files are unchanged after this skill runs — `git diff` over them is empty. The new report file in the audit-report collection is the one expected artifact.
+    Their tracked files are unchanged after this skill runs — `git diff` over
+    them is empty. The new report file in the audit-report collection is the one
+    expected artifact.
 
 -   **The report exists on disk and is not committed.**
 
-    The report file is present at the location the collection's conventions (or `AGENTS.md`) specify, and `git status` shows it untracked — never staged or committed by this skill.
+    The report file is present at the location the collection's conventions (or
+    `AGENTS.md`) specify, and `git status` shows it untracked — never staged or
+    committed by this skill.
 
 -   **The report is bounded.**
 
@@ -160,10 +235,15 @@ Agents MUST NOT block for user input after the initial prompt. Agents MUST follo
 
 -   **The report conforms to the audit template.**
 
-    It carries the metadata header (including the Subject snapshot), a findings table, and per-finding Type / Priority / Location — matching the project's `TEMPLATE.md`, or the fallback structure where none exists.
+    It carries the metadata header (including the Subject snapshot), a findings
+    table, and per-finding Type / Priority / Location — matching the project's
+    `TEMPLATE.md`, or the fallback structure where none exists.
 
 ##  References
 
--   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present — the authoritative conventions for the report's path, structure, and lifecycle.
+-   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present —
+    the authoritative conventions for the report's path, structure, and
+    lifecycle.
 
--   [`refactor`](../refactor/): Consumes this report to propose and make the changes the user chooses to act on.
+-   [`refactor`](../refactor/): Consumes this report to propose and make the
+    changes the user chooses to act on.

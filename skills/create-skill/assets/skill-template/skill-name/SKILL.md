@@ -13,15 +13,21 @@ metadata:
 
 Short introduction here.
 
-This skill extends [this skill](https://raw.githubusercontent.com/...) — all rules there apply here.
+This skill extends [this skill](https://raw.githubusercontent.com/...) — all
+rules there apply here.
 
 ## Interface
 
-**Input**: What input the skill consumes — a file, a prompt, a selection — and whether it is OPTIONAL or REQUIRED. State any default behavior when no input is given.
+**Input**: What input the skill consumes — a file, a prompt, a selection — and
+whether it is OPTIONAL or REQUIRED. State any default behavior when no input is
+given.
 
-**Interactive**: Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+**Interactive**: Whether the skill runs non-interactively to completion, or is
+necessarily interactive — blocking to ask questions, present options, and wait
+for answers.
 
-**Output**: What the skill produces, in what format, and where it is written — a report, a direct edit, a file, a commit, the conversation itself.
+**Output**: What the skill produces, in what format, and where it is written — a
+report, a direct edit, a file, a commit, the conversation itself.
 
 ##  Instructions
 
@@ -64,7 +70,8 @@ This skill extends [this skill](https://raw.githubusercontent.com/...) — all r
 
 -   **The output matches the expected format.**
 
-    Describe the specific structural or syntactic requirement — eg. the regex passes, the file is in the right location, the required fields are present.
+    Describe the specific structural or syntactic requirement — eg. the regex
+    passes, the file is in the right location, the required fields are present.
 
 -   **All rules have been respected.**
 
@@ -72,7 +79,8 @@ This skill extends [this skill](https://raw.githubusercontent.com/...) — all r
 
 -   **Some domain-specific check.**
 
-    Add one or two concrete, observable conditions specific to this skill — things the agent can verify without running external tooling.]
+    Add one or two concrete, observable conditions specific to this skill —
+    things the agent can verify without running external tooling.]
 
 ## Examples
 
@@ -84,12 +92,16 @@ Warn about potential edge cases. Regular prose. OPTIONAL.
 
 ## References
 
-Include a ist of links with extended and related information. For each, include an explicit trigger condition.
+Include a ist of links with extended and related information. For each, include
+an explicit trigger condition.
 
-- [API errors](./references/api-errors.md): Read if the API returns a non-200 status code.
+- [API errors](./references/api-errors.md): Read if the API returns a non-200
+  status code.
 
-- [`assets/some-template.md`](./assets/template.md): The bundled template to fill out in step N.
+- [`assets/some-template.md`](./assets/template.md): The bundled template to
+  fill out in step N.
 
 - [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
 
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md): Used for [purpose].
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md): Used for
+  [purpose].

@@ -1,12 +1,20 @@
 # 🤖 `refactor`
 
-This skill restructures source code, while preserving existing behavior, to improve a single named target quality.
+This skill restructures source code, while preserving existing behavior, to
+improve a single named target quality.
 
-The agent is instructed to work in a sequence of small steps: rename one symbol, extract one function, inline one variable, etc. Each step compiles, passes tests, and could be independently reverted.
+The agent is instructed to work in a sequence of small steps: rename one symbol,
+extract one function, inline one variable, etc. Each step compiles, passes
+tests, and could be independently reverted.
 
-The outcome is restructured code with externally observable behavior identical, tests green throughout.
+The outcome is restructured code with externally observable behavior identical,
+tests green throughout.
 
-Use this skill on existing code that has comprehensive test coverage, especially at the system level. The skill works best when you have a target quality in mind: readability, data structures, coupling, naming, etc. Structural code qualities that require attention may be flagged by the architectural [`audit`](../audit/) skill.
+Use this skill on existing code that has comprehensive test coverage, especially
+at the system level. The skill works best when you have a target quality in
+mind: readability, data structures, coupling, naming, etc. Structural code
+qualities that require attention may be flagged by the architectural
+[`audit`](../audit/) skill.
 
 Refactoring work is distinct from bug fixes and feature delivery.
 
@@ -95,4 +103,7 @@ flowchart LR
 
 ## Recommended models
 
-Improving internal quality without changing behavior requires judgment about design trade-offs, so a frontier reasoning model is the safer default, especially for anything beyond mechanical renames. Simple, well-scoped refactors can run on a mid-tier coding model.
+Improving internal quality without changing behavior requires judgment about
+design trade-offs, so a frontier reasoning model is the safer default,
+especially for anything beyond mechanical renames. Simple, well-scoped refactors
+can run on a mid-tier coding model.

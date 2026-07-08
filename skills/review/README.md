@@ -2,9 +2,13 @@
 
 Performs code review.
 
-This skill instructs the agent to statically analyze the diff in an open pull request.
+This skill instructs the agent to statically analyze the diff in an open pull
+request.
 
-The agent is instructed to check correctness, design, clarity, test coverage, security, and completeness, writing findings that are specific and actionable, each carrying a severity (blocking, suggestion, nitpick, praise) and organized along two axes:
+The agent is instructed to check correctness, design, clarity, test coverage,
+security, and completeness, writing findings that are specific and actionable,
+each carrying a severity (blocking, suggestion, nitpick, praise) and organized
+along two axes:
 
 - **Specification**: Does it faithfully implement the issue/ACs.
 - **Standards**: Does it conform to the repo's conventions.
@@ -15,9 +19,11 @@ It closes with an explicit verdict, one of:
 - Request changes
 - Comment
 
-Use this skill when auditing a coworker's branch, or self-reviewing changes before opening a PR.
+Use this skill when auditing a coworker's branch, or self-reviewing changes
+before opening a PR.
 
-The agent is instructed to surface findings without fixing them. Orchestrators may handoff to the [`resolve`](../resolve/) skill to resolve open PR comments.
+The agent is instructed to surface findings without fixing them. Orchestrators
+may handoff to the [`resolve`](../resolve/) skill to resolve open PR comments.
 
 For a wider architectural review, refer to the [`audit`](../audit/) skill.
 
@@ -106,4 +112,7 @@ flowchart LR
 
 ## Recommended models
 
-Reviewing a change for correctness, design, security, and completeness is judgment-heavy and adversarial by nature — you're looking for what the author missed. Use a frontier reasoning model; mid-tier models tend to under-report subtle defects and over-report style nitpicks.
+Reviewing a change for correctness, design, security, and completeness is
+judgment-heavy and adversarial by nature — you're looking for what the author
+missed. Use a frontier reasoning model; mid-tier models tend to under-report
+subtle defects and over-report style nitpicks.

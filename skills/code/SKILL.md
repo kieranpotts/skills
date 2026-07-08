@@ -1,10 +1,11 @@
 ---
 name: code
 description: >-
-  Write code and tests for a single step from the plan. Default to test-driven development (red-green-
-  refactor). Stay strictly within the step's scope. Use when implementing one numbered step from a
-  plan, or for any small standalone change whose design is already obvious, or when the user says
-  "implement step N of the plan", "code this up", or "build this change, test-first".
+  Write code and tests for a single step from the plan. Default to test-driven
+  development (red-green- refactor). Stay strictly within the step's scope. Use
+  when implementing one numbered step from a plan, or for any small standalone
+  change whose design is already obvious, or when the user says "implement step
+  N of the plan", "code this up", or "build this change, test-first".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -13,49 +14,76 @@ metadata:
 
 # Code
 
-Use this skill when implementing one numbered step from a plan, or any small standalone change whose design is already obvious. It turns one already-designed step into working, tested code. Implement one plan step per session — never bundle multiple steps — so the diff stays reviewable and rollback stays clean; after the step's tests pass, start the next step in a fresh session.
+Use this skill when implementing one numbered step from a plan, or any small
+standalone change whose design is already obvious. It turns one already-designed
+step into working, tested code. Implement one plan step per session — never
+bundle multiple steps — so the diff stays reviewable and rollback stays clean;
+after the step's tests pass, start the next step in a fresh session.
 
 ## Interface
 
-**Input**: One numbered plan step (or a small standalone change whose design is already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill does not design or decompose; it consumes a step that is ready to implement.
+**Input**: One numbered plan step (or a small standalone change whose design is
+already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill
+does not design or decompose; it consumes a step that is ready to implement.
 
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
+or is necessarily interactive — blocking to ask questions, present options, and
+wait for answers.
 
-**Output**: A committed, tested change for that single step — the implementation plus its tests, scope-locked to the step, with a clean reviewable diff and a conventional commit. Whatever reviews, tests further, or sequences the next step is the orchestrator's concern, not this skill's.
+**Output**: A committed, tested change for that single step — the implementation
+plus its tests, scope-locked to the step, with a clean reviewable diff and a
+conventional commit. Whatever reviews, tests further, or sequences the next step
+is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
 1.  **Restate the step's scope.**
 
-    Quote the step from the plan. Say in one sentence what is in-scope and, more importantly, what is out-of-scope. Anything not in the step is for a future step — including refactors, error handling for unreached paths, and "while I'm here" cleanups.
+    Quote the step from the plan. Say in one sentence what is in-scope and, more
+    importantly, what is out-of-scope. Anything not in the step is for a future
+    step — including refactors, error handling for unreached paths, and "while
+    I'm here" cleanups.
 
-    If the step is ambiguous, clarify before coding. Mid-implementation scope drift is the most common cause of unmergeable PRs.
+    If the step is ambiguous, clarify before coding. Mid-implementation scope
+    drift is the most common cause of unmergeable PRs.
 
 2.  **Set up the feedback loop.**
 
-    The fastest path to working code is a fast pass/fail signal. Before writing the implementation, confirm:
+    The fastest path to working code is a fast pass/fail signal. Before writing
+    the implementation, confirm:
 
     - You can run the relevant tests (unit, integration) in under ~10 seconds.
     - You know the exact command.
-    - The test runner is wired to the editor or terminal for one-keystroke re-runs.
+    - The test runner is wired to the editor or terminal for one-keystroke
+      re-runs.
 
-    If the loop is slow or missing, fix it first. Slow loops produce sloppy code.
+    If the loop is slow or missing, fix it first. Slow loops produce sloppy
+    code.
 
 3.  **Write the failing test first (TDD default).**
 
     Follow red → green → refactor:
 
-    - *Red*: write the smallest test that captures the behavior to add. Run it. Confirm it fails for the *expected* reason (assertion mismatch, not import error or syntax error).
-    - *Green*: write the simplest code that makes the test pass. No design improvements yet.
-    - *Refactor*: improve the structure of code and test while all tests stay green.
+    - *Red*: write the smallest test that captures the behavior to add. Run it.
+      Confirm it fails for the *expected* reason (assertion mismatch, not import
+      error or syntax error).
+    - *Green*: write the simplest code that makes the test pass. No design
+      improvements yet.
+    - *Refactor*: improve the structure of code and test while all tests stay
+      green.
 
-    Repeat for each piece of behavior, one cycle at a time — never batch the reds (see "Slice vertically, not horizontally" below). Each cycle is a few minutes, not hours.
+    Repeat for each piece of behavior, one cycle at a time — never batch the
+    reds (see "Slice vertically, not horizontally" below). Each cycle is a few
+    minutes, not hours.
 
-    Skip TDD only when the design is in genuine flux (early exploration, spikes). Explain the skip in the commit body if so.
+    Skip TDD only when the design is in genuine flux (early exploration,
+    spikes). Explain the skip in the commit body if so.
 
 4.  **Use real dependencies where practical.**
 
-    Replace dependencies with test doubles only when they are slow, non-deterministic, or unavailable. Prefer real implementations. Excessive mocking produces tests that pass while production breaks.
+    Replace dependencies with test doubles only when they are slow,
+    non-deterministic, or unavailable. Prefer real implementations. Excessive
+    mocking produces tests that pass while production breaks.
 
     For each dependency, pick the lightest viable double:
 
@@ -63,16 +91,22 @@ Use this skill when implementing one numbered step from a plan, or any small sta
 
 5.  **Apply the project's coding standards.**
 
-    Match the surrounding code's idioms — naming, file layout, error handling, logging. If unsure, read 2-3 nearby files first. New code should be indistinguishable in style from existing code unless the existing code is what the step is replacing.
+    Match the surrounding code's idioms — naming, file layout, error handling,
+    logging. If unsure, read 2-3 nearby files first. New code should be
+    indistinguishable in style from existing code unless the existing code is
+    what the step is replacing.
 
-    Adhere to the broader TS-13 principles: meaningful names, low coupling, explicit error handling at boundaries (not interior), comments only where the *why* is non-obvious.
+    Adhere to the broader TS-13 principles: meaningful names, low coupling,
+    explicit error handling at boundaries (not interior), comments only where
+    the *why* is non-obvious.
 
 6.  **Review the diff before committing.**
 
     Read the diff as if you were the reviewer. Check:
 
     - Is everything in this diff in the step's scope?
-    - Are there unused imports, debug logs, commented-out code, or `TODO` markers?
+    - Are there unused imports, debug logs, commented-out code, or `TODO`
+      markers?
     - Does the test name describe the behavior, not the implementation?
     - Could a future reader understand the *why* without you?
 
@@ -80,25 +114,31 @@ Use this skill when implementing one numbered step from a plan, or any small sta
 
 7.  **Commit.**
 
-    One step = one commit (or a small batch of `step:` commits if subdivision helps reviewers). Use the project's commit type vocabulary and format. Reference the issue or plan in the body or footer.
+    One step = one commit (or a small batch of `step:` commits if subdivision
+    helps reviewers). Use the project's commit type vocabulary and format.
+    Reference the issue or plan in the body or footer.
 
 ##  Rules
 
 -   **One step per session.**
 
-    Bundling steps multiplies review surface, hides bugs, and makes rollback painful. If you finish a step fast, commit, branch, start the next one.
+    Bundling steps multiplies review surface, hides bugs, and makes rollback
+    painful. If you finish a step fast, commit, branch, start the next one.
 
 -   **In-scope only.**
 
-    Out-of-scope work goes in a follow-up step or a separate `temp/*` branch. "While I'm here" is how scope creep starts.
+    Out-of-scope work goes in a follow-up step or a separate `temp/*` branch.
+    "While I'm here" is how scope creep starts.
 
 -   **Tests live with the code.**
 
-    A behavior added in this step is tested in this step. A step that adds untested behavior is incomplete.
+    A behavior added in this step is tested in this step. A step that adds
+    untested behavior is incomplete.
 
 -   **Slice vertically, not horizontally.**
 
-    Red-green-refactor is a single-cycle discipline: one test → one implementation → repeat. Resist the urge to batch the reds.
+    Red-green-refactor is a single-cycle discipline: one test → one
+    implementation → repeat. Resist the urge to batch the reds.
 
     ```
     WRONG (horizontal):
@@ -111,27 +151,41 @@ Use this skill when implementing one numbered step from a plan, or any small sta
       RED → GREEN: test3 → impl3
     ```
 
-    Tests written in bulk verify *imagined* behavior, not actual behavior. They drift toward testing the *shape* of things (function signatures, data structures) rather than user-facing behavior, and they become insensitive to real changes — passing when behavior breaks and failing when behavior is fine. Each test only earns its keep by being written *after* the previous implementation taught you what to verify.
+    Tests written in bulk verify *imagined* behavior, not actual behavior. They
+    drift toward testing the *shape* of things (function signatures, data
+    structures) rather than user-facing behavior, and they become insensitive to
+    real changes — passing when behavior breaks and failing when behavior is
+    fine. Each test only earns its keep by being written *after* the previous
+    implementation taught you what to verify.
 
 -   **Don't write speculative code.**
 
-    No abstractions for hypothetical futures. No flexibility points for changes that aren't on the plan. Three similar lines beats a premature abstraction. Trim every "might need this" — if you might need it, you don't need it now.
+    No abstractions for hypothetical futures. No flexibility points for changes
+    that aren't on the plan. Three similar lines beats a premature abstraction.
+    Trim every "might need this" — if you might need it, you don't need it now.
 
 -   **Don't write defensive code at internal boundaries.**
 
-    Validate at system boundaries (user input, network, external APIs). Trust internal code. Null-checking, type-guarding, and error-wrapping inside the system are usually code smells.
+    Validate at system boundaries (user input, network, external APIs). Trust
+    internal code. Null-checking, type-guarding, and error-wrapping inside the
+    system are usually code smells.
 
 -   **Default to no comments.**
 
-    Well-named identifiers do the explaining. Add a comment only when the *why* is non-obvious — a hidden constraint, a workaround for a specific bug, a surprising invariant. Don't narrate what the code does.
+    Well-named identifiers do the explaining. Add a comment only when the *why*
+    is non-obvious — a hidden constraint, a workaround for a specific bug, a
+    surprising invariant. Don't narrate what the code does.
 
 -   **Match TDD discipline to risk.**
 
-    TDD is the default. For trivial code (a config tweak, a rename, a one-line copy change) it's overkill — skip it. For complex logic or anything with corner cases, the test-first discipline pays for itself many times over.
+    TDD is the default. For trivial code (a config tweak, a rename, a one-line
+    copy change) it's overkill — skip it. For complex logic or anything with
+    corner cases, the test-first discipline pays for itself many times over.
 
 -   **Stop when the step is done.**
 
-    "Done" = test passes, diff is clean, commit message is written. Not "done plus a bit more". The bit more is the next step.
+    "Done" = test passes, diff is clean, commit message is written. Not "done
+    plus a bit more". The bit more is the next step.
 
 ## Examples
 
@@ -178,29 +232,40 @@ Refs: #482
 
 -   **You discover a bug unrelated to the step.**
 
-    Note it. File an issue or add a TODO with a tracking reference. Do not fix it in this step. Fixing unrelated bugs in scope-locked steps is how diffs become unreviewable.
+    Note it. File an issue or add a TODO with a tracking reference. Do not fix
+    it in this step. Fixing unrelated bugs in scope-locked steps is how diffs
+    become unreviewable.
 
 -   **You discover a refactor that would make the step easier.**
 
-    Two options: (a) do the refactor as a separate prior `refactor:` step, then resume this step; (b) implement the step as-is and queue the refactor for after. Pick (a) when the refactor is small and obvious; (b) otherwise. Never bundle.
+    Two options: (a) do the refactor as a separate prior `refactor:` step, then
+    resume this step; (b) implement the step as-is and queue the refactor for
+    after. Pick (a) when the refactor is small and obvious; (b) otherwise. Never
+    bundle.
 
 -   **Tests are missing for the area being touched.**
 
-    Add *characterization tests* first — tests that pin down the current behavior — before changing it. This is a separate step from the change itself.
+    Add *characterization tests* first — tests that pin down the current
+    behavior — before changing it. This is a separate step from the change
+    itself.
 
 -   **A spike or prototype.**
 
-    The goal is to learn, not to ship. Skip TDD, skip strict scope discipline, but throw the prototype away when done. Re-implement properly under this skill afterward.
+    The goal is to learn, not to ship. Skip TDD, skip strict scope discipline,
+    but throw the prototype away when done. Re-implement properly under this
+    skill afterward.
 
 ##  Success criteria
 
 -   **The diff stays within the step's stated scope.**
 
-    Re-read the diff with the step quoted next to it. Anything outside the scope is removed or moved to its own step.
+    Re-read the diff with the step quoted next to it. Anything outside the scope
+    is removed or moved to its own step.
 
 -   **All new behavior is tested.**
 
-    Each piece of added behavior has at least one test that fails when the behavior is removed.
+    Each piece of added behavior has at least one test that fails when the
+    behavior is removed.
 
 -   **The test loop is fast and runs clean.**
 
@@ -208,7 +273,8 @@ Refs: #482
 
 -   **The code matches the surrounding style.**
 
-    Naming, layout, error handling, and comment density are consistent with nearby files.
+    Naming, layout, error handling, and comment density are consistent with
+    nearby files.
 
 -   **The commit follows the project's commit format.**
 

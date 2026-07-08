@@ -1,12 +1,13 @@
 ---
 name: triage
 description: >-
-  Move issues on the project issue tracker through a small state machine of category and state labels.
-  Gather context, recommend a classification, attempt reproduction for bugs, grill the issue into
-  shape if needed, then apply the outcome — a label change, an agent brief, a needs-info request, or a
-  wontfix closure. Use when triaging incoming issues, preparing them for AFK agents, reviewing the
-  backlog, or when the user says "triage this issue", "work the incoming issue queue", or "prep this
-  issue for an agent".
+  Move issues on the project issue tracker through a small state machine of
+  category and state labels. Gather context, recommend a classification, attempt
+  reproduction for bugs, grill the issue into shape if needed, then apply the
+  outcome — a label change, an agent brief, a needs-info request, or a wontfix
+  closure. Use when triaging incoming issues, preparing them for AFK agents,
+  reviewing the backlog, or when the user says "triage this issue", "work the
+  incoming issue queue", or "prep this issue for an agent".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,17 +16,33 @@ metadata:
 
 # Triage
 
-Use this skill to move issues on the project's issue tracker through a deliberate state machine: take a freshly-filed issue and decide what happens next — implement it, defer it, reject it, or get more information — classifying and routing it without doing the implementation or specification work that follows.
+Use this skill to move issues on the project's issue tracker through a
+deliberate state machine: take a freshly-filed issue and decide what happens
+next — implement it, defer it, reject it, or get more information — classifying
+and routing it without doing the implementation or specification work that
+follows.
 
-This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear, etc.) and a labeling system that supports category and state labels. If the project has neither, set them up before triaging.
+This skill assumes the project has an issue tracker (GitHub Issues, Jira,
+Linear, etc.) and a labeling system that supports category and state labels. If
+the project has neither, set them up before triaging.
 
 ## Interface
 
-**Input**: One or more freshly-filed or in-flight issues on the project's tracker, the full thread and any prior triage notes, and the relevant code for reproduction. REQUIRED. The category/state label vocabulary is assumed present (or is set up first).
+**Input**: One or more freshly-filed or in-flight issues on the project's
+tracker, the full thread and any prior triage notes, and the relevant code for
+reproduction. REQUIRED. The category/state label vocabulary is assumed present
+(or is set up first).
 
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
+or is necessarily interactive — blocking to ask questions, present options, and
+wait for answers.
 
-**Output**: A recommended classification per issue, applied as the outcome once the maintainer confirms — a label change, an agent brief (problem statement, repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a needs-info request, or a durably-captured wontfix rationale. This skill recommends and routes; it does not implement the fix or write the specification that follows.
+**Output**: A recommended classification per issue, applied as the outcome once
+the maintainer confirms — a label change, an agent brief (problem statement,
+repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
+needs-info request, or a durably-captured wontfix rationale. This skill
+recommends and routes; it does not implement the fix or write the specification
+that follows.
 
 ##  Instructions
 
@@ -41,10 +58,13 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
     - `needs-triage` — maintainer needs to evaluate.
     - `needs-info` — waiting on the reporter for more information.
     - `ready-for-agent` — fully specified, ready for an AFK agent.
-    - `ready-for-human` — needs human implementation (architectural judgment, external access, manual verification).
+    - `ready-for-human` — needs human implementation (architectural judgment,
+      external access, manual verification).
     - `wontfix` — will not be actioned.
 
-    Every triaged issue carries *exactly one* category label and *exactly one* state label. The actual strings in the tracker may differ (eg. `kind/bug` instead of `bug`); maintain a mapping if so.
+    Every triaged issue carries *exactly one* category label and *exactly one*
+    state label. The actual strings in the tracker may differ (eg. `kind/bug`
+    instead of `bug`); maintain a mapping if so.
 
     The state machine:
 
@@ -68,80 +88,118 @@ This skill assumes the project has an issue tracker (GitHub Issues, Jira, Linear
 
     1. *Unlabeled* — never triaged.
     2. *`needs-triage`* — evaluation in progress.
-    3. *`needs-info` with new reporter activity* — the reporter has replied since the last triage notes, so the issue needs re-evaluation.
+    3. *`needs-info` with new reporter activity* — the reporter has replied
+       since the last triage notes, so the issue needs re-evaluation.
 
-    Present counts and a one-line summary per issue. Let the maintainer pick which to work on next.
+    Present counts and a one-line summary per issue. Let the maintainer pick
+    which to work on next.
 
 3.  **Gather context for the chosen issue.**
 
-    Read the full issue: body, comments, labels, reporter, dates. Parse any prior triage notes so you do not re-ask resolved questions. Explore the relevant code to understand which modules the issue touches. Check the out-of-scope knowledge base (eg. `docs/out-of-scope/`) for any prior rejection of a similar issue and link to it.
+    Read the full issue: body, comments, labels, reporter, dates. Parse any
+    prior triage notes so you do not re-ask resolved questions. Explore the
+    relevant code to understand which modules the issue touches. Check the
+    out-of-scope knowledge base (eg. `docs/out-of-scope/`) for any prior
+    rejection of a similar issue and link to it.
 
 4.  **Recommend a classification.**
 
-    State your category and state recommendation with reasoning, plus a brief codebase summary relevant to the issue. Wait for direction from the maintainer before applying any labels — triage is a maintainer's decision; the skill does the legwork to make that decision cheap.
+    State your category and state recommendation with reasoning, plus a brief
+    codebase summary relevant to the issue. Wait for direction from the
+    maintainer before applying any labels — triage is a maintainer's decision;
+    the skill does the legwork to make that decision cheap.
 
 5.  **For bugs: attempt reproduction.**
 
-    Before grilling, try to reproduce: read the reporter's steps, trace the code, run the failing command. Report one of:
+    Before grilling, try to reproduce: read the reporter's steps, trace the
+    code, run the failing command. Report one of:
 
     - *Successful repro*: include the exact code path that triggered the bug.
     - *Failed repro*: state what you tried and what happened instead.
     - *Insufficient detail*: this is a strong signal for `needs-info`.
 
-    A confirmed repro makes for a much stronger agent brief later. Spend disproportionate effort here.
+    A confirmed repro makes for a much stronger agent brief later. Spend
+    disproportionate effort here.
 
 6.  **Grill the issue into shape (if needed).**
 
-    If the issue is under-specified for whichever state it's heading to, interrogate it — question the reporter and the code until its requirements are sharp. The output is a sharpened set of requirements, ready to be implemented, escalated to a human, or rejected with a captured reason.
+    If the issue is under-specified for whichever state it's heading to,
+    interrogate it — question the reporter and the code until its requirements
+    are sharp. The output is a sharpened set of requirements, ready to be
+    implemented, escalated to a human, or rejected with a captured reason.
 
 7.  **Apply the outcome.**
 
     Map state to action:
 
-    - *`ready-for-agent`* → post an agent-brief comment (template below). Apply the label.
-    - *`ready-for-human`* → same structure as the agent brief, but note specifically *why* it can't be delegated (architectural call, external access required, design judgment, manual verification). Apply the label.
-    - *`needs-info`* → post a triage-notes comment (template below) with specific outstanding questions. Apply the label.
+    - *`ready-for-agent`* → post an agent-brief comment (template below). Apply
+      the label.
+    - *`ready-for-human`* → same structure as the agent brief, but note
+      specifically *why* it can't be delegated (architectural call, external
+      access required, design judgment, manual verification). Apply the label.
+    - *`needs-info`* → post a triage-notes comment (template below) with
+      specific outstanding questions. Apply the label.
     - *`wontfix` (bug)* → post a polite explanation and close.
-    - *`wontfix` (enhancement)* → capture the rejection in the out-of-scope knowledge base (`docs/out-of-scope/<topic>.md`), link to it from a closing comment, then close.
-    - *`needs-triage`* → apply the label only. Optionally comment if there's partial progress to record.
+    - *`wontfix` (enhancement)* → capture the rejection in the out-of-scope
+      knowledge base (`docs/out-of-scope/<topic>.md`), link to it from a closing
+      comment, then close.
+    - *`needs-triage`* → apply the label only. Optionally comment if there's
+      partial progress to record.
 
 8.  **Mark AI-generated activity.**
 
-    If the triage is being performed by an AI agent, prefix every comment posted with a short disclaimer (eg. `> *AI-generated during triage.*`) so the reporter and maintainer can distinguish agent activity from human activity at a glance.
+    If the triage is being performed by an AI agent, prefix every comment posted
+    with a short disclaimer (eg. `> *AI-generated during triage.*`) so the
+    reporter and maintainer can distinguish agent activity from human activity
+    at a glance.
 
 ##  Rules
 
 -   **Triage is a maintainer's decision.**
 
-    Recommend; do not unilaterally label, comment, or close. The maintainer applies labels and closes issues; the skill makes that decision cheap.
+    Recommend; do not unilaterally label, comment, or close. The maintainer
+    applies labels and closes issues; the skill makes that decision cheap.
 
 -   **One category and one state per issue.**
 
-    No exceptions. If state labels conflict (eg. an issue is both `needs-info` and `ready-for-agent`), flag the inconsistency and ask before resolving.
+    No exceptions. If state labels conflict (eg. an issue is both `needs-info`
+    and `ready-for-agent`), flag the inconsistency and ask before resolving.
 
 -   **State transitions follow the machine.**
 
-    Typical path: *unlabeled* → `needs-triage` → (`needs-info` | `ready-for-agent` | `ready-for-human` | `wontfix`). `needs-info` returns to `needs-triage` once the reporter replies. Unusual transitions (eg. jumping straight from unlabeled to `wontfix`) get flagged explicitly.
+    Typical path: *unlabeled* → `needs-triage` → (`needs-info` |
+    `ready-for-agent` | `ready-for-human` | `wontfix`). `needs-info` returns to
+    `needs-triage` once the reporter replies. Unusual transitions (eg. jumping
+    straight from unlabeled to `wontfix`) get flagged explicitly.
 
 -   **Read prior notes before asking anything.**
 
-    Re-asking questions the reporter already answered erodes their willingness to engage. Parse `Triage Notes` blocks and existing comments before you compose a single question.
+    Re-asking questions the reporter already answered erodes their willingness
+    to engage. Parse `Triage Notes` blocks and existing comments before you
+    compose a single question.
 
 -   **A confirmed repro is the gold standard for bugs.**
 
-    Issues that can be reliably reproduced are much faster to fix and much harder to mis-classify. Reproducibility is also the strongest signal a bug is `ready-for-agent`.
+    Issues that can be reliably reproduced are much faster to fix and much
+    harder to mis-classify. Reproducibility is also the strongest signal a bug
+    is `ready-for-agent`.
 
 -   **Out-of-scope rejections are durable.**
 
-    A one-line "wontfix" close on an enhancement is easily lost. Capture the reasoning in `docs/out-of-scope/<topic>.md` so the next person to file the same idea gets the explanation by reference, not by re-litigation.
+    A one-line "wontfix" close on an enhancement is easily lost. Capture the
+    reasoning in `docs/out-of-scope/<topic>.md` so the next person to file the
+    same idea gets the explanation by reference, not by re-litigation.
 
 -   **`ready-for-agent` requires a brief.**
 
-    An issue with the label but no brief is a setup for failure. If the maintainer asks to apply the label without grilling, ask whether they want a brief first.
+    An issue with the label but no brief is a setup for failure. If the
+    maintainer asks to apply the label without grilling, ask whether they want a
+    brief first.
 
 -   **Specific, actionable questions only in `needs-info`.**
 
-    "Please provide more info" is not a question. Each question names what is missing and why it matters.
+    "Please provide more info" is not a question. Each question names what is
+    missing and why it matters.
 
 ## Examples
 
@@ -209,27 +267,38 @@ scratch. Closing.
 
 -   **The reporter ghosts on `needs-info`.**
 
-    After a reasonable interval (varies by project — often 14-30 days), close politely: "Closing for lack of activity; please reopen with the requested info." Re-opening is cheap; stale `needs-info` issues obscure the active queue.
+    After a reasonable interval (varies by project — often 14-30 days), close
+    politely: "Closing for lack of activity; please reopen with the requested
+    info." Re-opening is cheap; stale `needs-info` issues obscure the active
+    queue.
 
 -   **Duplicate of an existing issue.**
 
-    Confirm the duplication explicitly: link to the original and quote the symptom that matches. Close as wontfix with the dup link in the closing comment. Do not silently close.
+    Confirm the duplication explicitly: link to the original and quote the
+    symptom that matches. Close as wontfix with the dup link in the closing
+    comment. Do not silently close.
 
 -   **An issue mixes a bug and an enhancement.**
 
-    Split it. The bug part gets its own issue, gets reproduced, gets triaged on its own. The enhancement part follows the enhancement path. Cross-link the two issues.
+    Split it. The bug part gets its own issue, gets reproduced, gets triaged on
+    its own. The enhancement part follows the enhancement path. Cross-link the
+    two issues.
 
 -   **Maintainer overrides the recommendation.**
 
-    Trust them. Apply what they asked for, even if your recommendation differed. Do not relitigate.
+    Trust them. Apply what they asked for, even if your recommendation differed.
+    Do not relitigate.
 
 -   **The out-of-scope knowledge base does not yet exist.**
 
-    Create it lazily when the first wontfix-enhancement closure needs to be captured (eg. `docs/out-of-scope/bulk-import-via-csv.md`). Do not pre-populate it.
+    Create it lazily when the first wontfix-enhancement closure needs to be
+    captured (eg. `docs/out-of-scope/bulk-import-via-csv.md`). Do not
+    pre-populate it.
 
 -   **An issue's labels conflict with the maintainer's request.**
 
-    Surface the conflict ("this issue currently has `ready-for-agent` but you asked me to move it to `needs-info` — confirm?") before making any changes.
+    Surface the conflict ("this issue currently has `ready-for-agent` but you
+    asked me to move it to `needs-info` — confirm?") before making any changes.
 
 ##  Success criteria
 
@@ -241,7 +310,8 @@ scratch. Closing.
 
 -   **`ready-for-agent` issues have a brief.**
 
-    Problem statement, ACs, files likely involved, and explicit out-of-scope items.
+    Problem statement, ACs, files likely involved, and explicit out-of-scope
+    items.
 
 -   **`wontfix` enhancement closures are captured in `docs/out-of-scope/`.**
 

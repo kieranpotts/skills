@@ -1,8 +1,15 @@
 # 🤖 `commit`
 
-`commit` = commit message conventions. It defines a fixed subject-line format — `<type>: <description>` with an optional ` - <flag>` suffix — a set of allowed commit types and flags with precise semantics for each, and a validation regex. It enforces atomic commits and, for direct commits to `dev` or `temp/*`, a matching `CHANGELOG.md` entry under `[Unreleased]`.
+`commit` = commit message conventions. It defines a fixed subject-line format —
+`<type>: <description>` with an optional ` - <flag>` suffix — a set of allowed
+commit types and flags with precise semantics for each, and a validation regex.
+It enforces atomic commits and, for direct commits to `dev` or `temp/*`, a
+matching `CHANGELOG.md` entry under `[Unreleased]`.
 
-Use it when composing a commit message, validating a branch's messages before push, or troubleshooting a failed commit-validation CI job. Note: this convention is deliberately **not** Conventional Commits — scopes like `feature(parser):` fail validation; the colon comes immediately after the type.
+Use it when composing a commit message, validating a branch's messages before
+push, or troubleshooting a failed commit-validation CI job. Note: this
+convention is deliberately **not** Conventional Commits — scopes like
+`feature(parser):` fail validation; the colon comes immediately after the type.
 
 This skill instructs the agent to run non-interactively (🤖).
 
@@ -15,8 +22,13 @@ This skill instructs the agent to run non-interactively (🤖).
 
 ## Recommended models
 
-A small, fast model is sufficient. Composing or validating a commit message against a fixed format and a set of allowed types is pattern-matching, not judgment.
+A small, fast model is sufficient. Composing or validating a commit message
+against a fixed format and a set of allowed types is pattern-matching, not
+judgment.
 
 ## References
 
-- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) is used to validate commit messages against the conventions described in TS-9 and this skill.
+- [This GitHub
+  action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages)
+  is used to validate commit messages against the conventions described in TS-9
+  and this skill.

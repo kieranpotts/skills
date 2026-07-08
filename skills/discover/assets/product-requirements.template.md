@@ -4,7 +4,8 @@
 
 **Problem:**
 
-<The problem being solved — what is wrong or missing today, from the customer's point of view.>
+<The problem being solved — what is wrong or missing today, from the customer's
+point of view.>
 
 **Goal:**
 
@@ -47,7 +48,9 @@
 
 ## Non-functional requirements
 
-<Measurable quality constraints — performance, scale, availability, security, accessibility, etc. State a target where one exists. Write "None known" if the customer has none.>
+<Measurable quality constraints — performance, scale, availability, security,
+accessibility, etc. State a target where one exists. Write "None known" if the
+customer has none.>
 
 ## Assumptions
 

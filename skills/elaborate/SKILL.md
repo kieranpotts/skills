@@ -1,12 +1,14 @@
 ---
 name: elaborate
 description: >-
-  Interview the user one question at a time to stress-test and sharpen a draft design — walking the
-  decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-
-  referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft
-  design exists and before it is decomposed into steps, when the design has ambiguities, unstated
-  assumptions, or contested terms, or when the user says "interrogate this design", "grill me on this
-  draft", or "stress-test this design before we build it".
+  Interview the user one question at a time to stress-test and sharpen a draft
+  design — walking the decision tree branch by branch, probing with concrete
+  scenarios, sharpening fuzzy language, cross- referencing against the codebase,
+  and capturing crystallized decisions as ADRs. Use after a draft design exists
+  and before it is decomposed into steps, when the design has ambiguities,
+  unstated assumptions, or contested terms, or when the user says "interrogate
+  this design", "grill me on this draft", or "stress-test this design before we
+  build it".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -15,17 +17,32 @@ metadata:
 
 # Elaborate
 
-Use this skill *after* a draft design exists and *before* it is decomposed into steps, when the design still has soft edges — unresolved trade-offs, ambiguous terms, unstated assumptions, dependencies that haven't been thought through. The job is to convert a sketch into a design that survives implementation; it sharpens an existing draft, not originating the design itself.
+Use this skill *after* a draft design exists and *before* it is decomposed into
+steps, when the design still has soft edges — unresolved trade-offs, ambiguous
+terms, unstated assumptions, dependencies that haven't been thought through. The
+job is to convert a sketch into a design that survives implementation; it
+sharpens an existing draft, not originating the design itself.
 
-This skill is an *interactive conversation*. Ask one question. Wait for the answer. Then the next. Do not batch questions, do not draft entire plans before checking in.
+This skill is an *interactive conversation*. Ask one question. Wait for the
+answer. Then the next. Do not batch questions, do not draft entire plans before
+checking in.
 
 ## Interface
 
-**Input**: A draft design with soft edges — an ADR, design doc, or PR description that has unresolved trade-offs, ambiguous terms, unstated assumptions, or dependencies not yet thought through, plus any related acceptance criteria and the relevant code. REQUIRED.
+**Input**: A draft design with soft edges — an ADR, design doc, or PR
+description that has unresolved trade-offs, ambiguous terms, unstated
+assumptions, or dependencies not yet thought through, plus any related
+acceptance criteria and the relevant code. REQUIRED.
 
-**Interactive**: This skill is interactive. It gathers the rest of its input from the user through prompts during the session, asking one question at a time. This skill does not originate the design; it consumes a draft to sharpen.
+**Interactive**: This skill is interactive. It gathers the rest of its input
+from the user through prompts during the session, asking one question at a time.
+This skill does not originate the design; it consumes a draft to sharpen.
 
-**Output**: A decomposition-ready design — every open decision resolved or explicitly deferred, terms reconciled with the glossary (`docs/domain-model.md`), code-versus-design contradictions surfaced, and qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes the sharpened design is the orchestrator's concern, not this skill's.
+**Output**: A decomposition-ready design — every open decision resolved or
+explicitly deferred, terms reconciled with the glossary
+(`docs/domain-model.md`), code-versus-design contradictions surfaced, and
+qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes
+the sharpened design is the orchestrator's concern, not this skill's.
 
 ##  Instructions
 
@@ -33,12 +50,16 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     Before asking anything, read:
 
-    - The draft design (ADR, design doc, PR description, or whatever artifact holds it).
+    - The draft design (ADR, design doc, PR description, or whatever artifact
+      holds it).
     - Any related acceptance criteria from the specification.
-    - The relevant code: the modules the design touches, their public APIs, their tests.
-    - Any existing `docs/domain-model.md` (the project's ubiquitous-language glossary) or `docs/adr/` decisions in the area.
+    - The relevant code: the modules the design touches, their public APIs,
+      their tests.
+    - Any existing `docs/domain-model.md` (the project's ubiquitous-language
+      glossary) or `docs/adr/` decisions in the area.
 
-    If a question can be answered by reading the code instead of asking the user, *read the code instead*. The user's time is the scarce resource.
+    If a question can be answered by reading the code instead of asking the
+    user, *read the code instead*. The user's time is the scarce resource.
 
 2.  **Map the decision tree.**
 
@@ -48,7 +69,9 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - Which terms are used loosely and need pinning down?
     - Which assumptions are stated as if obvious but actually have alternatives?
 
-    Plan to walk the tree top-down, resolving parents before children. Do not write the list out for the user — it is your scratchpad. The user sees questions one at a time.
+    Plan to walk the tree top-down, resolving parents before children. Do not
+    write the list out for the user — it is your scratchpad. The user sees
+    questions one at a time.
 
 3.  **Ask one question. Wait. Then the next.**
 
@@ -58,49 +81,73 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
     - Offer your recommended answer with one-line reasoning.
     - Stop and wait for the user's response.
 
-    A good question has the form: *"I see X in the draft. I read it as meaning A, but it could mean B. I'd lean A because [reason]. Which is it?"*
+    A good question has the form: *"I see X in the draft. I read it as meaning
+    A, but it could mean B. I'd lean A because [reason]. Which is it?"*
 
-    A bad question is open-ended ("what do you think about the data model?"), batched ("a few things: ...", "also, ..."), or context-free ("should we use Postgres?"). Sharpen until the question is specific, scoped, and answerable in one sentence.
+    A bad question is open-ended ("what do you think about the data model?"),
+    batched ("a few things: ...", "also, ..."), or context-free ("should we use
+    Postgres?"). Sharpen until the question is specific, scoped, and answerable
+    in one sentence.
 
 4.  **Sharpen fuzzy language as it appears.**
 
     When the user uses a vague or overloaded term, stop and pin it down:
 
-    - "You said 'account' — do you mean the Customer or the User? Those are different in the existing glossary."
-    - "You said 'cancel' — the codebase has both `cancelOrder()` and `voidOrder()`; which behavior do you mean?"
+    - "You said 'account' — do you mean the Customer or the User? Those are
+      different in the existing glossary."
+    - "You said 'cancel' — the codebase has both `cancelOrder()` and
+      `voidOrder()`; which behavior do you mean?"
 
-    If the glossary already defines the term differently from how the user is using it, surface the conflict explicitly. Update `docs/domain-model.md` (or create it if missing) the moment a term is resolved — inline, not at the end.
+    If the glossary already defines the term differently from how the user is
+    using it, surface the conflict explicitly. Update `docs/domain-model.md` (or
+    create it if missing) the moment a term is resolved — inline, not at the
+    end.
 
 5.  **Probe with concrete scenarios.**
 
-    When the user makes a domain assertion, invent a specific scenario that tests its boundaries:
+    When the user makes a domain assertion, invent a specific scenario that
+    tests its boundaries:
 
-    - "Suppose a customer cancels an order after one of three items has shipped. What happens to the invoice?"
-    - "Two clients send the same idempotency key, 30ms apart. What does each see?"
+    - "Suppose a customer cancels an order after one of three items has shipped.
+      What happens to the invoice?"
+    - "Two clients send the same idempotency key, 30ms apart. What does each
+      see?"
 
-    Concrete scenarios expose the cases the design hasn't accounted for, much faster than abstract debate.
+    Concrete scenarios expose the cases the design hasn't accounted for, much
+    faster than abstract debate.
 
 6.  **Cross-reference against the code.**
 
-    When the user states "we do X", check whether the code agrees. If you find a contradiction, surface it:
+    When the user states "we do X", check whether the code agrees. If you find a
+    contradiction, surface it:
 
-    > "You just said partial cancellation is supported, but the `OrderService.cancel()` method takes only an order ID and marks the whole order cancelled. Which is right — is the code out of date, or is the design wrong?"
+    > "You just said partial cancellation is supported, but the
+    `OrderService.cancel()` method takes only an order ID and marks the whole
+    order cancelled. Which is right — is the code out of date, or is the design
+    wrong?"
 
-    Contradictions between stated behavior and implemented behavior are some of the highest-leverage findings of this skill.
+    Contradictions between stated behavior and implemented behavior are some of
+    the highest-leverage findings of this skill.
 
 7.  **Capture decisions as they crystallize.**
 
     When a decision is settled, write it down immediately. Two destinations:
 
-    - *Glossary term resolved* → update `docs/domain-model.md`. Keep entries tight: what the term IS, one or two sentences, and any aliases to avoid. If the file does not yet exist, create it the moment the first term is resolved.
+    - *Glossary term resolved* → update `docs/domain-model.md`. Keep entries
+      tight: what the term IS, one or two sentences, and any aliases to avoid.
+      If the file does not yet exist, create it the moment the first term is
+      resolved.
 
     - *Architectural decision settled* → ADR, but only if all three are true:
 
-        1. *Hard to reverse* — the cost of changing your mind later is meaningful.
-        2. *Surprising without context* — a future reader will wonder "why did they do it this way?"
+        1. *Hard to reverse* — the cost of changing your mind later is
+           meaningful.
+        2. *Surprising without context* — a future reader will wonder "why did
+           they do it this way?"
         3. *The result of a real trade-off* — there were genuine alternatives.
 
-        If any of the three is missing, skip the ADR. Most decisions during elaboration do NOT meet all three.
+        If any of the three is missing, skip the ADR. Most decisions during
+        elaboration do NOT meet all three.
 
     Do not batch these. Write them down at the moment the decision is made.
 
@@ -108,49 +155,68 @@ This skill is an *interactive conversation*. Ask one question. Wait for the answ
 
     The session ends when:
 
-    - Every open decision in the draft has been resolved or explicitly deferred (with a noted reason).
+    - Every open decision in the draft has been resolved or explicitly deferred
+      (with a noted reason).
     - The terms in use match the glossary.
     - No contradictions remain between stated design and existing code.
 
-    Report the result and stop: either a decomposition-ready design, or — if elaboration uncovered a flaw too large to resolve here — a note that the draft needs structural rework before it can proceed. Whatever consumes the elaborated design is the orchestrator's concern.
+    Report the result and stop: either a decomposition-ready design, or — if
+    elaboration uncovered a flaw too large to resolve here — a note that the
+    draft needs structural rework before it can proceed. Whatever consumes the
+    elaborated design is the orchestrator's concern.
 
 ##  Rules
 
 -   **One question at a time. Wait for the answer.**
 
-    Batched questions force the user to context-switch and produce shallow answers. The whole skill is the discipline of single-question turns.
+    Batched questions force the user to context-switch and produce shallow
+    answers. The whole skill is the discipline of single-question turns.
 
 -   **Always recommend an answer.**
 
-    A question with no recommendation pushes the cognitive load back onto the user. "Which is it?" alone is lazy. "I'd lean A because <reason>. Which is it?" lets the user agree quickly or articulate the disagreement.
+    A question with no recommendation pushes the cognitive load back onto the
+    user. "Which is it?" alone is lazy. "I'd lean A because <reason>. Which is
+    it?" lets the user agree quickly or articulate the disagreement.
 
 -   **Prefer reading code over asking.**
 
-    If the question is "how does X work today" or "what does Y currently return", read the code. Asking is for things only the user knows: intent, trade-offs, constraints, future direction.
+    If the question is "how does X work today" or "what does Y currently
+    return", read the code. Asking is for things only the user knows: intent,
+    trade-offs, constraints, future direction.
 
 -   **Walk the tree parents-first.**
 
-    Resolving a child decision before its parent often forces a re-decision. Identify dependencies and ask in dependency order.
+    Resolving a child decision before its parent often forces a re-decision.
+    Identify dependencies and ask in dependency order.
 
 -   **Sharpen language inline.**
 
-    A vague term left in the conversation infects every subsequent decision. Stop, pin it down, update `docs/domain-model.md`, then proceed.
+    A vague term left in the conversation infects every subsequent decision.
+    Stop, pin it down, update `docs/domain-model.md`, then proceed.
 
 -   **Surface code-versus-specification contradictions immediately.**
 
-    When stated design and implemented behavior disagree, that is the most valuable thing this skill can find. Don't gloss over it.
+    When stated design and implemented behavior disagree, that is the most
+    valuable thing this skill can find. Don't gloss over it.
 
 -   **Offer ADRs sparingly.**
 
-    Most elaboration decisions do not need an ADR. Apply the three-criteria filter (hard to reverse, surprising without context, real trade-off). When in doubt, don't.
+    Most elaboration decisions do not need an ADR. Apply the three-criteria
+    filter (hard to reverse, surprising without context, real trade-off). When
+    in doubt, don't.
 
 -   **`docs/domain-model.md` is a glossary, not a specification.**
 
-    Keep implementation details out. An entry is what the term IS, in one or two sentences. Behavior, persistence, and protocols belong in code, ADRs, or the specification.
+    Keep implementation details out. An entry is what the term IS, in one or two
+    sentences. Behavior, persistence, and protocols belong in code, ADRs, or the
+    specification.
 
 -   **Create artifacts lazily.**
 
-    No `docs/domain-model.md` yet? Create it when the first term is resolved, not at session start. No `docs/adr/`? Create it when the first ADR is needed. Empty files signal nothing; lazily-created ones signal the design is being captured as it solidifies.
+    No `docs/domain-model.md` yet? Create it when the first term is resolved,
+    not at session start. No `docs/adr/`? Create it when the first ADR is
+    needed. Empty files signal nothing; lazily-created ones signal the design is
+    being captured as it solidifies.
 
 ## Examples
 
@@ -256,33 +322,46 @@ response time. If that becomes a problem we revisit.
 
 -   **The user is AFK.**
 
-    Do not push ahead silently. Pause, leave a one-line note ("queued questions: 1, 2, 3 — asking 1 when you're back"), and stop. The skill's value comes from the dialogue; producing a unilateral decision-doc defeats it.
+    Do not push ahead silently. Pause, leave a one-line note ("queued questions:
+    1, 2, 3 — asking 1 when you're back"), and stop. The skill's value comes
+    from the dialogue; producing a unilateral decision-doc defeats it.
 
 -   **The draft turns out to be too unfinished to elaborate.**
 
-    If three or four questions in a row reveal that the design has not actually decided anything, stop and report that the draft needs to be reworked from scratch. Elaboration cannot rescue a draft that has no spine.
+    If three or four questions in a row reveal that the design has not actually
+    decided anything, stop and report that the draft needs to be reworked from
+    scratch. Elaboration cannot rescue a draft that has no spine.
 
 -   **A question reveals a missing AC.**
 
-    Stop, capture the gap, suggest the user revise the specification. Do not paper over it with a guess about what the requirement "probably" is.
+    Stop, capture the gap, suggest the user revise the specification. Do not
+    paper over it with a guess about what the requirement "probably" is.
 
 -   **The user disagrees with the recommended answer.**
 
-    Good — that is the signal that the recommendation surfaced a real choice. Ask one follow-up to understand the reasoning, then move on. Do not relitigate.
+    Good — that is the signal that the recommendation surfaced a real choice.
+    Ask one follow-up to understand the reasoning, then move on. Do not
+    relitigate.
 
 -   **The session keeps spawning new questions faster than it resolves them.**
 
-    Likely a sign that the draft design is built on a shaky foundation. Pause, summarize the unresolved branch, and ask the user whether to keep elaborating or to send the draft back for a structural rethink.
+    Likely a sign that the draft design is built on a shaky foundation. Pause,
+    summarize the unresolved branch, and ask the user whether to keep
+    elaborating or to send the draft back for a structural rethink.
 
 -   **The project does not yet have a `docs/domain-model.md`.**
 
-    Create it when the first term is resolved, not at session start. Use the format shown in the examples. Do not pre-populate it with terms that have not actually been the subject of a question.
+    Create it when the first term is resolved, not at session start. Use the
+    format shown in the examples. Do not pre-populate it with terms that have
+    not actually been the subject of a question.
 
 ##  Success criteria
 
--   **Every open decision in the draft is resolved or deferred with a stated reason.**
+-   **Every open decision in the draft is resolved or deferred with a stated
+    reason.**
 
-    Nothing left dangling in the "we'll figure that out later" pile without "later" being named.
+    Nothing left dangling in the "we'll figure that out later" pile without
+    "later" being named.
 
 -   **Each question was asked one at a time, with a recommended answer.**
 
@@ -290,7 +369,8 @@ response time. If that becomes a problem we revisit.
 
 -   **Terms used in the conversation match the glossary.**
 
-    Either they already did, or `docs/domain-model.md` was updated inline as they were resolved.
+    Either they already did, or `docs/domain-model.md` was updated inline as
+    they were resolved.
 
 -   **Contradictions between stated design and existing code were surfaced.**
 
@@ -302,4 +382,5 @@ response time. If that becomes a problem we revisit.
 
 -   **The output is decomposition-ready.**
 
-    A reader can pick up the design and break it into steps without re-asking the questions this skill resolved.
+    A reader can pick up the design and break it into steps without re-asking
+    the questions this skill resolved.

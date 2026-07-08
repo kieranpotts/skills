@@ -1,12 +1,13 @@
 ---
 name: test
 description: >-
-  Verify a completed change against its full set of acceptance criteria — functional and non-
-  functional. Map each AC to evidence (test run, observed behavior, measurement) and report
-  pass/fail/blocked. Use after the change has cleared review, or before tagging a release. Reports
-  failures as either implementation defects or specification defects, without fixing them. Use when
-  the user says "test this against the spec", "verify this meets the acceptance criteria", or "run
-  acceptance testing on this change".
+  Verify a completed change against its full set of acceptance criteria —
+  functional and non- functional. Map each AC to evidence (test run, observed
+  behavior, measurement) and report pass/fail/blocked. Use after the change has
+  cleared review, or before tagging a release. Reports failures as either
+  implementation defects or specification defects, without fixing them. Use when
+  the user says "test this against the spec", "verify this meets the acceptance
+  criteria", or "run acceptance testing on this change".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,23 +16,42 @@ metadata:
 
 # Test
 
-Use this skill after the change has cleared review, or before tagging a release. The job is to *verify the whole solution against the specification* — mapping each acceptance criterion to evidence and reporting pass/fail/blocked. It does not write fresh tests, diagnose a failure, or revise the specification; failures are classified as implementation or specification defects and reported, not fixed.
+Use this skill after the change has cleared review, or before tagging a release.
+The job is to *verify the whole solution against the specification* — mapping
+each acceptance criterion to evidence and reporting pass/fail/blocked. It does
+not write fresh tests, diagnose a failure, or revise the specification; failures
+are classified as implementation or specification defects and reported, not
+fixed.
 
 ## Interface
 
-**Input**: A completed change and its specification. REQUIRED. The change has already cleared review (static qualities checked); this skill verifies the dynamic ones. The full set of acceptance criteria, functional and non-functional, supplies what to verify against.
+**Input**: A completed change and its specification. REQUIRED. The change has
+already cleared review (static qualities checked); this skill verifies the
+dynamic ones. The full set of acceptance criteria, functional and
+non-functional, supplies what to verify against.
 
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
+or is necessarily interactive — blocking to ask questions, present options, and
+wait for answers.
 
-**Output**: A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are classified — an implementation defect, or a wrong/missing/ambiguous AC (a specification defect) — and reported, not fixed. Whatever consumes the report — diagnosing a defect, editing the specification, releasing — is the orchestrator's concern, not this skill's.
+**Output**: A verification report — every AC mapped to a status (PASS / FAIL /
+BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are
+classified — an implementation defect, or a wrong/missing/ambiguous AC (a
+specification defect) — and reported, not fixed. Whatever consumes the report —
+diagnosing a defect, editing the specification, releasing — is the
+orchestrator's concern, not this skill's.
 
 ##  Instructions
 
 1.  **Pull the acceptance criteria.**
 
-    Recover the full set of ACs the change is meant to satisfy: functional ACs (from the specification) and non-functional ACs (performance, security, accessibility, compliance). Both MUST be verified.
+    Recover the full set of ACs the change is meant to satisfy: functional ACs
+    (from the specification) and non-functional ACs (performance, security,
+    accessibility, compliance). Both MUST be verified.
 
-    If ACs are missing or vague, stop and resolve them against the specification before testing. Testing against an ambiguous specification produces ambiguous results.
+    If ACs are missing or vague, stop and resolve them against the specification
+    before testing. Testing against an ambiguous specification produces
+    ambiguous results.
 
 2.  **Run the automated suite.**
 
@@ -41,30 +61,44 @@ Use this skill after the change has cleared review, or before tagging a release.
     2. *Unit tests* — localize defects.
     3. *Integration tests* — exercise boundaries between components.
     4. *System / end-to-end tests* — verify whole-system flows.
-    5. *Acceptance tests* — the Gherkin scenarios from the specification, if automated.
+    5. *Acceptance tests* — the Gherkin scenarios from the specification, if
+       automated.
 
-    Any failure at any level pauses the run: investigate before continuing. Do not interpret a green higher-level suite as cancellation of a red lower-level one.
+    Any failure at any level pauses the run: investigate before continuing. Do
+    not interpret a green higher-level suite as cancellation of a red
+    lower-level one.
 
 3.  **Cover the gaps manually for non-automatable ACs.**
 
-    Some ACs cannot be automated — visual layout, copy, UX feel, animation, accessibility under a screen reader. Run them by hand:
+    Some ACs cannot be automated — visual layout, copy, UX feel, animation,
+    accessibility under a screen reader. Run them by hand:
 
-    - Walk each scenario from the specification end-to-end through the running application.
-    - Capture observable evidence: screenshot, screen recording, console output, log excerpt.
-    - For accessibility: keyboard navigation, screen-reader pass, contrast check.
+    - Walk each scenario from the specification end-to-end through the running
+      application.
+    - Capture observable evidence: screenshot, screen recording, console output,
+      log excerpt.
+    - For accessibility: keyboard navigation, screen-reader pass, contrast
+      check.
 
-    Record what was checked and what was observed — "checked it works" is not evidence.
+    Record what was checked and what was observed — "checked it works" is not
+    evidence.
 
 4.  **Verify non-functional requirements.**
 
     For each NFR in the specification:
 
-    - *Performance*: run the load/benchmark/profiling check against the stated threshold (eg. p95 < 250ms at 500 RPS). Record the measured number, not just "ok".
-    - *Security*: run any required scans (SAST, dependency CVE check, secret scan). Verify auth/authz changes by attempting unauthorized access.
-    - *Reliability*: verify retry, timeout, and failure-mode behavior — kill a dependency, throttle a network, confirm graceful degradation.
-    - *Conformance*: where the NFR cites a standard (WCAG, GDPR, PCI), run the corresponding check.
+    - *Performance*: run the load/benchmark/profiling check against the stated
+      threshold (eg. p95 < 250ms at 500 RPS). Record the measured number, not
+      just "ok".
+    - *Security*: run any required scans (SAST, dependency CVE check, secret
+      scan). Verify auth/authz changes by attempting unauthorized access.
+    - *Reliability*: verify retry, timeout, and failure-mode behavior — kill a
+      dependency, throttle a network, confirm graceful degradation.
+    - *Conformance*: where the NFR cites a standard (WCAG, GDPR, PCI), run the
+      corresponding check.
 
-    If an NFR has no objective check, flag it — it is not really an NFR, it is a hope.
+    If an NFR has no objective check, flag it — it is not really an NFR, it is a
+    hope.
 
 5.  **Do a short exploratory pass.**
 
@@ -90,47 +124,69 @@ Use this skill after the change has cleared review, or before tagging a release.
     Exploratory: refund of $0         BLOCKED — undefined behavior, flagged
     ```
 
-    Status is one of: PASS, FAIL, BLOCKED (cannot evaluate), or N/A (with reason).
+    Status is one of: PASS, FAIL, BLOCKED (cannot evaluate), or N/A (with
+    reason).
 
 7.  **Report the verdict.**
 
-    Classify the outcome and report it; do not act on it — what runs next is the orchestrator's concern.
+    Classify the outcome and report it; do not act on it — what runs next is the
+    orchestrator's concern.
 
-    - All PASS, more increments remain → the change is verified for this increment; the implement-review-verify cycle continues per remaining step.
+    - All PASS, more increments remain → the change is verified for this
+      increment; the implement-review-verify cycle continues per remaining step.
     - All PASS, work complete → verified and ready to release.
-    - Any FAIL caused by an implementation defect → report it as a defect for diagnosis. Do not proceed.
-    - Any FAIL caused by a wrong, missing, or ambiguous AC → report it as a specification defect. Do not silently rewrite the AC.
-    - Any BLOCKED → resolve the blocker before declaring done; do not silently downgrade to PASS.
+    - Any FAIL caused by an implementation defect → report it as a defect for
+      diagnosis. Do not proceed.
+    - Any FAIL caused by a wrong, missing, or ambiguous AC → report it as a
+      specification defect. Do not silently rewrite the AC.
+    - Any BLOCKED → resolve the blocker before declaring done; do not silently
+      downgrade to PASS.
 
 ##  Rules
 
 -   **Test against the specification, not the implementation.**
 
-    Read ACs and run them as a user would. Reading the code first biases testing toward what the code does, not what it should do. Specification-first testing is how you catch features that pass their own tests but miss the requirement.
+    Read ACs and run them as a user would. Reading the code first biases testing
+    toward what the code does, not what it should do. Specification-first
+    testing is how you catch features that pass their own tests but miss the
+    requirement.
 
 -   **Record observable evidence for every AC.**
 
-    "Manually verified" is not evidence. A test name, a measurement, a screenshot, a log excerpt — something a reviewer can re-examine without re-running the work.
+    "Manually verified" is not evidence. A test name, a measurement, a
+    screenshot, a log excerpt — something a reviewer can re-examine without
+    re-running the work.
 
 -   **NFRs are first-class.**
 
-    A solution that meets all functional ACs but misses an NFR is incomplete. Performance, security, and accessibility get the same rigor as functional verification.
+    A solution that meets all functional ACs but misses an NFR is incomplete.
+    Performance, security, and accessibility get the same rigor as functional
+    verification.
 
 -   **A failure pauses the run.**
 
-    Do not push through reds to "see what else breaks". A higher-level failure usually masks lower-level ones; a lower-level failure invalidates higher-level results.
+    Do not push through reds to "see what else breaks". A higher-level failure
+    usually masks lower-level ones; a lower-level failure invalidates
+    higher-level results.
 
 -   **Do not weaken the specification to make a test pass.**
 
-    If a test fails because the AC is wrong, that is a specification change, processed through the same review path as any other change to requirements. Silently relaxing an AC to ship is how regressions arrive in production months later.
+    If a test fails because the AC is wrong, that is a specification change,
+    processed through the same review path as any other change to requirements.
+    Silently relaxing an AC to ship is how regressions arrive in production
+    months later.
 
 -   **Time-box exploratory testing.**
 
-    Exploratory testing is unbounded by nature. Time-box it (15-30 min for a typical change; longer for high-risk areas). The point is fresh-eyes probing, not exhaustive coverage.
+    Exploratory testing is unbounded by nature. Time-box it (15-30 min for a
+    typical change; longer for high-risk areas). The point is fresh-eyes
+    probing, not exhaustive coverage.
 
 -   **Distinguish blocked from skipped.**
 
-    Blocked = could not evaluate (environment broken, dependency unavailable, AC undefined). Skipped = chose not to evaluate. Blockers need resolving; skips need justifying.
+    Blocked = could not evaluate (environment broken, dependency unavailable, AC
+    undefined). Skipped = chose not to evaluate. Blockers need resolving; skips
+    need justifying.
 
 ## Examples
 
@@ -177,29 +233,40 @@ not delete.
 
 -   **No automated suite exists.**
 
-    Run the ACs manually with documented evidence, and queue test-automation work as a follow-up. Repeat-manual verification is acceptable once; recurring manual verification of the same ACs is a planning failure.
+    Run the ACs manually with documented evidence, and queue test-automation
+    work as a follow-up. Repeat-manual verification is acceptable once;
+    recurring manual verification of the same ACs is a planning failure.
 
 -   **Test environment differs materially from production.**
 
-    Flag the gap explicitly in the report. NFR measurements taken on a laptop are not directly comparable to production capacity; record the environment alongside the number.
+    Flag the gap explicitly in the report. NFR measurements taken on a laptop
+    are not directly comparable to production capacity; record the environment
+    alongside the number.
 
 -   **Flaky test in the suite.**
 
-    Do not retry-until-green. A flaky test passing on a re-run is not evidence. Report the flake as a defect for diagnosis before completing the verification.
+    Do not retry-until-green. A flaky test passing on a re-run is not evidence.
+    Report the flake as a defect for diagnosis before completing the
+    verification.
 
 -   **The change is a refactor with no specification change.**
 
-    The specification is "existing ACs continue to pass". Run the full existing automated suite and a short manual smoke. No new evidence is required unless the refactor crossed an NFR boundary (performance, memory).
+    The specification is "existing ACs continue to pass". Run the full existing
+    automated suite and a short manual smoke. No new evidence is required unless
+    the refactor crossed an NFR boundary (performance, memory).
 
 -   **Pre-release verification.**
 
-    Run the full pipeline (smoke → unit → integration → system → acceptance) plus the NFR suite on the release candidate. Performance and security checks are not optional at release.
+    Run the full pipeline (smoke → unit → integration → system → acceptance)
+    plus the NFR suite on the release candidate. Performance and security checks
+    are not optional at release.
 
 ##  Success criteria
 
 -   **Every AC has a status and evidence.**
 
-    PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence (test, measurement, recording, log).
+    PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence (test,
+    measurement, recording, log).
 
 -   **Functional and non-functional ACs are both covered.**
 
@@ -207,11 +274,13 @@ not delete.
 
 -   **Failures and blockers are not downgraded.**
 
-    A FAIL reported as a defect is not flipped to PASS without re-verification. A BLOCKED is not silently dropped.
+    A FAIL reported as a defect is not flipped to PASS without re-verification.
+    A BLOCKED is not silently dropped.
 
 -   **The verification environment is recorded.**
 
-    Especially for NFR measurements, the environment (hardware, dataset, traffic profile) is captured alongside the numbers.
+    Especially for NFR measurements, the environment (hardware, dataset, traffic
+    profile) is captured alongside the numbers.
 
 -   **The verdict is explicit.**
 

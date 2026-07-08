@@ -1,6 +1,8 @@
 # Design docs
 
-These docs cover the design principles and best practices for agentic software development that have been influential in the design of the agent skills in this collection.
+These docs cover the design principles and best practices for agentic software
+development that have been influential in the design of the agent skills in this
+collection.
 
 - [**What is agentic software development?**](./agentic-definition.md)
 - [**Agentic versus automated**](./agentic-vs-automated.md)
