@@ -1,6 +1,12 @@
 ---
 name: validate
-description: Evaluate completed, tested work against the users' actual needs — not against the agreed acceptance criteria — to judge whether the specification itself should evolve. Produce prioritized suggestions for changes to the requirements specification. Use once all of a plan's increments are built and tested, as a product-level checkpoint that asks "did we build the right thing?" and feeds the specification feedback loop. Also use when the user says "validate this against what the user actually needed" or "check the working software against the original goal".
+description: >-
+  Evaluate completed, tested work against the users' actual needs — not against the agreed acceptance
+  criteria — to judge whether the specification itself should evolve. Produce prioritized suggestions
+  for changes to the requirements specification. Use once all of a plan's increments are built and
+  tested, as a product-level checkpoint that asks "did we build the right thing?" and feeds the
+  specification feedback loop. Also use when the user says "validate this against what the user
+  actually needed" or "check the working software against the original goal".
 license: CC0-1.0
 metadata:
   interactive: no

@@ -1,6 +1,13 @@
 ---
 name: discover
-description: Run a structured customer-discovery session to elicit business requirements before specification, producing a product requirements document (PRD) in business language that captures outcome, stakeholders, scope, rules with examples, and non-functional requirements. Uses Example Mapping with a thin Impact-Mapping-style outcome layer. Use when requirements are vague, ambiguous, or unclear, and an interview-style refinement is needed before a specification can be created, or when the user says things like "let's discover the requirements for…", "run a discovery session on…", "help me understand what the customer actually needs", or "interview me about this feature".
+description: >-
+  Run a structured customer-discovery session to elicit business requirements before specification,
+  producing a product requirements document (PRD) in business language that captures outcome,
+  stakeholders, scope, rules with examples, and non-functional requirements. Uses Example Mapping with
+  a thin Impact-Mapping-style outcome layer. Use when requirements are vague, ambiguous, or unclear,
+  and an interview-style refinement is needed before a specification can be created, or when the user
+  says things like "let's discover the requirements for…", "run a discovery session on…", "help me
+  understand what the customer actually needs", or "interview me about this feature".
 license: CC0-1.0
 metadata:
   interactive: yes

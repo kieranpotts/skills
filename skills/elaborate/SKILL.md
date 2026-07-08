@@ -1,6 +1,12 @@
 ---
 name: elaborate
-description: Interview the user one question at a time to stress-test and sharpen a draft design — walking the decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft design exists and before it is decomposed into steps, when the design has ambiguities, unstated assumptions, or contested terms, or when the user says "interrogate this design", "grill me on this draft", or "stress-test this design before we build it".
+description: >-
+  Interview the user one question at a time to stress-test and sharpen a draft design — walking the
+  decision tree branch by branch, probing with concrete scenarios, sharpening fuzzy language, cross-
+  referencing against the codebase, and capturing crystallized decisions as ADRs. Use after a draft
+  design exists and before it is decomposed into steps, when the design has ambiguities, unstated
+  assumptions, or contested terms, or when the user says "interrogate this design", "grill me on this
+  draft", or "stress-test this design before we build it".
 license: CC0-1.0
 metadata:
   interactive: yes

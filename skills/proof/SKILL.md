@@ -1,6 +1,12 @@
 ---
 name: proof
-description: Proofread prose — Markdown, AsciiDoc, reStructuredText, plain text — making conservative copy edits only — spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and capitalization. Never touches technical meaning, code, or markup syntax. Edits in place and reports a summary; committing is left to the version-control skills. Use when polishing documentation, a README, release notes, or any written content before it ships, or when the user says "proofread this document" or "check this for spelling and grammar".
+description: >-
+  Proofread prose — Markdown, AsciiDoc, reStructuredText, plain text — making conservative copy edits
+  only — spelling, grammar, punctuation, typos, awkward phrasing, and consistency of terminology and
+  capitalization. Never touches technical meaning, code, or markup syntax. Edits in place and reports
+  a summary; committing is left to the version-control skills. Use when polishing documentation, a
+  README, release notes, or any written content before it ships, or when the user says "proofread this
+  document" or "check this for spelling and grammar".
 license: CC0-1.0
 metadata:
   interactive: no

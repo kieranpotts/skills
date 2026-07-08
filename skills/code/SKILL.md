@@ -1,6 +1,10 @@
 ---
 name: code
-description: Write code and tests for a single step from the plan. Default to test-driven development (red-green-refactor). Stay strictly within the step's scope. Use when implementing one numbered step from a plan, or for any small standalone change whose design is already obvious, or when the user says "implement step N of the plan", "code this up", or "build this change, test-first".
+description: >-
+  Write code and tests for a single step from the plan. Default to test-driven development (red-green-
+  refactor). Stay strictly within the step's scope. Use when implementing one numbered step from a
+  plan, or for any small standalone change whose design is already obvious, or when the user says
+  "implement step N of the plan", "code this up", or "build this change, test-first".
 license: CC0-1.0
 metadata:
   interactive: no

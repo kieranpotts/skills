@@ -1,6 +1,13 @@
 ---
 name: fix
-description: Audit and fix anything in the codebase that is broken in an obvious, mechanical way — failing builds and compiles, lint or type-checker violations, deprecation warnings, broken tooling configs — where the cause is already known or evident from the tool's own output. Distinct from `debug`, which is for unexpected behaviors whose cause is not obvious and requires hypothesis-driven investigation. Use when a build, compile, lint, or type-check is failing, when the user says "fix the build", "fix the lint errors", "make the type-checker pass", or "this is broken", and the breakage is not a mystery.
+description: >-
+  Audit and fix anything in the codebase that is broken in an obvious, mechanical way — failing builds
+  and compiles, lint or type-checker violations, deprecation warnings, broken tooling configs — where
+  the cause is already known or evident from the tool's own output. Distinct from `debug`, which is
+  for unexpected behaviors whose cause is not obvious and requires hypothesis-driven investigation.
+  Use when a build, compile, lint, or type-check is failing, when the user says "fix the build", "fix
+  the lint errors", "make the type-checker pass", or "this is broken", and the breakage is not a
+  mystery.
 license: CC0-1.0
 metadata:
   interactive: no

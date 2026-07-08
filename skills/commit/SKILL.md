@@ -1,6 +1,10 @@
 ---
 name: commit
-description: Commit message format and the semantics of each commit type, including optional flags. Use when composing a commit message, validating a branch's messages before push, or troubleshooting a failed commit-validation CI job, or when the user says "write a commit message for this", "is this commit message valid?", or "why did commit validation fail in CI?".
+description: >-
+  Commit message format and the semantics of each commit type, including optional flags. Use when
+  composing a commit message, validating a branch's messages before push, or troubleshooting a failed
+  commit-validation CI job, or when the user says "write a commit message for this", "is this commit
+  message valid?", or "why did commit validation fail in CI?".
 compatibility: requires git
 license: CC0-1.0
 metadata:

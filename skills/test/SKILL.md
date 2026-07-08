@@ -1,6 +1,12 @@
 ---
 name: test
-description: Verify a completed change against its full set of acceptance criteria — functional and non-functional. Map each AC to evidence (test run, observed behavior, measurement) and report pass/fail/blocked. Use after the change has cleared review, or before tagging a release. Reports failures as either implementation defects or specification defects, without fixing them. Use when the user says "test this against the spec", "verify this meets the acceptance criteria", or "run acceptance testing on this change".
+description: >-
+  Verify a completed change against its full set of acceptance criteria — functional and non-
+  functional. Map each AC to evidence (test run, observed behavior, measurement) and report
+  pass/fail/blocked. Use after the change has cleared review, or before tagging a release. Reports
+  failures as either implementation defects or specification defects, without fixing them. Use when
+  the user says "test this against the spec", "verify this meets the acceptance criteria", or "run
+  acceptance testing on this change".
 license: CC0-1.0
 metadata:
   interactive: no

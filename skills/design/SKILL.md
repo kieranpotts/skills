@@ -1,6 +1,13 @@
 ---
 name: design
-description: Explore architectural options and trade-offs for a feature or change. Enumerate alternatives, evaluate them against the nine software design qualities (completeness, correctness, performance, reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one with reasoning. Gated on an approved specification — do not begin until the upstream specification proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally significant decisions, before planning or implementation, or when the user says "design this feature", "what are the options for building this?", or "work out the architecture for this change".
+description: >-
+  Explore architectural options and trade-offs for a feature or change. Enumerate alternatives,
+  evaluate them against the nine software design qualities (completeness, correctness, performance,
+  reliability, experience, habitability, cohesiveness, changeability, simplicity), then recommend one
+  with reasoning. Gated on an approved specification — do not begin until the upstream specification
+  proposal is approved (ACCEPTED), not merely proposed. Use when the change has architecturally
+  significant decisions, before planning or implementation, or when the user says "design this
+  feature", "what are the options for building this?", or "work out the architecture for this change".
 license: CC0-1.0
 metadata:
   interactive: no
