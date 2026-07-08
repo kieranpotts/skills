@@ -1,6 +1,10 @@
 ---
 name: audit
-description: Evaluate the evolving design once a plan's increments are complete — the as-built architecture against its intended structure, surfacing shallow abstractions, tangled dependencies, single-caller wrappers, repeated patterns — and produce a prioritized report of suggestions. Evaluation only, no code changes. Use as the design-level checkpoint after all increments are built and tested, to judge whether the design should evolve; its findings feed the refactor-design loop. Use when the user says "audit the architecture", "is the design still sound?", or "check the codebase for structural drift".
+description: >-
+  Evaluate the as-built architecture of a software system. Report code smells and anti-patterns like
+  shallow abstractions, tangled dependencies, and single-caller wrappers. Evaluation only – no code
+  changes. Use this skill when the user says "audit the architecture", "is the design still sound?",
+  or "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -9,28 +13,31 @@ metadata:
 
 # Audit
 
-Use this skill once all of a plan's increments are complete — built, reviewed, and tested — as the **design-level checkpoint**. It evaluates the *evolving design*: the as-built architecture against the structure it was intended to have, surfacing where the increments have caused the design to drift. This skill is **evaluation only** — the output is a prioritized report of suggestions, each seeding a separate [`refactor`](../refactor/SKILL.md) → [`design`](../design/SKILL.md) pass; it changes no code itself.
+**Input:**
 
-## Interface
+- **The target codebase. REQUIRED.** Unless an explicit path is provided, this is the code repository whose root is the current working directory, else all code repositories nested in subdirectories of the current working directory. Also check `AGENTS.md` in the current working directory for references to other repositories in the workspace — if present, include those too.
 
-**Input**: The completed, tested body of work from a plan's increments, together with the architecture documentation describing the design's intended structure. REQUIRED. Run once all increments are complete.
+- **Where to write the report. REQUIRED.** The project's audit-report collection. If the current repository has an `audits/` directory, that is the collection. If the design documentation is kept in a separate repository, `AGENTS.md` in the current working directory will reference it — its `audits/` directory is the collection. This is a **write target only**. The audit does NOT read the design documentation. If the project has no audit-report collection, fall back to a sensible default (see step 5).
 
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion, or is necessarily interactive — blocking to ask questions, present options, and wait for answers.
+**Output:**
 
-**Output**: A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, with an observation and a proposed direction. No code is changed; each finding is ready to seed a [`refactor`](../refactor/SKILL.md) → [`design`](../design/SKILL.md) pass.
+A prioritized, bounded report of architectural improvement candidates, each citing specific files and lines, stating what is observed and the cost it imposes, and optionally pointing toward a fix.
+
+The audit evaluates the as-built system **on its own terms**. It does NOT read the design documentation, does NOT compare the code against the intended architecture, and does NOT report drift from the docs — catching drift is the job of a project's `reconcile-design` skill, where one exists. This deliberate blindness keeps the review unbiased, so it surfaces genuinely novel suggestions rather than re-litigating trade-offs already settled.
+
+The report is written to the project's audit-report collection, following that collection's own conventions — its `TEMPLATE.md` and `README.md`, which govern the report's path, structure, and lifecycle. Where the project has no such collection, use the fallback in step 5.
+
+**Interactivity:**
+
+Agents MUST NOT block for user input after the initial prompt. Agents MUST follow this skill's instructions to completion, or fail with an error message.
 
 ##  Instructions
 
-1.  **Read available architecture documentation first.**
+1.  **Establish scope and pin the subject.**
 
-    Before scanning code, consult any documents that describe the *intended* structure. Common locations:
+    Decide what is in scope — which repositories, services, or directories the audit covers — and record the exact commit of each (`owner/repo@<commit-sha>`), so the report is a reproducible point-in-time snapshot of what was examined.
 
-    - `docs/adr/`, `docs/architecture/`, `docs/design/`
-    - `docs/domain-model.md`, `ARCHITECTURE.md`, `CONTEXT.md`
-    - Top-level `README.md`
-    - `AGENTS.md`, `CLAUDE.md`
-
-    Understanding what the codebase *meant* to be lets you judge what it *is*. A divergence between intended and actual structure is itself a finding worth reporting.
+    Do NOT open the design documentation. This audit forms its judgment from the code alone. Reading the intended architecture would bias the review toward the trade-offs already considered — the opposite of what this skill is for.
 
 2.  **Walk the codebase applying the deletion test.**
 
@@ -55,46 +62,75 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
     - **Impact**: how much the rest of the codebase simplifies if this is fixed. Findings that unlock other improvements rank high.
     - **Effort**: how invasive the change would be. Local renames rank above cross-cutting restructures.
 
-    The top entry is the cheapest high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't be acted on.
+    Assign each finding a **Priority** — High, Medium, or Low — from this ranking, and order the report by it. The top entry is the cheapest high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't be acted on.
 
-5.  **Produce the report.**
+5.  **Write the report.**
 
-    Use this structure:
+    Write the report into the project's audit-report collection, following its conventions:
+
+    - **If the project has an `audits/` collection**, copy its `TEMPLATE.md` and save the report at the path its `README.md` specifies (typically `audits/YYYY-MM-DD-<slug>/README.md`). Fill the metadata header — Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope — and leave workflow fields (eg. the audit PR number) blank for the user. The collection's `TEMPLATE.md` is authoritative for structure.
+
+    - **Do NOT commit, branch, or open a pull request.** The collection's own workflow — a human, or a companion skill — owns branching, committing, and indexing. Writing the report file is where this skill stops.
+
+    - **If the project has no audit-report collection**, check `AGENTS.md` for naming and location conventions. Failing that, write `audit-report-<timestamp>.md` to a sensible location — the repository root, or the OS temp directory if the target is not a git repository — using the fallback structure below.
+
+    Fallback structure (a project's `TEMPLATE.md`, where present, supersedes this):
 
     ```markdown
-    # Audit report
+    # Audit report — <subject>
+
+    - Auditors: <name(s)>
+    - Date: YYYY-MM-DD
+    - Subject: owner/repo@<commit>, ...
+    - Scope: <the subsystems / areas examined>
 
     ## Summary
-    <2–3 sentences on the dominant themes — what's working, what's not.>
+    <2–3 sentences on the dominant themes — what's structurally sound, what's not.>
+
+    ## Scope and method
+    <What was examined and how; what was deliberately left out, so coverage can be judged.>
 
     ## Findings (prioritized)
 
-    ### 1. <Module / area>
-    **Problem.** <One sentence, citing files and lines.>
-    **Direction.** <Proposed change for `refactor` to take into design, or "leave it" with rationale.>
-    **Effort.** <Small / medium / large.>
+    | ID  | Finding | Type | Priority | Location |
+    | --- | ------- | ---- | -------- | --------- |
+    | F01 | <title> | <smell> | High | path:line |
 
-    ### 2. <Module / area>
-    ...
+    ### F01 — <title>
+    - **Type:** <shallow abstraction | tangled dependency | single-caller wrapper | …>
+    - **Priority:** High | Medium | Low
+    - **Location:** <file:line>
+
+    <What is observed — the structure that exists — and the cost it imposes. Optionally, a short pointer toward a fix — never a worked-out design.>
+
+    ## Themes
+    <Recurring patterns the individual findings are symptoms of. Often more valuable than any single finding.>
+
+    ## Recommendations
+    <A prioritized shortlist of what to address first, to feed downstream refactoring.>
     ```
 
 ##  Rules
 
 -   **Discovery only.**
 
-    Do not change any code, file any issues, open any PRs. The output is the report; the user decides what to act on.
+    Do not change any code in the audited repositories, and do not file issues or open pull requests to implement the findings. The output is the report; the user decides what to act on.
+
+-   **Do not commit the report.**
+
+    Write it to disk so it persists and can be referenced by [`refactor`](../refactor/) and the collection's own workflow, but leave committing — or discarding — to the user.
 
 -   **Cite files and lines.**
 
     Every finding names specific paths. Vague findings ("the API layer is messy") are useless — be concrete.
 
--   **Distinguish observation from prescription.**
+-   **Observation first; any pointer is optional.**
 
-    State what you see before stating what to do about it. The user may disagree with the prescription but still find the observation valuable.
+    State what you see and the cost it imposes before offering any suggestion. A pointer toward a fix is optional, and MUST stay a pointer — never a worked-out alternative design (that is the job of `design`, downstream). The observation is the deliverable; a reader may reject the pointer and still find the observation valuable.
 
--   **"Leave it" is a valid finding.**
+-   **"Not worth fixing" is a valid conclusion.**
 
-    Not every smell is worth fixing. If the cost of the fix exceeds the cost of the smell, say so explicitly.
+    Not every smell earns a fix. If the cost of the change would exceed the cost of the smell, say so — record it as low priority, with the rationale.
 
 -   **Stay within the codebase's idioms.**
 
@@ -108,12 +144,26 @@ Use this skill once all of a plan's increments are complete — built, reviewed,
 
 -   **Findings are prioritized by impact ÷ effort.**
 
-    A reader can stop after the top three entries and still have something actionable.
+    Each carries a Priority (High / Medium / Low) derived from the ranking, and the report is ordered by it. A reader can stop after the top three entries and still have something actionable.
 
--   **No code changes were made.**
+-   **No code was changed in the audited repositories.**
 
-    The git tree is unchanged after this skill runs.
+    Their tracked files are unchanged after this skill runs — `git diff` over them is empty. The new report file in the audit-report collection is the one expected artifact.
+
+-   **The report exists on disk and is not committed.**
+
+    The report file is present at the location the collection's conventions (or `AGENTS.md`) specify, and `git status` shows it untracked — never staged or committed by this skill.
 
 -   **The report is bounded.**
 
     Top 5–10 candidates. Not an exhaustive enumeration.
+
+-   **The report conforms to the audit template.**
+
+    It carries the metadata header (including the Subject snapshot), a findings table, and per-finding Type / Priority / Location — matching the project's `TEMPLATE.md`, or the fallback structure where none exists.
+
+##  References
+
+-   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present — the authoritative conventions for the report's path, structure, and lifecycle.
+
+-   [`refactor`](../refactor/): Consumes this report to propose and make the changes the user chooses to act on.

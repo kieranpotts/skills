@@ -1,4 +1,4 @@
-# 🤖 `audit`
+# Audit skill
 
 The `audit` skill is all about **architectural review**.
 
