@@ -2,14 +2,14 @@
 
 The `audit` skill is all about **architectural review**. It evaluates the
 as-built architecture for modularity, consistency, security, communication
-patterns, and other structural qualities. The agent is instructed to conduct
-the evaluation on its own terms, with no reference to the documented
-architecture and no knowledge of trade-offs already considered.
+patterns, and other structural qualities.
 
-That deliberate blindness is the point. It keeps the review unbiased so the
-agent is more likely to surface genuinely useful suggestions. The trade-off
-is a bit more noisiness. The agent may retread design trade-offs that have
-already been settled.
+The agent is instructed to conduct the evaluation on its own terms, with no
+reference to the documented architecture and no knowledge of trade-offs
+already considered. That deliberate blindness is the point. It keeps the
+review unbiased so the agent is more likely to surface genuinely useful
+suggestions. The trade-off is a bit more noisiness in the output artifacts.
+The agent may retread design trade-offs that have already been settled.
 
 This is an evaluation skill. It does not change any code. To do that, pass the
 output of this skill as input to the [`refactor`](../refactor/) skill.
@@ -24,6 +24,7 @@ This skill instructs the agent to run non-interactively.
 
 - `/audit`, `/skill:audit` (prompts vary by harness).
 - "Audit the architecture."
+- "Check for security issues."
 - "Is the design still sound?"
 - "Check the codebase for structural drift."
 
@@ -37,80 +38,30 @@ benefits from deep reasoning.
 A mid-tier model tends to default to generic, checklist-style observations,
 rather than genuinely novel structural insight.
 
-## Workflows
+## Suggested workflows
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  discover["🤖🧑\ndiscover"]:::anthropic
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  triage["🤖\ntriage"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  code["🤖\ncode"]:::agentic
-  styleSkill["🤖\nstyle"]:::agentic
-  lint["⚙️\nlint"]:::scripted
-  review["🤖\nreview"]:::agentic
-  resolve["🤖\nresolve"]:::agentic
-  build["⚙️\nbuild"]:::scripted
-  test["⚙️\ntest"]:::scripted
   integrate["⚙️\nintegrate"]:::scripted
   audit["🤖\naudit"]:::agentic
-  validate["🤖\nvalidate"]:::agentic
-  deploy["⚙️\ndeploy"]:::scripted
-
-  conform["🤖\nconform"]:::agentic
-  fix["🤖\nfix"]:::agentic
-  debug["🤖\ndebug"]:::agentic
-
-  spike["🤖🧑\nspike"]:::anthropic
-  elaborate["🤖🧑\nelaborate"]:::anthropic
-  refactor["🤖🧑\nrefactor"]:::anthropic
-  refine["🤖🧑\nrefine"]:::anthropic
+  refactor["🤖\nrefactor"]:::agentic
 
   %% Main workflow sequence.
-  specify ==> design
-  design ==> plan
-  triage ==> code
-  plan ==> code
-  subgraph build_increments [build increments]
-    direction LR
-    code ==> styleSkill
-    styleSkill ==> lint
-    lint ==> build
-    build ==> test
-    test ==> review
-    review ==> resolve
-    resolve ==> integrate
-    integrate ==> code
-
-    %% Failures.
-    lint -- fail --> conform
-    build -- fail --> fix
-    test -- fail --> debug
-  end
   integrate ==> audit
-  audit ==> validate
-  validate ==> deploy
-
-  %% Callouts to helpers.
-  discover <-.-> specify
-  design <-.-> spike
-  design <-.-> elaborate
-
-  %% Feedback loops.
-  audit --> refactor
-  refactor --> design
-  validate --> refine
-  refine --> specify
+  audit ==> refactor
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
-
-  %% Subgraph (loop) border styling.
-  style build_increments fill:#EEEEEE,stroke-width:0px
 ```
 
+An audit may be scheduled to run periodically, or be triggered by a big
+changeset landing on the main trunk. Alternatively, it may be configured as a
+preflight step in a release workflow. It is NOT RECOMMENDED to run an audit
+against every commit.
 
+The output from an audit may be used as the prompt for an agentic refactoring
+step. The `refactor` skill consumes the report from an architectural review,
+and implements structural improvements in response to the findings.
