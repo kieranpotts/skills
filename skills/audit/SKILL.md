@@ -16,37 +16,33 @@ metadata:
 
 **Input:**
 
-- **The target codebase. REQUIRED.** Unless an explicit path is provided, this
-  is the code repository whose root is the current working directory, else all
-  code repositories nested in subdirectories of the current working directory.
-  Also check `AGENTS.md` in the current working directory for references to
-  other repositories in the workspace — if present, include those too.
+- **The target codebase. REQUIRED.** Unless the user inputs an explicit target
+  path, assume the target is the code repository in the current working
+  directory. If the current working directory is not part of a code repository,
+  check `AGENTS.md` in the current working directory for paths to all projects
+  in the current workspace. Else find all code repositories in nested
+  subdirectories and assume they are all the target codebase.
 
-- **Where to write the report. REQUIRED.** The project's audit-report
-  collection. If the current repository has an `audits/` directory, that is the
-  collection. If the design documentation is kept in a separate repository,
-  `AGENTS.md` in the current working directory will reference it — its `audits/`
-  directory is the collection. This is a **write target only**. The audit does
-  NOT read the design documentation. If the project has no audit-report
-  collection, fall back to a sensible default (see step 5).
+- **Where to write the report. REQUIRED.** Check the `AGENTS.md` file in the
+  current working directory for the path or URL of the audit reports (they may
+  be in a separate repository). If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user of the
+  failure.
 
 **Output:**
 
 A prioritized, bounded report of architectural improvement candidates, each
 citing specific files and lines, stating what is observed and the cost it
-imposes, and optionally pointing toward a fix.
+imposes, and optionally pointing toward a fix. The report is written to the
+audit reports collection or repository, following the conventions defined
+there.
 
-The audit evaluates the as-built system **on its own terms**. It does NOT read
-the design documentation, does NOT compare the code against the intended
-architecture, and does NOT report drift from the docs — catching drift is the
-job of a project's `reconcile-design` skill, where one exists. This deliberate
-blindness keeps the review unbiased, so it surfaces genuinely novel suggestions
-rather than re-litigating trade-offs already settled.
-
-The report is written to the project's audit-report collection, following that
-collection's own conventions — its `TEMPLATE.md` and `README.md`, which govern
-the report's path, structure, and lifecycle. Where the project has no such
-collection, use the fallback in step 5.
+The audit evaluates the as-built system on its own terms. It does NOT read
+any design documentation, does NOT compare the code against the intended
+architecture, and does NOT report drift from the docs. This deliberate
+blindness keeps the review unbiased, so it surfaces genuinely novel
+suggestions.
 
 **Interactivity:**
 
