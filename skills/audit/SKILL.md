@@ -172,96 +172,100 @@ follow this skill's instructions to completion, or fail with an error message.
 
 ##  Rules
 
--   **Do NOT read existing design docs, threat models, etc.**
+-   **You MUST NOT read existing design docs, threat models, etc.**
 
-    Do NOT read any design documentation or threat models that you find.
+    You MUST NOT read any design documentation or threat models that you find.
 
     You MUST form your judgment from analysis of the code alone. Knowledge
     of the _intended_ architecture and security controls would bias your review
-    toward the design trade-offs already considered. We're looking for you to
-    surface genuinely novel suggestions.
+    toward the design trade-offs already considered; the audit SHOULD surface
+    genuinely novel suggestions.
 
-    We want your honest, independent evaluation of the as-built system.
+    The evaluation MUST be your honest, independent assessment of the as-built
+    system.
 
--   **Discovery only.**
+-   **Discovery only: you MUST NOT change code.**
 
-    Do NOT change any code in the audited repositories.
+    You MUST NOT change any code in the audited repositories.
 
--   **Do not commit the report.**
+-   **You MUST NOT commit the report.**
 
-    Your only output is your report, written to disk. Do NOT commit it, if the
-    target path is within a version control repository.
+    Your only output is your report, written to disk. You MUST NOT commit it
+    where the target path is within a version control repository.
 
-    The user will decide what next to do with your report.
+    The user SHALL decide what to do with your report next.
 
--   **Do NOT open issues or PRs.**
+-   **You MUST NOT open issues or PRs.**
 
-    Only write your report to disk. Do NOT file issues or open pull requests
-    to implement your findings.
+    You MUST only write your report to disk. You MUST NOT file issues or open
+    pull requests to implement your findings.
 
--   **Cite files and lines.**
+-   **You SHOULD cite files and lines.**
 
-    Be concrete. Every finding SHOULD name specific paths, if possible.
+    Be concrete. Every finding SHOULD name specific paths where possible.
 
-    Vague findings ("the API layer is messy") are not so useful.
+    Vague findings ("the API layer is messy") SHOULD be avoided.
 
--   **Observation first; any pointer is optional.**
+-   **You MAY suggest options for fixes.**
 
-    State what you see and the cost it imposes before offering any suggestion.
+    You MUST state your findings before offering any suggestions about how to
+    improve things.
 
-    A pointer toward a fix is OPTIONAL , and MUST stay a pointer — never a
+    A pointer toward a fix is OPTIONAL, and MUST stay a pointer — never a
     worked-out alternative design.
 
-    The observation is the deliverable; a reader may reject the pointer and still
-    find the observation valuable.
+    Your _observations_ are the deliverable. A reader MAY reject your
+    suggested fixes but still find the observations useful.
 
--   **"Not worth fixing" is a valid conclusion.**
+-   **"Not worth fixing" MAY be a valid conclusion.**
 
-    Not every smell earns a fix. If the cost of the change would exceed the cost
-    of the smell, say so — record it as low priority, with the rationale.
+    Not every smell earns a fix. Where the cost of the change would exceed the
+    cost of the smell, you SHOULD say so — recording it as low priority, with the
+    rationale.
 
--   **Stay within the codebase's idioms.**
+-   **You MUST stay within the codebase's idioms.**
 
-    Don't flag style choices that are consistent across the codebase as smells
-    just because you'd prefer a different style. Audit is for structural
-    problems, not preferences.
+    You MUST NOT flag style choices that are consistent across the codebase as
+    smells just because you would prefer a different style. The audit MUST target
+    structural problems, not preferences.
 
-    - **Do NOT commit, branch, or open a pull request.** The collection's own
-      workflow — a human, or a companion skill — owns branching, committing, and
-      indexing. Writing the report file is where this skill stops.
+    - **You MUST NOT commit, branch, or open a pull request.** The collection's
+      own workflow — a human, or a companion skill — owns branching, committing,
+      and indexing. Writing the report file is where this skill MUST stop.
 
 ##  Success criteria
 
--   **The report cites specific files for every finding.**
+-   **The report MUST cite a specific file for every finding.**
 
-    No vague platitudes. Each finding names a module/file path and a concrete
-    observation.
+    Each finding MUST name a module/file path and a concrete observation. Vague
+    platitudes MUST NOT appear.
 
--   **Findings are prioritized by impact ÷ effort.**
+-   **Findings MUST be prioritized by impact ÷ effort.**
 
-    Each carries a Priority (High / Medium / Low) derived from the ranking, and
-    the report is ordered by it. A reader can stop after the top three entries
-    and still have something actionable.
+    Each finding MUST carry a Priority (High / Medium / Low) derived from the
+    ranking, and the report MUST be ordered by it. A reader SHOULD be able to
+    stop after the top three entries and still have something actionable.
 
--   **No code was changed in the audited repositories.**
+-   **The audited repositories MUST be left unchanged.**
 
-    Their tracked files are unchanged after this skill runs — `git diff` over
-    them is empty. The new report file in the audit-report collection is the one
-    expected artifact.
+    Their tracked files MUST be unchanged after this skill runs — `git diff` over
+    them MUST be empty. The new report file in the audit-report collection MUST be
+    the only expected artifact.
 
--   **The report exists on disk and is not committed.**
+-   **The report MUST exist on disk and MUST NOT be committed.**
 
-    The report file is present at the location the collection's conventions (or
-    `AGENTS.md`) specify, and `git status` shows it untracked — never staged or
-    committed by this skill.
+    The report file MUST be present at the location the collection's conventions
+    (or `AGENTS.md`) specify, and `git status` MUST show it untracked — never
+    staged or committed by this skill.
 
--   **The report is bounded.**
+-   **The report MUST be bounded.**
 
-    Top 5–10 candidates. Not an exhaustive enumeration.
+    It MUST contain the top 5–10 candidates, and MUST NOT be an exhaustive
+    enumeration.
 
--   **The report conforms to the audit template.**
+-   **The report MUST conform to the audit template.**
 
-    It carries the metadata header (including the Subject snapshot), a findings
+    It MUST carry the metadata header (including the Subject snapshot), a findings
     table, and per-finding Type / Priority / Location — matching the project's
     `TEMPLATE.md`, or the fallback structure where none exists.
 
