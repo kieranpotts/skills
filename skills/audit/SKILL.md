@@ -1,11 +1,14 @@
 ---
 name: audit
 description: >-
-  Evaluate the as-built architecture of a software system. Report code smells
-  and anti-patterns like shallow abstractions, tangled dependencies, and
-  single-caller wrappers. Evaluation only – no code changes. Use this skill when
-  the user says "audit the architecture", "is the design still sound?", or
-  "check the codebase for structural drift".
+  Evaluate the as-built architecture and security posture of a software
+  system, in one pass. Report code smells and anti-patterns like shallow
+  abstractions, tangled dependencies, and single-caller wrappers, alongside
+  security weaknesses like broken trust boundaries, injection points, and
+  unsafe secrets handling. Evaluation only – no code changes. Use this skill
+  when the user says "audit this codebase", "audit the architecture", "check for
+  security issues", "is the design still sound?", or "check the codebase for
+  structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -32,17 +35,20 @@ metadata:
 
 **Output:**
 
-A prioritized, bounded report of architectural improvement candidates, each
-citing specific files and lines, stating what is observed and the cost it
-imposes, and optionally pointing toward a fix. The report is written to the
-audit reports collection or repository, following the conventions defined
-there.
+A single prioritized, bounded report covering both architecture and security
+improvement candidates, each citing specific files and lines, stating what
+is observed and the cost it imposes, and optionally pointing toward a fix.
+Findings from both concerns are ranked together in one list, not split into
+separate reports — a codebase's most pressing problem might be architectural
+or might be a security gap, and the report should say which, rather than
+assume one matters more by construction. The report is written to the audit
+reports collection or repository, following the conventions defined there.
 
 The audit evaluates the as-built system on its own terms. It does NOT read
-any design documentation, does NOT compare the code against the intended
-architecture, and does NOT report drift from the docs. This deliberate
-blindness keeps the review unbiased, so it surfaces genuinely novel
-suggestions.
+any design documentation or threat model, does NOT compare the code against
+the intended architecture or intended security controls, and does NOT report
+drift from the docs. This deliberate blindness keeps the review unbiased, so
+it surfaces genuinely novel suggestions.
 
 **Interactivity:**
 
@@ -58,38 +64,71 @@ follow this skill's instructions to completion, or fail with an error message.
     (`owner/repo@<commit-sha>`), so the report is a reproducible point-in-time
     snapshot of what was examined.
 
-    Do NOT open the design documentation. This audit forms its judgment from the
-    code alone. Reading the intended architecture would bias the review toward
-    the trade-offs already considered — the opposite of what this skill is for.
+    Do NOT open the design documentation or any threat model. This audit forms
+    its judgment from the code alone. Reading the intended architecture or
+    intended security controls would bias the review toward the trade-offs
+    already considered — the opposite of what this skill is for.
 
-2.  **Walk the codebase applying the deletion test.**
+2.  **Apply both methods.** Every audit examines both architecture and
+    security in the same pass — apply each in turn:
 
-    For each significant module, ask: *if I removed this module, where would its
-    complexity go?*
+    - **Architecture — the deletion test.** For each significant module, ask:
+      *if I removed this module, where would its complexity go?*
 
-    - If complexity would **concentrate elsewhere in a worse arrangement** — the
-      module is **deep**, earning its keep.
-    - If complexity would **simply redistribute** without becoming worse — the
-      module is **shallow**, not earning its keep. Flag it.
+      - If complexity would **concentrate elsewhere in a worse arrangement** —
+        the module is **deep**, earning its keep.
+      - If complexity would **simply redistribute** without becoming worse —
+        the module is **shallow**, not earning its keep. Flag it.
 
-    A shallow module's primary value is hiding a thin layer of behavior behind
-    an interface wider than the behavior justifies.
+      A shallow module's primary value is hiding a thin layer of behavior
+      behind an interface wider than the behavior justifies.
+
+    - **Security — the trust-boundary walk.** Enumerate every point where
+      data or control crosses a trust boundary: external input entering the
+      system, calls to other services, reads/writes to storage, and
+      privilege changes. For each crossing, ask: *what does this side trust
+      the other side to have already checked?* A crossing that trusts
+      something the other side never actually guarantees is a finding.
 
 3.  **Look for these specific smells.**
 
-    - **Wide interfaces relative to behavior.** Many exported functions for thin
-      underlying logic. Often the boundary is in the wrong place.
-    - **Tangled dependencies.** Modules importing each other directly or via
-      chains that resist independent change. Touching one requires touching
-      several.
-    - **Single-caller abstractions.** An interface, base class, or helper used
-      by exactly one caller. The abstraction wasn't earned.
-    - **Repeated patterns not yet abstracted.** Three or more places doing the
-      same shape of work, none extracted. Worth promoting to a named concept.
-    - **Inverted dependencies.** Lower-level modules importing higher-level
-      ones; stable code depending on volatile code.
-    - **Names that don't match content.** A `util` doing domain logic, a
-      `Manager` with one method, a `Service` that's a thin DAO.
+    - **Architecture:**
+
+      - **Wide interfaces relative to behavior.** Many exported functions for
+        thin underlying logic. Often the boundary is in the wrong place.
+      - **Tangled dependencies.** Modules importing each other directly or via
+        chains that resist independent change. Touching one requires touching
+        several.
+      - **Single-caller abstractions.** An interface, base class, or helper
+        used by exactly one caller. The abstraction wasn't earned.
+      - **Repeated patterns not yet abstracted.** Three or more places doing
+        the same shape of work, none extracted. Worth promoting to a named
+        concept.
+      - **Inverted dependencies.** Lower-level modules importing higher-level
+        ones; stable code depending on volatile code.
+      - **Names that don't match content.** A `util` doing domain logic, a
+        `Manager` with one method, a `Service` that's a thin DAO.
+
+    - **Security:**
+
+      - **Injection points.** User-controlled input reaching a query,
+        command, template, or interpreter without a parameterized API or an
+        escaping boundary between them.
+      - **Broken authentication or authorization boundaries.** An action or
+        resource reachable without the check its sibling endpoints enforce;
+        authorization decided client-side or inferred from data the caller
+        controls.
+      - **Unsafe secrets handling.** Credentials, keys, or tokens in source,
+        logs, error messages, or client-visible responses; long-lived secrets
+        where short-lived ones would do.
+      - **Insecure defaults.** A configuration, flag, or dependency that ships
+        permissive, verbose, or unauthenticated unless explicitly hardened.
+      - **Missing validation at trust boundaries.** Input trusted past the
+        point where it first crosses from an untrusted actor, rather than
+        checked at the boundary itself.
+      - **Unsafe dependency or supply-chain patterns.** Unpinned versions,
+        unverified sources, or install-time script execution for third-party
+        code that runs with production privileges.
 
 4.  **Prioritize findings by impact ÷ effort.**
 
@@ -111,9 +150,9 @@ follow this skill's instructions to completion, or fail with an error message.
     - **If the project has an `audits/` collection**, copy its `TEMPLATE.md` and
       save the report at the path its `README.md` specifies (typically
       `audits/YYYY-MM-DD-<slug>/README.md`). Fill the metadata header —
-      Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope —
-      and leave workflow fields (eg. the audit PR number) blank for the user.
-      The collection's `TEMPLATE.md` is authoritative for structure.
+      Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope
+      — and leave workflow fields (eg. the audit PR number) blank for the
+      user. The collection's `TEMPLATE.md` is authoritative for structure.
 
     - **Do NOT commit, branch, or open a pull request.** The collection's own
       workflow — a human, or a companion skill — owns branching, committing, and
@@ -237,9 +276,11 @@ follow this skill's instructions to completion, or fail with an error message.
 
 ##  References
 
--   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present —
-    the authoritative conventions for the report's path, structure, and
-    lifecycle.
+-   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present
+    (often a separate sibling repository, eg.
+    [`kieranpotts/audits`](https://github.com/kieranpotts/audits), pointed to
+    from the target project's `AGENTS.md`) — the authoritative conventions
+    for the report's path, structure, and lifecycle.
 
--   [`refactor`](../refactor/): Consumes this report to propose and make the
-    changes the user chooses to act on.
+-   [`refactor`](../refactor/): Consumes an architecture audit's findings to
+    propose and make the changes the user chooses to act on.
