@@ -84,11 +84,11 @@ These skills span four categories:
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚀 [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, security, etc. |
+| ✅ [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, security, etc. |
 | 🚀 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
 | 🚀 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. |
 | 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
-| ✅ [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. |
+| 🚀 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. |
 | 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs. |
 | 🚀 [`fix`](./skills/fix/) | Audit and fix anything generally broken — failing builds, lint, type-checks — distinct from `debug`. |
 | 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. |
