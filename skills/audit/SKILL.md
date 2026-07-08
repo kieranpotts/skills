@@ -20,7 +20,7 @@ metadata:
 **Input:**
 
 - **The target codebase. REQUIRED.** Unless the user inputs an explicit target
-  path, assume the target is the code repository in the current working
+  path or URL, assume the target is the code repository in the current working
   directory. If the current working directory is not part of a code repository,
   check `AGENTS.md` in the current working directory for paths to all projects
   in the current workspace. Else find all code repositories in nested
@@ -44,12 +44,6 @@ or might be a security gap, and the report should say which, rather than
 assume one matters more by construction. The report is written to the audit
 reports collection or repository, following the conventions defined there.
 
-The audit evaluates the as-built system on its own terms. It does NOT read
-any design documentation or threat model, does NOT compare the code against
-the intended architecture or intended security controls, and does NOT report
-drift from the docs. This deliberate blindness keeps the review unbiased, so
-it surfaces genuinely novel suggestions.
-
 **Interactivity:**
 
 Agents MUST NOT block for user input after the initial prompt. Agents MUST
@@ -57,175 +51,168 @@ follow this skill's instructions to completion, or fail with an error message.
 
 ##  Instructions
 
-1.  **Establish scope and pin the subject.**
+1.  **Establish scope.**
 
-    Decide what is in scope — which repositories, services, or directories the
-    audit covers — and record the exact commit of each
-    (`owner/repo@<commit-sha>`), so the report is a reproducible point-in-time
-    snapshot of what was examined.
+    Decide what is in scope — which repositories, services, or directories —
+    based on the target codebase. If a URL is provided, assume the target
+    repository is to be cloned.
 
-    Do NOT open the design documentation or any threat model. This audit forms
-    its judgment from the code alone. Reading the intended architecture or
-    intended security controls would bias the review toward the trade-offs
-    already considered — the opposite of what this skill is for.
+    Is it possible to pin the codebase to a specific revision, eg.
+    `owner/repo@<commit-sha>`?
 
-2.  **Apply both methods.** Every audit examines both architecture and
-    security in the same pass — apply each in turn:
+2.  **Identify modules.**
 
-    - **Architecture — the deletion test.** For each significant module, ask:
-      *if I removed this module, where would its complexity go?*
+    Analyze the target codebase and identify the major component parts of the
+    system. Identify the architectural tiers, eg. UI, services, domain,
+    infrastructure.
 
-      - If complexity would **concentrate elsewhere in a worse arrangement** —
-        the module is **deep**, earning its keep.
-      - If complexity would **simply redistribute** without becoming worse —
-        the module is **shallow**, not earning its keep. Flag it.
+3.  **Identify communication patterns.**
 
-      A shallow module's primary value is hiding a thin layer of behavior
-      behind an interface wider than the behavior justifies.
+    Identify the communication patterns and protocols between the major
+    layers, and between the components within each layer.
 
-    - **Security — the trust-boundary walk.** Enumerate every point where
-      data or control crosses a trust boundary: external input entering the
-      system, calls to other services, reads/writes to storage, and
-      privilege changes. For each crossing, ask: *what does this side trust
-      the other side to have already checked?* A crossing that trusts
-      something the other side never actually guarantees is a finding.
+4.  **Check on module depth.**
 
-3.  **Look for these specific smells.**
+    For each significant module, ask: if I removed this module, where would
+    it's complexity go?
 
-    - **Architecture:**
+    If complexity would concentrate elsewhere in a worse arrangement, the module
+    is deep — earning its keep. But if the effect would be to simply redistribute
+    the complexity, the module is shallow — potentially NOT earnings its keep.
 
-      - **Wide interfaces relative to behavior.** Many exported functions for
-        thin underlying logic. Often the boundary is in the wrong place.
-      - **Tangled dependencies.** Modules importing each other directly or via
-        chains that resist independent change. Touching one requires touching
-        several.
-      - **Single-caller abstractions.** An interface, base class, or helper
-        used by exactly one caller. The abstraction wasn't earned.
-      - **Repeated patterns not yet abstracted.** Three or more places doing
-        the same shape of work, none extracted. Worth promoting to a named
-        concept.
-      - **Inverted dependencies.** Lower-level modules importing higher-level
-        ones; stable code depending on volatile code.
-      - **Names that don't match content.** A `util` doing domain logic, a
-        `Manager` with one method, a `Service` that's a thin DAO.
+    Flag shallow modules. They hide a thin layer of behavior behind an interface
+    wider than the behavior justifies.
 
-    - **Security:**
+5.  **Identify the trust boundaries.**
 
-      - **Injection points.** User-controlled input reaching a query,
-        command, template, or interpreter without a parameterized API or an
-        escaping boundary between them.
-      - **Broken authentication or authorization boundaries.** An action or
-        resource reachable without the check its sibling endpoints enforce;
-        authorization decided client-side or inferred from data the caller
-        controls.
-      - **Unsafe secrets handling.** Credentials, keys, or tokens in source,
-        logs, error messages, or client-visible responses; long-lived secrets
-        where short-lived ones would do.
-      - **Insecure defaults.** A configuration, flag, or dependency that ships
-        permissive, verbose, or unauthenticated unless explicitly hardened.
-      - **Missing validation at trust boundaries.** Input trusted past the
-        point where it first crosses from an untrusted actor, rather than
-        checked at the boundary itself.
-      - **Unsafe dependency or supply-chain patterns.** Unpinned versions,
-        unverified sources, or install-time script execution for third-party
-        code that runs with production privileges.
+    Enumerate every point where data or control crosses a trust boundary, eg.
+    external input entering the system, calls to other services, reads/writes
+    to store, and privilege changes.
 
-4.  **Prioritize findings by impact ÷ effort.**
+    For each, ask: what does this side trust the other side to have already
+    checked?
 
-    - **Impact**: how much the rest of the codebase simplifies if this is fixed.
+    Flag components that implicitly trust things on another side of a
+    boundary.
+
+6.  **Look for these specific code smells.**
+
+    - **Wide interfaces relative to behavior.** Many exported functions for
+      thin underlying logic. Often the boundary is in the wrong place.
+
+    - **Tangled dependencies.** Modules importing each other directly or via
+      chains that resist independent change. Touching one requires touching
+      several.
+
+    - **Single-caller abstractions.** An interface, base class, or helper
+      used by exactly one caller. The abstraction wasn't earned.
+
+    - **Repeated patterns not yet abstracted.** Three or more places doing
+      the same shape of work, none extracted. Worth promoting to a named
+      concept.
+
+    - **Inverted dependencies.** Lower-level modules importing higher-level
+      ones. Stable code depending on volatile code.
+
+    - **Names that don't match content.** A utility doing domain logic, a
+      "manager" with a single method, or a "service" component that's actually
+      just a thin DAO.
+
+7.  **Look for these specific security risks.**
+
+    - **Injection points.** User-controlled input reaching a query,
+      command, template, or interpreter without a parameterized API or an
+      escaping boundary between them.
+
+    - **Broken authentication or authorization boundaries.** An action or
+      resource reachable without the check its sibling endpoints enforce.
+      Authorization decided client-side or inferred from data the caller
+      controls.
+
+    - **Unsafe secrets handling.** Credentials, keys, or tokens in source,
+      logs, error messages, or client-visible responses. Long-lived secrets
+      where short-lived ones would do.
+
+    - **Insecure defaults.** A configuration, flag, or dependency that ships
+      permissive, verbose, or unauthenticated unless explicitly hardened.
+
+    - **Missing validation at trust boundaries.** Input trusted past the
+      point where it first crosses from an untrusted actor, rather than
+      checked at the boundary itself.
+
+    - **Unsafe dependency or supply-chain patterns.** Unpinned versions,
+      unverified sources, or install-time script execution for third-party
+      code that runs with production privileges.
+
+8.  **Prioritize findings by impact ÷ effort.**
+
+    - **Impact**: How much the rest of the codebase simplifies if this is fixed.
       Findings that unlock other improvements rank high.
-    - **Effort**: how invasive the change would be. Local renames rank above
+
+    - **Effort**: How invasive the change would be. Local renames rank above
       cross-cutting restructures.
 
-    Assign each finding a **Priority** — High, Medium, or Low — from this
+    Assign each finding a **Priority** — HIGH, MEDIUM, or LOW — from this
     ranking, and order the report by it. The top entry is the cheapest
-    high-impact fix. Cap the report at 5–10 candidates — a 30-item backlog won't
-    be acted on.
+    high-impact fix.
 
-5.  **Write the report.**
+    Cap the report at 10 candidates.
 
-    Write the report into the project's audit-report collection, following its
-    conventions:
+9.  **Write the report.**
 
-    - **If the project has an `audits/` collection**, copy its `TEMPLATE.md` and
-      save the report at the path its `README.md` specifies (typically
-      `audits/YYYY-MM-DD-<slug>/README.md`). Fill the metadata header —
-      Auditors, Date, Subject (the `repo@commit` snapshot from step 1), Scope
-      — and leave workflow fields (eg. the audit PR number) blank for the
-      user. The collection's `TEMPLATE.md` is authoritative for structure.
+    Write the report into the project's audit-report collection.
 
-    - **Do NOT commit, branch, or open a pull request.** The collection's own
-      workflow — a human, or a companion skill — owns branching, committing, and
-      indexing. Writing the report file is where this skill stops.
+    Follow the instructions in the audit reports collection or repository,
+    identified via user input. Look for an `AGENTS.md` file, else `README.md`.
+    Follow instruction in local agent skills files, if useful.
 
-    - **If the project has no audit-report collection**, check `AGENTS.md` for
-      naming and location conventions. Failing that, write
-      `audit-report-<timestamp>.md` to a sensible location — the repository
-      root, or the OS temp directory if the target is not a git repository —
-      using the fallback structure below.
-
-    Fallback structure (a project's `TEMPLATE.md`, where present, supersedes
-    this):
-
-    ```markdown
-    # Audit report — <subject>
-
-    - Auditors: <name(s)>
-    - Date: YYYY-MM-DD
-    - Subject: owner/repo@<commit>, ...
-    - Scope: <the subsystems / areas examined>
-
-    ## Summary
-    <2–3 sentences on the dominant themes — what's structurally sound, what's not.>
-
-    ## Scope and method
-    <What was examined and how; what was deliberately left out, so coverage can be judged.>
-
-    ## Findings (prioritized)
-
-    | ID  | Finding | Type | Priority | Location |
-    | --- | ------- | ---- | -------- | --------- |
-    | F01 | <title> | <smell> | High | path:line |
-
-    ### F01 — <title>
-    - **Type:** <shallow abstraction | tangled dependency | single-caller wrapper | …>
-    - **Priority:** High | Medium | Low
-    - **Location:** <file:line>
-
-    <What is observed — the structure that exists — and the cost it imposes. Optionally, a short pointer toward a fix — never a worked-out design.>
-
-    ## Themes
-    <Recurring patterns the individual findings are symptoms of. Often more valuable than any single finding.>
-
-    ## Recommendations
-    <A prioritized shortlist of what to address first, to feed downstream refactoring.>
-    ```
+    If no instructions can be found, analyze existing audit reports, establish
+    common conventions, and follow those conventions in the writing of your
+    new report.
 
 ##  Rules
 
+-   **Do NOT read existing design docs, threat models, etc.**
+
+    Do NOT read any design documentation or threat models that you find.
+
+    You MUST form your judgment from analysis of the code alone. Knowledge
+    of the _intended_ architecture and security controls would bias your review
+    toward the design trade-offs already considered. We're looking for you to
+    surface genuinely novel suggestions.
+
+    We want your honest, independent evaluation of the as-built system.
+
 -   **Discovery only.**
 
-    Do not change any code in the audited repositories, and do not file issues
-    or open pull requests to implement the findings. The output is the report;
-    the user decides what to act on.
+    Do NOT change any code in the audited repositories.
 
 -   **Do not commit the report.**
 
-    Write it to disk so it persists and can be referenced by
-    [`refactor`](../refactor/) and the collection's own workflow, but leave
-    committing — or discarding — to the user.
+    Your only output is your report, written to disk. Do NOT commit it, if the
+    target path is within a version control repository.
+
+    The user will decide what next to do with your report.
+
+-   **Do NOT open issues or PRs.**
+
+    Only write your report to disk. Do NOT file issues or open pull requests
+    to implement your findings.
 
 -   **Cite files and lines.**
 
-    Every finding names specific paths. Vague findings ("the API layer is
-    messy") are useless — be concrete.
+    Be concrete. Every finding SHOULD name specific paths, if possible.
+
+    Vague findings ("the API layer is messy") are not so useful.
 
 -   **Observation first; any pointer is optional.**
 
-    State what you see and the cost it imposes before offering any suggestion. A
-    pointer toward a fix is optional, and MUST stay a pointer — never a
-    worked-out alternative design (that is the job of `design`, downstream). The
-    observation is the deliverable; a reader may reject the pointer and still
+    State what you see and the cost it imposes before offering any suggestion.
+
+    A pointer toward a fix is OPTIONAL , and MUST stay a pointer — never a
+    worked-out alternative design.
+
+    The observation is the deliverable; a reader may reject the pointer and still
     find the observation valuable.
 
 -   **"Not worth fixing" is a valid conclusion.**
@@ -238,6 +225,10 @@ follow this skill's instructions to completion, or fail with an error message.
     Don't flag style choices that are consistent across the codebase as smells
     just because you'd prefer a different style. Audit is for structural
     problems, not preferences.
+
+    - **Do NOT commit, branch, or open a pull request.** The collection's own
+      workflow — a human, or a companion skill — owns branching, committing, and
+      indexing. Writing the report file is where this skill stops.
 
 ##  Success criteria
 
