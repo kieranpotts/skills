@@ -17,7 +17,7 @@ metadata:
 
 # Audit
 
-**Input:**
+**Input**:
 
 - **The target codebase. REQUIRED.** Unless the user inputs an explicit target
   path or URL, assume the target is the code repository in the current working
@@ -33,21 +33,18 @@ metadata:
   path to the audit reports cannot be found, stop and alert the user of the
   failure.
 
-**Output:**
-
-A single prioritized, bounded report covering both architecture and security
-improvement candidates, each citing specific files and lines, stating what
-is observed and the cost it imposes, and optionally pointing toward a fix.
+**Output**: A single prioritized, bounded report covering both architecture and
+security improvement candidates, each citing specific files and lines, stating
+what is observed and the cost it imposes, and optionally pointing toward a fix.
 Findings from both concerns are ranked together in one list, not split into
 separate reports — a codebase's most pressing problem might be architectural
 or might be a security gap, and the report should say which, rather than
 assume one matters more by construction. The report is written to the audit
 reports collection or repository, following the conventions defined there.
 
-**Interactivity:**
-
-Agents MUST NOT block for user input after the initial prompt. Agents MUST
-follow this skill's instructions to completion, or fail with an error message.
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 
@@ -229,9 +226,9 @@ follow this skill's instructions to completion, or fail with an error message.
     smells just because you would prefer a different style. The audit MUST target
     structural problems, not preferences.
 
-    - **You MUST NOT commit, branch, or open a pull request.** The collection's
-      own workflow — a human, or a companion skill — owns branching, committing,
-      and indexing. Writing the report file is where this skill MUST stop.
+  - **You MUST NOT commit, branch, or open a pull request.** The collection's
+    own workflow — a human, or a companion skill — owns branching, committing,
+    and indexing. Writing the report file is where this skill MUST stop.
 
 ##  Success criteria
 
@@ -268,14 +265,3 @@ follow this skill's instructions to completion, or fail with an error message.
     It MUST carry the metadata header (including the Subject snapshot), a findings
     table, and per-finding Type / Priority / Location — matching the project's
     `TEMPLATE.md`, or the fallback structure where none exists.
-
-##  References
-
--   The project's `audits/README.md` and `audits/TEMPLATE.md`, where present
-    (often a separate sibling repository, eg.
-    [`kieranpotts/audits`](https://github.com/kieranpotts/audits), pointed to
-    from the target project's `AGENTS.md`) — the authoritative conventions
-    for the report's path, structure, and lifecycle.
-
--   [`refactor`](../refactor/): Consumes an architecture audit's findings to
-    propose and make the changes the user chooses to act on.
