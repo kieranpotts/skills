@@ -15,24 +15,15 @@ metadata:
 
 # Reflect
 
-Use this skill at the end of a session to distill what was *learned* about
-working with the user, in this codebase, or on this project — durable
-working-style lessons, not task progress. Output is persistent: file-based
-memory entries the agent reads on future sessions, and/or additions to
-repo-committed convention files.
-
-## Interface
-
-**Input**: The current session's conversation, the agent's existing memory
-files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
-
-**Interactive**: This skill is interactive. It seeks per-candidate user approval
-through prompts before persisting anything.
+**Input**: The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
 
 **Output**: Zero or more persisted lessons — memory entries (indexed in
 `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
 changing future agent behavior, written only after per-candidate user approval.
 Universal lessons better encoded as a new skill are flagged, not saved.
+
+**Interactivity**: This skill is interactive. It seeks per-candidate user approval
+through prompts before persisting anything.
 
 ##  Instructions
 

@@ -15,29 +15,21 @@ metadata:
 
 # Commit
 
-Use this skill when composing a commit message or validating a branch's messages
-before push. It composes and validates messages and stops; it neither stages nor
-commits. This convention is NOT compatible with Conventional Commits:
-scopes/parentheticals (`feature(parser): …`) fail validation — the colon comes
-immediately after the type.
-
-<!-- TODO: Allow direct commits to dev? -->
-
-## Interface
-
 **Input**: A description of a change to compose a message for, or one or more
 existing commit messages to validate (a branch's history before push). REQUIRED.
 For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A conforming commit message in the `<type>: <description>` format
 (with any optional flag, body, and footers), or a pass/fail verdict on the
 supplied messages naming the rule each one violates. Where required, the
 matching `[Unreleased]` changelog entry is produced too. This skill composes and
 validates messages and stops; it neither stages nor commits.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
+
+<!-- TODO: Allow direct commits to dev? -->
 
 ##  Rules
 

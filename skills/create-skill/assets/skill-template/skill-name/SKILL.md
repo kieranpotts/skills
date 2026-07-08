@@ -11,23 +11,16 @@ metadata:
 
 # [Skill name]
 
-Short introduction here.
-
-This skill extends [this skill](https://raw.githubusercontent.com/...) — all
-rules there apply here.
-
-## Interface
-
 **Input**: What input the skill consumes — a file, a prompt, a selection — and
 whether it is OPTIONAL or REQUIRED. State any default behavior when no input is
 given.
 
-**Interactive**: Whether the skill runs non-interactively to completion, or is
-necessarily interactive — blocking to ask questions, present options, and wait
-for answers.
-
 **Output**: What the skill produces, in what format, and where it is written — a
 report, a direct edit, a file, a commit, the conversation itself.
+
+**Interactivity**: Whether the skill runs non-interactively to completion, or is
+necessarily interactive — blocking to ask questions, present options, and wait
+for answers.
 
 ##  Instructions
 

@@ -14,26 +14,18 @@ metadata:
 
 # Code
 
-Use this skill when implementing one numbered step from a plan, or any small
-standalone change whose design is already obvious. It turns one already-designed
-step into working, tested code. Implement one plan step per session — never
-bundle multiple steps — so the diff stays reviewable and rollback stays clean;
-after the step's tests pass, start the next step in a fresh session.
-
-## Interface
-
 **Input**: One numbered plan step (or a small standalone change whose design is
 already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill
 does not design or decompose; it consumes a step that is ready to implement.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A committed, tested change for that single step — the implementation
 plus its tests, scope-locked to the step, with a clean reviewable diff and a
 conventional commit. Whatever reviews, tests further, or sequences the next step
 is the orchestrator's concern, not this skill's.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

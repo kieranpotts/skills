@@ -16,25 +16,7 @@ metadata:
 
 # Research
 
-Use this skill when progress is blocked on knowledge the agent does not
-currently hold and cannot derive from the codebase: how a third-party library
-actually behaves, what a protocol mandates, how others have solved a comparable
-problem, what a regulation requires, whether an approach is still current. The
-job is to look *outward*, gather authoritative sources, and synthesize them into
-a single research report someone can act on. It is discovery only — it does not
-edit code, project docs, or shipped skills; where the report lands is the
-caller's decision.
-
-## Interface
-
-**Input**: A topic or question blocked on knowledge the agent does not hold and
-cannot derive from the codebase — how a library behaves, what a protocol
-mandates, how others solved a comparable problem, what a regulation requires,
-whether an approach is still current. REQUIRED.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
+**Input**: A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
 
 **Output**: A single, cited research report — a direct answer to the framed
 question, the supporting evidence (each decision-bearing claim sourced and,
@@ -42,6 +24,10 @@ where time-sensitive, dated), the open questions, and a suggested destination
 for the findings. This skill produces the report and stops; writing the findings
 into a design doc, an ADR, persisted memory, or anywhere else is a separate,
 explicit step the caller initiates.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ## Instructions
 

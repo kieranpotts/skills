@@ -17,30 +17,16 @@ metadata:
 
 # Refine
 
-Use this skill when testing surfaces a problem with the *specification itself* —
-an acceptance criterion that is wrong, missing, contradictory, or ambiguous — or
-when a stakeholder reviewing the working software identifies a requirement the
-specification failed to capture. The boundary is sharp: if the specification was
-right and the code was wrong, you are not refining; if the specification was
-wrong and the code matches it, you are. The output is a set of precise edits to
-the specification, ready to flow forward into design, planning, and
-implementation; it changes no code itself.
-
-## Interface
-
-**Input**: A feedback trigger against an existing specification — a failing
-acceptance criterion, an exploratory-testing finding, a stakeholder report
-against shipped behavior, or an NFR threshold proven wrong in practice.
-REQUIRED.
-
-**Interactive**: This skill is interactive. It gathers the rest of its input
-from the user through prompts during the session.
+**Input**: A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
 
 **Output**: Precise edits to the requirements artifacts, conforming to the
 specification conventions (Gherkin, measurable NFRs, explicit scope), each with
 a recorded trigger, type, and rationale; plus a traced list of downstream
 design, planning, code, and test work the refinement implies. The output is
 reported and the skill stops; it changes no code itself.
+
+**Interactivity**: This skill is interactive. It gathers the rest of its input
+from the user through prompts during the session.
 
 ##  Instructions
 

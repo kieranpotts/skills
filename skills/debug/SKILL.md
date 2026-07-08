@@ -13,43 +13,20 @@ metadata:
 
 # Debug
 
-Use this skill for hard bugs and performance regressions — any defect where the
-cause is not immediately obvious from reading the code.
-
-Skip phases below ONLY when explicitly justified, and state the justification.
-When exploring the codebase, use the project's domain glossary and check any
-ADRs (architecture decision records) in the area being touched.
-
-The six phases:
-
-```mermaid
-flowchart LR
-  L["1. Build feedback loop"] --> R["2. Reproduce"]
-  R --> H["3. Hypothesize"]
-  H --> I["4. Instrument"]
-  I --> F["5. Fix + regression test"]
-  F --> C["6. Cleanup + post-mortem"]
-
-  I -.->|hypothesis wrong| H
-  F -.->|fix exposes more| H
-```
-
-## Interface
-
 **Input**: A reported bug or performance regression whose cause is not obvious
 from reading the code — the symptom, where it shows up, and any reproduction the
 user already has. REQUIRED. For performance work, a numerical baseline and
 threshold stand in for the symptom.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A verified fix landed with a regression test that locks the bug out,
 the diagnostic instrumentation removed, and the correct cause recorded in the
 commit or PR message for the next reader. If no reliable feedback loop can be
 built, the skill stops and says so — listing what it tried and what it needs —
 rather than guessing.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

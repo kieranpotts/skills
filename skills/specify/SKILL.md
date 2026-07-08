@@ -16,27 +16,21 @@ metadata:
 
 # Specify
 
-Use this skill to turn a product requirements document (PRD) — a
-business-language artifact — into a testable specification, filed as a proposal
-in the project's software requirements specification (SRS) repository. It is
-**non-interactive**: it validates the PRD and either rejects it with reasons or
-transforms it autonomously, never interviewing the user to fill gaps.
-
-## Interface
-
 **Input**: A PRD, expected to be sufficiently complete to transform into a
 formal software requirements specification. REQUIRED. This skill does not gather
 requirements or interview the user; if the PRD is not sufficiently detailed, you
 MUST **reject** it with a list of what is missing or ambiguous, and not proceed
 further.
 
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
-
 **Output**: An open pull request against the SRS repository, capturing the
 changes as testable acceptance criteria, at `PROPOSED` and awaiting the user's
 review and approval.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
+
+##  Instructions
 
 This skill owns one thing the SRS repository does not: the validation gate that
 decides whether the PRD is fit to specify from. Once the PRD passes that gate,
@@ -46,8 +40,6 @@ skills, or the equivalents its `AGENTS.md` names) end to end and
 non-interactively — reading each local skill and executing its procedure itself
 rather than invoking it, since those skills are `interactive: yes` and would
 stop to prompt.
-
-##  Instructions
 
 1.  **Read the PRD.**
 

@@ -18,24 +18,10 @@ metadata:
 
 # Design
 
-Use this skill after the specification has been **approved** but before any
-planning or coding work, whenever the change involves a non-trivial design
-decision — new module boundaries, a data-flow change, a new dependency, a
-persistence choice, a concurrency model, a public API. Design is gated on an
-approved specification: it MUST NOT begin while the specification is still being
-drafted or merely proposed for review — only once the user has approved it (the
-upstream proposal is `ACCEPTED`). See the entry gate in step 1.
-
-## Interface
-
 **Input**: An approved specification — functional acceptance criteria and
 non-functional requirements, already reviewed and approved (`ACCEPTED`).
 REQUIRED. This skill consumes that specification; it does not write it, and its
 entry gate refuses to begin until the approval is in place.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A recommended design — the chosen option with its evaluation against
 the nine qualities, the rejected alternatives and why, and a durable decision
@@ -43,6 +29,10 @@ record (ADR, design doc, or PR description). Where a design question cannot be
 answered by reasoning alone, a time-boxed prototype produces the evidence that
 feeds back into the evaluation. Whatever consumes the design — decomposition
 into steps, implementation — is the orchestrator's concern, not this skill's.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

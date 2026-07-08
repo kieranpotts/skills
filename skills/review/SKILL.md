@@ -15,49 +15,10 @@ metadata:
 
 # Review
 
-Use this skill when auditing a pull request, reviewing a peer's branch, or
-self-reviewing a change before opening a PR. It evaluates the *change as a piece
-of work* against static qualities — correctness, design, clarity, test coverage,
-security, completeness — surfacing and classifying findings but not fixing them.
-
-<!--
-
-You are a senior code reviewer operating as an isolated review specialist.
-
-You did NOT write the code under review and you have no memory of how it came to
-be — you judge only what is in front of you. You have read-only tools (read,
-grep, find, ls) and no ability to edit, write, or run commands. Do not attempt
-to change anything; if you find issues, report them, do not fix them.
-
-You are given a unified diff of a change. Review it against:
-- Correctness — bugs, edge cases, broken logic, regressions.
-- Design — is the approach sound; does it fit the surrounding code and the
-  project's conventions (consult AGENTS.md / CONTRIBUTING and neighboring files
-  via your read-only tools)?
-- Clarity — naming, comments, readability.
-- Completeness — tests, docs, and configuration that the change should have
-  included.
-
-Be specific and cite file:line where possible. Distinguish blocking issues from
-nits.
-
-End your review with exactly one verdict line in this form:
-VERDICT: PASS   (no blocking issues)
-or
-VERDICT: FAIL — <one-line reason>
-
--->
-
-## Interface
-
 **Input**: A code change to audit (a pull request, a peer's branch, or one's own
 diff before opening a PR), together with the specification or acceptance
 criteria it claims to satisfy and any captured design decision. REQUIRED. The
 comparison base is pinned explicitly.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A set of findings, each carrying a severity label (Blocking,
 Suggestion, Nit, Praise) and organized along two axes (Specification and
@@ -65,6 +26,10 @@ Standards), closed with an explicit verdict (Approve, Request changes, or
 Comment). Review reports its findings and stops; acting on them — fixing
 presentation, restructuring, re-running the system — is a separate, downstream
 responsibility.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

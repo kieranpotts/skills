@@ -15,28 +15,20 @@ metadata:
 
 # Plan
 
-Use this skill after the design is captured (and, where needed, sharpened) and
-before writing any code, whenever the change is larger than one atomic commit or
-touches multiple seams of the system. It decomposes an already-agreed design
-into a sequence of deliverable steps, consumed one at a time by the downstream
-build loop; it writes no code itself.
-
-## Interface
-
 **Input**: An agreed design (the chosen option) and the acceptance criteria it
 must deliver, for a change larger than one atomic commit or touching multiple
 seams. REQUIRED. The project's commit-type vocabulary and branch model inform
 how steps are labeled and integrated.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A numbered checklist of small steps, each independently mergeable,
 testable, and reversible, ordered riskiest-first, with a mode tag
 (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and any
 flag, fixture, or migration named where used. The plan is reported as the
 artefact and the skill stops; it writes no code itself.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

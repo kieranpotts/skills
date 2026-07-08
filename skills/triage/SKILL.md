@@ -16,26 +16,10 @@ metadata:
 
 # Triage
 
-Use this skill to move issues on the project's issue tracker through a
-deliberate state machine: take a freshly-filed issue and decide what happens
-next — implement it, defer it, reject it, or get more information — classifying
-and routing it without doing the implementation or specification work that
-follows.
-
-This skill assumes the project has an issue tracker (GitHub Issues, Jira,
-Linear, etc.) and a labeling system that supports category and state labels. If
-the project has neither, set them up before triaging.
-
-## Interface
-
 **Input**: One or more freshly-filed or in-flight issues on the project's
 tracker, the full thread and any prior triage notes, and the relevant code for
 reproduction. REQUIRED. The category/state label vocabulary is assumed present
 (or is set up first).
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
 
 **Output**: A recommended classification per issue, applied as the outcome once
 the maintainer confirms — a label change, an agent brief (problem statement,
@@ -43,6 +27,10 @@ repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
 needs-info request, or a durably-captured wontfix rationale. This skill
 recommends and routes; it does not implement the fix or write the specification
 that follows.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 

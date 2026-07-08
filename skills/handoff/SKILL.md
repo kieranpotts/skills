@@ -16,21 +16,7 @@ metadata:
 
 # Handoff
 
-Use this skill when the work is about to be picked up by someone (or something)
-without the current session's context. It produces an *ephemeral* handoff
-document — a bridge across the gap between sessions, not a durable project
-artifact — that references existing artifacts (PRDs, plans, ADRs, issues,
-commits) rather than duplicating them.
-
-## Interface
-
-**Input**: The current session's context — the work done, the decisions made,
-the durable artifacts already produced (specifications, designs, plans, ADRs,
-issues, commits), and the state of the codebase. REQUIRED.
-
-**Interactive**: TODO -  Whether the skill runs non-interactively to completion,
-or is necessarily interactive — blocking to ask questions, present options, and
-wait for answers.
+**Input**: The current session's context. REQUIRED. The work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
 
 **Output**: A single, ephemeral handoff document written to the OS temp
 directory (not the repo), referencing those durable artifacts by path or URL
@@ -38,6 +24,10 @@ rather than duplicating them. It captures what's done, what's open, the codebase
 state, suggested next steps, and gotchas. This skill reports the file's absolute
 path and stops; whether the next session is an agent or a human is the
 orchestrator's concern.
+
+**Interactivity**: Agents MUST NOT block for user input after the initial
+prompt. Agents MUST follow this skill's instructions to completion, or fail
+with an error message.
 
 ##  Instructions
 
