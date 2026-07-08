@@ -1,94 +1,21 @@
-# 🧑 `elaborate`
+# Elaborate skill
 
-This is a highly interactive session (🧑), involving lots of back-and-forth
-between the agent and the user, with one objective: to nail down an
-architectural design and mitigate major risks within it.
+The `elaborate` skill is all about **stress-testing a draft design**. It is a
+highly interactive session with one objective: to nail down an architectural
+design and mitigate the major risks within it.
 
-For input, the agent requires architectural design artifacts — anything in a
-textual formats (some models will also process images). The skill instructs the
-agent to interrogate the design, and then interview the user, one question at a
-time, on the rationale for the design choices.
+For input it requires architectural design artifacts — anything in a textual
+format (some models will also process images). The agent interrogates the
+design, then interviews the user one question at a time on the rationale for the
+design choices. Each question carries a recommended answer, so the user can agree
+quickly or articulate a disagreement. The agent sharpens fuzzy terms, probes
+assertions with concrete scenarios, and surfaces contradictions between the
+stated design and what the code actually does.
 
-Each question carries a recommended answer, so the user can agree quickly or
-articulate a disagreement.
+It is a companion to [`design`](../design/), applied to a draft before it is
+decomposed by [`plan`](../plan/).
 
-The agent is instructed to sharpen fuzzy terms, probe assertions with concrete
-scenarios, and surface contradictions between the stated design and what the
-code actually does.
-
-```mermaid
-flowchart LR
-  %% Node labels and classes.
-  discover["🤖🧑\ndiscover"]:::anthropic
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  triage["🤖\ntriage"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  code["🤖\ncode"]:::agentic
-  styleSkill["🤖\nstyle"]:::agentic
-  lint["⚙️\nlint"]:::scripted
-  review["🤖\nreview"]:::agentic
-  resolve["🤖\nresolve"]:::agentic
-  build["⚙️\nbuild"]:::scripted
-  test["⚙️\ntest"]:::scripted
-  integrate["⚙️\nintegrate"]:::scripted
-  audit["🤖\naudit"]:::agentic
-  validate["🤖\nvalidate"]:::agentic
-  deploy["⚙️\ndeploy"]:::scripted
-
-  conform["🤖\nconform"]:::agentic
-  fix["🤖\nfix"]:::agentic
-  debug["🤖\ndebug"]:::agentic
-
-  spike["🤖🧑\nspike"]:::anthropic
-  elaborate["🤖🧑\nelaborate"]:::anthropic
-  refactor["🤖🧑\nrefactor"]:::anthropic
-  refine["🤖🧑\nrefine"]:::anthropic
-
-  %% Main workflow sequence.
-  specify ==> design
-  design ==> plan
-  triage ==> code
-  plan ==> code
-  subgraph build_increments [build increments]
-    direction LR
-    code ==> styleSkill
-    styleSkill ==> lint
-    lint ==> build
-    build ==> test
-    test ==> review
-    review ==> resolve
-    resolve ==> integrate
-    integrate ==> code
-
-    %% Failures.
-    lint -- fail --> conform
-    build -- fail --> fix
-    test -- fail --> debug
-  end
-  integrate ==> audit
-  audit ==> validate
-  validate ==> deploy
-
-  %% Callouts to helpers.
-  discover <-.-> specify
-  design <-.-> spike
-  design <-.-> elaborate
-
-  %% Feedback loops.
-  audit --> refactor
-  refactor --> design
-  validate --> refine
-  refine --> specify
-
-  %% Class definitions.
-  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
-  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
-
-  %% Subgraph (loop) border styling.
-  style build_increments fill:#EEEEEE,stroke-width:0px
-```
+This skill is interactive; it interviews the user one question at a time.
 
 ## How to invoke
 
@@ -103,6 +30,27 @@ Interrogating a draft design one question at a time, sharpening fuzzy language,
 and cross-referencing the codebase is judgment-heavy, interactive work. Use a
 frontier reasoning model — this is one of the few skills where the entire value
 proposition is the model's ability to find the weak point in an argument.
+
+## Suggested workflows
+
+```mermaid
+flowchart LR
+  %% Node labels and classes.
+  design["🤖\ndesign"]:::agentic
+  elaborate["🤖🧑\nelaborate"]:::anthropic
+
+  %% Main workflow sequence.
+  design <-.-> elaborate
+
+  %% Class definitions.
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
+`elaborate` is a helper to [`design`](../design/): it takes the draft design,
+interrogates it with the user, and returns a sharpened design ready to be
+decomposed by [`plan`](../plan/).
 
 ## References
 
