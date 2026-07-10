@@ -13,9 +13,8 @@
   "editor.wordWrapColumn": 120,
 
   "[markdown]": {
-    /* Wrap Markdown files at 100 characters. */
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 100,
+    /* Wrap Markdown lines at the viewport width. */
+    "editor.wordWrap": "on",
 
     /* Enable auto-formatting for Markdown files. */
     "editor.formatOnPaste": true,
@@ -29,14 +28,15 @@
   },
 
   "[skill]": {
-    /* Same as Markdown. */
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 100,
+    /* Wrap skill lines at the viewport width. */
+    "editor.wordWrap": "on",
 
+    /* Enable auto-formatting for skill files. */
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
 
+    /* Enable auto-fixes for skill files. */
     "editor.codeActionsOnSave": {
       "source.fixAll": "always",
     },
