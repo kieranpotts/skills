@@ -35,9 +35,8 @@ which a downstream agent will read as context for its own task.
 
 The following repositories are templates for these external dependencies:
 
-- [**📋 Software Requirements Specification
-  (SRS)**](https://github.com/kieranpotts/specs): Captures what the system does,
-  in business terms.
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs):
+  Captures what the system does, in business terms.
 
 - [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc):
   Records how significant technical decisions were made, and why.
@@ -47,6 +46,13 @@ The following repositories are templates for these external dependencies:
 
 - [**🗺️ Delivery Plans**](https://github.com/kieranpotts/plans): Tracks when,
   and in what order, the work gets done.
+
+- [**🔍 Architecture Audits**](https://github.com/kieranpotts/audits):
+  Evaluate the as-built system on its own terms.
+
+- [**⚠️ Risk Register**](https://github.com/kieranpotts/risks): Records the
+  security and privacy risks the system carries, and tracks their mitigation
+  over time.
 
 Running the whole ecosystem on version control means requirements, decisions,
 designs, plans, and code all coexist in the same system. All the artifacts that
