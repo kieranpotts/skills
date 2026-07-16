@@ -1,4 +1,4 @@
-# Review skill
+# Review
 
 The `review` skill is all about **code review**. It statically analyzes the diff
 in an open pull request, checking correctness, design, clarity, test coverage,
@@ -20,10 +20,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/review`, `/skill:review` (prompts vary by harness).
-- "Review this PR."
-- "Review my changes before I push."
-- "Check this diff against the spec and our conventions."
+> Review this PR.
+
+> Review my changes before I push.
+
+> Check this diff against the spec and our conventions.
 
 ## Recommended models
 

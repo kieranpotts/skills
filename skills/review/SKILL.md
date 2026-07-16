@@ -35,33 +35,17 @@ with an error message.
 
 1.  **Understand what the change is and why.**
 
-    Before reading any code:
-
-    - Read the PR description, linked issue, or commit body.
-    - Identify the acceptance criteria (or the specification) it claims to
-      satisfy.
-    - Note the design decision behind it, if one was captured.
-
-    If the *why* is unclear from the description, ask the author. Do not
-    reverse-engineer intent from the diff — reviewers who do that miss the cases
-    where the diff does not match the intent.
+    Read the PR description, linked issue, or commit body. Identify the
+    acceptance criteria (or the specification) it claims to satisfy. Note any
+    captured design decision behind it. If the *why* is unclear from the
+    description, ask the author.
 
 2.  **Pin the comparison base, then read the diff in commit order.**
 
-    Before reading anything, state the comparison base explicitly — a commit
-    SHA, branch name, tag, or `main`. "Review the PR" is ambiguous when the
-    source branch may have shifted; "review HEAD against `dev` as of abc123" is
-    not. Capture the diff command once (eg. `git diff <base>...HEAD` for
+    State the comparison base explicitly — a commit SHA, branch name, tag, or
+    `main`. Capture the diff command once (eg. `git diff <base>...HEAD` for
     three-dot, merge-base comparison) so every subsequent step references the
-    same set of changes.
-
-    Read the diff in commit order, not file-by-file. Commit-ordered reading
-    reveals the author's thought process, exposes intermediate states, and
-    surfaces drive-by edits hiding inside larger commits. File-by-file reading
-    hides this.
-
-    If the branch is a single squashed commit, ask the author to split it — one
-    logical change per commit is the convention.
+    same set of changes. Read the diff in commit order, not file-by-file.
 
 3.  **Check correctness.**
 
@@ -130,7 +114,7 @@ with an error message.
 
 9.  **Classify and write findings.**
 
-    Every comment gets a severity label:
+    Assign every comment a severity label:
 
     - *Blocking*: MUST be addressed before merge (correctness, security, missing
       tests for new behavior, breaks the build).
@@ -138,52 +122,48 @@ with an error message.
     - *Nit*: stylistic preference, optional.
     - *Praise*: explicitly noting something well done. Reinforces good patterns.
 
-    Each comment is specific and actionable. "This is wrong" is unhelpful; "This
-    does not handle the case where `items` is empty — consider an early return"
-    is actionable.
+    Write each comment to be specific and actionable.
 
 10. **Conclude with an explicit verdict.**
+
+    Choose one of:
 
     - *Approve*: ship it; no blocking comments.
     - *Request changes*: at least one blocking comment.
     - *Comment*: feedback offered, but decision deferred to another reviewer.
 
-    Approve when the code is *good enough*, not when it is perfect. Every change
-    is an increment, not a final draft.
+##  Rules
 
-## Rules
+-   **You MUST understand the *why* before reading code.**
 
--   **You MUST organize findings into two axes: Specification and Standards.**
+    The description, linked issue, and design notes MUST be consulted first. You
+    MUST NOT reverse-engineer intent from the diff.
 
-    A change can pass one axis and fail the other:
+-   **You MUST read the diff in commit order against a pinned base.**
 
-    - Code that follows every standard but implements the wrong thing →
-      *Standards pass, Specification fail.*
-    - Code that does exactly what the issue asked but breaks the project's
-      conventions → *Specification pass, Standards fail.*
+    "Review the PR" is ambiguous when the source branch may have shifted; the
+    base MUST be explicit.
 
-    *Specification axis*: does the change faithfully implement the originating
-    issue, ACs, or PRD? Covers correctness and completeness. You MUST quote the
-    specification line for each finding.
+-   **You SHOULD ask the author to split a single squashed commit.**
 
-    *Standards axis*: does the change conform to the repo's documented standards
-    — CLAUDE.md, CONTRIBUTING.md, ADRs, naming conventions, architectural
-    patterns? Covers design, clarity, test style, and security idioms. You MUST
-    cite the standard (file + rule) for each finding.
+    One logical change per commit is the convention; a single squashed commit
+    hides intermediate states and drive-by edits.
 
-    You MUST keep the axes distinct in the review output — you MUST NOT merge
-    them. Reporting them separately stops one axis from masking the other.
+-   **You MUST keep findings organized into two axes: Specification and
+    Standards.**
+
+    A change can pass one axis and fail the other. You MUST quote the
+    specification line for each Specification finding and cite the standard (file
+    + rule) for each Standards finding. You MUST NOT merge the axes.
 
 -   **You SHOULD approve at "good enough", not "perfect".**
 
-    Holding out for perfection blocks delivery and signals that the reviewer's
-    preference outranks the change's purpose. If a comment is genuinely
-    optional, you SHOULD label it Suggestion or Nit and approve.
+    Holding out for perfection blocks delivery. If a comment is genuinely
+    optional, label it Suggestion or Nit and approve.
 
 -   **You MUST distinguish blocking from non-blocking explicitly.**
 
-    Unlabeled comments leave the author guessing what must change. Every
-    comment MUST carry a severity.
+    Every comment MUST carry a severity label.
 
 -   **You SHOULD focus on what machines can't check.**
 
@@ -217,6 +197,11 @@ with an error message.
 
     You MUST run the full procedure on your own diff before opening the PR. Most
     of the easy findings can be fixed before another human sees them.
+
+-   **You MUST consider correctness, design, clarity, test coverage, security,
+    and completeness.**
+
+    Even if a category has no findings, it MUST have been thought about.
 
 ## Examples
 
@@ -296,23 +281,18 @@ on the Specification finding; Standards finding non-blocking.
 
 ##  Success criteria
 
--   **The *why* of the change MUST be understood before any code is read.**
+-   **Findings MUST be organized into two axes: Specification and Standards.**
 
-    Description, linked issue, design notes — all MUST be consulted first.
+    The two axes MUST be kept distinct in the review output.
 
 -   **Every comment MUST carry a severity label.**
 
     Blocking, Suggestion, Nit, or Praise. There MUST be no bare comments.
 
--   **Findings MUST be specific and actionable.**
+-   **Every finding MUST be specific and actionable.**
 
     Each comment MUST name the file/line, describe the issue, and suggest a
     direction.
-
--   **Correctness, design, clarity, test coverage, security, and completeness
-    MUST all be considered.**
-
-    Even if a category has no findings, it MUST have been thought about.
 
 -   **The verdict MUST be explicit.**
 
