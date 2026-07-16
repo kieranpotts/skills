@@ -1,4 +1,4 @@
-# Refine skill
+# Refine
 
 The `refine` skill is all about **specification revision**. It edits the
 *specification*, not the code, in response to acceptance-testing feedback or to
@@ -22,10 +22,11 @@ This skill is interactive where stakeholders must resolve a disagreement.
 
 ## How to invoke
 
-- `/refine`, `/skill:refine` (prompts vary by harness).
-- "Refine the spec based on this feedback."
-- "The acceptance criteria are wrong — fix the requirements."
-- "Update the specification to match what we learned."
+> Refine the spec based on this feedback.
+
+> The acceptance criteria are wrong — fix the requirements.
+
+> Update the specification to match what we learned.
 
 ## Recommended models
 

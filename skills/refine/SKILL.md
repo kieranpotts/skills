@@ -20,13 +20,13 @@ metadata:
 **Input**: A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
 
 **Output**: Precise edits to the requirements artifacts, conforming to the
-specification conventions (Gherkin, measurable NFRs, explicit scope), each with
-a recorded trigger, type, and rationale; plus a traced list of downstream
-design, planning, code, and test work the refinement implies. The output is
-reported and the skill stops; it changes no code itself.
+  specification conventions (Gherkin, measurable NFRs, explicit scope), each with
+  a recorded trigger, type, and rationale; plus a traced list of downstream
+  design, planning, code, and test work the refinement implies. The output is
+  reported and the skill stops; it changes no code itself.
 
 **Interactivity**: This skill is interactive. It gathers the rest of its input
-from the user through prompts during the session.
+  from the user through prompts during the session.
 
 ##  Instructions
 
@@ -50,7 +50,7 @@ from the user through prompts during the session.
 
     Without a named trigger, you are not refining — you are second-guessing.
 
-2.  **Locate the specific specification artefact to change.**
+2.  **Locate the specific specification artifact to change.**
 
     Identify exactly which document, file, or section is wrong:
 
@@ -82,16 +82,8 @@ from the user through prompts during the session.
 
 4.  **Draft the edit in the specification's own form.**
 
-    Refinements MUST land back in the requirements artefacts using the
-    conventions those artefacts enforce:
-
-    - Functional changes: Gherkin scenarios (`Feature` / `Scenario` /
-      `Given`/`When`/`Then`).
-    - NFR changes: measurable benchmark or named standard, never "must be fast".
-    - Scope changes: explicit "Out of scope" entries with rationale.
-
-    Show the *before* and the *after* side by side. A bare "after" without
-    "before" makes review hard — the reader has to diff in their head.
+    Write the refinement using the project's specification conventions (see
+    the Rules section).
 
 5.  **Record the rationale and the trigger.**
 
@@ -102,8 +94,7 @@ from the user through prompts during the session.
     - What ruled out alternative interpretations.
 
     File this with the specification edit (commit body, PR description, or an
-    explicit "Refinement log" section in the specification). Silent rewrites are
-    how requirements drift.
+    explicit "Refinement log" section in the specification).
 
 6.  **Trace downstream impact.**
 
@@ -116,22 +107,13 @@ from the user through prompts during the session.
     - Which test cases (automated or manual) need updating?
 
     For each downstream artefact, flag whether it needs adjustment,
-    re-verification, or no change. The list is part of the output; refinement on
-    its own does not modify code.
+    re-verification, or no change.
 
 7.  **Report the output.**
 
-    The refined specification is the artefact of this skill. Report it as:
-
-    - Edits to the requirements artefacts for any new ACs introduced (full
-      Gherkin / NFR treatment).
-    - A flag that the change crosses module boundaries or alters NFRs, where it
-      does.
-    - The traced list of downstream work the refinement implies.
-
-    Do not implement the change inside this skill. Refinement is about *what is
-    required*, not *how to build it*. Report the output and stop; what consumes
-    it is the caller's decision.
+    Present the refined specification, the recorded rationale, and the traced
+    downstream impact list. Refinement is about *what is required*, not *how to
+    build it*.
 
 ##  Rules
 
@@ -187,8 +169,23 @@ from the user through prompts during the session.
     tracking issues, but you MUST NOT stuff them into the current refinement. One
     change at a time, traceable.
 
-## Examples
+-   **If a refinement contradicts a recently-shipped feature, you MUST flag the
+    need for a deprecation / migration story and a design pass before assuming the
+    change can land.**
 
+-   **If stakeholders disagree on whether the specification was wrong, you MUST
+    NOT unilaterally refine.**
+
+    Surface the disagreement, capture both positions, and route to whatever
+    decision process the project uses.
+
+-   **If a stakeholder reframes a new feature as "we always wanted this", you MUST
+    push back and route the new ask through a fresh specification.**
+
+    Refinement should leave the *purpose* of the original specification intact;
+    expansion replaces it.
+
+##  Examples
 A correction triggered by a failing AC:
 
 ```
@@ -270,41 +267,6 @@ Downstream impact:
   - test: re-run perf suite against new threshold (currently FAIL).
 ```
 
-##  Edge cases
-
--   **The refinement contradicts a recently-shipped feature.**
-
-    Treat as a breaking change to a published contract. The refinement is fine
-    to record, but the downstream work needs a deprecation / migration story.
-    Flag the need for a design pass before assuming the change can land.
-
--   **Stakeholders disagree on whether the specification was wrong.**
-
-    Don't unilaterally refine. Surface the disagreement, capture both positions,
-    and route to whatever decision process the project uses. A refinement that
-    one stakeholder considers "correcting an error" and another considers
-    "moving the goalposts" needs explicit alignment.
-
--   **The "refinement" is actually scope expansion in disguise.**
-
-    Common pattern: a stakeholder reframes a new feature as "we always wanted
-    this". Push back and route the new ask through a fresh specification as a
-    new requirement. Refinement should leave the *purpose* of the original
-    specification intact; expansion replaces it.
-
--   **No specification exists in writing.**
-
-    If the original requirement was tacit, refinement is impossible — there is
-    nothing to revise. The first task is to write down the assumed
-    specification, then refine *that*. Skipping the write-down produces
-    undocumented drift.
-
--   **Refinement reveals the original AC was untestable.**
-
-    Common when a "tested" AC was really verified by ad-hoc inspection. Rewrite
-    the AC into a testable form per the specification conventions; that is
-    itself the refinement.
-
 ##  Success criteria
 
 -   **Every refinement MUST name its trigger and its type.**
@@ -314,8 +276,7 @@ Downstream impact:
 
 -   **The edit MUST be shown as before / after.**
 
-    Reviewers see what changed without diffing in their heads. The "after" MUST
-    obey the specification conventions (Gherkin, measurable NFRs, explicit scope).
+    Reviewers see what changed without diffing in their heads.
 
 -   **The rationale MUST be recorded with the edit.**
 
@@ -331,3 +292,9 @@ Downstream impact:
 
     The output is a specification edit and a traced impact list. Implementation
     lives downstream.
+
+-   **If a refinement reveals an untestable AC, the refined AC MUST be in
+    testable form.**
+
+-   **If no specification existed in writing, the output MUST include the newly
+    written assumed specification plus the refinement applied to it.**
