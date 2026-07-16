@@ -31,26 +31,17 @@ with an error message.
 
 1.  **Restate the step's scope.**
 
-    Quote the step from the plan. Say in one sentence what is in-scope and, more
-    importantly, what is out-of-scope. Anything not in the step is for a future
-    step — including refactors, error handling for unreached paths, and "while
-    I'm here" cleanups.
+    Quote the step from the plan. Say in one sentence what is in-scope and what
+    is out-of-scope.
 
-    If the step is ambiguous, clarify before coding. Mid-implementation scope
-    drift is the most common cause of unmergeable PRs.
+    If the step is ambiguous, stop and clarify before writing code.
 
 2.  **Set up the feedback loop.**
 
-    The fastest path to working code is a fast pass/fail signal. Before writing
-    the implementation, confirm:
-
-    - You can run the relevant tests (unit, integration) in under ~10 seconds.
-    - You know the exact command.
-    - The test runner is wired to the editor or terminal for one-keystroke
-      re-runs.
-
-    If the loop is slow or missing, fix it first. Slow loops produce sloppy
-    code.
+    Before writing the implementation, confirm you can run the relevant tests,
+    you know the exact command, and the test runner is wired to the editor or
+    terminal for one-keystroke re-runs. If the loop is slow or missing, fix the
+    loop first.
 
 3.  **Write the failing test first (TDD default).**
 
@@ -64,22 +55,17 @@ with an error message.
     - *Refactor*: improve the structure of code and test while all tests stay
       green.
 
-    Repeat for each piece of behavior, one cycle at a time — never batch the
-    reds (see "Slice vertically, not horizontally" below). Each cycle is a few
-    minutes, not hours.
+    Repeat for each piece of behavior, one cycle at a time.
 
-    Skip TDD only when the design is in genuine flux (early exploration,
-    spikes). Explain the skip in the commit body if so.
+4.  **Choose test doubles.**
 
-4.  **Use real dependencies where practical.**
-
-    Replace dependencies with test doubles only when they are slow,
-    non-deterministic, or unavailable. Prefer real implementations. Excessive
-    mocking produces tests that pass while production breaks.
-
-    For each dependency, pick the lightest viable double:
+    For each dependency, pick the lightest viable double, preferring real
+    implementations over test doubles:
 
     - Real implementation > lightweight fake > stub > mock.
+
+    Replace dependencies with doubles only when they are slow,
+    non-deterministic, or unavailable.
 
 5.  **Apply the project's coding standards.**
 
@@ -87,10 +73,6 @@ with an error message.
     logging. If unsure, read 2-3 nearby files first. New code should be
     indistinguishable in style from existing code unless the existing code is
     what the step is replacing.
-
-    Adhere to the broader TS-13 principles: meaningful names, low coupling,
-    explicit error handling at boundaries (not interior), comments only where
-    the *why* is non-obvious.
 
 6.  **Review the diff before committing.**
 
@@ -102,7 +84,7 @@ with an error message.
     - Does the test name describe the behavior, not the implementation?
     - Could a future reader understand the *why* without you?
 
-    Remove anything that does not pay its way.
+    Trim anything that does not pay its way.
 
 7.  **Commit.**
 
@@ -150,6 +132,14 @@ with an error message.
     fine. Each test only earns its keep by being written *after* the previous
     implementation taught you what to verify.
 
+-   **You MUST match TDD discipline to risk.**
+
+    TDD is the default. For trivial code (a config tweak, a rename, a one-line
+    copy change) it is overkill and MAY be skipped. For complex logic or anything
+    with corner cases, the test-first discipline pays for itself many times over.
+    If you skip TDD because the design is in genuine flux, explain the skip in
+    the commit body.
+
 -   **You MUST NOT write speculative code.**
 
     No abstractions for hypothetical futures. No flexibility points for changes
@@ -167,12 +157,6 @@ with an error message.
     Well-named identifiers do the explaining. You SHOULD add a comment only when
     the *why* is non-obvious — a hidden constraint, a workaround for a specific
     bug, a surprising invariant. You MUST NOT narrate what the code does.
-
--   **You MUST match TDD discipline to risk.**
-
-    TDD is the default. For trivial code (a config tweak, a rename, a one-line
-    copy change) it is overkill and MAY be skipped. For complex logic or anything
-    with corner cases, the test-first discipline pays for itself many times over.
 
 -   **You MUST stop when the step is done.**
 

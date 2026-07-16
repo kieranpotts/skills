@@ -1,4 +1,4 @@
-# Code skill
+# Code
 
 The `code` skill is all about **test-driven implementation**. It implements one
 change in software code and configuration following the red → green → refactor
@@ -13,10 +13,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/code`, `/skill:code` (prompts vary by harness).
-- "Implement step 3 of the plan."
-- "Code this up."
-- "Build this change, test-first."
+> Implement step 3 of the plan.
+
+> Code this up.
+
+> Build this change, test-first.
 
 ## Recommended models
 
