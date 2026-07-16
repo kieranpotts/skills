@@ -1,26 +1,28 @@
 ---
 name: skill-name
-description: One sentence describing what the skill does. Use when [specific triggers — user phrasings, situations, file types, contexts]. Do NOT use this skill for [exceptions...].
-compatibility: requires [tool] or [tool], and [tool]
-license: [license]
+description: >-
+  One sentence describing what the skill does. Optional sentence describing
+  what's out of scope. Use when <specific triggers — user phrasings, situations,
+  file types, contexts>. Do NOT use this skill for <exceptions...>.
+compatibility: requires <tool> or <tool>, and <tool>
+license: <license>
 metadata:
-  [key]: [value]
+  <key>: <value>
   interactive: no
-  preferred_model: [model-id]
+  preferred_model: <model-id>
 ---
 
-# [Skill name]
+# <Skill name>
 
-**Input**: What input the skill consumes — a file, a prompt, a selection — and
+**Input**: What input the agent consumes — a file, a prompt, a selection — and
 whether it is OPTIONAL or REQUIRED. State any default behavior when no input is
-given.
+given. Specify whether the agent should work non-interactively to completion, or
+if the agent may interact with the user — blocking to ask questions, present
+options, and wait for answers.
 
 **Output**: What the skill produces, in what format, and where it is written — a
-report, a direct edit, a file, a commit, the conversation itself.
-
-**Interactivity**: Whether the skill runs non-interactively to completion, or is
-necessarily interactive — blocking to ask questions, present options, and wait
-for answers.
+report, a direct edit, a file, a commit, the conversation itself. Specify how
+the agent should summarize the outcomes of its work.
 
 ##  Instructions
 

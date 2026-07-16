@@ -8,8 +8,14 @@ Explain, for humans, what instructions are given to agents by this skill.
 
 ## How to invoke
 
-List the command(s) to invoke this skill, and describe any arguments to adjust
-behavior.
+Examples of phrases that are expected to invoke the skill. Describe any
+arguments to adjust behavior.
+
+> Audit the architecture.
+
+> Do a security review.
+
+> Reconcile the design docs.
 
 ## Examples
 
