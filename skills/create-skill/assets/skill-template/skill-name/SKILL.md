@@ -14,13 +14,26 @@ metadata:
 
 # <Skill name>
 
-**Input:** What input the agent consumes — a file, a prompt, a selection — and
-whether it is OPTIONAL or REQUIRED. State any default behavior when no input is
-given. Specify whether the agent should work non-interactively to completion, or
-if the agent may interact with the user — blocking to ask questions, present
+One sentence, copied from the description, describing what the skill does.
+
+**Input:** Describe the information will require to perform the task encoded
+in this skills.
+
+- Alternatively a discrete piece of information required, as a single bullet
+  point.
+
+- And another discrete piece of information.
+
+Gather the information you can from the surrounding context. If in doubt,
+prompt the user for clarification.
+
+Specify whether the agent should work non-interactively to completion, or if
+the agent may interact with the user — blocking to ask questions, present
 options, and wait for answers.
 
-**Output:** What the skill produces, in what format, and where it is written — a
+**Output:**
+
+What the skill produces, in what format, and where it is written — a
 report, a direct edit, a file, a commit, the conversation itself. Specify how
 the agent should summarize the outcomes of its work.
 
@@ -90,13 +103,14 @@ Warn about potential edge cases. Regular prose. OPTIONAL.
 Include a ist of links with extended and related information. For each, include
 an explicit trigger condition.
 
-- [API errors](./references/api-errors.md): Read if the API returns a non-200
-  status code.
+- [API errors](./references/api-errors.md):
+  Read if the API returns a non-200 status code.
 
-- [`assets/some-template.md`](./assets/template.md): The bundled template to
-  fill out in step N.
+- [Some template](./assets/template.md):
+  The bundled template to fill out in step N.
 
-- [Adjacent skill](../skill-name/SKILL.md): Used for [purpose].
+- [Adjacent skill](../skill-name/SKILL.md):
+  Used for [purpose].
 
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md): Used for
-  [purpose].
+- [External skill](https://raw.githubusercontent.com/.../SKILL.md):
+  Used for [purpose].
