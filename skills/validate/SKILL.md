@@ -17,7 +17,7 @@ metadata:
 
 # Validate
 
-**Input:** Completed work that has already passed [`test`](../test/SKILL.md)
+**Input:** Completed work that has already passed **[test](../test/SKILL.md)**
 (verified against its ACs), together with the originating statement of need —
 the preserved PRD, the specification's outcome and success measures, or the
 discovery report. REQUIRED. Run once all of a plan's increments are complete.
@@ -25,8 +25,8 @@ discovery report. REQUIRED. Run once all of a plan's increments are complete.
 **Output:** A bounded, prioritized validation report — an explicit verdict
 (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
 specification should evolve, each classified by gap type, backed by evidence,
-and ready to seed a [`refine`](../refine/SKILL.md) →
-[`specify`](../specify/SKILL.md) pass. No specification or code is changed; what
+and ready to seed a **[refine](../refine/SKILL.md)** →
+**[specify](../specify/SKILL.md)** pass. No specification or code is changed; what
 consumes the report is the orchestrator's concern.
 
 **Interactivity:** Agents MUST NOT block for user input after the initial
@@ -101,7 +101,7 @@ with an error message.
 -   **You MUST validate against the need, not the specification.**
 
     The specification is the thing under suspicion. Judging the software against
-    the ACs only re-runs [`test`](../test/SKILL.md). You MUST judge it against
+    the ACs only re-runs **[test](../test/SKILL.md)**. You MUST judge it against
     the originating need — the PRD, the outcome, the success measure — so a
     passing-but-wrong specification can be caught.
 
@@ -109,7 +109,7 @@ with an error message.
 
     This skill MUST NOT change any specification artefact and MUST NOT change
     any code. It outputs a report of suggestions. Editing the requirements is
-    [`refine`](../refine/SKILL.md)'s responsibility; this skill's job ends at
+    **[refine](../refine/SKILL.md)**'s responsibility; this skill's job ends at
     the suggestion.
 
 -   **Every finding MUST carry evidence.**
@@ -121,7 +121,7 @@ with an error message.
 -   **You MUST distinguish a specification gap from an implementation defect.**
 
     If the software fails because the code does not meet a *correct* AC, that is
-    a defect for [`test`](../test/SKILL.md) and diagnosis — not a validation
+    a defect for **[test](../test/SKILL.md)** and diagnosis — not a validation
     finding. Validation fires only when the AC itself, faithfully implemented,
     fails to serve the need.
 
@@ -154,7 +154,7 @@ with an error message.
 
     Unmet need / wrong target / missing requirement / over-specification / stale
     assumption, plus what the specification should say instead, ready for
-    [`refine`](../refine/SKILL.md).
+    **[refine](../refine/SKILL.md)**.
 
 -   **The verdict MUST be explicit.**
 

@@ -1,6 +1,6 @@
 # Research
 
-The `research` skill is all about **external knowledge gathering**. It looks
+The **research** skill is all about **external knowledge gathering**. It looks
 *outward* to pull knowledge inward: a library, protocol, pattern, regulation, or
 prior-art approach the agent or project does not yet understand.
 
@@ -12,7 +12,7 @@ that leads with a direct answer, separates sourced fact from its own inference,
 and names where the findings should go.
 
 Use it when a decision is blocked on missing knowledge — often ahead of a
-[`design`](../design/) decision or a [`spike`](../spike/). Give it the topic or
+**[design](../design/)** decision or a **[spike](../spike/)**. Give it the topic or
 question; writing the findings into a design doc, ADR, or memory is a separate
 step the caller initiates.
 

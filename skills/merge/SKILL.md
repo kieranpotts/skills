@@ -54,7 +54,7 @@ with an error message.
     | `epic/*` → `dev`             | Squash-merge            | `git merge --squash`                     |
     | `dev` → `epic/*`             | Merge commit (no-FF)    | `git merge --no-ff dev`                  |
     | `dev` → `test` → `ready`     | Fast-forward only       | `git merge --ff-only`                    |
-    | `ready` → `release` / `release/<v>` | Fast-forward only       | `git merge --ff-only`                    |
+    | `ready` → **release** / `release/<v>` | Fast-forward only       | `git merge --ff-only`                    |
 
 3.  **Pre-merge: align the source.**
 
@@ -273,7 +273,7 @@ npm test
 -   **Trunk history MUST be linear after a trunk merge.**
 
     `git log --oneline --graph` shows no merge bubbles on `dev`, `test`,
-    `ready`, or `release`.
+    `ready`, or **release**.
 
 -   **All conflicts MUST have been resolved deliberately.**
 

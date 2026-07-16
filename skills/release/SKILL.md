@@ -15,7 +15,7 @@ metadata:
 
 # Release
 
-**Input:** A request to prepare a release, plus the project's release model (a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED.
+**Input:** A request to prepare a release, plus the project's release model (a single **release** trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED.
 
 **Output:** The release branch created or advanced per the model, and the
   release tagged with a correctly-formatted version. This skill applies the
@@ -38,7 +38,7 @@ with an error message.
 
 2.  **Cut or advance the release branch from `ready`.**
 
-    - For the `release` trunk: fast-forward it to the current `ready` tip.
+    - For the **release** trunk: fast-forward it to the current `ready` tip.
     - For a `release/<version>` branch: `git checkout -b release/<version> ready`.
 
 3.  **Promote the `[Unreleased]` CHANGELOG section.**
@@ -64,7 +64,7 @@ with an error message.
 6.  **Clean up the release branch, if used.**
 
     For `release/<version>` branches, delete the branch after a successful
-    deployment pipeline. The `release` trunk is permanent and is never deleted.
+    deployment pipeline. The **release** trunk is permanent and is never deleted.
 
 7.  **Prepare release notes for end users.**
 
@@ -78,7 +78,7 @@ with an error message.
 
 -   **A single release strategy MUST be in use.**
 
-    Either the `release` trunk (continuous deployment) or `release/<version>`
+    Either the **release** trunk (continuous deployment) or `release/<version>`
     branches (release trains) — not both. The name MUST match
     `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
@@ -87,9 +87,9 @@ with an error message.
     The tip of `ready` is guaranteed to contain pristine, production-grade
     artifacts. Releases MUST NOT be cut from `dev` or `test`.
 
--   **The `release` trunk rules.**
+-   **The **release** trunk rules.**
 
-    - The `release` trunk MUST be permanent.
+    - The **release** trunk MUST be permanent.
     - Its tip commit MUST always be a candidate for production deployment.
     - It MUST reference pre-built artifacts in external artifact registries.
 
@@ -156,7 +156,7 @@ v2.0.0
 
 -   **The release branch exists and follows the chosen naming convention.**
 
-    Either a permanent `release` trunk or a temporary `release/<version>` branch,
+    Either a permanent **release** trunk or a temporary `release/<version>` branch,
     matching `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
 -   **The release branch points to the `ready` tip from which it was cut.**
@@ -187,4 +187,4 @@ v2.0.0
 -   **A `release/<version>` branch, if used, MUST be deleted after tagging and
     a successful deployment pipeline.**
 
-    The `release` trunk MUST remain intact.
+    The **release** trunk MUST remain intact.

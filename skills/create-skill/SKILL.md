@@ -48,9 +48,9 @@ from the user through prompts during the session, asking one question at a time.
 
     Place the skill in the project's skills directory as
     `<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful
-    actions or verbs (eg. `specify`, `commit`, `release`, `review`). Prefer
+    actions or verbs (eg. **specify**, **commit**, **release**, **review**). Prefer
     single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg.
-    `create-skill`).
+    **create-skill**).
 
 4.  **Write the `SKILL.md`.**
 

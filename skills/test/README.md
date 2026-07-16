@@ -1,6 +1,6 @@
 # Test
 
-The `test` skill is all about **acceptance verification**. It verifies the whole
+The **test** skill is all about **acceptance verification**. It verifies the whole
 solution against the specification — it does not write fresh tests for new
 behavior (that's the implementation's job) or diagnose a failure (that's
 separate).
@@ -13,9 +13,9 @@ verdict.
 
 Use it after a change has cleared review, or before tagging a release. It
 verifies against the agreed specification — whether the specification was right
-in the first place is [`validate`](../validate/)'s job. It classifies each
+in the first place is **[validate](../validate/)**'s job. It classifies each
 failure as an implementation defect or a specification defect and reports it
-without fixing, handing genuine bugs to [`debug`](../debug/).
+without fixing, handing genuine bugs to **[debug](../debug/)**.
 
 This skill instructs the agent to run non-interactively, and tests **against the
 specification, not the implementation**. It never silently weakens an AC,
@@ -58,6 +58,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`test` runs the built solution against its acceptance criteria before it can
-integrate; a failure hands off to [`debug`](../debug/), and only a clean pass
+**test** runs the built solution against its acceptance criteria before it can
+integrate; a failure hands off to **[debug](../debug/)**, and only a clean pass
 proceeds.

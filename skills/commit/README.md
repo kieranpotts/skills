@@ -1,6 +1,6 @@
 # Commit
 
-The `commit` skill is all about **commit message conventions**. It defines a
+The **commit** skill is all about **commit message conventions**. It defines a
 fixed subject-line format — `<type>: <description>` with an optional
 ` - <flag>` suffix — a set of allowed commit types and flags with precise
 semantics for each, and a validation regex. It enforces atomic commits and, for
@@ -12,8 +12,8 @@ push, or troubleshooting a failed commit-validation CI job. Note: this
 convention is deliberately **not** Conventional Commits — scopes like
 `feature(parser):` fail validation; the colon comes immediately after the type.
 
-It records the work opened by [`branch`](../branch/), ahead of integration by
-[`merge`](../merge/).
+It records the work opened by **[branch](../branch/)**, ahead of integration by
+**[merge](../merge/)**.
 
 This skill instructs the agent to run non-interactively.
 
@@ -50,8 +50,8 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-Commits accumulate on the branch opened by `branch`, each one atomic and
-conventionally formatted, until the change is complete and ready for `merge`.
+Commits accumulate on the branch opened by **branch**, each one atomic and
+conventionally formatted, until the change is complete and ready for **merge**.
 
 ## References
 

@@ -1,6 +1,6 @@
 # Refine
 
-The `refine` skill is all about **specification revision**. It edits the
+The **refine** skill is all about **specification revision**. It edits the
 *specification*, not the code, in response to acceptance-testing feedback or to
 use of the working software. The boundary is sharp: if the spec was right and the
 code was wrong, that is a defect fix, not a refinement; refinement is for when
@@ -12,10 +12,10 @@ rationale and evidence, and traces the downstream impact on design, plan, code,
 and tests. It is disciplined: one logical change per pass, never a silent rewrite
 of a passed AC, never scope expansion in disguise. It changes no code — the
 output is a specification edit plus a traced impact list, ready to flow into
-[`specify`](../specify/).
+**[specify](../specify/)**.
 
-It is the companion to [`validate`](../validate/), which supplies the
-suggestions it acts on, and it is analogous to [`refactor`](../refactor/), which
+It is the companion to **[validate](../validate/)**, which supplies the
+suggestions it acts on, and it is analogous to **[refactor](../refactor/)**, which
 serves the equivalent role for the design.
 
 This skill is interactive where stakeholders must resolve a disagreement.
@@ -54,6 +54,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`refine` closes the product feedback loop: [`validate`](../validate/) surfaces
-where the specification diverged from the real need, `refine` edits the
-specification, and the change flows back into [`specify`](../specify/).
+**refine** closes the product feedback loop: **[validate](../validate/)** surfaces
+where the specification diverged from the real need, **refine** edits the
+specification, and the change flows back into **[specify](../specify/)**.

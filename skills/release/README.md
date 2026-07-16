@@ -1,8 +1,8 @@
 # Release
 
-The `release` skill is all about **release branching and tagging**. It defines
+The **release** skill is all about **release branching and tagging**. It defines
 two mutually exclusive release strategies and the rules for each: a single
-permanent `release` trunk auto-promoted from `ready` (for continuous
+permanent **release** trunk auto-promoted from `ready` (for continuous
 deployment), or `release/<version>` branches cut from `ready` (for release
 trains). It applies the chosen strategy — cutting from the `ready` trunk tip,
 tagging with annotated `v<version>` tags, and promoting the `[Unreleased]`
@@ -12,7 +12,7 @@ Use it to choose a strategy, cut a release branch, or tag a version. Describe
 the release context and it applies the matching strategy, names the branch/tag,
 and handles the changelog promotion.
 
-It is the final git-workflow skill, taking the trunk that [`merge`](../merge/)
+It is the final git-workflow skill, taking the trunk that **[merge](../merge/)**
 has promoted to `ready` and shipping it.
 
 This skill instructs the agent to run non-interactively; it is
@@ -50,5 +50,5 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`release` cuts from the `ready` trunk that `merge` has promoted, tags the
+**release** cuts from the `ready` trunk that **merge** has promoted, tags the
 version, and hands a tagged artifact to the scripted deploy step.

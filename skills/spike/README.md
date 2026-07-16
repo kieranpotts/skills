@@ -1,6 +1,6 @@
 # Spike
 
-The `spike` skill is all about **throwaway experimentation**. It treats the code
+The **spike** skill is all about **throwaway experimentation**. It treats the code
 as a byproduct and the *answer* as the deliverable.
 
 It frames one falsifiable question, defines up front the evidence that would
@@ -12,7 +12,7 @@ throws the code away.
 
 Use it when a design question can't be answered by reasoning alone, or when a
 specification is too speculative to commit to without evidence. It is a companion
-to [`design`](../design/), answering the open questions a design turns on.
+to **[design](../design/)**, answering the open questions a design turns on.
 
 This skill instructs the agent to run non-interactively. Negative answers are
 captured with the same care as positive ones, and the code is never promoted —
@@ -51,6 +51,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`spike` is a helper to [`design`](../design/): when a decision turns on an
+**spike** is a helper to **[design](../design/)**: when a decision turns on an
 unknown, it runs a time-boxed experiment, records the finding in the right
 artifact, and returns the answer to the design.

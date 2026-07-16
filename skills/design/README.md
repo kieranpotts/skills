@@ -1,6 +1,6 @@
 # Design
 
-The `design` skill is all about **architectural decision making**. It takes a
+The **design** skill is all about **architectural decision making**. It takes a
 formal software requirements specification (SRS) — something more substantial
 than a vague product requirements document (PRD) written in business language —
 and enumerates design options for each significant architectural decision
@@ -13,10 +13,10 @@ option, with well-articulated reasoning, for each major architectural decision,
 captured in a durable architectural decision record (ADR).
 
 For trivial changes, the user may skip straight from specifying requirements
-([`specify`](../specify/)) to implementing them ([`code`](../code/)). This step
+(**[specify](../specify/)**) to implementing them (**[code](../code/)**). This step
 is required when there are genuine architectural trade-offs to consider. To
-answer an open question the design turns on, reach for [`spike`](../spike/); to
-stress-test a draft, [`elaborate`](../elaborate/).
+answer an open question the design turns on, reach for **[spike](../spike/)**; to
+stress-test a draft, **[elaborate](../elaborate/)**.
 
 This skill instructs the agent to run non-interactively where possible, but to
 prompt to clarify unclear constraints.
@@ -62,7 +62,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`design` takes an approved specification and produces the ADRs that
-[`plan`](../plan/) then decomposes. Along the way it can call out to
-[`spike`](../spike/) to answer feasibility questions and to
-[`elaborate`](../elaborate/) to stress-test the draft.
+**design** takes an approved specification and produces the ADRs that
+**[plan](../plan/)** then decomposes. Along the way it can call out to
+**[spike](../spike/)** to answer feasibility questions and to
+**[elaborate](../elaborate/)** to stress-test the draft.

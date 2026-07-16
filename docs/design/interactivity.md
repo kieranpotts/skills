@@ -14,7 +14,7 @@ block for user input: to ask questions, present options, and wait for answers.
 
 Interactive skills should be used sparingly. They should be used only where
 human interaction *is* the value in the skill. An example is this collection's
-[`discover`](../skills/discover/SKILL.md) skill, which is a structured interview
+**[discover](../skills/discover/SKILL.md)** skill, which is a structured interview
 whose entire point is the dialogue.
 
 The emerging goal of the specs-to-code movement is for all interactive sessions

@@ -1,14 +1,14 @@
 # Fix
 
-The `fix` skill is all about **mechanical remediation**. It audits and fixes
+The **fix** skill is all about **mechanical remediation**. It audits and fixes
 anything in the codebase that is broken in an obvious, mechanical way — a failing
 build or compile, a linter or type-checker violation, a deprecation warning, a
 misconfigured tool.
 
-Unlike [`debug`](../debug/), there is no hypothesis to form — the cause is
+Unlike **[debug](../debug/)**, there is no hypothesis to form — the cause is
 already evident from the tool's own error message, and the task is just to
-resolve it. Unlike [`style`](../style/), which makes subjective presentation
-judgment calls, `fix` targets a tool's pass/fail verdict: the check either
+resolve it. Unlike **[style](../style/)**, which makes subjective presentation
+judgment calls, **fix** targets a tool's pass/fail verdict: the check either
 passes or it doesn't, and there is nothing to judge.
 
 This skill instructs the agent to run non-interactively.
@@ -48,6 +48,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`fix` is the failure branch off the build loop's build step (and equally off
+**fix** is the failure branch off the build loop's build step (and equally off
 lint or the type-checker). Once the tool passes again, the increment rejoins the
-loop back at [`code`](../code/).
+loop back at **[code](../code/)**.

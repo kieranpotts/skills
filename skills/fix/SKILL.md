@@ -89,9 +89,9 @@ with an error message.
 
 -   **If the cause isn't already evident, you MUST NOT use this skill.**
 
-    `fix` resolves breakage a tool has already diagnosed. If you need to form
+    **fix** resolves breakage a tool has already diagnosed. If you need to form
     and test hypotheses about why something is failing, you MUST switch to
-    [`debug`](../debug/SKILL.md).
+    **[debug](../debug/SKILL.md)**.
 
 -   **You MUST make the minimal change that resolves the reported issue.**
 
@@ -191,7 +191,7 @@ const client: any = createLegacyClient()
 
     If investigation reveals there's no evident fix — the error message doesn't
     point anywhere conclusive, or the "obvious" fix doesn't resolve it — stop
-    and switch to [`debug`](../debug/SKILL.md) rather than guessing repeatedly.
+    and switch to **[debug](../debug/SKILL.md)** rather than guessing repeatedly.
 
 ##  Success criteria
 

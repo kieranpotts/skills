@@ -1,6 +1,6 @@
 # Debug
 
-The `debug` skill is all about **disciplined bug diagnosis**. Use it when
+The **debug** skill is all about **disciplined bug diagnosis**. Use it when
 something is broken, throwing, failing, or has regressed in performance, and the
 cause is not obvious from reading the code.
 
@@ -10,8 +10,8 @@ agent-runnable pass/fail signal for the bug *before* attempting a fix. The
 outcome is a verified fix with a regression test, the diagnostic instrumentation
 removed, and the underlying cause documented.
 
-Unlike [`fix`](../fix/), which resolves an already-diagnosed tool failure,
-`debug` is for failures whose cause must first be found.
+Unlike **[fix](../fix/)**, which resolves an already-diagnosed tool failure,
+**debug** is for failures whose cause must first be found.
 
 This skill instructs the agent to run non-interactively. But if the agent cannot
 build a reliable feedback loop, it is instructed to stop and say what it needs,
@@ -54,9 +54,9 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`debug` is the failure branch off the build loop's test step. Once the fix and
+**debug** is the failure branch off the build loop's test step. Once the fix and
 its regression test are green, the corrected increment rejoins the loop back at
-[`code`](../code/).
+**[code](../code/)**.
 
 ## References
 

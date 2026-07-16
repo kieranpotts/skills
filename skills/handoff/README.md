@@ -1,6 +1,6 @@
 # Handoff
 
-The `handoff` skill is all about **session continuity**. It compacts a
+The **handoff** skill is all about **session continuity**. It compacts a
 conversation into an ephemeral handoff document so a fresh agent or sapien can
 resume the work, capturing just enough state to continue without repeating work,
 re-litigating decisions, or re-walking dead ends.
@@ -14,8 +14,8 @@ project artifact.
 Use it when ending a session, switching agents, approaching context limits, or
 pausing work someone else will resume. With no argument it covers the full state
 of the current work; an argument scopes the handoff to the next session's focus.
-It is the companion to [`reflect`](../reflect/): `handoff` carries task state to
-the next session, `reflect` carries the working-style lessons.
+It is the companion to **[reflect](../reflect/)**: **handoff** carries task state to
+the next session, **reflect** carries the working-style lessons.
 
 This skill instructs the agent to run non-interactively.
 
@@ -34,5 +34,5 @@ main requirement is faithful compression, not deep reasoning.
 ## References
 
 - [Original source — mattpocock/skills
-  `handoff`](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md):
+  **handoff**](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md):
   The skill this one is adapted from.

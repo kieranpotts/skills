@@ -70,16 +70,16 @@ and MUST pass the validator checks — described below.
 
 ## Rules
 
-- MUST follow the [`branch`](./skills/branch/SKILL.md) skill for all
+- MUST follow the **[branch](./skills/branch/SKILL.md)** skill for all
   branch names.
 
-- MUST follow the [`commit`](./skills/commit/SKILL.md) skill for all
+- MUST follow the **[commit](./skills/commit/SKILL.md)** skill for all
   commit messages.
 
 - MUST run the validator on any new or modified skill before committing.
 
 - To add or improve a skill, MUST use the
-  [`create-skill`](./skills/create-skill/SKILL.md) skill. See also
+  **[create-skill](./skills/create-skill/SKILL.md)** skill. See also
   [`docs/creating-skills.md`](./docs/creating-skills.md).
 
 - `SKILL.md` files SHOULD NOT exceed 300 lines.

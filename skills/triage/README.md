@@ -1,6 +1,6 @@
 # Triage
 
-The `triage` skill is all about **bug and incident verification**. It takes a
+The **triage** skill is all about **bug and incident verification**. It takes a
 freshly-filed issue and decides what happens next: implement, defer, reject, or
 get more information.
 
@@ -51,8 +51,8 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`triage` is the reactive entry point to the workflow: a triaged, reproduced
-issue becomes an agent brief that [`code`](../code/) picks up to drive the build
+**triage** is the reactive entry point to the workflow: a triaged, reproduced
+issue becomes an agent brief that **[code](../code/)** picks up to drive the build
 loop.
 
 > **Note:** the description above reflects the skill's intended narrowed scope
@@ -63,6 +63,6 @@ loop.
 ## References
 
 - [Original source — mattpocock/skills
-  `triage`](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md):
+  **triage**](https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md):
   The skill this one is adapted from, including the agent-brief and out-of-scope
   conventions.

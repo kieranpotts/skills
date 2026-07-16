@@ -96,9 +96,9 @@ with an error message.
     - `feature`
     - `fix`
     - `maintenance`
-    - `merge`
-    - `refactor`
-    - `release`
+    - **merge**
+    - **refactor**
+    - **release**
     - `revert`
     - `runtime`
     - `step`
@@ -156,13 +156,13 @@ with an error message.
     - `maintenance`: Required upkeep — dependency bumps, test improvements, CI
       workflow reconfig, documentation, security patches.
 
-    - `merge`: Merge commits (when not fast-forwarded).
+    - **merge**: Merge commits (when not fast-forwarded).
 
-    - `refactor`: Improves internal structure without changing features or
+    - **refactor**: Improves internal structure without changing features or
       degrading runtime quality (renames, helper extraction, simplifying
       interfaces, restructuring data flows).
 
-    - `release`: Version bumps and release-preparation commits.
+    - **release**: Version bumps and release-preparation commits.
 
     - `revert`: Reverting a prior commit.
 
@@ -176,7 +176,7 @@ with an error message.
       user-facing.
 
     - `style`: Presentation-only code or content changes — whitespace,
-      indentation, line wrapping, style. Distinct from `refactor`.
+      indentation, line wrapping, style. Distinct from **refactor**.
 
     *Subtle distinctions*:
 
@@ -184,7 +184,7 @@ with an error message.
       user-facing change. `feature`/`runtime` is the commit where the change
       becomes verifiable.
 
-    - `refactor` vs. `style`: `refactor` improves internal structure; `style`
+    - **refactor** vs. `style`: **refactor** improves internal structure; `style`
       improves code presentation only.
 
     - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the

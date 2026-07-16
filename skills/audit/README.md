@@ -1,11 +1,11 @@
 # Audit
 
-The `audit` skill is all about **architectural review**. It evaluates the
+The **audit** skill is all about **architectural review**. It evaluates the
 as-built architecture for modularity, consistency, communication patterns, and
 other structural qualities.
 
 It is scoped to architecture. Security and privacy review is a separate concern,
-handled by the [`probe`](../probe/) skill and tracked in the
+handled by the **[probe](../probe/)** skill and tracked in the
 [risk register](https://github.com/kieranpotts/risks). If an audit incidentally
 notices a security weakness, it refers it there rather than reporting it as an
 audit finding.
@@ -18,10 +18,10 @@ suggestions. The trade-off is a bit more noisiness in the output artifacts.
 The agent may retread design trade-offs that have already been settled.
 
 This is an evaluation skill. It does not change any code. To do that, pass the
-output of this skill as input to the [`refactor`](../refactor/) skill.
+output of this skill as input to the **[refactor](../refactor/)** skill.
 
-This skill is a companion to [`validate`](../validate/). Whereas `validate` asks
-whether the *specification* should evolve, `audit` asks whether the *design*
+This skill is a companion to **[validate](../validate/)**. Whereas **validate** asks
+whether the *specification* should evolve, **audit** asks whether the *design*
 should.
 
 This skill instructs the agent to run non-interactively.
@@ -34,7 +34,7 @@ This skill instructs the agent to run non-interactively.
 
 > Check the codebase for structural drift.
 
-For security review, use [`probe`](../probe/) instead.
+For security review, use **[probe](../probe/)** instead.
 
 ## Recommended models
 
@@ -71,5 +71,5 @@ preflight step in a release workflow. It is NOT RECOMMENDED to run an audit
 against every commit.
 
 The output from an audit may be used as the prompt for an agentic refactoring
-step. The `refactor` skill consumes the report from an architectural review,
+step. The **refactor** skill consumes the report from an architectural review,
 and implements structural improvements in response to the findings.

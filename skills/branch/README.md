@@ -1,6 +1,6 @@
 # Branch
 
-The `branch` skill is all about **git branching strategy**. It codifies a
+The **branch** skill is all about **git branching strategy**. It codifies a
 trunk-based branch model: permanent fast-forward-only trunks (`dev` → `test` →
 `ready`), short-lived `temp/*` branches for single-focus changes, and long-lived
 `epic/*` branches for large multi-contributor work, all governed by naming rules
@@ -10,9 +10,9 @@ Use it when creating a new branch, naming a feature or fix branch, or checking
 branch names before push. It tells you which branch type fits the work, what to
 name it, and whether a proposed name is well-formed.
 
-It opens the git-workflow chain: `branch` starts the work,
-[`commit`](../commit/) records it, [`merge`](../merge/) integrates it, and
-[`release`](../release/) ships it.
+It opens the git-workflow chain: **branch** starts the work,
+**[commit](../commit/)** records it, **[merge](../merge/)** integrates it, and
+**[release](../release/)** ships it.
 
 This skill instructs the agent to run non-interactively.
 

@@ -15,7 +15,7 @@ metadata:
 # Resolve
 
 **Input:** A pull request carrying open (un-dismissed) review comments from
-[`review`](../review/SKILL.md), and the code under review. REQUIRED. The author
+**[review](../review/SKILL.md)**, and the code under review. REQUIRED. The author
 has already resolved any comments they do not want actioned; what remains is the
 work list. The base commit is pinned.
 
@@ -23,7 +23,7 @@ work list. The base commit is pinned.
 code change; each thread replied to and marked resolved; the fixes committed and
 pushed. Any comment that could not be honestly actioned is left open and
 reported with a reason. The verified change is ready for
-[`test`](../test/SKILL.md); what runs next is the orchestrator's concern.
+**[test](../test/SKILL.md)**; what runs next is the orchestrator's concern.
 
 **Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -47,7 +47,7 @@ with an error message.
 2.  **Pin the working base.**
 
     State the branch and base commit you are working against, exactly as
-    [`review`](../review/SKILL.md) pinned its comparison base. If the branch has
+    **[review](../review/SKILL.md)** pinned its comparison base. If the branch has
     advanced past the reviewed commit, re-anchor each comment to its current
     location before editing.
 
@@ -237,4 +237,4 @@ Open comments on PR #482: 2
 -   **Resolution work MUST be committed and pushed.**
 
     In its own commit(s), separate from the original implementation, with the
-    branch pushed so the re-review and [`test`](../test/SKILL.md) see the fixes.
+    branch pushed so the re-review and **[test](../test/SKILL.md)** see the fixes.

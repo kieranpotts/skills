@@ -90,25 +90,25 @@ These skills span four categories:
 
 | Skill name | Description |
 | ---------- | ----------- |
-| ✅ [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, coupling, etc. |
-| 🚀 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
-| 🚀 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. |
-| 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
-| 🚀 [`discover`](./skills/discover/) | Run a discovery workshop with the customer to elicit product requirements. |
-| 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs. |
-| 🚀 [`fix`](./skills/fix/) | Audit and fix anything generally broken — failing builds, lint, type-checks — distinct from `debug`. |
-| 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. |
-| 🚀 [`probe`](./skills/probe/) | Run an interactive threat modeling session. Record security risks to the register. |
-| 🚀 [`refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. |
-| 🚧 [`refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. |
-| 🚀 [`resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. |
-| 🚀 [`review`](./skills/review/) | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
-| 🚀 [`specify`](./skills/specify/) | Specify functional and non-functional requirements as testable acceptance criteria. |
-| 🚧 [`spike`](./skills/spike/) | Develop throwaway code (or other artifacts) to answer design questions. |
-| 🚀 [`style`](./skills/style/) | Improve code presentation — whitespace, style, ordering — without changing structure. |
-| 🚧 [`test`](./skills/test/) | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
-| 🚀 [`triage`](./skills/triage/) | Verify a reported bug or incident is real and reproducible. |
-| 🚧 [`validate`](./skills/validate/) | Evaluate the correctness and completeness of the requirements by road testing the current system. |
+| ✅ **[audit](./skills/audit/)** | Evaluate the evolving architecture — modularity, consistency, coupling, etc. |
+| 🚀 **[code](./skills/code/)** | Write code, verified by tests, for one discrete increment. |
+| 🚀 **[debug](./skills/debug/)** | Diagnose and fix unexpected behaviors and runtime issues observed in testing. |
+| 🚀 **[design](./skills/design/)** | Explore architectural options and their trade-offs. |
+| 🚀 **[discover](./skills/discover/)** | Run a discovery workshop with the customer to elicit product requirements. |
+| 🚀 **[elaborate](./skills/elaborate/)** | Refine a proposed solution by interrogating the design docs. |
+| 🚀 **[fix](./skills/fix/)** | Audit and fix anything generally broken — failing builds, lint, type-checks — distinct from **debug**. |
+| 🚀 **[plan](./skills/plan/)** | Decompose delivery into stable increments — supporting continuous integration. |
+| 🚀 **[probe](./skills/probe/)** | Run an interactive threat modeling session. Record security risks to the register. |
+| 🚀 **[refactor](./skills/refactor/)** | Iterate the design while maintaining stability through system testing. |
+| 🚧 **[refine](./skills/refine/)** | Produce new business requirements in response to acceptance testing feedback. |
+| 🚀 **[resolve](./skills/resolve/)** | Action open review comments, then mark as resolved. |
+| 🚀 **[review](./skills/review/)** | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
+| 🚀 **[specify](./skills/specify/)** | Specify functional and non-functional requirements as testable acceptance criteria. |
+| 🚧 **[spike](./skills/spike/)** | Develop throwaway code (or other artifacts) to answer design questions. |
+| 🚀 **[style](./skills/style/)** | Improve code presentation — whitespace, style, ordering — without changing structure. |
+| 🚧 **[test](./skills/test/)** | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
+| 🚀 **[triage](./skills/triage/)** | Verify a reported bug or incident is real and reproducible. |
+| 🚧 **[validate](./skills/validate/)** | Evaluate the correctness and completeness of the requirements by road testing the current system. |
 
 ### 🔀 Version control skills
 
@@ -116,25 +116,25 @@ These skills span four categories:
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`branch`](./skills/branch/) | Git branching strategy. |
-| 🚧 [`commit`](./skills/commit/) | Commit message conventions. |
-| 🚧 [`merge`](./skills/merge/) | Consolidate divergence between branches. |
-| 🚧 [`release`](./skills/release/) | Release trunks and branches. Version tags. |
+| 🚧 **[branch](./skills/branch/)** | Git branching strategy. |
+| 🚧 **[commit](./skills/commit/)** | Commit message conventions. |
+| 🚧 **[merge](./skills/merge/)** | Consolidate divergence between branches. |
+| 🚧 **[release](./skills/release/)** | Release trunks and branches. Version tags. |
 
 ### 📎 Auxiliary skills
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`research`](./skills/research/) | Gather external sources on a topic and produce a cited research report. |
-| 🚧 [`proof`](./skills/proof/) | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
+| 🚧 **[research](./skills/research/)** | Gather external sources on a topic and produce a cited research report. |
+| 🚧 **[proof](./skills/proof/)** | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
 
 ### 🤖 Agentic workflow-optimization skills
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 [`handoff`](./skills/handoff/) | Compact a conversation for the next session to pick up. |
-| 🚧 [`reflect`](./skills/reflect/) | Distill durable lessons from the session into memory and convention files. Companion to [`handoff`](./skills/handoff/). |
-| ✅ [`create-skill`](./skills/create-skill/) | Author or improve a skill — in this collection or a downstream project. |
+| 🚧 **[handoff](./skills/handoff/)** | Compact a conversation for the next session to pick up. |
+| 🚧 **[reflect](./skills/reflect/)** | Distill durable lessons from the session into memory and convention files. Companion to **[handoff](./skills/handoff/)**. |
+| ✅ **[create-skill](./skills/create-skill/)** | Author or improve a skill — in this collection or a downstream project. |
 
 ## 🪡 Composition
 
@@ -204,8 +204,8 @@ instructed not to prompt users for input beyond the initial prompt.
 
 But a small number of skills will prompt the user to make decisions as the agent
 explores options to move forward. For example, the
-[`discover`](./skills/discover/) skill asks questions to elicit product
-requirements, while the [`elaborate`](./skills/elaborate/) skill interrogates a
+**[discover](./skills/discover/)** skill asks questions to elicit product
+requirements, while the **[elaborate](./skills/elaborate/)** skill interrogates a
 proposed architectural design. These interactive skills are intended to be
 invoked directly by humans (🧑) and are not intended to be incorporated into
 automated delivery pipelines. However, these interactive steps tend to happen

@@ -1,6 +1,6 @@
 # Plan
 
-The `plan` skill is all about **decomposing a design into deliverable steps**. It
+The **plan** skill is all about **decomposing a design into deliverable steps**. It
 turns a big up-front design into a sequenced checklist of small construction
 steps that can be built through an iterative loop — supporting continuous
 integration.
@@ -45,6 +45,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`plan` takes the ADRs from [`design`](../design/) and emits an ordered checklist
-of steps, each of which [`code`](../code/) picks up one at a time to drive the
+**plan** takes the ADRs from **[design](../design/)** and emits an ordered checklist
+of steps, each of which **[code](../code/)** picks up one at a time to drive the
 build-increments loop.

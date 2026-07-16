@@ -1,16 +1,16 @@
 # Specify
 
-The `specify` skill is all about **turning requirements into testable acceptance
+The **specify** skill is all about **turning requirements into testable acceptance
 criteria**. It transforms a business-oriented product requirements document
 (PRD), or similar artifact, into executable acceptance criteria, and opens a pull
 request against the project's software requirements specification (SRS)
 repository, ready for the user to review.
 
 Use it once business needs are recorded in a written artifact. That artifact may
-come from a discovery workshop ([`discover`](../discover/)) or a refinement
-([`refine`](../refine/)) run in response to feedback from real people using
-working software ([`validate`](../validate/)). Once a proposed specification is
-approved, work can begin on the solution design — see [`design`](../design/).
+come from a discovery workshop (**[discover](../discover/)**) or a refinement
+(**[refine](../refine/)**) run in response to feedback from real people using
+working software (**[validate](../validate/)**). Once a proposed specification is
+approved, work can begin on the solution design — see **[design](../design/)**.
 Accepting or rejecting proposed changes to the requirements specification is an
 important decision left to sapiens, not agents.
 
@@ -22,10 +22,10 @@ needs the user's approval.
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
 >
-> The outcome of the `specify` step is testable acceptance criteria, written in
+> The outcome of the **specify** step is testable acceptance criteria, written in
 > an executable form, covering both functional behaviors and non-functional
 > runtime qualities. Those acceptance criteria become a stable contract that
-> agents subsequently operate against. Later in the workflow, in the `test`
+> agents subsequently operate against. Later in the workflow, in the **test**
 > phase, agents will validate their progress against the acceptance tests.
 > Because the contract is executable, it means the agents can use deterministic
 > tools — and not rely on judgment — to decide whether their work is done.
@@ -77,7 +77,7 @@ Agents following this skill will have the following expectations:
 > `CONTRIBUTING.md`. This provides the flexibility of specifying different
 > workflows for agents and sapiens.
 
-This `specify` skill instructs the agent to follow the guidelines in those named
+This **specify** skill instructs the agent to follow the guidelines in those named
 sub-skills that are expected to be defined in the SRS repository. The sub-skills
 are responsible for driving the software requirements workflow through to the
 point of a new or updated software requirement being proposed via an open pull
@@ -127,7 +127,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`specify` turns a PRD from [`discover`](../discover/) into the acceptance
-criteria that [`design`](../design/) builds against. Feedback from
-[`refine`](../refine/) flows back in when the working software reveals the
+**specify** turns a PRD from **[discover](../discover/)** into the acceptance
+criteria that **[design](../design/)** builds against. Feedback from
+**[refine](../refine/)** flows back in when the working software reveals the
 specification itself needs to evolve.

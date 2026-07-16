@@ -1,6 +1,6 @@
 # Discover
 
-The `discover` skill is all about **product-requirements discovery**. It runs an
+The **discover** skill is all about **product-requirements discovery**. It runs an
 interactive workshop that turns a vague business need into a clear product
 requirements document (PRD) — covering the outcome, stakeholders, scope, business
 rules with examples, non-functional requirements, assumptions, and open
@@ -13,7 +13,7 @@ Use it when the product requirements are vague, ambiguous, or unclear in any
 way, or when you simply need help writing the PRD. Its scope is confined to
 business requirements; formal specification and design are expressly
 out-of-scope. If the requirements are already clearly articulated in a written
-artifact, skip ahead to [`specify`](../specify/), which takes that artifact as
+artifact, skip ahead to **[specify](../specify/)**, which takes that artifact as
 input.
 
 This skill is interactive; the agent runs a back-and-forth interview with the
@@ -55,9 +55,9 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`discover` sits at the front of the workflow, feeding a PRD into
-[`specify`](../specify/), which turns it into the acceptance criteria that
-[`design`](../design/) then builds against.
+**discover** sits at the front of the workflow, feeding a PRD into
+**[specify](../specify/)**, which turns it into the acceptance criteria that
+**[design](../design/)** then builds against.
 
 ## References
 

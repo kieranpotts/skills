@@ -1,6 +1,6 @@
 # Review
 
-The `review` skill is all about **code review**. It statically analyzes the diff
+The **review** skill is all about **code review**. It statically analyzes the diff
 in an open pull request, checking correctness, design, clarity, test coverage,
 security, and completeness.
 
@@ -13,8 +13,8 @@ suggestion, nitpick, praise) and organized along two axes:
 It closes with an explicit verdict — approve, request changes, or comment. Use it
 when auditing a coworker's branch, or self-reviewing changes before opening a PR.
 The agent surfaces findings without fixing them; orchestrators may hand off to
-[`resolve`](../resolve/) to action the open comments. For a wider architectural
-review, see [`audit`](../audit/).
+**[resolve](../resolve/)** to action the open comments. For a wider architectural
+review, see **[audit](../audit/)**.
 
 This skill instructs the agent to run non-interactively.
 
@@ -52,6 +52,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`review` runs once an increment builds and tests green, leaving comments for
-[`resolve`](../resolve/) to action before integration. For a wider,
-design-level pass, [`audit`](../audit/) is the companion.
+**review** runs once an increment builds and tests green, leaving comments for
+**[resolve](../resolve/)** to action before integration. For a wider,
+design-level pass, **[audit](../audit/)** is the companion.

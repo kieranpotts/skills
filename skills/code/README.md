@@ -1,6 +1,6 @@
 # Code
 
-The `code` skill is all about **test-driven implementation**. It implements one
+The **code** skill is all about **test-driven implementation**. It implements one
 change in software code and configuration following the red → green → refactor
 cycle, producing a single small change with accompanying unit tests, and
 integration tests where appropriate.
@@ -49,7 +49,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-`code` is the first step of the build-increments loop, fed by a step from
-[`plan`](../plan/) or a brief from [`triage`](../triage/). Each increment then
+**code** is the first step of the build-increments loop, fed by a step from
+**[plan](../plan/)** or a brief from **[triage](../triage/)**. Each increment then
 flows through style, lint, build, test, review, resolve, and integrate — and the
-loop returns to `code` for the next increment.
+loop returns to **code** for the next increment.

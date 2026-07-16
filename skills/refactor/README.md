@@ -1,6 +1,6 @@
 # Refactor
 
-The `refactor` skill is all about **behavior-preserving restructuring**. It
+The **refactor** skill is all about **behavior-preserving restructuring**. It
 restructures source code, without changing observable behavior, to improve a
 single named target quality.
 
@@ -12,7 +12,7 @@ observable behavior identical and tests green throughout.
 Use it on existing code that has comprehensive test coverage, especially at the
 system level, and when you have a target quality in mind: readability, data
 structures, coupling, naming. Structural qualities worth attention are often
-flagged first by the architectural [`audit`](../audit/) skill, whose report
+flagged first by the architectural **[audit](../audit/)** skill, whose report
 feeds this one. Refactoring is distinct from bug fixes and feature delivery.
 
 This skill instructs the agent to run non-interactively.
@@ -51,6 +51,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-[`audit`](../audit/) surfaces structural drift, `refactor` acts on it, and the
+**[audit](../audit/)** surfaces structural drift, **refactor** acts on it, and the
 resulting structural changes flow back into the design record so the intended
 architecture and the as-built one stay aligned.

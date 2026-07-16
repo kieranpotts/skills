@@ -44,7 +44,7 @@ security concern during the review — an injection point, a broken auth boundar
 unsafe secrets handling — do NOT write it up as an audit finding. Note it for
 referral to a threat modeling session and the
 [risk register](https://github.com/kieranpotts/risks), then continue the
-architecture review. See the [`probe`](../probe/) skill.
+architecture review. See the **[probe](../probe/)** skill.
 
 **Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -204,7 +204,7 @@ with an error message.
     handling, and the like — as audit findings. If you notice one, note it for
     referral to a threat modeling session and the
     [risk register](https://github.com/kieranpotts/risks), then continue the
-    architecture review. See the [`probe`](../probe/) skill.
+    architecture review. See the **[probe](../probe/)** skill.
 
 -   **"Not worth fixing" MAY be a valid conclusion.**
 

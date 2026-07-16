@@ -1,6 +1,6 @@
 # Create skill
 
-The `create-skill` skill is all about **skill authoring**. It is the single path
+The **create-skill** skill is all about **skill authoring**. It is the single path
 for creating or improving a skill, in this collection or a downstream project.
 
 It produces a complete skill directory: a `SKILL.md` written from the bundled
