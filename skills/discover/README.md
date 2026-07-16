@@ -1,4 +1,4 @@
-# Discover skill
+# Discover
 
 The `discover` skill is all about **product-requirements discovery**. It runs an
 interactive workshop that turns a vague business need into a clear product
@@ -21,12 +21,13 @@ user.
 
 ## How to invoke
 
-- `/discover`, `/skill:discover` (prompts vary by harness).
-- `/discover <URL or path to existing business requirements artifacts>`
-- "Let's discover the requirements for…"
-- "Run a discovery session on…"
-- "Help me understand what the customer actually needs."
-- "Interview me about this feature."
+> Let's discover the requirements for…
+
+> Run a discovery session on…
+
+> Help me understand what the customer actually needs.
+
+> Interview me about this feature.
 
 ## Recommended models
 

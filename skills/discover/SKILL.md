@@ -14,7 +14,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: ollama/product-manager
+  preferred_model: ollama/technical-reasoning
 ---
 
 # Discover
@@ -216,12 +216,6 @@ shape the question that follows.
 
     Rigorous. Direct. No fluff. Cover things properly, but you MUST NOT pad
     responses. Remove filler. Show reasoning, not just conclusions.
-
--   **Counter-examples are REQUIRED.**
-
-    A rule without a counter-example has fuzzy boundaries. The contrast between
-    *"this case applies"* and *"this case looks similar but doesn't"* is where
-    the rule's real shape becomes visible.
 
 ##  Success criteria
 
