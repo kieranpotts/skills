@@ -19,11 +19,11 @@ metadata:
 
 # Discover
 
-**Input**: The user MAY provide a draft PRD or similar artifacts (via file
+**Input:** The user MAY provide a draft PRD or similar artifacts (via file
 paths, URLs, or pasted text) to be edited in place, or to use as a basis for a
 fresh PRD. This is OPTIONAL — the seed may be vague, incomplete, or absent.
 
-**Output**: A new or modified PRD in business language, covering outcomes,
+**Output:** A new or modified PRD in business language, covering outcomes,
 stakeholders, scope, rules, examples, non-functional requirements, assumptions,
 and open questions. The PRD enforces completeness by having a counter-example
 for every rule, an explicit out-of-scope list, non-functional requirements
@@ -35,7 +35,7 @@ This skill produces the PRD and stops. It does NOT file the PRD in any workflow
 repository, and it does NOT translate the rules and examples into testable
 acceptance criteria. These are separate downstream responsibilities.
 
-**Interactivity**: This skill is interactive. It gathers the rest of its input
+**Interactivity:** This skill is interactive. It gathers the rest of its input
 from the user through prompts during the session, asking one question at a time.
 
 ##  Instructions

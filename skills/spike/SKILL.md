@@ -15,11 +15,11 @@ metadata:
 
 # Spike
 
-**Input**: One falsifiable question — a specific feasibility, performance,
+**Input:** One falsifiable question — a specific feasibility, performance,
 ergonomics, or integration-risk question that cannot be answered by reasoning
 alone, with the evidence that would close it defined up front. REQUIRED.
 
-**Output**: The answer, durably captured — a measurement, observable behavior,
+**Output:** The answer, durably captured — a measurement, observable behavior,
 or working integration, recorded so it is reproducible from the notes alone, and
 landed in the appropriate artifact (an ADR or design-doc update, a revision to
 acceptance criteria, or a decision-log note). The spike code is thrown away or
@@ -27,7 +27,7 @@ quarantined in a clearly-marked throwaway location, never promoted. Whatever
 consumes the answer — resuming design, revising the specification, the
 production re-implementation — is the orchestrator's concern, not this skill's.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

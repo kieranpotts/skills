@@ -16,16 +16,16 @@ metadata:
 
 # Merge
 
-**Input**: A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
+**Input:** A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
 
-**Output**: The target branch updated with the integrated work using the
+**Output:** The target branch updated with the integrated work using the
   strategy correct for the branch type, conflicts resolved deliberately, tests and
   build green on the merged result before push, and disposable source branches
   (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
   integrates and stops; it neither defines the branching convention nor cuts
   releases.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 ##  Instructions

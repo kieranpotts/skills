@@ -21,7 +21,7 @@ point of view.>
 
 ## Stakeholders
 
-- **<role>**: <interests, decisions they make, what changes for them>
+- **<role>:** <interests, decisions they make, what changes for them>
 
 ## Scope
 

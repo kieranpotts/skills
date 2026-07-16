@@ -14,16 +14,16 @@ metadata:
 
 # Code
 
-**Input**: One numbered plan step (or a small standalone change whose design is
+**Input:** One numbered plan step (or a small standalone change whose design is
 already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill
 does not design or decompose; it consumes a step that is ready to implement.
 
-**Output**: A committed, tested change for that single step — the implementation
+**Output:** A committed, tested change for that single step — the implementation
 plus its tests, scope-locked to the step, with a clean reviewable diff and a
 conventional commit. Whatever reviews, tests further, or sequences the next step
 is the orchestrator's concern, not this skill's.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

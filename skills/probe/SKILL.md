@@ -21,10 +21,9 @@ metadata:
 
 # Probe
 
-Run an interactive **threat modeling session** — probe a system for the security
-and privacy risks it carries, and record them.
+Run an interactive threat modeling session.
 
-**Input**:
+**Input:**
 
 - **What to assess. REQUIRED.** A subsystem, service, data flow, feature, or
   design. The user MAY point at a codebase, a design doc, a diagram, or simply
@@ -40,7 +39,7 @@ and privacy risks it carries, and record them.
   the current working directory has a `risks/` subdirectory containing a
   `REGISTER.md`. If the register cannot be located, stop and alert the user.
 
-**Output**: Two artifacts, written to the risk register store, following the
+**Output:** Two artifacts, written to the risk register store, following the
 conventions defined there:
 
 1. **An immutable session report** at `risks/YYYY-MM-DD-<slug>/` (or wherever the
@@ -57,7 +56,7 @@ source of truth for where each risk stands. A threat may appear in the report's
 assessment but NOT be promoted to the register — only risks worth tracking over
 time are.
 
-**Interactivity**: This skill is interactive. The agent facilitates the session,
+**Interactivity:** This skill is interactive. The agent facilitates the session,
 asking one question at a time, gathering the rest of its input from the user
 through the conversation.
 

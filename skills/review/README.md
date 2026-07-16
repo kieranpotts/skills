@@ -7,8 +7,8 @@ security, and completeness.
 Findings are specific and actionable, each carrying a severity (blocking,
 suggestion, nitpick, praise) and organized along two axes:
 
-- **Specification**: does it faithfully implement the issue/ACs.
-- **Standards**: does it conform to the repo's conventions.
+- **Specification:** does it faithfully implement the issue/ACs.
+- **Standards:** does it conform to the repo's conventions.
 
 It closes with an explicit verdict — approve, request changes, or comment. Use it
 when auditing a coworker's branch, or self-reviewing changes before opening a PR.

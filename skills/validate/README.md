@@ -18,7 +18,7 @@ asks "did we build the right thing?" Acting on a suggestion is
 [`refine`](../refine/)'s job, which flows into [`specify`](../specify/).
 
 This skill instructs the agent to run non-interactively and is **evaluation
-only**: it outputs a bounded, prioritized report and an explicit verdict (meets
+only:** it outputs a bounded, prioritized report and an explicit verdict (meets
 the need / gaps found), but changes no specification and no code.
 
 ## How to invoke

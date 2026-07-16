@@ -14,18 +14,18 @@ metadata:
 
 # Resolve
 
-**Input**: A pull request carrying open (un-dismissed) review comments from
+**Input:** A pull request carrying open (un-dismissed) review comments from
 [`review`](../review/SKILL.md), and the code under review. REQUIRED. The author
 has already resolved any comments they do not want actioned; what remains is the
 work list. The base commit is pinned.
 
-**Output**: A branch with each open comment implemented as a minimal, verified
+**Output:** A branch with each open comment implemented as a minimal, verified
 code change; each thread replied to and marked resolved; the fixes committed and
 pushed. Any comment that could not be honestly actioned is left open and
 reported with a reason. The verified change is ready for
 [`test`](../test/SKILL.md); what runs next is the orchestrator's concern.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

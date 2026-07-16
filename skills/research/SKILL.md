@@ -16,16 +16,16 @@ metadata:
 
 # Research
 
-**Input**: A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
+**Input:** A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
 
-**Output**: A single, cited research report — a direct answer to the framed
+**Output:** A single, cited research report — a direct answer to the framed
   question, the supporting evidence (each decision-bearing claim sourced and,
   where time-sensitive, dated), the open questions, and a suggested destination
   for the findings. This skill produces the report and stops; writing the findings
   into a design doc, an ADR, persisted memory, or anywhere else is a separate,
   explicit step the caller initiates.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

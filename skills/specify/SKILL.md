@@ -16,17 +16,17 @@ metadata:
 
 # Specify
 
-**Input**: A PRD, expected to be sufficiently complete to transform into a
+**Input:** A PRD, expected to be sufficiently complete to transform into a
 formal software requirements specification. REQUIRED. This skill does not gather
 requirements or interview the user; if the PRD is not sufficiently detailed, you
 MUST **reject** it with a list of what is missing or ambiguous, and not proceed
 further.
 
-**Output**: An open pull request against the SRS repository, capturing the
+**Output:** An open pull request against the SRS repository, capturing the
 changes as testable acceptance criteria, at `PROPOSED` and awaiting the user's
 review and approval.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

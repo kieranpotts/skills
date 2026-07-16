@@ -14,18 +14,18 @@ metadata:
 
 # Create skill
 
-**Input**: A description of the skill to create, or a path to an existing skill
+**Input:** A description of the skill to create, or a path to an existing skill
 to improve, plus whatever the surrounding conversation already reveals about its
 purpose and triggers. OPTIONAL — the seed may be just a rough idea.
 
-**Output**: A complete skill directory — a `SKILL.md` conforming to the bundled
+**Output:** A complete skill directory — a `SKILL.md` conforming to the bundled
 template (valid front-matter, prominent Input/Output paragraphs, Instructions
 and/or Rules, Success criteria), a sibling `README.md`, and any bundled
 `assets/`, `references/`, or `scripts/` — passing the validator. This skill
 authors the skill and stops; installing it into target agents is a separate
 step.
 
-**Interactivity**: This skill is interactive. It gathers the rest of its input
+**Interactivity:** This skill is interactive. It gathers the rest of its input
 from the user through prompts during the session, asking one question at a time.
 
 ##  Instructions
@@ -115,23 +115,23 @@ from the user through prompts during the session, asking one question at a time.
 
 -   **`SKILL.md` MUST include the canonical sections.**
 
-    - **Front-matter**: `name` and `description` are REQUIRED. `compatibility`
+    - **Front-matter:** `name` and `description` are REQUIRED. `compatibility`
       and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model via
       `preferred_model` and MAY declare `interactive: no` if it never blocks on
       the user.
 
-    - **Input, Output, and Interactivity paragraphs**: Immediately after the
-      title, three prominent bold-lead paragraphs — `**Input**:`, `**Output**:`,
-      and `**Interactivity**:` — stating what the skill consumes, produces, and
+    - **Input, Output, and Interactivity paragraphs:** Immediately after the
+      title, three prominent bold-lead paragraphs — `**Input:**`, `**Output:**`,
+      and `**Interactivity:**` — stating what the skill consumes, produces, and
       whether it blocks for user input. State whether the input is REQUIRED or
       OPTIONAL. For an interactive skill, the **Input** paragraph MAY also note
       that the skill gathers input from the user through prompts during the
       session.
 
-    - **Instructions** or **Rules**: MUST include at least one of these two
+    - **Instructions** or **Rules:** MUST include at least one of these two
       sections.
 
-    - **Success criteria**: REQUIRED.
+    - **Success criteria:** REQUIRED.
 
     OPTIONAL sections: Examples, Edge cases, References, Assets.
 
@@ -256,7 +256,7 @@ skills/
   present and non-empty, and `name` MUST match the directory name.
 
 - **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
-  `**Input**:`, `**Output**:`, and `**Interactivity**:` paragraphs, `##
+  `**Input:**`, `**Output:**`, and `**Interactivity:**` paragraphs, `##
   Instructions` or `## Rules`, and `## Success criteria`.
 
 - **The Input, Output, and Interactivity paragraphs MUST be present and

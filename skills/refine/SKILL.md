@@ -17,15 +17,15 @@ metadata:
 
 # Refine
 
-**Input**: A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
+**Input:** A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
 
-**Output**: Precise edits to the requirements artifacts, conforming to the
+**Output:** Precise edits to the requirements artifacts, conforming to the
   specification conventions (Gherkin, measurable NFRs, explicit scope), each with
   a recorded trigger, type, and rationale; plus a traced list of downstream
   design, planning, code, and test work the refinement implies. The output is
   reported and the skill stops; it changes no code itself.
 
-**Interactivity**: This skill is interactive. It gathers the rest of its input
+**Interactivity:** This skill is interactive. It gathers the rest of its input
   from the user through prompts during the session.
 
 ##  Instructions

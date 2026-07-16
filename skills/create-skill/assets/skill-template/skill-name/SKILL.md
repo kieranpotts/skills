@@ -14,13 +14,13 @@ metadata:
 
 # <Skill name>
 
-**Input**: What input the agent consumes — a file, a prompt, a selection — and
+**Input:** What input the agent consumes — a file, a prompt, a selection — and
 whether it is OPTIONAL or REQUIRED. State any default behavior when no input is
 given. Specify whether the agent should work non-interactively to completion, or
 if the agent may interact with the user — blocking to ask questions, present
 options, and wait for answers.
 
-**Output**: What the skill produces, in what format, and where it is written — a
+**Output:** What the skill produces, in what format, and where it is written — a
 report, a direct edit, a file, a commit, the conversation itself. Specify how
 the agent should summarize the outcomes of its work.
 

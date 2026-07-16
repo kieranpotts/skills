@@ -16,16 +16,16 @@ metadata:
 
 # Handoff
 
-**Input**: The current session's context. REQUIRED. The work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
+**Input:** The current session's context. REQUIRED. The work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
 
-**Output**: A single, ephemeral handoff document written to the OS temp
+**Output:** A single, ephemeral handoff document written to the OS temp
   directory (not the repo), referencing those durable artifacts by path or URL
   rather than duplicating them. It captures what's done, what's open, the codebase
   state, suggested next steps, and gotchas. This skill reports the file's absolute
   path and stops; whether the next session is an agent or a human is the
   orchestrator's concern.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

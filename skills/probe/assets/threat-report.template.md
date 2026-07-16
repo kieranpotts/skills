@@ -1,16 +1,16 @@
 # Session title, eg. "Payment flow threat model"
 
-- **Facilitator**: Your Name [@your-github-handle] (security champion)
-- **Participants**:
-  - **Business stakeholder**: _____
-  - **Technical architect**: _____
-  - **Development lead**: _____
-  - **Security analyst**: _____
+- **Facilitator:** Your Name [@your-github-handle] (security champion)
+- **Participants:**
+  - **Business stakeholder:** _____
+  - **Technical architect:** _____
+  - **Development lead:** _____
+  - **Security analyst:** _____
   - **Privacy officer** (eg. data controller): _____
-  - **Other stakeholders**: _____
-- **Session date**: YYYY-MM-DD
-- **Scope**: owner/repo@<commit>, or the subsystems/services/data flows assessed
-- **Frameworks**: STRIDE, LINDDUN, OWASP Top 10, …
+  - **Other stakeholders:** _____
+- **Session date:** YYYY-MM-DD
+- **Scope:** owner/repo@<commit>, or the subsystems/services/data flows assessed
+- **Frameworks:** STRIDE, LINDDUN, OWASP Top 10, …
 
 ## Summary
 

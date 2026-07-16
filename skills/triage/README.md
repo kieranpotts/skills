@@ -15,7 +15,7 @@ It assumes an issue tracker with category/state labels (and sets up the
 vocabulary if missing).
 
 This skill instructs the agent to run non-interactively, but it **recommends
-rather than decides**: triage is the maintainer's call, so it does the legwork
+rather than decides:** triage is the maintainer's call, so it does the legwork
 and waits for direction before applying labels or closing. AI-generated comments
 are marked with a disclaimer.
 

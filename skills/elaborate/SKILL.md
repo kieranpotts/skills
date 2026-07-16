@@ -17,18 +17,18 @@ metadata:
 
 # Elaborate
 
-**Input**: A draft design with soft edges — an ADR, design doc, or PR
+**Input:** A draft design with soft edges — an ADR, design doc, or PR
 description that has unresolved trade-offs, ambiguous terms, unstated
 assumptions, or dependencies not yet thought through, plus any related
 acceptance criteria and the relevant code. REQUIRED.
 
-**Output**: A decomposition-ready design — every open decision resolved or
+**Output:** A decomposition-ready design — every open decision resolved or
 explicitly deferred, terms reconciled with the glossary
 (`docs/domain-model.md`), code-versus-design contradictions surfaced, and
 qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes
 the sharpened design is the orchestrator's concern, not this skill's.
 
-**Interactivity**: This skill is interactive. It gathers the rest of its input
+**Interactivity:** This skill is interactive. It gathers the rest of its input
 from the user through prompts during the session, asking one question at a time.
 This skill does not originate the design; it consumes a draft to sharpen.
 
@@ -179,17 +179,17 @@ authoritative — code, specs, and conversations should match.
 
 ## Language
 
-**Order**:
+**Order:**
 A collection of line items submitted by a customer for fulfillment.
 _Avoid_: Purchase, transaction.
 
-**Cancellation**:
+**Cancellation:**
 The act of revoking an Order before it has been fully shipped. Triggers
 refunds for any line items already paid for; refunds are partial when
 only some line items were paid.
 _Avoid_: Void, abort.
 
-**Customer**:
+**Customer:**
 A person or organization that places Orders.
 _Avoid_: Client, buyer, account.
 ```

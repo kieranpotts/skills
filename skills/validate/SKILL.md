@@ -17,19 +17,19 @@ metadata:
 
 # Validate
 
-**Input**: Completed work that has already passed [`test`](../test/SKILL.md)
+**Input:** Completed work that has already passed [`test`](../test/SKILL.md)
 (verified against its ACs), together with the originating statement of need —
 the preserved PRD, the specification's outcome and success measures, or the
 discovery report. REQUIRED. Run once all of a plan's increments are complete.
 
-**Output**: A bounded, prioritized validation report — an explicit verdict
+**Output:** A bounded, prioritized validation report — an explicit verdict
 (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
 specification should evolve, each classified by gap type, backed by evidence,
 and ready to seed a [`refine`](../refine/SKILL.md) →
 [`specify`](../specify/SKILL.md) pass. No specification or code is changed; what
 consumes the report is the orchestrator's concern.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

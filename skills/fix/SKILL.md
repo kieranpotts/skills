@@ -18,15 +18,15 @@ metadata:
 
 # Fix
 
-**Input**: The broken thing — a failing build/compile/lint/type-check command,
+**Input:** The broken thing — a failing build/compile/lint/type-check command,
 an error message, or an instruction to audit a part of the codebase for things
 that are broken. REQUIRED.
 
-**Output**: The build, compile, lint, or type-check passes; the reported
+**Output:** The build, compile, lint, or type-check passes; the reported
 breakage is resolved at its source, or explicitly suppressed with a recorded
 justification. No unrelated behavior change.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

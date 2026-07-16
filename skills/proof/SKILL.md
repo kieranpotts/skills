@@ -17,14 +17,14 @@ metadata:
 
 # Proof
 
-**Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL. Defaults to the prose files changed in the working tree when no set is given.
+**Input:** A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL. Defaults to the prose files changed in the working tree when no set is given.
 
-**Output**: The same files, edited in place with conservative copy edits only —
+**Output:** The same files, edited in place with conservative copy edits only —
   prose words corrected, code/markup/structure untouched — plus a per-file summary
   of the edits made and any items flagged for the author. Nothing is staged,
   committed, or pushed; version control is left to a separate step.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 

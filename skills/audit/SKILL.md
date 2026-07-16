@@ -17,7 +17,7 @@ metadata:
 
 # Audit
 
-**Input**:
+**Input:**
 
 - **The target codebase. REQUIRED.** Unless the user inputs an explicit target
   path or URL, assume the target is the code repository in the current working
@@ -33,7 +33,7 @@ metadata:
   path to the audit reports cannot be found, stop and alert the user of the
   failure.
 
-**Output**: A single prioritized, bounded report of architecture improvement
+**Output:** A single prioritized, bounded report of architecture improvement
 candidates, each citing specific files and lines, stating what is observed and
 the cost it imposes, and optionally pointing toward a fix. The report is written
 to the audit reports collection or repository, following the conventions defined
@@ -46,7 +46,7 @@ referral to a threat modeling session and the
 [risk register](https://github.com/kieranpotts/risks), then continue the
 architecture review. See the [`probe`](../probe/) skill.
 
-**Interactivity**: Agents MUST NOT block for user input after the initial
+**Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
@@ -127,10 +127,10 @@ with an error message.
 
 7.  **Prioritize findings by impact ÷ effort.**
 
-    - **Impact**: How much the rest of the codebase simplifies if this is fixed.
+    - **Impact:** How much the rest of the codebase simplifies if this is fixed.
       Findings that unlock other improvements rank high.
 
-    - **Effort**: How invasive the change would be. Local renames rank above
+    - **Effort:** How invasive the change would be. Local renames rank above
       cross-cutting restructures.
 
     Assign each finding a **Priority** — HIGH, MEDIUM, or LOW — from this

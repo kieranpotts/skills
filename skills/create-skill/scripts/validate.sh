@@ -123,17 +123,17 @@ run_repo_checks() {
     failed=1
   fi
 
-  # Prominent '**Input**:' and '**Output**:' paragraphs are required.
+  # Prominent '**Input:**' and '**Output:**' paragraphs are required.
   if grep -qE '^\*\*Input\*\*:' "${skill_md}"; then
-    printf "  [PASS] Has '**Input**:' paragraph\n" >&2
+    printf "  [PASS] Has '**Input:**' paragraph\n" >&2
   else
-    printf "  [FAIL] Missing '**Input**:' paragraph\n" >&2
+    printf "  [FAIL] Missing '**Input:**' paragraph\n" >&2
     failed=1
   fi
   if grep -qE '^\*\*Output\*\*:' "${skill_md}"; then
-    printf "  [PASS] Has '**Output**:' paragraph\n" >&2
+    printf "  [PASS] Has '**Output:**' paragraph\n" >&2
   else
-    printf "  [FAIL] Missing '**Output**:' paragraph\n" >&2
+    printf "  [FAIL] Missing '**Output:**' paragraph\n" >&2
     failed=1
   fi
 
