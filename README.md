@@ -90,7 +90,7 @@ These skills span four categories:
 
 | Skill name | Description |
 | ---------- | ----------- |
-| ✅ [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, security, etc. |
+| ✅ [`audit`](./skills/audit/) | Evaluate the evolving architecture — modularity, consistency, coupling, etc. |
 | 🚀 [`code`](./skills/code/) | Write code, verified by tests, for one discrete increment. |
 | 🚀 [`debug`](./skills/debug/) | Diagnose and fix unexpected behaviors and runtime issues observed in testing. |
 | 🚀 [`design`](./skills/design/) | Explore architectural options and their trade-offs. |
@@ -98,6 +98,7 @@ These skills span four categories:
 | 🚀 [`elaborate`](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs. |
 | 🚀 [`fix`](./skills/fix/) | Audit and fix anything generally broken — failing builds, lint, type-checks — distinct from `debug`. |
 | 🚀 [`plan`](./skills/plan/) | Decompose delivery into stable increments — supporting continuous integration. |
+| 🚀 [`probe`](./skills/probe/) | Run an interactive threat modeling session. Record security risks to the register. |
 | 🚀 [`refactor`](./skills/refactor/) | Iterate the design while maintaining stability through system testing. |
 | 🚧 [`refine`](./skills/refine/) | Produce new business requirements in response to acceptance testing feedback. |
 | 🚀 [`resolve`](./skills/resolve/) | Action open review comments, then mark as resolved. |
