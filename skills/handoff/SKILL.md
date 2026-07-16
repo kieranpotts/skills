@@ -19,11 +19,11 @@ metadata:
 **Input**: The current session's context. REQUIRED. The work done, the decisions made, the durable artifacts already produced (specifications, designs, plans, ADRs, issues, commits), and the state of the codebase.
 
 **Output**: A single, ephemeral handoff document written to the OS temp
-directory (not the repo), referencing those durable artifacts by path or URL
-rather than duplicating them. It captures what's done, what's open, the codebase
-state, suggested next steps, and gotchas. This skill reports the file's absolute
-path and stops; whether the next session is an agent or a human is the
-orchestrator's concern.
+  directory (not the repo), referencing those durable artifacts by path or URL
+  rather than duplicating them. It captures what's done, what's open, the codebase
+  state, suggested next steps, and gotchas. This skill reports the file's absolute
+  path and stops; whether the next session is an agent or a human is the
+  orchestrator's concern.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -55,38 +55,13 @@ with an error message.
     - Recent commits worth pointing at.
     - Any updated entries in `docs/domain-model.md`.
 
-    The handoff document references these by path or URL — it does NOT duplicate
-    their content. Duplication rots: if the artifact changes, the handoff lies.
-
 3.  **Draft the document.**
 
-    Use this structure:
+    Write the handoff using the structure defined in the Success criteria.
 
-    ```md
-    # Handoff: <topic> (<date>)
-
-    ## What's been done
-    Short summary of decisions made and work completed this session.
-    Reference artifacts by path/URL; do not paste their content.
-
-    ## What's open
-    Outstanding questions, decisions deferred, work in progress.
-    Be specific about *what* is undecided and *why*.
-
-    ## State of the codebase
-    Current branch, working-tree status, any tests known failing, any
-    temporary instrumentation in place.
-
-    ## Suggested next steps
-    The work the next session should pick up — eg. decomposition if
-    the plan is incomplete, implementation if the design is settled,
-    diagnosis if a test is failing. Name the specific step if known,
-    and any tool or skill suited to it.
-
-    ## Watch out for
-    Gotchas, environmental quirks, decisions that look obvious but
-    weren't, dead-ends already explored that should not be re-tried.
-    ```
+    If the handoff is for a human rather than an agent, replace "Suggested
+    next steps" with "Suggested first action" and describe the concrete next
+    step the human should take.
 
 4.  **Redact sensitive information.**
 
@@ -96,7 +71,7 @@ with an error message.
     - Personally identifiable information (real names, emails, IDs, addresses).
     - Internal-only URLs or hostnames.
 
-    If in doubt, redact. Handoff documents are often pasted into other channels.
+    If in doubt, redact.
 
 5.  **Save to a temporary location.**
 
@@ -106,13 +81,30 @@ with an error message.
       `/tmp`).
     - Windows: `%TEMP%\handoff-<topic>-<timestamp>.md`.
 
-    Do NOT commit the handoff to the project repo. The handoff is a session
-    bridge, not a project artifact.
-
 6.  **Tell the user the absolute path.**
 
-    The user (or the next agent) needs to know where to find the file. Print the
-    full absolute path.
+    Print the full absolute path.
+
+7.  **Handle an imminent context limit.**
+
+    If the context limit is imminent, write the handoff immediately, even if
+    other work was mid-flight.
+
+8.  **Handle parallel work streams.**
+
+    If the session covered two unrelated streams of work, write one handoff
+    per stream.
+
+9.  **Handle an empty handoff.**
+
+    If the user provided no topic and the conversation covered nothing
+    substantive, say so and stop. Do not write a fabricated handoff document.
+
+10. **Handle unconfirmed decisions.**
+
+    If the handoff would contain a partial decision the user has not
+    confirmed, mark it explicitly as unconfirmed in "What's open", not in
+    "What's been done".
 
 ##  Rules
 
@@ -150,7 +142,7 @@ with an error message.
     If a section has nothing to say, you MUST omit it or write "none" explicitly.
     An empty section is honest; an invented one is misleading.
 
-## Examples
+##  Examples
 
 A compact handoff:
 
@@ -158,65 +150,27 @@ A compact handoff:
 # Handoff: orders POST endpoint (2026-05-26)
 
 ## What's been done
-- Specification agreed (issue #482).
-- Design captured as ADR-0007 in `docs/adr/`.
-- Plan written as 6 steps; see PR #483 description.
-- Steps 1-4 implemented and merged (commits abc123..def456).
+Short summary of decisions made and work completed this session.
+Reference artifacts by path/URL; do not paste their content.
 
 ## What's open
-- Step 5 (feature flag wiring) is HITL; awaiting SRE sign-off on
-  the `ORDERS_API_V2` rollout plan. Slack thread: REDACTED.
-- AC-4 (24h replay of idempotency key) flagged as a specification gap;
-  comment posted on #482, no answer yet.
+Outstanding questions, decisions deferred, work in progress.
+Be specific about *what* is undecided and *why*.
 
 ## State of the codebase
-- Branch: `temp/482-idempotency`.
-- Tests green locally.
-- One `[DEBUG-a4f2]` log left in `handlers/orders.ts:42` from
-  earlier diagnosis; remove before merging step 5.
+Current branch, working-tree status, any tests known failing, any
+temporary instrumentation in place.
 
 ## Suggested next steps
-- Implement step 5 once SRE sign-off lands.
-- Review once steps 5 and 6 are integrated.
+The work the next session should pick up — eg. decomposition if
+the plan is incomplete, implementation if the design is settled,
+diagnosis if a test is failing. Name the specific step if known,
+and any tool or skill suited to it.
 
 ## Watch out for
-- The `idempotency-key` header parsing in `handlers/orders.ts:64`
-  is case-sensitive. A previous attempt to lower-case broke a
-  test that was deliberately preserved. Don't "fix" it without
-  reading commit def456.
+Gotchas, environmental quirks, decisions that look obvious but
+weren't, dead-ends already explored that should not be re-tried.
 ```
-
-##  Edge cases
-
--   **Context limit imminent.**
-
-    Write the handoff immediately, even if other work was mid-flight. A handoff
-    written *before* compaction is far higher-fidelity than one reconstructed
-    after.
-
--   **Multiple parallel threads of work.**
-
-    If the session covered two unrelated streams, write two handoffs — one per
-    stream. Mixing them produces a document the next session has to triage
-    before using.
-
--   **Handing off to a human, not an agent.**
-
-    Same skill, same structure — but replace "Suggested next steps" with
-    "Suggested first action", describing the concrete next step the human should
-    take.
-
--   **The user provided no topic and the conversation covered nothing
-    substantive.**
-
-    There's nothing to hand off. Say so. Do NOT fabricate state to fill the
-    template.
-
--   **The handoff would contain a partial decision the user hasn't confirmed.**
-
-    Mark it explicitly as unconfirmed in "What's open", not in "What's been
-    done". A handoff that misrepresents an in-flight decision as settled is
-    worse than one that says nothing at all.
 
 ##  Success criteria
 
@@ -224,12 +178,27 @@ A compact handoff:
 
     Written to a temp-directory path, not the project tree.
 
--   **Every artifact referenced MUST have a path or URL, not pasted content.**
+-   **The handoff MUST use the following structure, omitting any section that has
+    nothing to report:**
 
--   **All credentials, PII, and internal-only URLs MUST be redacted.**
+    - `# Handoff: <topic> (<date>)`
+    - `## What's been done` — summary of decisions and completed work.
+    - `## What's open` — outstanding questions and blockers.
+    - `## State of the codebase` — branch, working-tree status, known test
+      failures, temporary instrumentation.
+    - `## Suggested next steps` — the work the next session should pick up.
+    - `## Watch out for` — gotchas, environmental quirks, explored dead ends.
+
+-   **The handoff MUST reference every durable artifact by path or URL, and MUST
+    NOT paste artifact content.**
+
+-   **The handoff MUST NOT contain credentials, PII, or internal-only URLs.**
 
 -   **Outstanding questions MUST be stated specifically, with their blockers
     named.**
 
 -   **The next session MUST be able to read the handoff alone and know what to do
     next.**
+
+-   **If there was nothing substantive to hand off, the output MUST say so
+    explicitly rather than produce a fabricated document.**

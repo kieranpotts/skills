@@ -1,4 +1,4 @@
-# Handoff skill
+# Handoff
 
 The `handoff` skill is all about **session continuity**. It compacts a
 conversation into an ephemeral handoff document so a fresh agent or sapien can
@@ -21,10 +21,9 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/handoff`, `/skill:handoff` (prompts vary by harness).
-- `/handoff next session continues with the API integration`
-- "Hand this off to the next session."
-- "Write up where we got to before I stop."
+> Hand this off to the next session.
+
+> Write up where we got to before I stop.
 
 ## Recommended models
 
