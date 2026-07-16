@@ -135,13 +135,15 @@ and scripts. All artifacts pass the validator.
       `preferred_model` and MAY declare `interactive: no` if it never blocks on
       the user.
 
-    - **Input/output:** Immediately after the
-      title, three prominent bold-lead paragraphs — `**Input:**`, `**Output:**`,
-      and `**Interactivity:**` — stating what the skill consumes, produces, and
-      whether it blocks for user input. State whether the input is REQUIRED or
-      OPTIONAL. For an interactive skill, the **Input** paragraph MAY also note
-      that the skill gathers input from the user through prompts during the
-      session.
+    - **Description:** Immediately after the level 1 heading, which is the title
+      of the skill, include a short one or two sentence description of the the
+      skill's purpose. MAY be copied from the first part of the header
+      description.
+
+    - **Input/output:** Immediately after the description, describe the input
+      and output — what the skill consumes, produces, and whether it blocks
+      for user input. Be explicit about the circumstances in which the agent
+      may prompt for user input.
 
     - **Instructions** or **Rules:** MUST include at least one of these two
       sections.
@@ -150,7 +152,7 @@ and scripts. All artifacts pass the validator.
 
     OPTIONAL sections: Examples, Edge cases, References, Assets.
 
--   **Keep Instructions and Rules separate.**
+-   **Keep instructions and rules separate.**
 
     Instructions are ordered steps — the procedural workflow the agent follows.
     Rules are individual, non-sequential guidelines, recommendations, and
@@ -160,22 +162,24 @@ and scripts. All artifacts pass the validator.
 -   **Use RFC 2119 keywords consistently.**
 
     Mark requirement levels with MUST, SHOULD, MAY, etc. See
-    [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md)
-    for their meaning and when to use each.
+    [requirements levels](./references/create-skill-requirements-levels.md)
+    for the allowed subset of RFC 2119 keywords.
 
--   **Explain the why behind non-obvious requirements.**
+-   **Explain the _why_ behind non-obvious requirements.**
 
     Instead of bare imperatives, explain the reasoning so the agent can apply
-    judgment in edge cases. When multiple approaches are valid, prefer explaining
-    the *purpose* over prescribing exact steps.
+    judgment in edge cases. When multiple approaches are valid, prefer
+    explaining the _purpose_ over prescribing exact steps.
 
 -   **Match prescriptiveness to fragility.**
 
     Be prescriptive — exact commands, flags, ordering — when operations are
     fragile, consistency is critical, or a specific sequence must be followed.
-    Otherwise, avoid enumerating every edge case in the body; handle genuinely
-    tricky ones in an "edge cases" section or a `references/` file. Simple
-    skills need only Instructions and Success criteria.
+    Otherwise, avoid enumerating every edge case in the body. Instead, handle
+    genuinely tricky edge cases in the "edge cases" section or a separate
+    `references/` file.
+
+    Simple skills need only instructions and success criteria.
 
 -   **Provide defaults, not menus.**
 
@@ -185,14 +189,14 @@ and scripts. All artifacts pass the validator.
 
 -   **Favor procedures over declarations.**
 
-    Teach the agent *how to approach* a class of problems, not what to produce
+    Teach the agent _how to approach_ a class of problems, not what to produce
     for a single instance. A reusable method that generalizes beats a hardcoded
     answer.
 
 -   **Keep the skill token-efficient.**
 
     Skills are loaded into the agent's context window. `SKILL.md` SHOULD stay
-    under ~300 lines. Offload deep detail to `references/` files; link them with
+    under ~300 lines. Offload deep detail to `references/` files. Link them with
     a trigger condition so they're only read when needed. Extract recurring
     logic to `scripts/`. Balance token efficiency against human readability.
 
@@ -271,16 +275,14 @@ skills/
   present and non-empty, and `name` MUST match the directory name.
 
 - **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
-  `**Input:**`, `**Output:**`, and `**Interactivity:**` paragraphs, `##
-  Instructions` or `## Rules`, and `## Success criteria`.
+  `**Input:**` and `**Output:**` paragraphs, `## Instructions` or `## Rules`,
+  and `## Success criteria`.
 
-- **The Input, Output, and Interactivity paragraphs MUST be present and
-  prominent.** They MUST appear immediately after the title, before the first
-  `##`. The **Input** paragraph MUST state whether input is REQUIRED or OPTIONAL.
-  The **Interactivity** paragraph MUST state whether the skill runs
-  non-interactively or is interactive. For an interactive skill, the **Input**
-  paragraph MAY also note that the skill gathers input from the user through
-  prompts during the session.
+- **The Input and Output paragraphs MUST be present and prominent.** They MUST
+  appear immediately after the title, before the first `##`. The **Input**
+  paragraph MUST state whether input is REQUIRED or OPTIONAL, and MUST state
+  whether the skill runs non-interactively to completion or may interact with
+  the user — blocking to ask questions, present options, and wait for answers.
 
 - **The skill MUST be token-efficient.** No section is padded with detail that
   belongs in a `references/` file, and `SKILL.md` SHOULD be under ~300 lines.
