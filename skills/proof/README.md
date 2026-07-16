@@ -1,4 +1,4 @@
-# Proof skill
+# Proof
 
 The `proof` skill is all about **conservative proofreading**. It makes the edits
 a careful human editor would make on a final pass, and nothing more, across
@@ -21,10 +21,9 @@ and commit on your own terms. It reports a per-file summary of what changed.
 
 ## How to invoke
 
-- `/proof`, `/skill:proof` (prompts vary by harness).
-- `/proof docs/`, `/proof README.md CHANGELOG.md`
-- "Proofread this document."
-- "Check this for spelling and grammar."
+> Proofread this document.
+
+> Check this for spelling and grammar.
 
 ## Recommended models
 

@@ -20,52 +20,50 @@ metadata:
 **Input**: A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL. Defaults to the prose files changed in the working tree when no set is given.
 
 **Output**: The same files, edited in place with conservative copy edits only —
-prose words corrected, code/markup/structure untouched — plus a per-file summary
-of the edits made and any items flagged for the author. Nothing is staged,
-committed, or pushed; version control is left to a separate step.
+  prose words corrected, code/markup/structure untouched — plus a per-file summary
+  of the edits made and any items flagged for the author. Nothing is staged,
+  committed, or pushed; version control is left to a separate step.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-## Instructions
+##  Instructions
 
 1.  **Resolve the set of files to proofread.**
 
     From the user's request, build the list of target files. The target may be a
     single file, a glob, a directory (recurse it for prose files), or unstated.
     If unstated, proofread the prose files changed in the working tree (`git
-    status --porcelain`), falling back to asking the user which files if the
-    working tree is clean.
+    status --porcelain`). If the working tree is clean, ask the user which files
+    to review.
 
-    Include only prose files — by extension `.md`, `.markdown`, `.adoc`,
-    `.asciidoc`, `.rst`, `.txt`, and extensionless prose like `README`,
-    `CHANGELOG`, `LICENSE` text. Skip code, config, lockfiles, and generated
-    files.
+    Apply the file-selection Rules: include only prose files and skip generated or
+    vendored files.
 
 2.  **Detect the markup language and the line-wrapping convention per file.**
 
     Before editing a file, note its format (so you know which syntax to protect)
     and its existing wrapping style — one-sentence-per-line, hard-wrapped at a
-    column, or unwrapped paragraphs. You will preserve whichever it uses.
+    column, or unwrapped paragraphs. Keep the wrapping style unchanged.
 
 3.  **Proofread one file at a time, editing in place.**
 
     Work through the files individually. For each file, apply the allowed edits
-    below and protect the forbidden zones below. Make the edits directly in the
-    file. After finishing a file, record which changes you made (for the
-    summary) and drop the file from working memory before opening the next — do
-    not re-read a completed file.
+    in the Rules section and protect the forbidden zones in the Rules section.
+    Make the edits directly in the file. After finishing a file, record which
+    changes you made (for the summary) and drop the file from working memory
+    before opening the next — do not re-read a completed file.
 
 4.  **Report a summary and stop.**
 
     When every target file is processed, print a concise summary grouped by
     file: for each file that changed, a short bullet list of the kinds of edits
-    made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' ->
-    'website'"). Name any files reviewed but left unchanged. Then stop — do not
-    stage, commit, or push.
+    made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -
+    'website'"). Name any files reviewed but left unchanged and any files skipped
+    as generated or vendored. Then stop — do not stage, commit, or push.
 
-## Rules
+##  Rules
 
 ### Allowed edits
 
@@ -87,7 +85,8 @@ with an error message.
 
 -   **You MUST NOT change technical meaning, facts, version numbers, commands, API
     names, or identifiers.** A factual error is for a human to fix, not a copy
-    editor (see edge cases).
+    editor. If a fact looks wrong, flag it in the summary rather than correcting
+    it.
 
 -   **You MUST NOT change anything inside code.** Fenced/indented code blocks,
     inline code spans, and their language-specific equivalents:
@@ -98,7 +97,9 @@ with an error message.
     - reStructuredText: `::` literal blocks, `.. code-block::` directives, ``
       ``inline`` ``.
 
-    Leave code, commands, and sample output verbatim.
+    Leave code, commands, and sample output verbatim. If a typo appears inside a
+    code span or block, leave it and flag it in the summary only if it is
+    plausibly prose that was wrongly marked as code.
 
 -   **You MUST NOT change markup syntax and structure.** Links and link targets, image refs, macros,
     cross-references (`xref:`, `<<>>`, `:ref:`), anchors/IDs, includes,
@@ -110,17 +111,20 @@ with an error message.
     reorder, merge, or split sections, paragraphs, or list items. Proofreading
     changes words, not architecture.
 
+### File selection
+
+-   **You MUST include only prose files.**
+
+    By extension `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`, `.txt`, and
+    extensionless prose like `README`, `CHANGELOG`, `LICENSE` text. Skip code,
+    config, lockfiles, and generated files.
+
+-   **You MUST skip generated or vendored files.**
+
+    Skip anything under conventional generated/vendor paths unless the user
+    explicitly names it. Report that they were skipped.
+
 ### Discipline
-
--   **You MUST work one file at a time, and MUST NOT re-read a finished file.**
-
-    Finish each file before opening the next, and remove it from context once
-    done. This keeps the working set small and the edits focused.
-
--   **You MUST preserve the existing line-wrapping convention.**
-
-    If the file is one-sentence-per-line, keep it. If it is hard-wrapped at a
-    column, re-wrap edited lines to match. You MUST NOT reflow the whole file.
 
 -   **You SHOULD prefer the project's configured formatter for pure whitespace/style.**
 
@@ -139,41 +143,18 @@ with an error message.
     If correcting something would require changing meaning or structure, you MUST
     NOT do it — note it in the summary as a suggestion for the author.
 
-## Edge cases
-
--   **A technical fact looks wrong.**
-
-    Do not "correct" it. A version number, command flag, or API name that looks
-    off may be deliberate or may be a real bug — either way it is the author's
-    call. Leave it unchanged and flag it in the summary: *"docs/install.md:42 —
-    `--recurse` may be a typo for `--recursive`; left unchanged for author
-    review."*
-
--   **Mixed English varieties within the corpus.**
-
-    If the files mix British and American spellings and no project convention is
-    discoverable, do not impose one — that is an editorial decision. Report the
-    inconsistency and let the author choose.
-
--   **A typo appears inside a code span or block.**
-
-    Leave it. Code is verbatim, even when it contains a misspelling — the
-    misspelling may be a real identifier. Flag it in the summary only if it is
-    plausibly prose that was wrongly marked as code.
-
--   **The target file is generated or vendored.**
-
-    Skip it and say so. Editing generated output is wasted — the fix belongs in
-    the source. Skip anything under conventional generated/vendor paths unless
-    the user explicitly names it.
-
--   **Front matter and metadata.**
+-   **You MUST treat front matter and metadata conservatively.**
 
     Proofread human-readable values (a `title:` or `description:`) but never the
     keys, and never structural metadata (slugs, IDs, dates, tags). When unsure
     whether a value is prose or data, leave it.
 
-## Success criteria
+-   **If the files mix British and American spellings and no project convention is
+    discoverable, you MUST NOT impose one.**
+
+    Report the inconsistency and let the author choose.
+
+##  Success criteria
 
 -   **Only prose MUST have changed; code, markup, and structure MUST be
     byte-identical except where prose words were corrected.**
@@ -186,12 +167,17 @@ with an error message.
     Anything that looked wrong MUST have been flagged for the author, not silently
     changed.
 
--   **The file's markup MUST remain valid and its wrapping convention intact.**
+-   **The file's markup MUST remain valid and its original line-wrapping
+    convention MUST be unchanged.**
 
     The document still parses/renders as before; line-wrapping style is
     unchanged.
 
--   **A per-file summary of edits MUST have been reported, and nothing MUST have been committed.**
+-   **A per-file summary of edits MUST have been reported, and nothing MUST have
+    been committed.**
 
-    The user can see what changed in each file and decide when and how to commit
-    it.
+    The summary MUST report which files changed, which were reviewed but left
+    unchanged, and which were skipped as generated or vendored. The user can see
+    what changed and decide when and how to commit it.
+
+-   **Generated or vendored files MUST have been skipped and reported.**
