@@ -1,4 +1,4 @@
-# Commit skill
+# Commit
 
 The `commit` skill is all about **commit message conventions**. It defines a
 fixed subject-line format — `<type>: <description>` with an optional
@@ -19,10 +19,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/commit`, `/skill:commit` (prompts vary by harness).
-- "Write a commit message for this."
-- "Is this commit message valid?"
-- "Why did commit validation fail in CI?"
+> Write a commit message for this.
+
+> Is this commit message valid?
+
+> Why did commit validation fail in CI?
 
 ## Recommended models
 

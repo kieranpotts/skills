@@ -31,6 +31,45 @@ with an error message.
 
 <!-- TODO: Allow direct commits to dev? -->
 
+##  Instructions
+
+1.  **Identify the change type and scope.**
+
+    Read the diff or the description of the change. Determine whether the
+    change is a single logical change or must be split into multiple atomic
+    commits.
+
+2.  **Choose the commit type.**
+
+    Map the change to the most appropriate type from the allowed vocabulary,
+    using the semantics in the Rules. If two types feel applicable, consult the
+    *Subtle distinctions* note.
+
+3.  **Compose the subject line.**
+
+    Write the subject as `<type>: <description>`, using lowercase, imperative
+    mood, with no trailing period. If the change is breaking, experimental,
+    incompatible, temporary, or work-in-progress, append the corresponding flag.
+
+4.  **Add body and footers as needed.**
+
+    If the *why* is not obvious from the subject, add a body separated by a
+    single blank line. Wrap body lines at 72 characters. Add footers (eg.
+    `Closes: #123`, `Refs: #456`) separated from the body by a single blank line.
+
+5.  **Update the CHANGELOG for direct commits to `dev` and `temp/*`.**
+
+    When committing directly to `dev` or a `temp/*` branch, add a bullet to the
+    `[Unreleased]` section of the project's `CHANGELOG.md` (or equivalent) as
+    part of the same commit. Use the same `type: description` format as the
+    subject line, including any flag. Do not add a bullet for `chore:` commits.
+
+6.  **Validate the message.**
+
+    Check that the subject line matches the validation regex and is within the
+    length budget. If validating existing messages, report a pass/fail verdict
+    for each, naming the rule each failure violates.
+
 ##  Rules
 
 -   **You MUST use this exact format**:
@@ -185,18 +224,6 @@ with an error message.
     Each entry is a bullet point using the same `type: description` format as
     the commit subject line, including any flag. Newest entries are at the top.
 
-    ```markdown
-    ## [Unreleased]
-
-    - feature: add new capability
-    - fix: fix a bug - INCOMPAT
-    - runtime: cut p95 latency on the search endpoint
-    - maintenance: update dependencies
-    - refactor: refactor code
-    - style: apply prettier to src
-    - step: increment toward new feature - EXPERIMENT
-    ```
-
     A changelog is for contributors and developers. Release notes — a separate
     artifact — is for end users. So we _are_ interested in recording in the
     changelog internal changes like refactorings and reformattings.
@@ -242,14 +269,12 @@ Closes: #123
 
 -   **The subject line MUST pass the validation regex.**
 
-    Test against
-    `^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style):
-    [a-z].*)$` before considering the message done.
+    It MUST match the format defined in the Rules.
 
 -   **The type semantics MUST fit the changeset.**
 
-    Re-read the type's description above. If two types feel applicable, consult
-    the *Subtle distinctions* note — that's where the hard cases are resolved.
+    Re-read the type's description. If two types feel applicable, consult the
+    *Subtle distinctions* note — that's where the hard cases are resolved.
 
 -   **The subject line length MUST be within budget.**
 
