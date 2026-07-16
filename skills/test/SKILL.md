@@ -37,101 +37,54 @@ with an error message.
 1.  **Pull the acceptance criteria.**
 
     Recover the full set of ACs the change is meant to satisfy: functional ACs
-    (from the specification) and non-functional ACs (performance, security,
-    accessibility, compliance). Both MUST be verified.
-
-    If ACs are missing or vague, stop and resolve them against the specification
-    before testing. Testing against an ambiguous specification produces
-    ambiguous results.
+    and non-functional ACs. If ACs are missing or vague, stop and resolve them
+    against the specification before testing.
 
 2.  **Run the automated suite.**
 
     Execute, in this order:
 
-    1. *Smoke tests* (if any) — fail-fast on a broken build.
-    2. *Unit tests* — localize defects.
-    3. *Integration tests* — exercise boundaries between components.
-    4. *System / end-to-end tests* — verify whole-system flows.
-    5. *Acceptance tests* — the Gherkin scenarios from the specification, if
-       automated.
+    1. Smoke tests.
+    2. Unit tests.
+    3. Integration tests.
+    4. System / end-to-end tests.
+    5. Acceptance tests.
 
-    Any failure at any level pauses the run: investigate before continuing. Do
-    not interpret a green higher-level suite as cancellation of a red
-    lower-level one.
+    Investigate any failure before continuing.
 
 3.  **Cover the gaps manually for non-automatable ACs.**
 
-    Some ACs cannot be automated — visual layout, copy, UX feel, animation,
-    accessibility under a screen reader. Run them by hand:
-
-    - Walk each scenario from the specification end-to-end through the running
-      application.
-    - Capture observable evidence: screenshot, screen recording, console output,
-      log excerpt.
-    - For accessibility: keyboard navigation, screen-reader pass, contrast
-      check.
-
-    Record what was checked and what was observed — "checked it works" is not
-    evidence.
+    Walk each scenario from the specification end-to-end through the running
+    application. Capture observable evidence: screenshot, screen recording,
+    console output, log excerpt. For accessibility, check keyboard navigation,
+    screen-reader pass, and contrast.
 
 4.  **Verify non-functional requirements.**
 
-    For each NFR in the specification:
+    For each NFR:
 
     - *Performance*: run the load/benchmark/profiling check against the stated
-      threshold (eg. p95 < 250ms at 500 RPS). Record the measured number, not
-      just "ok".
-    - *Security*: run any required scans (SAST, dependency CVE check, secret
-      scan). Verify auth/authz changes by attempting unauthorized access.
-    - *Reliability*: verify retry, timeout, and failure-mode behavior — kill a
-      dependency, throttle a network, confirm graceful degradation.
-    - *Conformance*: where the NFR cites a standard (WCAG, GDPR, PCI), run the
-      corresponding check.
-
-    If an NFR has no objective check, flag it — it is not really an NFR, it is a
-    hope.
+      threshold and record the measured number.
+    - *Security*: run required scans and verify auth/authz changes by attempting
+      unauthorized access.
+    - *Reliability*: verify retry, timeout, and failure-mode behavior.
+    - *Conformance*: run the corresponding check where the NFR cites a standard.
 
 5.  **Do a short exploratory pass.**
 
-    Spend 15-30 minutes off-script, probing areas adjacent to the change:
-
-    - Try inputs the specification did not anticipate.
-    - Combine the new feature with existing features.
-    - Stress edge cases (empty, max, malformed, concurrent).
-    - Re-run the most-critical existing flow as a regression smoke test.
-
-    Document anything surprising, even if it is not a clear bug.
+    Spend the allocated time-box off-script, probing areas adjacent to the
+    change: inputs the specification did not anticipate, combining the new
+    feature with existing features, edge cases, and a regression smoke test of
+    the most-critical existing flow. Document anything surprising.
 
 6.  **Map ACs to evidence and report.**
 
-    Produce a short summary mapping each AC (or scenario) to its outcome:
-
-    ```
-    AC-1 (refund full order)          PASS  test: orders.refund.spec.ts:42
-    AC-2 (refund partial)             PASS  test: orders.refund.spec.ts:78
-    AC-3 (refund denied if expired)   PASS  manual, see recording link
-    NFR-perf p95 < 250ms              PASS  measured 188ms @ 500 RPS
-    NFR-a11y WCAG 2.2 AA              FAIL  contrast 3.1:1 on refund button
-    Exploratory: refund of $0         BLOCKED — undefined behavior, flagged
-    ```
-
-    Status is one of: PASS, FAIL, BLOCKED (cannot evaluate), or N/A (with
-    reason).
+    Produce a summary mapping each AC or scenario to its outcome and evidence.
+    Status is one of: PASS, FAIL, BLOCKED, or N/A.
 
 7.  **Report the verdict.**
 
-    Classify the outcome and report it; do not act on it — what runs next is the
-    orchestrator's concern.
-
-    - All PASS, more increments remain → the change is verified for this
-      increment; the implement-review-verify cycle continues per remaining step.
-    - All PASS, work complete → verified and ready to release.
-    - Any FAIL caused by an implementation defect → report it as a defect for
-      diagnosis. Do not proceed.
-    - Any FAIL caused by a wrong, missing, or ambiguous AC → report it as a
-      specification defect. Do not silently rewrite the AC.
-    - Any BLOCKED → resolve the blocker before declaring done; do not silently
-      downgrade to PASS.
+    Classify the outcome and report it. Do not act on it.
 
 ##  Rules
 
@@ -139,14 +92,16 @@ with an error message.
 
     You MUST read ACs and run them as a user would. Reading the code first
     biases testing toward what the code does, not what it should do.
-    Specification-first testing is how you catch features that pass their own
-    tests but miss the requirement.
+
+-   **You MUST verify both functional and non-functional ACs.**
+
+    Neither MUST be skipped.
 
 -   **You MUST record observable evidence for every AC.**
 
-    "Manually verified" is not evidence. A test name, a measurement, a
-    screenshot, a log excerpt — something a reviewer can re-examine without
-    re-running the work.
+    "Manually verified" is not evidence. A test name, measurement, screenshot,
+    log excerpt — something a reviewer can re-examine without re-running the
+    work.
 
 -   **NFRs MUST be treated as first-class.**
 
@@ -178,6 +133,10 @@ with an error message.
     Blocked = could not evaluate (environment broken, dependency unavailable, AC
     undefined). Skipped = chose not to evaluate. Blockers MUST be resolved;
     skips MUST be justified.
+
+-   **An NFR without an objective check MUST be flagged.**
+
+    If an NFR has no objective check, it is not really an NFR; report it.
 
 ## Examples
 
@@ -256,8 +215,7 @@ not delete.
 
 -   **Every AC MUST have a status and evidence.**
 
-    PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence (test,
-    measurement, recording, log).
+    PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence.
 
 -   **Functional and non-functional ACs MUST both be covered.**
 
@@ -267,6 +225,11 @@ not delete.
 
     A FAIL reported as a defect MUST NOT be flipped to PASS without
     re-verification. A BLOCKED MUST NOT be silently dropped.
+
+-   **Failures MUST be classified and reported, not fixed.**
+
+    Each FAIL MUST be reported as either an implementation defect or a
+    specification defect.
 
 -   **The verification environment MUST be recorded.**
 

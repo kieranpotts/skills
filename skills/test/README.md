@@ -1,4 +1,4 @@
-# Test skill
+# Test
 
 The `test` skill is all about **acceptance verification**. It verifies the whole
 solution against the specification — it does not write fresh tests for new
@@ -23,10 +23,11 @@ downgrades a BLOCKED to PASS, or retries a flaky test until green.
 
 ## How to invoke
 
-- `/test`, `/skill:test` (prompts vary by harness).
-- "Test this against the spec."
-- "Verify this meets the acceptance criteria."
-- "Run acceptance testing on this change."
+> Test this against the spec.
+
+> Verify this meets the acceptance criteria.
+
+> Run acceptance testing on this change.
 
 ## Recommended models
 
