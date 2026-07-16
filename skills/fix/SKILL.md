@@ -61,8 +61,7 @@ with an error message.
     rewrite. A type error usually wants a narrower type, a missing null check,
     or a corrected signature; a build or compile failure usually wants a missing
     dependency, a broken import path, a stale generated file, or a config
-    correction. Resist refactoring while you're in the area — that's a separate
-    `refactor:` commit.
+    correction.
 
 5.  **If a check is wrong for this case, suppress it explicitly — never
     silently.**
@@ -75,16 +74,16 @@ with an error message.
 
 6.  **Re-run every check that was failing.**
 
-    Confirm each reported issue is resolved AND no new ones were introduced.
-    Fixes can shift errors elsewhere — especially type narrowing or dependency
-    changes, which can surface or hide other errors.
+    Re-run after each fix and again after all fixes. Confirm each reported issue
+    is resolved AND no new ones were introduced. Fixes can shift errors elsewhere
+    — especially type narrowing or dependency changes, which can surface or hide
+    other errors.
 
 7.  **Commit as `fix:` or `maintenance:` depending on scope.**
 
     A small, localized fix to make CI green is typically `fix:`. A larger sweep
     — clearing a backlog of deprecation warnings, fixing many type errors after
-    a dependency bump — is `maintenance:`. Either way, do not bundle with
-    unrelated feature or `style:` changes.
+    a dependency bump — is `maintenance:`.
 
 ##  Rules
 
@@ -94,11 +93,11 @@ with an error message.
     and test hypotheses about why something is failing, you MUST switch to
     [`debug`](../debug/SKILL.md).
 
--   **The check's pass/fail verdict is the success criterion.**
+-   **You MUST make the minimal change that resolves the reported issue.**
 
-    Not "does this look right" — the check MUST now exit zero. If it still
-    fails, the task MUST NOT be considered done, regardless of how reasonable the
-    code looks.
+    Do not refactor, rename, or restructure while fixing. A fix that also
+    changes unrelated behavior or presentation makes the diff hard to review
+    and risky to revert.
 
 -   **You MUST fix the problem, not relocate it.**
 
@@ -117,12 +116,6 @@ with an error message.
 
     `// eslint-disable-next-line` with no comment MUST NOT appear. You MUST state
     which case the rule doesn't apply to and why.
-
--   **You MUST re-run after every fix, not just at the end.**
-
-    Especially for type-checkers and compilers, fixing one error can surface (or
-    hide) another. You MUST treat each fix as provisional until the whole check
-    passes clean.
 
 ## Examples
 

@@ -1,4 +1,4 @@
-# Fix skill
+# Fix
 
 The `fix` skill is all about **mechanical remediation**. It audits and fixes
 anything in the codebase that is broken in an obvious, mechanical way — a failing
@@ -15,11 +15,13 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/fix`, `/skill:fix` (prompts vary by harness).
-- "Fix the build."
-- "Fix the lint errors."
-- "Make the type-checker pass."
-- "This is broken."
+> Fix the build.
+
+> Fix the lint errors.
+
+> Make the type-checker pass.
+
+> This is broken.
 
 ## Recommended models
 
