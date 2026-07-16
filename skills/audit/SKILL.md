@@ -1,18 +1,18 @@
 ---
 name: audit
 description: >-
-  Evaluate the as-built architecture and security posture of a software
-  system, in one pass. Report code smells and anti-patterns like shallow
-  abstractions, tangled dependencies, and single-caller wrappers, alongside
-  security weaknesses like broken trust boundaries, injection points, and
-  unsafe secrets handling. Evaluation only – no code changes. Use this skill
-  when the user says "audit this codebase", "audit the architecture", "check for
-  security issues", "is the design still sound?", or "check the codebase for
-  structural drift".
+  Evaluate the as-built architecture of a software system, in one pass. Report
+  code smells and anti-patterns like shallow abstractions, tangled
+  dependencies, single-caller wrappers, inverted dependencies, and misnamed
+  abstractions. Scoped to architecture — security and privacy review is a
+  separate concern, handled by the probe skill and tracked in the risk
+  register. Evaluation only – no code changes. Use this skill when the user
+  says "audit this codebase", "audit the architecture", "is the design still
+  sound?", or "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/software-architect
+  preferred_model: ollama/technical-reasoning
 ---
 
 # Audit
@@ -33,14 +33,18 @@ metadata:
   path to the audit reports cannot be found, stop and alert the user of the
   failure.
 
-**Output**: A single prioritized, bounded report covering both architecture and
-security improvement candidates, each citing specific files and lines, stating
-what is observed and the cost it imposes, and optionally pointing toward a fix.
-Findings from both concerns are ranked together in one list, not split into
-separate reports — a codebase's most pressing problem might be architectural
-or might be a security gap, and the report should say which, rather than
-assume one matters more by construction. The report is written to the audit
-reports collection or repository, following the conventions defined there.
+**Output**: A single prioritized, bounded report of architecture improvement
+candidates, each citing specific files and lines, stating what is observed and
+the cost it imposes, and optionally pointing toward a fix. The report is written
+to the audit reports collection or repository, following the conventions defined
+there.
+
+Security and privacy findings are OUT of scope for this skill. If you notice a
+security concern during the review — an injection point, a broken auth boundary,
+unsafe secrets handling — do NOT write it up as an audit finding. Note it for
+referral to a threat modeling session and the
+[risk register](https://github.com/kieranpotts/risks), then continue the
+architecture review. See the [`probe`](../probe/) skill.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -80,17 +84,23 @@ with an error message.
     Flag shallow modules. They hide a thin layer of behavior behind an interface
     wider than the behavior justifies.
 
-5.  **Identify the trust boundaries.**
+5.  **Examine the module boundaries.**
 
-    Enumerate every point where data or control crosses a trust boundary, eg.
-    external input entering the system, calls to other services, reads/writes
-    to store, and privilege changes.
+    Enumerate the significant structural boundaries — between architectural
+    tiers, between modules, and at the edges where the system integrates with
+    external services or stores.
 
-    For each, ask: what does this side trust the other side to have already
-    checked?
+    For each, ask: is the boundary in the right place, and does it leak? A clean
+    boundary exposes a narrow, intention-revealing interface and hides its
+    internals; a leaky one forces callers to know about the other side's
+    representation, ordering, or lifecycle.
 
-    Flag components that implicitly trust things on another side of a
-    boundary.
+    Flag boundaries that are misplaced, too wide, or that leak implementation
+    detail across the divide.
+
+    (Trust boundaries — where data crosses from an untrusted actor — are a
+    security concern, out of scope here. Note any you spot for referral to a
+    threat modeling session, and move on.)
 
 6.  **Look for these specific code smells.**
 
@@ -115,33 +125,7 @@ with an error message.
       "manager" with a single method, or a "service" component that's actually
       just a thin DAO.
 
-7.  **Look for these specific security risks.**
-
-    - **Injection points.** User-controlled input reaching a query,
-      command, template, or interpreter without a parameterized API or an
-      escaping boundary between them.
-
-    - **Broken authentication or authorization boundaries.** An action or
-      resource reachable without the check its sibling endpoints enforce.
-      Authorization decided client-side or inferred from data the caller
-      controls.
-
-    - **Unsafe secrets handling.** Credentials, keys, or tokens in source,
-      logs, error messages, or client-visible responses. Long-lived secrets
-      where short-lived ones would do.
-
-    - **Insecure defaults.** A configuration, flag, or dependency that ships
-      permissive, verbose, or unauthenticated unless explicitly hardened.
-
-    - **Missing validation at trust boundaries.** Input trusted past the
-      point where it first crosses from an untrusted actor, rather than
-      checked at the boundary itself.
-
-    - **Unsafe dependency or supply-chain patterns.** Unpinned versions,
-      unverified sources, or install-time script execution for third-party
-      code that runs with production privileges.
-
-8.  **Prioritize findings by impact ÷ effort.**
+7.  **Prioritize findings by impact ÷ effort.**
 
     - **Impact**: How much the rest of the codebase simplifies if this is fixed.
       Findings that unlock other improvements rank high.
@@ -153,9 +137,10 @@ with an error message.
     ranking, and order the report by it. The top entry is the cheapest
     high-impact fix.
 
-    Cap the report at 10 candidates.
+    If more than 10 candidates remain after ranking, delete the lowest-ranking
+    entries so the report is capped at 10.
 
-9.  **Write the report.**
+8.  **Write the report.**
 
     Write the report into the project's audit-report collection.
 
@@ -174,9 +159,9 @@ with an error message.
     You MUST NOT read any design documentation or threat models that you find.
 
     You MUST form your judgment from analysis of the code alone. Knowledge
-    of the _intended_ architecture and security controls would bias your review
-    toward the design trade-offs already considered; the audit SHOULD surface
-    genuinely novel suggestions.
+    of the _intended_ architecture would bias your review toward the design
+    trade-offs already considered; the audit SHOULD surface genuinely novel
+    suggestions.
 
     The evaluation MUST be your honest, independent assessment of the as-built
     system.
@@ -185,17 +170,15 @@ with an error message.
 
     You MUST NOT change any code in the audited repositories.
 
--   **You MUST NOT commit the report.**
+-   **You MUST NOT commit, branch, file issues, or open pull requests.**
 
-    Your only output is your report, written to disk. You MUST NOT commit it
-    where the target path is within a version control repository.
+    Your only output is your report, written to disk. You MUST NOT commit it,
+    create a branch for it, file issues, or open pull requests to implement
+    your findings, where the target path is within a version control repository.
 
-    The user SHALL decide what to do with your report next.
-
--   **You MUST NOT open issues or PRs.**
-
-    You MUST only write your report to disk. You MUST NOT file issues or open
-    pull requests to implement your findings.
+    The collection's own workflow — a human, or a companion skill — owns
+    branching, committing, and indexing. Writing the report file is where this
+    skill MUST stop. The user SHALL decide what to do with your report next.
 
 -   **You SHOULD cite files and lines.**
 
@@ -214,6 +197,15 @@ with an error message.
     Your _observations_ are the deliverable. A reader MAY reject your
     suggested fixes but still find the observations useful.
 
+-   **Security and privacy findings are out of scope.**
+
+    This skill evaluates architecture only. You MUST NOT report security or
+    privacy weaknesses — injection points, broken auth boundaries, unsafe secrets
+    handling, and the like — as audit findings. If you notice one, note it for
+    referral to a threat modeling session and the
+    [risk register](https://github.com/kieranpotts/risks), then continue the
+    architecture review. See the [`probe`](../probe/) skill.
+
 -   **"Not worth fixing" MAY be a valid conclusion.**
 
     Not every smell earns a fix. Where the cost of the change would exceed the
@@ -225,10 +217,6 @@ with an error message.
     You MUST NOT flag style choices that are consistent across the codebase as
     smells just because you would prefer a different style. The audit MUST target
     structural problems, not preferences.
-
-  - **You MUST NOT commit, branch, or open a pull request.** The collection's
-    own workflow — a human, or a companion skill — owns branching, committing,
-    and indexing. Writing the report file is where this skill MUST stop.
 
 ##  Success criteria
 
@@ -257,8 +245,8 @@ with an error message.
 
 -   **The report MUST be bounded.**
 
-    It MUST contain the top 5–10 candidates, and MUST NOT be an exhaustive
-    enumeration.
+    It MUST contain between 5 and 10 findings, and MUST NOT exceed 10. It
+    MUST NOT be an exhaustive enumeration of every observed smell.
 
 -   **The report MUST conform to the audit template.**
 

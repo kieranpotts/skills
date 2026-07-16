@@ -1,8 +1,14 @@
-# Audit skill
+# Audit
 
 The `audit` skill is all about **architectural review**. It evaluates the
-as-built architecture for modularity, consistency, security, communication
-patterns, and other structural qualities.
+as-built architecture for modularity, consistency, communication patterns, and
+other structural qualities.
+
+It is scoped to architecture. Security and privacy review is a separate concern,
+handled by the [`probe`](../probe/) skill and tracked in the
+[risk register](https://github.com/kieranpotts/risks). If an audit incidentally
+notices a security weakness, it refers it there rather than reporting it as an
+audit finding.
 
 The agent is instructed to conduct the evaluation on its own terms, with no
 reference to the documented architecture and no knowledge of trade-offs
@@ -22,11 +28,13 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/audit`, `/skill:audit` (prompts vary by harness).
-- "Audit the architecture."
-- "Check for security issues."
-- "Is the design still sound?"
-- "Check the codebase for structural drift."
+> Audit the architecture.
+
+> Is the design still sound?
+
+> Check the codebase for structural drift.
+
+For security review, use [`probe`](../probe/) instead.
 
 ## Recommended models
 
