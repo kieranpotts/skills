@@ -29,9 +29,44 @@ or author commit messages.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
+##  Instructions
+
+1.  **Classify the work.**
+
+    Decide whether the change belongs on a trunk branch (`dev`, `test`, or
+    `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
+    directly on `dev` (for a one- or two-commit change).
+
+2.  **Form the branch name.**
+
+    For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
+
+    For `temp/*` or `epic/*` branches, build the name from the work:
+
+    - Optionally prefix with an issue or tracking ID.
+    - Append a lowercase, hyphen-delimited description of the work.
+    - Keep the total length within the budget.
+
+3.  **Validate the name against the regex.**
+
+    Test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
+    If it fails, rewrite the name and re-test until it passes, or report the
+    specific rule that was violated.
+
+4.  **Choose the correct base branch.**
+
+    For `temp/*` and `epic/*` branches, base the branch on `dev`. Do not base
+    them on `test`, `ready`, or a release branch.
+
+5.  **Create or report.**
+
+    If the request is to create a branch, create it from the chosen base. If the
+    request is to validate, report a pass/fail verdict for each supplied name,
+    naming the rule each failure violates.
+
 ##  Rules
 
--  **Allowed branches:**
+-   **Allowed branches are limited to the trunk, temporary, and epic forms.**
 
     *Permanent trunks:*
 
@@ -59,7 +94,7 @@ with an error message.
     ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
     ```
 
--   **Naming rules:**
+-   **Branch names MUST be lowercase and hyphen-delimited.**
 
     - Branch names MUST be full lowercase.
 
@@ -74,10 +109,9 @@ with an error message.
     - Temporary and epic branch names SHOULD NOT exceed 50 characters total, and
       MUST NOT exceed 72.
 
--   **Trunk branches:**
+-   **Trunk branches are permanent and immutable.**
 
-    Trunks are permanent, append-only, and immutable. There are up to three
-    trunks:
+    Trunks are append-only and fixed-forward. There are up to three:
 
     - `dev`: The primary integration trunk. All work originates here. This is
       the only REQUIRED branch. Most projects SHOULD use `dev` as their default
@@ -91,17 +125,12 @@ with an error message.
       commits on `test`. It MUST remain shippable at all times, enabling
       continuous delivery.
 
--   **Temporary branches:**
+-   **Temporary branches are short-lived and focused.**
 
-    Temporary branches (`temp/*`) are short-lived and capture single-focused
-    changes spanning a small number of commits. Commonly associated with an
-    issue/bug. Follow these rules:
+    Temporary branches (`temp/*`) capture single-focused changes spanning a small
+    number of commits. Commonly associated with an issue/bug.
 
     - MUST be cut from `dev`, never from `test`, `ready`, or release branches.
-
-    - Valid use cases: bugs and other issues that span multiple atomic commits;
-      experiments, proofs-of-concept, and technical spikes; backup of
-      in-progress work.
 
     - One logical change per temporary branch. Multiple orthogonal changes
       SHOULD NOT be combined into a single temporary branch.
@@ -114,10 +143,10 @@ with an error message.
     - MUST be deleted after integration; the commit history is preserved in
       `dev`.
 
--   **Epic branches:**
+-   **Epic branches are long-lived and coordinated.**
 
-    Epic branches (`epic/*`) are long-lived branches for multi-developer
-    coordination on complex changes. Rules:
+    Epic branches (`epic/*`) are for multi-developer coordination on complex
+    changes.
 
     - MUST be cut from `dev`, like temporary branches.
 
@@ -137,17 +166,15 @@ with an error message.
     - MUST be deleted after integration into `dev`. A fresh epic branch MAY be
       recreated if further long-running development work is required.
 
--   **General practices:**
+-   **All changes MUST flow forward through the trunks.**
 
-    - All changes MUST originate on `dev` and flow forward through `test` →
-      `ready` → release.
+    Work MUST originate on `dev` and flow forward through `test` → `ready` →
+    release. Trunk branches are fixed-forward only. If a problem is discovered
+    downstream, the fix MUST be committed to `dev` and flow forward from there
+    — no direct commits to downstream trunks.
 
-    - Trunk branches are fixed-forward only. If a problem is discovered
-      downstream, the fix MUST be committed to `dev` and flow forward from there
-      — no direct commits to downstream trunks.
-
-    - Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
-      reviewed periodically and either deleted or revived.
+    Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
+    reviewed periodically and either deleted or revived.
 
 ## Examples
 
@@ -179,7 +206,7 @@ epic/major-ui-redesign
 
 ##  Success criteria
 
--   **The branch name MUST validate.**
+-   **The branch name MUST validate against the model.**
 
     It MUST match
     `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`

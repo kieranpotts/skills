@@ -1,4 +1,4 @@
-# Branch skill
+# Branch
 
 The `branch` skill is all about **git branching strategy**. It codifies a
 trunk-based branch model: permanent fast-forward-only trunks (`dev` → `test` →
@@ -18,10 +18,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/branch`, `/skill:branch` (prompts vary by harness).
-- "What should I call this branch?"
-- "Create a branch for this work."
-- "Is this branch name valid?"
+> What should I call this branch?
+
+> Create a branch for this work.
+
+> Is this branch name valid?
 
 ## Recommended models
 
