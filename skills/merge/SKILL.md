@@ -19,16 +19,15 @@ metadata:
 **Input**: A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
 
 **Output**: The target branch updated with the integrated work using the
-strategy correct for the branch type, conflicts resolved deliberately, tests and
-build green on the merged result before push, and disposable source branches
-(`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
-integrates and stops; it neither defines the branching convention nor cuts
-releases.
+  strategy correct for the branch type, conflicts resolved deliberately, tests and
+  build green on the merged result before push, and disposable source branches
+  (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
+  integrates and stops; it neither defines the branching convention nor cuts
+  releases.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
-
 ##  Instructions
 
 1.  **Identify source and target.**
@@ -57,11 +56,6 @@ with an error message.
     | `dev` → `test` → `ready`     | Fast-forward only       | `git merge --ff-only`                    |
     | `ready` → `release` / `release/<v>` | Fast-forward only       | `git merge --ff-only`                    |
 
-    If the situation does not match a row, stop and consult the branching
-    convention before improvising. Picking the wrong strategy (eg.
-    squash-merging a `temp/*`, FF-merging an `epic/*`) corrupts history
-    conventions.
-
 3.  **Pre-merge: align the source.**
 
     Before merging into the target:
@@ -72,15 +66,14 @@ with an error message.
 
     - *For `epic/*` → `dev`*: ensure the latest `dev` has already been merged
       *down* into the epic (`git checkout epic/x && git merge --no-ff dev`).
-      Conflicts are resolved on the epic side, not at integration time. Then,
-      still on the `epic/*` branch, add a commit that updates `CHANGELOG.md`
-      under the `[Unreleased]` section (using the project's changelog entry
-      format). This commit is squashed in with the rest of the epic's changes
-      and is how the CHANGELOG lands on `dev`.
+      Then, still on the `epic/*` branch, add a commit that updates
+      `CHANGELOG.md` under the `[Unreleased]` section (using the project's
+      changelog entry format). This commit is squashed in with the rest of the
+      epic's changes and is how the CHANGELOG lands on `dev`.
 
-    - *For trunk-to-trunk*: the upstream trunk MUST be a direct ancestor of the
-      downstream target. If `git merge --ff-only` would fail, do NOT switch to a
-      regular merge — the workflow has been violated, escalate.
+    - *For trunk-to-trunk*: verify that the upstream trunk is a direct ancestor
+      of the downstream target before running the merge. If it is not, escalate
+      per the Rules.
 
 4.  **Run pre-merge checks on the source.**
 
@@ -88,12 +81,10 @@ with an error message.
 
     - `git status` clean.
     - Tests green on the source branch (run the suite locally or check CI).
-    - Commit messages valid per the project's message convention (the validation
-      regex catches most issues).
+    - Commit messages valid per the project's message convention.
     - No `WIP` or `TEMPORARY` flagged commits if the target is a shared trunk.
 
-    If any check fails, fix on the source branch and re-run. Do not merge
-    through known-failing state.
+    If any check fails, fix it on the source branch and re-run the checks.
 
 5.  **Execute the merge.**
 
@@ -123,7 +114,7 @@ with an error message.
     If the merge stops with conflicts:
 
     - List them: `git status` shows the conflicted files.
-    - Open each, resolve manually. Prefer the change that preserves the target
+    - Open each and resolve manually. Prefer the change that preserves the target
       branch's contract over local convenience.
     - Watch for *semantic conflicts*: both sides apply cleanly textually but the
       combined behavior is wrong (renamed symbol still referenced by the other
@@ -132,10 +123,6 @@ with an error message.
       after each non-trivial resolution.
     - Stage resolutions (`git add <file>`).
     - For rebase: `git rebase --continue`. For merge: `git commit`.
-
-    If a conflict reveals a real design disagreement (not just a textual
-    collision), abort the merge (`git merge --abort` or `git rebase --abort`),
-    discuss with the relevant author, then retry.
 
 7.  **Post-merge: verify.**
 
@@ -168,22 +155,22 @@ with an error message.
     git branch -d temp/482-idempotency
     git push origin --delete temp/482-idempotency
     ```
-
-    Do NOT delete trunks. Trunk branches are permanent.
-
 ##  Rules
 
--   **The strategy MUST be determined by branch type, not by preference.**
+-   **You MUST choose the merge strategy from the table in step 2, based on the
+    source and target branch types.**
 
     `temp/*` → rebase-up + FF. `epic/*` → squash-merge. Trunks → FF-only.
     Picking a different strategy violates the branching conventions and corrupts
     history.
 
+-   **If the situation does not match a row in the strategy table, you MUST stop
+    and consult the branching convention before improvising.**
+
 -   **You MUST NOT use `--no-ff` to forward-promote trunks.**
 
-    `dev` → `test` → `ready` is fast-forward only. A merge bubble in a trunk
-    indicates that a fix was committed downstream — which is forbidden by the
-    trunk model. If `--ff-only` fails on a trunk merge, you MUST escalate.
+    `dev` → `test` → `ready` is fast-forward only. If `--ff-only` fails on a
+    trunk merge, you MUST escalate.
 
 -   **You MUST NOT squash a `temp/*` branch.**
 
@@ -197,35 +184,32 @@ with an error message.
     into the epic, where the epic author has context. They are not resolved at
     the moment of squash-merge into `dev`.
 
--   **You MUST run tests after every non-trivial conflict resolution.**
-
-    A textual merge that compiles is not the same as a correct merge. Semantic
-    conflicts are real and only the test suite catches them.
-
 -   **You MUST NOT use `--no-verify`, `--allow-empty`, or `-X theirs`/`-X ours`
     shortcuts** unless the user has explicitly asked. Skipping hooks or silently
     preferring one side hides legitimate conflicts.
 
--   **You MUST push only after the merged result passes locally.**
+-   **You MUST NOT merge through known-failing state.**
 
-    Pushing a broken merge to a shared trunk wastes everyone's CI cycle and can
-    block teammates.
+    If pre-merge checks fail, fix the source branch first.
 
--   **You MUST update the CHANGELOG before squash-merging an `epic/*` into `dev`.**
+-   **For trunk-to-trunk promotion, the upstream trunk MUST be a direct ancestor
+    of the downstream target.**
 
-    Add a commit to the `epic/*` branch — after the final merge-down from `dev`
-    — that updates `CHANGELOG.md` under the `[Unreleased]` section. Use the same
-    `type: description` format as a commit subject line. This commit is squashed
-    in with the rest of the epic's changes; you MUST NOT update the CHANGELOG
-    separately on `dev` after the squash.
+    If `git merge --ff-only` would fail, the workflow has been violated and you
+    MUST escalate.
 
--   **You MUST clean up integrated branches.**
+-   **If a conflict reveals a real design disagreement, you MUST abort the merge
+    and discuss it with the relevant author before retrying.**
 
-    `temp/*` and `epic/*` branches MUST be deleted after integration — locally
-    and remotely. Stale branches accumulate and obscure active work.
+-   **When two long-running branches have deep divergence, you MUST prefer merging
+    the smaller branch onto the larger and then squash-merging into `dev`.**
 
-## Examples
+-   **You MUST NOT rebase already-pushed commits on a shared branch.**
 
+-   **If a merged result that passed tests later breaks production, you MUST NOT
+    bypass verification next time.**
+
+##  Examples
 Reintegrating a temp branch:
 
 ```sh
@@ -239,7 +223,6 @@ git push origin dev
 git branch -d temp/482-idempotency
 git push origin --delete temp/482-idempotency
 ```
-
 Reintegrating an epic branch:
 
 ```sh
@@ -253,7 +236,6 @@ git push origin dev
 git branch -D epic/billing-v2-rewrite   # -D because epic is not FF-merged
 git push origin --delete epic/billing-v2-rewrite
 ```
-
 A blocked trunk promotion:
 
 ```sh
@@ -265,7 +247,6 @@ git merge --ff-only dev
 # this is a workflow violation — fixes must originate on dev and flow forward.
 # Escalate; do not switch to --no-ff to "fix" it.
 ```
-
 A semantic conflict caught after textual merge:
 
 ```sh
@@ -278,52 +259,12 @@ npm test
 
 # Resolution: edit the caller to use the new name, stage, continue.
 ```
-
-##  Edge cases
-
--   **Merge of two long-running parallel branches with deep divergence.**
-
-    This usually indicates a planning failure rather than a merge problem. If
-    integration is genuinely necessary, prefer merging via the smaller branch
-    onto the larger and squash-merging into `dev` afterward. Do not attempt a
-    giant interactive rebase.
-
--   **A rebase rewrites already-pushed commits on a shared branch.**
-
-    Don't, unless the branch is explicitly yours. If the source is a shared
-    `epic/*`, do not rebase it — use merge-down to sync, per the rule above.
-
--   **The source branch's commits don't pass commit-message validation.**
-
-    Fix the messages with `git rebase -i` *before* integration. Once merged,
-    broken messages are in the trunk history.
-
--   **Conflict marker (`<<<<<<<`) committed by accident.**
-
-    Catastrophic if pushed to a trunk. Add a pre-push hook that greps for
-    conflict markers; treat any positive hit as a hard block. If discovered
-    after push, revert immediately (`git revert`), then re-merge cleanly.
-
--   **The merge succeeds, tests pass, but production breaks.**
-
-    Treat it as a defect to be diagnosed and fixed downstream, outside this
-    skill. Do not bypass the verification step next time as a result — the
-    failure means something else (test coverage, NFR check) needs strengthening,
-    not that verification is unnecessary.
-
--   **`epic/*` integration produces an enormous squash diff.**
-
-    Reviewable squash diffs are a feature, not a bug, but huge diffs are
-    unreviewable. If the epic is more than a few hundred LOC of net change, the
-    squash review needs to lean on the design document and the epic's commit
-    history for context. Provide both in the PR description.
-
 ##  Success criteria
 
--   **The strategy used MUST match the branch type.**
+-   **The merged history on the target branch MUST reflect the chosen strategy.**
 
-    Per the table in step 2. The choice SHOULD be documented in the merge commit
-    body if it is non-obvious.
+    `temp/*` branches land via rebase-up + fast-forward, `epic/*` branches land
+    via squash-merge, and trunk promotions land via fast-forward only.
 
 -   **The merged result MUST build and test green before push.**
 
@@ -343,8 +284,14 @@ npm test
 
     `temp/*` and `epic/*` are gone locally and remotely once landed.
 
+-   **Trunk branches MUST remain intact.**
+
+    No trunk branch was deleted during clean-up.
+
 -   **For `epic/*` → `dev`: the CHANGELOG MUST be updated in a pre-merge commit on
     the epic branch.**
 
     The `[Unreleased]` section MUST contain an entry for the epic's changes,
     committed to the `epic/*` branch before the squash-merge.
+
+-   **No conflict markers MUST remain in the merged result.**

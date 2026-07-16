@@ -1,4 +1,4 @@
-# Merge skill
+# Merge
 
 The `merge` skill is all about **branch integration**. It applies the project's
 branching conventions to integrate a source branch into a target, choosing the
@@ -21,10 +21,11 @@ violation, and it stops rather than papering over it.
 
 ## How to invoke
 
-- `/merge`, `/skill:merge` (prompts vary by harness).
-- "Merge this branch into `dev`."
-- "Integrate `temp/...` back into the trunk."
-- "Promote `dev` to `test`."
+> Merge this branch into `dev`.
+
+> Integrate `temp/...` back into the trunk.
+
+> Promote `dev` to `test`.
 
 ## Recommended models
 
