@@ -1,4 +1,4 @@
-# Debug skill
+# Debug
 
 The `debug` skill is all about **disciplined bug diagnosis**. Use it when
 something is broken, throwing, failing, or has regressed in performance, and the
@@ -19,11 +19,13 @@ rather than guessing.
 
 ## How to invoke
 
-- `/debug`, `/skill:debug` (prompts vary by harness).
-- "Debug this."
-- "Diagnose this failure."
-- "Something is broken / throwing / failing."
-- "This got slower — find out why."
+> Debug this.
+
+> Diagnose this failure.
+
+> Something is broken / throwing / failing.
+
+> This got slower — find out why.
 
 ## Recommended models
 

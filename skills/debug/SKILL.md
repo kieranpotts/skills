@@ -32,12 +32,6 @@ with an error message.
 
 1.  **Build a feedback loop.**
 
-    This is the skill. Everything else is mechanical. With a fast,
-    deterministic, agent-runnable pass/fail signal for the bug, bisection,
-    hypothesis-testing, and instrumentation all just consume that signal.
-    Without one, no amount of staring at code will save you. Spend
-    disproportionate effort here. Be aggressive. Be creative. Refuse to give up.
-
     Try construction methods in roughly this order:
 
     1. *Failing test* at whatever seam reaches the bug — unit, integration, e2e.
@@ -62,7 +56,7 @@ with an error message.
         drive *them* with a structured script so the loop is still automated.
         Captured output feeds back to you.
 
-    Then iterate on the loop itself — treat it as a product:
+    Then iterate on the loop itself:
 
     - Can it be faster? (Cache setup, skip unrelated init, narrow test scope.)
     - Can the signal be sharper? (Assert on the specific symptom, not "didn't
@@ -70,41 +64,29 @@ with an error message.
     - Can it be more deterministic? (Pin time, seed RNG, isolate filesystem,
       freeze network.)
 
-    A 30-second flaky loop is barely better than no loop. A 2-second
-    deterministic loop is a debugging superpower.
-
-    Do NOT proceed to step 2 until you have a loop you believe in.
-
 2.  **Reproduce.**
 
     Run the loop. Watch the bug appear. Confirm:
 
     - [ ] The loop produces the failure mode the *user* described — not a
-      different failure that happens to be nearby. Wrong bug = wrong fix.
+      different failure that happens to be nearby.
     - [ ] The failure is reproducible across multiple runs (or, for
       non-deterministic bugs, at a high enough rate to debug against).
     - [ ] You have captured the exact symptom (error message, wrong output, slow
       timing) so later phases can verify the fix actually addresses it.
 
-    Do NOT proceed until you reproduce the bug.
-
 3.  **Hypothesize.**
 
-    Generate *3-5 ranked hypotheses* before testing any of them.
-    Single-hypothesis generation anchors on the first plausible idea.
-
-    Each hypothesis MUST be falsifiable. State the prediction it makes:
+    Generate ranked hypotheses before testing any of them. Each hypothesis MUST
+    be falsifiable. State the prediction it makes:
 
     > "If <X> is the cause, then <changing Y> will make the bug disappear /
     <changing Z> will make it worse."
 
-    If you cannot state the prediction, the hypothesis is a vibe — discard or
-    sharpen it.
+    If you cannot state the prediction, discard or sharpen the hypothesis.
 
-    Show the ranked list to the user before testing. They often have domain
-    knowledge that re-ranks instantly ("we just deployed a change to #3"), or
-    know hypotheses they've already ruled out. Cheap checkpoint, big time saver.
-    Do not block on it — proceed with your ranking if the user is AFK.
+    Optionally show the ranked list to the user as a checkpoint, but do not block
+    on a response. Proceed with your ranking if the user is AFK.
 
 4.  **Instrument.**
 
@@ -119,11 +101,11 @@ with an error message.
     3. Never "log everything and grep".
 
     Tag every debug log with a unique prefix, eg. `[DEBUG-a4f2]`. Cleanup at the
-    end becomes a single grep. Untagged logs survive; tagged logs die.
+    end becomes a single grep.
 
-    For performance regressions, logs are usually wrong. Instead: establish a
-    baseline measurement (timing harness, `performance.now()`, profiler, query
-    plan), then bisect. Measure first, fix second.
+    For performance regressions, establish a baseline measurement (timing
+    harness, `performance.now()`, profiler, query plan), then bisect. Measure
+    first, fix second.
 
 5.  **Fix and regression-test.**
 
@@ -131,10 +113,8 @@ with an error message.
     seam for it.
 
     A correct seam is one where the test exercises the *real bug pattern* as it
-    occurs at the call site. If the only available seam is too shallow (eg. a
-    single-caller test when the bug needs multiple callers, or a unit test that
-    can't replicate the chain that triggered the bug), a regression test there
-    gives false confidence.
+    occurs at the call site. If the only available seam is too shallow, a
+    regression test there gives false confidence.
 
     If no correct seam exists, that itself is the finding. Note it — the
     codebase architecture is preventing the bug from being locked down — and
@@ -151,7 +131,7 @@ with an error message.
 
 6.  **Clean up and post-mortem.**
 
-    Required before declaring done:
+    Before declaring done:
 
     - [ ] Original repro no longer reproduces (re-run the step-1 loop).
     - [ ] Regression test passes (or absence of seam is documented).
@@ -164,8 +144,7 @@ with an error message.
 
     Then ask: what would have prevented this bug? If the answer involves
     architectural change (no good test seam, tangled callers, hidden coupling),
-    make a recommendation — *after* the fix is in, not before. You have more
-    information now than when you started.
+    make a recommendation — *after* the fix is in, not before.
 
 ##  Rules
 
@@ -173,14 +152,13 @@ with an error message.
 
     Build the right loop and the bug is 90% fixed. Without one, you are
     guessing. You MUST treat loop construction as the primary task, not a setup
-    step.
+    step. You MUST NOT proceed past step 1 until you have a loop you believe in.
 
 -   **For non-deterministic bugs, you MUST raise the reproduction rate.**
 
     The goal is not a clean repro but a *higher* reproduction rate. Loop the
     trigger 100×, parallelize, add stress, narrow timing windows, inject sleeps.
-    A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is
-    debuggable.
+    A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is.
 
 -   **If you genuinely cannot build a loop, you MUST stop and say so explicitly.**
 
@@ -193,15 +171,22 @@ with an error message.
 
     You MUST NOT proceed to hypothesize without a loop.
 
--   **You MUST generate hypotheses in a ranked set before testing any.**
+-   **You MUST NOT proceed to hypothesis until you have reproduced the bug.**
 
-    Single-hypothesis generation anchors on the first plausible idea. You MUST
-    produce 3-5 alternatives so the leading candidate is chosen by comparison,
-    not by default.
+    A  hypothesis tested against a non-reproducing symptom is a guess.
+
+-   **You MUST generate hypotheses in a ranked set before testing any of them.**
+
+    Single-hypothesis generation anchors on the first plausible idea. Produce
+    alternatives so the leading candidate is chosen by comparison, not by default.
 
 -   **You MUST change one variable at a time when instrumenting.**
 
     Changing two things at once turns a successful test into ambiguous evidence.
+
+-   **Each instrumenting probe MUST map to a specific hypothesis prediction.**
+
+    A probe that does not test a prediction is noise.
 
 -   **You MUST tag all debug instrumentation with a unique prefix.**
 
@@ -297,3 +282,8 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 -   **The correct hypothesis MUST be stated in the commit or PR message.**
 
     Future readers learn what the real cause was, not just what the fix changed.
+
+-   **The hypothesis set MUST be ranked and falsifiable.**
+
+    The output MUST include 3-5 ranked hypotheses, each with a stated prediction
+    that could disprove it.
