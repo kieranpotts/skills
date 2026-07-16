@@ -1,4 +1,4 @@
-# Reflect skill
+# Reflect
 
 The `reflect` skill is all about **durable lesson capture**. It distills
 *working-style* continuity — how to collaborate well with this user, in this
@@ -21,10 +21,11 @@ batching invites blind approval.
 
 ## How to invoke
 
-- `/reflect`, `/skill:reflect` (prompts vary by harness).
-- "Reflect on this session."
-- "What should you remember from this?"
-- "Save the lessons from our work today."
+> Reflect on this session.
+
+> What should you remember from this?
+
+> Save the lessons from our work today.
 
 ## Recommended models
 

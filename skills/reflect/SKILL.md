@@ -18,12 +18,12 @@ metadata:
 **Input**: The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
 
 **Output**: Zero or more persisted lessons — memory entries (indexed in
-`MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
-changing future agent behavior, written only after per-candidate user approval.
-Universal lessons better encoded as a new skill are flagged, not saved.
+  `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
+  changing future agent behavior, written only after per-candidate user approval.
+  Universal lessons better encoded as a new skill are flagged, not saved.
 
 **Interactivity**: This skill is interactive. It seeks per-candidate user approval
-through prompts before persisting anything.
+  through prompts before persisting anything.
 
 ##  Instructions
 
@@ -42,19 +42,9 @@ through prompts before persisting anything.
     - **Project decisions outside version control.** Constraints, deadlines,
       stakeholder requirements, business context the codebase does not encode.
 
-2.  **Filter ruthlessly.**
+2.  **Filter the candidates.**
 
-    Drop a candidate if any of the following apply:
-
-    - It is derivable from the current code, git history, or existing project
-      docs.
-    - It is a standard best practice any reasonable agent would follow.
-    - It is a one-off task detail with no reusable shape.
-    - It is already captured in an existing memory file or convention doc. Check
-      existing memories AND `AGENTS.md` / `CLAUDE.md` before proposing.
-
-    A candidate survives if it would meaningfully change how a *fresh* agent
-    behaves on a *future* session.
+    Evaluate each candidate against the drop criteria in the Rules section.
 
 3.  **Classify each surviving candidate.**
 
@@ -75,38 +65,16 @@ through prompts before persisting anything.
       contributors (human and agent) should see. *Destination: AGENTS.md or
       CLAUDE.md — committed to the repo, not private memory.*
 
-4.  **Walk the user through each candidate, one at a time.**
+4.  **Walk the user through each candidate.**
 
-    For each candidate, present:
-
-    - A one-sentence summary of the lesson.
-    - The proposed type and destination.
-    - A draft of the entry as it would be written.
-
-    Ask: *"Save as proposed, edit, change the destination, or skip?"*
-
-    Wait for the answer before moving on. Do NOT batch.
+    Follow the one-at-a-time procedure in the Rules section. For each candidate,
+    present a one-sentence summary, the proposed type and destination, and a
+    draft of the entry as it would be written. Ask for approval before
+    persisting.
 
 5.  **Write each accepted lesson.**
 
-    For memory destinations, use this format:
-
-    ```markdown
-    ---
-    name: <short-kebab-case-slug>
-    description: <one-line summary — specific, used by future agents to decide relevance>
-    metadata:
-      type: <user | feedback | project | reference>
-    ---
-
-    <Lesson content.>
-
-    <For `feedback` and `project` types, follow with:>
-
-    **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
-
-    **How to apply:** <When and where this guidance kicks in.>
-    ```
+    For memory destinations, use the format defined in the Success criteria.
 
     Cross-link related memories with `[[name]]`.
 
@@ -140,26 +108,29 @@ through prompts before persisting anything.
 
 8.  **Report briefly.**
 
-    Once the walk-through is complete, print:
-
-    - How many candidates were proposed and how many were saved (by type).
-    - Paths/filenames of new and updated entries.
-    - Any skipped candidates worth revisiting in a future session.
-
-    Keep the report to ~5 lines.
+    Once the walk-through is complete, print the report described in the Success
+    criteria.
 
 ##  Rules
 
 -   **You MUST walk one candidate at a time.**
 
     Walk through proposals individually. Batching invites blind approval;
-    one-at-a-time invites scrutiny.
+    one-at-a-time invites scrutiny. Wait for the user's answer before moving on.
 
 -   **You MUST filter ruthlessly.**
 
-    A memory entry that doesn't change future agent behavior is clutter. Better
-    to surface ten candidates and save two than to save ten that dilute the
-    signal.
+    Drop a candidate if any of the following apply:
+
+    - It is derivable from the current code, git history, or existing project
+      docs.
+    - It is a standard best practice any reasonable agent would follow.
+    - It is a one-off task detail with no reusable shape.
+    - It is already captured in an existing memory file or convention doc. Check
+      existing memories AND `AGENTS.md` / `CLAUDE.md` before proposing.
+
+    A candidate survives if it would meaningfully change how a *fresh* agent
+    behaves on a *future* session.
 
 -   **You MUST reference external systems, not duplicate them.**
 
@@ -191,32 +162,27 @@ through prompts before persisting anything.
     entry, not create a sibling. Two entries saying nearly-the-same thing is
     worse than one entry saying it accurately.
 
-##  Edge cases
+-   **If the session contained nothing worth saving, you MUST say so explicitly
+    and stop.**
 
--   **The session contained nothing worth saving.**
+    Do not manufacture lessons to justify the invocation.
 
-    Say so explicitly and stop. Do NOT manufacture lessons to justify the
-    invocation. *"No durable lessons in this session"* is the right output when
-    it's the right output.
+-   **If the user disagrees with a proposed lesson, you MUST drop it.**
 
--   **The user disagrees with a proposed lesson.**
+    The user's view of their own preferences trumps your inference from the
+    conversation.
 
-    Drop it. The user's view of their own preferences trumps your inference from
-    the conversation.
+-   **If a lesson is genuinely universal, you MUST flag it as a candidate for a
+    new skill rather than save it as memory.**
 
--   **The lesson is genuinely universal (about a tool's behavior, not the user
-    or project).**
+    Lessons that apply regardless of user / project belong in a skill, not a
+    memory entry.
 
-    Lessons that apply regardless of user / project may belong in a *skill*, not
-    a memory entry. Flag them in the final report as candidates for authoring
-    into a new skill, but do not save them as memory.
+-   **If the agent's memory system has no obvious file path, you MUST fall back
+    to `AGENTS.md` for codebase conventions and skip the memory-file steps for
+    `user` / `feedback` / `project` / `reference` types.**
 
--   **The agent's memory system has no obvious file path.**
-
-    Some agents (Cursor, Copilot) do not expose a standard memory directory. In
-    that case, fall back to `AGENTS.md` for codebase conventions and skip the
-    memory-file steps for `user` / `feedback` / `project` / `reference` types —
-    flag them in the report as deferred.
+    Flag the deferred candidates in the final report.
 
 ##  Success criteria
 
@@ -236,3 +202,26 @@ through prompts before persisting anything.
 -   **No saved lesson MUST duplicate an existing memory or convention doc entry.**
 
 -   **No credentials, PII, or internal URLs MUST appear in any saved entry.**
+
+-   **Memory entries MUST follow the required format.**
+
+    ```markdown
+    ---
+    name: <short-kebab-case-slug>
+    description: <one-line summary — specific, used by future agents to decide relevance>
+    metadata:
+      type: <user | feedback | project | reference>
+    ---
+
+    <Lesson content.>
+
+    <For `feedback` and `project` types, follow with:>
+
+    **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
+
+    **How to apply:** <When and where this guidance kicks in.>
+    ```
+
+-   **The final report MUST state how many candidates were proposed and how many
+    were saved (by type), the paths/filenames of new and updated entries, and any
+    skipped candidates worth revisiting in a future session.**
