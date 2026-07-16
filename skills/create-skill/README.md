@@ -1,4 +1,4 @@
-# Create-skill
+# Create skill
 
 The `create-skill` skill is all about **skill authoring**. It is the single path
 for creating or improving a skill, in this collection or a downstream project.
@@ -19,10 +19,11 @@ This skill is interactive; the agent may prompt the user for input.
 
 ## How to invoke
 
-- `/create-skill`, `/skill:create-skill` (prompts vary by harness).
-- "Create a skill for X."
-- "Turn this workflow into a skill."
-- "Improve the `<name>` skill."
+> Create a skill for X.
+
+> Turn this workflow into a skill.
+
+> Improve the `<name>` skill.
 
 ## Recommended models
 
