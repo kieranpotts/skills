@@ -1,4 +1,4 @@
-# Spike skill
+# Spike
 
 The `spike` skill is all about **throwaway experimentation**. It treats the code
 as a byproduct and the *answer* as the deliverable.
@@ -20,10 +20,12 @@ the production version is re-implemented cleanly.
 
 ## How to invoke
 
-- `/spike`, `/skill:spike` (prompts vary by harness).
-- `/spike can Postgres LISTEN/NOTIFY sustain 5000 dispatches/sec at p95 < 50ms?`
-- "Spike on whether X is feasible."
-- "Prototype this to answer the open question."
+> I want to investigate if Postgres LISTEN/NOTIFY can sustain 5000
+> dispatches/sec at p95 < 50ms?
+
+> Spike on whether X is feasible.
+
+> Prototype this to answer the open question.
 
 ## Recommended models
 

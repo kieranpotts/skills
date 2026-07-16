@@ -44,104 +44,64 @@ with an error message.
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at
       stream close?"
 
-    If you cannot phrase the question this way, you are not ready for the
-    technical spike — you are still exploring. Return to the design work first.
+    If you cannot phrase the question this way, return to the design work first.
 
 2.  **Define the answer that ends the spike.**
 
-    Before writing any code, write down what evidence would close the question.
-    Examples:
-
-    - A measured number against a threshold (passes / does not pass).
-    - A reproducible behavior (errors observable at this point; not observable
-      at that point).
-    - A working integration (the call returns a real response from a real
-      service).
-
-    If no such evidence is definable, the question is still vague. Refine it.
+    Before writing any code, write down what evidence would close the question:
+    a measured number against a threshold, a reproducible behavior, or a working
+    integration. If no such evidence is definable, refine the question.
 
 3.  **Time-box.**
 
-    State the budget in hours or, at most, days. A spike or prototype that grows
-    past the time-box is no longer a spike — it is unmanaged work. Common
-    budgets:
-
-    - Half-day: API ergonomics, single integration check.
-    - 1-2 days: performance characterization, multi-component spike.
-    - 3-5 days: hard ceiling for any one spike. Anything bigger is multiple
-      spikes or actual project work.
-
-    When the time-box expires, *stop*. Capture what you learned even if the
-    question is not fully answered. Decide whether to invest another time-box or
-    take a different path.
+    State the budget in hours or days. When the time-box expires, stop, capture
+    what you learned even if the question is not fully answered, and decide
+    whether to invest another time-box or take a different path.
 
 4.  **Take the shortest path.**
 
-    Skip everything that does not contribute to answering the question:
-
-    - No tests beyond the one assertion that answers the question.
-    - No error handling beyond what is needed to observe the failure mode.
-    - No abstraction, no interfaces, no configuration.
-    - No auth, no logging, no monitoring, no documentation.
-    - Hardcoded values, fixture inputs, single happy path.
-    - One file is often enough.
-
-    Quality code costs time; the spike is buying *information*, not code.
+    Skip everything that does not contribute to answering the question: tests
+    beyond the assertion that answers the question, error handling beyond
+    observing the failure mode, abstraction, interfaces, configuration, auth,
+    logging, monitoring, documentation, hardcoded values, fixture inputs, and a
+    single happy path. One file is often enough.
 
 5.  **Isolate the spike.**
 
-    Keep spike code out of the production codebase. Use one of:
-
-    - A separate repo or `spikes/` subdirectory clearly marked as throwaway.
-    - A branch named `spike/spike-<question>` that will not be merged.
-    - A scratch directory outside any tracked path.
-
-    Mark the entry point file with a comment naming it as a spike. Future
-    readers should not be able to mistake it for production code.
+    Keep spike code out of the production codebase. Use a separate repo or
+    `spikes/` subdirectory, a branch named `spike/spike-<question>` that will not be
+    merged, or a scratch directory outside any tracked path. Mark the entry point
+    file with a comment naming it as a spike.
 
 6.  **Run the experiment, capture findings.**
 
-    Run the spike. Record:
-
-    - The exact command(s) used.
-    - The observed result against the expected evidence.
-    - Numerical measurements with environment details (hardware, dataset,
-      traffic).
-    - Surprises — anything observed that the question did not ask about but
-      matters.
-
-    "It worked" is not a finding. A finding is reproducible by someone else from
-    the notes alone.
+    Run the spike. Record the exact commands, the observed result against the
+    expected evidence, numerical measurements with environment details, and any
+    surprises that matter even though the question did not ask about them.
 
 7.  **Decide.**
 
     Based on the findings:
 
     - *Answer is positive* → the design question is closed. The production
-      version is re-implemented properly from scratch — do not promote the
-      spike.
+      version is re-implemented from scratch.
     - *Answer is negative* → the option being spiked is closed; the design work
       resumes with the alternatives.
     - *Answer is mixed or inconclusive* → either run another time-boxed spike to
-      disambiguate, or escalate the decision to the user. Do not silently
-      extend.
+      disambiguate, or escalate the decision to the user.
 
 8.  **Document the answer, then throw the code away.**
 
-    Update the relevant artifact:
-
-    - For an architectural question → an ADR or design-doc update.
-    - For a specification question → a revision to the affected acceptance
-      criteria.
-    - For a tooling/library question → a short note in the repo's decision log.
-
-    Once the answer is captured, delete the spike code — or, at minimum, move it
-    somewhere unambiguous (`spikes/<date>-<question>/`) with a README naming the
-    question, the answer, and the date.
+    Update the relevant artifact (ADR or design-doc update for an architectural
+    question, revision to acceptance criteria for a specification question, or a
+    short note in the repo's decision log for a tooling/library question). Once
+    the answer is captured, delete the spike code, or move it to a
+    clearly-marked throwaway location with a README naming the question, the
+    answer, and the date.
 
 ##  Rules
 
--   **The code MUST be throwaway. The answer is the deliverable.**
+-   **The spike code MUST be throwaway. The answer is the deliverable.**
 
     Promoting spike code to production removes the very property that made it
     cheap to write. If it MUST ship, re-implement it cleanly using what was
@@ -155,7 +115,9 @@ with an error message.
 -   **The time-box MUST be enforced, not aspirational.**
 
     When the budget is gone, you MUST stop. The decision to extend MUST be
-    explicit and made with the user, not absorbed quietly into the work.
+    explicit and made with the user, not absorbed quietly into the work. A
+    single spike's time-box MUST NOT exceed 3–5 days; anything larger MUST be
+    split into multiple spikes or treated as project work.
 
 -   **Production concerns MUST be explicitly skipped.**
 
@@ -179,8 +141,8 @@ with an error message.
 
 -   **You MUST mark spike code so it cannot be mistaken for production.**
 
-    Directory location, branch name, file header comment. All three SHOULD be
-    used if possible. The next reader MUST NOT have to ask.
+    Directory location, branch name, and file header comment SHOULD all be used if
+    possible. The next reader MUST NOT have to ask.
 
 -   **Negative answers SHOULD be treated as valuable.**
 
