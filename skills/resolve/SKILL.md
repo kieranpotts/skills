@@ -34,65 +34,47 @@ with an error message.
 1.  **Collect the open comments.**
 
     Pull the full set of *unresolved* review comments on the PR — the ones the
-    author has not dismissed. Use the host's review-thread API, not a scrape of
-    the diff:
+    author has not dismissed. Use the host's review-thread API:
 
     ```sh
     gh pr view <number> --json reviewThreads \
       --jq '.reviewThreads[] | select(.isResolved == false)'
     ```
 
-    Each open thread is one unit of work: capture its comment ID, the file and
-    line it is anchored to, and the requested change. If there are no open
-    comments, report that and stop — there is nothing to resolve.
+    Capture each thread's comment ID, anchored file and line, and requested
+    change. If there are no open comments, report that and stop.
 
 2.  **Pin the working base.**
 
     State the branch and base commit you are working against, exactly as
-    [`review`](../review/SKILL.md) pinned its comparison base. Resolving
-    comments against a branch that has moved since the review produces fixes
-    that don't line up with the comments. If the branch has advanced past the
-    reviewed commit, note it and re-anchor each comment to its current location
-    before editing.
+    [`review`](../review/SKILL.md) pinned its comparison base. If the branch has
+    advanced past the reviewed commit, re-anchor each comment to its current
+    location before editing.
 
 3.  **Order the comments by dependency, not by line.**
 
     Group related comments and sequence them so an earlier fix does not
-    invalidate a later one. A structural comment (rename, extract, move) usually
-    precedes the local comments inside the code it touches. Resolving in file
-    order, top to bottom, repeatedly re-breaks code an earlier comment already
-    moved.
+    invalidate a later one. Structural comments (rename, extract, move) usually
+    precede local comments inside the code they touch.
 
 4.  **Implement each comment as the smallest faithful change.**
 
-    For each open comment, make exactly the change it asks for — no more. A
-    comment is a scoped instruction, not a license to refactor the surrounding
-    code. Resist "while I'm here" edits: they enlarge the diff, blur which
-    change answers which comment, and invite a second review round.
-
-    If a comment names a concrete fix ("validate `amount > 0` and return 400"),
-    apply that fix. If it names a problem without a fix ("this doesn't handle
-    the empty case"), apply the smallest change that resolves the problem, in
-    the style of the surrounding code.
+    For each open comment, apply exactly the change it asks for. If a comment
+    names a concrete fix, apply that fix; if it names a problem without a fix,
+    apply the smallest change that resolves the problem in the style of the
+    surrounding code.
 
 5.  **Verify each fix.**
 
-    A fix is not done until it is shown to work. For each change:
-
-    - If the comment was a missing-test finding, add the test and watch it pass.
-    - If the comment was a correctness finding, add or extend a test that fails
-      before the fix and passes after, then run it.
-    - Otherwise, run the existing tests covering the touched code.
-
-    Do not mark a comment resolved on the strength of an edit alone. The whole
-    point of resolving before re-testing is to hand [`test`](../test/SKILL.md) a
-    change that already holds together.
+    Add or extend a test that fails before the fix and passes after for
+    correctness findings; add the missing test for missing-test findings;
+    otherwise run the existing tests covering the touched code.
 
 6.  **Reply, then resolve, each thread.**
 
     For each actioned comment, leave a one-line reply stating what changed and
-    where (`Fixed in <sha> — validates amount at the boundary, returns 400`),
-    then mark the thread resolved:
+    where (`Fixed in <sha> — validates amount at the boundary, returns 400`), then
+    mark the thread resolved:
 
     ```sh
     gh api graphql -f query='
@@ -103,66 +85,57 @@ with an error message.
       }' -F threadId=<threadId>
     ```
 
-    The reply links the resolution to the comment so the reviewer can verify it
-    without re-reading the whole diff. Resolving without a reply leaves the
-    reviewer guessing what was done.
+    If the host has no resolvable-thread API, record the resolution in the reply
+    and the commit message instead, and report which comments were addressed so a
+    human can close the threads.
 
 7.  **Commit the resolutions.**
 
     Commit the fixes with a message that ties them to the review (eg. `fix:
     address review comments on order validation`). Keep the resolution work in
-    its own commit(s), separate from the original implementation commits, so the
-    review round is legible in the history. Push the branch.
+    its own commit(s), separate from the original implementation commits. Push
+    the branch.
 
 8.  **Report what could not be resolved.**
 
     If any open comment could **not** be actioned — it contradicts another open
-    comment, depends on a decision outside this change, or rests on a
-    misunderstanding the code cannot satisfy — do not silently skip it. Leave
-    the thread open, and report it with a specific account of why. This is the
-    only acceptable way for a comment to remain open after this skill runs: not
-    dismissed, not quietly ignored, but surfaced.
+    comment, depends on a decision outside this change, rests on a
+    misunderstanding the code cannot satisfy, or asks for a redesign beyond the
+    change under review — leave the thread open and report it with a specific
+    account of why.
 
 ##  Rules
 
 -   **Every open comment MUST be treated as a commitment to implement.**
 
     The author's curation happened before this skill ran. A comment that is
-    still open is one the author wants done — this skill does not re-litigate
-    that. Disagreeing with, deferring, or rejecting a comment is out of scope;
-    if the author wanted that, they would have dismissed it.
+    still open is one the author wants done. Disagreeing with, deferring, or
+    rejecting a comment is out of scope.
 
 -   **You MUST make one minimal change per comment.**
 
     You MUST action exactly what the comment asks. You MUST NOT expand scope,
-    refactor adjacent code, or fix problems the comment didn't raise. Scope creep
-    here defeats the purpose of a tight review-resolve loop and forces another
-    review pass.
+    refactor adjacent code, or fix problems the comment did not raise.
 
 -   **You MUST resolve only what you verified.**
 
-    A thread MUST be marked resolved only after its fix is shown to work — a
-    passing test, or a run of the existing tests over the touched code. An
-    unverified resolution is a regression waiting for
-    [`test`](../test/SKILL.md) to catch.
+    A thread MUST be marked resolved only after its fix is shown to work.
 
 -   **You MUST reply before you resolve.**
 
-    Every resolved thread MUST carry a one-line note of what changed and where.
-    The reviewer MUST be able to confirm the resolution from the reply, without
-    reconstructing it from the diff.
+    Every resolved thread MUST carry a one-line note of what changed and where,
+    so the reviewer can confirm the resolution from the reply.
 
 -   **You MUST keep resolution commits separate.**
 
     The fixes that answer a review MUST go in their own commit(s), distinct from
-    the original implementation. This keeps each review round visible in the
-    history and makes a re-review diff easy to scope.
+    the original implementation.
 
 -   **You MUST surface, never bury, what you can't resolve.**
 
-    A comment that cannot be honestly actioned MUST stay open and MUST be reported
-    with a reason. Marking it resolved without a real fix, or silently leaving it
-    open without a word, both hide the problem.
+    A comment that cannot be honestly actioned MUST stay open and MUST be
+    reported with a reason. Marking it resolved without a real fix, or silently
+    leaving it open, both hide the problem.
 
 ## Examples
 

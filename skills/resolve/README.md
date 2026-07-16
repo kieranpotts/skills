@@ -1,4 +1,4 @@
-# Resolve skill
+# Resolve
 
 The `resolve` skill is all about **actioning review comments**. It takes the
 comments left on an open pull request, reviews each in turn, and responds with a
@@ -15,10 +15,11 @@ action is left open, with a comment explaining why it was skipped.
 
 ## How to invoke
 
-- `/resolve`, `/skill:resolve` (prompts vary by harness).
-- `/resolve PR #482`
-- "Action the review comments."
-- "Address the feedback on this PR."
+> Resolve PR #482
+
+> Action the review comments.
+
+> Address the feedback on this PR.
 
 ## Recommended models
 
