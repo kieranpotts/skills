@@ -1,11 +1,11 @@
 ---
 name: create-skill
 description: >-
-  Create a new skill (SKILL.md) or improve an existing one, in this skills
-  collection or any downstream project. Use when the user asks to create, write,
-  draft, add, or update a skill, or wants to capture a workflow as a reusable
-  skill, or when the user says "create a skill for X", "turn this workflow into
-  a skill", or "improve the <name> skill".
+  Create a new skill or improve an existing one, in this skills collection or
+  any downstream project. Use when the user asks to create, write, draft, add,
+  or update a skill, or wants to capture a workflow as a reusable skill, or
+  when the user says "create a skill for X", "turn this workflow into a skill",
+  or "improve the <name> skill".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -14,23 +14,34 @@ metadata:
 
 # Create skill
 
-**Input:** A description of the skill to create, or a path to an existing skill
-to improve, plus whatever the surrounding conversation already reveals about its
-purpose and triggers. OPTIONAL — the seed may be just a rough idea.
+Create a new skills or improve an existing one, either in this skills collection
+or a downstream project.
 
-**Output:** A complete skill directory — a `SKILL.md` conforming to the bundled
-template (valid front-matter, prominent Input/Output paragraphs, Instructions
-and/or Rules, Success criteria), a sibling `README.md`, and any bundled
-`assets/`, `references/`, or `scripts/` — passing the validator. This skill
-authors the skill and stops; installing it into target agents is a separate
-step.
+**Input:**
 
-**Interactivity:** This skill is interactive. It gathers the rest of its input
-from the user through prompts during the session, asking one question at a time.
+- A description of the skill to create, or a path to an existing skill
+  to improve.
+
+- The purpose of the skill.
+
+- Trigger conditions.
+
+- Target project in which to install the skill.
+
+Gather what information you can from the surrounding context. If in doubt,
+prompt the user for confirmation. If the current working directory is inside
+a Git repository, assume that is the target project, else install in the user's
+home directory at `~/.agents/skills/<skill-name>/`.
+
+**Output:**
+
+A complete skill directory, including a `SKILL.md`  file conforming to the
+bundled template, a sibling `README.md`, and any bundled assets, references,
+and scripts. All artifacts pass the validator.
 
 ##  Instructions
 
-1.  **Clarify intent.**
+1.  **Clarify the scope and target project for the skill.**
 
     Establish what the skill should do and when it should trigger. Extract as
     much as you can from the conversation before asking questions. At minimum,
@@ -40,35 +51,39 @@ from the user through prompts during the session, asking one question at a time.
 2.  **Research the domain.**
 
     Before writing, gather relevant context. Look up tool documentation, check
-    the project for similar existing skills, and identify any scripts or reference
-    files that should be bundled. Come prepared so you can minimize questions to
-    the user.
+    the project for similar existing skills, and identify any scripts or
+    reference files that should be bundled. Come prepared so you can minimize
+    questions to the user.
 
 3.  **Choose a name and location.**
 
-    Place the skill in the project's skills directory as
-    `<skill-name>/SKILL.md`. Skill names are kebab-case and SHOULD be meaningful
-    actions or verbs (eg. **specify**, **commit**, **release**, **review**). Prefer
-    single verbs; use `<verb>-<noun>` only when disambiguation is needed (eg.
-    **create-skill**).
+    Place the skill in the project's skills directory:
+    `.agents/skills/<skill-name>/SKILL.md`.
 
-4.  **Write the `SKILL.md`.**
+    Skill names are kebab-case and SHOULD be meaningful actions or verbs,
+    eg. "specify", "commit", "release", "review"). Prefer single verbs, but
+    use `<verb>-<noun>` when disambiguation is needed, eg."create-skill".
+
+4.  **Write the `SKILL.md` file.**
 
     Use the [bundled template](./assets/skill-template/skill-name/SKILL.md).
-    Include the sections, front-matter, and formatting required by the Rules
-    below. Reach for the references linked in the template and Rules when you
-    need details.
+    Include the sections, front-matter, and formatting required by the rules
+    below.
 
 5.  **Bundle supporting files if needed.**
 
-    Add `scripts/`, `references/`, or `assets/` as required. Include instructions
-    in `SKILL.md` for when and how to run any scripts. Namespace every bundled
-    file to avoid collisions when the skill is installed alongside others — see
-    [create-skill-collision-safety.md](./references/create-skill-collision-safety.md).
+    Add `scripts/`, `references/`, or `assets/` as required.
+
+    Include instructions in `SKILL.md` for when and how to run any scripts.
+
+    Namespace every bundled file to avoid collisions when the skill is
+    installed alongside others. See the
+    [collision safety instructions](./references/create-skill-collision-safety.md).
 
 6.  **Write the `README.md`.**
 
     Use the [bundled template](./assets/skill-template/skill-name/README.md).
+
     This is human-readable documentation. Describe what the skill does, how to
     invoke it, and provide invocation examples.
 
@@ -87,20 +102,20 @@ from the user through prompts during the session, asking one question at a time.
     ```
 
     The script wraps `skills-ref validate` (if installed) for canonical Agent
-    Skills checks, and adds repo-specific checks: sibling `README.md`, ~300-line
-    limit, presence of `## Instructions`/`## Rules`, and `## Success criteria`.
+    Skills checks, and adds repo-specific checks.
+
     Fix any reported failures before finishing.
 
 ## Rules
 
 -   **The `description` field is the primary trigger mechanism.**
 
-    It determines whether an agent invokes the skill. You SHOULD err toward being
-    explicit rather than brief. You MUST follow this two-sentence pattern, written
-    in the third person:
+    It determines whether an agent invokes the skill. You SHOULD err toward
+    being explicit rather than brief. You MUST follow this two-sentence pattern,
+    written in the third person:
 
-    1. *First sentence* — what the skill does.
-    2. *Second sentence* — `Use when ...` followed by specific triggers (user
+    1. First sentence — what the skill does.
+    2. Second sentence — `Use when ...` followed by specific triggers (user
        phrasings, situations, file types, contexts).
 
     ```
@@ -120,7 +135,7 @@ from the user through prompts during the session, asking one question at a time.
       `preferred_model` and MAY declare `interactive: no` if it never blocks on
       the user.
 
-    - **Input, Output, and Interactivity paragraphs:** Immediately after the
+    - **Input/output:** Immediately after the
       title, three prominent bold-lead paragraphs — `**Input:**`, `**Output:**`,
       and `**Interactivity:**` — stating what the skill consumes, produces, and
       whether it blocks for user input. State whether the input is REQUIRED or
@@ -278,23 +293,27 @@ skills/
 
 ## Assets
 
-- [Skill template](./assets/skill-template/skill-name/SKILL.md): The bundled
-  SKILL.md template to base new skills on.
+- [Skill template](./assets/skill-template/skill-name/SKILL.md):
+  The bundled `SKILL.md` template to base new skills on.
 
 ## References
 
-- [create-skill-collision-safety.md](./references/create-skill-collision-safety.md):
-  Read before adding files to `assets/`, `references/`, or `scripts/` — how to
-  namespace bundled resources so they don't collide across skills.
+- [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md):
+  Technical standard for formatting Markdown documents. Skills `*.md` files MUST
+  follow the formatting conventions described in this standard.
 
-- [create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md):
-  Read when wording requirement levels — the RFC 2119 keyword subset (MUST,
-  SHOULD, MAY, …) and when to use each.
+- [Collision safety for bundled resources](./references/create-skill-collision-safety.md):
+  How to namespace bundled resources so they don't collide across skills.
+  Read before adding files to `assets/`, `references/`, or `scripts/`.
 
-- [create-skill-preferred-model.md](./references/create-skill-preferred-model.md):
-  Read when deciding whether to pin a model via `metadata.preferred_model`, and
-  how hosts like Pi's `realize` interpret it.
+- [skills/create-skill/references/create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md):
+  Read when wording requirement levels. This document defines a subset of
+  RFC 2119 to use.
 
-- [create-skill-interactive.md](./references/create-skill-interactive.md): Read
-  when deciding whether a skill prompts the user mid-flow, and whether to
+- [Preferred model](./references/create-skill-preferred-model.md):
+  Read when deciding whether what model to pint to the skill via
+  `metadata.preferred_model`.
+
+- [Interactive vs. non-interactive skills](./references/create-skill-interactive.md):
+  Read when deciding whether a skill prompts the user mid-flow, and whether to
   declare `metadata.interactive` (default `yes`).

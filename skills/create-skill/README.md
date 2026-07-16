@@ -24,8 +24,10 @@ to help it form the skill.
 
 ## Recommended models
 
-A mid-tier model will handle skill authoring, especially since the schema and
-structure are well defined in this skill so the agent is mostly following
-instructions. Reach for a frontier reasoning model when drafting a genuinely
-new skill from scratch, where getting the scope, triggers, and boundaries right
-requires weighing trade-offs, rather than following a template.
+A mid-tier model will handle basic skill authoring, especially since the schema
+and structure are well defined in this skill so the agent is mostly following
+instructions.
+
+Reach for a frontier reasoning model when drafting a genuinely new skill from
+scratch, where getting the scope, triggers, and boundaries right requires
+weighing trade-offs, rather than following a template.
