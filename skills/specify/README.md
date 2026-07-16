@@ -1,4 +1,4 @@
-# Specify skill
+# Specify
 
 The `specify` skill is all about **turning requirements into testable acceptance
 criteria**. It transforms a business-oriented product requirements document
@@ -89,11 +89,13 @@ implementation.
 
 ## How to invoke
 
-- `/specify`, `/skill:specify` (prompts vary by harness).
-- `/specify <URL or path to PRD or equivalent>`
-- "Turn this into acceptance criteria."
-- "Turn this into a spec."
-- "Prepare these as software requirements."
+> Specify <URL or path to PRD or equivalent>
+
+> Turn this into acceptance criteria.
+
+> Turn this into a spec.
+
+> Prepare these as software requirements.
 
 ## Recommended models
 
