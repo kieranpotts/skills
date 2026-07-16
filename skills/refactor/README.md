@@ -1,4 +1,4 @@
-# Refactor skill
+# Refactor
 
 The `refactor` skill is all about **behavior-preserving restructuring**. It
 restructures source code, without changing observable behavior, to improve a
@@ -19,10 +19,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/refactor`, `/skill:refactor` (prompts vary by harness).
-- "Refactor this for readability."
-- "Clean up the structure of this module."
-- "Reduce the coupling here without changing behavior."
+> Refactor this for readability.
+
+> Clean up the structure of this module.
+
+> Reduce the coupling here without changing behavior.
 
 ## Recommended models
 

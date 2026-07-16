@@ -18,10 +18,10 @@ metadata:
 **Input**: Existing, tested code and a named target quality. REQUIRED. The code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
 
 **Output**: A series of small `refactor:` commits that improve the named quality
-while leaving externally observable behavior identical — tests green before and
-after every move, each commit independently revertable, the diff free of feature
-or bug-fix work. Whatever reviews, integrates, or sequences the next task is the
-orchestrator's concern, not this skill's.
+  while leaving externally observable behavior identical — tests green before and
+  after every move, each commit independently revertable, the diff free of feature
+  or bug-fix work. Whatever reviews, integrates, or sequences the next task is the
+  orchestrator's concern, not this skill's.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -32,7 +32,7 @@ with an error message.
 1.  **Name the quality you are improving.**
 
     Refactoring without a named target produces aimless churn. Pick from the
-    nine design qualities and state it:
+    design qualities and state it:
 
     - "Improve *cohesiveness*: this module mixes order parsing with email
       rendering — split them."
@@ -57,9 +57,6 @@ with an error message.
       down the current behavior, whatever it is. This is a separate prior step
       (commit as `step:` or `maintenance:`).
 
-    Never refactor code that has no tests and where you cannot quickly add some.
-    Without a safety net, you are guessing.
-
 3.  **Plan the refactor in small reversible moves.**
 
     A good refactor is a sequence of *minute* changes, each of which:
@@ -81,9 +78,6 @@ with an error message.
     3. Confirm green.
     4. Commit as `refactor:` using the project's commit format.
     5. Move to the next.
-
-    Do NOT batch moves into one commit. Granularity is what makes refactors safe
-    to roll back and easy to review.
 
 5.  **Watch for behavior changes.**
 
@@ -116,11 +110,9 @@ with an error message.
     branch. Integrate via the project's branching conventions — typically a
     short-lived `temp/*` branch fast-forwarded into `dev`.
 
-    The PR description names the quality being improved and the moves taken.
-
 ##  Rules
 
--   **Behavior preservation is REQUIRED.**
+-   **A refactor MUST preserve externally observable behavior.**
 
     A refactor that changes externally observable behavior is mislabeled. The
     contract with reviewers and operators is that tests MUST pass before and
@@ -132,21 +124,30 @@ with an error message.
     Big-bang restructuring is a recipe for unreviewable diffs and unrevertable
     mistakes. Refactor in moves a reviewer can hold in their head.
 
+-   **You MUST NOT batch multiple moves into a single `refactor:` commit.**
+
+    Granularity is what makes refactors safe to roll back and easy to review.
+
 -   **You MUST NOT bundle a refactor with a feature or a bug fix.**
 
     Mixed commits make it impossible to tell what changed behavior and what
     didn't. Refactor first as `refactor:` commits; then change behavior as
     `feature:`, `fix:`, or `step:` commits.
 
--   **Tests MUST pass after every move, not just at the end.**
+-   **If coverage is thin or absent, you MUST add characterization tests as a
+    prior `maintenance:` or `step:` commit, or defer the refactor.**
 
-    "I'll fix the tests at the end" is how subtly wrong refactors ship. If a
-    test fails mid-refactor, you MUST stop and resolve before moving on.
+    No tests = no safety net = no refactor. Do not press on without coverage.
 
--   **You MUST add characterization tests when coverage is thin.**
+-   **You MUST NOT refactor code that has no tests and where you cannot quickly
+    add some.**
 
-    No tests = no safety net = no refactor. Adding pin-down tests for current
-    behavior is a separate prior commit, not part of the refactor itself.
+    Without a safety net, you are guessing.
+
+-   **You MUST NOT continue if a behavior change is detected mid-refactor.**
+
+    Revert to the last green state and treat the behavior change as a separate
+    bug-fix or feature task.
 
 -   **You MUST stop before adding speculative flexibility.**
 
@@ -181,7 +182,27 @@ with an error message.
     feature work or premature abstraction. Be suspicious of large positive
     diffs.
 
-## Examples
+-   **If the refactor reveals a bug, you MUST stop the refactor.**
+
+    Commit any green moves already made, then switch to fixing the bug as its own
+    task. Resume the refactor afterward.
+
+-   **If a move redraws module boundaries, changes a public interface, or alters
+    the data model, it is a design change, not a refactor.**
+
+    Send it back through design first.
+
+-   **A pre-emptive refactor to make the next feature easier is allowed only when
+    the next feature is concretely planned.**
+
+    Refactoring for hypothetical future work is speculative and often wrong.
+
+-   **If the target area is large legacy with many problems, you MUST pick one
+    named quality per refactor session and plan a sequence of refactors over time.**
+
+    Do not try to fix it all at once.
+
+##  Examples
 
 A small, named refactor in three moves:
 
@@ -215,38 +236,6 @@ fix, not a refactor. Reverted the throw; opened a separate fix:
 commit and tracking issue. Resumed the refactor.
 ```
 
-##  Edge cases
-
--   **Coverage is absent and impossible to add quickly.**
-
-    Refactoring without a safety net is gambling. Two options: (a) treat the
-    missing tests as the work itself — a `maintenance:` step to add
-    characterization tests, before any refactor; (b) defer the refactor. Do not
-    press on without coverage.
-
--   **The refactor reveals a bug.**
-
-    Common. Stop the refactor. Commit any green moves already made. Switch to
-    fixing the bug as its own task. Resume the refactor afterward.
-
--   **The "refactor" is actually a design change.**
-
-    If the move you want to make redraws module boundaries, changes a public
-    interface, or alters the data model, it is a design change, not a refactor.
-    Send it back through design first.
-
--   **Pre-emptive refactor "to make the next feature easier".**
-
-    Justifiable, but only when the next feature is concretely planned (you are
-    about to start it). Refactoring for hypothetical future work is speculative
-    and often wrong.
-
--   **Large legacy area, lots wrong with it.**
-
-    Don't try to fix it all at once. Pick one named quality per refactor
-    session. Plan a sequence of refactors over time. The whole codebase does not
-    need to improve in one PR.
-
 ##  Success criteria
 
 -   **External behavior MUST be unchanged.**
@@ -263,9 +252,11 @@ commit and tracking issue. Resumed the refactor.
 
     Reviewable in minutes. Revertable on its own.
 
--   **No feature or bug-fix work MUST be mixed in.**
+-   **The diff MUST contain only restructuring.**
 
-    The diff MUST contain only restructuring. Anything else MUST be in a separate
-    commit and a separate review thread.
+    No feature or bug-fix work MUST be mixed in. Anything else MUST be in a
+    separate commit and a separate review thread.
 
 -   **Tests MUST have passed after every move, not just at the end.**
+
+-   **The PR description MUST name the quality being improved and the moves taken.**
