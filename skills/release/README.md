@@ -1,4 +1,4 @@
-# Release skill
+# Release
 
 The `release` skill is all about **release branching and tagging**. It defines
 two mutually exclusive release strategies and the rules for each: a single
@@ -20,10 +20,11 @@ reference-and-apply.
 
 ## How to invoke
 
-- `/release`, `/skill:release` (prompts vary by harness).
-- "Cut a release."
-- "Tag version 2.1.0."
-- "Prepare a release branch."
+> Cut a release.
+
+> Tag version 2.1.0.
+
+> Prepare a release branch.
 
 ## Recommended models
 

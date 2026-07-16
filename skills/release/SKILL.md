@@ -18,107 +18,118 @@ metadata:
 **Input**: A request to prepare a release, plus the project's release model (a single `release` trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED.
 
 **Output**: The release branch created or advanced per the model, and the
-release tagged with a correctly-formatted version. This skill applies the
-release branching and tagging convention and stops; it does not author commit
-messages or define the general branch model.
+  release tagged with a correctly-formatted version. This skill applies the
+  release branching and tagging convention and stops; it does not author commit
+  messages or define the general branch model.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-## Instructions
+##  Instructions
 
-Choose one release strategy:
+1.  **Determine the release model and naming convention.**
 
--   A single **release trunk**:
+    Choose one release strategy per the Rules section:
 
-    For continuous deployment. Naming convention:
+    -   A single **release trunk**.
 
-    ```
-    release
-    ```
+    -   Multiple **release branches**.
 
--   Multiple **release branches**:
+2.  **Cut or advance the release branch from `ready`.**
 
-    For release trains and big-bang releases. Naming convention:
+    - For the `release` trunk: fast-forward it to the current `ready` tip.
+    - For a `release/<version>` branch: `git checkout -b release/<version> ready`.
 
-    ```
-    release/<version>
-    ```
-
-Validation regex (for both):
-
-```
-^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$
-```
-
-##  Rules
-
--   **Release trunk** (`release`):
-
-    - Permanent trunk, auto-promoted from `ready` when verified.
-
-    - The tip commit is always a candidate for production deployment.
-
-    - References pre-built artifacts in external artifact registries.
-
--   **Release branches** (`release/<version>`):
-
-    - MUST be cut from `ready` trunk tip: `git checkout -b release/<version>
-      ready`.
-
-    - Temporary; MUST be deleted after tagging and a successful deployment
-      pipeline.
-
-    - MUST contain only release-preparation commits: version bumps, changelog
-      updates, release-specific config.
-
-    - MUST be tagged with version: `git tag -a v<version> -m "<release_notes>"`.
-
-    - Build artifacts MUST be stored in an external artifact registry, indexed by
-      tag.
-
-    - If preparation fails, you MUST abandon the branch and start over.
-
-    - You MUST NOT commit fixes to release branches. Fixes MUST flow through
-      `dev` → `ready` → new release branch.
-
-    - The placeholder name `release/next` MAY be used if the version is not yet
-      decided.
-
--   **General**:
-
-    - All releases MUST be cut from `ready` trunk, the tip of which is guaranteed
-      to always contain pristine, production-grade artifacts.
-
-    - Development MAY continue unblocked during release preparation (no code
-      freezes).
-
-    - Compiled artifacts MUST be shipped to external artifact registries (Docker,
-      npm, PyPI, S3, etc.), never to the Git repository.
-
-    - Version tags are permanent, and SHOULD be referenced in external artifact
-      repos for traceability.
-
--   **You MUST promote the `[Unreleased]` CHANGELOG section at release time.**
+3.  **Promote the `[Unreleased]` CHANGELOG section.**
 
     Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md` to the
     version and date (eg. `## [1.2.0] - 2026-05-27`), and add a new empty
     `[Unreleased]` section above it. Include this as part of the `release:`
-    commit on the release branch. This ties each changelog entry to a specific
-    shipped version.
+    commit on the release branch.
 
--   **You SHOULD prepare release notes for end users.** *(Draft — process to be defined.)*
+4.  **Tag the release.**
 
-    Release notes are distinct from the CHANGELOG. Where the CHANGELOG records
-    all changes for contributors and developers, release notes are curated for
-    end users: user-facing features, bug fixes, and breaking changes, written in
-    plain non-technical language. Derive them from the newly-promoted versioned
-    section of `CHANGELOG.md`, filtering out internal changes (`refactor:`,
-    `style:`, `step:`, `maintenance:`). The format and publication channel are
+    Create an annotated version tag on the release branch:
+
+    ```sh
+    git tag -a v<version> -m "<release_notes>"
+    ```
+
+5.  **Build and ship artifacts.**
+
+    Build production artifacts and ship them to the project's external artifact
+    registry (Docker, npm, PyPI, S3, etc.), indexed by the version tag.
+
+6.  **Clean up the release branch, if used.**
+
+    For `release/<version>` branches, delete the branch after a successful
+    deployment pipeline. The `release` trunk is permanent and is never deleted.
+
+7.  **Prepare release notes for end users.**
+
+    Where the project expects them, derive release notes from the newly
+    promoted versioned section of `CHANGELOG.md`. Filter out internal changes
+    (`refactor:`, `style:`, `step:`, `maintenance:`) and write the remainder in
+    plain, non-technical language. The format and publication channel are
     project-specific.
 
-## Examples
+##  Rules
+
+-   **A single release strategy MUST be in use.**
+
+    Either the `release` trunk (continuous deployment) or `release/<version>`
+    branches (release trains) — not both. The name MUST match
+    `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+
+-   **All releases MUST be cut from `ready`.**
+
+    The tip of `ready` is guaranteed to contain pristine, production-grade
+    artifacts. Releases MUST NOT be cut from `dev` or `test`.
+
+-   **The `release` trunk rules.**
+
+    - The `release` trunk MUST be permanent.
+    - Its tip commit MUST always be a candidate for production deployment.
+    - It MUST reference pre-built artifacts in external artifact registries.
+
+-   **`release/<version>` branch rules.**
+
+    - A release branch MUST be cut from the `ready` trunk tip:
+      `git checkout -b release/<version> ready`.
+    - It MUST be temporary; it MUST be deleted after tagging and a successful
+      deployment pipeline.
+    - It MUST contain only release-preparation commits: version bumps, changelog
+      updates, release-specific config.
+    - It MUST be tagged with version: `git tag -a v<version> -m "<release_notes>"`.
+    - Build artifacts MUST be stored in an external artifact registry, indexed by
+      tag.
+    - If preparation fails, you MUST abandon the branch and start over.
+    - You MUST NOT commit fixes to release branches. Fixes MUST flow through
+      `dev` → `ready` → a new release branch.
+    - The placeholder name `release/next` MAY be used if the version is not yet
+      decided.
+
+-   **Development MAY continue unblocked during release preparation.**
+
+    No code freezes are required.
+
+-   **Build artifacts MUST live outside Git.**
+
+    Compiled artifacts MUST be shipped to external artifact registries (Docker,
+    npm, PyPI, S3, etc.) and referenced by tag — never committed to the
+    repository.
+
+-   **Version tags are permanent.**
+
+    They SHOULD be referenced in external artifact repos for traceability.
+
+-   **The `[Unreleased]` CHANGELOG section MUST be promoted at release time.**
+
+    Before tagging, rename it to the version and date and add a fresh empty
+    `[Unreleased]` section above it. This MUST land in the `release:` commit.
+
+##  Examples
 
 Release trunk:
 
@@ -143,16 +154,14 @@ v2.0.0
 
 ##  Success criteria
 
--   **A single release strategy MUST be in use.**
+-   **The release branch exists and follows the chosen naming convention.**
 
-    Either the `release` trunk (continuous deployment) or `release/<version>`
-    branches (release trains) — not both. The name MUST match
-    `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+    Either a permanent `release` trunk or a temporary `release/<version>` branch,
+    matching `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
--   **The release MUST have been cut from `ready`.**
+-   **The release branch points to the `ready` tip from which it was cut.**
 
-    Release branches MUST branch from the `ready` trunk tip, whose artifacts are
-    production-grade — never from `dev` or `test`.
+    Releases MUST NOT originate from `dev` or `test`.
 
 -   **The release MUST be tagged.**
 
@@ -174,3 +183,8 @@ v2.0.0
 
     Any correction MUST flow `dev` → `ready` → a new release branch; release
     branches carry only release-preparation commits.
+
+-   **A `release/<version>` branch, if used, MUST be deleted after tagging and
+    a successful deployment pipeline.**
+
+    The `release` trunk MUST remain intact.
