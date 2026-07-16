@@ -1,4 +1,4 @@
-# Triage skill
+# Triage
 
 The `triage` skill is all about **bug and incident verification**. It takes a
 freshly-filed issue and decides what happens next: implement, defer, reject, or
@@ -21,10 +21,11 @@ are marked with a disclaimer.
 
 ## How to invoke
 
-- `/triage`, `/skill:triage` (prompts vary by harness).
-- "Triage this issue."
-- "Work the incoming issue queue."
-- "Prep this issue for an agent."
+> Triage this issue.
+
+> Work the incoming issue queue.
+
+> Prep this issue for an agent.
 
 ## Recommended models
 

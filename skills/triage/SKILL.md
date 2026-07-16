@@ -94,20 +94,18 @@ with an error message.
 
     State your category and state recommendation with reasoning, plus a brief
     codebase summary relevant to the issue. Wait for direction from the
-    maintainer before applying any labels — triage is a maintainer's decision;
-    the skill does the legwork to make that decision cheap.
+    maintainer before applying any labels.
 
 5.  **For bugs: attempt reproduction.**
 
-    Before grilling, try to reproduce: read the reporter's steps, trace the
-    code, run the failing command. Report one of:
+    Read the reporter's steps, trace the code, and run the failing command.
+    Report one of:
 
     - *Successful repro*: include the exact code path that triggered the bug.
     - *Failed repro*: state what you tried and what happened instead.
     - *Insufficient detail*: this is a strong signal for `needs-info`.
 
-    A confirmed repro makes for a much stronger agent brief later. Spend
-    disproportionate effort here.
+    A confirmed repro makes for a much stronger agent brief later.
 
 6.  **Grill the issue into shape (if needed).**
 
@@ -123,8 +121,7 @@ with an error message.
     - *`ready-for-agent`* → post an agent-brief comment (template below). Apply
       the label.
     - *`ready-for-human`* → same structure as the agent brief, but note
-      specifically *why* it can't be delegated (architectural call, external
-      access required, design judgment, manual verification). Apply the label.
+      specifically *why* it can't be delegated. Apply the label.
     - *`needs-info`* → post a triage-notes comment (template below) with
       specific outstanding questions. Apply the label.
     - *`wontfix` (bug)* → post a polite explanation and close.
@@ -148,10 +145,10 @@ with an error message.
     Recommend; you MUST NOT unilaterally label, comment, or close. The maintainer
     applies labels and closes issues; the skill makes that decision cheap.
 
--   **Each issue MUST carry one category and one state label.**
+-   **You MUST flag conflicting labels before resolving them.**
 
-    No exceptions. If state labels conflict (eg. an issue is both `needs-info`
-    and `ready-for-agent`), you MUST flag the inconsistency and ask before
+    If state labels conflict (eg. an issue is both `needs-info` and
+    `ready-for-agent`), you MUST flag the inconsistency and ask before
     resolving.
 
 -   **State transitions MUST follow the machine.**
@@ -170,8 +167,7 @@ with an error message.
 -   **A confirmed repro SHOULD be the gold standard for bugs.**
 
     Issues that can be reliably reproduced are much faster to fix and much
-    harder to mis-classify. Reproducibility is also the strongest signal a bug
-    is `ready-for-agent`.
+    harder to mis-classify.
 
 -   **Out-of-scope rejections MUST be durable.**
 
@@ -279,16 +275,9 @@ scratch. Closing.
     Trust them. Apply what they asked for, even if your recommendation differed.
     Do not relitigate.
 
--   **The out-of-scope knowledge base does not yet exist.**
 
-    Create it lazily when the first wontfix-enhancement closure needs to be
-    captured (eg. `docs/out-of-scope/bulk-import-via-csv.md`). Do not
-    pre-populate it.
 
--   **An issue's labels conflict with the maintainer's request.**
 
-    Surface the conflict ("this issue currently has `ready-for-agent` but you
-    asked me to move it to `needs-info` — confirm?") before making any changes.
 
 ##  Success criteria
 
