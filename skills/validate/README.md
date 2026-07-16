@@ -1,4 +1,4 @@
-# Validate skill
+# Validate
 
 The `validate` skill is all about **product fitness review**. Once all of a
 plan's increments are built, reviewed, and tested, it steps back and checks the
@@ -23,10 +23,11 @@ the need / gaps found), but changes no specification and no code.
 
 ## How to invoke
 
-- `/validate`, `/skill:validate` (prompts vary by harness).
-- "Validate this against what the user actually needed."
-- "Did we build the right thing?"
-- "Check the working software against the original goal."
+> Validate this against what the user actually needed.
+
+> Did we build the right thing?
+
+> Check the working software against the original goal.
 
 ## Recommended models
 

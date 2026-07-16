@@ -37,65 +37,30 @@ with an error message.
 
 1.  **Recover the original need, not just the ACs.**
 
-    Before looking at the working software, recover *why* it was built. Pull the
-    originating intent from the strongest available source, in order:
-
-    - The proposal's preserved product requirements document (PRD) — the
-      business-language statement of need the specification was written from.
-    - The specification's outcome / goal / success-measure sections.
-    - The discovery report, if one exists.
-
-    The ACs tell you what was promised; the PRD and success measures tell you
-    what was *wanted*. Validation compares the working software to the latter.
-    If no statement of need survives anywhere, say so — without it, validation
-    has nothing to judge against, and that absence is itself the first finding.
+    Pull the originating intent from the strongest available source, in order:
+    the preserved PRD, the specification's outcome / goal / success-measure
+    sections, or the discovery report. If no statement of need survives anywhere,
+    report that absence as the first finding.
 
 2.  **Walk the working software as the user, against the need.**
 
-    Exercise the completed, tested increments end-to-end — not scenario by
-    scenario, but as the user pursuing their actual goal. For each user outcome
-    the specification claimed to serve, ask:
-
-    - Does the working software let the user achieve the outcome, in practice,
-      not just on paper?
-    - Is the path to it as direct as the need warrants, or has the specification
-      mandated friction the user will not tolerate?
-    - Does it meet the *success measure* (the metric the PRD said would prove it
-      worked), where one was stated?
-
-    Capture observed behavior, not assumed behavior — the same evidence
-    discipline as [`test`](../test/SKILL.md). "The flow works" is not a finding;
-    "the user must re-enter the address at step 4, which the need says they
-    should never have to" is.
+    Exercise the completed, tested increments end-to-end, as the user pursuing
+    their actual goal. For each user outcome the specification claimed to serve,
+    check whether the working software lets the user achieve it in practice,
+    whether the path is as direct as the need warrants, and whether it meets the
+    stated success measure. Capture observed behavior.
 
 3.  **Surface the gaps between specification and need.**
 
-    Classify each gap by how the specification diverged from the need:
-
-    - **Unmet need.** A stated outcome the working software does not actually
-      deliver, even though every related AC passes. The ACs under-specified the
-      need.
-    - **Wrong target.** The specification optimized for something the user does
-      not value, at the cost of something they do.
-    - **Missing requirement.** A need that surfaced only once the software was
-      usable — never captured as an AC at all.
-    - **Over-specification.** The specification demanded behavior the user does
-      not need, adding cost or friction for no benefit.
-    - **Stale assumption.** A success measure or constraint that was reasonable
-      when specified but is now disproven by the working software.
-
-    Tie each gap to evidence: an observed behavior, a measured shortfall against
-    a success metric, a step in the flow. A gap without evidence is a
-    preference, not a finding.
+    Classify each gap by type: **Unmet need**, **Wrong target**, **Missing
+    requirement**, **Over-specification**, or **Stale assumption**. Tie each gap
+    to evidence.
 
 4.  **Prioritize by need-impact ÷ change-cost.**
 
-    Rank gaps by how much closing them serves the user's real need, against how
-    disruptive the specification change would be. The top entry is the cheapest
-    change that most improves fitness for purpose. Cap the report at 5–10
-    candidates — an unbounded wishlist will not be acted on. "Leave it" is a
-    valid finding: a gap whose fix costs more than the gap itself stays
-    unspecified, said explicitly.
+    Rank gaps by how much closing them serves the user's real need against how
+    disruptive the specification change would be. "Leave it" is a valid finding
+    where the fix costs more than the gap.
 
 5.  **Produce the validation report.**
 
@@ -128,13 +93,8 @@ with an error message.
 
 6.  **Report the verdict and stop.**
 
-    - **MEETS THE NEED** — the working software serves the user's real need; no
-      specification change is warranted. The work is validated.
-    - **GAPS FOUND** — report the prioritized suggestions. Each is input to a
-      [`refine`](../refine/SKILL.md) pass, which drafts the specification edit
-      and flows into [`specify`](../specify/SKILL.md). Do not draft the edits
-      here; suggest the direction and stop. What consumes the report is the
-      orchestrator's concern.
+    Report MEETS THE NEED or GAPS FOUND. Do not draft specification edits here;
+    what consumes the report is the orchestrator's concern.
 
 ##  Rules
 
@@ -154,9 +114,9 @@ with an error message.
 
 -   **Every finding MUST carry evidence.**
 
-    An observed behavior, a measurement against a success metric, a concrete
-    step in the user's flow. A gap asserted without evidence is a preference
-    and MUST NOT belong in the report.
+    An observed behavior, a measurement against a success metric, or a concrete
+    step in the user's flow. A gap asserted without evidence is a preference and
+    MUST NOT belong in the report.
 
 -   **You MUST distinguish a specification gap from an implementation defect.**
 
@@ -170,11 +130,6 @@ with an error message.
     Validation is not obliged to find fault. If the working software serves the
     user's real need, you MUST say so and report no specification change. You
     MUST NOT manufacture gaps to justify the pass; that wastes a refine cycle.
-
--   **The report MUST be bounded.**
-
-    Top 5–10 candidates, prioritized. An exhaustive backlog of every conceivable
-    improvement will not be acted on and buries the findings that matter.
 
 -   **Scope expansion MUST NOT be treated as validation.**
 
@@ -212,4 +167,4 @@ with an error message.
 
 -   **The report MUST be bounded.**
 
-    Top 5–10 candidates, prioritized by need-impact ÷ change-cost.
+    It MUST contain 5–10 prioritized candidates, not an exhaustive wishlist.
