@@ -1,4 +1,4 @@
-# Plan skill
+# Plan
 
 The `plan` skill is all about **decomposing a design into deliverable steps**. It
 turns a big up-front design into a sequenced checklist of small construction
@@ -13,10 +13,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/plan`, `/skill:plan` (prompts vary by harness).
-- "Break this design into steps."
-- "Plan the implementation."
-- "How should we sequence this work?"
+> Break this design into steps.
+
+> Plan the implementation.
+
+> How should we sequence this work?
 
 ## Recommended models
 

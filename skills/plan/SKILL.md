@@ -16,15 +16,15 @@ metadata:
 # Plan
 
 **Input**: An agreed design (the chosen option) and the acceptance criteria it
-must deliver, for a change larger than one atomic commit or touching multiple
-seams. REQUIRED. The project's commit-type vocabulary and branch model inform
-how steps are labeled and integrated.
+  must deliver, for a change larger than one atomic commit or touching multiple
+  seams. REQUIRED. The project's commit-type vocabulary and branch model inform
+  how steps are labeled and integrated.
 
 **Output**: A numbered checklist of small steps, each independently mergeable,
-testable, and reversible, ordered riskiest-first, with a mode tag
-(`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and any
-flag, fixture, or migration named where used. The plan is reported as the
-artefact and the skill stops; it writes no code itself.
+  testable, and reversible, ordered riskiest-first, with a mode tag
+  (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and any
+  flag, fixture, or migration named where used. The plan is reported as the
+  artefact and the skill stops; it writes no code itself.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
@@ -53,18 +53,8 @@ with an error message.
 
 3.  **Decompose into steps.**
 
-    Each step MUST satisfy all of:
-
-    - *Independently mergeable*: can be integrated into `dev` on its own without
-      breaking the build.
-    - *Independently testable*: has a clear pass/fail signal (test, manual
-      check, or measurable behavior).
-    - *Reversible*: can be reverted without leaving the system in a worse state
-      than before the step.
-    - *Small*: ideally reviewable in under 30 minutes; certainly under one
-      working day.
-
-    If a step fails any of these, split it further.
+    Split the work into the smallest steps that can be integrated, tested, and
+    reverted independently.
 
 4.  **Order by risk, not by ease.**
 
@@ -84,24 +74,11 @@ with an error message.
     - A schema migration is reversible and ships separately from the code that
       uses it.
 
-    Naming these explicitly prevents accidental coupling between steps.
+    Name any feature flag, fixture, or migration on the step where it is used.
 
 6.  **Write the plan.**
 
-    Output a numbered checklist. For each step include:
-
-    - A short imperative title (eg. "Step 3: add `/orders` POST endpoint,
-      stubbed response").
-    - A *mode tag*: `HITL` (human-in-the-loop — requires synchronous human input
-      such as an architectural call, design review, or UI/UX sign-off) or `AFK`
-      (away-from-keyboard — can be implemented and merged without further human
-      input).
-    - The pass/fail signal (test name, behavior to verify, metric to check).
-    - Any dependency on a prior step.
-    - Any flag, fixture, or migration involved.
-
-    Keep step descriptions tight. The plan is a checklist, not a design doc —
-    the design lives elsewhere.
+    Output a numbered checklist of the steps.
 
 7.  **Pressure-test the plan.**
 
@@ -117,20 +94,15 @@ with an error message.
 
 ##  Rules
 
--   **Each step MUST ship independently.**
-
-    "Step 5 of 8 is half-done in `dev`" is a planning failure. Either step 5 is
-    mergeable on its own, or it is not a step.
-
--   **You MUST sequence risky first, easy last.**
-
-    A plan that front-loads polish and back-loads the unknown maximizes the cost
-    of being wrong. Reverse it.
-
 -   **Each step MUST address one concern.**
 
     Mixing a schema migration, a new endpoint, and a UI change into a single
     step turns a small problem into a tangled rollback. Split on concerns.
+
+-   **A step MUST NOT be a catch-all.**
+
+    A vague final step ("polish and tests") hides scope. You MUST enumerate
+    what's in it, even briefly.
 
 -   **Plans are revisable, not sacred.**
 
@@ -154,11 +126,6 @@ with an error message.
     is visible up front — and so the plan can be re-ordered to cluster or
     front-load those steps when synchronous time is scarce.
 
--   **No step MUST be "do everything else".**
-
-    A vague final step ("polish and tests") hides scope. You MUST enumerate
-    what's in it, even briefly.
-
 -   **You MUST match commit type to step type.**
 
     Use the project's commit-type vocabulary. Most plan steps are `step:`
@@ -166,7 +133,23 @@ with an error message.
     user-visible step typically `feature:`. Split refactor work into separate
     `refactor:` steps.
 
-## Examples
+-   **If a step turns out to be too big mid-implementation, you MUST pause coding,
+    split the step in the plan, then resume on the first sub-step.**
+
+    Don't merge a half-step.
+
+-   **If a step uncovers a design flaw, you MUST stop and loop back to the design.**
+
+    Replan the remaining steps once the design is settled. Sunk cost is not a
+    reason to push forward.
+
+-   **If steps will be done across weeks by multiple contributors and don't fit on
+    `temp/*`, you MUST use an `epic/*` branch per the project's branching
+    convention.**
+
+    The plan still applies; the integration target changes.
+
+##  Examples
 
 A plan for "add an /orders POST endpoint with idempotency":
 
@@ -207,35 +190,17 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 3, after the UI and copy work are merged, wastes that work.
 ```
 
-##  Edge cases
-
--   **The plan is a single step.**
-
-    Fine. Skip the planning artifact and go straight to implementation. Don't
-    manufacture three steps to justify the skill.
-
--   **A step turns out to be too big mid-implementation.**
-
-    Pause coding, split the step in the plan, then resume on the first sub-step.
-    Don't merge a half-step.
-
--   **A step uncovers a design flaw.**
-
-    Stop. Loop back to the design with what you learned. Replan the remaining
-    steps once the design is settled. Sunk cost is not a reason to push forward.
-
--   **Long-lived parallel work.**
-
-    If steps will be done across weeks by multiple contributors and don't fit on
-    `temp/*`, use an `epic/*` branch per the project's branching convention. The
-    plan still applies; the integration target changes.
-
 ##  Success criteria
+
+-   **The plan MUST be a numbered checklist of steps.**
 
 -   **Every step MUST be independently mergeable, testable, and reversible.**
 
     Re-read each step with that filter. Anything that fails the filter MUST be
     split.
+
+-   **Each step SHOULD be reviewable in under 30 minutes, and certainly under one
+    working day.**
 
 -   **The first step MUST be the thinnest plausible end-to-end slice.**
 
@@ -249,6 +214,13 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 
     A test name, a curl command, a metric threshold — something observable.
 
--   **Feature flags, fixtures, and migrations MUST be named where used.**
+-   **Each step MUST include a mode tag (`HITL` or `AFK`), any prior-step
+    dependency, and any flag, fixture, or migration involved.**
 
-    Implicit coupling between steps MUST be called out.
+-   **Step descriptions MUST be tight.**
+
+    The plan MUST NOT substitute for the design document.
+
+-   **If the plan is a single step, the output MUST say so explicitly and direct
+    the caller to proceed with implementation rather than returning a plan
+    artifact.**
