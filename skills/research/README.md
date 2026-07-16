@@ -1,4 +1,4 @@
-# Research skill
+# Research
 
 The `research` skill is all about **external knowledge gathering**. It looks
 *outward* to pull knowledge inward: a library, protocol, pattern, regulation, or
@@ -23,10 +23,11 @@ certainty.
 
 ## How to invoke
 
-- `/research`, `/skill:research` (prompts vary by harness).
-- `/research does library X support streaming responses, and from which
-  version?`
-- "Research X." / "Look into X." / "Find out how X works."
+> Research does library X support streaming responses, and from which version?
+
+> Look into X.
+
+> Find out how X works.
 
 ## Recommended models
 

@@ -19,17 +19,17 @@ metadata:
 **Input**: A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
 
 **Output**: A single, cited research report — a direct answer to the framed
-question, the supporting evidence (each decision-bearing claim sourced and,
-where time-sensitive, dated), the open questions, and a suggested destination
-for the findings. This skill produces the report and stops; writing the findings
-into a design doc, an ADR, persisted memory, or anywhere else is a separate,
-explicit step the caller initiates.
+  question, the supporting evidence (each decision-bearing claim sourced and,
+  where time-sensitive, dated), the open questions, and a suggested destination
+  for the findings. This skill produces the report and stops; writing the findings
+  into a design doc, an ADR, persisted memory, or anywhere else is a separate,
+  explicit step the caller initiates.
 
 **Interactivity**: Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-## Instructions
+##  Instructions
 
 1.  **Frame the question.**
 
@@ -40,48 +40,36 @@ with an error message.
     and stopping point.
 
     If the request is too broad to answer in one pass, narrow it to the
-    questions that actually block progress and say which you are deferring.
+    questions that actually block progress and list the rest as deferred.
 
 2.  **Check what is already known first.**
 
     Before reaching outward, check inward sources that may already hold the
     answer: the codebase, `docs/`, existing ADRs, committed convention files
-    (`AGENTS.md` / `CLAUDE.md`), and agent memory. Do not spend a web search on
-    something the repo already records. Note what you found and what gap
-    remains.
+    (`AGENTS.md` / `CLAUDE.md`), and agent memory. Note what you found and what gap
+    remains, as required by the Rules.
+
+    If the question is fully answerable from inward sources, skip the external
+    search and report the finding with its in-repo source.
 
 3.  **Gather external sources.**
 
     Use web search and fetch (`WebSearch` / `WebFetch` or the host's equivalent)
-    to collect authoritative sources for the remaining gap. Prefer, in order:
-
-    - Primary sources: official docs, specifications, RFCs, source code,
-      changelogs.
-    - Maintainer-authored material: design notes, issue threads, release
-      announcements.
-    - Reputable secondary sources: well-regarded articles, conference talks,
-      books.
-
-    Treat forums, blogs, and AI-generated content as leads to verify against a
-    primary source, not as conclusions. Capture the URL and the access date for
-    everything you rely on.
+    to collect authoritative sources for the remaining gap, following the
+    source-preference and citation Rules.
 
 4.  **Corroborate and date every claim.**
 
-    A claim that matters to the decision needs at least two independent sources,
-    or one primary source. Version- and time-sensitive facts (API shapes,
-    pricing, limits, "best practice") MUST carry the version or date they were
-    true as of — knowledge goes stale, and a dated claim lets a future reader
-    judge whether it still holds.
-
-    When sources disagree, say so explicitly rather than silently picking one.
+    Apply the corroboration and dating Rules to each claim that matters to the
+    decision.
 
 5.  **Synthesize into a structured report.**
 
-    Write the report (format below). Lead with a direct answer to the framed
-    question, then the supporting evidence, then the open questions. The reader
-    should get the actionable conclusion in the first few lines and be able to
-    drill into the evidence only if they need to.
+    Write the report using the structure defined in the Success criteria. Lead
+    with a direct answer to the framed question, then the supporting evidence,
+    then the open questions. The reader should get the actionable conclusion in
+    the first few lines and be able to drill into the evidence only if they need
+    to.
 
 6.  **Separate fact from inference.**
 
@@ -97,7 +85,7 @@ with an error message.
     review) and stop. Writing into those destinations is a separate, explicit
     step the caller initiates.
 
-## Rules
+##  Rules
 
 -   **You MUST cite everything that matters.**
 
@@ -109,6 +97,9 @@ with an error message.
     Prefer the spec over the blog post about the spec. Prefer the current docs
     over a three-year-old tutorial. When you must rely on something older, you
     MUST flag its age.
+
+-   **You MUST treat forums, blogs, and AI-generated content as leads to verify
+    against a primary source, not as conclusions.**
 
 -   **You MUST date version- and time-sensitive facts.**
 
@@ -139,78 +130,28 @@ with an error message.
     are answered to the confidence the decision needs, you MUST stop — you MUST
     NOT keep reading for completeness.
 
-## Report format
+-   **You MUST NOT fabricate URLs or pretend to have browsed when web access is
+    unavailable.**
 
-```md
-# Research: <topic>
+-   **You MUST NOT perform an unnecessary external search if the codebase or
+    existing project docs already answer the question.**
 
-**Question:** <the specific question(s) framed in step 1>
-**Decision this unblocks:** <what becomes possible once answered>
-**As of:** <date>
+-   **If web access is unavailable, you MUST answer as far as the inward sources
+    and the model's own knowledge allow, mark that portion's confidence as
+    reduced, and you MUST NOT fabricate URLs or pretend to have browsed.**
 
-## Answer
+-   **If sources are paywalled or unreachable, you MUST note that they exist but
+    could not be verified, and find an open alternative where one exists.**
 
-<Direct, actionable answer in 1-3 sentences. The reader who stops
-here should still have what they need.>
-
-## Findings
-
-- <Claim.> [source](url), accessed <date>. <Version/date the claim holds for.>
-- <Claim.> Corroborated by [source A](url) and [source B](url).
-- <Where sources disagreed, the disagreement and your read of it.>
-
-## Open questions / low-confidence areas
-
-- <What the research could not settle, and what it would take to settle it.>
-
-## Suggested destination
-
-<Where these findings should go next: design input, ADR, memory, user review.>
-
-## Sources
-
-- [Title](url) - accessed <date> - <one-line note on what it covers>
-```
-
-## Edge cases
-
--   **No web access available.**
-
-    Some hosts expose no search/fetch tool. Say so plainly, answer as far as the
-    inward sources (step 2) and the model's own knowledge allow, and mark that
-    portion's confidence as reduced and its facts as undated-by-source. Do not
-    fabricate URLs or pretend to have browsed.
-
--   **The question turns out to be answerable from the codebase alone.**
-
-    If step 2 fully answers it, stop there — report the finding with its in-repo
-    source and skip the external search. An unnecessary web search is wasted
-    budget.
-
--   **The topic is too broad to research in one pass.**
-
-    Narrow to the decision-blocking questions, answer those, and list the rest
-    as deferred. A focused answer to the real question beats a shallow survey of
-    everything.
-
--   **Sources are paywalled or unreachable.**
-
-    Note the source exists but could not be accessed, and do not represent its
-    contents as verified. Find an open alternative where one exists.
-
--   **The honest answer is "it depends" or "unknown".**
-
-    Report that. A research skill that always returns a confident answer is not
-    researching — it is rationalising. Name the dependency or the gap.
-
-## Success criteria
+##  Success criteria
 
 -   **The framed question MUST be answered, or its unanswerability explained.**
 
     The report opens with a direct answer, or with a clear statement of why no
     answer was reachable and what would be needed.
 
--   **Every decision-bearing claim MUST be cited and, where time-sensitive, dated.**
+-   **Every decision-bearing claim MUST be cited; time-sensitive claims MUST be
+    dated.**
 
     A reader can follow each material claim to a source and judge whether it is
     still current.
@@ -224,7 +165,42 @@ here should still have what they need.>
     The conclusion leads; the evidence supports. The reader is not made to
     assemble the answer themselves.
 
--   **No production artifact MUST have been changed.**
+-   **The research report MUST be the only artifact produced.**
 
-    Code, project docs, and shipped skills are untouched; the output is a report
+    Code, project docs, and shipped skills are untouched. The output is a report
     plus a suggested destination.
+
+-   **The report MUST follow this structure:**
+
+    ```md
+    # Research: <topic>
+
+    **Question:** <the specific question(s) framed in step 1>
+    **Decision this unblocks:** <what becomes possible once answered>
+    **As of:** <date>
+
+    ## Answer
+
+    <Direct, actionable answer in 1-3 sentences. The reader who stops
+    here should still have what they need.>
+
+    ## Findings
+
+    - <Claim.> [source](url), accessed <date>. <Version/date the claim holds for.>
+    - <Claim.> Corroborated by [source A](url) and [source B](url).
+    - <Where sources disagreed, the disagreement and your read of it.>
+
+    ## Open questions / low-confidence areas
+
+    - <What the research could not settle, and what it would take to settle it.>
+
+    ## Suggested destination
+
+    <Where these findings should go next: design input, ADR, memory, user review.>
+
+    ## Sources
+
+    - [Title](url) - accessed <date> - <one-line note on what it covers>
+    ```
+
+-   **Deferred questions, if any, MUST be listed.**
