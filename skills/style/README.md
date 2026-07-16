@@ -1,4 +1,4 @@
-# Style skill
+# Style
 
 The `style` skill is all about **cleaning up code presentation**. It makes
 changes that are visually large but semantically empty: consistent whitespace,
@@ -13,10 +13,11 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-- `/style`, `/skill:style` (prompts vary by harness).
-- "Format this file."
-- "Fix the formatting / lint errors."
-- "Tidy up the whitespace and style here."
+> Format this file.
+
+> Fix the formatting / lint errors.
+
+> Tidy up the whitespace and style here.
 
 ## Recommended models
 

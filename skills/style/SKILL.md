@@ -34,87 +34,40 @@ with an error message.
 
 1.  **Confirm the change is presentation only.**
 
-    Before reformatting, identify exactly what is changing:
-
-    - Whitespace, indentation, line wrapping, trailing newlines.
-    - Quote style (single vs double), trailing commas, semicolons.
-    - Import ordering or grouping.
-    - Casing of literals (eg. hex `0xFF` vs `0xff`) where the language treats
-      them as equivalent.
-    - File-level concerns: line endings (LF/CRLF), final newline, BOM, encoding.
-
-    If you cannot describe the change in those terms, you are not formatting.
-    Stop and re-classify — most likely a structural refactor.
+    Before reformatting, identify exactly what is changing: whitespace,
+    indentation, line wrapping, trailing newlines, quote style, trailing commas,
+    semicolons, import ordering or grouping, casing of literals, line endings,
+    final newline, BOM, and encoding. If you cannot describe the change in those
+    terms, stop and re-classify as a structural refactor.
 
 2.  **Prefer the project's configured formatter.**
 
-    Run the project's formatter rather than hand-editing. Look for, in order:
-
-    - A formatter config file: `.prettierrc`, `.editorconfig`, `pyproject.toml`
-      (`[tool.black]`, `[tool.ruff]`), `rustfmt.toml`, `.clang-format`, `gofmt`,
-      `.stylelintrc`, etc.
-    - A formatter script in `package.json`, `Makefile`, `justfile`, or similar
-      (`npm run format`, `make fmt`).
-    - A pre-commit hook (`.pre-commit-config.yaml`) that already configures the
-      formatter.
-
-    Use the configured tool with the configured options. Do not introduce a new
-    formatter or change config inside a style commit — that is a `maintenance:`
-    change.
+    Run the project's formatter rather than hand-editing. Look for, in order, a
+    formatter config file, a formatter script in `package.json`, `Makefile`,
+    `justfile`, etc., or a pre-commit hook that configures the formatter. Use the
+    configured tool with the configured options.
 
 3.  **Scope the run deliberately.**
 
-    Decide what to format:
-
-    - *The file or files I just touched* (most common — normalize before
-      commit).
-    - *A single directory* being brought into line with project conventions.
-    - *The whole repo* (rare — a one-off normalization, usually justified by
-      adopting or upgrading a formatter).
-
-    Wider scope means a noisier diff. Reviewers cannot distinguish behavior
-    changes from formatting noise when they are mixed. Format in its own commit,
-    on its own scope.
+    Decide what to format: the file or files just touched, a single directory,
+    or the whole repo. Wider scope means a noisier diff.
 
 4.  **Verify behavior is unchanged.**
 
-    Even pure formatting can break things:
-
-    - Significant-whitespace languages (Python, YAML, Make, Haskell) can change
-      semantics on bad re-indents.
-    - Auto-removal of "unused" imports by some formatters can break code that
-      uses side-effect imports.
-    - Quote-style changes inside strings that contain the other quote can break
-      string content.
-    - Reformatting generated files breaks the generator's round-trip.
-
-    Run the test suite after the formatting pass. Tests passing is the proof,
-    not the assumption.
+    Run the test suite after the formatting pass. Be especially careful with
+    significant-whitespace languages (Python, YAML, Make, Haskell), auto-removal
+    of side-effect imports, quote-style changes inside strings, and generated
+    files.
 
 5.  **Commit as `style:`.**
 
-    One formatting commit per scope:
-
-    ```
-    style: apply prettier to src/
-    style: normalize line endings to LF
-    style: sort imports in api/handlers
-    ```
-
-    Do not bundle formatting changes with `feature:`, `fix:`, `refactor:`, or
-    `step:` commits. A mixed diff hides the real change inside the noise.
+    Make one formatting commit per scope using the `style:` commit type.
 
 6.  **Consider automation for next time.**
 
-    If you formatted by hand, the project is missing automation. Open a
-    follow-up `maintenance:` task to:
-
-    - Add or fix the formatter config.
-    - Wire it into a pre-commit hook (`pre-commit`, `husky`, `lefthook`).
-    - Wire it into CI as a check that fails on unformatted code.
-
-    Hand-formatting is a smell. The skill exists for the cases where it is
-    necessary, not as the default.
+    If you formatted by hand, open a follow-up `maintenance:` task to add or fix
+    the formatter config, wire it into a pre-commit hook, and wire it into CI as
+    a check that fails on unformatted code.
 
 ##  Rules
 
@@ -129,15 +82,12 @@ with an error message.
     Renaming a variable, extracting a function, reordering parameters,
     simplifying a conditional — all are structural refactors, not style. Even
     renames that "look like" formatting (eg. casing a constant from `myConst` to
-    `MY_CONST`) change identifier resolution and are structural.
+    `MY_CONST`) change identifier resolution.
 
--   **You MUST NOT bundle with feature, fix, or refactor work.**
+-   **You MUST NOT bundle formatting with feature, fix, or refactor work.**
 
     Mixed commits hide the substantive change inside formatting noise and make
-    `git blame` useless. You MUST keep formatting separate: format first as
-    `style:` commits, then change behavior as `feature:`, `fix:`, `refactor:`,
-    or `step:` commits. Or, more commonly: format *after* the change is
-    complete, as a follow-up commit.
+    `git blame` useless. You MUST keep formatting separate.
 
 -   **You SHOULD prefer automated formatters over hand-edits.**
 
@@ -204,7 +154,7 @@ A repo-wide normalization, scoped:
 style: convert tab indentation to spaces across src/
 
   Applied via .editorconfig + `npm run format`. No source files
-  outside src/ changed. Tests pass.
+outside src/ changed. Tests pass.
 ```
 
 ##  Edge cases
@@ -251,8 +201,7 @@ style: convert tab indentation to spaces across src/
 
 -   **The diff MUST contain only presentation changes.**
 
-    There MUST be no renames, no logic edits, no structural moves. A reviewer
-    can scan it in seconds and approve without close reading.
+    There MUST be no renames, no logic edits, no structural moves.
 
 -   **The commit MUST be a single `style:` commit per scope.**
 
