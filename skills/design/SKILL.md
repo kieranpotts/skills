@@ -36,23 +36,12 @@ with an error message.
 
 ##  Instructions
 
-1.  **Check the entry gate: the specification MUST be approved.**
+1.  **Check the entry gate.**
 
-    Design is the SDLC phase *after* specification. It MUST NOT begin until the
-    specification it builds on has been reviewed and **approved** by the user —
-    that is, the upstream proposal is `ACCEPTED` (not merely `PROPOSED` /
-    awaiting review).
-
-    Confirm the relevant specification proposal is approved before doing
-    anything else. If it is still `DRAFT` or `PROPOSED` — open, but not yet
-    approved — **stop**. Tell the user the design phase is gated on an approved
-    specification, and direct them to review and approve the proposal first. Do
-    not design against an unapproved (or merely proposed) specification; its
-    acceptance criteria may still change in review.
-
-    If no specification exists at all, the change has not been specified — send
-    the user to write and approve one (clarifying the requirements first if they
-    are still vague) before designing.
+    Confirm the relevant specification proposal is `ACCEPTED`. If it is
+    `DRAFT`, `PROPOSED`, or missing, stop. Tell the user the design phase is
+    gated on an approved specification, and direct them to approve or write one
+    first.
 
 2.  **Gather the constraints.**
 
@@ -67,8 +56,7 @@ with an error message.
     - *Budget*: time, complexity tolerance, team familiarity, operational
       headroom.
 
-    If any constraint is unclear, ask the user before proceeding. A design built
-    on guessed constraints will need to be redone.
+    If any constraint is unclear, ask the user before proceeding.
 
 3.  **Identify the decision points.**
 
@@ -85,12 +73,11 @@ with an error message.
     Cosmetic or easily-reversed decisions (variable names, file layout) are not
     decision points — defer them.
 
-4.  **Enumerate 2-4 options per decision.**
+4.  **Enumerate alternatives per decision point.**
 
-    Always produce at least two. A single option masquerading as "the design" is
-    not a design — it is an assumption. Include a do-nothing or
-    simplest-possible option as one of the alternatives; sometimes the right
-    answer is "don't build it that way".
+    Produce at least two options for each decision point, including a
+    do-nothing or simplest-possible alternative. A single option masquerading as
+    "the design" is an assumption, not a design.
 
 5.  **Evaluate each option against the nine design qualities.**
 
@@ -132,11 +119,9 @@ with an error message.
 
 8.  **Report the design and stop.**
 
-    The output is a recommended design with its rejected alternatives and a
-    durable decision record (step 7). Flag any soft edges that remain —
-    ambiguous terms, unstated assumptions, contested trade-offs — so they can be
-    stress-tested before decomposition. Report the design and stop; what
-    consumes it is the orchestrator's concern.
+    Flag any soft edges that remain — ambiguous terms, unstated assumptions,
+    contested trade-offs — so they can be stress-tested before decomposition.
+    Report the design and stop; what consumes it is the orchestrator's concern.
 
 ##  Rules
 
@@ -190,17 +175,9 @@ with an error message.
 
     A module is *deep* when a small, simple interface hides a lot of useful
     behavior — callers benefit from leverage. A module is *shallow* when its
-    interface is nearly as complex as its implementation — it gives callers
-    little for the cost of learning it. When two designs satisfy the same ACs
-    and NFRs, the one with deeper modules wins on simplicity, habitability, and
-    changeability simultaneously.
-
-    Signs of a shallow module: the interface is a thin wrapper around the
-    implementation; it passes most of its arguments straight through; deleting
-    it would not concentrate complexity. Signs of a deep module: many callers; a
-    small, stable interface; the implementation can be rewritten without
-    changing any caller. You SHOULD aim for depth when enumerating options, not
-    just when evaluating them.
+    interface is nearly as complex as its implementation. When two designs
+    satisfy the same ACs and NFRs, the one with deeper modules wins on simplicity,
+    habitability, and changeability simultaneously.
 
 -   **You MUST document the rejected options too.**
 
@@ -288,7 +265,7 @@ Consequences:
     Functional ACs, NFRs, existing-system shape, and budget MUST be explicit
     before any option is enumerated.
 
--   **At least two alternatives MUST be evaluated per decision point.**
+-   **Each decision point MUST have 2-4 evaluated alternatives.**
 
     No decision MUST be presented as the only option.
 

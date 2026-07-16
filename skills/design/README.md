@@ -1,4 +1,4 @@
-# Design skill
+# Design
 
 The `design` skill is all about **architectural decision making**. It takes a
 formal software requirements specification (SRS) — something more substantial
@@ -23,10 +23,11 @@ prompt to clarify unclear constraints.
 
 ## How to invoke
 
-- `/design`, `/skill:design` (prompts vary by harness).
-- "Design this feature."
-- "What are the options for building this?"
-- "Work out the architecture for this change."
+> Design this feature.
+
+> What are the options for building this?
+
+> Work out the architecture for this change.
 
 ## Recommended models
 
