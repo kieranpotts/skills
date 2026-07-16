@@ -36,122 +36,56 @@ This skill does not originate the design; it consumes a draft to sharpen.
 
 1.  **Load the context.**
 
-    Before asking anything, read:
-
-    - The draft design (ADR, design doc, PR description, or whatever artifact
-      holds it).
-    - Any related acceptance criteria from the specification.
-    - The relevant code: the modules the design touches, their public APIs,
-      their tests.
-    - Any existing `docs/domain-model.md` (the project's ubiquitous-language
-      glossary) or `docs/adr/` decisions in the area.
-
-    If a question can be answered by reading the code instead of asking the
-    user, *read the code instead*. The user's time is the scarce resource.
+    Before asking anything, read the draft design, related acceptance criteria,
+    the relevant code (modules touched, public APIs, tests), and any existing
+    `docs/domain-model.md` or `docs/adr/` decisions in the area. If a question can
+    be answered by reading the code instead of asking the user, read the code.
 
 2.  **Map the decision tree.**
 
-    Skim the draft and list the open decisions in dependency order:
-
-    - Which decisions block other decisions?
-    - Which terms are used loosely and need pinning down?
-    - Which assumptions are stated as if obvious but actually have alternatives?
-
-    Plan to walk the tree top-down, resolving parents before children. Do not
-    write the list out for the user — it is your scratchpad. The user sees
-    questions one at a time.
+    List the open decisions in dependency order: which block others, which terms
+    are loose, which assumptions have alternatives. Plan to walk the tree
+    top-down. Keep the list as your scratchpad; do not publish it for the user.
 
 3.  **Ask one question. Wait. Then the next.**
 
-    For each open node:
-
-    - State the question precisely.
-    - Offer your recommended answer with one-line reasoning.
-    - Stop and wait for the user's response.
-
-    A good question has the form: *"I see X in the draft. I read it as meaning
-    A, but it could mean B. I'd lean A because [reason]. Which is it?"*
-
-    A bad question is open-ended ("what do you think about the data model?"),
-    batched ("a few things: ...", "also, ..."), or context-free ("should we use
-    Postgres?"). Sharpen until the question is specific, scoped, and answerable
-    in one sentence.
+    For each open node, state the question precisely, offer your recommended
+    answer with one-line reasoning, and wait for the response. A good question
+    is specific, scoped, and answerable in one sentence: *"I see X in the draft.
+    I read it as meaning A, but it could mean B. I'd lean A because [reason].
+    Which is it?"*
 
 4.  **Sharpen fuzzy language as it appears.**
 
-    When the user uses a vague or overloaded term, stop and pin it down:
-
-    - "You said 'account' — do you mean the Customer or the User? Those are
-      different in the existing glossary."
-    - "You said 'cancel' — the codebase has both `cancelOrder()` and
-      `voidOrder()`; which behavior do you mean?"
-
-    If the glossary already defines the term differently from how the user is
-    using it, surface the conflict explicitly. Update `docs/domain-model.md` (or
-    create it if missing) the moment a term is resolved — inline, not at the
-    end.
+    When the user uses a vague or overloaded term, stop and pin it down. If
+    the glossary already defines the term differently, surface the conflict.
+    Update `docs/domain-model.md` (or create it) the moment a term is resolved —
+    inline, not at the end.
 
 5.  **Probe with concrete scenarios.**
 
-    When the user makes a domain assertion, invent a specific scenario that
-    tests its boundaries:
-
-    - "Suppose a customer cancels an order after one of three items has shipped.
-      What happens to the invoice?"
-    - "Two clients send the same idempotency key, 30ms apart. What does each
-      see?"
-
-    Concrete scenarios expose the cases the design hasn't accounted for, much
+    When the user makes a domain assertion, invent a scenario that tests its
+    boundary and ask what happens. Concrete scenarios expose unaccounted cases
     faster than abstract debate.
 
 6.  **Cross-reference against the code.**
 
-    When the user states "we do X", check whether the code agrees. If you find a
-    contradiction, surface it:
-
-    > "You just said partial cancellation is supported, but the
-    `OrderService.cancel()` method takes only an order ID and marks the whole
-    order cancelled. Which is right — is the code out of date, or is the design
-    wrong?"
-
-    Contradictions between stated behavior and implemented behavior are some of
-    the highest-leverage findings of this skill.
+    When the user states "we do X", check whether the code agrees. If you find
+    a contradiction, surface it immediately and ask which side is right.
 
 7.  **Capture decisions as they crystallize.**
 
-    When a decision is settled, write it down immediately. Two destinations:
-
-    - *Glossary term resolved* → update `docs/domain-model.md`. Keep entries
-      tight: what the term IS, one or two sentences, and any aliases to avoid.
-      If the file does not yet exist, create it the moment the first term is
-      resolved.
-
-    - *Architectural decision settled* → ADR, but only if all three are true:
-
-        1. *Hard to reverse* — the cost of changing your mind later is
-           meaningful.
-        2. *Surprising without context* — a future reader will wonder "why did
-           they do it this way?"
-        3. *The result of a real trade-off* — there were genuine alternatives.
-
-        If any of the three is missing, skip the ADR. Most decisions during
-        elaboration do NOT meet all three.
-
-    Do not batch these. Write them down at the moment the decision is made.
+    When a decision is settled, write it down immediately. Update
+    `docs/domain-model.md` for resolved terms. Create an ADR only for decisions
+    that are hard to reverse, surprising without context, and the result of a
+    real trade-off.
 
 8.  **End the session when the tree is resolved.**
 
-    The session ends when:
-
-    - Every open decision in the draft has been resolved or explicitly deferred
-      (with a noted reason).
-    - The terms in use match the glossary.
-    - No contradictions remain between stated design and existing code.
-
-    Report the result and stop: either a decomposition-ready design, or — if
-    elaboration uncovered a flaw too large to resolve here — a note that the
-    draft needs structural rework before it can proceed. Whatever consumes the
-    elaborated design is the orchestrator's concern.
+    End when every open decision is resolved or explicitly deferred, terms match
+    the glossary, and no contradictions remain. Report the sharpened design, or
+    — if elaboration uncovered a flaw too large to resolve — report that the
+    draft needs structural rework before it can proceed.
 
 ##  Rules
 
@@ -163,14 +97,13 @@ This skill does not originate the design; it consumes a draft to sharpen.
 -   **You MUST always recommend an answer.**
 
     A question with no recommendation pushes the cognitive load back onto the
-    user. "Which is it?" alone is lazy. "I'd lean A because <reason>. Which is
-    it?" lets the user agree quickly or articulate the disagreement.
+    user. "I'd lean A because <reason>. Which is it?" lets the user agree quickly
+    or articulate the disagreement.
 
 -   **You SHOULD prefer reading code over asking.**
 
-    If the question is "how does X work today" or "what does Y currently
-    return", read the code. Asking is for things only the user knows: intent,
-    trade-offs, constraints, future direction.
+    Asking is for things only the user knows: intent, trade-offs, constraints,
+    future direction. "How does X work today" should be answered from the code.
 
 -   **You MUST walk the tree parents-first.**
 
@@ -206,6 +139,10 @@ This skill does not originate the design; it consumes a draft to sharpen.
     needed. Empty files signal nothing; lazily-created ones signal the design is
     being captured as it solidifies.
 
+-   **You MUST NOT publish the internal decision tree as a list for the user.**
+
+    The user sees questions one at a time, not your scratchpad.
+
 ## Examples
 
 A single Q-and-A turn during elaboration:
@@ -228,41 +165,8 @@ Which is it?
 User: (b). And the refund should be partial if only some line items
 were paid.
 
-Agent: Got it. That changes the cancellation contract. Two follow-ups
-queued, I'll ask them next:
-  - Does "partial refund" go back to the original payment instrument,
-    or as store credit?
-  - What's the user-visible flow when the cancel succeeds but the
-    refund fails?
-
-Updating docs/domain-model.md with the new definition of
+Agent: Got it. Updating docs/domain-model.md with the new definition of
 "Cancellation". Then asking the next question.
-```
-
-A concrete-scenario probe:
-
-```
-Agent: The retry policy says "retry on 5xx with exponential backoff,
-max 3 attempts". Suppose the third retry also fails. The draft doesn't
-say what happens next.
-
-I'd lean: surface the failure to the caller and emit a metric; do not
-silently swallow. But this depends on whether the caller is a user-
-facing endpoint (where surfacing is right) or a background job (where
-dead-lettering might be better).
-
-Which case are we designing for?
-```
-
-A code-versus-design contradiction:
-
-```
-Agent: You said "we charge the customer when the order is placed", but
-PaymentService.charge() is only called from `ShipmentDispatched` -
-which fires when the warehouse picks the order, not when it's placed.
-
-Either the code is wrong, the description is wrong, or there's a
-deliberate gap I'm missing. Which is it?
 ```
 
 A captured `docs/domain-model.md` update:
@@ -288,22 +192,6 @@ _Avoid_: Void, abort.
 **Customer**:
 A person or organization that places Orders.
 _Avoid_: Client, buyer, account.
-```
-
-An ADR captured at the moment a decision meets the three criteria:
-
-```md
-# 0007 — Cancellation triggers refund inline, not via async job
-
-When an Order is cancelled, the cancellation handler issues the refund
-synchronously and only marks the order CANCELLED if the refund
-succeeds. We considered an async approach (mark cancelled immediately,
-queue the refund) but rejected it: the failure mode "order cancelled,
-refund stuck" is much worse for customer trust than "cancel button
-spins for two extra seconds while the refund clears".
-
-Consequences: cancellation latency is bounded by the payment provider's
-response time. If that becomes a problem we revisit.
 ```
 
 ##  Edge cases

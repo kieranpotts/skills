@@ -1,4 +1,4 @@
-# Elaborate skill
+# Elaborate
 
 The `elaborate` skill is all about **stress-testing a draft design**. It is a
 highly interactive session with one objective: to nail down an architectural
@@ -19,10 +19,11 @@ This skill is interactive; it interviews the user one question at a time.
 
 ## How to invoke
 
-- `/elaborate`, `/skill:elaborate` (prompts vary by harness).
-- "Interrogate this design."
-- "Grill me on this draft."
-- "Stress-test this design before we build it."
+> Interrogate this design.
+
+> Grill me on this draft.
+
+> Stress-test this design before we build it.
 
 ## Recommended models
 
