@@ -33,14 +33,12 @@ responsibility.
 ## Instructions
 
 1.  **Understand what the change is and why.**
-
     You MUST read the PR description, linked issue, or commit body. You MUST
     identify the acceptance criteria (or the specification) it claims to satisfy.
     You MUST note any captured design decision behind it. If the *why* is unclear
     from the description, you SHOULD ask the author.
 
 2.  **Pin the comparison base, then read the diff in commit order.**
-
     You MUST state the comparison base explicitly — a commit SHA, branch name,
     tag, or `main`. You MUST capture the diff command once (eg. `git diff
     <base>...HEAD` for three-dot, merge-base comparison) so every subsequent step
@@ -48,7 +46,6 @@ responsibility.
     not file-by-file.
 
 3.  **Check correctness.**
-
     You MUST check, against the ACs and the design:
 
     - Does the change implement what the AC requires?
@@ -60,7 +57,6 @@ responsibility.
       inconsistent if interrupted halfway?
 
 4.  **Check design.**
-
     You MUST check:
 
     - Does the change follow the architecture and patterns established in the
@@ -74,7 +70,6 @@ responsibility.
       than one abstraction with one caller.
 
 5.  **Check clarity.**
-
     You MUST check:
 
     - Could a developer unfamiliar with this area understand *what* the code
@@ -86,7 +81,6 @@ responsibility.
       removed or justified?
 
 6.  **Check test coverage.**
-
     You MUST check:
 
     - Does every new behavior have at least one test that fails when the
@@ -97,7 +91,6 @@ responsibility.
     - Is the test name a description of the behavior, not the method?
 
 7.  **Check security.**
-
     For any change that touches input, auth, persistence, or external calls, you
     MUST check:
 
@@ -110,7 +103,6 @@ responsibility.
       new shell call, new dependency)? If so, was that intentional?
 
 8.  **Check completeness.**
-
     You MUST check that the change includes everything it needs to ship:
 
     - Documentation updates (README, API docs, runbook).
@@ -120,7 +112,6 @@ responsibility.
     - Telemetry / logs for the new behavior.
 
 9.  **Classify and write findings.**
-
     You MUST assign every comment a severity label:
 
     - *Blocking*: MUST be addressed before merge (correctness, security, missing
@@ -141,74 +132,63 @@ responsibility.
 
 ## Rules
 
--   **You MUST understand the *why* before reading code.**
+- **You MUST understand the *why* before reading code.**
+  The description, linked issue, and design notes MUST be consulted first. You
+  MUST NOT reverse-engineer intent from the diff.
 
-    The description, linked issue, and design notes MUST be consulted first. You
-    MUST NOT reverse-engineer intent from the diff.
+- **You MUST read the diff in commit order against a pinned base.**
+  "Review the PR" is ambiguous when the source branch may have shifted; the
+  base MUST be explicit.
 
--   **You MUST read the diff in commit order against a pinned base.**
+- **You SHOULD ask the author to split a single squashed commit.**
+  One logical change per commit is the convention; a single squashed commit
+  hides intermediate states and drive-by edits.
 
-    "Review the PR" is ambiguous when the source branch may have shifted; the
-    base MUST be explicit.
+- **You MUST keep findings organized into two axes: Specification and
+  Standards.**
 
--   **You SHOULD ask the author to split a single squashed commit.**
+  A change can pass one axis and fail the other. You MUST quote the
+  specification line for each Specification finding and cite the standard (file
+  + rule) for each Standards finding. You MUST NOT merge the axes.
 
-    One logical change per commit is the convention; a single squashed commit
-    hides intermediate states and drive-by edits.
+- **You SHOULD approve at "good enough", not "perfect".**
+  Holding out for perfection blocks delivery. If a comment is genuinely
+  optional, label it Suggestion or Nit and approve.
 
--   **You MUST keep findings organized into two axes: Specification and
-    Standards.**
+- **You MUST distinguish blocking from non-blocking explicitly.**
+  Every comment MUST carry a severity label.
 
-    A change can pass one axis and fail the other. You MUST quote the
-    specification line for each Specification finding and cite the standard (file
-    + rule) for each Standards finding. You MUST NOT merge the axes.
+- **You SHOULD focus on what machines can't check.**
+  Style, formatting, and lint issues belong to automated tooling. You SHOULD
+  spend human attention on correctness, design, security, and clarity.
 
--   **You SHOULD approve at "good enough", not "perfect".**
+- **You MUST NOT bikeshed.**
+  Personal preference is not feedback. If a difference is purely stylistic and
+  the existing code is consistent, you MUST leave it alone.
 
-    Holding out for perfection blocks delivery. If a comment is genuinely
-    optional, label it Suggestion or Nit and approve.
+- **You SHOULD review promptly.**
+  A delayed review blocks integration, forces the author to context-switch,
+  and stale diffs grow harder to merge. You SHOULD aim to complete within one
+  working day; if you can't, you SHOULD say so so the author can find another
+  reviewer.
 
--   **You MUST distinguish blocking from non-blocking explicitly.**
+- **Comments MUST be about the code, not the author.**
+  "This is wrong" stings; "This does not handle X" describes the code. Same
+  content, different framing.
 
-    Every comment MUST carry a severity label.
+- **You MUST catch the missing test, not the missing tab.**
+  The highest-leverage review finding is "you added behavior with no test for
+  it". Lower-leverage findings (style, naming nits) SHOULD NOT dominate the
+  comment count.
 
--   **You SHOULD focus on what machines can't check.**
+- **Self-review MUST apply the same skill.**
+  You MUST run the full procedure on your own diff before opening the PR. Most
+  of the easy findings can be fixed before another human sees them.
 
-    Style, formatting, and lint issues belong to automated tooling. You SHOULD
-    spend human attention on correctness, design, security, and clarity.
+- **You MUST consider correctness, design, clarity, test coverage, security,
+  and completeness.**
 
--   **You MUST NOT bikeshed.**
-
-    Personal preference is not feedback. If a difference is purely stylistic and
-    the existing code is consistent, you MUST leave it alone.
-
--   **You SHOULD review promptly.**
-
-    A delayed review blocks integration, forces the author to context-switch,
-    and stale diffs grow harder to merge. You SHOULD aim to complete within one
-    working day; if you can't, you SHOULD say so so the author can find another
-    reviewer.
-
--   **Comments MUST be about the code, not the author.**
-
-    "This is wrong" stings; "This does not handle X" describes the code. Same
-    content, different framing.
-
--   **You MUST catch the missing test, not the missing tab.**
-
-    The highest-leverage review finding is "you added behavior with no test for
-    it". Lower-leverage findings (style, naming nits) SHOULD NOT dominate the
-    comment count.
-
--   **Self-review MUST apply the same skill.**
-
-    You MUST run the full procedure on your own diff before opening the PR. Most
-    of the easy findings can be fixed before another human sees them.
-
--   **You MUST consider correctness, design, clarity, test coverage, security,
-    and completeness.**
-
-    Even if a category has no findings, it MUST have been thought about.
+  Even if a category has no findings, it MUST have been thought about.
 
 ## Examples
 
@@ -257,50 +237,41 @@ on the Specification finding; Standards finding non-blocking.
 
 ## Edge cases
 
--   **Reviewer is the author.**
+- **Reviewer is the author.**
+  Self-review still applies. Open the diff and run the full procedure as if it
+  were a stranger's. Most easy findings will surface.
 
-    Self-review still applies. Open the diff and run the full procedure as if it
-    were a stranger's. Most easy findings will surface.
+- **The change is huge.**
+  Stop and ask the author to split it. Reviews of >~400 LOC become ineffective
+  — reviewers skim and miss issues. A large change is a planning failure;
+  address it there.
 
--   **The change is huge.**
+- **The change is urgent (hotfix).**
+  Apply the same criteria but accept narrower scope: correctness + security
+  for the fix itself, with a follow-up issue for non-blocking comments. Don't
+  skip review just because it's urgent — hotfixes are where defects most often
+  regress.
 
-    Stop and ask the author to split it. Reviews of >~400 LOC become ineffective
-    — reviewers skim and miss issues. A large change is a planning failure;
-    address it there.
+- **Author disagrees with a finding.**
+  Discuss, don't override. The goal is a better change, not a "won" argument.
+  If genuinely stuck, pull in a third reviewer.
 
--   **The change is urgent (hotfix).**
-
-    Apply the same criteria but accept narrower scope: correctness + security
-    for the fix itself, with a follow-up issue for non-blocking comments. Don't
-    skip review just because it's urgent — hotfixes are where defects most often
-    regress.
-
--   **Author disagrees with a finding.**
-
-    Discuss, don't override. The goal is a better change, not a "won" argument.
-    If genuinely stuck, pull in a third reviewer.
-
--   **You don't understand a section.**
-
-    Say so. "I don't follow why X is needed here — can you walk me through it?"
-    is a legitimate review comment. Approving code you don't understand is how
-    subtle bugs ship.
+- **You don't understand a section.**
+  Say so. "I don't follow why X is needed here — can you walk me through it?"
+  is a legitimate review comment. Approving code you don't understand is how
+  subtle bugs ship.
 
 ## Success criteria
 
--   **Findings MUST be organized into two axes: Specification and Standards.**
+- **Findings MUST be organized into two axes: Specification and Standards.**
+  The two axes MUST be kept distinct in the review output.
 
-    The two axes MUST be kept distinct in the review output.
+- **Every comment MUST carry a severity label.**
+  Blocking, Suggestion, Nit, or Praise. There MUST be no bare comments.
 
--   **Every comment MUST carry a severity label.**
+- **Every finding MUST be specific and actionable.**
+  Each comment MUST name the file/line, describe the issue, and suggest a
+  direction.
 
-    Blocking, Suggestion, Nit, or Praise. There MUST be no bare comments.
-
--   **Every finding MUST be specific and actionable.**
-
-    Each comment MUST name the file/line, describe the issue, and suggest a
-    direction.
-
--   **The verdict MUST be explicit.**
-
-    Approve, Request changes, or Comment. It MUST NOT be implied.
+- **The verdict MUST be explicit.**
+  Approve, Request changes, or Comment. It MUST NOT be implied.

@@ -68,7 +68,6 @@ asking the next. You SHOULD let each answer shape the question that follows. You
 MUST take notes continuously — you are building the report as you go.
 
 1.  **Locate the register and confirm the seed.**
-
     You MUST find the risk register store first (see **Input**), and read its
     `AGENTS.md` or `README.md`, its `TEMPLATE.md`, and its `REGISTER.md` so you
     follow local conventions and know the existing Ref numbering. If the register
@@ -80,7 +79,6 @@ MUST take notes continuously — you are building the report as you go.
     clarify before proceeding.
 
 2.  **Establish the business context.**
-
     You MUST ask, one at a time:
 
     - *"Why does this system exist? What business value does it provide?"*
@@ -93,7 +91,6 @@ MUST take notes continuously — you are building the report as you go.
     stands to lose.
 
 3.  **Fix the technical scope.**
-
     You MUST ask, one at a time:
 
     - *"What exactly is in scope — which components, services, and data flows?"*
@@ -105,7 +102,6 @@ MUST take notes continuously — you are building the report as you go.
     MUST push for it.
 
 4.  **Decompose the system.**
-
     You MUST walk the system with the user, building the decomposition tables the
     template calls for. You MUST ask about each in turn:
 
@@ -123,7 +119,6 @@ MUST take notes continuously — you are building the report as you go.
     decomposed — this step is the foundation for everything after.
 
 5.  **Choose the framework(s).**
-
     You MUST ask: *"Which lens do we assess through — STRIDE for general security,
     LINDDUN for privacy, the OWASP Top 10, or a combination?"*
 
@@ -133,7 +128,6 @@ MUST take notes continuously — you are building the report as you go.
     be classified under a named category from it.
 
 6.  **Sweep for common weaknesses.**
-
     The framework categories are abstract. You MUST ground them by sweeping the
     system for these concrete, recurring weakness patterns, mapping each to its
     framework category as you go. At every trust boundary, you MUST ask first:
@@ -169,7 +163,6 @@ MUST take notes continuously — you are building the report as you go.
     from either route becomes a threat to assess and rate.
 
 7.  **Assess threats, one target at a time.**
-
     You MUST walk the trust boundaries, data flows, and sensitive assets from
     step 4. For each, you MUST apply the chosen framework's categories and ask:
 
@@ -188,7 +181,6 @@ MUST take notes continuously — you are building the report as you go.
     first.
 
 8.  **Rate each threat.**
-
     For every threat surfaced, you MUST ask (or reason with the user):
 
     - *"How likely is this — Probable, Likely, Possible, Unlikely, or Rare?"*
@@ -201,7 +193,6 @@ MUST take notes continuously — you are building the report as you go.
     independently of likelihood and impact.
 
 9.  **Decide which threats become tracked risks.**
-
     You MUST ask, for the higher-severity threats: *"Is this worth tracking over
     time in the register, or is it noted-and-closed here?"*
 
@@ -249,102 +240,87 @@ MUST take notes continuously — you are building the report as you go.
 
 ## Rules
 
--   **You MUST ask one question at a time.**
+- **You MUST ask one question at a time.**
+  You MUST NOT batch questions. A workshop is a conversation; batching erases
+  the chance for one answer to reshape the next, and loses the participant.
 
-    You MUST NOT batch questions. A workshop is a conversation; batching erases
-    the chance for one answer to reshape the next, and loses the participant.
+- **Discovery and record-keeping only — you MUST NOT change code.**
+  You MUST NOT modify, patch, or "fix" the assessed system. Threat
+  identification MUST NOT include actively exploiting the system — reason about
+  how a threat *would* play out; do not carry it out. This skill's deliverables
+  are the report and the register rows, nothing more.
 
--   **Discovery and record-keeping only — you MUST NOT change code.**
+- **You MUST NOT commit, branch, file issues, or open pull requests.**
+  Your output is the two artifacts written to disk. The risk register store's
+  own workflow — a human, or its companion skills (eg. `draft-session`,
+  `land-session`, `update-register`) — owns branching, committing, and
+  indexing. Writing the files is where this skill MUST stop. The user SHALL
+  decide what to do with the outcome next.
 
-    You MUST NOT modify, patch, or "fix" the assessed system. Threat
-    identification MUST NOT include actively exploiting the system — reason about
-    how a threat *would* play out; do not carry it out. This skill's deliverables
-    are the report and the register rows, nothing more.
+- **Every threat MUST be classified and rated.**
+  Every credible threat MUST carry a named framework category (STRIDE /
+  LINDDUN / OWASP / …) AND a likelihood, impact, and derived severity, using a
+  consistent scoring scheme. An unrated threat is not assessable and MUST NOT
+  survive into the report.
 
--   **You MUST NOT commit, branch, file issues, or open pull requests.**
+- **You MUST distinguish an existing control from a proposed one.**
+  A countermeasure already implemented reduces likelihood today; a proposed
+  mitigation does not. Do not credit the system for controls that are not yet
+  built — that understates severity. Record proposed mitigations under the risk,
+  not the current countermeasures column.
 
-    Your output is the two artifacts written to disk. The risk register store's
-    own workflow — a human, or its companion skills (eg. `draft-session`,
-    `land-session`, `update-register`) — owns branching, committing, and
-    indexing. Writing the files is where this skill MUST stop. The user SHALL
-    decide what to do with the outcome next.
+- **You MUST push back.**
+  You MUST NOT be a "yes" machine. Interrogate optimistic likelihood estimates
+  and downplayed impacts. Surface threats the participant has not thought of.
+  Flag when a claimed control does not actually cover the boundary it is meant
+  to. No sycophancy.
 
--   **Every threat MUST be classified and rated.**
+- **Only track what is worth tracking.**
+  The register is not a dump of every threat considered. A threat is promoted
+  only when it carries residual exposure worth watching over time. Over-filling
+  the register erodes its value as a live view of real risk.
 
-    Every credible threat MUST carry a named framework category (STRIDE /
-    LINDDUN / OWASP / …) AND a likelihood, impact, and derived severity, using a
-    consistent scoring scheme. An unrated threat is not assessable and MUST NOT
-    survive into the report.
+- **You MUST take notes continuously.**
+  Capture the decomposition, threats, ratings, and decisions as the session
+  runs. You are assembling the report live; do not rely on reconstructing it
+  from memory at the end.
 
--   **You MUST distinguish an existing control from a proposed one.**
-
-    A countermeasure already implemented reduces likelihood today; a proposed
-    mitigation does not. Do not credit the system for controls that are not yet
-    built — that understates severity. Record proposed mitigations under the risk,
-    not the current countermeasures column.
-
--   **You MUST push back.**
-
-    You MUST NOT be a "yes" machine. Interrogate optimistic likelihood estimates
-    and downplayed impacts. Surface threats the participant has not thought of.
-    Flag when a claimed control does not actually cover the boundary it is meant
-    to. No sycophancy.
-
--   **Only track what is worth tracking.**
-
-    The register is not a dump of every threat considered. A threat is promoted
-    only when it carries residual exposure worth watching over time. Over-filling
-    the register erodes its value as a live view of real risk.
-
--   **You MUST take notes continuously.**
-
-    Capture the decomposition, threats, ratings, and decisions as the session
-    runs. You are assembling the report live; do not rely on reconstructing it
-    from memory at the end.
-
--   **The tone MUST be rigorous.**
-
-    Direct. No fluff. No padding. Show the reasoning behind a severity, not just
-    the verdict.
+- **The tone MUST be rigorous.**
+  Direct. No fluff. No padding. Show the reasoning behind a severity, not just
+  the verdict.
 
 ## Success criteria
 
--   **The register store MUST have been located before the session starts.**
+- **The register store MUST have been located before the session starts.**
+  If no `REGISTER.md` / risk store can be found, the skill MUST have stopped and
+  alerted the user — there is nowhere valid to record the outcome.
 
-    If no `REGISTER.md` / risk store can be found, the skill MUST have stopped and
-    alerted the user — there is nowhere valid to record the outcome.
+- **A dated, scoped session report MUST exist on disk.**
+  A new `risks/YYYY-MM-DD-<slug>/` report MUST be present, built from the
+  store's template, citing the exact system context assessed (components, data
+  flows, and `repo@commit` where applicable) so it is a reproducible
+  point-in-time snapshot.
 
--   **A dated, scoped session report MUST exist on disk.**
+- **Every threat in the report MUST be classified and rated.**
+  Each row in the threat assessment MUST carry a framework category, a
+  likelihood, an impact, and a derived severity. None may be blank.
 
-    A new `risks/YYYY-MM-DD-<slug>/` report MUST be present, built from the
-    store's template, citing the exact system context assessed (components, data
-    flows, and `repo@commit` where applicable) so it is a reproducible
-    point-in-time snapshot.
+- **Every risk raised MUST appear as a register row.**
+  Each threat listed under *Risks raised* MUST have a corresponding row in
+  `REGISTER.md`, with a unique Ref continuing the existing numbering, a
+  mitigation (or explicit accept decision), a residual risk, and a Reviewed
+  date. The report's *Risks raised* list and the new register rows MUST agree.
 
--   **Every threat in the report MUST be classified and rated.**
+- **The register MUST remain a valid living document.**
+  New rows MUST use the register's exact columns and MUST NOT duplicate or
+  collide with existing Refs. The register MUST stay sorted per its own
+  conventions.
 
-    Each row in the threat assessment MUST carry a framework category, a
-    likelihood, an impact, and a derived severity. None may be blank.
-
--   **Every risk raised MUST appear as a register row.**
-
-    Each threat listed under *Risks raised* MUST have a corresponding row in
-    `REGISTER.md`, with a unique Ref continuing the existing numbering, a
-    mitigation (or explicit accept decision), a residual risk, and a Reviewed
-    date. The report's *Risks raised* list and the new register rows MUST agree.
-
--   **The register MUST remain a valid living document.**
-
-    New rows MUST use the register's exact columns and MUST NOT duplicate or
-    collide with existing Refs. The register MUST stay sorted per its own
-    conventions.
-
--   **Nothing MUST be committed.**
-
-    `git status` in the register store MUST show the new report and the modified
-    `REGISTER.md` as uncommitted — never staged, branched, or committed by this
-    skill. The assessed codebase MUST be left unchanged — `git diff` over it MUST
-    be empty.
+- **Nothing MUST be committed.**
+  `git status` in the register store MUST show the new report and the modified
+  `REGISTER.md` as uncommitted — never staged, branched, or committed by this
+  skill. The assessed codebase MUST be left unchanged — `git diff` over it MUST
+  be empty.
 
 ## References
 

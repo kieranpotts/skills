@@ -30,33 +30,28 @@ validates messages and stops; it neither stages nor commits.
 ## Instructions
 
 1.  **Identify the change type and scope.**
-
     You MUST read the diff or the description of the change, and determine
     whether the change is a single logical change or must be split into multiple
     atomic commits.
 
 2.  **Choose the commit type.**
-
     You MUST map the change to the most appropriate type from the allowed
     vocabulary, using the semantics in the Rules. If two types feel applicable,
     you SHOULD consult the *Subtle distinctions* note.
 
 3.  **Compose the subject line.**
-
     You MUST write the subject as `<type>: <description>`, using lowercase,
     imperative mood, with no trailing period. If the change is breaking,
     experimental, incompatible, temporary, or work-in-progress, you MUST append
     the corresponding flag.
 
 4.  **Add body and footers as needed.**
-
     If the *why* is not obvious from the subject, you SHOULD add a body separated
     by a single blank line. You MUST wrap body lines at 72 characters. You MAY
     add footers (eg. `Closes: #123`, `Refs: #456`) separated from the body by a
     single blank line.
 
 5.  **Update the CHANGELOG for direct commits to `dev` and `temp/*`.**
-
     When committing directly to `dev` or a `temp/*` branch, you MUST add a bullet
     to the `[Unreleased]` section of the project's `CHANGELOG.md` (or equivalent)
     as part of the same commit. You MUST use the same `type: description` format
@@ -64,168 +59,162 @@ validates messages and stops; it neither stages nor commits.
     `chore:` commits.
 
 6.  **Validate the message.**
-
     You MUST check that the subject line matches the validation regex and is
     within the length budget. If validating existing messages, you MUST report a
     pass/fail verdict for each, naming the rule each failure violates.
 
 ## Rules
 
--   **You MUST use this exact format:**
+- **You MUST use this exact format:**
+  ```
+  <type>: <description>
 
-    ```
-    <type>: <description>
+  [<body>]
 
-    [<body>]
+  [<footers>]
+  ```
 
-    [<footers>]
-    ```
+  Square brackets denote optional sections.
 
-    Square brackets denote optional sections.
+  Validation regex (only the subject line is checked):
 
-    Validation regex (only the subject line is checked):
+  ```
+  ^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$
+  ```
 
-    ```
-    ^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$
-    ```
+  `<type>` MUST be one of these literal strings:
 
-    `<type>` MUST be one of these literal strings:
+  - `chore`
+  - `feature`
+  - `fix`
+  - `maintenance`
+  - **merge**
+  - **refactor**
+  - **release**
+  - `revert`
+  - `runtime`
+  - `step`
+  - `style`
 
-    - `chore`
-    - `feature`
-    - `fix`
-    - `maintenance`
-    - **merge**
-    - **refactor**
-    - **release**
-    - `revert`
-    - `runtime`
-    - `step`
-    - `style`
+  `<description>` MUST be full lowercase and use the imperative mood (eg.
+  "add", not "added" or "adds"). The description MUST NOT end with a period.
 
-    `<description>` MUST be full lowercase and use the imperative mood (eg.
-    "add", not "added" or "adds"). The description MUST NOT end with a period.
+  An optional flag MAY be appended — `<type>: <description> - <flag>` where
+  `<flag>` is one of:
 
-    An optional flag MAY be appended — `<type>: <description> - <flag>` where
-    `<flag>` is one of:
+  - `BREAKING`
+  - `EXPERIMENT`
+  - `INCOMPAT`
+  - `TEMPORARY`
+  - `WIP`
 
-    - `BREAKING`
-    - `EXPERIMENT`
-    - `INCOMPAT`
-    - `TEMPORARY`
-    - `WIP`
+  Subject line (type + description + flag) SHOULD NOT exceed 50 characters and
+  MUST NOT exceed 72 characters.
 
-    Subject line (type + description + flag) SHOULD NOT exceed 50 characters and
-    MUST NOT exceed 72 characters.
+  Bodies and footers are OPTIONAL and do not require validation.
 
-    Bodies and footers are OPTIONAL and do not require validation.
+  - The body SHOULD explain the _why_ of the change, not the _what_. It MUST
+    be separated from the subject line with a single blank line, use proper
+    English sentences, and wrap lines at 72 characters. Markdown formatting is
+    allowed, but plain text is preferred.
 
-    - The body SHOULD explain the _why_ of the change, not the _what_. It MUST
-      be separated from the subject line with a single blank line, use proper
-      English sentences, and wrap lines at 72 characters. Markdown formatting is
-      allowed, but plain text is preferred.
+  - The footer section is a contiguous block consisting of key-value pairs,
+    one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name
+    <email>`. Separated from body by a single blank line.
 
-    - The footer section is a contiguous block consisting of key-value pairs,
-      one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name
-      <email>`. Separated from body by a single blank line.
+- **Commits MUST be atomic.**
+  One logical change per commit. Large changes MUST be split into multiple
+  commits.
 
--   **Commits MUST be atomic.**
+  A user-facing change typically arrives as a bundle of atomic commits —
+  `refactor:`, `style:`, `step:`, `chore:` — culminating in the `feature:` or
+  `runtime:` commit that makes the requirement verifiable through the system's
+  UI.
 
-    One logical change per commit. Large changes MUST be split into multiple
-    commits.
+- **You MUST pick the most appropriate commit type.**
+  Choice based on the semantics of the changeset being committed:
 
-    A user-facing change typically arrives as a bundle of atomic commits —
-    `refactor:`, `style:`, `step:`, `chore:` — culminating in the `feature:` or
-    `runtime:` commit that makes the requirement verifiable through the system's
-    UI.
+  - `chore`: Small, insignificant housekeeping — typo fixes, comment tweaks,
+    non-production artifacts. Typically no peer review needed.
 
--   **You MUST pick the most appropriate commit type.**
+  - `feature`: User-facing operation or behavior change (new commands, flags,
+    endpoints, features, deprecations, removals), verifiable via the UI.
 
-    Choice based on the semantics of the changeset being committed:
+  - `fix`: Resolves a defect — bug, regression, vulnerability, or incident
+    (including silencing spurious error log entries).
 
-    - `chore`: Small, insignificant housekeeping — typo fixes, comment tweaks,
-      non-production artifacts. Typically no peer review needed.
+  - `maintenance`: Required upkeep — dependency bumps, test improvements, CI
+    workflow reconfig, documentation, security patches.
 
-    - `feature`: User-facing operation or behavior change (new commands, flags,
-      endpoints, features, deprecations, removals), verifiable via the UI.
+  - **merge**: Merge commits (when not fast-forwarded).
 
-    - `fix`: Resolves a defect — bug, regression, vulnerability, or incident
-      (including silencing spurious error log entries).
+  - **refactor**: Improves internal structure without changing features or
+    degrading runtime quality (renames, helper extraction, simplifying
+    interfaces, restructuring data flows).
 
-    - `maintenance`: Required upkeep — dependency bumps, test improvements, CI
-      workflow reconfig, documentation, security patches.
+  - **release**: Version bumps and release-preparation commits.
 
-    - **merge**: Merge commits (when not fast-forwarded).
+  - `revert`: Reverting a prior commit.
 
-    - **refactor**: Improves internal structure without changing features or
-      degrading runtime quality (renames, helper extraction, simplifying
-      interfaces, restructuring data flows).
+  - `runtime`: Implements a dynamic quality attribute — observable and
+    measurable outside the system (latency, throughput, resource utilization,
+    availability, security, compliance). Named for the runtime,
+    externally-observable nature of these changes; covers the quality
+    attributes as a whole, not speed alone.
 
-    - **release**: Version bumps and release-preparation commits.
+  - `step`: Incremental change toward a larger feature or fix that is not yet
+    user-facing.
 
-    - `revert`: Reverting a prior commit.
+  - `style`: Presentation-only code or content changes — whitespace,
+    indentation, line wrapping, style. Distinct from **refactor**.
 
-    - `runtime`: Implements a dynamic quality attribute — observable and
-      measurable outside the system (latency, throughput, resource utilization,
-      availability, security, compliance). Named for the runtime,
-      externally-observable nature of these changes; covers the quality
-      attributes as a whole, not speed alone.
+  *Subtle distinctions*:
 
-    - `step`: Incremental change toward a larger feature or fix that is not yet
-      user-facing.
+  - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a
+    user-facing change. `feature`/`runtime` is the commit where the change
+    becomes verifiable.
 
-    - `style`: Presentation-only code or content changes — whitespace,
-      indentation, line wrapping, style. Distinct from **refactor**.
+  - **refactor** vs. `style`: **refactor** improves internal structure; `style`
+    improves code presentation only.
 
-    *Subtle distinctions*:
+  - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the
+    changelog (deps, infra, CI). `chore` is repository housekeeping that
+    doesn't (README tweaks, typos) — noise that can be omitted from the
+    changelog.
 
-    - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a
-      user-facing change. `feature`/`runtime` is the commit where the change
-      becomes verifiable.
+- **You MUST add a flag** to the subject line in the following special cases:
+  - `BREAKING`: Breaking change to external API. Automated tools MAY bump
+    major version of next release in response.
 
-    - **refactor** vs. `style`: **refactor** improves internal structure; `style`
-      improves code presentation only.
+  - `EXPERIMENT`: Experimental change expected to be reverted. MAY include
+    experimental user-facing features.
 
-    - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the
-      changelog (deps, infra, CI). `chore` is repository housekeeping that
-      doesn't (README tweaks, typos) — noise that can be omitted from the
-      changelog.
+  - `INCOMPAT`: Internal breaking change (function signature, schema, data
+    structure). May break other changes being introduced in parallel branches,
+    but no impact on users.
 
--   **You MUST add a flag** to the subject line in the following special cases:
+  - `TEMPORARY`: Temporary commit that will be reverted (eg. debug logging).
+    SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor
+    repositories.
 
-    - `BREAKING`: Breaking change to external API. Automated tools MAY bump
-      major version of next release in response.
+  - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to
+    `origin/dev` or other trunks in multi-contributor repositories.
 
-    - `EXPERIMENT`: Experimental change expected to be reverted. MAY include
-      experimental user-facing features.
+- **You MUST update the CHANGELOG for commits to `dev` and `temp/*`.**
+  When committing directly to `dev` or a `temp/*` branch, update the project's
+  `CHANGELOG.md` (or equivalent) as part of the same commit. Document the
+  change under an `[Unreleased]` section at the top of the file.
 
-    - `INCOMPAT`: Internal breaking change (function signature, schema, data
-      structure). May break other changes being introduced in parallel branches,
-      but no impact on users.
+  All commit types SHOULD be recorded — including `style:` and `refactor:`.
+  The only exception is `chore:`, which is housekeeping too minor to warrant a
+  changelog entry.
 
-    - `TEMPORARY`: Temporary commit that will be reverted (eg. debug logging).
-      SHOULD NOT be pushed to `origin/dev` or other trunks in multi-contributor
-      repositories.
+  Each entry is a bullet point using the same `type: description` format as
+  the commit subject line, including any flag. Newest entries are at the top.
 
-    - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed to
-      `origin/dev` or other trunks in multi-contributor repositories.
-
--   **You MUST update the CHANGELOG for commits to `dev` and `temp/*`.**
-
-    When committing directly to `dev` or a `temp/*` branch, update the project's
-    `CHANGELOG.md` (or equivalent) as part of the same commit. Document the
-    change under an `[Unreleased]` section at the top of the file.
-
-    All commit types SHOULD be recorded — including `style:` and `refactor:`.
-    The only exception is `chore:`, which is housekeeping too minor to warrant a
-    changelog entry.
-
-    Each entry is a bullet point using the same `type: description` format as
-    the commit subject line, including any flag. Newest entries are at the top.
-
-    A changelog is for contributors and developers. Release notes — a separate
-    artifact — is for end users. So we _are_ interested in recording in the
-    changelog internal changes like refactorings and reformattings.
+  A changelog is for contributors and developers. Release notes — a separate
+  artifact — is for end users. So we _are_ interested in recording in the
+  changelog internal changes like refactorings and reformattings.
 
 ## Examples
 
@@ -266,27 +255,23 @@ Closes: #123
 
 ## Success criteria
 
--   **The subject line MUST pass the validation regex.**
+- **The subject line MUST pass the validation regex.**
+  It MUST match the format defined in the Rules.
 
-    It MUST match the format defined in the Rules.
+- **The type semantics MUST fit the changeset.**
+  Re-read the type's description. If two types feel applicable, consult the
+  *Subtle distinctions* note — that's where the hard cases are resolved.
 
--   **The type semantics MUST fit the changeset.**
+- **The subject line length MUST be within budget.**
+  ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the optional
+  flag.
 
-    Re-read the type's description. If two types feel applicable, consult the
-    *Subtle distinctions* note — that's where the hard cases are resolved.
+- **There MUST be no Conventional Commits artefacts.**
+  No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing
+  `:` artefacts. The colon MUST come immediately after the type, nothing else.
 
--   **The subject line length MUST be within budget.**
+- **The CHANGELOG MUST be updated for direct commits to `dev` and `temp/*`
+  branches, unless the type is `chore:`.**
 
-    ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the optional
-    flag.
-
--   **There MUST be no Conventional Commits artefacts.**
-
-    No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing
-    `:` artefacts. The colon MUST come immediately after the type, nothing else.
-
--   **The CHANGELOG MUST be updated for direct commits to `dev` and `temp/*`
-    branches, unless the type is `chore:`.**
-
-    The `[Unreleased]` section MUST exist and MUST contain a bullet for this
-    commit, using the same `type: description` format as the subject line.
+  The `[Unreleased]` section MUST exist and MUST contain a bullet for this
+  commit, using the same `type: description` format as the subject line.

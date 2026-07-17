@@ -25,7 +25,6 @@ metadata:
 ## Instructions
 
 1.  **Scan the conversation for non-obvious lessons.**
-
     You MUST walk the session looking for four signal types:
 
     - **Corrections.** The user redirected the approach: *"no, don't do that"*,
@@ -40,12 +39,10 @@ metadata:
       stakeholder requirements, business context the codebase does not encode.
 
 2.  **Filter the candidates.**
-
     You MUST evaluate each candidate against the drop criteria in the Rules
     section.
 
 3.  **Classify each surviving candidate.**
-
     You MUST assign one of these types — the type drives the format and the
     destination:
 
@@ -65,14 +62,12 @@ metadata:
       CLAUDE.md — committed to the repo, not private memory.*
 
 4.  **Walk the user through each candidate.**
-
     You MUST follow the one-at-a-time procedure in the Rules section. For each
     candidate, you MUST present a one-sentence summary, the proposed type and
     destination, and a draft of the entry as it would be written. You MUST ask
     for approval before persisting.
 
 5.  **Write each accepted lesson.**
-
     For memory destinations, you MUST use the format defined in the Success
     criteria.
 
@@ -83,7 +78,6 @@ metadata:
     usually `## Rules` or a project-specific equivalent.
 
 6.  **Update the `MEMORY.md` index.**
-
     For each new memory file, you MUST add a one-line entry:
 
     ```
@@ -93,7 +87,6 @@ metadata:
     `MEMORY.md` is an index, not a memory. You SHOULD keep entries terse.
 
 7.  **Handle duplicates and contradictions during the walk-through.**
-
     If a candidate is close to an existing memory:
 
     - If the existing entry is stale or wrong, you SHOULD *update* it instead of
@@ -107,121 +100,110 @@ metadata:
     current truth, then update or delete the stale entry.
 
 8.  **Report briefly.**
-
     Once the walk-through is complete, you MUST print the report described in the
     Success criteria.
 
 ## Rules
 
--   **You MUST walk one candidate at a time.**
+- **You MUST walk one candidate at a time.**
+  Walk through proposals individually. Batching invites blind approval;
+  one-at-a-time invites scrutiny. Wait for the user's answer before moving on.
 
-    Walk through proposals individually. Batching invites blind approval;
-    one-at-a-time invites scrutiny. Wait for the user's answer before moving on.
+- **You MUST filter ruthlessly.**
+  Drop a candidate if any of the following apply:
 
--   **You MUST filter ruthlessly.**
+  - It is derivable from the current code, git history, or existing project
+    docs.
+  - It is a standard best practice any reasonable agent would follow.
+  - It is a one-off task detail with no reusable shape.
+  - It is already captured in an existing memory file or convention doc. Check
+    existing memories AND `AGENTS.md` / `CLAUDE.md` before proposing.
 
-    Drop a candidate if any of the following apply:
+  A candidate survives if it would meaningfully change how a *fresh* agent
+  behaves on a *future* session.
 
-    - It is derivable from the current code, git history, or existing project
-      docs.
-    - It is a standard best practice any reasonable agent would follow.
-    - It is a one-off task detail with no reusable shape.
-    - It is already captured in an existing memory file or convention doc. Check
-      existing memories AND `AGENTS.md` / `CLAUDE.md` before proposing.
+- **You MUST reference external systems, not duplicate them.**
+  If the lesson is about a Linear ticket, Slack thread, or external dashboard,
+  you MUST save a `reference` memory that points at it — you MUST NOT paste its
+  content. The external system is the source of truth.
 
-    A candidate survives if it would meaningfully change how a *fresh* agent
-    behaves on a *future* session.
+- **Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.**
+  Things other contributors need to see MUST be committed to the repo. Memory
+  files are agent-private; committed convention files are team-visible. Pick
+  the right destination.
 
--   **You MUST reference external systems, not duplicate them.**
+- **You MUST redact aggressively.**
+  Memory persists. You MUST strip API keys, tokens, real names, internal-only
+  URLs, and anything else that would embarrass if leaked.
 
-    If the lesson is about a Linear ticket, Slack thread, or external dashboard,
-    you MUST save a `reference` memory that points at it — you MUST NOT paste its
-    content. The external system is the source of truth.
+- **You MUST distinguish rules from facts.**
+  `feedback` (how to work) and `project` (what's true now) MUST carry the
+  **Why:** + **How to apply:** structure — their reason gives future agents room
+  for judgment on edge cases. `user` and `reference` types are statements of
+  fact and need no such scaffolding.
 
--   **Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.**
+- **You SHOULD update rather than duplicate.**
+  A new lesson close to an existing memory SHOULD usually edit the existing
+  entry, not create a sibling. Two entries saying nearly-the-same thing is
+  worse than one entry saying it accurately.
 
-    Things other contributors need to see MUST be committed to the repo. Memory
-    files are agent-private; committed convention files are team-visible. Pick
-    the right destination.
+- **If the session contained nothing worth saving, you MUST say so explicitly
+  and stop.**
 
--   **You MUST redact aggressively.**
+  Do not manufacture lessons to justify the invocation.
 
-    Memory persists. You MUST strip API keys, tokens, real names, internal-only
-    URLs, and anything else that would embarrass if leaked.
+- **If the user disagrees with a proposed lesson, you MUST drop it.**
+  The user's view of their own preferences trumps your inference from the
+  conversation.
 
--   **You MUST distinguish rules from facts.**
+- **If a lesson is genuinely universal, you MUST flag it as a candidate for a
+  new skill rather than save it as memory.**
 
-    `feedback` (how to work) and `project` (what's true now) MUST carry the
-    **Why:** + **How to apply:** structure — their reason gives future agents room
-    for judgment on edge cases. `user` and `reference` types are statements of
-    fact and need no such scaffolding.
+  Lessons that apply regardless of user / project belong in a skill, not a
+  memory entry.
 
--   **You SHOULD update rather than duplicate.**
+- **If the agent's memory system has no obvious file path, you MUST fall back
+  to `AGENTS.md` for codebase conventions and skip the memory-file steps for
+  `user` / `feedback` / `project` / `reference` types.**
 
-    A new lesson close to an existing memory SHOULD usually edit the existing
-    entry, not create a sibling. Two entries saying nearly-the-same thing is
-    worse than one entry saying it accurately.
-
--   **If the session contained nothing worth saving, you MUST say so explicitly
-    and stop.**
-
-    Do not manufacture lessons to justify the invocation.
-
--   **If the user disagrees with a proposed lesson, you MUST drop it.**
-
-    The user's view of their own preferences trumps your inference from the
-    conversation.
-
--   **If a lesson is genuinely universal, you MUST flag it as a candidate for a
-    new skill rather than save it as memory.**
-
-    Lessons that apply regardless of user / project belong in a skill, not a
-    memory entry.
-
--   **If the agent's memory system has no obvious file path, you MUST fall back
-    to `AGENTS.md` for codebase conventions and skip the memory-file steps for
-    `user` / `feedback` / `project` / `reference` types.**
-
-    Flag the deferred candidates in the final report.
+  Flag the deferred candidates in the final report.
 
 ## Success criteria
 
--   **Every saved lesson MUST be non-obvious and MUST change future agent
-    behavior.**
+- **Every saved lesson MUST be non-obvious and MUST change future agent
+  behavior.**
 
-    A reader of the entry can identify what you would do *differently* because
-    of it.
+  A reader of the entry can identify what you would do *differently* because
+  of it.
 
--   **Each `feedback` and `project` entry MUST have both a Why: and a How to apply:
-    line.**
+- **Each `feedback` and `project` entry MUST have both a Why: and a How to apply:
+  line.**
 
--   **Every new memory file MUST be indexed in `MEMORY.md`.**
+- **Every new memory file MUST be indexed in `MEMORY.md`.**
+  An unindexed memory file is invisible to future sessions.
 
-    An unindexed memory file is invisible to future sessions.
+- **No saved lesson MUST duplicate an existing memory or convention doc entry.**
 
--   **No saved lesson MUST duplicate an existing memory or convention doc entry.**
+- **No credentials, PII, or internal URLs MUST appear in any saved entry.**
 
--   **No credentials, PII, or internal URLs MUST appear in any saved entry.**
+- **Memory entries MUST follow the required format.**
+  ```markdown
+  ---
+  name: <short-kebab-case-slug>
+  description: <one-line summary — specific, used by future agents to decide relevance>
+  metadata:
+    type: <user | feedback | project | reference>
+  ---
 
--   **Memory entries MUST follow the required format.**
+  <Lesson content.>
 
-    ```markdown
-    ---
-    name: <short-kebab-case-slug>
-    description: <one-line summary — specific, used by future agents to decide relevance>
-    metadata:
-      type: <user | feedback | project | reference>
-    ---
+  <For `feedback` and `project` types, follow with:>
 
-    <Lesson content.>
+  **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
 
-    <For `feedback` and `project` types, follow with:>
+  **How to apply:** <When and where this guidance kicks in.>
+  ```
 
-    **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
-
-    **How to apply:** <When and where this guidance kicks in.>
-    ```
-
--   **The final report MUST state how many candidates were proposed and how many
-    were saved (by type), the paths/filenames of new and updated entries, and any
-    skipped candidates worth revisiting in a future session.**
+- **The final report MUST state how many candidates were proposed and how many
+  were saved (by type), the paths/filenames of new and updated entries, and any
+  skipped candidates worth revisiting in a future session.**

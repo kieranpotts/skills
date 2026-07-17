@@ -28,7 +28,6 @@ metadata:
 ## Instructions
 
 1.  **Name the trigger.**
-
     You MUST state, in one sentence, what feedback prompted the refinement.
     Possible triggers:
 
@@ -48,7 +47,6 @@ metadata:
     Without a named trigger, you are not refining — you are second-guessing.
 
 2.  **Locate the specific specification artifact to change.**
-
     You MUST identify exactly which document, file, or section is wrong:
 
     - A `.feature` file and a specific scenario.
@@ -60,7 +58,6 @@ metadata:
     The refinement is then an *addition*, not an *edit*.
 
 3.  **Decide the type of change.**
-
     You MUST classify before drafting:
 
     - *Correction*: an existing AC is wrong and MUST be rewritten. (The most
@@ -78,12 +75,10 @@ metadata:
     makes the rest of the change reviewable.
 
 4.  **Draft the edit in the specification's own form.**
-
     You MUST write the refinement using the project's specification conventions
     (see the Rules section).
 
 5.  **Record the rationale and the trigger.**
-
     Every refinement MUST carry a short justification:
 
     - Why the previous version was wrong.
@@ -94,7 +89,6 @@ metadata:
     or an explicit "Refinement log" section in the specification).
 
 6.  **Trace downstream impact.**
-
     Refining a specification is rarely free. Before declaring the refinement
     done, you MUST map the ripple:
 
@@ -107,80 +101,71 @@ metadata:
     re-verification, or no change.
 
 7.  **Report the output.**
-
     You MUST present the refined specification, the recorded rationale, and the
     traced downstream impact list. Refinement is about *what is required*, not
     *how to build it*.
 
 ## Rules
 
--   **You MUST refine the specification, not the code.**
+- **You MUST refine the specification, not the code.**
+  If the right response is "fix the implementation to match the existing AC",
+  that is a code-defect fix, not a refinement. Refinement happens when the AC
+  itself was wrong, missing, or ambiguous — not when the implementation
+  drifted from a correct AC.
 
-    If the right response is "fix the implementation to match the existing AC",
-    that is a code-defect fix, not a refinement. Refinement happens when the AC
-    itself was wrong, missing, or ambiguous — not when the implementation
-    drifted from a correct AC.
+- **You MUST NOT silently rewrite a passed AC.**
+  An AC that previously passed — in testing or in production — is part of the
+  contract with users and stakeholders. Changing it without explicit
+  acknowledgment is how regressions arrive disguised as cleanups. You MUST
+  always record the change, the reason, and what was previously promised.
 
--   **You MUST NOT silently rewrite a passed AC.**
+- **Refinement REQUIRES evidence.**
+  A specification change driven by "I thought about it more" is suspect. You
+  MUST tie the change to an observation: a failing test, a stakeholder quote, a
+  measurement, a UX session. The evidence belongs in the rationale.
 
-    An AC that previously passed — in testing or in production — is part of the
-    contract with users and stakeholders. Changing it without explicit
-    acknowledgment is how regressions arrive disguised as cleanups. You MUST
-    always record the change, the reason, and what was previously promised.
+- **You MUST make one refinement per logical change.**
+  Bundling unrelated specification edits ("while we're here, also fix the
+  refund timeout AC") produces a diff nobody can review. You MUST refine one AC
+  per pass; queue the others.
 
--   **Refinement REQUIRES evidence.**
+- **Refinements MUST conform to the specification conventions.**
+  Gherkin form, testability, measurable NFRs, explicit out-of-scope. A refined
+  specification that breaks the conventions is no better than the unrefined
+  one.
 
-    A specification change driven by "I thought about it more" is suspect. You
-    MUST tie the change to an observation: a failing test, a stakeholder quote, a
-    measurement, a UX session. The evidence belongs in the rationale.
+- **You MUST distinguish "specification was wrong" from "user changed their mind".**
+  Both produce a specification edit, but the framing matters. A user who
+  changes their mind is fine — record it as such. A specification that
+  misrepresented what the user wanted from day one is a process failure worth
+  noting; the next specification should not repeat it.
 
--   **You MUST make one refinement per logical change.**
+- **Refinement MUST NOT be used to expand scope.**
+  Net-new features that were never part of the original ask are not
+  refinements — they are new specs. Treat them as such and capture them as a
+  fresh specification in their own right; the refine path is for fixing what
+  was already there.
 
-    Bundling unrelated specification edits ("while we're here, also fix the
-    refund timeout AC") produces a diff nobody can review. You MUST refine one AC
-    per pass; queue the others.
+- **You MUST capture follow-up items, not absorb them.**
+  A refinement session often surfaces other latent gaps. Note them, raise
+  tracking issues, but you MUST NOT stuff them into the current refinement. One
+  change at a time, traceable.
 
--   **Refinements MUST conform to the specification conventions.**
+- **If a refinement contradicts a recently-shipped feature, you MUST flag the
+  need for a deprecation / migration story and a design pass before assuming the
+  change can land.**
 
-    Gherkin form, testability, measurable NFRs, explicit out-of-scope. A refined
-    specification that breaks the conventions is no better than the unrefined
-    one.
+- **If stakeholders disagree on whether the specification was wrong, you MUST
+  NOT unilaterally refine.**
 
--   **You MUST distinguish "specification was wrong" from "user changed their mind".**
+  Surface the disagreement, capture both positions, and route to whatever
+  decision process the project uses.
 
-    Both produce a specification edit, but the framing matters. A user who
-    changes their mind is fine — record it as such. A specification that
-    misrepresented what the user wanted from day one is a process failure worth
-    noting; the next specification should not repeat it.
+- **If a stakeholder reframes a new feature as "we always wanted this", you MUST
+  push back and route the new ask through a fresh specification.**
 
--   **Refinement MUST NOT be used to expand scope.**
-
-    Net-new features that were never part of the original ask are not
-    refinements — they are new specs. Treat them as such and capture them as a
-    fresh specification in their own right; the refine path is for fixing what
-    was already there.
-
--   **You MUST capture follow-up items, not absorb them.**
-
-    A refinement session often surfaces other latent gaps. Note them, raise
-    tracking issues, but you MUST NOT stuff them into the current refinement. One
-    change at a time, traceable.
-
--   **If a refinement contradicts a recently-shipped feature, you MUST flag the
-    need for a deprecation / migration story and a design pass before assuming the
-    change can land.**
-
--   **If stakeholders disagree on whether the specification was wrong, you MUST
-    NOT unilaterally refine.**
-
-    Surface the disagreement, capture both positions, and route to whatever
-    decision process the project uses.
-
--   **If a stakeholder reframes a new feature as "we always wanted this", you MUST
-    push back and route the new ask through a fresh specification.**
-
-    Refinement should leave the *purpose* of the original specification intact;
-    expansion replaces it.
+  Refinement should leave the *purpose* of the original specification intact;
+  expansion replaces it.
 
 ## Examples
 A correction triggered by a failing AC:
@@ -266,32 +251,27 @@ Downstream impact:
 
 ## Success criteria
 
--   **Every refinement MUST name its trigger and its type.**
+- **Every refinement MUST name its trigger and its type.**
+  Correction / addition / removal / reclassification / threshold-adjustment,
+  plus the observation that prompted it.
 
-    Correction / addition / removal / reclassification / threshold-adjustment,
-    plus the observation that prompted it.
+- **The edit MUST be shown as before / after.**
+  Reviewers see what changed without diffing in their heads.
 
--   **The edit MUST be shown as before / after.**
+- **The rationale MUST be recorded with the edit.**
+  The specification or its commit history explains *why*, not just *what*.
+  Future readers can reconstruct the decision without re-litigating it.
 
-    Reviewers see what changed without diffing in their heads.
+- **Downstream impact MUST be traced.**
+  A list of affected artefacts (design, planned steps, code, tests) MUST exist,
+  with status. Nothing MUST be silently invalidated.
 
--   **The rationale MUST be recorded with the edit.**
+- **No code or test MUST have been changed inside this skill.**
+  The output is a specification edit and a traced impact list. Implementation
+  lives downstream.
 
-    The specification or its commit history explains *why*, not just *what*.
-    Future readers can reconstruct the decision without re-litigating it.
+- **If a refinement reveals an untestable AC, the refined AC MUST be in
+  testable form.**
 
--   **Downstream impact MUST be traced.**
-
-    A list of affected artefacts (design, planned steps, code, tests) MUST exist,
-    with status. Nothing MUST be silently invalidated.
-
--   **No code or test MUST have been changed inside this skill.**
-
-    The output is a specification edit and a traced impact list. Implementation
-    lives downstream.
-
--   **If a refinement reveals an untestable AC, the refined AC MUST be in
-    testable form.**
-
--   **If no specification existed in writing, the output MUST include the newly
-    written assumed specification plus the refinement applied to it.**
+- **If no specification existed in writing, the output MUST include the newly
+  written assumed specification plus the refinement applied to it.**

@@ -27,7 +27,6 @@ rather than guessing.
 ## Instructions
 
 1.  **Build a feedback loop.**
-
     You MUST try construction methods in roughly this order:
 
     1. *Failing test* at whatever seam reaches the bug — unit, integration, e2e.
@@ -61,7 +60,6 @@ rather than guessing.
       freeze network.)
 
 2.  **Reproduce.**
-
     You MUST run the loop, watch the bug appear, and confirm:
 
     - [ ] The loop produces the failure mode the *user* described — not a
@@ -72,7 +70,6 @@ rather than guessing.
       timing) so later phases can verify the fix actually addresses it.
 
 3.  **Hypothesize.**
-
     You MUST generate ranked hypotheses before testing any of them. Each
     hypothesis MUST be falsifiable. You MUST state the prediction it makes:
 
@@ -86,7 +83,6 @@ rather than guessing.
     on a response. You SHOULD proceed with your ranking if the user is AFK.
 
 4.  **Instrument.**
-
     Each probe MUST map to a specific prediction from step 3. You MUST change one
     variable at a time.
 
@@ -105,7 +101,6 @@ rather than guessing.
     Measure first, fix second.
 
 5.  **Fix and regression-test.**
-
     You MUST write the regression test *before* the fix — but only if there is a
     correct seam for it.
 
@@ -127,7 +122,6 @@ rather than guessing.
        scenario.
 
 6.  **Clean up and post-mortem.**
-
     Before declaring done:
 
     - [ ] Original repro no longer reproduces (re-run the step-1 loop).
@@ -146,60 +140,50 @@ rather than guessing.
 
 ## Rules
 
--   **The feedback loop is the skill.**
+- **The feedback loop is the skill.**
+  Build the right loop and the bug is 90% fixed. Without one, you are
+  guessing. You MUST treat loop construction as the primary task, not a setup
+  step. You MUST NOT proceed past step 1 until you have a loop you believe in.
 
-    Build the right loop and the bug is 90% fixed. Without one, you are
-    guessing. You MUST treat loop construction as the primary task, not a setup
-    step. You MUST NOT proceed past step 1 until you have a loop you believe in.
+- **For non-deterministic bugs, you MUST raise the reproduction rate.**
+  The goal is not a clean repro but a *higher* reproduction rate. Loop the
+  trigger 100×, parallelize, add stress, narrow timing windows, inject sleeps.
+  A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is.
 
--   **For non-deterministic bugs, you MUST raise the reproduction rate.**
+- **If you genuinely cannot build a loop, you MUST stop and say so explicitly.**
+  List what you tried. Ask the user for one of:
 
-    The goal is not a clean repro but a *higher* reproduction rate. Loop the
-    trigger 100×, parallelize, add stress, narrow timing windows, inject sleeps.
-    A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is.
+  - Access to an environment that reproduces it.
+  - A captured artifact (HAR file, log dump, core dump, screen recording with
+    timestamps).
+  - Permission to add temporary production instrumentation.
 
--   **If you genuinely cannot build a loop, you MUST stop and say so explicitly.**
+  You MUST NOT proceed to hypothesize without a loop.
 
-    List what you tried. Ask the user for one of:
+- **You MUST NOT proceed to hypothesis until you have reproduced the bug.**
+  A  hypothesis tested against a non-reproducing symptom is a guess.
 
-    - Access to an environment that reproduces it.
-    - A captured artifact (HAR file, log dump, core dump, screen recording with
-      timestamps).
-    - Permission to add temporary production instrumentation.
+- **You MUST generate hypotheses in a ranked set before testing any of them.**
+  Single-hypothesis generation anchors on the first plausible idea. Produce
+  alternatives so the leading candidate is chosen by comparison, not by default.
 
-    You MUST NOT proceed to hypothesize without a loop.
+- **You MUST change one variable at a time when instrumenting.**
+  Changing two things at once turns a successful test into ambiguous evidence.
 
--   **You MUST NOT proceed to hypothesis until you have reproduced the bug.**
+- **Each instrumenting probe MUST map to a specific hypothesis prediction.**
+  A probe that does not test a prediction is noise.
 
-    A  hypothesis tested against a non-reproducing symptom is a guess.
+- **You MUST tag all debug instrumentation with a unique prefix.**
+  eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds every
+  probe to remove.
 
--   **You MUST generate hypotheses in a ranked set before testing any of them.**
+- **For performance work, you MUST measure before you change.**
+  Establish a baseline with a profiler, timing harness, query plan, or
+  `performance.now()`. Then bisect. Logs are the wrong tool for performance.
 
-    Single-hypothesis generation anchors on the first plausible idea. Produce
-    alternatives so the leading candidate is chosen by comparison, not by default.
-
--   **You MUST change one variable at a time when instrumenting.**
-
-    Changing two things at once turns a successful test into ambiguous evidence.
-
--   **Each instrumenting probe MUST map to a specific hypothesis prediction.**
-
-    A probe that does not test a prediction is noise.
-
--   **You MUST tag all debug instrumentation with a unique prefix.**
-
-    eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds every
-    probe to remove.
-
--   **For performance work, you MUST measure before you change.**
-
-    Establish a baseline with a profiler, timing harness, query plan, or
-    `performance.now()`. Then bisect. Logs are the wrong tool for performance.
-
--   **You MUST state the correct hypothesis in the commit or PR message.**
-
-    The next person debugging this area benefits from knowing what the real
-    cause was — not just what the fix is.
+- **You MUST state the correct hypothesis in the commit or PR message.**
+  The next person debugging this area benefits from knowing what the real
+  cause was — not just what the fix is.
 
 ## Examples
 
@@ -233,55 +217,45 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 
 ## Edge cases
 
--   **Performance regression, not a functional bug.**
+- **Performance regression, not a functional bug.**
+  Skip "watch it crash" — the bug is a measurement. Replace step 2's symptom
+  capture with a numerical baseline + threshold, and the step-1 loop becomes a
+  benchmark, not a test.
 
-    Skip "watch it crash" — the bug is a measurement. Replace step 2's symptom
-    capture with a numerical baseline + threshold, and the step-1 loop becomes a
-    benchmark, not a test.
+- **Heisenbug that disappears under instrumentation.**
+  The probe itself is changing timing. Switch to a sampling profiler, post-hoc
+  log analysis, or hardware-level tracing rather than synchronous logging.
 
--   **Heisenbug that disappears under instrumentation.**
+- **Bug only reproduces in production.**
+  Do not skip the loop. Capture a production artifact (HAR, request log, db
+  snapshot) and replay it locally. If that is impossible, get explicit
+  permission before adding production instrumentation, and tag it the same way
+  (`[DEBUG-...]`) for guaranteed cleanup.
 
-    The probe itself is changing timing. Switch to a sampling profiler, post-hoc
-    log analysis, or hardware-level tracing rather than synchronous logging.
-
--   **Bug only reproduces in production.**
-
-    Do not skip the loop. Capture a production artifact (HAR, request log, db
-    snapshot) and replay it locally. If that is impossible, get explicit
-    permission before adding production instrumentation, and tag it the same way
-    (`[DEBUG-...]`) for guaranteed cleanup.
-
--   **The user's reported symptom is not the real bug.**
-
-    In step 2, if the loop fails to reproduce the *user's* described symptom but
-    reproduces something nearby, stop and check in with the user before chasing
-    the wrong bug.
+- **The user's reported symptom is not the real bug.**
+  In step 2, if the loop fails to reproduce the *user's* described symptom but
+  reproduces something nearby, stop and check in with the user before chasing
+  the wrong bug.
 
 ## Success criteria
 
--   **A feedback loop MUST exist and MUST be recorded.**
+- **A feedback loop MUST exist and MUST be recorded.**
+  The exact command, script, or test that reproduces the bug MUST be committed
+  or pasted into the PR/commit message. A future debugger can re-run it.
 
-    The exact command, script, or test that reproduces the bug MUST be committed
-    or pasted into the PR/commit message. A future debugger can re-run it.
+- **The original repro MUST no longer reproduce.**
+  Re-running the loop after the fix MUST show the bug is gone.
 
--   **The original repro MUST no longer reproduce.**
+- **A regression test MUST exist, or its absence MUST be documented.**
+  The test MUST pass after the fix and fail when the fix is reverted. If no
+  correct seam was available, that finding MUST be recorded.
 
-    Re-running the loop after the fix MUST show the bug is gone.
+- **All tagged instrumentation MUST have been removed.**
+  `grep` for the debug prefix MUST return zero hits in the committed code.
 
--   **A regression test MUST exist, or its absence MUST be documented.**
+- **The correct hypothesis MUST be stated in the commit or PR message.**
+  Future readers learn what the real cause was, not just what the fix changed.
 
-    The test MUST pass after the fix and fail when the fix is reverted. If no
-    correct seam was available, that finding MUST be recorded.
-
--   **All tagged instrumentation MUST have been removed.**
-
-    `grep` for the debug prefix MUST return zero hits in the committed code.
-
--   **The correct hypothesis MUST be stated in the commit or PR message.**
-
-    Future readers learn what the real cause was, not just what the fix changed.
-
--   **The hypothesis set MUST be ranked and falsifiable.**
-
-    The output MUST include 3-5 ranked hypotheses, each with a stated prediction
-    that could disprove it.
+- **The hypothesis set MUST be ranked and falsifiable.**
+  The output MUST include 3-5 ranked hypotheses, each with a stated prediction
+  that could disprove it.

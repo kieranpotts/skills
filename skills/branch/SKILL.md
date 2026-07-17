@@ -28,13 +28,11 @@ or author commit messages.
 ## Instructions
 
 1.  **Classify the work.**
-
     You MUST decide whether the change belongs on a trunk branch (`dev`, `test`,
     or `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
     directly on `dev` (for a one- or two-commit change).
 
 2.  **Form the branch name.**
-
     For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
 
     For `temp/*` or `epic/*` branches, you MUST build the name from the work:
@@ -44,133 +42,124 @@ or author commit messages.
     - You MUST keep the total length within the budget.
 
 3.  **Validate the name against the regex.**
-
     You MUST test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
     If it fails, you MUST rewrite the name and re-test until it passes, or report
     the specific rule that was violated.
 
 4.  **Choose the correct base branch.**
-
     For `temp/*` and `epic/*` branches, you MUST base the branch on `dev`. You
     MUST NOT base them on `test`, `ready`, or a release branch.
 
 5.  **Create or report.**
-
     If the request is to create a branch, you MUST create it from the chosen
     base. If the request is to validate, you MUST report a pass/fail verdict for
     each supplied name, naming the rule each failure violates.
 
 ## Rules
 
--   **Allowed branches are limited to the trunk, temporary, and epic forms.**
+- **Allowed branches are limited to the trunk, temporary, and epic forms.**
+  *Permanent trunks:*
 
-    *Permanent trunks:*
+  ```
+  dev
+  test
+  ready
+  ```
 
-    ```
-    dev
-    test
-    ready
-    ```
+  *Short-lived temporary branches:*
 
-    *Short-lived temporary branches:*
+  ```
+  temp/[<id>-]<description>
+  ```
 
-    ```
-    temp/[<id>-]<description>
-    ```
+  *Long-lived epic branches:*
 
-    *Long-lived epic branches:*
+  ```
+  epic/[<id>-]<description>
+  ```
 
-    ```
-    epic/[<id>-]<description>
-    ```
+  Validation regex (for all branch types):
 
-    Validation regex (for all branch types):
+  ```
+  ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
+  ```
 
-    ```
-    ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
-    ```
+- **Branch names MUST be lowercase and hyphen-delimited.**
+  - Branch names MUST be full lowercase.
 
--   **Branch names MUST be lowercase and hyphen-delimited.**
+  - `temp/*` and `epic/*` branch names MUST use hyphen-delimited descriptions
+    (kebab-case).
 
-    - Branch names MUST be full lowercase.
+  - Branch names MUST NOT contain underscores or spaces.
 
-    - `temp/*` and `epic/*` branch names MUST use hyphen-delimited descriptions
-      (kebab-case).
+  - The OPTIONAL `<id>` typically corresponds to an issue number or tracking
+    system identifier. Include it if known.
 
-    - Branch names MUST NOT contain underscores or spaces.
+  - Temporary and epic branch names SHOULD NOT exceed 50 characters total, and
+    MUST NOT exceed 72.
 
-    - The OPTIONAL `<id>` typically corresponds to an issue number or tracking
-      system identifier. Include it if known.
+- **Trunk branches are permanent and immutable.**
+  Trunks are append-only and fixed-forward. There are up to three:
 
-    - Temporary and epic branch names SHOULD NOT exceed 50 characters total, and
-      MUST NOT exceed 72.
+  - `dev`: The primary integration trunk. All work originates here. This is
+    the only REQUIRED branch. Most projects SHOULD use `dev` as their default
+    branch.
 
--   **Trunk branches are permanent and immutable.**
+  - `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` to
+    trigger comprehensive testing (integration tests, system tests,
+    performance tests).
 
-    Trunks are append-only and fixed-forward. There are up to three:
+  - `ready`: OPTIONAL production-grade trunk. Fast-forwarded to passing
+    commits on `test`. It MUST remain shippable at all times, enabling
+    continuous delivery.
 
-    - `dev`: The primary integration trunk. All work originates here. This is
-      the only REQUIRED branch. Most projects SHOULD use `dev` as their default
-      branch.
+- **Temporary branches are short-lived and focused.**
+  Temporary branches (`temp/*`) capture single-focused changes spanning a small
+  number of commits. Commonly associated with an issue/bug.
 
-    - `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` to
-      trigger comprehensive testing (integration tests, system tests,
-      performance tests).
+  - MUST be cut from `dev`, never from `test`, `ready`, or release branches.
 
-    - `ready`: OPTIONAL production-grade trunk. Fast-forwarded to passing
-      commits on `test`. It MUST remain shippable at all times, enabling
-      continuous delivery.
+  - One logical change per temporary branch. Multiple orthogonal changes
+    SHOULD NOT be combined into a single temporary branch.
 
--   **Temporary branches are short-lived and focused.**
+  - MUST use the rebase-up strategy to keep synchronized with `dev`, so the
+    unique commits of temporary branches stay at the tip.
 
-    Temporary branches (`temp/*`) capture single-focused changes spanning a small
-    number of commits. Commonly associated with an issue/bug.
+  - MUST be reintegrated with `dev` using fast-forward merge.
 
-    - MUST be cut from `dev`, never from `test`, `ready`, or release branches.
+  - MUST be deleted after integration; the commit history is preserved in
+    `dev`.
 
-    - One logical change per temporary branch. Multiple orthogonal changes
-      SHOULD NOT be combined into a single temporary branch.
+- **Epic branches are long-lived and coordinated.**
+  Epic branches (`epic/*`) are for multi-developer coordination on complex
+  changes.
 
-    - MUST use the rebase-up strategy to keep synchronized with `dev`, so the
-      unique commits of temporary branches stay at the tip.
+  - MUST be cut from `dev`, like temporary branches.
 
-    - MUST be reintegrated with `dev` using fast-forward merge.
+  - Valid use cases: large coordinated features spanning weeks/months, and
+    which can't easily be continuously integrated into the `dev` trunk or
+    toggled off; major refactoring and replatforming initiatives;
+    cross-cutting concerns; long-running research work; other highly
+    disruptive or volatile changes.
 
-    - MUST be deleted after integration; the commit history is preserved in
-      `dev`.
+  - MUST use the merge-down strategy: synchronize by merging `dev` into the
+    epic branch (never rebase). This is safer for long-lived branches with
+    multiple contributors since it preserves the history of the branch.
 
--   **Epic branches are long-lived and coordinated.**
+  - MUST be reintegrated with `dev` using the squash-merge strategy. One fresh
+    commit hits the trunk.
 
-    Epic branches (`epic/*`) are for multi-developer coordination on complex
-    changes.
+  - MUST be deleted after integration into `dev`. A fresh epic branch MAY be
+    recreated if further long-running development work is required.
 
-    - MUST be cut from `dev`, like temporary branches.
+- **All changes MUST flow forward through the trunks.**
+  Work MUST originate on `dev` and flow forward through `test` → `ready` →
+  release. Trunk branches are fixed-forward only. If a problem is discovered
+  downstream, the fix MUST be committed to `dev` and flow forward from there
+  — no direct commits to downstream trunks.
 
-    - Valid use cases: large coordinated features spanning weeks/months, and
-      which can't easily be continuously integrated into the `dev` trunk or
-      toggled off; major refactoring and replatforming initiatives;
-      cross-cutting concerns; long-running research work; other highly
-      disruptive or volatile changes.
-
-    - MUST use the merge-down strategy: synchronize by merging `dev` into the
-      epic branch (never rebase). This is safer for long-lived branches with
-      multiple contributors since it preserves the history of the branch.
-
-    - MUST be reintegrated with `dev` using the squash-merge strategy. One fresh
-      commit hits the trunk.
-
-    - MUST be deleted after integration into `dev`. A fresh epic branch MAY be
-      recreated if further long-running development work is required.
-
--   **All changes MUST flow forward through the trunks.**
-
-    Work MUST originate on `dev` and flow forward through `test` → `ready` →
-    release. Trunk branches are fixed-forward only. If a problem is discovered
-    downstream, the fix MUST be committed to `dev` and flow forward from there
-    — no direct commits to downstream trunks.
-
-    Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
-    reviewed periodically and either deleted or revived.
+  Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
+  reviewed periodically and either deleted or revived.
 
 ## Examples
 
@@ -202,30 +191,25 @@ epic/major-ui-redesign
 
 ## Success criteria
 
--   **The branch name MUST validate against the model.**
+- **The branch name MUST validate against the model.**
+  It MUST match
+  `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
+  — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case
+  description.
 
-    It MUST match
-    `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
-    — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case
-    description.
+- **The name MUST be well-formed.**
+  It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
+  and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
+  `temp/*` and `epic/*` branches.
 
--   **The name MUST be well-formed.**
+- **The branch type MUST fit the work.**
+  `temp/*` MUST be used for a short, single-focus change; `epic/*` for
+  long-lived, multi-contributor work that cannot be continuously integrated. A
+  change of one or two commits needs no branch beyond `dev`.
 
-    It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
-    and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
-    `temp/*` and `epic/*` branches.
+- **`temp/*` and `epic/*` branches MUST be cut from `dev`.**
+  They MUST NOT be cut from `test`, `ready`, or a release branch.
 
--   **The branch type MUST fit the work.**
-
-    `temp/*` MUST be used for a short, single-focus change; `epic/*` for
-    long-lived, multi-contributor work that cannot be continuously integrated. A
-    change of one or two commits needs no branch beyond `dev`.
-
--   **`temp/*` and `epic/*` branches MUST be cut from `dev`.**
-
-    They MUST NOT be cut from `test`, `ready`, or a release branch.
-
--   **Changes MUST flow forward only.**
-
-    Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
-    NOT be committed directly to a downstream trunk.
+- **Changes MUST flow forward only.**
+  Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
+  NOT be committed directly to a downstream trunk.

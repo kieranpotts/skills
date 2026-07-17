@@ -28,7 +28,6 @@ metadata:
 ## Instructions
 
 1.  **Identify what the next session needs to know.**
-
     If the user passed an argument describing the next session's focus (eg.
     "next session continues with the API integration"), you MUST use it to scope
     the handoff. Otherwise, you MUST treat the handoff as covering the full state
@@ -39,7 +38,6 @@ metadata:
     decisions, and *not* re-walk dead ends?
 
 2.  **Inventory existing artifacts.**
-
     Before writing anything, you MUST list the durable artifacts the current work
     has already produced:
 
@@ -52,7 +50,6 @@ metadata:
     - Any updated entries in `docs/domain-model.md`.
 
 3.  **Draft the document.**
-
     You MUST write the handoff using the structure defined in the Success
     criteria.
 
@@ -61,7 +58,6 @@ metadata:
     concrete next step the human should take.
 
 4.  **Redact sensitive information.**
-
     Before writing the file, you MUST strip:
 
     - API keys, tokens, passwords, secrets of any kind.
@@ -71,7 +67,6 @@ metadata:
     If in doubt, you MUST redact.
 
 5.  **Save to a temporary location.**
-
     You MUST write to the OS temp directory:
 
     - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back to
@@ -79,21 +74,17 @@ metadata:
     - Windows: `%TEMP%\handoff-<topic>-<timestamp>.md`.
 
 6.  **Tell the user the absolute path.**
-
     You MUST print the full absolute path.
 
 7.  **Handle an imminent context limit.**
-
     If the context limit is imminent, you MUST write the handoff immediately,
     even if other work was mid-flight.
 
 8.  **Handle parallel work streams.**
-
     If the session covered two unrelated streams of work, you SHOULD write one
     handoff per stream.
 
 9.  **Handle an empty handoff.**
-
     If the user provided no topic and the conversation covered nothing
     substantive, you MUST say so and stop. You MUST NOT write a fabricated
     handoff document.
@@ -106,39 +97,33 @@ metadata:
 
 ## Rules
 
--   **You MUST reference, not duplicate.**
+- **You MUST reference, not duplicate.**
+  Every fact already captured in a specification, plan, ADR, issue, commit, or
+  diff MUST be referenced by path or URL. Duplication invites drift.
 
-    Every fact already captured in a specification, plan, ADR, issue, commit, or
-    diff MUST be referenced by path or URL. Duplication invites drift.
+- **The handoff is ephemeral.**
+  It MUST live outside the repo, and MUST be discarded once the next session
+  has absorbed it. If a piece of the handoff turns out to be durable, you MUST
+  promote it to the relevant project artifact (ADR, specification update,
+  runbook) and remove it from the handoff.
 
--   **The handoff is ephemeral.**
+- **You MUST be specific about what's open.**
+  "Some questions remain about the API" is unhelpful. "Two questions remain on
+  the API: (1) idempotency behavior on retry; (2) whether to accept partial
+  updates — both blocked on product input" is actionable.
 
-    It MUST live outside the repo, and MUST be discarded once the next session
-    has absorbed it. If a piece of the handoff turns out to be durable, you MUST
-    promote it to the relevant project artifact (ADR, specification update,
-    runbook) and remove it from the handoff.
+- **You SHOULD suggest next steps, and MUST NOT dictate them.**
+  Name the work relevant to the road ahead, but the next session decides what
+  to do. You MUST NOT pretend to know what the next session will encounter.
 
--   **You MUST be specific about what's open.**
+- **You MUST redact aggressively.**
+  Anything that looks remotely like a credential, real identity, or internal
+  URL MUST be removed. The bar is: "could this embarrass anyone if pasted into
+  a public channel?"
 
-    "Some questions remain about the API" is unhelpful. "Two questions remain on
-    the API: (1) idempotency behavior on retry; (2) whether to accept partial
-    updates — both blocked on product input" is actionable.
-
--   **You SHOULD suggest next steps, and MUST NOT dictate them.**
-
-    Name the work relevant to the road ahead, but the next session decides what
-    to do. You MUST NOT pretend to know what the next session will encounter.
-
--   **You MUST redact aggressively.**
-
-    Anything that looks remotely like a credential, real identity, or internal
-    URL MUST be removed. The bar is: "could this embarrass anyone if pasted into
-    a public channel?"
-
--   **You MUST NOT fabricate state to fill the template.**
-
-    If a section has nothing to say, you MUST omit it or write "none" explicitly.
-    An empty section is honest; an invented one is misleading.
+- **You MUST NOT fabricate state to fill the template.**
+  If a section has nothing to say, you MUST omit it or write "none" explicitly.
+  An empty section is honest; an invented one is misleading.
 
 ## Examples
 
@@ -172,31 +157,30 @@ weren't, dead-ends already explored that should not be re-tried.
 
 ## Success criteria
 
--   **The handoff MUST live outside the repo.**
+- **The handoff MUST live outside the repo.**
+  Written to a temp-directory path, not the project tree.
 
-    Written to a temp-directory path, not the project tree.
+- **The handoff MUST use the following structure, omitting any section that has
+  nothing to report:**
 
--   **The handoff MUST use the following structure, omitting any section that has
-    nothing to report:**
+  - `# Handoff: <topic> (<date>)`
+  - `## What's been done` — summary of decisions and completed work.
+  - `## What's open` — outstanding questions and blockers.
+  - `## State of the codebase` — branch, working-tree status, known test
+    failures, temporary instrumentation.
+  - `## Suggested next steps` — the work the next session should pick up.
+  - `## Watch out for` — gotchas, environmental quirks, explored dead ends.
 
-    - `# Handoff: <topic> (<date>)`
-    - `## What's been done` — summary of decisions and completed work.
-    - `## What's open` — outstanding questions and blockers.
-    - `## State of the codebase` — branch, working-tree status, known test
-      failures, temporary instrumentation.
-    - `## Suggested next steps` — the work the next session should pick up.
-    - `## Watch out for` — gotchas, environmental quirks, explored dead ends.
+- **The handoff MUST reference every durable artifact by path or URL, and MUST
+  NOT paste artifact content.**
 
--   **The handoff MUST reference every durable artifact by path or URL, and MUST
-    NOT paste artifact content.**
+- **The handoff MUST NOT contain credentials, PII, or internal-only URLs.**
 
--   **The handoff MUST NOT contain credentials, PII, or internal-only URLs.**
+- **Outstanding questions MUST be stated specifically, with their blockers
+  named.**
 
--   **Outstanding questions MUST be stated specifically, with their blockers
-    named.**
+- **The next session MUST be able to read the handoff alone and know what to do
+  next.**
 
--   **The next session MUST be able to read the handoff alone and know what to do
-    next.**
-
--   **If there was nothing substantive to hand off, the output MUST say so
-    explicitly rather than produce a fabricated document.**
+- **If there was nothing substantive to hand off, the output MUST say so
+  explicitly rather than produce a fabricated document.**
