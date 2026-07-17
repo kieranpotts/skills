@@ -230,7 +230,7 @@ the sharpened design is the orchestrator's concern, not this skill's.
 
     (a) Sets `order.status = CANCELLED`, leaves line items intact
         (what the code currently does).
-    (b) Marks the order cancelled AND issues refunds for any items
+    (b) Marks the order canceled AND issues refunds for any items
         already paid for.
 
   I'd lean (b), because the specification mentions a refund flow and the existing

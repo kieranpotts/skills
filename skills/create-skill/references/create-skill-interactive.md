@@ -31,4 +31,4 @@ support it. See https://github.com/kieranpotts/pi for an example implementation.
 > [!NOTE]
 > `metadata` is the Agent Skills standard's sanctioned place for vendor data, so
 > the key validates against the canonical schema and the skill stays portable.
-> Clients tha do not support the `interactive` field will simply ignore it.
+> Clients that do not support the `interactive` field will simply ignore it.

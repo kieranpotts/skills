@@ -271,7 +271,7 @@ production re-implementation — is the orchestrator's concern, not this skill's
   queries through tonic interceptors?
 
   Evidence to close: a query that interrupts cleanly when the caller's
-  context is cancelled, releasing the connection.
+  context is canceled, releasing the connection.
 
   Time-box: 4 hours.
 
