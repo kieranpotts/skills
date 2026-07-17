@@ -15,7 +15,13 @@ metadata:
 
 # Release
 
-**Input:** A request to prepare a release, plus the project's release model (a single **release** trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+**Input:** A request to prepare a release, plus the project's release model (a
+single **release** trunk for continuous deployment, or `release/<version>`
+branches for release trains) and its version-tagging convention. REQUIRED.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** The release branch created or advanced per the model, and the
   release tagged with a correctly-formatted version. This skill applies the

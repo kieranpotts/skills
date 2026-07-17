@@ -21,9 +21,10 @@ metadata:
 description that has unresolved trade-offs, ambiguous terms, unstated
 assumptions, or dependencies not yet thought through, plus any related
 acceptance criteria and the relevant code. REQUIRED. This skill does not
-originate the design; it consumes a draft to sharpen. This skill is interactive:
-it gathers the rest of its input from the user through prompts during the
-session, asking one question at a time.
+originate the design; it consumes a draft to sharpen.
+
+This skill is interactive: it gathers the rest of its input from the user
+through prompts during the session, asking one question at a time.
 
 **Output:** A decomposition-ready design — every open decision resolved or
 explicitly deferred, terms reconciled with the glossary

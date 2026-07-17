@@ -22,7 +22,11 @@ category and state labels.
 **Input:** One or more freshly-filed or in-flight issues on the project's
 tracker, the full thread and any prior triage notes, and the relevant code for
 reproduction. REQUIRED. The category/state label vocabulary is assumed present
-(or is set up first). This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+(or is set up first).
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A recommended classification per issue, applied as the outcome once
 the maintainer confirms — a label change, an agent brief (problem statement,

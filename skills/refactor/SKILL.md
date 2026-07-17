@@ -18,7 +18,15 @@ metadata:
 Improve the internal quality of existing code without changing its
 observable behavior.
 
-**Input:** Existing, tested code and a named target quality. REQUIRED. The code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+**Input:** Existing, tested code and a named target quality. REQUIRED. The
+code to restructure plus the single design quality (readability, structure,
+coupling, naming, decomposition) being improved. This skill does not invent
+the goal from scratch; it consumes a quality to improve and a passing safety
+net to preserve.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A series of small `refactor:` commits that improve the named quality
   while leaving externally observable behavior identical — tests green before and

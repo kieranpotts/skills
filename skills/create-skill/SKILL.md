@@ -150,9 +150,14 @@ references, and scripts. All artifacts pass the validator.
     description.
 
   - **Input/output:** Immediately after the description, describe the input
-    and output — what the skill consumes, produces, and whether it blocks
-    for user input. Be explicit about the circumstances in which the agent
-    may prompt for user input.
+    and output — what the skill consumes and produces. Mark each input REQUIRED
+    or OPTIONAL. A single input SHOULD be described in a prose paragraph with
+    the marker inline; multiple distinct inputs SHOULD each become a bold-lead
+    bullet with the marker inside the bold lead (`- **The input. REQUIRED.**
+    …`). The interactivity statement MUST be its own paragraph immediately after
+    the input description, stating whether the skill runs non-interactively to
+    completion or is interactive — and, if interactive, being explicit about the
+    circumstances in which the agent prompts the user.
 
   - **Instructions** or **Rules:** MUST include at least one of these two
     sections.
@@ -280,10 +285,10 @@ references, and scripts. All artifacts pass the validator.
 
 - **The input and output sections MUST be present and prominent.**
   They MUST appear immediately after the title, before the first `##`. The
-  input section MUST state whether input is "REQUIRED" or "OPTIONAL", and MUST
-  state whether the agent should run non-interactively to completion or if it
-  may interact with the user — blocking to ask questions, presenting options,
-  and waiting for answers.
+  input section MUST state whether input is "REQUIRED" or "OPTIONAL". A separate
+  paragraph immediately after MUST state whether the agent should run
+  non-interactively to completion or if it may interact with the user — blocking
+  to ask questions, presenting options, and waiting for answers.
 
 - **The skill MUST be token-efficient.**
   No section is padded with detail that belongs in a `references/` file. The

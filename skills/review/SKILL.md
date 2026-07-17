@@ -21,7 +21,11 @@ and completeness, classifying every finding as blocking or non-blocking.
 **Input:** A code change to audit (a pull request, a peer's branch, or one's own
 diff before opening a PR), together with the specification or acceptance
 criteria it claims to satisfy and any captured design decision. REQUIRED. The
-comparison base is pinned explicitly. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+comparison base is pinned explicitly.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A set of findings, each carrying a severity label (Blocking,
 Suggestion, Nit, Praise) and organized along two axes (Specification and

@@ -17,7 +17,11 @@ metadata:
 
 **Input:** A description of a change to compose a message for, or one or more
 existing commit messages to validate (a branch's history before push). REQUIRED.
-For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A conforming commit message in the `<type>: <description>` format
 (with any optional flag, body, and footers), or a pass/fail verdict on the

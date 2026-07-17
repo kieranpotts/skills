@@ -16,7 +16,11 @@ metadata:
 **Input:** A reported bug or performance regression whose cause is not obvious
 from reading the code — the symptom, where it shows up, and any reproduction the
 user already has. REQUIRED. For performance work, a numerical baseline and
-threshold stand in for the symptom. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+threshold stand in for the symptom.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A verified fix landed with a regression test that locks the bug out,
 the diagnostic instrumentation removed, and the correct cause recorded in the

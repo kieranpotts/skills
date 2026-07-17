@@ -20,7 +20,11 @@ characteristics, API ergonomics, integration risk.
 
 **Input:** One falsifiable question — a specific feasibility, performance,
 ergonomics, or integration-risk question that cannot be answered by reasoning
-alone, with the evidence that would close it defined up front. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+alone, with the evidence that would close it defined up front. REQUIRED.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** The answer, durably captured — a measurement, observable behavior,
 or working integration, recorded so it is reproducible from the notes alone, and

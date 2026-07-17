@@ -15,7 +15,12 @@ metadata:
 
 # Reflect
 
-**Input:** The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED. This skill is interactive: it seeks per-candidate user approval through prompts before persisting anything, rather than running non-interactively to completion.
+**Input:** The current session's conversation, the agent's existing memory
+files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
+
+This skill is interactive: it seeks per-candidate user approval through
+prompts before persisting anything, rather than running non-interactively to
+completion.
 
 **Output:** Zero or more persisted lessons — memory entries (indexed in
   `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of

@@ -17,9 +17,11 @@ metadata:
 **Input:** A pull request carrying open (un-dismissed) review comments from
 **[review](../review/SKILL.md)**, and the code under review. REQUIRED. The author
 has already resolved any comments they do not want actioned; what remains is the
-work list. The base commit is pinned. This skill is non-interactive: agents MUST
-NOT block for user input after the initial prompt, and MUST follow the
-instructions to completion or fail with an error message.
+work list. The base commit is pinned.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A branch with each open comment implemented as a minimal, verified
 code change; each thread replied to and marked resolved; the fixes committed and

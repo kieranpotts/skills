@@ -16,20 +16,41 @@ metadata:
 
 One sentence, copied from the description, describing what the skill does.
 
-**Input:** Describe the information the agent will require to perform the
-task encoded in this skill.
+**Input:** Describe the information the agent requires to perform the task
+encoded in this skill, and mark it REQUIRED or OPTIONAL. Gather as much of this
+information as possible from the surrounding context, and prompt the user for
+anything that's missing or unclear.
 
-- Alternatively a discrete piece of information required, as a single bullet
-  point.
+<!--
+  For a SINGLE input, describe it in the prose paragraph above, with the
+  REQUIRED/OPTIONAL marker inline. For MULTIPLE distinct inputs, drop the prose
+  and use one bold-lead bullet per input instead, with the marker inside the
+  bold lead:
 
-- And another discrete piece of information.
+  **Input:**
 
-Gather as much of this information as possible from the surrounding context.
-Prompt the user for anything that's missing or unclear.
+  - **The first input. REQUIRED.** Describe it, and how to discover it from the
+    context when the user does not supply it explicitly.
 
-Specify whether the agent should work non-interactively to completion, or if
-the agent may interact with the user — blocking to ask questions, present
-options, and wait for answers.
+  - **The second input. OPTIONAL.** Describe it, and its default when absent.
+-->
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
+
+<!--
+  The interactivity statement above is ALWAYS its own paragraph, immediately
+  after the input description. State whether the skill runs non-interactively to
+  completion, or is interactive — blocking to ask questions, present options,
+  and wait for answers. For an interactive skill, say so and note that it
+  gathers the rest of its input from the user during the session, eg.:
+
+  This skill is interactive: it gathers the rest of its input from the user
+  through prompts during the session, asking one question at a time.
+
+  Keep `metadata.interactive` in the front-matter consistent with this.
+-->
 
 **Output:**
 

@@ -23,7 +23,11 @@ proposal in the project's software requirements specification (SRS) repository.
 formal software requirements specification. REQUIRED. This skill does not gather
 requirements or interview the user; if the PRD is not sufficiently detailed, you
 MUST **reject** it with a list of what is missing or ambiguous, and not proceed
-further. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+further.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** An open pull request against the SRS repository, capturing the
 changes as testable acceptance criteria, at `PROPOSED` and awaiting the user's

@@ -21,7 +21,11 @@ mergeable steps.
 **Input:** An agreed design (the chosen option) and the acceptance criteria it
   must deliver, for a change larger than one atomic commit or touching multiple
   seams. REQUIRED. The project's commit-type vocabulary and branch model inform
-  how steps are labeled and integrated. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+  how steps are labeled and integrated.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A numbered checklist of small steps, each independently mergeable,
   testable, and reversible, ordered riskiest-first, with a mode tag

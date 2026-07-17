@@ -21,7 +21,11 @@ metadata:
 **Input:** An approved specification — functional acceptance criteria and
 non-functional requirements, already reviewed and approved (`ACCEPTED`).
 REQUIRED. This skill consumes that specification; it does not write it, and its
-entry gate refuses to begin until the approval is in place. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+entry gate refuses to begin until the approval is in place.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A recommended design — the chosen option with its evaluation against
 the nine qualities, the rejected alternatives and why, and a durable decision

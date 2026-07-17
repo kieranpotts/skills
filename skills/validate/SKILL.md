@@ -24,7 +24,11 @@ should evolve.
 **Input:** Completed work that has already passed **[test](../test/SKILL.md)**
 (verified against its ACs), together with the originating statement of need —
 the preserved PRD, the specification's outcome and success measures, or the
-discovery report. REQUIRED. Run once all of a plan's increments are complete. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
+discovery report. REQUIRED. Run once all of a plan's increments are complete.
+
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
 
 **Output:** A bounded, prioritized validation report — an explicit verdict
 (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
