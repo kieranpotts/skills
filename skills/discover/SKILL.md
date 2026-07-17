@@ -250,7 +250,7 @@ shape the question that follows.
     A non-technical reader MUST be able to follow every sentence. No code, no API
     names, no schema details.
 
-## References
+## Assets
 
-- [`assets/product-requirements.template.md`](./assets/product-requirements.template.md):
+- [`assets/discover/product-requirements.template.md`](./assets/discover/product-requirements.template.md):
   The bundled PRD template to fill out in the final step.

@@ -351,6 +351,6 @@ building the report as you go.
   of the risk register store this skill writes into — its `TEMPLATE.md`,
   `REGISTER.md`, and conventions.
 
-- [`assets/threat-report.template.md`](./assets/threat-report.template.md): A
+- [`assets/probe/threat-report.template.md`](./assets/probe/threat-report.template.md): A
   fallback threat-report template, used only when the target store provides no
   `TEMPLATE.md` of its own.
