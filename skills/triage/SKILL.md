@@ -28,9 +28,10 @@ category and state labels.
 - **The label vocabulary. REQUIRED.** The category/state label vocabulary is
   assumed present (or is set up first).
 
-This skill is non-interactive: agents MUST NOT block for user input after the
-initial prompt, and MUST follow the instructions to completion or fail with an
-error message.
+You MUST complete this task non-interactively. You MUST NOT block for user input
+after this initial prompt. You MUST follow the instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 **Output:**
 

@@ -17,22 +17,26 @@ metadata:
 
 # Validate
 
-Evaluate completed, tested work against the users' actual needs — not against
-the agreed acceptance criteria — to judge whether the specification itself
-should evolve.
+Ask: "Did we build the right thing?" You are expected to re-examine the current
+iteration of the software against the users' actual needs. Query the existing
+requirement specifications, looking for gaps between what was specified and what
+actual user needs may be. Product prioritized suggestions for how the
+specifications may evolve. Do NOT make any code or configuration changes to
+the software itself.
 
 **Input:**
 
-- **Completed, tested work. REQUIRED.** Work that has already passed
-  **[test](../test/SKILL.md)** (verified against its ACs). Run once all of a
-  plan's increments are complete.
+- **Completed, tested work. REQUIRED.**
+  Work that has already passed **[test](../test/SKILL.md)** (verified against
+  its ACs). Run once all of a plan's increments are complete.
 
 - **The originating statement of need. REQUIRED.** The preserved PRD, the
   specification's outcome and success measures, or the discovery report.
 
-This skill is non-interactive: agents MUST NOT block for user input after the
-initial prompt, and MUST follow the instructions to completion or fail with an
-error message.
+You MUST complete this task non-interactively. You MUST NOT block for user input
+after this initial prompt. You MUST follow the instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 **Output:**
 

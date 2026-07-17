@@ -26,8 +26,8 @@ metadata:
   place, or to use as a basis for a fresh PRD. The seed may be vague,
   incomplete, or absent.
 
-This skill is interactive: it gathers the rest of its input from the user
-through prompts during the session, asking one question at a time.
+Gathers the rest of the input you need from the user. Prompt one question at
+a time.
 
 **Output:**
 

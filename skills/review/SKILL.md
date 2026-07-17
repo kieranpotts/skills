@@ -26,9 +26,10 @@ and completeness, classifying every finding as blocking or non-blocking.
 - **The specification to check against. REQUIRED.** The acceptance criteria the
   change claims to satisfy, plus any captured design decision.
 
-This skill is non-interactive: agents MUST NOT block for user input after the
-initial prompt, and MUST follow the instructions to completion or fail with an
-error message.
+You MUST complete this task non-interactively. You MUST NOT block for user input
+after this initial prompt. You MUST follow the instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 **Output:**
 

@@ -28,9 +28,7 @@ metadata:
   destination for codebase conventions and a source to check against before
   proposing.
 
-This skill is interactive: it seeks per-candidate user approval through
-prompts before persisting anything, rather than running non-interactively to
-completion.
+Seek per-candidate approval from the user, prompting before persisting.
 
 **Output:**
 

@@ -23,9 +23,8 @@ metadata:
   acceptance criterion, an exploratory-testing finding, a stakeholder report
   against shipped behavior, or an NFR threshold proven wrong in practice.
 
-This skill is interactive: it gathers the rest of its input from the user
-through prompts during the session, rather than running non-interactively to
-completion.
+Gather the rest of the information you need by prompting the user. Ask one
+question at a time.
 
 **Output:**
 

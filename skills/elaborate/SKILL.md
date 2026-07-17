@@ -28,8 +28,8 @@ metadata:
   acceptance criteria tied to the design, and the code it touches, so the draft
   can be cross-referenced against what already exists.
 
-This skill is interactive: it gathers the rest of its input from the user
-through prompts during the session, asking one question at a time.
+Gathers the rest of the information you need by prompting the user. Ask one
+question at a time.
 
 **Output:**
 

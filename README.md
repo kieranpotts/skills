@@ -108,7 +108,7 @@ These skills span four categories:
 | 🚀 **[style](./skills/style/)** | Improve code presentation — whitespace, style, ordering — without changing structure. |
 | 🚀 **[test](./skills/test/)** | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
 | 🚀 **[triage](./skills/triage/)** | Verify a reported bug or incident is real and reproducible. |
-| 🚀 **[validate](./skills/validate/)** | Evaluate the correctness and completeness of the requirements by road testing the current system. |
+| ✅ **[validate](./skills/validate/)** | Asks: "Did we build the right thing?" Queries the correctness and completeness of the current requirements. |
 
 ### 🔀 Version control skills
 
