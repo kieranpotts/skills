@@ -31,16 +31,19 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** The target branch updated with the integrated work using the
-  strategy correct for the branch type, conflicts resolved deliberately, tests and
-  build green on the merged result before push, and disposable source branches
-  (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
-  integrates and stops; it neither defines the branching convention nor cuts
-  releases.
+**Output:**
+
+The target branch updated with the integrated work using the
+strategy correct for the branch type, conflicts resolved deliberately, tests and
+build green on the merged result before push, and disposable source branches
+(`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
+integrates and stops; it neither defines the branching convention nor cuts
+releases.
 
 ## Instructions
 
 1.  **Identify source and target.**
+
     You MUST state both branches explicitly. "Merge into main" is ambiguous when
     there are multiple trunks. Write it down:
 
@@ -53,6 +56,7 @@ error message.
     (`git fetch`).
 
 2.  **Identify the branch type and choose the strategy.**
+
     You MUST determine the strategy from the branch type, per the project's
     branching convention:
 
@@ -65,6 +69,7 @@ error message.
     | `ready` → **release** / `release/<v>` | Fast-forward only       | `git merge --ff-only`                    |
 
 3.  **Pre-merge: align the source.**
+
     Before merging into the target:
 
     - *For `temp/*` → `dev`*: you MUST rebase the source onto the latest `dev`
@@ -83,6 +88,7 @@ error message.
       you MUST escalate per the Rules.
 
 4.  **Run pre-merge checks on the source.**
+
     Before merging, you MUST confirm:
 
     - `git status` clean.
@@ -94,6 +100,7 @@ error message.
     checks.
 
 5.  **Execute the merge.**
+
     You MUST run the command from the table. Examples:
 
     ```sh
@@ -116,20 +123,26 @@ error message.
     ```
 
 6.  **Resolve conflicts.**
+
     If the merge stops with conflicts:
 
     - You MUST list them: `git status` shows the conflicted files.
+
     - You MUST open each and resolve manually, and SHOULD prefer the change that
       preserves the target branch's contract over local convenience.
+
     - You MUST watch for *semantic conflicts*: both sides apply cleanly textually
       but the combined behavior is wrong (renamed symbol still referenced by the
       other side, two new functions with the same name in different files, etc.).
       The compiler / type-checker / test suite catches most of these — you MUST
       run them after each non-trivial resolution.
+
     - You MUST stage resolutions (`git add <file>`).
+
     - For rebase: `git rebase --continue`. For merge: `git commit`.
 
 7.  **Post-merge: verify.**
+
     Before pushing:
 
     ```sh
@@ -150,6 +163,7 @@ error message.
     with a meaningful message.
 
 8.  **Push, then clean up.**
+
     You MUST push the target, then delete disposable source branches once
     integrated:
 
@@ -175,15 +189,18 @@ error message.
   and consult the branching convention before improvising.**
 
 - **You MUST NOT use `--no-ff` to forward-promote trunks.**
+
   `dev` → `test` → `ready` is fast-forward only. If `--ff-only` fails on a
   trunk merge, you MUST escalate.
 
 - **You MUST NOT squash a `temp/*` branch.**
+
   Temporary branches preserve their atomic commit history into `dev`.
   Squashing them defeats the purpose of `step:` commits and loses the per-step
   rollback granularity.
 
 - **You MUST resolve conflicts where the work was done.**
+
   Conflicts between `dev` and `epic/*` are resolved by merging `dev` *down*
   into the epic, where the epic author has context. They are not resolved at
   the moment of squash-merge into `dev`.
@@ -193,6 +210,7 @@ error message.
   preferring one side hides legitimate conflicts.
 
 - **You MUST NOT merge through known-failing state.**
+
   If pre-merge checks fail, fix the source branch first.
 
 - **For trunk-to-trunk promotion, the upstream trunk MUST be a direct ancestor
@@ -215,24 +233,30 @@ error message.
 ## Success criteria
 
 - **The merged history on the target branch MUST reflect the chosen strategy.**
+
   `temp/*` branches land via rebase-up + fast-forward, `epic/*` branches land
   via squash-merge, and trunk promotions land via fast-forward only.
 
 - **The merged result MUST build and test green before push.**
+
   Verified locally, not assumed from CI.
 
 - **Trunk history MUST be linear after a trunk merge.**
+
   `git log --oneline --graph` shows no merge bubbles on `dev`, `test`,
   `ready`, or **release**.
 
 - **All conflicts MUST have been resolved deliberately.**
+
   No `-X ours`, no `-X theirs`, no skipped hooks. Each resolution was
   reviewed.
 
 - **The source branch MUST be deleted after integration.**
+
   `temp/*` and `epic/*` are gone locally and remotely once landed.
 
 - **Trunk branches MUST remain intact.**
+
   No trunk branch was deleted during clean-up.
 
 - **For `epic/*` → `dev`: the CHANGELOG MUST be updated in a pre-merge commit on

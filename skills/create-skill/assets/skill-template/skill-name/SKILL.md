@@ -97,18 +97,22 @@ Optionally, specify how the agent should summarize the outcomes of its work.
 ## Edge cases
 
 - **Some edge case.**
+
   Describe the edge case and how the agent should handle it.
 
 ## Success criteria
 
 - **The output matches the expected format.**
+
   Describe the specific structural or syntactic requirement — eg. the regex
   passes, the file is in the right location, the required fields are present.
 
 - **All rules have been respected.**
+
   Review the completed output against the rules above before finishing.
 
 - **Some domain-specific check.**
+
   Add one or two concrete, observable conditions specific to this skill —
   things the agent can verify without running external tooling.
 
@@ -117,6 +121,7 @@ Optionally, specify how the agent should summarize the outcomes of its work.
 ## Examples
 
 - **Some example scenario.**
+
   Describe a representative input and the expected output or behavior.
 
 ## Assets

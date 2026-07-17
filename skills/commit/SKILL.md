@@ -29,7 +29,9 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** A conforming commit message in the `<type>: <description>` format
+**Output:**
+
+A conforming commit message in the `<type>: <description>` format
 (with any optional flag, body, and footers), or a pass/fail verdict on the
 supplied messages naming the rule each one violates. Where required, the
 matching `[Unreleased]` changelog entry is produced too. This skill composes and
@@ -40,28 +42,33 @@ validates messages and stops; it neither stages nor commits.
 ## Instructions
 
 1.  **Identify the change type and scope.**
+
     You MUST read the diff or the description of the change, and determine
     whether the change is a single logical change or must be split into multiple
     atomic commits.
 
 2.  **Choose the commit type.**
+
     You MUST map the change to the most appropriate type from the allowed
     vocabulary, using the semantics in the Rules. If two types feel applicable,
     you SHOULD consult the *Subtle distinctions* note.
 
 3.  **Compose the subject line.**
+
     You MUST write the subject as `<type>: <description>`, using lowercase,
     imperative mood, with no trailing period. If the change is breaking,
     experimental, incompatible, temporary, or work-in-progress, you MUST append
     the corresponding flag.
 
 4.  **Add body and footers as needed.**
+
     If the *why* is not obvious from the subject, you SHOULD add a body separated
     by a single blank line. You MUST wrap body lines at 72 characters. You MAY
     add footers (eg. `Closes: #123`, `Refs: #456`) separated from the body by a
     single blank line.
 
 5.  **Update the CHANGELOG for direct commits to `dev` and `temp/*`.**
+
     When committing directly to `dev` or a `temp/*` branch, you MUST add a bullet
     to the `[Unreleased]` section of the project's `CHANGELOG.md` (or equivalent)
     as part of the same commit. You MUST use the same `type: description` format
@@ -69,6 +76,7 @@ validates messages and stops; it neither stages nor commits.
     `chore:` commits.
 
 6.  **Validate the message.**
+
     You MUST check that the subject line matches the validation regex and is
     within the length budget. If validating existing messages, you MUST report a
     pass/fail verdict for each, naming the rule each failure violates.
@@ -76,6 +84,7 @@ validates messages and stops; it neither stages nor commits.
 ## Rules
 
 - **You MUST use this exact format:**
+
   ```
   <type>: <description>
 
@@ -98,9 +107,9 @@ validates messages and stops; it neither stages nor commits.
   - `feature`
   - `fix`
   - `maintenance`
-  - **merge**
-  - **refactor**
-  - **release**
+  - `merge`
+  - `refactor`
+  - `release`
   - `revert`
   - `runtime`
   - `step`
@@ -133,6 +142,7 @@ validates messages and stops; it neither stages nor commits.
     <email>`. Separated from body by a single blank line.
 
 - **Commits MUST be atomic.**
+
   One logical change per commit. Large changes MUST be split into multiple
   commits.
 
@@ -142,6 +152,7 @@ validates messages and stops; it neither stages nor commits.
   UI.
 
 - **You MUST pick the most appropriate commit type.**
+
   Choice based on the semantics of the changeset being committed:
 
   - `chore`: Small, insignificant housekeeping — typo fixes, comment tweaks,
@@ -156,13 +167,13 @@ validates messages and stops; it neither stages nor commits.
   - `maintenance`: Required upkeep — dependency bumps, test improvements, CI
     workflow reconfig, documentation, security patches.
 
-  - **merge**: Merge commits (when not fast-forwarded).
+  - `merge`: Merge commits (when not fast-forwarded).
 
-  - **refactor**: Improves internal structure without changing features or
+  - `refactor`: Improves internal structure without changing features or
     degrading runtime quality (renames, helper extraction, simplifying
     interfaces, restructuring data flows).
 
-  - **release**: Version bumps and release-preparation commits.
+  - `release`: Version bumps and release-preparation commits.
 
   - `revert`: Reverting a prior commit.
 
@@ -211,6 +222,7 @@ validates messages and stops; it neither stages nor commits.
     `origin/dev` or other trunks in multi-contributor repositories.
 
 - **You MUST update the CHANGELOG for commits to `dev` and `temp/*`.**
+
   When committing directly to `dev` or a `temp/*` branch, update the project's
   `CHANGELOG.md` (or equivalent) as part of the same commit. Document the
   change under an `[Unreleased]` section at the top of the file.
@@ -229,17 +241,21 @@ validates messages and stops; it neither stages nor commits.
 ## Success criteria
 
 - **The subject line MUST pass the validation regex.**
+
   It MUST match the format defined in the Rules.
 
 - **The type semantics MUST fit the changeset.**
+
   Re-read the type's description. If two types feel applicable, consult the
   *Subtle distinctions* note — that's where the hard cases are resolved.
 
 - **The subject line length MUST be within budget.**
+
   ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the optional
   flag.
 
 - **There MUST be no Conventional Commits artefacts.**
+
   No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing
   `:` artefacts. The colon MUST come immediately after the type, nothing else.
 

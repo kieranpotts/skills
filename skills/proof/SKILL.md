@@ -31,14 +31,17 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** The same files, edited in place with conservative copy edits only —
-  prose words corrected, code/markup/structure untouched — plus a per-file summary
-  of the edits made and any items flagged for the author. Nothing is staged,
-  committed, or pushed; version control is left to a separate step.
+**Output:**
+
+The same files, edited in place with conservative copy edits only —
+prose words corrected, code/markup/structure untouched — plus a per-file summary
+of the edits made and any items flagged for the author. Nothing is staged,
+committed, or pushed; version control is left to a separate step.
 
 ## Instructions
 
 1.  **Resolve the set of files to proofread.**
+
     From the user's request, you MUST build the list of target files. The target
     may be a single file, a glob, a directory (recurse it for prose files), or
     unstated. If unstated, you MUST proofread the prose files changed in the
@@ -49,12 +52,14 @@ error message.
     generated or vendored files.
 
 2.  **Detect the markup language and the line-wrapping convention per file.**
+
     Before editing a file, you MUST note its format (so you know which syntax to
     protect) and its existing wrapping style — one-sentence-per-line, hard-wrapped
     at a column, or unwrapped paragraphs. You MUST keep the wrapping style
     unchanged.
 
 3.  **Proofread one file at a time, editing in place.**
+
     You SHOULD work through the files individually. For each file, you MUST apply
     the allowed edits in the Rules section and protect the forbidden zones in the
     Rules section. You MUST make the edits directly in the file. After finishing a
@@ -63,6 +68,7 @@ error message.
     completed file.
 
 4.  **Report a summary and stop.**
+
     When every target file is processed, you MUST print a concise summary grouped
     by file: for each file that changed, a short bullet list of the kinds of edits
     made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -
@@ -121,31 +127,37 @@ error message.
 ### File selection
 
 - **You MUST include only prose files.**
+
   By extension `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`, `.txt`, and
   extensionless prose like `README`, `CHANGELOG`, `LICENSE` text. Skip code,
   config, lockfiles, and generated files.
 
 - **You MUST skip generated or vendored files.**
+
   Skip anything under conventional generated/vendor paths unless the user
   explicitly names it. Report that they were skipped.
 
 ### Discipline
 
 - **You SHOULD prefer the project's configured formatter for pure whitespace/style.**
+
   If a deterministic prose linter or formatter is configured (eg. Vale,
   markdownlint, Prettier for Markdown), pure presentation issues are its job,
   not this skill's — this skill is for the language-level edits a formatter
   cannot make.
 
 - **You MUST edit in place only.**
+
   Modify the target files. You MUST NOT create new files, rename, move, or touch
   any file not on the target list.
 
 - **When a "fix" is really a rewrite, you MUST stop and flag it.**
+
   If correcting something would require changing meaning or structure, you MUST
   NOT do it — note it in the summary as a suggestion for the author.
 
 - **You MUST treat front matter and metadata conservatively.**
+
   Proofread human-readable values (a `title:` or `description:`) but never the
   keys, and never structural metadata (slugs, IDs, dates, tags). When unsure
   whether a value is prose or data, leave it.
@@ -164,6 +176,7 @@ error message.
   no moved sections, no touched code.
 
 - **No technical fact, identifier, version, or command MUST have been altered.**
+
   Anything that looked wrong MUST have been flagged for the author, not silently
   changed.
 

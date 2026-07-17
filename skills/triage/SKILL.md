@@ -32,7 +32,9 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** A recommended classification per issue, applied as the outcome once
+**Output:**
+
+A recommended classification per issue, applied as the outcome once
 the maintainer confirms — a label change, an agent brief (problem statement,
 repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
 needs-info request, or a durably-captured wontfix rationale. This skill
@@ -42,6 +44,7 @@ that follows.
 ## Instructions
 
 1.  **Establish the label vocabulary.**
+
     Two *category* labels:
 
     - `bug` — something is broken.
@@ -77,6 +80,7 @@ that follows.
     ```
 
 2.  **Identify which issues need attention.**
+
     You MUST query the tracker for three buckets, oldest first:
 
     1. *Unlabeled* — never triaged.
@@ -88,6 +92,7 @@ that follows.
     maintainer pick which to work on next.
 
 3.  **Gather context for the chosen issue.**
+
     You MUST read the full issue: body, comments, labels, reporter, dates. You
     MUST parse any prior triage notes so you do not re-ask resolved questions.
     You SHOULD explore the relevant code to understand which modules the issue
@@ -96,11 +101,13 @@ that follows.
     it.
 
 4.  **Recommend a classification.**
+
     You MUST state your category and state recommendation with reasoning, plus a
     brief codebase summary relevant to the issue. You MUST wait for direction
     from the maintainer before applying any labels.
 
 5.  **For bugs: attempt reproduction.**
+
     You SHOULD read the reporter's steps, trace the code, and run the failing
     command. You MUST report one of:
 
@@ -111,12 +118,14 @@ that follows.
     A confirmed repro makes for a much stronger agent brief later.
 
 6.  **Grill the issue into shape (if needed).**
+
     If the issue is under-specified for whichever state it's heading to, you
     MUST interrogate it — question the reporter and the code until its
     requirements are sharp. The output is a sharpened set of requirements, ready
     to be implemented, escalated to a human, or rejected with a captured reason.
 
 7.  **Apply the outcome.**
+
     You MUST map state to action:
 
     - *`ready-for-agent`* → post an agent-brief comment (template below). Apply
@@ -133,6 +142,7 @@ that follows.
       partial progress to record.
 
 8.  **Mark AI-generated activity.**
+
     If the triage is being performed by an AI agent, you MUST prefix every
     comment posted with a short disclaimer (eg. `> *AI-generated during
     triage.*`) so the reporter and maintainer can distinguish agent activity from
@@ -141,63 +151,75 @@ that follows.
 ## Rules
 
 - **You MUST treat triage as a maintainer's decision.**
+
   Recommend; you MUST NOT unilaterally label, comment, or close. The maintainer
   applies labels and closes issues; the skill makes that decision cheap.
 
 - **You MUST flag conflicting labels before resolving them.**
+
   If state labels conflict (eg. an issue is both `needs-info` and
   `ready-for-agent`), you MUST flag the inconsistency and ask before
   resolving.
 
 - **State transitions MUST follow the machine.**
+
   Typical path: *unlabeled* → `needs-triage` → (`needs-info` |
   `ready-for-agent` | `ready-for-human` | `wontfix`). `needs-info` returns to
   `needs-triage` once the reporter replies. Unusual transitions (eg. jumping
   straight from unlabeled to `wontfix`) MUST be flagged explicitly.
 
 - **You MUST read prior notes before asking anything.**
+
   Re-asking questions the reporter already answered erodes their willingness
   to engage. Parse `Triage Notes` blocks and existing comments before you
   compose a single question.
 
 - **A confirmed repro SHOULD be the gold standard for bugs.**
+
   Issues that can be reliably reproduced are much faster to fix and much
   harder to mis-classify.
 
 - **Out-of-scope rejections MUST be durable.**
+
   A one-line "wontfix" close on an enhancement is easily lost. You MUST
   capture the reasoning in `docs/out-of-scope/<topic>.md` so the next person
   to file the same idea gets the explanation by reference, not by
   re-litigation.
 
 - **`ready-for-agent` issues MUST have a brief.**
+
   An issue with the label but no brief is a setup for failure. If the
   maintainer asks to apply the label without grilling, you MUST ask whether
   they want a brief first.
 
 - **Questions in `needs-info` MUST be specific and actionable.**
+
   "Please provide more info" is not a question. Each question MUST name what
   is missing and why it matters.
 
 ## Edge cases
 
 - **The reporter ghosts on `needs-info`.**
+
   After a reasonable interval (varies by project — often 14-30 days), close
   politely: "Closing for lack of activity; please reopen with the requested
   info." Re-opening is cheap; stale `needs-info` issues obscure the active
   queue.
 
 - **Duplicate of an existing issue.**
+
   Confirm the duplication explicitly: link to the original and quote the
   symptom that matches. Close as wontfix with the dup link in the closing
   comment. Do not silently close.
 
 - **An issue mixes a bug and an enhancement.**
+
   Split it. The bug part gets its own issue, gets reproduced, gets triaged on
   its own. The enhancement part follows the enhancement path. Cross-link the
   two issues.
 
 - **Maintainer overrides the recommendation.**
+
   Trust them. Apply what they asked for, even if your recommendation differed.
   Do not relitigate.
 
@@ -207,9 +229,11 @@ that follows.
 - **Every triaged issue MUST carry one category and one state label.**
 
 - **State transitions MUST follow the machine.**
+
   Unusual transitions MUST be flagged, not silently performed.
 
 - **`ready-for-agent` issues MUST have a brief.**
+
   Problem statement, ACs, files likely involved, and explicit out-of-scope
   items.
 

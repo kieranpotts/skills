@@ -34,7 +34,9 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** A bounded, prioritized validation report — an explicit verdict
+**Output:**
+
+A bounded, prioritized validation report — an explicit verdict
 (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
 specification should evolve, each classified by gap type, backed by evidence,
 and ready to seed a **[refine](../refine/SKILL.md)** →
@@ -44,12 +46,14 @@ consumes the report is the orchestrator's concern.
 ## Instructions
 
 1.  **Recover the original need, not just the ACs.**
+
     You MUST pull the originating intent from the strongest available source, in
     order: the preserved PRD, the specification's outcome / goal / success-measure
     sections, or the discovery report. If no statement of need survives anywhere,
     you MUST report that absence as the first finding.
 
 2.  **Walk the working software as the user, against the need.**
+
     You MUST exercise the completed, tested increments end-to-end, as the user
     pursuing their actual goal. For each user outcome the specification claimed to
     serve, you MUST check whether the working software lets the user achieve it in
@@ -57,16 +61,19 @@ consumes the report is the orchestrator's concern.
     meets the stated success measure. You MUST capture observed behavior.
 
 3.  **Surface the gaps between specification and need.**
+
     You MUST classify each gap by type: **Unmet need**, **Wrong target**,
     **Missing requirement**, **Over-specification**, or **Stale assumption**, and
     MUST tie each gap to evidence.
 
 4.  **Prioritize by need-impact ÷ change-cost.**
+
     You MUST rank gaps by how much closing them serves the user's real need
     against how disruptive the specification change would be. "Leave it" is a
     valid finding where the fix costs more than the gap.
 
 5.  **Produce the validation report.**
+
     You MUST use this structure:
 
     ```markdown
@@ -95,6 +102,7 @@ consumes the report is the orchestrator's concern.
     ```
 
 6.  **Report the verdict and stop.**
+
     You MUST report MEETS THE NEED or GAPS FOUND. You MUST NOT draft
     specification edits here; what consumes the report is the orchestrator's
     concern.
@@ -102,34 +110,40 @@ consumes the report is the orchestrator's concern.
 ## Rules
 
 - **You MUST validate against the need, not the specification.**
+
   The specification is the thing under suspicion. Judging the software against
   the ACs only re-runs **[test](../test/SKILL.md)**. You MUST judge it against
   the originating need — the PRD, the outcome, the success measure — so a
   passing-but-wrong specification can be caught.
 
 - **Evaluation only — you MUST suggest, and MUST NOT edit.**
+
   This skill MUST NOT change any specification artefact and MUST NOT change
   any code. It outputs a report of suggestions. Editing the requirements is
   **[refine](../refine/SKILL.md)**'s responsibility; this skill's job ends at
   the suggestion.
 
 - **Every finding MUST carry evidence.**
+
   An observed behavior, a measurement against a success metric, or a concrete
   step in the user's flow. A gap asserted without evidence is a preference and
   MUST NOT belong in the report.
 
 - **You MUST distinguish a specification gap from an implementation defect.**
+
   If the software fails because the code does not meet a *correct* AC, that is
   a defect for **[test](../test/SKILL.md)** and diagnosis — not a validation
   finding. Validation fires only when the AC itself, faithfully implemented,
   fails to serve the need.
 
 - **"Meets the need" is a valid verdict.**
+
   Validation is not obliged to find fault. If the working software serves the
   user's real need, you MUST say so and report no specification change. You
   MUST NOT manufacture gaps to justify the pass; that wastes a refine cycle.
 
 - **Scope expansion MUST NOT be treated as validation.**
+
   A brand-new capability nobody asked for is not a gap against the original
   need — it is a new requirement. You MUST note it as a follow-up, but MUST
   NOT smuggle it into the validation report as though the specification was
@@ -138,24 +152,30 @@ consumes the report is the orchestrator's concern.
 ## Success criteria
 
 - **The originating need MUST be recovered before the software is judged.**
+
   PRD, outcome, or success measure MUST be consulted first. Validation against
   the ACs alone is verification, not validation.
 
 - **Every finding MUST cite evidence.**
+
   Observed behavior, a measurement, or a flow step — not an assertion of
   preference.
 
 - **Each finding MUST name its gap type and a suggested direction.**
+
   Unmet need / wrong target / missing requirement / over-specification / stale
   assumption, plus what the specification should say instead, ready for
   **[refine](../refine/SKILL.md)**.
 
 - **The verdict MUST be explicit.**
+
   MEETS THE NEED or GAPS FOUND — it MUST NOT be implied.
 
 - **No specification or code MUST have been changed.**
+
   The git tree MUST be unchanged. The output is a report of suggestions;
   enacting them is downstream.
 
 - **The report MUST be bounded.**
+
   It MUST contain 5–10 prioritized candidates, not an exhaustive wishlist.

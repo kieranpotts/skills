@@ -26,16 +26,19 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** A single, ephemeral handoff document written to the OS temp
-  directory (not the repo), referencing those durable artifacts by path or URL
-  rather than duplicating them. It captures what's done, what's open, the codebase
-  state, suggested next steps, and gotchas. This skill reports the file's absolute
-  path and stops; whether the next session is an agent or a human is the
-  orchestrator's concern.
+**Output:**
+
+A single, ephemeral handoff document written to the OS temp
+directory (not the repo), referencing those durable artifacts by path or URL
+rather than duplicating them. It captures what's done, what's open, the codebase
+state, suggested next steps, and gotchas. This skill reports the file's absolute
+path and stops; whether the next session is an agent or a human is the
+orchestrator's concern.
 
 ## Instructions
 
 1.  **Identify what the next session needs to know.**
+
     If the user passed an argument describing the next session's focus (eg.
     "next session continues with the API integration"), you MUST use it to scope
     the handoff. Otherwise, you MUST treat the handoff as covering the full state
@@ -46,6 +49,7 @@ error message.
     decisions, and *not* re-walk dead ends?
 
 2.  **Inventory existing artifacts.**
+
     Before writing anything, you MUST list the durable artifacts the current work
     has already produced:
 
@@ -58,6 +62,7 @@ error message.
     - Any updated entries in `docs/domain-model.md`.
 
 3.  **Draft the document.**
+
     You MUST write the handoff using the structure defined in the Success
     criteria.
 
@@ -66,6 +71,7 @@ error message.
     concrete next step the human should take.
 
 4.  **Redact sensitive information.**
+
     Before writing the file, you MUST strip:
 
     - API keys, tokens, passwords, secrets of any kind.
@@ -75,6 +81,7 @@ error message.
     If in doubt, you MUST redact.
 
 5.  **Save to a temporary location.**
+
     You MUST write to the OS temp directory:
 
     - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back to
@@ -82,17 +89,21 @@ error message.
     - Windows: `%TEMP%\handoff-<topic>-<timestamp>.md`.
 
 6.  **Tell the user the absolute path.**
+
     You MUST print the full absolute path.
 
 7.  **Handle an imminent context limit.**
+
     If the context limit is imminent, you MUST write the handoff immediately,
     even if other work was mid-flight.
 
 8.  **Handle parallel work streams.**
+
     If the session covered two unrelated streams of work, you SHOULD write one
     handoff per stream.
 
 9.  **Handle an empty handoff.**
+
     If the user provided no topic and the conversation covered nothing
     substantive, you MUST say so and stop. You MUST NOT write a fabricated
     handoff document.
@@ -106,36 +117,43 @@ error message.
 ## Rules
 
 - **You MUST reference, not duplicate.**
+
   Every fact already captured in a specification, plan, ADR, issue, commit, or
   diff MUST be referenced by path or URL. Duplication invites drift.
 
 - **The handoff is ephemeral.**
+
   It MUST live outside the repo, and MUST be discarded once the next session
   has absorbed it. If a piece of the handoff turns out to be durable, you MUST
   promote it to the relevant project artifact (ADR, specification update,
   runbook) and remove it from the handoff.
 
 - **You MUST be specific about what's open.**
+
   "Some questions remain about the API" is unhelpful. "Two questions remain on
   the API: (1) idempotency behavior on retry; (2) whether to accept partial
   updates — both blocked on product input" is actionable.
 
 - **You SHOULD suggest next steps, and MUST NOT dictate them.**
+
   Name the work relevant to the road ahead, but the next session decides what
   to do. You MUST NOT pretend to know what the next session will encounter.
 
 - **You MUST redact aggressively.**
+
   Anything that looks remotely like a credential, real identity, or internal
   URL MUST be removed. The bar is: "could this embarrass anyone if pasted into
   a public channel?"
 
 - **You MUST NOT fabricate state to fill the template.**
+
   If a section has nothing to say, you MUST omit it or write "none" explicitly.
   An empty section is honest; an invented one is misleading.
 
 ## Success criteria
 
 - **The handoff MUST live outside the repo.**
+
   Written to a temp-directory path, not the project tree.
 
 - **The handoff MUST use the following structure, omitting any section that has

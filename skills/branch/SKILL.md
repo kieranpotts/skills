@@ -28,7 +28,9 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** A correctly-named branch created from the right base, or a pass/fail
+**Output:**
+
+A correctly-named branch created from the right base, or a pass/fail
 verdict on the supplied names with the specific rule each one violates. This
 skill names and validates branches and stops; it does not merge, cut releases,
 or author commit messages.
@@ -36,11 +38,13 @@ or author commit messages.
 ## Instructions
 
 1.  **Classify the work.**
+
     You MUST decide whether the change belongs on a trunk branch (`dev`, `test`,
     or `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
     directly on `dev` (for a one- or two-commit change).
 
 2.  **Form the branch name.**
+
     For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
 
     For `temp/*` or `epic/*` branches, you MUST build the name from the work:
@@ -50,15 +54,18 @@ or author commit messages.
     - You MUST keep the total length within the budget.
 
 3.  **Validate the name against the regex.**
+
     You MUST test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
     If it fails, you MUST rewrite the name and re-test until it passes, or report
     the specific rule that was violated.
 
 4.  **Choose the correct base branch.**
+
     For `temp/*` and `epic/*` branches, you MUST base the branch on `dev`. You
     MUST NOT base them on `test`, `ready`, or a release branch.
 
 5.  **Create or report.**
+
     If the request is to create a branch, you MUST create it from the chosen
     base. If the request is to validate, you MUST report a pass/fail verdict for
     each supplied name, naming the rule each failure violates.
@@ -66,6 +73,7 @@ or author commit messages.
 ## Rules
 
 - **Allowed branches are limited to the trunk, temporary, and epic forms.**
+
   *Permanent trunks:*
 
   ```
@@ -93,6 +101,7 @@ or author commit messages.
   ```
 
 - **Branch names MUST be lowercase and hyphen-delimited.**
+
   - Branch names MUST be full lowercase.
 
   - `temp/*` and `epic/*` branch names MUST use hyphen-delimited descriptions
@@ -107,6 +116,7 @@ or author commit messages.
     MUST NOT exceed 72.
 
 - **Trunk branches are permanent and immutable.**
+
   Trunks are append-only and fixed-forward. There are up to three:
 
   - `dev`: The primary integration trunk. All work originates here. This is
@@ -122,6 +132,7 @@ or author commit messages.
     continuous delivery.
 
 - **Temporary branches are short-lived and focused.**
+
   Temporary branches (`temp/*`) capture single-focused changes spanning a small
   number of commits. Commonly associated with an issue/bug.
 
@@ -139,6 +150,7 @@ or author commit messages.
     `dev`.
 
 - **Epic branches are long-lived and coordinated.**
+
   Epic branches (`epic/*`) are for multi-developer coordination on complex
   changes.
 
@@ -161,6 +173,7 @@ or author commit messages.
     recreated if further long-running development work is required.
 
 - **All changes MUST flow forward through the trunks.**
+
   Work MUST originate on `dev` and flow forward through `test` → `ready` →
   release. Trunk branches are fixed-forward only. If a problem is discovered
   downstream, the fix MUST be committed to `dev` and flow forward from there
@@ -172,25 +185,30 @@ or author commit messages.
 ## Success criteria
 
 - **The branch name MUST validate against the model.**
+
   It MUST match
   `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
   — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case
   description.
 
 - **The name MUST be well-formed.**
+
   It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
   and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
   `temp/*` and `epic/*` branches.
 
 - **The branch type MUST fit the work.**
+
   `temp/*` MUST be used for a short, single-focus change; `epic/*` for
   long-lived, multi-contributor work that cannot be continuously integrated. A
   change of one or two commits needs no branch beyond `dev`.
 
 - **`temp/*` and `epic/*` branches MUST be cut from `dev`.**
+
   They MUST NOT be cut from `test`, `ready`, or a release branch.
 
 - **Changes MUST flow forward only.**
+
   Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
   NOT be committed directly to a downstream trunk.
 

@@ -28,13 +28,16 @@ This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
 error message.
 
-**Output:** The build, compile, lint, or type-check passes; the reported
+**Output:**
+
+The build, compile, lint, or type-check passes; the reported
 breakage is resolved at its source, or explicitly suppressed with a recorded
 justification. No unrelated behavior change.
 
 ## Instructions
 
 1.  **Run the check and read its output literally.**
+
     You MUST NOT guess at what a build, compiler, linter, or type-checker wants.
     You MUST run it, and read the exact error, rule name, message, and location
     it reports. Most tools name the problem precisely (eg. `no-unused-vars`, a
@@ -50,12 +53,14 @@ justification. No unrelated behavior change.
     fixing one can sometimes resolve or mask another.
 
 3.  **Prefer automated fixes where they exist.**
+
     Many linters support `--fix`; some build/compile errors are resolved by `npm
     install`/dependency updates or regenerating lockfiles; some deprecation
     warnings have an automated migration codemod. You SHOULD run these first,
     then re-check — automated fixes rarely resolve everything.
 
 4.  **Fix remaining issues at their reported location.**
+
     You MUST make the minimal change that resolves the specific error — not a
     broader rewrite. A type error usually wants a narrower type, a missing null
     check, or a corrected signature; a build or compile failure usually wants a
@@ -73,12 +78,14 @@ justification. No unrelated behavior change.
     laziness.
 
 6.  **Re-run every check that was failing.**
+
     You MUST re-run after each fix and again after all fixes. You MUST confirm
     each reported issue is resolved AND no new ones were introduced. Fixes can
     shift errors elsewhere — especially type narrowing or dependency changes,
     which can surface or hide other errors.
 
 7.  **Commit as `fix:` or `maintenance:` depending on scope.**
+
     A small, localized fix to make CI green is typically `fix:`. A larger sweep
     — clearing a backlog of deprecation warnings, fixing many type errors after
     a dependency bump — is `maintenance:`.
@@ -86,44 +93,52 @@ justification. No unrelated behavior change.
 ## Rules
 
 - **If the cause isn't already evident, you MUST NOT use this skill.**
+
   **fix** resolves breakage a tool has already diagnosed. If you need to form
   and test hypotheses about why something is failing, you MUST switch to
   **[debug](../debug/SKILL.md)**.
 
 - **You MUST make the minimal change that resolves the reported issue.**
+
   Do not refactor, rename, or restructure while fixing. A fix that also
   changes unrelated behavior or presentation makes the diff hard to review
   and risky to revert.
 
 - **You MUST fix the problem, not relocate it.**
+
   Suppressing a rule project-wide, or widening a type to `any`/`unknown` to
   make an error disappear, doesn't fix anything — it hides the signal the tool
   exists to give. You SHOULD prefer the narrowest fix that genuinely resolves
   the rule's intent.
 
 - **You MUST NOT bundle with feature or style work.**
+
   A diff that fixes build/lint/type errors alongside unrelated logic or
   presentation changes makes it hard to tell which change introduced a
   regression. These fixes MUST land in their own commit.
 
 - **Suppressions MUST carry a stated reason, every time.**
+
   `// eslint-disable-next-line` with no comment MUST NOT appear. You MUST state
   which case the rule doesn't apply to and why.
 
 ## Edge cases
 
 - **The rule or check itself is wrong for the project.**
+
   If a rule is consistently wrong across many call sites, that's not a one-off
   fix — it's a `maintenance:` change to the lint/build config, made
   deliberately and reviewed, not papered over one suppression at a time.
 
 - **Fixing one type or build error cascades into many more.**
+
   Common after narrowing a shared type, upgrading a type-checker, or bumping a
   dependency. Work outward from the original error; each downstream error
   usually resolves once its upstream cause does. If the cascade is large,
   treat it as a `maintenance:` sweep.
 
 - **The check is flaky, not actually failing on the code.**
+
   If re-running the identical command sometimes passes and sometimes fails
   with no code changes, the problem is the check's environment (caching,
   ordering, concurrency, network) — that's a `maintenance:` task on the
@@ -137,6 +152,7 @@ justification. No unrelated behavior change.
   Re-read the original error message before declaring done.
 
 - **The breakage turns out to have an unclear cause after all.**
+
   If investigation reveals there's no evident fix — the error message doesn't
   point anywhere conclusive, or the "obvious" fix doesn't resolve it — stop
   and switch to **[debug](../debug/SKILL.md)** rather than guessing repeatedly.
@@ -144,18 +160,22 @@ justification. No unrelated behavior change.
 ## Success criteria
 
 - **The check MUST exit zero.**
+
   Re-running the exact command that originally failed MUST now pass, with no
   remaining violations.
 
 - **No new issues MUST have been introduced.**
+
   The full set of checks — not just the one that originally failed — MUST pass
   after the change.
 
 - **Every suppression MUST state a reason.**
+
   `grep` for suppression directives in the diff; each one MUST have an inline
   justification.
 
 - **The commit MUST be scoped to the fix.**
+
   No unrelated feature or `style:` changes MUST be bundled in.
 
 ## Examples

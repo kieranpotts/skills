@@ -56,6 +56,7 @@ architecture review.
 ## Instructions
 
 1.  **Establish scope.**
+
     You MUST decide what is in scope — which repositories, services, or
     directories — based on the target codebase. If a URL is provided, you MUST
     assume the target repository is to be cloned.
@@ -64,15 +65,18 @@ architecture review.
     `owner/repo@<commit-sha>`, where possible.
 
 2.  **Identify modules.**
+
     You MUST analyze the target codebase and identify the major component parts
     of the system, and SHOULD identify the architectural tiers, eg. UI, services,
     domain, infrastructure.
 
 3.  **Identify communication patterns.**
+
     You SHOULD identify the communication patterns and protocols between the
     major layers, and between the components within each layer.
 
 4.  **Check on module depth.**
+
     For each significant module, you SHOULD ask: if I removed this module, where
     would its complexity go?
 
@@ -84,6 +88,7 @@ architecture review.
     interface wider than the behavior justifies.
 
 5.  **Examine the module boundaries.**
+
     You SHOULD enumerate the significant structural boundaries — between
     architectural tiers, between modules, and at the edges where the system
     integrates with external services or stores.
@@ -139,6 +144,7 @@ architecture review.
     lowest-ranking entries so the report is capped at 10.
 
 8.  **Write the report.**
+
     You MUST write the report into the project's audit-report collection. You
     MUST follow the instructions in the audit reports collection or repository,
     identified via user input. Look for an `AGENTS.md` file, else `README.md`.
@@ -151,6 +157,7 @@ architecture review.
 ## Rules
 
 - **You MUST NOT read existing design docs, threat models, etc.**
+
   You MUST NOT read any design documentation or threat models that you find.
   You MUST form your judgment from analysis of the code alone. Knowledge
   of the _intended_ architecture would bias your review toward the design
@@ -161,9 +168,11 @@ architecture review.
   system.
 
 - **Discovery only: you MUST NOT change code.**
+
   You MUST NOT change any code in the audited repositories.
 
 - **You MUST NOT commit, branch, file issues, or open pull requests.**
+
   Your only output is your report, written to disk. You MUST NOT commit it,
   create a branch for it, file issues, or open pull requests to implement
   your findings, where the target path is within a version control repository.
@@ -173,10 +182,12 @@ architecture review.
   skill MUST stop. The user SHALL decide what to do with your report next.
 
 - **You SHOULD cite files and lines.**
+
   Be concrete. Every finding SHOULD name specific paths where possible.
   Vague findings ("the API layer is messy") SHOULD be avoided.
 
 - **You MAY suggest options for fixes.**
+
   You MUST state your findings before offering any suggestions about how to
   improve things.
 
@@ -187,6 +198,7 @@ architecture review.
   suggested fixes but still find the observations useful.
 
 - **Security and privacy findings are out of scope.**
+
   This skill evaluates architecture only. You MUST NOT report security or
   privacy weaknesses — injection points, broken auth boundaries, unsafe secrets
   handling, and the like — as audit findings. If you notice one, note it for
@@ -195,11 +207,13 @@ architecture review.
   architecture review. See the **[probe](../probe/)** skill.
 
 - **"Not worth fixing" MAY be a valid conclusion.**
+
   Not every smell earns a fix. Where the cost of the change would exceed the
   cost of the smell, you SHOULD say so — recording it as low priority, with the
   rationale.
 
 - **You MUST stay within the codebase's idioms.**
+
   You MUST NOT flag style choices that are consistent across the codebase as
   smells just because you would prefer a different style. The audit MUST target
   structural problems, not preferences.
@@ -207,29 +221,35 @@ architecture review.
 ## Success criteria
 
 - **The report MUST cite a specific file for every finding.**
+
   Each finding MUST name a module/file path and a concrete observation. Vague
   platitudes MUST NOT appear.
 
 - **Findings MUST be prioritized by impact ÷ effort.**
+
   Each finding MUST carry a Priority (High / Medium / Low) derived from the
   ranking, and the report MUST be ordered by it. A reader SHOULD be able to
   stop after the top three entries and still have something actionable.
 
 - **The audited repositories MUST be left unchanged.**
+
   Their tracked files MUST be unchanged after this skill runs — `git diff` over
   them MUST be empty. The new report file in the audit-report collection MUST be
   the only expected artifact.
 
 - **The report MUST exist on disk and MUST NOT be committed.**
+
   The report file MUST be present at the location the collection's conventions
   (or `AGENTS.md`) specify, and `git status` MUST show it untracked — never
   staged or committed by this skill.
 
 - **The report MUST be bounded.**
+
   It MUST contain between 5 and 10 findings, and MUST NOT exceed 10. It
   MUST NOT be an exhaustive enumeration of every observed smell.
 
 - **The report MUST conform to the audit template.**
+
   It MUST carry the metadata header (including the Subject snapshot), a findings
   table, and per-finding Type / Priority / Location — matching the project's
   `TEMPLATE.md`, or the fallback structure where none exists.

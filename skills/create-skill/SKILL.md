@@ -119,6 +119,7 @@ references, and scripts. All artifacts pass the validator.
 ## Rules
 
 - **The `description` field is the primary trigger mechanism.**
+
   It determines when an agent invokes the skill. You SHOULD err toward
   being explicit rather than brief. You MUST follow this two-sentence
   pattern, written in the third person:
@@ -183,12 +184,14 @@ references, and scripts. All artifacts pass the validator.
   the skill.
 
 - **Keep instructions and rules separate.**
+
   Instructions are ordered steps — the procedural workflow the agent follows.
   Rules are individual, non-sequential guidelines, recommendations, and
   constraints. You MUST keep them separate. You MUST NOT embed rules inside
   instructions, or instructions inside rules.
 
 - **Use RFC 2119 keywords consistently.**
+
   Mark requirement levels with MUST, SHOULD, MAY, etc. See
   [requirements levels](./references/create-skill-requirements-levels.md)
   for the allowed subset of RFC 2119 keywords.
@@ -201,11 +204,13 @@ references, and scripts. All artifacts pass the validator.
   varied.
 
 - **Explain the _why_ behind non-obvious requirements.**
+
   Instead of bare imperatives, explain the reasoning so the agent can apply
   judgment in edge cases. When multiple approaches are valid, prefer
   explaining the _purpose_ over prescribing exact steps.
 
 - **Match prescriptiveness to fragility.**
+
   Be prescriptive — exact commands, flags, ordering — when operations are
   fragile, consistency is critical, or a specific sequence must be followed.
   Otherwise, avoid enumerating every edge case in the body. Instead, handle
@@ -215,22 +220,26 @@ references, and scripts. All artifacts pass the validator.
   Simple skills need only instructions and success criteria.
 
 - **Provide defaults, not menus.**
+
   When multiple tools or approaches could work, pick one as the default and
   mention alternatives as escape hatches. The agent SHOULD follow the default
   unless there is a specific reason not to.
 
 - **Favor procedures over declarations.**
+
   You SHOULD teach the agent _how to approach_ a class of problems, not
   what to produce for a single instance. A reusable method that generalizes
   beats a hardcoded answer.
 
 - **Keep the skill token-efficient.**
+
   Skills are loaded into the agent's context window. `SKILL.md` SHOULD stay
   under ~300 lines. Offload deep detail to `references/` files. Link them with
   a trigger condition so they're only read when needed. Extract recurring
   logic to `scripts/`. Balance token efficiency against human readability.
 
 - **Keep gotchas in `SKILL.md`.**
+
   Environment-specific facts that defy reasonable assumptions (wrong field
   names, soft-delete filters, non-obvious API constraints) MUST stay in the
   main file — the agent needs them _before_ it encounters the situation. When
@@ -238,13 +247,16 @@ references, and scripts. All artifacts pass the validator.
   cases section.
 
 - **Use imperative form in instructions.**
+
   Instructions SHOULD read as commands: "use this format", not "you should
   use this format".
 
 - **Use consistent terminology.**
+
   One word MUST mean one thing. Avoid synonyms.
 
 - **Reach for proven structural techniques when they fit.**
+
   You SHOULD use these where applicable:
 
   - **Step checklists** for multi-step workflows where the agent must track
@@ -261,16 +273,19 @@ references, and scripts. All artifacts pass the validator.
     specific enough for the agent to self-correct.
 
 - **Only `scripts/`, `references/`, and `assets/` are propagated.**
+
   Installers ignore any other bundled subdirectories. You SHOULD namespace
   every file to avoid collisions when skills are installed side-by-side.
 
 ## Edge cases
 
 - **Improving an existing skill.**
+
   Read the current `SKILL.md` first, then treat the improvement like a new
   draft. Rewrite rather than patch. Preserve the `name` field unchanged.
 
 - **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
+
   Use it as a reference for domain knowledge, but adapt the instructions and
   format to the bundled template and the conventions of the project you are
   authoring in. Don't copy verbatim.
@@ -278,14 +293,17 @@ references, and scripts. All artifacts pass the validator.
 ## Success criteria
 
 - **Front-matter MUST be valid.**
+
   The `name` and `description` fields MUST be present and non-empty, and `name`
   MUST match the directory name.
 
 - **All REQUIRED paragraphs MUST be present.**
+
   At minimum: the `#` title, the `**Input:**` and `**Output:**` sections,
   `## Instructions` or `## Rules`, and `## Success criteria`.
 
 - **The input and output sections MUST be present and prominent.**
+
   They MUST appear immediately after the title, before the first `##`. The input
   section MUST be a bulleted list, each item marking its input "REQUIRED" or
   "OPTIONAL" inside the bold lead. A separate paragraph immediately after MUST
@@ -294,10 +312,12 @@ references, and scripts. All artifacts pass the validator.
   and waiting for answers.
 
 - **The skill MUST be token-efficient.**
+
   No section is padded with detail that belongs in a `references/` file. The
   `SKILL.md` SHOULD be under ~300 lines.
 
 - **The `description` MUST be specific enough to trigger correctly.**
+
   It MUST name both the capability and the contexts that should invoke it — not
   just a one-line summary of what the skill does.
 
