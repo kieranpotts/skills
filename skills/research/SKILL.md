@@ -16,7 +16,7 @@ metadata:
 
 # Research
 
-**Input:** A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current.
+**Input:** A topic or question blocked on knowledge the agent does not hold and cannot derive from the codebase. REQUIRED. How a library behaves, what a protocol mandates, how others solved a comparable problem, what a regulation requires, whether an approach is still current. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A single, cited research report — a direct answer to the framed
   question, the supporting evidence (each decision-bearing claim sourced and,
@@ -25,11 +25,7 @@ metadata:
   into a design doc, an ADR, persisted memory, or anywhere else is a separate,
   explicit step the caller initiates.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Frame the question.**
 
@@ -85,7 +81,7 @@ with an error message.
     review) and stop. Writing into those destinations is a separate, explicit
     step the caller initiates.
 
-##  Rules
+## Rules
 
 -   **You MUST cite everything that matters.**
 
@@ -143,7 +139,7 @@ with an error message.
 -   **If sources are paywalled or unreachable, you MUST note that they exist but
     could not be verified, and find an open alternative where one exists.**
 
-##  Success criteria
+## Success criteria
 
 -   **The framed question MUST be answered, or its unanswerability explained.**
 

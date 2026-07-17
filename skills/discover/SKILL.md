@@ -38,7 +38,7 @@ acceptance criteria. These are separate downstream responsibilities.
 **Interactivity:** This skill is interactive. It gathers the rest of its input
 from the user through prompts during the session, asking one question at a time.
 
-##  Instructions
+## Instructions
 
 Conduct the session as a structured interview. Ask one question at a time, in
 the order below. Wait for the answer before asking the next. Let each answer
@@ -154,7 +154,7 @@ shape the question that follows.
 
     Confirm with the user that no further rules need to be elicited, then fill
     out the bundled template at
-    [`assets/product-requirements.template.md`](./assets/product-requirements.template.md).
+    [`assets/discover/product-requirements.template.md`](./assets/discover/product-requirements.template.md).
 
     The template has these sections: *Outcome* (problem, goal, why now, success
     measure), *Stakeholders*, *Scope* (in and out), *Rules*, *Examples* (an
@@ -163,7 +163,7 @@ shape the question that follows.
 
     Report the PRD as this skill's output and stop.
 
-##  Rules
+## Rules
 
 -   **You MUST ask one question at a time.**
 
@@ -217,7 +217,7 @@ shape the question that follows.
     Rigorous. Direct. No fluff. Cover things properly, but you MUST NOT pad
     responses. Remove filler. Show reasoning, not just conclusions.
 
-##  Success criteria
+## Success criteria
 
 -   **Every rule MUST have at least one example AND one counter-example.**
 

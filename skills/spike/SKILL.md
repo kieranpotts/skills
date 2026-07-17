@@ -15,6 +15,9 @@ metadata:
 
 # Spike
 
+Build throwaway code to answer a specific question — feasibility, performance
+characteristics, API ergonomics, integration risk.
+
 **Input:** One falsifiable question — a specific feasibility, performance,
 ergonomics, or integration-risk question that cannot be answered by reasoning
 alone, with the evidence that would close it defined up front. REQUIRED.
@@ -31,7 +34,7 @@ production re-implementation — is the orchestrator's concern, not this skill's
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Frame one question.**
 
@@ -99,7 +102,7 @@ with an error message.
     clearly-marked throwaway location with a README naming the question, the
     answer, and the date.
 
-##  Rules
+## Rules
 
 -   **The spike code MUST be throwaway. The answer is the deliverable.**
 
@@ -204,7 +207,7 @@ Decision: rules out this vector DB for our cancellable-search workload.
 The design work resumes, evaluating the other two candidates.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The prototype "almost works" and the user wants to keep it.**
 
@@ -237,7 +240,7 @@ The design work resumes, evaluating the other two candidates.
     common path to a production system written without specification, design, or
     planning.
 
-##  Success criteria
+## Success criteria
 
 -   **A single falsifiable question MUST be stated up front.**
 

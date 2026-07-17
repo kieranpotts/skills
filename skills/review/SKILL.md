@@ -15,6 +15,9 @@ metadata:
 
 # Review
 
+Audit a code change for correctness, design, clarity, test coverage, security,
+and completeness, classifying every finding as blocking or non-blocking.
+
 **Input:** A code change to audit (a pull request, a peer's branch, or one's own
 diff before opening a PR), together with the specification or acceptance
 criteria it claims to satisfy and any captured design decision. REQUIRED. The
@@ -31,7 +34,7 @@ responsibility.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Understand what the change is and why.**
 
@@ -132,7 +135,7 @@ with an error message.
     - *Request changes*: at least one blocking comment.
     - *Comment*: feedback offered, but decision deferred to another reviewer.
 
-##  Rules
+## Rules
 
 -   **You MUST understand the *why* before reading code.**
 
@@ -248,7 +251,7 @@ Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
 on the Specification finding; Standards finding non-blocking.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **Reviewer is the author.**
 
@@ -279,7 +282,7 @@ on the Specification finding; Standards finding non-blocking.
     is a legitimate review comment. Approving code you don't understand is how
     subtle bugs ship.
 
-##  Success criteria
+## Success criteria
 
 -   **Findings MUST be organized into two axes: Specification and Standards.**
 

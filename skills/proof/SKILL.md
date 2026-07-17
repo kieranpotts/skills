@@ -17,6 +17,10 @@ metadata:
 
 # Proof
 
+Proofread prose, making conservative copy edits only — spelling, grammar,
+punctuation, typos, awkward phrasing, and consistency of terminology and
+capitalization.
+
 **Input:** A set of prose files (Markdown, AsciiDoc, reStructuredText, plain text). OPTIONAL. Defaults to the prose files changed in the working tree when no set is given.
 
 **Output:** The same files, edited in place with conservative copy edits only —
@@ -28,7 +32,7 @@ metadata:
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Resolve the set of files to proofread.**
 
@@ -63,7 +67,7 @@ with an error message.
     'website'"). Name any files reviewed but left unchanged and any files skipped
     as generated or vendored. Then stop — do not stage, commit, or push.
 
-##  Rules
+## Rules
 
 ### Allowed edits
 
@@ -154,7 +158,7 @@ with an error message.
 
     Report the inconsistency and let the author choose.
 
-##  Success criteria
+## Success criteria
 
 -   **Only prose MUST have changed; code, markup, and structure MUST be
     byte-identical except where prose words were corrected.**

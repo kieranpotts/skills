@@ -16,6 +16,10 @@ metadata:
 
 # Test
 
+Verify a completed change against its full set of acceptance criteria —
+functional and non-functional — mapping each AC to evidence and reporting
+pass/fail/blocked.
+
 **Input:** A completed change and its specification. REQUIRED. The change has
 already cleared review (static qualities checked); this skill verifies the
 dynamic ones. The full set of acceptance criteria, functional and
@@ -32,7 +36,7 @@ orchestrator's concern, not this skill's.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Pull the acceptance criteria.**
 
@@ -86,7 +90,7 @@ with an error message.
 
     Classify the outcome and report it. Do not act on it.
 
-##  Rules
+## Rules
 
 -   **You MUST test against the specification, not the implementation.**
 
@@ -179,7 +183,7 @@ Reported as an implementation defect for diagnosis. Test left in place; do
 not delete.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **No automated suite exists.**
 
@@ -211,7 +215,7 @@ not delete.
     plus the NFR suite on the release candidate. Performance and security checks
     are not optional at release.
 
-##  Success criteria
+## Success criteria
 
 -   **Every AC MUST have a status and evidence.**
 

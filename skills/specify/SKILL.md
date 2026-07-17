@@ -16,6 +16,9 @@ metadata:
 
 # Specify
 
+Validate a product requirements document (PRD) and, if complete, file it as a
+proposal in the project's software requirements specification (SRS) repository.
+
 **Input:** A PRD, expected to be sufficiently complete to transform into a
 formal software requirements specification. REQUIRED. This skill does not gather
 requirements or interview the user; if the PRD is not sufficiently detailed, you
@@ -30,7 +33,7 @@ review and approval.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Read the PRD.**
 
@@ -114,7 +117,7 @@ with an error message.
     MUST NOT start until this specification is approved (`ACCEPTED`). Link the
     pull request and its discussion thread.
 
-##  Rules
+## Rules
 
 -   **You MUST NOT gather requirements interactively.**
 
@@ -191,7 +194,7 @@ repository's `draft-spec` → `write-spec` → `propose-spec` skills define —
 reading their rules and running them non-interactively — to file the proposal to
 whatever format and process that repository prescribes.
 
-##  Edge cases
+## Edge cases
 
 -   **No SRS declared.**
 
@@ -229,7 +232,7 @@ whatever format and process that repository prescribes.
     NFRs. Reject it (step 2) with an itemized list of the gaps, so the
     requirements can be gathered before retrying. Write nothing to the SRS.
 
-##  Success criteria
+## Success criteria
 
 -   **The proposal MUST reach `PROPOSED` via the repository's own procedure.**
 

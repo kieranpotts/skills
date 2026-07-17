@@ -32,7 +32,7 @@ the sharpened design is the orchestrator's concern, not this skill's.
 from the user through prompts during the session, asking one question at a time.
 This skill does not originate the design; it consumes a draft to sharpen.
 
-##  Instructions
+## Instructions
 
 1.  **Load the context.**
 
@@ -87,7 +87,7 @@ This skill does not originate the design; it consumes a draft to sharpen.
     — if elaboration uncovered a flaw too large to resolve — report that the
     draft needs structural rework before it can proceed.
 
-##  Rules
+## Rules
 
 -   **You MUST ask one question at a time, and MUST wait for the answer.**
 
@@ -194,7 +194,7 @@ A person or organization that places Orders.
 _Avoid_: Client, buyer, account.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The user is AFK.**
 
@@ -231,7 +231,7 @@ _Avoid_: Client, buyer, account.
     format shown in the examples. Do not pre-populate it with terms that have
     not actually been the subject of a question.
 
-##  Success criteria
+## Success criteria
 
 -   **Every open decision in the draft MUST be resolved or deferred with a stated
     reason.**

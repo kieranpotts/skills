@@ -17,7 +17,9 @@ metadata:
 **Input:** A pull request carrying open (un-dismissed) review comments from
 **[review](../review/SKILL.md)**, and the code under review. REQUIRED. The author
 has already resolved any comments they do not want actioned; what remains is the
-work list. The base commit is pinned.
+work list. The base commit is pinned. This skill is non-interactive: agents MUST
+NOT block for user input after the initial prompt, and MUST follow the
+instructions to completion or fail with an error message.
 
 **Output:** A branch with each open comment implemented as a minimal, verified
 code change; each thread replied to and marked resolved; the fixes committed and
@@ -25,11 +27,7 @@ pushed. Any comment that could not be honestly actioned is left open and
 reported with a reason. The verified change is ready for
 **[test](../test/SKILL.md)**; what runs next is the orchestrator's concern.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Collect the open comments.**
 
@@ -104,7 +102,7 @@ with an error message.
     change under review — leave the thread open and report it with a specific
     account of why.
 
-##  Rules
+## Rules
 
 -   **Every open comment MUST be treated as a commitment to implement.**
 
@@ -176,7 +174,7 @@ Open comments on PR #482: 2
 1 of 2 resolved; 1 surfaced as blocked.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The branch moved since the review.**
 
@@ -211,7 +209,7 @@ Open comments on PR #482: 2
     message instead, and report which comments were addressed so a human can
     close the threads.
 
-##  Success criteria
+## Success criteria
 
 -   **Every open comment MUST be dispositioned.**
 

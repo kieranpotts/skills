@@ -17,7 +17,7 @@ metadata:
 
 # Refine
 
-**Input:** A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice.
+**Input:** A feedback trigger against an existing specification. REQUIRED. A failing acceptance criterion, an exploratory-testing finding, a stakeholder report against shipped behavior, or an NFR threshold proven wrong in practice. This skill is interactive: it gathers the rest of its input from the user through prompts during the session, rather than running non-interactively to completion.
 
 **Output:** Precise edits to the requirements artifacts, conforming to the
   specification conventions (Gherkin, measurable NFRs, explicit scope), each with
@@ -25,10 +25,7 @@ metadata:
   design, planning, code, and test work the refinement implies. The output is
   reported and the skill stops; it changes no code itself.
 
-**Interactivity:** This skill is interactive. It gathers the rest of its input
-  from the user through prompts during the session.
-
-##  Instructions
+## Instructions
 
 1.  **Name the trigger.**
 
@@ -115,7 +112,7 @@ metadata:
     downstream impact list. Refinement is about *what is required*, not *how to
     build it*.
 
-##  Rules
+## Rules
 
 -   **You MUST refine the specification, not the code.**
 
@@ -185,7 +182,7 @@ metadata:
     Refinement should leave the *purpose* of the original specification intact;
     expansion replaces it.
 
-##  Examples
+## Examples
 A correction triggered by a failing AC:
 
 ```
@@ -267,7 +264,7 @@ Downstream impact:
   - test: re-run perf suite against new threshold (currently FAIL).
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **Every refinement MUST name its trigger and its type.**
 

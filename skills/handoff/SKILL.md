@@ -29,7 +29,7 @@ metadata:
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Identify what the next session needs to know.**
 
@@ -106,7 +106,7 @@ with an error message.
     confirmed, mark it explicitly as unconfirmed in "What's open", not in
     "What's been done".
 
-##  Rules
+## Rules
 
 -   **You MUST reference, not duplicate.**
 
@@ -142,7 +142,7 @@ with an error message.
     If a section has nothing to say, you MUST omit it or write "none" explicitly.
     An empty section is honest; an invented one is misleading.
 
-##  Examples
+## Examples
 
 A compact handoff:
 
@@ -172,7 +172,7 @@ Gotchas, environmental quirks, decisions that look obvious but
 weren't, dead-ends already explored that should not be re-tried.
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **The handoff MUST live outside the repo.**
 

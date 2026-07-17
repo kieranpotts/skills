@@ -16,6 +16,10 @@ metadata:
 
 # Style
 
+Apply presentation-only code or content changes — whitespace, indentation, line
+wrapping, quotes, trailing commas, import ordering — without altering behavior
+or structure.
+
 **Input:** The code or content to normalize — a set of files, a diff, or the
 working tree — plus the project's configured formatter and style conventions
 where they exist. REQUIRED.
@@ -30,7 +34,7 @@ structural or behavioral change.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Confirm the change is presentation only.**
 
@@ -69,7 +73,7 @@ with an error message.
     the formatter config, wire it into a pre-commit hook, and wire it into CI as
     a check that fails on unformatted code.
 
-##  Rules
+## Rules
 
 -   **Behavior preservation MUST be non-negotiable.**
 
@@ -157,7 +161,7 @@ style: convert tab indentation to spaces across src/
 outside src/ changed. Tests pass.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The formatter wants to rewrite a file your change just touched.**
 
@@ -192,7 +196,7 @@ outside src/ changed. Tests pass.
     caught it. Lesson: never run an auto-formatter on a significant-whitespace
     language without test coverage.
 
-##  Success criteria
+## Success criteria
 
 -   **External behavior MUST be unchanged.**
 

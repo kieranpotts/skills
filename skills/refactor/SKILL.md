@@ -15,6 +15,9 @@ metadata:
 
 # Refactor
 
+Improve the internal quality of existing code without changing its
+observable behavior.
+
 **Input:** Existing, tested code and a named target quality. REQUIRED. The code to restructure plus the single design quality (readability, structure, coupling, naming, decomposition) being improved. This skill does not invent the goal from scratch; it consumes a quality to improve and a passing safety net to preserve.
 
 **Output:** A series of small `refactor:` commits that improve the named quality
@@ -27,7 +30,7 @@ metadata:
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Name the quality you are improving.**
 
@@ -110,7 +113,7 @@ with an error message.
     branch. Integrate via the project's branching conventions — typically a
     short-lived `temp/*` branch fast-forwarded into `dev`.
 
-##  Rules
+## Rules
 
 -   **A refactor MUST preserve externally observable behavior.**
 
@@ -202,7 +205,7 @@ with an error message.
 
     Do not try to fix it all at once.
 
-##  Examples
+## Examples
 
 A small, named refactor in three moves:
 
@@ -236,7 +239,7 @@ fix, not a refactor. Reverted the throw; opened a separate fix:
 commit and tracking issue. Resumed the refactor.
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **External behavior MUST be unchanged.**
 

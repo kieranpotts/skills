@@ -15,18 +15,14 @@ metadata:
 
 # Release
 
-**Input:** A request to prepare a release, plus the project's release model (a single **release** trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED.
+**Input:** A request to prepare a release, plus the project's release model (a single **release** trunk for continuous deployment, or `release/<version>` branches for release trains) and its version-tagging convention. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** The release branch created or advanced per the model, and the
   release tagged with a correctly-formatted version. This skill applies the
   release branching and tagging convention and stops; it does not author commit
   messages or define the general branch model.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Determine the release model and naming convention.**
 
@@ -74,7 +70,7 @@ with an error message.
     plain, non-technical language. The format and publication channel are
     project-specific.
 
-##  Rules
+## Rules
 
 -   **A single release strategy MUST be in use.**
 
@@ -129,7 +125,7 @@ with an error message.
     Before tagging, rename it to the version and date and add a fresh empty
     `[Unreleased]` section above it. This MUST land in the `release:` commit.
 
-##  Examples
+## Examples
 
 Release trunk:
 
@@ -152,7 +148,7 @@ v1.2.0
 v2.0.0
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **The release branch exists and follows the chosen naming convention.**
 

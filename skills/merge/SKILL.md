@@ -16,6 +16,9 @@ metadata:
 
 # Merge
 
+Consolidate divergence between two git branches using the strategy the
+project's branching convention prescribes for that branch type.
+
 **Input:** A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
 
 **Output:** The target branch updated with the integrated work using the
@@ -28,7 +31,8 @@ metadata:
 **Interactivity:** Agents MUST NOT block for user input after the initial
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
-##  Instructions
+
+## Instructions
 
 1.  **Identify source and target.**
 
@@ -155,7 +159,8 @@ with an error message.
     git branch -d temp/482-idempotency
     git push origin --delete temp/482-idempotency
     ```
-##  Rules
+
+## Rules
 
 -   **You MUST choose the merge strategy from the table in step 2, based on the
     source and target branch types.**
@@ -209,7 +214,7 @@ with an error message.
 -   **If a merged result that passed tests later breaks production, you MUST NOT
     bypass verification next time.**
 
-##  Examples
+## Examples
 Reintegrating a temp branch:
 
 ```sh
@@ -259,7 +264,8 @@ npm test
 
 # Resolution: edit the caller to use the new name, stage, continue.
 ```
-##  Success criteria
+
+## Success criteria
 
 -   **The merged history on the target branch MUST reflect the chosen strategy.**
 

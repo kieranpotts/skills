@@ -15,6 +15,9 @@ metadata:
 
 # Plan
 
+Break delivery of a designed change into a sequence of small, independently
+mergeable steps.
+
 **Input:** An agreed design (the chosen option) and the acceptance criteria it
   must deliver, for a change larger than one atomic commit or touching multiple
   seams. REQUIRED. The project's commit-type vocabulary and branch model inform
@@ -30,7 +33,7 @@ metadata:
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Restate the goal and constraints.**
 
@@ -92,7 +95,7 @@ with an error message.
 
     If any answer is no, re-split or re-order.
 
-##  Rules
+## Rules
 
 -   **Each step MUST address one concern.**
 
@@ -149,7 +152,7 @@ with an error message.
 
     The plan still applies; the integration target changes.
 
-##  Examples
+## Examples
 
 A plan for "add an /orders POST endpoint with idempotency":
 
@@ -190,7 +193,7 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 3, after the UI and copy work are merged, wastes that work.
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **The plan MUST be a numbered checklist of steps.**
 

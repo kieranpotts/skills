@@ -17,6 +17,10 @@ metadata:
 
 # Validate
 
+Evaluate completed, tested work against the users' actual needs — not against
+the agreed acceptance criteria — to judge whether the specification itself
+should evolve.
+
 **Input:** Completed work that has already passed **[test](../test/SKILL.md)**
 (verified against its ACs), together with the originating statement of need —
 the preserved PRD, the specification's outcome and success measures, or the
@@ -33,7 +37,7 @@ consumes the report is the orchestrator's concern.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Recover the original need, not just the ACs.**
 
@@ -96,7 +100,7 @@ with an error message.
     Report MEETS THE NEED or GAPS FOUND. Do not draft specification edits here;
     what consumes the report is the orchestrator's concern.
 
-##  Rules
+## Rules
 
 -   **You MUST validate against the need, not the specification.**
 
@@ -138,7 +142,7 @@ with an error message.
     NOT smuggle it into the validation report as though the specification was
     wrong to omit it.
 
-##  Success criteria
+## Success criteria
 
 -   **The originating need MUST be recovered before the software is judged.**
 

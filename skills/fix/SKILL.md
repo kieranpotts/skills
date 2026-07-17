@@ -30,7 +30,7 @@ justification. No unrelated behavior change.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Run the check and read its output literally.**
 
@@ -85,7 +85,7 @@ with an error message.
     — clearing a backlog of deprecation warnings, fixing many type errors after
     a dependency bump — is `maintenance:`.
 
-##  Rules
+## Rules
 
 -   **If the cause isn't already evident, you MUST NOT use this skill.**
 
@@ -158,7 +158,7 @@ A justified suppression:
 const client: any = createLegacyClient()
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The rule or check itself is wrong for the project.**
 
@@ -193,7 +193,7 @@ const client: any = createLegacyClient()
     point anywhere conclusive, or the "obvious" fix doesn't resolve it — stop
     and switch to **[debug](../debug/SKILL.md)** rather than guessing repeatedly.
 
-##  Success criteria
+## Success criteria
 
 -   **The check MUST exit zero.**
 

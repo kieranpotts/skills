@@ -60,7 +60,7 @@ time are.
 asking one question at a time, gathering the rest of its input from the user
 through the conversation.
 
-##  Instructions
+## Instructions
 
 Facilitate the session as a structured workshop, following the TS-54 method. Ask
 one question at a time. Wait for each answer before asking the next. Let each
@@ -242,7 +242,7 @@ building the report as you go.
     Report both artifacts — the new report path and the register rows added — as
     this skill's output, and stop.
 
-##  Rules
+## Rules
 
 -   **You MUST ask one question at a time.**
 
@@ -302,7 +302,7 @@ building the report as you go.
     Direct. No fluff. No padding. Show the reasoning behind a severity, not just
     the verdict.
 
-##  Success criteria
+## Success criteria
 
 -   **The register store MUST have been located before the session starts.**
 

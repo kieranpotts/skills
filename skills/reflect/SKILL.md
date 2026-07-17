@@ -15,17 +15,14 @@ metadata:
 
 # Reflect
 
-**Input:** The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
+**Input:** The current session's conversation, the agent's existing memory files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED. This skill is interactive: it seeks per-candidate user approval through prompts before persisting anything, rather than running non-interactively to completion.
 
 **Output:** Zero or more persisted lessons — memory entries (indexed in
   `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
   changing future agent behavior, written only after per-candidate user approval.
   Universal lessons better encoded as a new skill are flagged, not saved.
 
-**Interactivity:** This skill is interactive. It seeks per-candidate user approval
-  through prompts before persisting anything.
-
-##  Instructions
+## Instructions
 
 1.  **Scan the conversation for non-obvious lessons.**
 
@@ -111,7 +108,7 @@ metadata:
     Once the walk-through is complete, print the report described in the Success
     criteria.
 
-##  Rules
+## Rules
 
 -   **You MUST walk one candidate at a time.**
 
@@ -184,7 +181,7 @@ metadata:
 
     Flag the deferred candidates in the final report.
 
-##  Success criteria
+## Success criteria
 
 -   **Every saved lesson MUST be non-obvious and MUST change future agent
     behavior.**

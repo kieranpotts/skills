@@ -34,7 +34,7 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Check the entry gate.**
 
@@ -123,7 +123,7 @@ with an error message.
     contested trade-offs — so they can be stress-tested before decomposition.
     Report the design and stop; what consumes it is the orchestrator's concern.
 
-##  Rules
+## Rules
 
 -   **You MUST NOT design against an unapproved specification.**
 
@@ -226,7 +226,7 @@ Consequences:
   interface to make that swap straightforward.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The design is forced by an existing constraint.**
 
@@ -252,7 +252,7 @@ Consequences:
     Say so. Present both with their trade-offs and ask the user to break the
     tie. Do not flip a coin and proceed silently.
 
-##  Success criteria
+## Success criteria
 
 -   **The entry gate MUST have been checked: the specification is approved.**
 

@@ -16,6 +16,9 @@ metadata:
 
 # Triage
 
+Move issues on the project issue tracker through a small state machine of
+category and state labels.
+
 **Input:** One or more freshly-filed or in-flight issues on the project's
 tracker, the full thread and any prior triage notes, and the relevant code for
 reproduction. REQUIRED. The category/state label vocabulary is assumed present
@@ -32,7 +35,7 @@ that follows.
 prompt. Agents MUST follow this skill's instructions to completion, or fail
 with an error message.
 
-##  Instructions
+## Instructions
 
 1.  **Establish the label vocabulary.**
 
@@ -138,7 +141,7 @@ with an error message.
     reporter and maintainer can distinguish agent activity from human activity
     at a glance.
 
-##  Rules
+## Rules
 
 -   **You MUST treat triage as a maintainer's decision.**
 
@@ -249,7 +252,7 @@ so future suggestions land on a reasoned reply rather than starting from
 scratch. Closing.
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The reporter ghosts on `needs-info`.**
 
@@ -276,10 +279,7 @@ scratch. Closing.
     Do not relitigate.
 
 
-
-
-
-##  Success criteria
+## Success criteria
 
 -   **Every triaged issue MUST carry one category and one state label.**
 
