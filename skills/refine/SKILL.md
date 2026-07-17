@@ -122,7 +122,7 @@ reported and the skill stops; it changes no code itself.
     - Which code increments need to change?
     - Which test cases (automated or manual) need updating?
 
-    For each downstream artefact, you MUST flag whether it needs adjustment,
+    For each downstream artifact, you MUST flag whether it needs adjustment,
     re-verification, or no change.
 
 7.  **Report the output.**
@@ -219,7 +219,7 @@ reported and the skill stops; it changes no code itself.
 
 - **Downstream impact MUST be traced.**
 
-  A list of affected artefacts (design, planned steps, code, tests) MUST exist,
+  A list of affected artifacts (design, planned steps, code, tests) MUST exist,
   with status. Nothing MUST be silently invalidated.
 
 - **No code or test MUST have been changed inside this skill.**

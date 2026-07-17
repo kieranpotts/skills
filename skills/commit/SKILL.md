@@ -254,10 +254,10 @@ validates messages and stops; it neither stages nor commits.
   ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the optional
   flag.
 
-- **There MUST be no Conventional Commits artefacts.**
+- **There MUST be no Conventional Commits artifacts.**
 
   No scope parentheticals (`feature(parser): …`), no leading `!`, no trailing
-  `:` artefacts. The colon MUST come immediately after the type, nothing else.
+  `:` artifacts. The colon MUST come immediately after the type, nothing else.
 
 - **The CHANGELOG MUST be updated for direct commits to `dev` and `temp/*`
   branches, unless the type is `chore:`.**

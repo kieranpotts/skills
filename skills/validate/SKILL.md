@@ -118,7 +118,7 @@ consumes the report is the orchestrator's concern.
 
 - **Evaluation only — you MUST suggest, and MUST NOT edit.**
 
-  This skill MUST NOT change any specification artefact and MUST NOT change
+  This skill MUST NOT change any specification artifact and MUST NOT change
   any code. It outputs a report of suggestions. Editing the requirements is
   **[refine](../refine/SKILL.md)**'s responsibility; this skill's job ends at
   the suggestion.
