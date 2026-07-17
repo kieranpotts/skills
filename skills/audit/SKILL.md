@@ -20,11 +20,12 @@ metadata:
 **Input:**
 
 - **The target codebase. REQUIRED.** Unless the user inputs an explicit target
-  path or URL, assume the target is the code repository in the current working
-  directory. If the current working directory is not part of a code repository,
-  check `AGENTS.md` in the current working directory for paths to all projects
-  in the current workspace. Else find all code repositories in nested
-  subdirectories and assume they are all the target codebase.
+  path or URL, assume the target is the code repository under which the current
+  working directory sits. If the current working directory is not part of a code
+  repository, check `AGENTS.md` in the current working directory for paths to
+  all projects in the current workspace. Else find all code repositories in
+  nested subdirectories and assume they are all the target codebase. If the
+  target codebase cannot be discovered, stop and alert the user of the failure.
 
 - **Where to write the report. REQUIRED.** Check the `AGENTS.md` file in the
   current working directory for the path or URL of the audit reports (they may
@@ -33,22 +34,23 @@ metadata:
   path to the audit reports cannot be found, stop and alert the user of the
   failure.
 
-This skill is non-interactive: agents MUST NOT block for user input after the
+This skill is non-interactive. Agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
-error message.
+error message. In in doubt about any of the input, print an alert and stop.
 
-**Output:** A single prioritized, bounded report of architecture improvement
-candidates, each citing specific files and lines, stating what is observed and
-the cost it imposes, and optionally pointing toward a fix. The report is written
-to the audit reports collection or repository, following the conventions defined
+**Output:**
+
+An artifact capturing candidates for architecture improvements, each candidate
+citing specific files and lines, stating what is observed and the cost it
+imposes, and optionally pointing toward a fix. The report is written to the
+audit reports collection or repository, following the conventions defined
 there.
 
-Security and privacy findings are OUT of scope for this skill. If you notice a
-security concern during the review — an injection point, a broken auth boundary,
-unsafe secrets handling — do NOT write it up as an audit finding. Note it for
-referral to a threat modeling session and the
-[risk register](https://github.com/kieranpotts/risks), then continue the
-architecture review. See the **[probe](../probe/)** skill.
+Security and privacy findings are out-of-scope for this skill. If you notice a
+security concern during the review — eg. an injection point, a broken auth
+boundary, unsafe secrets handling — do NOT write it up as an audit finding.
+Instead note it for referral to a threat modeling session, then continue the
+architecture review.
 
 ## Instructions
 
