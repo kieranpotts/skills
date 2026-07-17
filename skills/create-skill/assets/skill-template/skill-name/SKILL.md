@@ -20,36 +20,32 @@ Optionally, set boundaries. What's out of scope?
 
 **Input:**
 
+<!--
+Input is ALWAYS a list, even when there is only one input. Each item is a
+bullet whose bold lead is a short description followed by the requirement
+level (REQUIRED or OPTIONAL). Explanatory text follows the bold lead — this
+is optional.
+Give each genuinely distinct input its own bullet. Split a primary input and a
+supporting convention/context into separate items rather than joining them
+with "plus".
+-->
+
 - **The first input. REQUIRED.** Describe it, and how to discover it from the
   surrounding context when the user does not supply it explicitly.
 
 - **The second input. OPTIONAL.** Describe it, and its default when absent.
 
-<!--
-  Input is ALWAYS a list, even when there is only one input. Each item is a
-  bullet whose bold lead is a short description followed by the requirement
-  level (REQUIRED or OPTIONAL); explanatory text follows the bold lead. Give
-  each genuinely distinct input its own bullet — split a primary input and a
-  supporting convention/context into separate items rather than joining them
-  with "plus". Gather as much of this as possible from the surrounding context,
-  and prompt the user for anything that's missing or unclear.
--->
-
-This skill is non-interactive: agents MUST NOT block for user input after the
-initial prompt, and MUST follow the instructions to completion or fail with an
-error message.
+You MUST complete this task non-interactively. You MUST NOT block for user input
+after this initial prompt. You MUST follow the instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 <!--
-  The interactivity statement above is ALWAYS its own paragraph, immediately
-  after the input description. State whether the skill runs non-interactively to
-  completion, or is interactive — blocking to ask questions, present options,
-  and wait for answers. For an interactive skill, say so and note that it
-  gathers the rest of its input from the user during the session, eg.:
-
-  This skill is interactive: it gathers the rest of its input from the user
-  through prompts during the session, asking one question at a time.
-
-  Keep `metadata.interactive` in the front-matter consistent with this.
+The interactivity statement above is ALWAYS its own paragraph, immediately
+after the input descriptions. State whether the skill runs non-interactively to
+completion, or is interactive — blocking to ask questions, present options,
+and wait for answers.
+Keep `metadata.interactive` in the front-matter consistent with this.
 -->
 
 **Output:**
