@@ -19,10 +19,13 @@ metadata:
 Consolidate divergence between two git branches using the strategy the
 project's branching convention prescribes for that branch type.
 
-**Input:** A source branch and a target branch, both committed (no uncommitted
-work) and up to date with their remotes, plus the project's branching
-convention that maps each branch type to a merge strategy and its
-commit-message and changelog formats. REQUIRED.
+**Input:**
+
+- **A source branch and a target branch. REQUIRED.** Both committed (no
+  uncommitted work) and up to date with their remotes.
+
+- **The project's branching convention. REQUIRED.** Maps each branch type to a
+  merge strategy and its commit-message and changelog formats.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

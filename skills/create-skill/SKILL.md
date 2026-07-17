@@ -150,14 +150,16 @@ references, and scripts. All artifacts pass the validator.
     description.
 
   - **Input/output:** Immediately after the description, describe the input
-    and output — what the skill consumes and produces. Mark each input REQUIRED
-    or OPTIONAL. A single input SHOULD be described in a prose paragraph with
-    the marker inline; multiple distinct inputs SHOULD each become a bold-lead
-    bullet with the marker inside the bold lead (`- **The input. REQUIRED.**
-    …`). The interactivity statement MUST be its own paragraph immediately after
-    the input description, stating whether the skill runs non-interactively to
-    completion or is interactive — and, if interactive, being explicit about the
-    circumstances in which the agent prompts the user.
+    and output — what the skill consumes and produces. The input MUST ALWAYS be
+    a bulleted list, even for a single input: each item a bold-lead bullet whose
+    bold text is a short description followed by the requirement level (`- **The
+    input. REQUIRED.** …`), with explanatory text after the bold lead. Give each
+    genuinely distinct input its own bullet — split a primary input and a
+    supporting convention/context into separate items rather than joining them
+    with "plus". The interactivity statement MUST be its own paragraph
+    immediately after the input list, stating whether the skill runs
+    non-interactively to completion or is interactive — and, if interactive,
+    being explicit about the circumstances in which the agent prompts the user.
 
   - **Instructions** or **Rules:** MUST include at least one of these two
     sections.
@@ -284,11 +286,12 @@ references, and scripts. All artifacts pass the validator.
   `## Instructions` or `## Rules`, and `## Success criteria`.
 
 - **The input and output sections MUST be present and prominent.**
-  They MUST appear immediately after the title, before the first `##`. The
-  input section MUST state whether input is "REQUIRED" or "OPTIONAL". A separate
-  paragraph immediately after MUST state whether the agent should run
-  non-interactively to completion or if it may interact with the user — blocking
-  to ask questions, presenting options, and waiting for answers.
+  They MUST appear immediately after the title, before the first `##`. The input
+  section MUST be a bulleted list, each item marking its input "REQUIRED" or
+  "OPTIONAL" inside the bold lead. A separate paragraph immediately after MUST
+  state whether the agent should run non-interactively to completion or if it
+  may interact with the user — blocking to ask questions, presenting options,
+  and waiting for answers.
 
 - **The skill MUST be token-efficient.**
   No section is padded with detail that belongs in a `references/` file. The

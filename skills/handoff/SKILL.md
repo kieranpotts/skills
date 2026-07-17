@@ -16,9 +16,11 @@ metadata:
 
 # Handoff
 
-**Input:** The current session's context. REQUIRED. The work done, the
-decisions made, the durable artifacts already produced (specifications,
-designs, plans, ADRs, issues, commits), and the state of the codebase.
+**Input:**
+
+- **The current session's context. REQUIRED.** The work done, the decisions
+  made, the durable artifacts already produced (specifications, designs, plans,
+  ADRs, issues, commits), and the state of the codebase.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

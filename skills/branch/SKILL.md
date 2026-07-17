@@ -16,9 +16,13 @@ metadata:
 
 # Branch
 
-**Input:** A request to create or name a branch, or one or more existing branch
-names to validate. REQUIRED. The project's branch model (trunk names, `temp/*`
-and `epic/*` conventions) and the naming regex supply what is checked against.
+**Input:**
+
+- **A branch request or names to validate. REQUIRED.** A request to create or
+  name a branch, or one or more existing branch names to validate.
+
+- **The project's branch model. REQUIRED.** The trunk names, `temp/*` and
+  `epic/*` conventions, and the naming regex supply what is checked against.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

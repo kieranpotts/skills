@@ -16,10 +16,12 @@ metadata:
 
 # Research
 
-**Input:** A topic or question blocked on knowledge the agent does not hold
-and cannot derive from the codebase. REQUIRED. How a library behaves, what a
-protocol mandates, how others solved a comparable problem, what a regulation
-requires, whether an approach is still current.
+**Input:**
+
+- **A knowledge gap to close. REQUIRED.** A topic or question blocked on
+  knowledge the agent does not hold and cannot derive from the codebase — how a
+  library behaves, what a protocol mandates, how others solved a comparable
+  problem, what a regulation requires, whether an approach is still current.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

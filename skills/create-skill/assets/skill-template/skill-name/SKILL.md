@@ -16,23 +16,21 @@ metadata:
 
 One sentence, copied from the description, describing what the skill does.
 
-**Input:** Describe the information the agent requires to perform the task
-encoded in this skill, and mark it REQUIRED or OPTIONAL. Gather as much of this
-information as possible from the surrounding context, and prompt the user for
-anything that's missing or unclear.
+**Input:**
+
+- **The first input. REQUIRED.** Describe it, and how to discover it from the
+  surrounding context when the user does not supply it explicitly.
+
+- **The second input. OPTIONAL.** Describe it, and its default when absent.
 
 <!--
-  For a SINGLE input, describe it in the prose paragraph above, with the
-  REQUIRED/OPTIONAL marker inline. For MULTIPLE distinct inputs, drop the prose
-  and use one bold-lead bullet per input instead, with the marker inside the
-  bold lead:
-
-  **Input:**
-
-  - **The first input. REQUIRED.** Describe it, and how to discover it from the
-    context when the user does not supply it explicitly.
-
-  - **The second input. OPTIONAL.** Describe it, and its default when absent.
+  Input is ALWAYS a list, even when there is only one input. Each item is a
+  bullet whose bold lead is a short description followed by the requirement
+  level (REQUIRED or OPTIONAL); explanatory text follows the bold lead. Give
+  each genuinely distinct input its own bullet — split a primary input and a
+  supporting convention/context into separate items rather than joining them
+  with "plus". Gather as much of this as possible from the surrounding context,
+  and prompt the user for anything that's missing or unclear.
 -->
 
 This skill is non-interactive: agents MUST NOT block for user input after the

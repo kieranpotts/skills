@@ -21,9 +21,11 @@ Proofread prose, making conservative copy edits only — spelling, grammar,
 punctuation, typos, awkward phrasing, and consistency of terminology and
 capitalization.
 
-**Input:** A set of prose files (Markdown, AsciiDoc, reStructuredText, plain
-text). OPTIONAL. Defaults to the prose files changed in the working tree when
-no set is given.
+**Input:**
+
+- **A set of prose files. OPTIONAL.** Markdown, AsciiDoc, reStructuredText, or
+  plain text. Defaults to the prose files changed in the working tree when no
+  set is given.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

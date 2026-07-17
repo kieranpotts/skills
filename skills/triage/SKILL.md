@@ -19,10 +19,14 @@ metadata:
 Move issues on the project issue tracker through a small state machine of
 category and state labels.
 
-**Input:** One or more freshly-filed or in-flight issues on the project's
-tracker, the full thread and any prior triage notes, and the relevant code for
-reproduction. REQUIRED. The category/state label vocabulary is assumed present
-(or is set up first).
+**Input:**
+
+- **One or more issues to triage. REQUIRED.** Freshly-filed or in-flight issues
+  on the project's tracker, the full thread and any prior triage notes, and the
+  relevant code for reproduction.
+
+- **The label vocabulary. REQUIRED.** The category/state label vocabulary is
+  assumed present (or is set up first).
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

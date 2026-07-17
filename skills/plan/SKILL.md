@@ -18,10 +18,14 @@ metadata:
 Break delivery of a designed change into a sequence of small, independently
 mergeable steps.
 
-**Input:** An agreed design (the chosen option) and the acceptance criteria it
-  must deliver, for a change larger than one atomic commit or touching multiple
-  seams. REQUIRED. The project's commit-type vocabulary and branch model inform
-  how steps are labeled and integrated.
+**Input:**
+
+- **An agreed design and its acceptance criteria. REQUIRED.** The chosen option
+  and the acceptance criteria it must deliver, for a change larger than one
+  atomic commit or touching multiple seams.
+
+- **The project's commit-type vocabulary and branch model. REQUIRED.** These
+  inform how steps are labeled and integrated.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

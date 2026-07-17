@@ -20,9 +20,13 @@ Apply presentation-only code or content changes — whitespace, indentation, lin
 wrapping, quotes, trailing commas, import ordering — without altering behavior
 or structure.
 
-**Input:** The code or content to normalize — a set of files, a diff, or the
-working tree — plus the project's configured formatter and style conventions
-where they exist. REQUIRED.
+**Input:**
+
+- **The code or content to normalize. REQUIRED.** A set of files, a diff, or
+  the working tree.
+
+- **The configured formatter and style conventions. REQUIRED.** The project's
+  formatter and style conventions, where they exist.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

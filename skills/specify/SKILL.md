@@ -19,11 +19,13 @@ metadata:
 Validate a product requirements document (PRD) and, if complete, file it as a
 proposal in the project's software requirements specification (SRS) repository.
 
-**Input:** A PRD, expected to be sufficiently complete to transform into a
-formal software requirements specification. REQUIRED. This skill does not gather
-requirements or interview the user; if the PRD is not sufficiently detailed, you
-MUST **reject** it with a list of what is missing or ambiguous, and not proceed
-further.
+**Input:**
+
+- **A PRD to transform. REQUIRED.** Expected to be sufficiently complete to turn
+  into a formal software requirements specification. This skill does not gather
+  requirements or interview the user; if the PRD is not sufficiently detailed,
+  you MUST **reject** it with a list of what is missing or ambiguous, and not
+  proceed further.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

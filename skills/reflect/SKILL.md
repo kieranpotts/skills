@@ -15,8 +15,18 @@ metadata:
 
 # Reflect
 
-**Input:** The current session's conversation, the agent's existing memory
-files, and the repo's convention files (AGENTS.md / CLAUDE.md). REQUIRED.
+**Input:**
+
+- **The current session's conversation. REQUIRED.** The source of durable
+  lessons — corrections, validated approaches, revealed preferences, and
+  project decisions surfaced during the work.
+
+- **The agent's existing memory files. REQUIRED.** Checked so new lessons update
+  or extend prior entries rather than duplicating them.
+
+- **The repo's convention files. REQUIRED.** `AGENTS.md` / `CLAUDE.md`, the
+  destination for codebase conventions and a source to check against before
+  proposing.
 
 This skill is interactive: it seeks per-candidate user approval through
 prompts before persisting anything, rather than running non-interactively to

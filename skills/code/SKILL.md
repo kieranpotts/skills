@@ -14,9 +14,12 @@ metadata:
 
 # Code
 
-**Input:** One numbered plan step (or a small standalone change whose design is
-already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill
-does not design or decompose; it consumes a step that is ready to implement.
+**Input:**
+
+- **One scoped, already-designed unit of work. REQUIRED.** One numbered plan
+  step (or a small standalone change whose design is already obvious). This
+  skill does not design or decompose; it consumes a step that is ready to
+  implement.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

@@ -20,10 +20,13 @@ Verify a completed change against its full set of acceptance criteria —
 functional and non-functional — mapping each AC to evidence and reporting
 pass/fail/blocked.
 
-**Input:** A completed change and its specification. REQUIRED. The change has
-already cleared review (static qualities checked); this skill verifies the
-dynamic ones. The full set of acceptance criteria, functional and
-non-functional, supplies what to verify against.
+**Input:**
+
+- **A completed change. REQUIRED.** The change has already cleared review
+  (static qualities checked); this skill verifies the dynamic ones.
+
+- **Its specification. REQUIRED.** The full set of acceptance criteria,
+  functional and non-functional, supplies what to verify against.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

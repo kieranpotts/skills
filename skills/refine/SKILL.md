@@ -17,9 +17,11 @@ metadata:
 
 # Refine
 
-**Input:** A feedback trigger against an existing specification. REQUIRED. A
-failing acceptance criterion, an exploratory-testing finding, a stakeholder
-report against shipped behavior, or an NFR threshold proven wrong in practice.
+**Input:**
+
+- **A feedback trigger against an existing specification. REQUIRED.** A failing
+  acceptance criterion, an exploratory-testing finding, a stakeholder report
+  against shipped behavior, or an NFR threshold proven wrong in practice.
 
 This skill is interactive: it gathers the rest of its input from the user
 through prompts during the session, rather than running non-interactively to

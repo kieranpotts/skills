@@ -13,10 +13,13 @@ metadata:
 
 # Debug
 
-**Input:** A reported bug or performance regression whose cause is not obvious
-from reading the code — the symptom, where it shows up, and any reproduction the
-user already has. REQUIRED. For performance work, a numerical baseline and
-threshold stand in for the symptom.
+**Input:**
+
+- **A bug or performance regression whose cause is not obvious. REQUIRED.** A
+  reported bug or performance regression whose cause is not obvious from reading
+  the code — the symptom, where it shows up, and any reproduction the user
+  already has. For performance work, a numerical baseline and threshold stand in
+  for the symptom.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

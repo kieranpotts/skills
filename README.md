@@ -100,15 +100,15 @@ These skills span four categories:
 | 🚀 **[plan](./skills/plan/)** | Decompose delivery into stable increments — supporting continuous integration. |
 | 🚀 **[probe](./skills/probe/)** | Run an interactive threat modeling session. Record security risks to the register. |
 | 🚀 **[refactor](./skills/refactor/)** | Iterate the design while maintaining stability through system testing. |
-| 🚧 **[refine](./skills/refine/)** | Produce new business requirements in response to acceptance testing feedback. |
+| 🚀 **[refine](./skills/refine/)** | Produce new business requirements in response to acceptance testing feedback. |
 | 🚀 **[resolve](./skills/resolve/)** | Action open review comments, then mark as resolved. |
 | 🚀 **[review](./skills/review/)** | Evaluate code for style conventions and pattern consistency. Focus on static qualities. |
 | 🚀 **[specify](./skills/specify/)** | Specify functional and non-functional requirements as testable acceptance criteria. |
-| 🚧 **[spike](./skills/spike/)** | Develop throwaway code (or other artifacts) to answer design questions. |
+| 🚀 **[spike](./skills/spike/)** | Develop throwaway code (or other artifacts) to answer design questions. |
 | 🚀 **[style](./skills/style/)** | Improve code presentation — whitespace, style, ordering — without changing structure. |
-| 🚧 **[test](./skills/test/)** | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
+| 🚀 **[test](./skills/test/)** | Incrementally test the evolving software — for both functional correctness and runtime qualities. |
 | 🚀 **[triage](./skills/triage/)** | Verify a reported bug or incident is real and reproducible. |
-| 🚧 **[validate](./skills/validate/)** | Evaluate the correctness and completeness of the requirements by road testing the current system. |
+| 🚀 **[validate](./skills/validate/)** | Evaluate the correctness and completeness of the requirements by road testing the current system. |
 
 ### 🔀 Version control skills
 
@@ -116,24 +116,24 @@ These skills span four categories:
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 **[branch](./skills/branch/)** | Git branching strategy. |
-| 🚧 **[commit](./skills/commit/)** | Commit message conventions. |
-| 🚧 **[merge](./skills/merge/)** | Consolidate divergence between branches. |
-| 🚧 **[release](./skills/release/)** | Release trunks and branches. Version tags. |
+| 🚀 **[branch](./skills/branch/)** | Git branching strategy. |
+| 🚀 **[commit](./skills/commit/)** | Commit message conventions. |
+| 🚀 **[merge](./skills/merge/)** | Consolidate divergence between branches. |
+| 🚀 **[release](./skills/release/)** | Release trunks and branches. Version tags. |
 
 ### 📎 Auxiliary skills
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 **[research](./skills/research/)** | Gather external sources on a topic and produce a cited research report. |
-| 🚧 **[proof](./skills/proof/)** | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
+| 🚀 **[research](./skills/research/)** | Gather external sources on a topic and produce a cited research report. |
+| 🚀 **[proof](./skills/proof/)** | Proofread, then conservatively edit text content for spelling, grammar, and consistency. |
 
 ### 🤖 Agentic workflow-optimization skills
 
 | Skill name | Description |
 | ---------- | ----------- |
-| 🚧 **[handoff](./skills/handoff/)** | Compact a conversation for the next session to pick up. |
-| 🚧 **[reflect](./skills/reflect/)** | Distill durable lessons from the session into memory and convention files. Companion to **[handoff](./skills/handoff/)**. |
+| 🚀 **[handoff](./skills/handoff/)** | Compact a conversation for the next session to pick up. |
+| 🚀 **[reflect](./skills/reflect/)** | Distill durable lessons from the session into memory and convention files. Companion to **[handoff](./skills/handoff/)**. |
 | ✅ **[create-skill](./skills/create-skill/)** | Author or improve a skill — in this collection or a downstream project. |
 
 ## 🪡 Composition

@@ -17,11 +17,16 @@ metadata:
 
 # Elaborate
 
-**Input:** A draft design with soft edges — an ADR, design doc, or PR
-description that has unresolved trade-offs, ambiguous terms, unstated
-assumptions, or dependencies not yet thought through, plus any related
-acceptance criteria and the relevant code. REQUIRED. This skill does not
-originate the design; it consumes a draft to sharpen.
+**Input:**
+
+- **A draft design with soft edges. REQUIRED.** An ADR, design doc, or PR
+  description that has unresolved trade-offs, ambiguous terms, unstated
+  assumptions, or dependencies not yet thought through. This skill does not
+  originate the design; it consumes a draft to sharpen.
+
+- **Related acceptance criteria and the relevant code. REQUIRED.** The
+  acceptance criteria tied to the design, and the code it touches, so the draft
+  can be cross-referenced against what already exists.
 
 This skill is interactive: it gathers the rest of its input from the user
 through prompts during the session, asking one question at a time.

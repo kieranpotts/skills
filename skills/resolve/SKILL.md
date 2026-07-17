@@ -14,10 +14,13 @@ metadata:
 
 # Resolve
 
-**Input:** A pull request carrying open (un-dismissed) review comments from
-**[review](../review/SKILL.md)**, and the code under review. REQUIRED. The author
-has already resolved any comments they do not want actioned; what remains is the
-work list. The base commit is pinned.
+**Input:**
+
+- **A pull request with open review comments. REQUIRED.** The un-dismissed
+  comments from [review](../review/SKILL.md); the author has already resolved any
+  they do not want actioned, so what remains is the work list.
+
+- **The code under review. REQUIRED.** The base commit is pinned.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an

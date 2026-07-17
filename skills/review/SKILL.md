@@ -18,10 +18,13 @@ metadata:
 Audit a code change for correctness, design, clarity, test coverage, security,
 and completeness, classifying every finding as blocking or non-blocking.
 
-**Input:** A code change to audit (a pull request, a peer's branch, or one's own
-diff before opening a PR), together with the specification or acceptance
-criteria it claims to satisfy and any captured design decision. REQUIRED. The
-comparison base is pinned explicitly.
+**Input:**
+
+- **A code change to audit. REQUIRED.** A pull request, a peer's branch, or one's
+  own diff before opening a PR. The comparison base is pinned explicitly.
+
+- **The specification to check against. REQUIRED.** The acceptance criteria the
+  change claims to satisfy, plus any captured design decision.
 
 This skill is non-interactive: agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
