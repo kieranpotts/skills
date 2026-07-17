@@ -192,36 +192,6 @@ rather than guessing.
   The next person debugging this area benefits from knowing what the real
   cause was — not just what the fix is.
 
-## Examples
-
-**Hypothesis format:**
-
-```
-1. Likely (~50%): The cache key omits the tenant ID, so tenant A's
-   response is returned for tenant B. If true, hard-coding tenant ID
-   into the key in `cache.ts:42` will fix the symptom.
-
-2. Possible (~25%): The auth middleware is short-circuiting on the
-   second request because the session token has already been consumed.
-   If true, replaying with a fresh token each iteration of the loop
-   will make the bug disappear.
-
-3. Possible (~15%): A race between the worker and the writer. If true,
-   inserting a 50ms sleep in the worker should suppress the bug.
-
-4. Unlikely (~10%): Upstream API is returning stale data. If true,
-   bypassing the upstream call and feeding a fixture should still
-   reproduce the bug (it should NOT, if this is the cause).
-```
-
-**Tagged debug log:**
-
-```ts
-console.log(`[DEBUG-a4f2] cache key for tenant=${tenantId}: ${key}`)
-```
-
-Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
-
 ## Edge cases
 
 - **Performance regression, not a functional bug.**
@@ -266,3 +236,33 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 - **The hypothesis set MUST be ranked and falsifiable.**
   The output MUST include 3-5 ranked hypotheses, each with a stated prediction
   that could disprove it.
+
+## Examples
+
+- **Hypothesis format:**
+
+  ```
+  1. Likely (~50%): The cache key omits the tenant ID, so tenant A's
+    response is returned for tenant B. If true, hard-coding tenant ID
+    into the key in `cache.ts:42` will fix the symptom.
+
+  2. Possible (~25%): The auth middleware is short-circuiting on the
+    second request because the session token has already been consumed.
+    If true, replaying with a fresh token each iteration of the loop
+    will make the bug disappear.
+
+  3. Possible (~15%): A race between the worker and the writer. If true,
+    inserting a 50ms sleep in the worker should suppress the bug.
+
+  4. Unlikely (~10%): Upstream API is returning stale data. If true,
+    bypassing the upstream call and feeding a fixture should still
+    reproduce the bug (it should NOT, if this is the cause).
+  ```
+
+- **Tagged debug log:**
+
+  ```ts
+  console.log(`[DEBUG-a4f2] cache key for tenant=${tenantId}: ${key}`)
+  ```
+
+Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.

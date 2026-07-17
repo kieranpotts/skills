@@ -120,37 +120,6 @@ structural or behavioral change.
   -w`) and see an empty diff. If `-w` still shows changes, the commit is not
   pure formatting.
 
-## Examples
-
-A clean formatting commit after a feature:
-
-```
-Sequence:
-  feature: add bulk export endpoint     # the change
-  style:   apply prettier to handlers/  # normalize style
-
-The feature commit shows the actual logic. The style commit shows
-the style normalization separately, reviewable in seconds.
-```
-
-Catching a behavior change pretending to be style:
-
-```
-While "formatting" auth.py I noticed the function `_normalize_token`
-was renamed to `normalize_token` (removing the underscore). That is
-a refactor, not a formatting change — it alters the public surface
-of the module. Reverted the rename; recorded a refactor: follow-up.
-```
-
-A repo-wide normalization, scoped:
-
-```
-style: convert tab indentation to spaces across src/
-
-  Applied via .editorconfig + `npm run format`. No source files
-outside src/ changed. Tests pass.
-```
-
 ## Edge cases
 
 - **The formatter wants to rewrite a file your change just touched.**
@@ -212,3 +181,34 @@ TODO: Reinstate TS-* cross-references when those are republished.
   the `style:` commit type used here.
 
 -->
+
+## Examples
+
+- **A clean formatting commit after a feature:**
+
+  ```
+  Sequence:
+    feature: add bulk export endpoint     # the change
+    style:   apply prettier to handlers/  # normalize style
+
+  The feature commit shows the actual logic. The style commit shows
+  the style normalization separately, reviewable in seconds.
+  ```
+
+- **Catching a behavior change pretending to be style:**
+
+  ```
+  While "formatting" auth.py I noticed the function `_normalize_token`
+  was renamed to `normalize_token` (removing the underscore). That is
+  a refactor, not a formatting change — it alters the public surface
+  of the module. Reverted the rename; recorded a refactor: follow-up.
+  ```
+
+- **A repo-wide normalization, scoped:**
+
+  ```
+  style: convert tab indentation to spaces across src/
+
+  Applied via .editorconfig + `npm run format`. No source files
+  outside src/ changed. Tests pass.
+  ```

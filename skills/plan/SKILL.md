@@ -143,47 +143,6 @@ error message.
 
   The plan still applies; the integration target changes.
 
-## Examples
-
-A plan for "add an /orders POST endpoint with idempotency":
-
-```
-1. step: scaffold /orders route with stubbed 501 response and route test  [AFK]
-   Pass: `curl -X POST /orders` returns 501; route test passes.
-
-2. step: add Orders table migration (reversible)                          [AFK]
-   Pass: `migrate up && migrate down` both succeed; no schema drift.
-
-3. step: implement Order creation handler, no idempotency yet             [AFK]
-   Pass: integration test posts an order, sees it in the DB.
-
-4. step: add idempotency-key header handling                              [AFK]
-   Pass: integration test posts the same order twice with the same key,
-   sees one row.
-
-5. feature: enable POST /orders behind ORDERS_API_V2 flag                 [HITL]
-   Pass: flag on -> endpoint live; flag off -> 404.
-   HITL because: requires SRE sign-off on the rollout plan.
-
-6. chore: remove ORDERS_API_V2 flag (after rollout, scheduled separately) [AFK]
-```
-
-Risk-ordering example:
-
-```
-A change has three steps:
-- (a) wire a new third-party billing SDK,
-- (b) add a settings UI to display the new billing data,
-- (c) update copy on the existing checkout page.
-
-Correct order: a, b, c.
-Wrong order: c, b, a.
-
-The SDK integration carries unknown risk. Discovering an SDK
-incompatibility on day 1 lets the team replan. Discovering it on day
-3, after the UI and copy work are merged, wastes that work.
-```
-
 ## Success criteria
 
 - **The plan MUST be a numbered checklist of steps.**
@@ -213,3 +172,44 @@ incompatibility on day 1 lets the team replan. Discovering it on day
 - **If the plan is a single step, the output MUST say so explicitly and direct
   the caller to proceed with implementation rather than returning a plan
   artifact.**
+
+## Examples
+
+- **A plan for "add an /orders POST endpoint with idempotency":**
+
+  ```
+  1. step: scaffold /orders route with stubbed 501 response and route test  [AFK]
+    Pass: `curl -X POST /orders` returns 501; route test passes.
+
+  2. step: add Orders table migration (reversible)                          [AFK]
+    Pass: `migrate up && migrate down` both succeed; no schema drift.
+
+  3. step: implement Order creation handler, no idempotency yet             [AFK]
+    Pass: integration test posts an order, sees it in the DB.
+
+  4. step: add idempotency-key header handling                              [AFK]
+    Pass: integration test posts the same order twice with the same key,
+    sees one row.
+
+  5. feature: enable POST /orders behind ORDERS_API_V2 flag                 [HITL]
+    Pass: flag on -> endpoint live; flag off -> 404.
+    HITL because: requires SRE sign-off on the rollout plan.
+
+  6. chore: remove ORDERS_API_V2 flag (after rollout, scheduled separately) [AFK]
+  ```
+
+- **Risk-ordering example:**
+
+  ```
+  A change has three steps:
+  - (a) wire a new third-party billing SDK,
+  - (b) add a settings UI to display the new billing data,
+  - (c) update copy on the existing checkout page.
+
+  Correct order: a, b, c.
+  Wrong order: c, b, a.
+
+  The SDK integration carries unknown risk. Discovering an SDK
+  incompatibility on day 1 lets the team replan. Discovering it on day
+  3, after the UI and copy work are merged, wastes that work.
+  ```

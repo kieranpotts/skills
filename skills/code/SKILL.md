@@ -150,43 +150,6 @@ is the orchestrator's concern, not this skill's.
   "Done" = test passes, diff is clean, commit message is written. Not "done
   plus a bit more". The bit more is the next step.
 
-## Examples
-
-A red → green → refactor cycle for a small step:
-
-```js
-// Red — write the failing test first.
-test('returns 400 when idempotency-key header is missing', async () => {
-  const res = await request(app).post('/orders').send(validBody);
-  expect(res.status).toBe(400);
-  expect(res.body.error).toBe('idempotency-key required');
-});
-// Run: test fails — endpoint returns 201, not 400. Expected failure.
-
-// Green — minimal change to pass.
-router.post('/orders', (req, res, next) => {
-  if (!req.header('idempotency-key')) {
-    return res.status(400).json({ error: 'idempotency-key required' });
-  }
-  next();
-});
-// Run: test passes.
-
-// Refactor — extract the guard if it'll be reused; otherwise leave it
-// inline. Don't abstract on the first occurrence.
-```
-
-A scoped commit at the end of the step:
-
-```
-step: validate idempotency-key header on POST /orders
-
-The handler now rejects requests without the header with 400. The actual
-idempotency lookup is the next step.
-
-Refs: #482
-```
-
 ## Edge cases
 
 - **The step turns out to be too big.**
@@ -233,3 +196,40 @@ Refs: #482
 
 - **The commit MUST follow the project's commit format.**
   Correct type, lowercase imperative description, atomic scope.
+
+## Examples
+
+- **A red → green → refactor cycle for a small step:**
+
+  ```js
+  // Red — write the failing test first.
+  test('returns 400 when idempotency-key header is missing', async () => {
+    const res = await request(app).post('/orders').send(validBody);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('idempotency-key required');
+  });
+  // Run: test fails — endpoint returns 201, not 400. Expected failure.
+
+  // Green — minimal change to pass.
+  router.post('/orders', (req, res, next) => {
+    if (!req.header('idempotency-key')) {
+      return res.status(400).json({ error: 'idempotency-key required' });
+    }
+    next();
+  });
+  // Run: test passes.
+
+  // Refactor — extract the guard if it'll be reused; otherwise leave it
+  // inline. Don't abstract on the first occurrence.
+  ```
+
+- **A scoped commit at the end of the step:**
+
+  ```
+  step: validate idempotency-key header on POST /orders
+
+  The handler now rejects requests without the header with 400. The actual
+  idempotency lookup is the next step.
+
+  Refs: #482
+  ```

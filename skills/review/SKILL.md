@@ -197,51 +197,6 @@ responsibility.
 
   Even if a category has no findings, it MUST have been thought about.
 
-## Examples
-
-A labeled comment set on a hypothetical diff:
-
-```
-[Blocking] handlers/orders.ts:42
-  The new endpoint accepts an `amount` field but doesn't validate it's
-  positive. A negative amount would currently refund the customer.
-  Suggest: validate `amount > 0` at the request boundary and return 400.
-
-[Suggestion] handlers/orders.ts:67
-  The retry loop has no jitter — under load all retries will land in the
-  same window. Adding jitter (`base * (0.5 + Math.random())`) would
-  smooth retries. Non-blocking; we can do it in a follow-up.
-
-[Nit] handlers/orders.ts:91
-  `orderRepository` is referenced once — could be inlined. Optional.
-
-[Praise] handlers/orders.spec.ts:104
-  The concurrent-key test using Promise.all is exactly the kind of test
-  this endpoint needs. Nice.
-```
-
-Verdict block to close the review, organized by axis:
-
-```
-Request changes.
-
-## Specification
-- [Blocking] AC-2 requires "amount must be positive" — the handler
-  does not validate this (handlers/orders.ts:42). Quoted from
-  issue #482, AC-2.
-- [PASS]    AC-1 (concurrent same-key requests return one row) is
-  implemented and tested.
-
-## Standards
-- [Suggestion] CONTRIBUTING.md §3.2 requires retries to use jitter;
-  the new retry loop has none (handlers/orders.ts:67).
-- [Praise]   Test naming follows the project convention in
-  CLAUDE.md §"Tests".
-
-Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
-on the Specification finding; Standards finding non-blocking.
-```
-
 ## Edge cases
 
 - **Reviewer is the author.**
@@ -282,3 +237,48 @@ on the Specification finding; Standards finding non-blocking.
 
 - **The verdict MUST be explicit.**
   Approve, Request changes, or Comment. It MUST NOT be implied.
+
+## Examples
+
+- **A labeled comment set on a hypothetical diff:**
+
+  ```
+  [Blocking] handlers/orders.ts:42
+    The new endpoint accepts an `amount` field but doesn't validate it's
+    positive. A negative amount would currently refund the customer.
+    Suggest: validate `amount > 0` at the request boundary and return 400.
+
+  [Suggestion] handlers/orders.ts:67
+    The retry loop has no jitter — under load all retries will land in the
+    same window. Adding jitter (`base * (0.5 + Math.random())`) would
+    smooth retries. Non-blocking; we can do it in a follow-up.
+
+  [Nit] handlers/orders.ts:91
+    `orderRepository` is referenced once — could be inlined. Optional.
+
+  [Praise] handlers/orders.spec.ts:104
+    The concurrent-key test using Promise.all is exactly the kind of test
+    this endpoint needs. Nice.
+  ```
+
+- **Verdict block to close the review, organized by axis:**
+
+  ```
+  Request changes.
+
+  ## Specification
+  - [Blocking] AC-2 requires "amount must be positive" — the handler
+    does not validate this (handlers/orders.ts:42). Quoted from
+    issue #482, AC-2.
+  - [PASS]    AC-1 (concurrent same-key requests return one row) is
+    implemented and tested.
+
+  ## Standards
+  - [Suggestion] CONTRIBUTING.md §3.2 requires retries to use jitter;
+    the new retry loop has none (handlers/orders.ts:67).
+  - [Praise]   Test naming follows the project convention in
+    CLAUDE.md §"Tests".
+
+  Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
+  on the Specification finding; Standards finding non-blocking.
+  ```

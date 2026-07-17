@@ -123,29 +123,6 @@ error message.
   Before tagging, rename it to the version and date and add a fresh empty
   `[Unreleased]` section above it. This MUST land in the `release:` commit.
 
-## Examples
-
-Release trunk:
-
-```
-release
-```
-
-Release branches:
-
-```
-release/1.2.0
-release/2.0.0
-release/next
-```
-
-Version tags:
-
-```
-v1.2.0
-v2.0.0
-```
-
 ## Success criteria
 
 - **The release branch exists and follows the chosen naming convention.**
@@ -176,3 +153,26 @@ v2.0.0
   a successful deployment pipeline.**
 
   The **release** trunk MUST remain intact.
+
+## Examples
+
+- **Release trunk:**
+
+  ```
+  release
+  ```
+
+- **Release branches:**
+
+  ```
+  release/1.2.0
+  release/2.0.0
+  release/next
+  ```
+
+- **Version tags:**
+
+  ```
+  v1.2.0
+  v2.0.0
+  ```

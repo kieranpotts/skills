@@ -212,57 +212,6 @@ error message.
 - **If a merged result that passed tests later breaks production, you MUST NOT
   bypass verification next time.**
 
-## Examples
-Reintegrating a temp branch:
-
-```sh
-# On temp/482-idempotency:
-git fetch origin
-git rebase origin/dev          # rebase-up; resolve any conflicts here
-npm test                        # green
-git checkout dev
-git merge --ff-only temp/482-idempotency
-git push origin dev
-git branch -d temp/482-idempotency
-git push origin --delete temp/482-idempotency
-```
-Reintegrating an epic branch:
-
-```sh
-# Pre-condition: dev has been merged down into the epic recently.
-git checkout dev
-git pull --ff-only
-git merge --squash epic/billing-v2-rewrite
-git commit       # author per the message convention; subject reflects the epic's outcome
-npm test         # green on the squashed result
-git push origin dev
-git branch -D epic/billing-v2-rewrite   # -D because epic is not FF-merged
-git push origin --delete epic/billing-v2-rewrite
-```
-A blocked trunk promotion:
-
-```sh
-git checkout test
-git merge --ff-only dev
-# fatal: Not possible to fast-forward, aborting.
-
-# Diagnosis: test has a commit that is not on dev. Per the branching convention,
-# this is a workflow violation — fixes must originate on dev and flow forward.
-# Escalate; do not switch to --no-ff to "fix" it.
-```
-A semantic conflict caught after textual merge:
-
-```sh
-git rebase dev
-# Both sides applied cleanly. But:
-npm test
-# FAILS: OrderService no longer has the `parse()` method dev's caller
-# expects (it was renamed in the epic). The merge was textually clean
-# but semantically broken.
-
-# Resolution: edit the caller to use the new name, stage, continue.
-```
-
 ## Success criteria
 
 - **The merged history on the target branch MUST reflect the chosen strategy.**
@@ -293,3 +242,58 @@ npm test
   committed to the `epic/*` branch before the squash-merge.
 
 - **No conflict markers MUST remain in the merged result.**
+
+## Examples
+
+- **Reintegrating a temp branch:**
+
+  ```sh
+  # On temp/482-idempotency:
+  git fetch origin
+  git rebase origin/dev          # rebase-up; resolve any conflicts here
+  npm test                        # green
+  git checkout dev
+  git merge --ff-only temp/482-idempotency
+  git push origin dev
+  git branch -d temp/482-idempotency
+  git push origin --delete temp/482-idempotency
+  ```
+
+- **Reintegrating an epic branch:**
+
+  ```sh
+  # Pre-condition: dev has been merged down into the epic recently.
+  git checkout dev
+  git pull --ff-only
+  git merge --squash epic/billing-v2-rewrite
+  git commit       # author per the message convention; subject reflects the epic's outcome
+  npm test         # green on the squashed result
+  git push origin dev
+  git branch -D epic/billing-v2-rewrite   # -D because epic is not FF-merged
+  git push origin --delete epic/billing-v2-rewrite
+  ```
+
+- **A blocked trunk promotion:**
+
+  ```sh
+  git checkout test
+  git merge --ff-only dev
+  # fatal: Not possible to fast-forward, aborting.
+
+  # Diagnosis: test has a commit that is not on dev. Per the branching convention,
+  # this is a workflow violation — fixes must originate on dev and flow forward.
+  # Escalate; do not switch to --no-ff to "fix" it.
+  ```
+
+- **A semantic conflict caught after textual merge:**
+
+  ```sh
+  git rebase dev
+  # Both sides applied cleanly. But:
+  npm test
+  # FAILS: OrderService no longer has the `parse()` method dev's caller
+  # expects (it was renamed in the epic). The merge was textually clean
+  # but semantically broken.
+
+  # Resolution: edit the caller to use the new name, stage, continue.
+  ```

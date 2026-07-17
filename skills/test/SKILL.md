@@ -129,47 +129,6 @@ orchestrator's concern, not this skill's.
 - **An NFR without an objective check MUST be flagged.**
   If an NFR has no objective check, it is not really an NFR; report it.
 
-## Examples
-
-A compact verification report:
-
-```
-Change: POST /orders with idempotency (refs #482)
-
-Functional:
-  AC-1 create order with valid body            PASS  test orders.spec.ts:41
-  AC-2 reject without idempotency-key          PASS  test orders.spec.ts:67
-  AC-3 same key returns same order             PASS  test orders.spec.ts:89
-  AC-4 different key creates new order         PASS  test orders.spec.ts:104
-
-Non-functional:
-  perf  p95 < 250ms @ 500 RPS                  PASS  measured 188ms
-  sec   no auth bypass with crafted header     PASS  manual, see notes
-  a11y  N/A (no UI in this change)
-
-Exploratory (20 min):
-  - Idempotency key of 10kB rejected cleanly   PASS
-  - Concurrent same-key requests               PASS  (one wins, second
-    returns the same record without insert)
-  - Replaying an idempotency key 24h later     BLOCKED — TTL not in
-    specification; raised as specification gap.
-
-Verdict: 1 blocked, 0 failed. Reported as a specification defect for AC-5
-(TTL); the change re-enters the workflow once the specification is corrected.
-```
-
-A failing-AC handoff:
-
-```
-AC-3 (same key returns same order) — FAIL
-
-Evidence: orders.spec.ts:89 — second POST returns 201 + new order ID
-instead of 200 + existing order ID. Reproduction is deterministic.
-
-Reported as an implementation defect for diagnosis. Test left in place; do
-not delete.
-```
-
 ## Edge cases
 
 - **No automated suite exists.**
@@ -219,3 +178,44 @@ not delete.
 
 - **The verdict MUST be explicit.**
   "Ready to ship", "ready for review", or "blocked on X" — not implied.
+
+## Examples
+
+- **A compact verification report:**
+
+  ```
+  Change: POST /orders with idempotency (refs #482)
+
+  Functional:
+    AC-1 create order with valid body            PASS  test orders.spec.ts:41
+    AC-2 reject without idempotency-key          PASS  test orders.spec.ts:67
+    AC-3 same key returns same order             PASS  test orders.spec.ts:89
+    AC-4 different key creates new order         PASS  test orders.spec.ts:104
+
+  Non-functional:
+    perf  p95 < 250ms @ 500 RPS                  PASS  measured 188ms
+    sec   no auth bypass with crafted header     PASS  manual, see notes
+    a11y  N/A (no UI in this change)
+
+  Exploratory (20 min):
+    - Idempotency key of 10kB rejected cleanly   PASS
+    - Concurrent same-key requests               PASS  (one wins, second
+      returns the same record without insert)
+    - Replaying an idempotency key 24h later     BLOCKED — TTL not in
+      specification; raised as specification gap.
+
+  Verdict: 1 blocked, 0 failed. Reported as a specification defect for AC-5
+  (TTL); the change re-enters the workflow once the specification is corrected.
+  ```
+
+- **A failing-AC handoff:**
+
+  ```
+  AC-3 (same key returns same order) — FAIL
+
+  Evidence: orders.spec.ts:89 — second POST returns 201 + new order ID
+  instead of 200 + existing order ID. Reproduction is deterministic.
+
+  Reported as an implementation defect for diagnosis. Test left in place; do
+  not delete.
+  ```

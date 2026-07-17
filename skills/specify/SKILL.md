@@ -159,28 +159,6 @@ review and approval.
   This skill MUST stop at `PROPOSED`. Approval to `ACCEPTED`, and any
   subsequent design work, is the user's decision.
 
-## Examples
-
-The consuming project locates its SRS through a `Workflow repositories`
-declaration in its root `AGENTS.md`:
-
-```markdown
-## Workflow repositories
-
-- SRS: ./docs/specs
-- RFC: ./docs/rfc
-- Design: ./docs/design
-- Plans: ./docs/plans
-```
-
-The shape of the specification content itself — Gherkin acceptance criteria,
-measurable non-functional requirements, the out-of-scope section — is defined by
-the target SRS repository's content rules (its `write-spec` skill), not here.
-This skill validates the PRD, then carries out the procedure that the
-repository's `draft-spec` → `write-spec` → `propose-spec` skills define —
-reading their rules and running them non-interactively — to file the proposal to
-whatever format and process that repository prescribes.
-
 ## Edge cases
 
 - **No SRS declared.**
@@ -251,3 +229,25 @@ whatever format and process that repository prescribes.
 - **An incomplete PRD MUST be rejected, not patched.**
   When the PRD lacks substantive content, the output MUST be an itemized
   rejection naming the gaps. Nothing MUST be written to the SRS.
+
+## Examples
+
+The consuming project locates its SRS through a `Workflow repositories`
+declaration in its root `AGENTS.md`:
+
+```markdown
+## Workflow repositories
+
+- SRS: ./docs/specs
+- RFC: ./docs/rfc
+- Design: ./docs/design
+- Plans: ./docs/plans
+```
+
+The shape of the specification content itself — Gherkin acceptance criteria,
+measurable non-functional requirements, the out-of-scope section — is defined by
+the target SRS repository's content rules (its `write-spec` skill), not here.
+This skill validates the PRD, then carries out the procedure that the
+repository's `draft-spec` → `write-spec` → `propose-spec` skills define —
+reading their rules and running them non-interactively — to file the proposal to
+whatever format and process that repository prescribes.

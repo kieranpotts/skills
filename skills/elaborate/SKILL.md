@@ -133,57 +133,6 @@ the sharpened design is the orchestrator's concern, not this skill's.
 - **You MUST NOT publish the internal decision tree as a list for the user.**
   The user sees questions one at a time, not your scratchpad.
 
-## Examples
-
-A single Q-and-A turn during elaboration:
-
-```
-Agent: The draft says "cancellation revokes the order". I'm reading
-that two ways:
-
-  (a) Sets `order.status = CANCELLED`, leaves line items intact
-      (what the code currently does).
-  (b) Marks the order cancelled AND issues refunds for any items
-      already paid for.
-
-I'd lean (b), because the specification mentions a refund flow and the existing
-`cancelOrder()` doesn't trigger refunds today — so this is a
-behavior change either way.
-
-Which is it?
-
-User: (b). And the refund should be partial if only some line items
-were paid.
-
-Agent: Got it. Updating docs/domain-model.md with the new definition of
-"Cancellation". Then asking the next question.
-```
-
-A captured `docs/domain-model.md` update:
-
-```md
-# Domain model
-
-The ubiquitous language for this project. Definitions here are
-authoritative — code, specs, and conversations should match.
-
-## Language
-
-**Order:**
-A collection of line items submitted by a customer for fulfillment.
-_Avoid_: Purchase, transaction.
-
-**Cancellation:**
-The act of revoking an Order before it has been fully shipped. Triggers
-refunds for any line items already paid for; refunds are partial when
-only some line items were paid.
-_Avoid_: Void, abort.
-
-**Customer:**
-A person or organization that places Orders.
-_Avoid_: Client, buyer, account.
-```
-
 ## Edge cases
 
 - **The user is AFK.**
@@ -239,3 +188,54 @@ _Avoid_: Client, buyer, account.
 - **The output MUST be decomposition-ready.**
   A reader can pick up the design and break it into steps without re-asking
   the questions this skill resolved.
+
+## Examples
+
+- **A single Q-and-A turn during elaboration:**
+
+  ```
+  Agent: The draft says "cancellation revokes the order". I'm reading
+  that two ways:
+
+    (a) Sets `order.status = CANCELLED`, leaves line items intact
+        (what the code currently does).
+    (b) Marks the order cancelled AND issues refunds for any items
+        already paid for.
+
+  I'd lean (b), because the specification mentions a refund flow and the existing
+  `cancelOrder()` doesn't trigger refunds today — so this is a
+  behavior change either way.
+
+  Which is it?
+
+  User: (b). And the refund should be partial if only some line items
+  were paid.
+
+  Agent: Got it. Updating docs/domain-model.md with the new definition of
+  "Cancellation". Then asking the next question.
+  ```
+
+- **A captured `docs/domain-model.md` update:**
+
+  ```md
+  # Domain model
+
+  The ubiquitous language for this project. Definitions here are
+  authoritative — code, specs, and conversations should match.
+
+  ## Language
+
+  **Order:**
+  A collection of line items submitted by a customer for fulfillment.
+  _Avoid_: Purchase, transaction.
+
+  **Cancellation:**
+  The act of revoking an Order before it has been fully shipped. Triggers
+  refunds for any line items already paid for; refunds are partial when
+  only some line items were paid.
+  _Avoid_: Void, abort.
+
+  **Customer:**
+  A person or organization that places Orders.
+  _Avoid_: Client, buyer, account.
+  ```

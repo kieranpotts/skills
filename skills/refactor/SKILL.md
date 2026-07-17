@@ -197,40 +197,6 @@ error message.
 
   Do not try to fix it all at once.
 
-## Examples
-
-A small, named refactor in three moves:
-
-```
-Target quality: cohesiveness — OrderService currently does parsing,
-pricing, and persistence in one class.
-
-Move 1: refactor: extract OrderParser from OrderService
-  - Pure extraction; OrderService delegates.
-  - All tests pass.
-
-Move 2: refactor: extract PriceCalculator from OrderService
-  - Pure extraction; OrderService delegates.
-  - All tests pass.
-
-Move 3: refactor: rename OrderService to OrderRepository
-  - The remaining responsibility is persistence; the new name reflects
-    it.
-  - All tests pass.
-
-Result: three modules with one responsibility each, replacing one
-module with three.
-```
-
-Recognizing a behavior change mid-refactor:
-
-```
-While extracting OrderParser I noticed the original code accepted
-negative quantities silently and the new code throws. That's a bug
-fix, not a refactor. Reverted the throw; opened a separate fix:
-commit and tracking issue. Resumed the refactor.
-```
-
 ## Success criteria
 
 - **External behavior MUST be unchanged.**
@@ -251,3 +217,37 @@ commit and tracking issue. Resumed the refactor.
 - **Tests MUST have passed after every move, not just at the end.**
 
 - **The PR description MUST name the quality being improved and the moves taken.**
+
+## Examples
+
+- **A small, named refactor in three moves:**
+
+  ```
+  Target quality: cohesiveness — OrderService currently does parsing,
+  pricing, and persistence in one class.
+
+  Move 1: refactor: extract OrderParser from OrderService
+    - Pure extraction; OrderService delegates.
+    - All tests pass.
+
+  Move 2: refactor: extract PriceCalculator from OrderService
+    - Pure extraction; OrderService delegates.
+    - All tests pass.
+
+  Move 3: refactor: rename OrderService to OrderRepository
+    - The remaining responsibility is persistence; the new name reflects
+      it.
+    - All tests pass.
+
+  Result: three modules with one responsibility each, replacing one
+  module with three.
+  ```
+
+- **Recognizing a behavior change mid-refactor:**
+
+  ```
+  While extracting OrderParser I noticed the original code accepted
+  negative quantities silently and the new code throws. That's a bug
+  fix, not a refactor. Reverted the throw; opened a separate fix:
+  commit and tracking issue. Resumed the refactor.
+  ```

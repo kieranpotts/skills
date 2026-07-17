@@ -126,45 +126,6 @@ reported with a reason. The verified change is ready for
   reported with a reason. Marking it resolved without a real fix, or silently
   leaving it open, both hide the problem.
 
-## Examples
-
-A resolution pass over three open comments:
-
-```
-Open comments on PR #482 (base abc123): 3
-
-[handlers/orders.ts:42]  validate amount > 0, return 400
-  → Added boundary check + test orders.spec.ts:51 (fails before, passes
-    after). Replied + resolved.
-
-[handlers/orders.ts:67]  retry loop needs jitter
-  → Added jitter `base * (0.5 + Math.random())`. Existing retry test
-    green. Replied + resolved.
-
-[handlers/orders.ts:91]  inline single-use orderRepository
-  → Inlined. Existing tests green. Replied + resolved.
-
-Committed as `fix: address review comments on order validation` (def456).
-3 of 3 open comments resolved. Ready for re-test.
-```
-
-A pass that cannot fully resolve:
-
-```
-Open comments on PR #482: 2
-
-[handlers/orders.ts:42]  validate amount > 0
-  → Fixed + verified. Replied + resolved.
-
-[handlers/orders.ts:80]  "this should use the shared RateLimiter"
-  → NOT RESOLVED. No shared RateLimiter exists in this codebase; the
-    comment assumes a component that isn't present. Left open, flagged
-    for the reviewer — needs either the component built (separate work)
-    or the comment withdrawn.
-
-1 of 2 resolved; 1 surfaced as blocked.
-```
-
 ## Edge cases
 
 - **The branch moved since the review.**
@@ -217,3 +178,42 @@ Open comments on PR #482: 2
 - **Resolution work MUST be committed and pushed.**
   In its own commit(s), separate from the original implementation, with the
   branch pushed so the re-review and **[test](../test/SKILL.md)** see the fixes.
+
+## Examples
+
+- **A resolution pass over three open comments:**
+
+  ```
+  Open comments on PR #482 (base abc123): 3
+
+  [handlers/orders.ts:42]  validate amount > 0, return 400
+    → Added boundary check + test orders.spec.ts:51 (fails before, passes
+      after). Replied + resolved.
+
+  [handlers/orders.ts:67]  retry loop needs jitter
+    → Added jitter `base * (0.5 + Math.random())`. Existing retry test
+      green. Replied + resolved.
+
+  [handlers/orders.ts:91]  inline single-use orderRepository
+    → Inlined. Existing tests green. Replied + resolved.
+
+  Committed as `fix: address review comments on order validation` (def456).
+  3 of 3 open comments resolved. Ready for re-test.
+  ```
+
+- **A pass that cannot fully resolve:**
+
+  ```
+  Open comments on PR #482: 2
+
+  [handlers/orders.ts:42]  validate amount > 0
+    → Fixed + verified. Replied + resolved.
+
+  [handlers/orders.ts:80]  "this should use the shared RateLimiter"
+    → NOT RESOLVED. No shared RateLimiter exists in this codebase; the
+      comment assumes a component that isn't present. Left open, flagged
+      for the reviewer — needs either the component built (separate work)
+      or the comment withdrawn.
+
+  1 of 2 resolved; 1 surfaced as blocked.
+  ```

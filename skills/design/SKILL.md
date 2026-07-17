@@ -171,47 +171,6 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
   requirements may reopen one of the rejected options — the prior reasoning
   saves a re-evaluation.
 
-## Examples
-
-A compact decision capture:
-
-```
-Decision: Use Postgres LISTEN/NOTIFY for job dispatch.
-
-Context:
-- Need to fan out ~50 jobs/sec from the API to workers.
-- p95 dispatch latency target: <200ms.
-- Team operates Postgres already; no Kafka/RabbitMQ in stack.
-
-Options considered:
-1. Postgres LISTEN/NOTIFY (CHOSEN)
-   + No new infra; reuses existing operational knowledge (habitability,
-     simplicity).
-   + Meets latency target (measured ~30ms p95 in spike).
-   - Caps at ~few-thousand jobs/sec; not future-proof past 10x growth.
-
-2. Add Redis Streams
-   + Higher throughput ceiling.
-   - New operational surface; on-call team is unfamiliar (habitability -).
-   - Extra failure mode (Redis unavailability) for a problem we don't
-     have today.
-
-3. Add SQS
-   + Managed, durable, scalable.
-   - Adds AWS coupling; cross-region latency makes p95 marginal.
-   - More expensive at our volume.
-
-Decision: Option 1. Optimizes for habitability and simplicity while
-meeting the stated NFRs. Re-evaluate if sustained throughput exceeds
-2000 jobs/sec, at which point Option 2 or 3 becomes worth the cost.
-
-Consequences:
-- Workers must hold a long-lived Postgres connection (connection pool
-  sizing impact).
-- Migration to a real queue is a known future cost; design the dispatch
-  interface to make that swap straightforward.
-```
-
 ## Edge cases
 
 - **The design is forced by an existing constraint.**
@@ -258,3 +217,44 @@ Consequences:
 - **The decision MUST be captured durably.**
   ADR, design doc, or PR description — somewhere a future reader can find it
   without asking.
+
+## Examples
+
+- **A compact decision capture:**
+
+  ```
+  Decision: Use Postgres LISTEN/NOTIFY for job dispatch.
+
+  Context:
+  - Need to fan out ~50 jobs/sec from the API to workers.
+  - p95 dispatch latency target: <200ms.
+  - Team operates Postgres already; no Kafka/RabbitMQ in stack.
+
+  Options considered:
+  1. Postgres LISTEN/NOTIFY (CHOSEN)
+    + No new infra; reuses existing operational knowledge (habitability,
+      simplicity).
+    + Meets latency target (measured ~30ms p95 in spike).
+    - Caps at ~few-thousand jobs/sec; not future-proof past 10x growth.
+
+  2. Add Redis Streams
+    + Higher throughput ceiling.
+    - New operational surface; on-call team is unfamiliar (habitability -).
+    - Extra failure mode (Redis unavailability) for a problem we don't
+      have today.
+
+  3. Add SQS
+    + Managed, durable, scalable.
+    - Adds AWS coupling; cross-region latency makes p95 marginal.
+    - More expensive at our volume.
+
+  Decision: Option 1. Optimizes for habitability and simplicity while
+  meeting the stated NFRs. Re-evaluate if sustained throughput exceeds
+  2000 jobs/sec, at which point Option 2 or 3 becomes worth the cost.
+
+  Consequences:
+  - Workers must hold a long-lived Postgres connection (connection pool
+    sizing impact).
+  - Migration to a real queue is a known future cost; design the dispatch
+    interface to make that swap straightforward.
+  ```

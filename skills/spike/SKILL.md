@@ -148,55 +148,6 @@ production re-implementation — is the orchestrator's concern, not this skill's
   Writing tests first turns a spike into a small project with all the costs
   that follow.
 
-## Examples
-
-A well-framed spike:
-
-```
-Question: Can the new ImageMagick 7 API process our largest customer
-asset (~120MB TIFF) in under 30s on the current worker hardware,
-without exceeding 4GB RSS?
-
-Evidence to close: a measurement on the actual asset, on a c7g.large,
-showing wall-clock and peak RSS.
-
-Time-box: half a day.
-
-Path: clone IM7 from source, build, write a 20-line wrapper that
-loads the fixture asset and applies the resize+format pipeline used in
-production, instrument with /usr/bin/time -v.
-
-Result: wall-clock 18.4s, peak RSS 3.1GB. Answer: yes, within budget.
-
-Re-evaluate: yes — IM7 is viable on current hardware. Question closed;
-production version will be implemented from scratch, applying our error
-handling, telemetry, and config conventions.
-
-Code disposal: spikes/2026-05-im7-spike/ retained with README
-noting question, answer, and date. Not merged.
-```
-
-A spike that returns a negative answer:
-
-```
-Question: Does the candidate vector DB's Rust client support cancellable
-queries through tonic interceptors?
-
-Evidence to close: a query that interrupts cleanly when the caller's
-context is cancelled, releasing the connection.
-
-Time-box: 4 hours.
-
-Result: interceptors fire but the server-side query continues running
-to completion; the client just stops awaiting the response. Connection
-is released only on response. Verified with server-side logs.
-
-Answer: no.
-
-Decision: rules out this vector DB for our cancellable-search workload.
-The design work resumes, evaluating the other two candidates.
-```
-
 ## Edge cases
 
 - **The prototype "almost works" and the user wants to keep it.**
@@ -248,3 +199,52 @@ The design work resumes, evaluating the other two candidates.
 - **The code MUST be disposed of or quarantined.**
   Deleted, or moved to a clearly-marked throwaway location with a README.
   It MUST NOT be merged into production paths.
+
+## Examples
+
+- **A well-framed spike:**
+
+  ```
+  Question: Can the new ImageMagick 7 API process our largest customer
+  asset (~120MB TIFF) in under 30s on the current worker hardware,
+  without exceeding 4GB RSS?
+
+  Evidence to close: a measurement on the actual asset, on a c7g.large,
+  showing wall-clock and peak RSS.
+
+  Time-box: half a day.
+
+  Path: clone IM7 from source, build, write a 20-line wrapper that
+  loads the fixture asset and applies the resize+format pipeline used in
+  production, instrument with /usr/bin/time -v.
+
+  Result: wall-clock 18.4s, peak RSS 3.1GB. Answer: yes, within budget.
+
+  Re-evaluate: yes — IM7 is viable on current hardware. Question closed;
+  production version will be implemented from scratch, applying our error
+  handling, telemetry, and config conventions.
+
+  Code disposal: spikes/2026-05-im7-spike/ retained with README
+  noting question, answer, and date. Not merged.
+  ```
+
+- **A spike that returns a negative answer:**
+
+  ```
+  Question: Does the candidate vector DB's Rust client support cancellable
+  queries through tonic interceptors?
+
+  Evidence to close: a query that interrupts cleanly when the caller's
+  context is cancelled, releasing the connection.
+
+  Time-box: 4 hours.
+
+  Result: interceptors fire but the server-side query continues running
+  to completion; the client just stops awaiting the response. Connection
+  is released only on response. Verified with server-side logs.
+
+  Answer: no.
+
+  Decision: rules out this vector DB for our cancellable-search workload.
+  The design work resumes, evaluating the other two candidates.
+  ```

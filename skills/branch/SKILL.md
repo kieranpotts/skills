@@ -169,34 +169,6 @@ or author commit messages.
   Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
   reviewed periodically and either deleted or revived.
 
-## Examples
-
-Trunk branches:
-
-```
-dev
-test
-ready
-```
-
-Temporary branches:
-
-```
-temp/42-add-search-endpoint
-temp/178-fix-auth-timeout
-temp/TS-504-migrate-user-schema
-temp/update-dependencies
-```
-
-Epic branches:
-
-```
-epic/billing-v2-rewrite
-epic/PRODUCT-187-auth-overhaul
-epic/infra-migrate-kubernetes
-epic/major-ui-redesign
-```
-
 ## Success criteria
 
 - **The branch name MUST validate against the model.**
@@ -221,3 +193,31 @@ epic/major-ui-redesign
 - **Changes MUST flow forward only.**
   Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
   NOT be committed directly to a downstream trunk.
+
+## Examples
+
+- **Trunk branches:**
+
+  ```
+  dev
+  test
+  ready
+  ```
+
+- **Temporary branches:**
+
+  ```
+  temp/42-add-search-endpoint
+  temp/178-fix-auth-timeout
+  temp/TS-504-migrate-user-schema
+  temp/update-dependencies
+  ```
+
+- **Epic branches:**
+
+  ```
+  epic/billing-v2-rewrite
+  epic/PRODUCT-187-auth-overhaul
+  epic/infra-migrate-kubernetes
+  epic/major-ui-redesign
+  ```

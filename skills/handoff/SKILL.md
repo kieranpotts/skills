@@ -133,36 +133,6 @@ error message.
   If a section has nothing to say, you MUST omit it or write "none" explicitly.
   An empty section is honest; an invented one is misleading.
 
-## Examples
-
-A compact handoff:
-
-```md
-# Handoff: orders POST endpoint (2026-05-26)
-
-## What's been done
-Short summary of decisions made and work completed this session.
-Reference artifacts by path/URL; do not paste their content.
-
-## What's open
-Outstanding questions, decisions deferred, work in progress.
-Be specific about *what* is undecided and *why*.
-
-## State of the codebase
-Current branch, working-tree status, any tests known failing, any
-temporary instrumentation in place.
-
-## Suggested next steps
-The work the next session should pick up — eg. decomposition if
-the plan is incomplete, implementation if the design is settled,
-diagnosis if a test is failing. Name the specific step if known,
-and any tool or skill suited to it.
-
-## Watch out for
-Gotchas, environmental quirks, decisions that look obvious but
-weren't, dead-ends already explored that should not be re-tried.
-```
-
 ## Success criteria
 
 - **The handoff MUST live outside the repo.**
@@ -192,3 +162,33 @@ weren't, dead-ends already explored that should not be re-tried.
 
 - **If there was nothing substantive to hand off, the output MUST say so
   explicitly rather than produce a fabricated document.**
+
+## Examples
+
+- **A compact handoff:**
+
+  ```md
+  # Handoff: orders POST endpoint (2026-05-26)
+
+  ## What's been done
+  Short summary of decisions made and work completed this session.
+  Reference artifacts by path/URL; do not paste their content.
+
+  ## What's open
+  Outstanding questions, decisions deferred, work in progress.
+  Be specific about *what* is undecided and *why*.
+
+  ## State of the codebase
+  Current branch, working-tree status, any tests known failing, any
+  temporary instrumentation in place.
+
+  ## Suggested next steps
+  The work the next session should pick up — eg. decomposition if
+  the plan is incomplete, implementation if the design is settled,
+  diagnosis if a test is failing. Name the specific step if known,
+  and any tool or skill suited to it.
+
+  ## Watch out for
+  Gotchas, environmental quirks, decisions that look obvious but
+  weren't, dead-ends already explored that should not be re-tried.
+  ```

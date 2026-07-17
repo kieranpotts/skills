@@ -179,68 +179,6 @@ that follows.
   "Please provide more info" is not a question. Each question MUST name what
   is missing and why it matters.
 
-## Examples
-
-A `needs-info` triage-notes comment:
-
-```md
-> *AI-generated during triage.*
-
-## Triage notes
-
-**What we've established so far:**
-- Reproduced on Postgres 15.4 with `MAX_CONNECTIONS=10` (steps from
-  reporter, run locally).
-- Pool exhaustion happens when N concurrent requests exceed pool size,
-  which is expected. The unexpected part is the `500` response, not
-  the saturation itself.
-
-**What we still need from you (@reporter):**
-- Are you seeing this on Postgres 14 as well, or only 15.x?
-- What value of `pool_size` are you running with?
-- Is your client setting a request timeout? If so, what value?
-```
-
-A `ready-for-agent` agent-brief comment:
-
-```md
-> *AI-generated during triage.*
-
-## Agent brief
-
-**Problem.** When the DB connection pool is saturated, requests return
-`500 Internal Server Error` instead of `503 Service Unavailable`.
-
-**Reproduction.** `make load-test CONCURRENCY=20` against a server
-with the default `pool_size=10`, on Postgres 15.x.
-
-**Expected behavior.** Saturated pool returns `503` with a `Retry-After`
-header. The retry-after value is tunable via config.
-
-**Acceptance criteria:**
-- [ ] Saturated pool returns `503`.
-- [ ] Response includes a `Retry-After` header (config-tunable, default
-      5 seconds).
-- [ ] Existing tests that assert `500-on-pool-error` are updated to
-      assert `503` instead.
-
-**Files likely involved:** `db/pool.go`, `middleware/error_handler.go`.
-
-**Out of scope:** Changing the default `pool_size`. Adding a circuit
-breaker. Both deferred; raise separate issues if wanted.
-```
-
-A wontfix-enhancement closure with out-of-scope capture:
-
-```md
-> *AI-generated during triage.*
-
-Thanks for the suggestion. We've decided not to pursue this; rationale
-captured in [`docs/out-of-scope/bulk-import-via-csv.md`](../docs/out-of-scope/bulk-import-via-csv.md)
-so future suggestions land on a reasoned reply rather than starting from
-scratch. Closing.
-```
-
 ## Edge cases
 
 - **The reporter ghosts on `needs-info`.**
@@ -280,3 +218,65 @@ scratch. Closing.
 - **AI-generated comments MUST be marked.**
 
 - **Outstanding questions MUST be specific and actionable.**
+
+## Examples
+
+- **A `needs-info` triage-notes comment:**
+
+  ```md
+  > *AI-generated during triage.*
+
+  ## Triage notes
+
+  **What we've established so far:**
+  - Reproduced on Postgres 15.4 with `MAX_CONNECTIONS=10` (steps from
+    reporter, run locally).
+  - Pool exhaustion happens when N concurrent requests exceed pool size,
+    which is expected. The unexpected part is the `500` response, not
+    the saturation itself.
+
+  **What we still need from you (@reporter):**
+  - Are you seeing this on Postgres 14 as well, or only 15.x?
+  - What value of `pool_size` are you running with?
+  - Is your client setting a request timeout? If so, what value?
+  ```
+
+- **A `ready-for-agent` agent-brief comment:**
+
+  ```md
+  > *AI-generated during triage.*
+
+  ## Agent brief
+
+  **Problem.** When the DB connection pool is saturated, requests return
+  `500 Internal Server Error` instead of `503 Service Unavailable`.
+
+  **Reproduction.** `make load-test CONCURRENCY=20` against a server
+  with the default `pool_size=10`, on Postgres 15.x.
+
+  **Expected behavior.** Saturated pool returns `503` with a `Retry-After`
+  header. The retry-after value is tunable via config.
+
+  **Acceptance criteria:**
+  - [ ] Saturated pool returns `503`.
+  - [ ] Response includes a `Retry-After` header (config-tunable, default
+        5 seconds).
+  - [ ] Existing tests that assert `500-on-pool-error` are updated to
+        assert `503` instead.
+
+  **Files likely involved:** `db/pool.go`, `middleware/error_handler.go`.
+
+  **Out of scope:** Changing the default `pool_size`. Adding a circuit
+  breaker. Both deferred; raise separate issues if wanted.
+  ```
+
+- **A wontfix-enhancement closure with out-of-scope capture:**
+
+  ```md
+  > *AI-generated during triage.*
+
+  Thanks for the suggestion. We've decided not to pursue this; rationale
+  captured in [`docs/out-of-scope/bulk-import-via-csv.md`](../docs/out-of-scope/bulk-import-via-csv.md)
+  so future suggestions land on a reasoned reply rather than starting from
+  scratch. Closing.
+  ```

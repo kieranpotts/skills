@@ -110,47 +110,6 @@ justification. No unrelated behavior change.
   `// eslint-disable-next-line` with no comment MUST NOT appear. You MUST state
   which case the rule doesn't apply to and why.
 
-## Examples
-
-A broken build with an evident cause:
-
-```
-$ npm run build
-Error: Cannot find module 'lodash.debounce'
-
-# package.json lists it as a dependency, but node_modules is stale.
-$ npm install
-$ npm run build
-Build succeeded.
-```
-
-Autofix resolves most of it:
-
-```
-$ eslint src/ --fix
-3 problems fixed, 2 remaining.
-
-$ eslint src/handlers/auth.ts
-  42:7  error  'token' is possibly undefined  strict-boolean-expressions
-```
-
-Fix at the reported location — narrow the type, don't suppress:
-
-```ts
-// Before
-if (token) { ... }
-
-// After
-if (token !== undefined && token.length > 0) { ... }
-```
-
-A justified suppression:
-
-```ts
-// eslint-disable-next-line no-explicit-any -- third-party SDK has no types; tracked in #482
-const client: any = createLegacyClient()
-```
-
 ## Edge cases
 
 - **The rule or check itself is wrong for the project.**
@@ -198,3 +157,44 @@ const client: any = createLegacyClient()
 
 - **The commit MUST be scoped to the fix.**
   No unrelated feature or `style:` changes MUST be bundled in.
+
+## Examples
+
+- **A broken build with an evident cause:**
+
+  ```
+  $ npm run build
+  Error: Cannot find module 'lodash.debounce'
+
+  # package.json lists it as a dependency, but node_modules is stale.
+  $ npm install
+  $ npm run build
+  Build succeeded.
+  ```
+
+- **Autofix resolves most of it:**
+
+  ```
+  $ eslint src/ --fix
+  3 problems fixed, 2 remaining.
+
+  $ eslint src/handlers/auth.ts
+    42:7  error  'token' is possibly undefined  strict-boolean-expressions
+  ```
+
+- **Fix at the reported location — narrow the type, don't suppress:**
+
+  ```ts
+  // Before
+  if (token) { ... }
+
+  // After
+  if (token !== undefined && token.length > 0) { ... }
+  ```
+
+- **A justified suppression:**
+
+  ```ts
+  // eslint-disable-next-line no-explicit-any -- third-party SDK has no types; tracked in #482
+  const client: any = createLegacyClient()
+  ```

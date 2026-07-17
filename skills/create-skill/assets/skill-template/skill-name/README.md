@@ -19,4 +19,4 @@ arguments to adjust behavior.
 
 ## Examples
 
-Provide examples of input and typical output.
+Provide examples of input and typical output. OPTIONAL.

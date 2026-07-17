@@ -175,88 +175,6 @@ completion.
   Refinement should leave the *purpose* of the original specification intact;
   expansion replaces it.
 
-## Examples
-A correction triggered by a failing AC:
-
-```
-Trigger: AC-3 (same idempotency key returns same order) — FAIL in test;
-         on inspection, the specification mandates 200 OK, but the agreed
-         contract with the SDK team is 200 OK + warning header.
-
-Type:    Correction.
-
-Locate:  features/orders/idempotent-create.feature, Scenario "same
-         key returns same order".
-
-Before:
-  Then the response status is 200
-   And the response body matches the original order
-
-After:
-  Then the response status is 200
-   And the response body matches the original order
-   And the response includes a header "X-Idempotent-Replay: true"
-
-Rationale: Confirmed with SDK team on 2026-05-14 — the warning header
-is required for their retry-logic instrumentation. Original specification
-omitted this; failure was correctly caught by the integration test.
-
-Downstream impact:
-  - design: no change (header is a presentation detail)
-  - code: handler in orders/create.ts needs to add the header
-  - test: orders.spec.ts:89 needs an updated assertion
-```
-
-An addition triggered by exploratory testing:
-
-```
-Trigger: Exploratory pass in test found that replaying an idempotency
-         key 24h later behaves inconsistently — TTL was never specified.
-
-Type:    Addition (missing AC).
-
-Locate:  features/orders/idempotent-create.feature — new scenario.
-
-After (added scenario):
-  Scenario: Idempotency key beyond TTL window
-    Given an order was created with idempotency key "abc-123"
-     And 24 hours have passed
-    When a new order is submitted with the same key
-    Then the response status is 201
-     And a new order is created
-
-Rationale: TTL was an unstated assumption; the design picked 24h
-based on Stripe's convention. Confirmed with the product team
-2026-05-15 that 24h is acceptable.
-
-Downstream impact:
-  - design: ADR-014 already records the 24h TTL choice — no change.
-  - code: TTL purge job exists; add an explicit test for boundary.
-  - test: new acceptance scenario above.
-```
-
-A threshold adjustment:
-
-```
-Trigger: NFR "p95 latency < 200ms" measured at 188ms in test; users
-         still report slowness. UX research shows perceived slowness
-         starts at 150ms for this interaction.
-
-Type:    Threshold adjustment (NFR tightened).
-
-Before:  p95 API latency < 200ms at 500 RPS sustained.
-After:   p95 API latency < 150ms at 500 RPS sustained.
-
-Rationale: User research session 2026-05-12, n=8 participants;
-threshold of perceived slowness is 150ms for this specific
-checkout interaction. Original 200ms was a guess, now disproven.
-
-Downstream impact:
-  - design: re-evaluate cache strategy (likely needs in-memory layer).
-  - plan: add a "performance tightening" increment.
-  - test: re-run perf suite against new threshold (currently FAIL).
-```
-
 ## Success criteria
 
 - **Every refinement MUST name its trigger and its type.**
@@ -283,3 +201,86 @@ Downstream impact:
 
 - **If no specification existed in writing, the output MUST include the newly
   written assumed specification plus the refinement applied to it.**
+
+## Examples
+
+- **A correction triggered by a failing AC:**
+
+  ```
+  Trigger: AC-3 (same idempotency key returns same order) — FAIL in test;
+          on inspection, the specification mandates 200 OK, but the agreed
+          contract with the SDK team is 200 OK + warning header.
+
+  Type:    Correction.
+
+  Locate:  features/orders/idempotent-create.feature, Scenario "same
+          key returns same order".
+
+  Before:
+    Then the response status is 200
+    And the response body matches the original order
+
+  After:
+    Then the response status is 200
+    And the response body matches the original order
+    And the response includes a header "X-Idempotent-Replay: true"
+
+  Rationale: Confirmed with SDK team on 2026-05-14 — the warning header
+  is required for their retry-logic instrumentation. Original specification
+  omitted this; failure was correctly caught by the integration test.
+
+  Downstream impact:
+    - design: no change (header is a presentation detail)
+    - code: handler in orders/create.ts needs to add the header
+    - test: orders.spec.ts:89 needs an updated assertion
+  ```
+
+- **An addition triggered by exploratory testing:**
+
+  ```
+  Trigger: Exploratory pass in test found that replaying an idempotency
+          key 24h later behaves inconsistently — TTL was never specified.
+
+  Type:    Addition (missing AC).
+
+  Locate:  features/orders/idempotent-create.feature — new scenario.
+
+  After (added scenario):
+    Scenario: Idempotency key beyond TTL window
+      Given an order was created with idempotency key "abc-123"
+      And 24 hours have passed
+      When a new order is submitted with the same key
+      Then the response status is 201
+      And a new order is created
+
+  Rationale: TTL was an unstated assumption; the design picked 24h
+  based on Stripe's convention. Confirmed with the product team
+  2026-05-15 that 24h is acceptable.
+
+  Downstream impact:
+    - design: ADR-014 already records the 24h TTL choice — no change.
+    - code: TTL purge job exists; add an explicit test for boundary.
+    - test: new acceptance scenario above.
+  ```
+
+- **A threshold adjustment:**
+
+  ```
+  Trigger: NFR "p95 latency < 200ms" measured at 188ms in test; users
+          still report slowness. UX research shows perceived slowness
+          starts at 150ms for this interaction.
+
+  Type:    Threshold adjustment (NFR tightened).
+
+  Before:  p95 API latency < 200ms at 500 RPS sustained.
+  After:   p95 API latency < 150ms at 500 RPS sustained.
+
+  Rationale: User research session 2026-05-12, n=8 participants;
+  threshold of perceived slowness is 150ms for this specific
+  checkout interaction. Original 200ms was a guess, now disproven.
+
+  Downstream impact:
+    - design: re-evaluate cache strategy (likely needs in-memory layer).
+    - plan: add a "performance tightening" increment.
+    - test: re-run perf suite against new threshold (currently FAIL).
+  ```

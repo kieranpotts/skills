@@ -226,43 +226,6 @@ validates messages and stops; it neither stages nor commits.
   artifact — is for end users. So we _are_ interested in recording in the
   changelog internal changes like refactorings and reformattings.
 
-## Examples
-
-Minimal (subject line only):
-
-```
-feature: add git uncommit
-fix: handle empty repository in git-amend
-refactor: simplify test repo interface
-style: apply prettier to src
-step: extract search algorithm to separate module
-maintenance: bump typescript to 5.0
-chore: fix typo in readme
-```
-
-With optional flag:
-
-```
-feature: remove legacy auth endpoint - BREAKING
-step: refactor database layer - INCOMPAT
-refactor: optimize query performance - WIP
-maintenance: test new build tool version - EXPERIMENT
-```
-
-With body and footer:
-
-```
-fix: prevent racing of requests
-
-Introduce a request id and a reference to the latest request.
-Dismiss incoming responses other than from latest request.
-
-Remove timeouts which were previously used to mitigate the racing
-issue but which are now obsolete.
-
-Closes: #123
-```
-
 ## Success criteria
 
 - **The subject line MUST pass the validation regex.**
@@ -285,3 +248,40 @@ Closes: #123
 
   The `[Unreleased]` section MUST exist and MUST contain a bullet for this
   commit, using the same `type: description` format as the subject line.
+
+## Examples
+
+- **Minimal (subject line only):**
+
+  ```
+  feature: add git uncommit
+  fix: handle empty repository in git-amend
+  refactor: simplify test repo interface
+  style: apply prettier to src
+  step: extract search algorithm to separate module
+  maintenance: bump typescript to 5.0
+  chore: fix typo in readme
+  ```
+
+- **With optional flag:**
+
+  ```
+  feature: remove legacy auth endpoint - BREAKING
+  step: refactor database layer - INCOMPAT
+  refactor: optimize query performance - WIP
+  maintenance: test new build tool version - EXPERIMENT
+  ```
+
+- **With body and footer:**
+
+  ```
+  fix: prevent racing of requests
+
+  Introduce a request id and a reference to the latest request.
+  Dismiss incoming responses other than from latest request.
+
+  Remove timeouts which were previously used to mitigate the racing
+  issue but which are now obsolete.
+
+  Closes: #123
+  ```
