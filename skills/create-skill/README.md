@@ -11,8 +11,7 @@ It produces a complete skill directory, including:
 
 The agent is instructed to ensure all artifacts pass the validator.
 
-This skill is interactive. The agent is instructed to prompt the user for input
-to help it form the skill.
+The agent is instructed to prompt the user for input to help it form the skill.
 
 ## How to invoke
 

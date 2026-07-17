@@ -24,8 +24,8 @@ in this skills.
 
 - And another discrete piece of information.
 
-Gather the information you can from the surrounding context. If in doubt,
-prompt the user for clarification.
+Gather as much of this information as possible from the surrounding context.
+Prompt the user for anything that's missing or unclear.
 
 Specify whether the agent should work non-interactively to completion, or if
 the agent may interact with the user — blocking to ask questions, present
@@ -34,8 +34,9 @@ options, and wait for answers.
 **Output:**
 
 What the skill produces, in what format, and where it is written — a
-report, a direct edit, a file, a commit, the conversation itself. Specify how
-the agent should summarize the outcomes of its work.
+report, a direct edit, a file, a commit, the conversation itself.
+
+Optionally, specify how the agent should summarize the outcomes of its work.
 
 ##  Instructions
 
@@ -98,6 +99,11 @@ A small number of canonical input/output examples. Regular prose. OPTIONAL.
 
 Warn about potential edge cases. Regular prose. OPTIONAL.
 
+## Assets
+
+- [Some template](./assets/template.md):
+  The bundled template to fill out in step N.
+
 ## References
 
 Include a ist of links with extended and related information. For each, include
@@ -106,11 +112,8 @@ an explicit trigger condition.
 - [API errors](./references/api-errors.md):
   Read if the API returns a non-200 status code.
 
-- [Some template](./assets/template.md):
-  The bundled template to fill out in step N.
+- [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
+  Used this skill for [purpose].
 
-- [Adjacent skill](../skill-name/SKILL.md):
-  Used for [purpose].
-
-- [External skill](https://raw.githubusercontent.com/.../SKILL.md):
-  Used for [purpose].
+- [Other skill](../skill-name/SKILL.md):
+  Used this skill for [purpose] — include only if required to create this skill.

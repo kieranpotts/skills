@@ -20,24 +20,25 @@ or a downstream project.
 **Input:**
 
 - A description of the skill to create, or a path to an existing skill
-  to improve.
+  to improve. REQUIRED.
 
-- The purpose of the skill.
+- The purpose of the skill. REQUIRED.
 
-- Trigger conditions.
+- Trigger conditions. REQUIRED.
 
-- Target project in which to install the skill.
+- Target project in which to install the skill. OPTIONAL. If not explicitly
+  specified, if the current working directory is inside a Git repository, assume
+  that is the target project, else install in the user's home directory at
+  `$HOME/.agents/skills/<skill-name>/`.
 
-Gather what information you can from the surrounding context. If in doubt,
-prompt the user for confirmation. If the current working directory is inside
-a Git repository, assume that is the target project, else install in the user's
-home directory at `~/.agents/skills/<skill-name>/`.
+Gather as much of this information as possible from the surrounding context.
+Prompt the user for anything that's missing or unclear.
 
 **Output:**
 
 A complete skill directory, including a `SKILL.md`  file conforming to the
-bundled template, a sibling `README.md`, and any bundled assets, references,
-and scripts. All artifacts pass the validator.
+bundled template, a sibling `README.md` for humans, and any bundled assets,
+references, and scripts. All artifacts pass the validator.
 
 ##  Instructions
 
@@ -45,8 +46,8 @@ and scripts. All artifacts pass the validator.
 
     Establish what the skill should do and when it should trigger. Extract as
     much as you can from the conversation before asking questions. At minimum,
-    understand the task, trigger situations, expected output, and any hard
-    constraints or edge cases.
+    understand the task, trigger situations, expected input and output, and any
+    hard constraints or edge cases.
 
 2.  **Research the domain.**
 
@@ -57,7 +58,12 @@ and scripts. All artifacts pass the validator.
 
 3.  **Choose a name and location.**
 
-    Place the skill in the project's skills directory:
+    Identify the target directory for installation. If not explicitly specified,
+    is the current working directory under a Git directory? If so, assume the
+    root directory of the Git repository is the target. If not, assume the user's
+    home directory is the target — for global installation of the new skill.
+
+    Under the target directory, the skill file will be installed at
     `.agents/skills/<skill-name>/SKILL.md`.
 
     Skill names are kebab-case and SHOULD be meaningful actions or verbs,
@@ -72,13 +78,14 @@ and scripts. All artifacts pass the validator.
 
 5.  **Bundle supporting files if needed.**
 
-    Add `scripts/`, `references/`, or `assets/` as required.
+    Add files to `scripts/`, `references/`, or `assets/` as required.
 
-    Include instructions in `SKILL.md` for when and how to run any scripts.
+    Include instructions in `SKILL.md` for when and how to run any scripts,
+    load any references, or extract any assets.
 
     Namespace every bundled file to avoid collisions when the skill is
-    installed alongside others. See the
-    [collision safety instructions](./references/create-skill-collision-safety.md).
+    installed alongside others. See the collision safety instructions,
+    [here](./references/create-skill-collision-safety.md).
 
 6.  **Write the `README.md`.**
 
@@ -110,9 +117,9 @@ and scripts. All artifacts pass the validator.
 
 -   **The `description` field is the primary trigger mechanism.**
 
-    It determines whether an agent invokes the skill. You SHOULD err toward
-    being explicit rather than brief. You MUST follow this two-sentence pattern,
-    written in the third person:
+    It determines when an agent invokes the skill. You SHOULD err toward
+    being explicit rather than brief. You MUST follow this two-sentence
+    pattern, written in the third person:
 
     1. First sentence — what the skill does.
     2. Second sentence — `Use when ...` followed by specific triggers (user
@@ -120,9 +127,9 @@ and scripts. All artifacts pass the validator.
 
     ```
     ✅ Good:
-    Extract text and tables from PDF files, fill forms, merge documents.
-    Use when working with PDF files or when the user mentions PDFs, forms,
-    or document extraction.
+    Extract text and tables from PDF files, forms, or documents. Use when
+    working with PDF files or when the user mentions PDFs, forms, or
+    document extraction.
 
     ❌ Bad:
     Helps with documents.
@@ -136,8 +143,8 @@ and scripts. All artifacts pass the validator.
       the user.
 
     - **Description:** Immediately after the level 1 heading, which is the title
-      of the skill, include a short one or two sentence description of the the
-      skill's purpose. MAY be copied from the first part of the header
+      of the skill, include a short one or two sentence description of the
+      skill's purpose. This MAY be copied from the first part of the header
       description.
 
     - **Input/output:** Immediately after the description, describe the input
@@ -150,7 +157,7 @@ and scripts. All artifacts pass the validator.
 
     - **Success criteria:** REQUIRED.
 
-    OPTIONAL sections: Examples, Edge cases, References, Assets.
+    OPTIONAL sections: **Examples**, **Edge cases**, **References**, **Assets**.
 
 -   **Keep instructions and rules separate.**
 
@@ -176,7 +183,7 @@ and scripts. All artifacts pass the validator.
     Be prescriptive — exact commands, flags, ordering — when operations are
     fragile, consistency is critical, or a specific sequence must be followed.
     Otherwise, avoid enumerating every edge case in the body. Instead, handle
-    genuinely tricky edge cases in the "edge cases" section or a separate
+    genuinely tricky edge cases in the edge cases section or a separate
     `references/` file.
 
     Simple skills need only instructions and success criteria.
@@ -233,6 +240,41 @@ and scripts. All artifacts pass the validator.
     avoid collisions when skills are installed side-by-side; this matters most
     for hosts that flatten all resources into one shared directory.
 
+## Success criteria
+
+- **Front-matter MUST be valid.** The `name` and `description` fields MUST be
+  present and non-empty, and `name` MUST match the directory name.
+
+- **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
+  `**Input:**` and `**Output:**` paragraphs, `## Instructions` or `## Rules`,
+  and `## Success criteria`.
+
+- **The Input and Output paragraphs MUST be present and prominent.** They MUST
+  appear immediately after the title, before the first `##`. The **Input**
+  paragraph MUST state whether input is REQUIRED or OPTIONAL, and MUST state
+  whether the skill runs non-interactively to completion or may interact with
+  the user — blocking to ask questions, present options, and wait for answers.
+
+- **The skill MUST be token-efficient.** No section is padded with detail that
+  belongs in a `references/` file, and `SKILL.md` SHOULD be under ~300 lines.
+
+- **The `description` MUST be specific enough to trigger correctly.** It MUST
+  name both the capability and the contexts that should invoke it — not just a
+  one-line summary of what the skill does.
+
+- **A `README.md` MUST exist alongside the `SKILL.md`.**
+
+## Edge cases
+
+- **Improving an existing skill:** Read the current `SKILL.md` first, then treat
+  the improvement like a new draft. Rewrite rather than patch. Preserve the
+  `name` field unchanged.
+
+- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
+  Use it as a reference for domain knowledge, but adapt the instructions and
+  format to the bundled template and the conventions of the project you are
+  authoring in. Don't copy verbatim.
+
 ## Examples
 
 A minimal skill with no bundled resources:
@@ -257,41 +299,6 @@ skills/
         ├── error-codes.md
         └── schema-patterns.md
 ```
-
-## Edge cases
-
-- **Improving an existing skill:** Read the current `SKILL.md` first, then treat
-  the improvement like a new draft. Rewrite rather than patch. Preserve the
-  `name` field unchanged.
-
-- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
-  Use it as a reference for domain knowledge, but adapt the instructions and
-  format to the bundled template and the conventions of the project you are
-  authoring in. Don't copy verbatim.
-
-## Success criteria
-
-- **Front-matter MUST be valid.** The `name` and `description` fields MUST be
-  present and non-empty, and `name` MUST match the directory name.
-
-- **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
-  `**Input:**` and `**Output:**` paragraphs, `## Instructions` or `## Rules`,
-  and `## Success criteria`.
-
-- **The Input and Output paragraphs MUST be present and prominent.** They MUST
-  appear immediately after the title, before the first `##`. The **Input**
-  paragraph MUST state whether input is REQUIRED or OPTIONAL, and MUST state
-  whether the skill runs non-interactively to completion or may interact with
-  the user — blocking to ask questions, present options, and wait for answers.
-
-- **The skill MUST be token-efficient.** No section is padded with detail that
-  belongs in a `references/` file, and `SKILL.md` SHOULD be under ~300 lines.
-
-- **The `description` MUST be specific enough to trigger correctly.** It MUST
-  name both the capability and the contexts that should invoke it — not just a
-  one-line summary of what the skill does.
-
-- **A `README.md` MUST exist alongside the `SKILL.md`.**
 
 ## Assets
 
