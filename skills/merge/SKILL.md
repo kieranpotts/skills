@@ -19,7 +19,7 @@ metadata:
 Consolidate divergence between two git branches using the strategy the
 project's branching convention prescribes for that branch type.
 
-**Input:** A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED.
+**Input:** A source branch and a target branch, both committed (no uncommitted work) and up to date with their remotes, plus the project's branching convention that maps each branch type to a merge strategy and its commit-message and changelog formats. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** The target branch updated with the integrated work using the
   strategy correct for the branch type, conflicts resolved deliberately, tests and
@@ -27,10 +27,6 @@ project's branching convention prescribes for that branch type.
   (`temp/*`, `epic/*`) deleted locally and remotely once landed. The skill
   integrates and stops; it neither defines the branching convention nor cuts
   releases.
-
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
 
 ## Instructions
 

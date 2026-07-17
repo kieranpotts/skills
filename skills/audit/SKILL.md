@@ -33,6 +33,10 @@ metadata:
   path to the audit reports cannot be found, stop and alert the user of the
   failure.
 
+This skill is non-interactive: agents MUST NOT block for user input after the
+initial prompt, and MUST follow the instructions to completion or fail with an
+error message.
+
 **Output:** A single prioritized, bounded report of architecture improvement
 candidates, each citing specific files and lines, stating what is observed and
 the cost it imposes, and optionally pointing toward a fix. The report is written
@@ -46,11 +50,7 @@ referral to a threat modeling session and the
 [risk register](https://github.com/kieranpotts/risks), then continue the
 architecture review. See the **[probe](../probe/)** skill.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Establish scope.**
 
@@ -152,7 +152,7 @@ with an error message.
     common conventions, and follow those conventions in the writing of your
     new report.
 
-##  Rules
+## Rules
 
 -   **You MUST NOT read existing design docs, threat models, etc.**
 
@@ -218,7 +218,7 @@ with an error message.
     smells just because you would prefer a different style. The audit MUST target
     structural problems, not preferences.
 
-##  Success criteria
+## Success criteria
 
 -   **The report MUST cite a specific file for every finding.**
 

@@ -18,18 +18,14 @@ metadata:
 
 **Input:** A request to create or name a branch, or one or more existing branch
 names to validate. REQUIRED. The project's branch model (trunk names, `temp/*`
-and `epic/*` conventions) and the naming regex supply what is checked against.
+and `epic/*` conventions) and the naming regex supply what is checked against. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A correctly-named branch created from the right base, or a pass/fail
 verdict on the supplied names with the specific rule each one violates. This
 skill names and validates branches and stops; it does not merge, cut releases,
 or author commit messages.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Classify the work.**
 
@@ -64,7 +60,7 @@ with an error message.
     request is to validate, report a pass/fail verdict for each supplied name,
     naming the rule each failure violates.
 
-##  Rules
+## Rules
 
 -   **Allowed branches are limited to the trunk, temporary, and epic forms.**
 
@@ -204,7 +200,7 @@ epic/infra-migrate-kubernetes
 epic/major-ui-redesign
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **The branch name MUST validate against the model.**
 

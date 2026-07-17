@@ -39,6 +39,10 @@ Run an interactive threat modeling session.
   the current working directory has a `risks/` subdirectory containing a
   `REGISTER.md`. If the register cannot be located, stop and alert the user.
 
+This skill is interactive: the agent facilitates the session, asking one
+question at a time, gathering the rest of its input from the user through the
+conversation.
+
 **Output:** Two artifacts, written to the risk register store, following the
 conventions defined there:
 
@@ -55,10 +59,6 @@ The session report is a point-in-time snapshot. The register is the living
 source of truth for where each risk stands. A threat may appear in the report's
 assessment but NOT be promoted to the register — only risks worth tracking over
 time are.
-
-**Interactivity:** This skill is interactive. The agent facilitates the session,
-asking one question at a time, gathering the rest of its input from the user
-through the conversation.
 
 ## Instructions
 

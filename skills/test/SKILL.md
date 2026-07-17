@@ -23,7 +23,7 @@ pass/fail/blocked.
 **Input:** A completed change and its specification. REQUIRED. The change has
 already cleared review (static qualities checked); this skill verifies the
 dynamic ones. The full set of acceptance criteria, functional and
-non-functional, supplies what to verify against.
+non-functional, supplies what to verify against. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A verification report — every AC mapped to a status (PASS / FAIL /
 BLOCKED / N/A) and observable evidence, with an explicit verdict. Failures are
@@ -31,10 +31,6 @@ classified — an implementation defect, or a wrong/missing/ambiguous AC (a
 specification defect) — and reported, not fixed. Whatever consumes the report —
 diagnosing a defect, editing the specification, releasing — is the
 orchestrator's concern, not this skill's.
-
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
 
 ## Instructions
 

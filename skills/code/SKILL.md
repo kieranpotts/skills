@@ -16,18 +16,14 @@ metadata:
 
 **Input:** One numbered plan step (or a small standalone change whose design is
 already obvious) — a scoped, already-designed unit of work. REQUIRED. This skill
-does not design or decompose; it consumes a step that is ready to implement.
+does not design or decompose; it consumes a step that is ready to implement. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A committed, tested change for that single step — the implementation
 plus its tests, scope-locked to the step, with a clean reviewable diff and a
 conventional commit. Whatever reviews, tests further, or sequences the next step
 is the orchestrator's concern, not this skill's.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Restate the step's scope.**
 
@@ -92,7 +88,7 @@ with an error message.
     helps reviewers). Use the project's commit type vocabulary and format.
     Reference the issue or plan in the body or footer.
 
-##  Rules
+## Rules
 
 -   **You MUST implement one step per session.**
 
@@ -200,7 +196,7 @@ idempotency lookup is the next step.
 Refs: #482
 ```
 
-##  Edge cases
+## Edge cases
 
 -   **The step turns out to be too big.**
 
@@ -231,7 +227,7 @@ Refs: #482
     but throw the prototype away when done. Re-implement properly under this
     skill afterward.
 
-##  Success criteria
+## Success criteria
 
 -   **The diff MUST stay within the step's stated scope.**
 

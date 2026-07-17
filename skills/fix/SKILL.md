@@ -20,15 +20,11 @@ metadata:
 
 **Input:** The broken thing — a failing build/compile/lint/type-check command,
 an error message, or an instruction to audit a part of the codebase for things
-that are broken. REQUIRED.
+that are broken. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** The build, compile, lint, or type-check passes; the reported
 breakage is resolved at its source, or explicitly suppressed with a recorded
 justification. No unrelated behavior change.
-
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
 
 ## Instructions
 

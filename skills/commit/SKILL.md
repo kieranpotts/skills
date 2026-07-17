@@ -17,7 +17,7 @@ metadata:
 
 **Input:** A description of a change to compose a message for, or one or more
 existing commit messages to validate (a branch's history before push). REQUIRED.
-For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope.
+For direct commits to `dev` or `temp/*`, the `CHANGELOG.md` is also in scope. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A conforming commit message in the `<type>: <description>` format
 (with any optional flag, body, and footers), or a pass/fail verdict on the
@@ -25,13 +25,9 @@ supplied messages naming the rule each one violates. Where required, the
 matching `[Unreleased]` changelog entry is produced too. This skill composes and
 validates messages and stops; it neither stages nor commits.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
 <!-- TODO: Allow direct commits to dev? -->
 
-##  Instructions
+## Instructions
 
 1.  **Identify the change type and scope.**
 
@@ -70,7 +66,7 @@ with an error message.
     length budget. If validating existing messages, report a pass/fail verdict
     for each, naming the rule each failure violates.
 
-##  Rules
+## Rules
 
 -   **You MUST use this exact format:**
 
@@ -265,7 +261,7 @@ issue but which are now obsolete.
 Closes: #123
 ```
 
-##  Success criteria
+## Success criteria
 
 -   **The subject line MUST pass the validation regex.**
 

@@ -22,17 +22,13 @@ or structure.
 
 **Input:** The code or content to normalize — a set of files, a diff, or the
 working tree — plus the project's configured formatter and style conventions
-where they exist. REQUIRED.
+where they exist. REQUIRED. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** The same files with presentation-only edits applied (whitespace,
 indentation, wrapping, quotes, ordering), behavior and structure provably
 unchanged, ideally via the project's automated formatter, ready to commit under
 a `style:` commit. This skill normalizes presentation and stops; it makes no
 structural or behavioral change.
-
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
 
 ## Instructions
 

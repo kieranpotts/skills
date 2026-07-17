@@ -16,7 +16,7 @@ metadata:
 **Input:** A reported bug or performance regression whose cause is not obvious
 from reading the code — the symptom, where it shows up, and any reproduction the
 user already has. REQUIRED. For performance work, a numerical baseline and
-threshold stand in for the symptom.
+threshold stand in for the symptom. This skill is non-interactive: agents MUST NOT block for user input after the initial prompt, and MUST follow the instructions to completion or fail with an error message.
 
 **Output:** A verified fix landed with a regression test that locks the bug out,
 the diagnostic instrumentation removed, and the correct cause recorded in the
@@ -24,11 +24,7 @@ commit or PR message for the next reader. If no reliable feedback loop can be
 built, the skill stops and says so — listing what it tried and what it needs —
 rather than guessing.
 
-**Interactivity:** Agents MUST NOT block for user input after the initial
-prompt. Agents MUST follow this skill's instructions to completion, or fail
-with an error message.
-
-##  Instructions
+## Instructions
 
 1.  **Build a feedback loop.**
 
@@ -146,7 +142,7 @@ with an error message.
     architectural change (no good test seam, tangled callers, hidden coupling),
     make a recommendation — *after* the fix is in, not before.
 
-##  Rules
+## Rules
 
 -   **The feedback loop is the skill.**
 
@@ -233,7 +229,7 @@ console.log(`[DEBUG-a4f2] cache key for tenant=${tenantId}: ${key}`)
 
 Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
 
-##  Edge cases
+## Edge cases
 
 -   **Performance regression, not a functional bug.**
 
@@ -259,7 +255,7 @@ Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
     reproduces something nearby, stop and check in with the user before chasing
     the wrong bug.
 
-##  Success criteria
+## Success criteria
 
 -   **A feedback loop MUST exist and MUST be recorded.**
 
