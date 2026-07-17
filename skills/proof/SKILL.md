@@ -32,36 +32,39 @@ capitalization.
 
 1.  **Resolve the set of files to proofread.**
 
-    From the user's request, build the list of target files. The target may be a
-    single file, a glob, a directory (recurse it for prose files), or unstated.
-    If unstated, proofread the prose files changed in the working tree (`git
-    status --porcelain`). If the working tree is clean, ask the user which files
-    to review.
+    From the user's request, you MUST build the list of target files. The target
+    may be a single file, a glob, a directory (recurse it for prose files), or
+    unstated. If unstated, you MUST proofread the prose files changed in the
+    working tree (`git status --porcelain`). If the working tree is clean, you
+    MUST ask the user which files to review.
 
-    Apply the file-selection Rules: include only prose files and skip generated or
-    vendored files.
+    You MUST apply the file-selection Rules: include only prose files and skip
+    generated or vendored files.
 
 2.  **Detect the markup language and the line-wrapping convention per file.**
 
-    Before editing a file, note its format (so you know which syntax to protect)
-    and its existing wrapping style — one-sentence-per-line, hard-wrapped at a
-    column, or unwrapped paragraphs. Keep the wrapping style unchanged.
+    Before editing a file, you MUST note its format (so you know which syntax to
+    protect) and its existing wrapping style — one-sentence-per-line, hard-wrapped
+    at a column, or unwrapped paragraphs. You MUST keep the wrapping style
+    unchanged.
 
 3.  **Proofread one file at a time, editing in place.**
 
-    Work through the files individually. For each file, apply the allowed edits
-    in the Rules section and protect the forbidden zones in the Rules section.
-    Make the edits directly in the file. After finishing a file, record which
-    changes you made (for the summary) and drop the file from working memory
-    before opening the next — do not re-read a completed file.
+    You SHOULD work through the files individually. For each file, you MUST apply
+    the allowed edits in the Rules section and protect the forbidden zones in the
+    Rules section. You MUST make the edits directly in the file. After finishing a
+    file, you SHOULD record which changes you made (for the summary) and drop the
+    file from working memory before opening the next — you MUST NOT re-read a
+    completed file.
 
 4.  **Report a summary and stop.**
 
-    When every target file is processed, print a concise summary grouped by
-    file: for each file that changed, a short bullet list of the kinds of edits
+    When every target file is processed, you MUST print a concise summary grouped
+    by file: for each file that changed, a short bullet list of the kinds of edits
     made (eg. "3 typos, 1 subject-verb agreement, standardized 'web-site' -
-    'website'"). Name any files reviewed but left unchanged and any files skipped
-    as generated or vendored. Then stop — do not stage, commit, or push.
+    'website'"). You MUST name any files reviewed but left unchanged and any files
+    skipped as generated or vendored. You MUST then stop — do not stage, commit,
+    or push.
 
 ## Rules
 

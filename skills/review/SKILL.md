@@ -34,21 +34,22 @@ responsibility.
 
 1.  **Understand what the change is and why.**
 
-    Read the PR description, linked issue, or commit body. Identify the
-    acceptance criteria (or the specification) it claims to satisfy. Note any
-    captured design decision behind it. If the *why* is unclear from the
-    description, ask the author.
+    You MUST read the PR description, linked issue, or commit body. You MUST
+    identify the acceptance criteria (or the specification) it claims to satisfy.
+    You MUST note any captured design decision behind it. If the *why* is unclear
+    from the description, you SHOULD ask the author.
 
 2.  **Pin the comparison base, then read the diff in commit order.**
 
-    State the comparison base explicitly — a commit SHA, branch name, tag, or
-    `main`. Capture the diff command once (eg. `git diff <base>...HEAD` for
-    three-dot, merge-base comparison) so every subsequent step references the
-    same set of changes. Read the diff in commit order, not file-by-file.
+    You MUST state the comparison base explicitly — a commit SHA, branch name,
+    tag, or `main`. You MUST capture the diff command once (eg. `git diff
+    <base>...HEAD` for three-dot, merge-base comparison) so every subsequent step
+    references the same set of changes. You SHOULD read the diff in commit order,
+    not file-by-file.
 
 3.  **Check correctness.**
 
-    Against the ACs and the design:
+    You MUST check, against the ACs and the design:
 
     - Does the change implement what the AC requires?
     - Does it handle edge cases the AC implies but doesn't enumerate (empty
@@ -59,6 +60,8 @@ responsibility.
       inconsistent if interrupted halfway?
 
 4.  **Check design.**
+
+    You MUST check:
 
     - Does the change follow the architecture and patterns established in the
       codebase? Match the style of nearby files unless the change is
@@ -72,6 +75,8 @@ responsibility.
 
 5.  **Check clarity.**
 
+    You MUST check:
+
     - Could a developer unfamiliar with this area understand *what* the code
       does and *why*?
     - Are names meaningful and idiomatic?
@@ -82,6 +87,8 @@ responsibility.
 
 6.  **Check test coverage.**
 
+    You MUST check:
+
     - Does every new behavior have at least one test that fails when the
       behavior is removed?
     - Do tests assert on meaningful behavior, not implementation details?
@@ -91,7 +98,8 @@ responsibility.
 
 7.  **Check security.**
 
-    For any change that touches input, auth, persistence, or external calls:
+    For any change that touches input, auth, persistence, or external calls, you
+    MUST check:
 
     - Are inputs validated at the system boundary?
     - Are access controls enforced — not just at the UI, but at the service
@@ -103,7 +111,7 @@ responsibility.
 
 8.  **Check completeness.**
 
-    Does the change include everything it needs to ship?
+    You MUST check that the change includes everything it needs to ship:
 
     - Documentation updates (README, API docs, runbook).
     - Configuration / environment variable additions, documented.
@@ -113,7 +121,7 @@ responsibility.
 
 9.  **Classify and write findings.**
 
-    Assign every comment a severity label:
+    You MUST assign every comment a severity label:
 
     - *Blocking*: MUST be addressed before merge (correctness, security, missing
       tests for new behavior, breaks the build).
@@ -121,11 +129,11 @@ responsibility.
     - *Nit*: stylistic preference, optional.
     - *Praise*: explicitly noting something well done. Reinforces good patterns.
 
-    Write each comment to be specific and actionable.
+    You MUST write each comment to be specific and actionable.
 
 10. **Conclude with an explicit verdict.**
 
-    Choose one of:
+    You MUST choose one of:
 
     - *Approve*: ship it; no blocking comments.
     - *Request changes*: at least one blocking comment.

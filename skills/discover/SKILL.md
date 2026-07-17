@@ -39,21 +39,21 @@ acceptance criteria. These are separate downstream responsibilities.
 
 ## Instructions
 
-Conduct the session as a structured interview. Ask one question at a time, in
-the order below. Wait for the answer before asking the next. Let each answer
-shape the question that follows.
+You MUST conduct the session as a structured interview. You MUST ask one
+question at a time, in the order below, and MUST wait for the answer before
+asking the next. You SHOULD let each answer shape the question that follows.
 
 1.  **Confirm the seed.**
 
-    Restate what the user has brought you, in one sentence: *"You want to
-    understand the requirements for <feature/capability> — is that right?"*
+    You MUST restate what the user has brought you, in one sentence: *"You want
+    to understand the requirements for <feature/capability> — is that right?"*
 
-    Clarify before proceeding if the seed is ambiguous. A discovery built on a
-    misread seed produces an invalid PRD.
+    You MUST clarify before proceeding if the seed is ambiguous. A discovery
+    built on a misread seed produces an invalid PRD.
 
     If the user supplies existing business requirements artifacts (a file path,
-    a URL, or pasted text), read them in full first, then ask which way to
-    proceed:
+    a URL, or pasted text), you MUST read them in full first, then ask which way
+    to proceed:
 
     - *"Refine these existing artifacts in place?"*: Interrogate and extend what
       is already written, keeping its structure, filling its gaps. Treat the
@@ -61,54 +61,55 @@ shape the question that follows.
 
     - *"Produce a fresh PRD using these as a basis?"*: Extract the problem,
       outcome, scope, rules, and so on from the artifacts as raw material, then
-      build a clean PRD to this skill's template. Confirm each extracted item
-      with the user before adopting it — do NOT carry anything over unverified —
-      the artifacts may be stale, partial, or wrong.
+      build a clean PRD to this skill's template. You MUST confirm each extracted
+      item with the user before adopting it — you MUST NOT carry anything over
+      unverified — the artifacts may be stale, partial, or wrong.
 
-    Do NOT assume either mode. Wait for the user to choose before continuing the
-    interview.
+    You MUST NOT assume either mode. You MUST wait for the user to choose before
+    continuing the interview.
 
 2.  **Surface the outcome.**
 
-    Ask, one at a time:
+    You MUST ask, one at a time:
 
     - *"What problem is the customer facing? What's wrong or missing?"*
     - *"What is the customer trying to achieve?"*
     - *"Why now? What's the trigger for this requirement?"*
     - *"What measurable change would tell the customer this worked?"*
 
-    Capture as *Problem*, *Goal*, *Why now*, *Success measure*. This is the
-    Impact Mapping layer — it keeps the *why* alive for downstream skills.
+    You MUST capture as *Problem*, *Goal*, *Why now*, *Success measure*. This is
+    the Impact Mapping layer — it keeps the *why* alive for downstream skills.
 
 3.  **Identify the stakeholders.**
 
-    Ask, one at a time:
+    You MUST ask, one at a time:
 
     - *"Who is affected by this?"*
     - *"Who decides whether it's done?"*
     - *"Whose work changes as a result?"*
 
-    For each stakeholder, capture role and interest in the outcome.
+    For each stakeholder, you MUST capture role and interest in the outcome.
 
 4.  **Establish scope.**
 
-    Ask: *"What is deliberately out of scope here? What are we choosing not to
-    address?"*
+    You MUST ask: *"What is deliberately out of scope here? What are we choosing
+    not to address?"*
 
     An explicit out-of-scope list is one of the most valuable discovery
-    artifacts. Push for it. Discovery sessions that produce only an *in-scope*
-    list hide ambiguity that re-surfaces during build.
+    artifacts. You SHOULD push for it. Discovery sessions that produce only an
+    *in-scope* list hide ambiguity that re-surfaces during build.
 
 5.  **Elicit rules.**
 
-    Ask: *"What rules govern this? Rules are things that must always be true, or
-    must never happen."*
+    You MUST ask: *"What rules govern this? Rules are things that must always be
+    true, or must never happen."*
 
-    Capture each rule as a single declarative sentence. Number them.
+    You MUST capture each rule as a single declarative sentence, and MUST number
+    them.
 
 6.  **For each rule, elicit concrete examples and counter-examples.**
 
-    For *each* rule, ask:
+    For *each* rule, you MUST ask:
 
     - *"Give me a real case where this rule applies."*
     - *"What's the situation, and what happens?"*
@@ -118,41 +119,41 @@ shape the question that follows.
     Examples are the lifeblood of discovery. Without examples, rules are
     abstract noise. The counter-example forces a sharper boundary.
 
-    Capture examples in plain natural language (*"A premium customer with £600
-    in their cart sees free delivery presented at checkout"*). These are not yet
-    testable acceptance criteria.
+    You MUST capture examples in plain natural language (*"A premium customer
+    with £600 in their cart sees free delivery presented at checkout"*). These
+    are not yet testable acceptance criteria.
 
 7.  **Elicit non-functional requirements.**
 
-    Ask: *"Beyond what it must do, are there constraints on how well it must do
-    it — how fast, how many at once, how available, how secure, who must be able
-    to use it?"*
+    You MUST ask: *"Beyond what it must do, are there constraints on how well it
+    must do it — how fast, how many at once, how available, how secure, who must
+    be able to use it?"*
 
-    Capture each as a measurable target where one exists (*"checkout completes
-    within 2 seconds for 95% of requests"*), still in business language — no
-    implementation detail.
+    You SHOULD capture each as a measurable target where one exists (*"checkout
+    completes within 2 seconds for 95% of requests"*), still in business
+    language — no implementation detail.
 
-    If the customer has no non-functional requirements, record *"None known"*
-    explicitly rather than leaving the section blank. A downstream specification
-    step may read an empty section as an omission, not a decision.
+    If the customer has no non-functional requirements, you MUST record *"None
+    known"* explicitly rather than leaving the section blank. A downstream
+    specification step may read an empty section as an omission, not a decision.
 
 8.  **Surface assumptions.**
 
-    Whenever the user states something with confidence, ask: *"Is that something
-    the customer has told us, or something we're assuming?"* Capture every
-    assumption explicitly. Each one is a risk to validate later.
+    Whenever the user states something with confidence, you MUST ask: *"Is that
+    something the customer has told us, or something we're assuming?"* You MUST
+    capture every assumption explicitly. Each one is a risk to validate later.
 
 9.  **Capture open questions.**
 
-    Any question the user/customer cannot answer in this session goes into an
-    *Open Questions* list, with a named owner. Do NOT stall on unanswered
-    questions — capture and move on. Discovery sessions end when no new rules
-    emerge, not when every question is resolved.
+    Any question the user/customer cannot answer in this session you MUST put
+    into an *Open Questions* list, with a named owner. You MUST NOT stall on
+    unanswered questions — capture and move on. Discovery sessions end when no
+    new rules emerge, not when every question is resolved.
 
 10. **Produce the PRD.**
 
-    Confirm with the user that no further rules need to be elicited, then fill
-    out the bundled template at
+    You MUST confirm with the user that no further rules need to be elicited,
+    then fill out the bundled template at
     [`assets/discover/product-requirements.template.md`](./assets/discover/product-requirements.template.md).
 
     The template has these sections: *Outcome* (problem, goal, why now, success
@@ -160,7 +161,7 @@ shape the question that follows.
     applies/doesn't-apply pair per rule), *Non-functional requirements*,
     *Assumptions*, and *Open questions* (each with an owner).
 
-    Report the PRD as this skill's output and stop.
+    You MUST report the PRD as this skill's output and stop.
 
 ## Rules
 

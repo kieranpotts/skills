@@ -29,36 +29,36 @@ or author commit messages.
 
 1.  **Classify the work.**
 
-    Decide whether the change belongs on a trunk branch (`dev`, `test`, or
-    `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
+    You MUST decide whether the change belongs on a trunk branch (`dev`, `test`,
+    or `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
     directly on `dev` (for a one- or two-commit change).
 
 2.  **Form the branch name.**
 
     For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
 
-    For `temp/*` or `epic/*` branches, build the name from the work:
+    For `temp/*` or `epic/*` branches, you MUST build the name from the work:
 
-    - Optionally prefix with an issue or tracking ID.
-    - Append a lowercase, hyphen-delimited description of the work.
-    - Keep the total length within the budget.
+    - You MAY prefix with an issue or tracking ID.
+    - You MUST append a lowercase, hyphen-delimited description of the work.
+    - You MUST keep the total length within the budget.
 
 3.  **Validate the name against the regex.**
 
-    Test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
-    If it fails, rewrite the name and re-test until it passes, or report the
-    specific rule that was violated.
+    You MUST test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
+    If it fails, you MUST rewrite the name and re-test until it passes, or report
+    the specific rule that was violated.
 
 4.  **Choose the correct base branch.**
 
-    For `temp/*` and `epic/*` branches, base the branch on `dev`. Do not base
-    them on `test`, `ready`, or a release branch.
+    For `temp/*` and `epic/*` branches, you MUST base the branch on `dev`. You
+    MUST NOT base them on `test`, `ready`, or a release branch.
 
 5.  **Create or report.**
 
-    If the request is to create a branch, create it from the chosen base. If the
-    request is to validate, report a pass/fail verdict for each supplied name,
-    naming the rule each failure violates.
+    If the request is to create a branch, you MUST create it from the chosen
+    base. If the request is to validate, you MUST report a pass/fail verdict for
+    each supplied name, naming the rule each failure violates.
 
 ## Rules
 

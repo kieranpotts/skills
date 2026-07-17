@@ -36,7 +36,8 @@ metadata:
 
 This skill is non-interactive. Agents MUST NOT block for user input after the
 initial prompt, and MUST follow the instructions to completion or fail with an
-error message. In in doubt about any of the input, print an alert and stop.
+error message. If in doubt about any of the input, the agent MUST print an alert
+and stop.
 
 **Output:**
 
@@ -56,53 +57,53 @@ architecture review.
 
 1.  **Establish scope.**
 
-    Decide what is in scope — which repositories, services, or directories —
-    based on the target codebase. If a URL is provided, assume the target
-    repository is to be cloned.
+    You MUST decide what is in scope — which repositories, services, or
+    directories — based on the target codebase. If a URL is provided, you MUST
+    assume the target repository is to be cloned.
 
-    Is it possible to pin the codebase to a specific revision, eg.
-    `owner/repo@<commit-sha>`?
+    You SHOULD pin the codebase to a specific revision, eg.
+    `owner/repo@<commit-sha>`, where possible.
 
 2.  **Identify modules.**
 
-    Analyze the target codebase and identify the major component parts of the
-    system. Identify the architectural tiers, eg. UI, services, domain,
-    infrastructure.
+    You MUST analyze the target codebase and identify the major component parts
+    of the system, and SHOULD identify the architectural tiers, eg. UI, services,
+    domain, infrastructure.
 
 3.  **Identify communication patterns.**
 
-    Identify the communication patterns and protocols between the major
-    layers, and between the components within each layer.
+    You SHOULD identify the communication patterns and protocols between the
+    major layers, and between the components within each layer.
 
 4.  **Check on module depth.**
 
-    For each significant module, ask: if I removed this module, where would
-    it's complexity go?
+    For each significant module, you SHOULD ask: if I removed this module, where
+    would its complexity go?
 
     If complexity would concentrate elsewhere in a worse arrangement, the module
     is deep — earning its keep. But if the effect would be to simply redistribute
-    the complexity, the module is shallow — potentially NOT earnings its keep.
+    the complexity, the module is shallow — potentially NOT earning its keep.
 
-    Flag shallow modules. They hide a thin layer of behavior behind an interface
-    wider than the behavior justifies.
+    You SHOULD flag shallow modules. They hide a thin layer of behavior behind an
+    interface wider than the behavior justifies.
 
 5.  **Examine the module boundaries.**
 
-    Enumerate the significant structural boundaries — between architectural
-    tiers, between modules, and at the edges where the system integrates with
-    external services or stores.
+    You SHOULD enumerate the significant structural boundaries — between
+    architectural tiers, between modules, and at the edges where the system
+    integrates with external services or stores.
 
     For each, ask: is the boundary in the right place, and does it leak? A clean
     boundary exposes a narrow, intention-revealing interface and hides its
     internals; a leaky one forces callers to know about the other side's
     representation, ordering, or lifecycle.
 
-    Flag boundaries that are misplaced, too wide, or that leak implementation
-    detail across the divide.
+    You SHOULD flag boundaries that are misplaced, too wide, or that leak
+    implementation detail across the divide.
 
     (Trust boundaries — where data crosses from an untrusted actor — are a
-    security concern, out of scope here. Note any you spot for referral to a
-    threat modeling session, and move on.)
+    security concern, out of scope here. You MUST note any you spot for referral
+    to a threat modeling session, and move on.)
 
 6.  **Look for these specific code smells.**
 
@@ -135,24 +136,25 @@ architecture review.
     - **Effort:** How invasive the change would be. Local renames rank above
       cross-cutting restructures.
 
-    Assign each finding a **Priority** — HIGH, MEDIUM, or LOW — from this
-    ranking, and order the report by it. The top entry is the cheapest
+    You MUST assign each finding a **Priority** — HIGH, MEDIUM, or LOW — from
+    this ranking, and MUST order the report by it. The top entry is the cheapest
     high-impact fix.
 
-    If more than 10 candidates remain after ranking, delete the lowest-ranking
-    entries so the report is capped at 10.
+    If more than 10 candidates remain after ranking, you MUST delete the
+    lowest-ranking entries so the report is capped at 10.
 
 8.  **Write the report.**
 
-    Write the report into the project's audit-report collection.
+    You MUST write the report into the project's audit-report collection.
 
-    Follow the instructions in the audit reports collection or repository,
-    identified via user input. Look for an `AGENTS.md` file, else `README.md`.
-    Follow instruction in local agent skills files, if useful.
+    You MUST follow the instructions in the audit reports collection or
+    repository, identified via user input. Look for an `AGENTS.md` file, else
+    `README.md`. You SHOULD follow instructions in local agent skills files,
+    if useful.
 
-    If no instructions can be found, analyze existing audit reports, establish
-    common conventions, and follow those conventions in the writing of your
-    new report.
+    If no instructions can be found, you SHOULD analyze existing audit reports,
+    establish common conventions, and follow those conventions in the writing of
+    your new report.
 
 ## Rules
 

@@ -31,40 +31,43 @@ validates messages and stops; it neither stages nor commits.
 
 1.  **Identify the change type and scope.**
 
-    Read the diff or the description of the change. Determine whether the
-    change is a single logical change or must be split into multiple atomic
-    commits.
+    You MUST read the diff or the description of the change, and determine
+    whether the change is a single logical change or must be split into multiple
+    atomic commits.
 
 2.  **Choose the commit type.**
 
-    Map the change to the most appropriate type from the allowed vocabulary,
-    using the semantics in the Rules. If two types feel applicable, consult the
-    *Subtle distinctions* note.
+    You MUST map the change to the most appropriate type from the allowed
+    vocabulary, using the semantics in the Rules. If two types feel applicable,
+    you SHOULD consult the *Subtle distinctions* note.
 
 3.  **Compose the subject line.**
 
-    Write the subject as `<type>: <description>`, using lowercase, imperative
-    mood, with no trailing period. If the change is breaking, experimental,
-    incompatible, temporary, or work-in-progress, append the corresponding flag.
+    You MUST write the subject as `<type>: <description>`, using lowercase,
+    imperative mood, with no trailing period. If the change is breaking,
+    experimental, incompatible, temporary, or work-in-progress, you MUST append
+    the corresponding flag.
 
 4.  **Add body and footers as needed.**
 
-    If the *why* is not obvious from the subject, add a body separated by a
-    single blank line. Wrap body lines at 72 characters. Add footers (eg.
-    `Closes: #123`, `Refs: #456`) separated from the body by a single blank line.
+    If the *why* is not obvious from the subject, you SHOULD add a body separated
+    by a single blank line. You MUST wrap body lines at 72 characters. You MAY
+    add footers (eg. `Closes: #123`, `Refs: #456`) separated from the body by a
+    single blank line.
 
 5.  **Update the CHANGELOG for direct commits to `dev` and `temp/*`.**
 
-    When committing directly to `dev` or a `temp/*` branch, add a bullet to the
-    `[Unreleased]` section of the project's `CHANGELOG.md` (or equivalent) as
-    part of the same commit. Use the same `type: description` format as the
-    subject line, including any flag. Do not add a bullet for `chore:` commits.
+    When committing directly to `dev` or a `temp/*` branch, you MUST add a bullet
+    to the `[Unreleased]` section of the project's `CHANGELOG.md` (or equivalent)
+    as part of the same commit. You MUST use the same `type: description` format
+    as the subject line, including any flag. You MUST NOT add a bullet for
+    `chore:` commits.
 
 6.  **Validate the message.**
 
-    Check that the subject line matches the validation regex and is within the
-    length budget. If validating existing messages, report a pass/fail verdict
-    for each, naming the rule each failure violates.
+    You MUST check that the subject line matches the validation regex and is
+    within the length budget. If validating existing messages, you MUST report a
+    pass/fail verdict for each, naming the rule each failure violates.
 
 ## Rules
 

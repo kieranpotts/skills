@@ -33,14 +33,14 @@ review and approval.
 
 1.  **Read the PRD.**
 
-    Obtain the PRD from the supplied file path, pasted text, or earlier session
-    output. Read it in full before doing anything else. If no PRD is supplied and
-    none can be found, reject immediately and tell the user a PRD must be
-    gathered first.
+    You MUST obtain the PRD from the supplied file path, pasted text, or earlier
+    session output, and MUST read it in full before doing anything else. If no
+    PRD is supplied and none can be found, you MUST reject immediately and tell
+    the user a PRD must be gathered first.
 
 2.  **Validate the PRD for completeness.**
 
-    Check that the PRD supplies all of the following:
+    You MUST check that the PRD supplies all of the following:
 
     - **User, goal, and value** — *who* it is for, *what* outcome they want, and
       *why* it matters.
@@ -55,38 +55,39 @@ review and approval.
     - **Blocking open questions resolved** — any open question whose answer is
       needed to write a rule or an AC.
 
-    If any of these is missing or ambiguous, reject the PRD. Output a specific,
-    itemized list of what is absent or unclear. Normalize purely mechanical gaps
-    (a `Feature` title derived from the goal, scenario ordering, tidy phrasing)
-    without rejecting; the bar for rejection is substantive incompleteness.
+    If any of these is missing or ambiguous, you MUST reject the PRD, and MUST
+    output a specific, itemized list of what is absent or unclear. You MAY
+    normalize purely mechanical gaps (a `Feature` title derived from the goal,
+    scenario ordering, tidy phrasing) without rejecting; the bar for rejection is
+    substantive incompleteness.
 
 3.  **Locate the SRS repository.**
 
-    Read the consuming project's root `AGENTS.md` and find its `Workflow
-    repositories` section. Resolve the `SRS` entry to find where requirements live.
-    If no `Workflow repositories` section or `SRS` entry exists, tell the user
-    the project is not wired to an SRS, and stop.
+    You MUST read the consuming project's root `AGENTS.md` and find its `Workflow
+    repositories` section, then resolve the `SRS` entry to find where
+    requirements live. If no `Workflow repositories` section or `SRS` entry
+    exists, you MUST tell the user the project is not wired to an SRS, and stop.
 
 4.  **Read the SRS repository's `AGENTS.md` to learn its workflow.**
 
-    Read the SRS repository's own `AGENTS.md` for the proposal template, branch
-    convention, lifecycle states, and pull-request, discussion-thread, and label
-    rules. Follow whatever it prescribes.
+    You MUST read the SRS repository's own `AGENTS.md` for the proposal template,
+    branch convention, lifecycle states, and pull-request, discussion-thread, and
+    label rules, and MUST follow whatever it prescribes.
 
 5.  **Scaffold the proposal — follow `draft-spec`.**
 
-    Read the SRS repository's scaffolding skill (`draft-spec`, or the
+    You MUST read the SRS repository's scaffolding skill (`draft-spec`, or the
     equivalent its `AGENTS.md` names) and carry out its procedure yourself:
     create the branch, the proposal document from the template, the draft pull
-    request, and the discussion thread. Derive the change description, slug, and
-    change type from the PRD's outcome rather than prompting for them. Preserve
-    the originating PRD as the origin artifact if the scaffolding procedure
-    provides for it.
+    request, and the discussion thread. You MUST derive the change description,
+    slug, and change type from the PRD's outcome rather than prompting for them.
+    You SHOULD preserve the originating PRD as the origin artifact if the
+    scaffolding procedure provides for it.
 
 6.  **Author the specification content — follow `write-spec`.**
 
-    Read the SRS repository's content-authoring skill (`write-spec`, or its
-    equivalent) and apply its rules to the validated PRD, mapping:
+    You MUST read the SRS repository's content-authoring skill (`write-spec`, or
+    its equivalent) and apply its rules to the validated PRD, mapping:
 
     - The PRD's *rules* and *examples / counter-examples* → functional
       acceptance criteria.
@@ -96,22 +97,22 @@ review and approval.
     - The PRD's *out-of-scope* list → the specification's out-of-scope boundary.
 
     If checking the Definition of Ready surfaces a gap that stems from missing
-    PRD information, reject the PRD (step 2) and name the gap.
+    PRD information, you MUST reject the PRD (step 2) and name the gap.
 
 7.  **Mark the proposal ready — follow `propose-spec`.**
 
-    Once the content is authored and meets the Definition of Ready, read the SRS
-    repository's readiness skill (`propose-spec`, or its equivalent) and carry out
-    its checks. Verify completeness, then take the pull request out of draft for
-    stakeholder review.
+    Once the content is authored and meets the Definition of Ready, you MUST read
+    the SRS repository's readiness skill (`propose-spec`, or its equivalent) and
+    carry out its checks. You MUST verify completeness, then take the pull request
+    out of draft for stakeholder review.
 
 8.  **Report the outcome and the required approval.**
 
-    On finishing, tell the user plainly that the specification proposal is filed
-    and `PROPOSED`, and that it now needs their review and approval before
-    downstream work begins. State explicitly that the next SDLC phase — design —
-    MUST NOT start until this specification is approved (`ACCEPTED`). Link the
-    pull request and its discussion thread.
+    On finishing, you MUST tell the user plainly that the specification proposal
+    is filed and `PROPOSED`, and that it now needs their review and approval
+    before downstream work begins. You MUST state explicitly that the next SDLC
+    phase — design — MUST NOT start until this specification is approved
+    (`ACCEPTED`). You MUST link the pull request and its discussion thread.
 
 ## Rules
 

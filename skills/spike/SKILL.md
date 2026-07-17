@@ -34,7 +34,7 @@ production re-implementation — is the orchestrator's concern, not this skill's
 
 1.  **Frame one question.**
 
-    State the question in one sentence. It MUST be falsifiable:
+    You MUST state the question in one sentence. It MUST be falsifiable:
 
     - ❌ "See if Postgres works for this." (Not a question.)
     - ✅ "Can Postgres LISTEN/NOTIFY sustain 5000 dispatches/sec at p95 < 50ms on
@@ -43,44 +43,49 @@ production re-implementation — is the orchestrator's concern, not this skill's
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at
       stream close?"
 
-    If you cannot phrase the question this way, return to the design work first.
+    If you cannot phrase the question this way, you MUST return to the design
+    work first.
 
 2.  **Define the answer that ends the spike.**
 
-    Before writing any code, write down what evidence would close the question:
-    a measured number against a threshold, a reproducible behavior, or a working
-    integration. If no such evidence is definable, refine the question.
+    Before writing any code, you MUST write down what evidence would close the
+    question: a measured number against a threshold, a reproducible behavior, or
+    a working integration. If no such evidence is definable, you MUST refine the
+    question.
 
 3.  **Time-box.**
 
-    State the budget in hours or days. When the time-box expires, stop, capture
-    what you learned even if the question is not fully answered, and decide
-    whether to invest another time-box or take a different path.
+    You MUST state the budget in hours or days. When the time-box expires, you
+    MUST stop and capture what you learned even if the question is not fully
+    answered, then decide whether to invest another time-box or take a different
+    path.
 
 4.  **Take the shortest path.**
 
-    Skip everything that does not contribute to answering the question: tests
-    beyond the assertion that answers the question, error handling beyond
+    You MUST skip everything that does not contribute to answering the question:
+    tests beyond the assertion that answers the question, error handling beyond
     observing the failure mode, abstraction, interfaces, configuration, auth,
     logging, monitoring, documentation, hardcoded values, fixture inputs, and a
     single happy path. One file is often enough.
 
 5.  **Isolate the spike.**
 
-    Keep spike code out of the production codebase. Use a separate repo or
-    `spikes/` subdirectory, a branch named `spike/spike-<question>` that will not be
-    merged, or a scratch directory outside any tracked path. Mark the entry point
-    file with a comment naming it as a spike.
+    You MUST keep spike code out of the production codebase. You SHOULD use a
+    separate repo or `spikes/` subdirectory, a branch named
+    `spike/spike-<question>` that will not be merged, or a scratch directory
+    outside any tracked path. You MUST mark the entry point file with a comment
+    naming it as a spike.
 
 6.  **Run the experiment, capture findings.**
 
-    Run the spike. Record the exact commands, the observed result against the
-    expected evidence, numerical measurements with environment details, and any
-    surprises that matter even though the question did not ask about them.
+    You MUST run the spike, and MUST record the exact commands, the observed
+    result against the expected evidence, numerical measurements with environment
+    details, and any surprises that matter even though the question did not ask
+    about them.
 
 7.  **Decide.**
 
-    Based on the findings:
+    Based on the findings, you MUST take one of these paths:
 
     - *Answer is positive* → the design question is closed. The production
       version is re-implemented from scratch.
@@ -91,12 +96,12 @@ production re-implementation — is the orchestrator's concern, not this skill's
 
 8.  **Document the answer, then throw the code away.**
 
-    Update the relevant artifact (ADR or design-doc update for an architectural
-    question, revision to acceptance criteria for a specification question, or a
-    short note in the repo's decision log for a tooling/library question). Once
-    the answer is captured, delete the spike code, or move it to a
-    clearly-marked throwaway location with a README naming the question, the
-    answer, and the date.
+    You MUST update the relevant artifact (ADR or design-doc update for an
+    architectural question, revision to acceptance criteria for a specification
+    question, or a short note in the repo's decision log for a tooling/library
+    question). Once the answer is captured, you MUST delete the spike code, or
+    move it to a clearly-marked throwaway location with a README naming the
+    question, the answer, and the date.
 
 ## Rules
 

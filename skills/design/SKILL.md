@@ -34,14 +34,14 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
 
 1.  **Check the entry gate.**
 
-    Confirm the relevant specification proposal is `ACCEPTED`. If it is
-    `DRAFT`, `PROPOSED`, or missing, stop. Tell the user the design phase is
-    gated on an approved specification, and direct them to approve or write one
-    first.
+    You MUST confirm the relevant specification proposal is `ACCEPTED`. If it is
+    `DRAFT`, `PROPOSED`, or missing, you MUST stop, tell the user the design
+    phase is gated on an approved specification, and direct them to approve or
+    write one first.
 
 2.  **Gather the constraints.**
 
-    Before exploring options, write down:
+    Before exploring options, you MUST write down:
 
     - *Functional ACs* the design must satisfy (from the approved
       specification).
@@ -52,12 +52,12 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
     - *Budget*: time, complexity tolerance, team familiarity, operational
       headroom.
 
-    If any constraint is unclear, ask the user before proceeding.
+    If any constraint is unclear, you MUST ask the user before proceeding.
 
 3.  **Identify the decision points.**
 
-    List the *architecturally significant* choices the design must make — the
-    ones that would be expensive to reverse later. Typical examples:
+    You MUST list the *architecturally significant* choices the design must
+    make — the ones that would be expensive to reverse later. Typical examples:
 
     - Module/service boundaries.
     - Synchronous vs asynchronous communication.
@@ -67,19 +67,19 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
     - Concurrency / parallelism model.
 
     Cosmetic or easily-reversed decisions (variable names, file layout) are not
-    decision points — defer them.
+    decision points — you SHOULD defer them.
 
 4.  **Enumerate alternatives per decision point.**
 
-    Produce at least two options for each decision point, including a
+    You MUST produce at least two options for each decision point, including a
     do-nothing or simplest-possible alternative. A single option masquerading as
     "the design" is an assumption, not a design.
 
 5.  **Evaluate each option against the nine design qualities.**
 
-    For each option, note its impact (positive, neutral, negative) on each
-    quality. Be specific — "improves performance" is not useful; "removes the
-    N+1 query, cutting p95 by ~40ms" is.
+    For each option, you MUST note its impact (positive, neutral, negative) on
+    each quality. You MUST be specific — "improves performance" is not useful;
+    "removes the N+1 query, cutting p95 by ~40ms" is.
 
     - *Completeness*: does it cover all the functional ACs?
     - *Correctness*: can it maintain valid, consistent state under the expected
@@ -93,31 +93,32 @@ into steps, implementation — is the orchestrator's concern, not this skill's.
     - *Changeability*: how easily can it adapt to plausible future requirements?
     - *Simplicity*: does it minimize unnecessary complexity?
 
-    Most options will trade qualities against one another. Capture the trade
-    explicitly.
+    Most options will trade qualities against one another. You MUST capture the
+    trade explicitly.
 
 6.  **Recommend one, with reasoning.**
 
-    State which option to pick and *why* it wins on the qualities that matter
-    most for this domain. Name the qualities being prioritized and the qualities
-    being sacrificed. If two options are close, say so and ask the user to break
-    the tie.
+    You MUST state which option to pick and *why* it wins on the qualities that
+    matter most for this domain. You MUST name the qualities being prioritized
+    and the qualities being sacrificed. If two options are close, you MUST say so
+    and ask the user to break the tie.
 
 7.  **Capture the decision.**
 
-    For architecturally-significant decisions, write a short Architecture
-    Decision Record (ADR) — context, options considered, decision, consequences.
-    For smaller designs, a paragraph in the PR description or a comment on the
-    issue is sufficient.
+    For architecturally-significant decisions, you MUST write a short
+    Architecture Decision Record (ADR) — context, options considered, decision,
+    consequences. For smaller designs, a paragraph in the PR description or a
+    comment on the issue MAY suffice.
 
-    Include enough that a developer six months from now can answer "why did we
-    do it this way?" without re-running the exercise.
+    You MUST include enough that a developer six months from now can answer "why
+    did we do it this way?" without re-running the exercise.
 
 8.  **Report the design and stop.**
 
-    Flag any soft edges that remain — ambiguous terms, unstated assumptions,
-    contested trade-offs — so they can be stress-tested before decomposition.
-    Report the design and stop; what consumes it is the orchestrator's concern.
+    You MUST flag any soft edges that remain — ambiguous terms, unstated
+    assumptions, contested trade-offs — so they can be stress-tested before
+    decomposition. You MUST report the design and stop; what consumes it is the
+    orchestrator's concern.
 
 ## Rules
 

@@ -33,15 +33,15 @@ mergeable steps.
 
 1.  **Restate the goal and constraints.**
 
-    Pull the acceptance criteria from the specification and the chosen option
-    from the design. State in one or two sentences what is being built and what
-    the user-visible end state is. If this can't be stated cleanly, the
-    specification or design is not ready — go back.
+    You MUST pull the acceptance criteria from the specification and the chosen
+    option from the design, and state in one or two sentences what is being built
+    and what the user-visible end state is. If this can't be stated cleanly, the
+    specification or design is not ready — you MUST go back.
 
 2.  **Find the thinnest first slice.**
 
-    Identify the smallest end-to-end change that delivers user-visible value OR
-    materially de-risks the rest of the work. Examples:
+    You MUST identify the smallest end-to-end change that delivers user-visible
+    value OR materially de-risks the rest of the work. Examples:
 
     - A walking skeleton: a request flows from the UI through every new layer to
       a stubbed response, with no real logic.
@@ -52,36 +52,37 @@ mergeable steps.
 
 3.  **Decompose into steps.**
 
-    Split the work into the smallest steps that can be integrated, tested, and
-    reverted independently.
+    You MUST split the work into the smallest steps that can be integrated,
+    tested, and reverted independently.
 
 4.  **Order by risk, not by ease.**
 
-    Schedule the *riskiest* steps first — the integrations you are unsure about,
-    the assumptions that might not hold, the components you don't fully
+    You MUST schedule the *riskiest* steps first — the integrations you are unsure
+    about, the assumptions that might not hold, the components you don't fully
     understand. Discovering a flaw early costs one step's worth of rework;
     discovering it after eight steps costs eight.
 
-    Easy and decorative work (polish, copy, secondary error paths) goes last.
+    Easy and decorative work (polish, copy, secondary error paths) SHOULD go last.
 
 5.  **Name the seams for parallel or deferred work.**
 
-    Identify expansion points where:
+    You SHOULD identify expansion points where:
 
     - A feature flag will hide incomplete work in `dev`.
     - A stub or fixture stands in for a dependency that lands later.
     - A schema migration is reversible and ships separately from the code that
       uses it.
 
-    Name any feature flag, fixture, or migration on the step where it is used.
+    You MUST name any feature flag, fixture, or migration on the step where it is
+    used.
 
 6.  **Write the plan.**
 
-    Output a numbered checklist of the steps.
+    You MUST output a numbered checklist of the steps.
 
 7.  **Pressure-test the plan.**
 
-    Before reporting the plan as ready, ask:
+    Before reporting the plan as ready, you MUST ask:
 
     - If step N fails review or test, can step N+1 still merge? (It should.)
     - If we stop after step K, is the system in a coherent state? (It should
@@ -89,7 +90,7 @@ mergeable steps.
     - Does the user-visible behavior change only at the steps where it is meant
       to? (Hidden behavior changes are a smell.)
 
-    If any answer is no, re-split or re-order.
+    If any answer is no, you MUST re-split or re-order.
 
 ## Rules
 

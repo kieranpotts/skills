@@ -62,49 +62,52 @@ time are.
 
 ## Instructions
 
-Facilitate the session as a structured workshop, following the TS-54 method. Ask
-one question at a time. Wait for each answer before asking the next. Let each
-answer shape the question that follows. Take notes continuously — you are
-building the report as you go.
+You MUST facilitate the session as a structured workshop, following the TS-54
+method. You MUST ask one question at a time and wait for each answer before
+asking the next. You SHOULD let each answer shape the question that follows. You
+MUST take notes continuously — you are building the report as you go.
 
 1.  **Locate the register and confirm the seed.**
 
-    Find the risk register store first (see **Input**), and read its `AGENTS.md`
-    or `README.md`, its `TEMPLATE.md`, and its `REGISTER.md` so you follow local
-    conventions and know the existing Ref numbering. If the register cannot be
-    found, stop and tell the user — there is nowhere to record the outcome.
+    You MUST find the risk register store first (see **Input**), and read its
+    `AGENTS.md` or `README.md`, its `TEMPLATE.md`, and its `REGISTER.md` so you
+    follow local conventions and know the existing Ref numbering. If the register
+    cannot be found, you MUST stop and tell the user — there is nowhere to record
+    the outcome.
 
-    Restate what is to be assessed, in one sentence: *"We're threat-modeling
-    <subsystem / flow> — is that the scope you mean?"* Clarify before proceeding.
+    You MUST restate what is to be assessed, in one sentence: *"We're
+    threat-modeling <subsystem / flow> — is that the scope you mean?"* You MUST
+    clarify before proceeding.
 
 2.  **Establish the business context.**
 
-    Ask, one at a time:
+    You MUST ask, one at a time:
 
     - *"Why does this system exist? What business value does it provide?"*
     - *"What are the critical business functions here?"*
     - *"What is the business impact of a security or privacy failure — financial,
       reputational, regulatory, operational?"*
 
-    Capture as the report's *Business context*. This anchors severity later: a
-    threat's impact is measured against what the business stands to lose.
+    You MUST capture this as the report's *Business context*. This anchors
+    severity later: a threat's impact is measured against what the business
+    stands to lose.
 
 3.  **Fix the technical scope.**
 
-    Ask, one at a time:
+    You MUST ask, one at a time:
 
     - *"What exactly is in scope — which components, services, and data flows?"*
     - *"What is deliberately out of scope, so we can judge the coverage?"*
     - *"What's the technology stack, and what are the deployment environments?"*
     - *"Can we pin this to a specific revision — `owner/repo@<commit>`?"*
 
-    An explicit out-of-scope boundary matters as much as the in-scope list. Push
-    for it.
+    An explicit out-of-scope boundary matters as much as the in-scope list. You
+    MUST push for it.
 
 4.  **Decompose the system.**
 
-    Walk the system with the user, building the decomposition tables the template
-    calls for. Ask about each in turn:
+    You MUST walk the system with the user, building the decomposition tables the
+    template calls for. You MUST ask about each in turn:
 
     - **Key components** — for each: its role, its trust level (Trusted /
       Semi-trusted / Untrusted), and the data it handles.
@@ -115,27 +118,27 @@ building the report as you go.
     - **Trust boundaries** — where trust changes (internet → DMZ, DMZ →
       internal, unauthenticated → authenticated, tenant → tenant).
 
-    If a data-flow or architecture diagram exists, ask for it and reference it.
-    You cannot assess threats against a system you have not decomposed — this
-    step is the foundation for everything after.
+    If a data-flow or architecture diagram exists, you MUST ask for it and
+    reference it. You cannot assess threats against a system you have not
+    decomposed — this step is the foundation for everything after.
 
 5.  **Choose the framework(s).**
 
-    Ask: *"Which lens do we assess through — STRIDE for general security, LINDDUN
-    for privacy, the OWASP Top 10, or a combination?"*
+    You MUST ask: *"Which lens do we assess through — STRIDE for general security,
+    LINDDUN for privacy, the OWASP Top 10, or a combination?"*
 
     STRIDE (Spoofing, Tampering, Repudiation, Information disclosure, Denial of
-    service, Elevation of privilege) is the recommended default. Add LINDDUN when
-    personal data is in scope. Whatever is chosen, every threat MUST be
-    classified under a named category from it.
+    service, Elevation of privilege) is the RECOMMENDED default. You SHOULD add
+    LINDDUN when personal data is in scope. Whatever is chosen, every threat MUST
+    be classified under a named category from it.
 
 6.  **Sweep for common weaknesses.**
 
-    The framework categories are abstract. Ground them by sweeping the system for
-    these concrete, recurring weakness patterns, mapping each to its framework
-    category as you go. At every trust boundary, ask first: *"What does each side
-    trust the other to have already checked?"* — an implicit trust across a
-    boundary is where most of these hide.
+    The framework categories are abstract. You MUST ground them by sweeping the
+    system for these concrete, recurring weakness patterns, mapping each to its
+    framework category as you go. At every trust boundary, you MUST ask first:
+    *"What does each side trust the other to have already checked?"* — an implicit
+    trust across a boundary is where most of these hide.
 
     - **Injection points** (Tampering / Elevation). User-controlled input
       reaching a query, command, template, or interpreter without a parameterized
@@ -167,80 +170,82 @@ building the report as you go.
 
 7.  **Assess threats, one target at a time.**
 
-    Walk the trust boundaries, data flows, and sensitive assets from step 4. For
-    each, apply the chosen framework's categories and ask:
+    You MUST walk the trust boundaries, data flows, and sensitive assets from
+    step 4. For each, you MUST apply the chosen framework's categories and ask:
 
     - *"At this boundary/flow/asset, is <category> a credible threat? How would
       it play out?"*
     - *"What existing countermeasures already reduce it?"*
 
-    For the STRIDE approach, either walk each category across the system, or take
-    each critical component and check it against the full STRIDE list (one table
-    per component) — TS-54 §4 describes both layouts; follow whichever the
-    template favors.
+    For the STRIDE approach, you MAY either walk each category across the system,
+    or take each critical component and check it against the full STRIDE list (one
+    table per component) — TS-54 §4 describes both layouts; you SHOULD follow
+    whichever the template favors.
 
-    Record every credible threat as a row: a `Ref` (eg. `TA1`, continuing the
-    register's numbering), the component/flow, a description, the type, and the
-    countermeasures already in place. Do NOT rate them yet — surface them first.
+    You MUST record every credible threat as a row: a `Ref` (eg. `TA1`, continuing
+    the register's numbering), the component/flow, a description, the type, and the
+    countermeasures already in place. You MUST NOT rate them yet — surface them
+    first.
 
 8.  **Rate each threat.**
 
-    For every threat surfaced, ask (or reason with the user):
+    For every threat surfaced, you MUST ask (or reason with the user):
 
     - *"How likely is this — Probable, Likely, Possible, Unlikely, or Rare?"*
     - *"If it happened, how bad — Catastrophic, Critical, Severe, Marginal, or
       Negligible?"*
 
-    Combine likelihood × impact into a **Severity** (Critical / High / Medium /
-    Low) using the store's scoring scheme (see its `docs/risk-rating.md`). Apply
-    the scheme consistently — do not eyeball severities independently of
-    likelihood and impact.
+    You MUST combine likelihood × impact into a **Severity** (Critical / High /
+    Medium / Low) using the store's scoring scheme (see its `docs/risk-rating.md`).
+    You MUST apply the scheme consistently — do not eyeball severities
+    independently of likelihood and impact.
 
 9.  **Decide which threats become tracked risks.**
 
-    Ask, for the higher-severity threats: *"Is this worth tracking over time in
-    the register, or is it noted-and-closed here?"*
+    You MUST ask, for the higher-severity threats: *"Is this worth tracking over
+    time in the register, or is it noted-and-closed here?"*
 
     A threat goes into the register when it carries residual exposure that must
     be watched, mitigated, or periodically re-reviewed. A threat that is fully
     countered already, or too trivial to track, stays in the report's assessment
-    only. Record the promoted ones under *Risks raised*.
+    only. You MUST record the promoted ones under *Risks raised*.
 
 10. **Agree a mitigation strategy per risk raised.**
 
-    For each risk promoted to the register, ask: *"What's the response — mitigate
-    (how?), or a reasoned decision to accept it?"*
+    For each risk promoted to the register, you MUST ask: *"What's the response —
+    mitigate (how?), or a reasoned decision to accept it?"*
 
-    Capture enough rationale that a future reader understands *why* this response
-    was chosen. Then ask for the **residual risk** after that mitigation
-    (Critical / High / Medium / Low). Detailed remediation steps belong in the
-    relevant code repository's issue tracker — capture a link if one exists, not
-    the worked-out fix.
+    You MUST capture enough rationale that a future reader understands *why* this
+    response was chosen. You MUST then ask for the **residual risk** after that
+    mitigation (Critical / High / Medium / Low). Detailed remediation steps belong
+    in the relevant code repository's issue tracker — you SHOULD capture a link if
+    one exists, not the worked-out fix.
 
 11. **Write the session report.**
 
-    Confirm with the user that the assessment is complete, then fill out the
-    store's `TEMPLATE.md` into a new dated report directory
+    You MUST confirm with the user that the assessment is complete, then fill out
+    the store's `TEMPLATE.md` into a new dated report directory
     (`risks/YYYY-MM-DD-<slug>/`, using today's date and a short kebab-case slug of
-    the scope). Populate the Summary, Business context, Technical scope,
+    the scope). You MUST populate the Summary, Business context, Technical scope,
     Decomposition tables, Threat assessment table, Risks raised, Mitigation
     strategies, and Follow-ups from your notes.
 
-    Follow the store's own conventions (its `AGENTS.md`, `README.md`, and any
-    local skills). If none can be found, match the structure of existing session
-    reports in the store.
+    You MUST follow the store's own conventions (its `AGENTS.md`, `README.md`, and
+    any local skills). If none can be found, you SHOULD match the structure of
+    existing session reports in the store.
 
 12. **Update the living register.**
 
-    For each risk under *Risks raised*, append a row to the store's
-    `REGISTER.md`, using its exact columns. Continue the register's existing Ref
-    numbering — do NOT restart or collide with existing refs. Set Status to
-    *Pending* (or the agreed target date), and fill Probability, Impact,
-    Severity, Mitigation, and Residual risk from the session. Set Reviewed to
-    today's date. Keep the register sorted by severity per its own instructions.
+    For each risk under *Risks raised*, you MUST append a row to the store's
+    `REGISTER.md`, using its exact columns. You MUST continue the register's
+    existing Ref numbering — do NOT restart or collide with existing refs. You MUST
+    set Status to *Pending* (or the agreed target date), and fill Probability,
+    Impact, Severity, Mitigation, and Residual risk from the session. You MUST set
+    Reviewed to today's date. You MUST keep the register sorted by severity per its
+    own instructions.
 
-    Report both artifacts — the new report path and the register rows added — as
-    this skill's output, and stop.
+    You MUST report both artifacts — the new report path and the register rows
+    added — as this skill's output, and stop.
 
 ## Rules
 

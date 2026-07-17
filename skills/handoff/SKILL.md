@@ -30,18 +30,18 @@ metadata:
 1.  **Identify what the next session needs to know.**
 
     If the user passed an argument describing the next session's focus (eg.
-    "next session continues with the API integration"), use it to scope the
-    handoff. Otherwise, treat the handoff as covering the full state of the
-    current work.
+    "next session continues with the API integration"), you MUST use it to scope
+    the handoff. Otherwise, you MUST treat the handoff as covering the full state
+    of the current work.
 
-    Ask yourself: if this conversation vanished now, what would a fresh agent
-    need in order to *not* repeat the work, *not* re-litigate decisions, and
-    *not* re-walk dead ends?
+    You SHOULD ask yourself: if this conversation vanished now, what would a
+    fresh agent need in order to *not* repeat the work, *not* re-litigate
+    decisions, and *not* re-walk dead ends?
 
 2.  **Inventory existing artifacts.**
 
-    Before writing anything, list the durable artifacts the current work has
-    already produced:
+    Before writing anything, you MUST list the durable artifacts the current work
+    has already produced:
 
     - The specification / PRD and its path or URL.
     - The design document or chosen ADR.
@@ -53,25 +53,26 @@ metadata:
 
 3.  **Draft the document.**
 
-    Write the handoff using the structure defined in the Success criteria.
+    You MUST write the handoff using the structure defined in the Success
+    criteria.
 
-    If the handoff is for a human rather than an agent, replace "Suggested
-    next steps" with "Suggested first action" and describe the concrete next
-    step the human should take.
+    If the handoff is for a human rather than an agent, you MUST replace
+    "Suggested next steps" with "Suggested first action" and describe the
+    concrete next step the human should take.
 
 4.  **Redact sensitive information.**
 
-    Before writing the file, strip:
+    Before writing the file, you MUST strip:
 
     - API keys, tokens, passwords, secrets of any kind.
     - Personally identifiable information (real names, emails, IDs, addresses).
     - Internal-only URLs or hostnames.
 
-    If in doubt, redact.
+    If in doubt, you MUST redact.
 
 5.  **Save to a temporary location.**
 
-    Write to the OS temp directory:
+    You MUST write to the OS temp directory:
 
     - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back to
       `/tmp`).
@@ -79,28 +80,29 @@ metadata:
 
 6.  **Tell the user the absolute path.**
 
-    Print the full absolute path.
+    You MUST print the full absolute path.
 
 7.  **Handle an imminent context limit.**
 
-    If the context limit is imminent, write the handoff immediately, even if
-    other work was mid-flight.
+    If the context limit is imminent, you MUST write the handoff immediately,
+    even if other work was mid-flight.
 
 8.  **Handle parallel work streams.**
 
-    If the session covered two unrelated streams of work, write one handoff
-    per stream.
+    If the session covered two unrelated streams of work, you SHOULD write one
+    handoff per stream.
 
 9.  **Handle an empty handoff.**
 
     If the user provided no topic and the conversation covered nothing
-    substantive, say so and stop. Do not write a fabricated handoff document.
+    substantive, you MUST say so and stop. You MUST NOT write a fabricated
+    handoff document.
 
 10. **Handle unconfirmed decisions.**
 
-    If the handoff would contain a partial decision the user has not
-    confirmed, mark it explicitly as unconfirmed in "What's open", not in
-    "What's been done".
+    If the handoff would contain a partial decision the user has not confirmed,
+    you MUST mark it explicitly as unconfirmed in "What's open", not in "What's
+    been done".
 
 ## Rules
 
