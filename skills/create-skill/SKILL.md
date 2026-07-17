@@ -336,7 +336,7 @@ references, and scripts. All artifacts pass the validator.
   How to namespace bundled resources so they don't collide across skills.
   Read before adding files to `assets/`, `references/`, or `scripts/`.
 
-- [skills/create-skill/references/create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md):
+- [Requirements levels](./references/create-skill-requirements-levels.md):
   Read when wording requirement levels. This document defines a subset of
   RFC 2119 to use.
 
