@@ -75,6 +75,12 @@ Optionally, specify how the agent should summarize the outcomes of its work.
     export MY_APP_LOG_LEVEL="info"
     ```
 
+##  Edge cases
+
+-   **Some edge case.**
+
+    Describe the edge case and how the agent should handle it.
+
 ##  Success criteria
 
 -   **The output matches the expected format.**
@@ -91,29 +97,24 @@ Optionally, specify how the agent should summarize the outcomes of its work.
     Add one or two concrete, observable conditions specific to this skill —
     things the agent can verify without running external tooling.]
 
-## Examples
+##  Examples
 
-A small number of canonical input/output examples. Regular prose. OPTIONAL.
+-   **Some example scenario.**
 
-## Edge cases
+    Describe a representative input and the expected output or behavior.
 
-Warn about potential edge cases. Regular prose. OPTIONAL.
+##   Assets
 
-## Assets
+-   [Some template](./assets/template.md):
+    The bundled template to fill out in step N.
 
-- [Some template](./assets/template.md):
-  The bundled template to fill out in step N.
+##   References
 
-## References
+-   [API errors](./references/api-errors.md):
+    Read if the API returns a non-200 status code.
 
-Include a ist of links with extended and related information. For each, include
-an explicit trigger condition.
+-   [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
+    Used this skill for [purpose].
 
-- [API errors](./references/api-errors.md):
-  Read if the API returns a non-200 status code.
-
-- [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
-  Used this skill for [purpose].
-
-- [Other skill](../skill-name/SKILL.md):
-  Used this skill for [purpose] — include only if required to create this skill.
+-   [Other skill](../skill-name/SKILL.md):
+    Used this skill for [purpose] — include only if required to create this skill.

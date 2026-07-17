@@ -155,9 +155,23 @@ references, and scripts. All artifacts pass the validator.
     - **Instructions** or **Rules:** MUST include at least one of these two
       sections.
 
-    - **Success criteria:** REQUIRED.
+    - **Edge cases:** Potential edge cases to warn about. OPTIONAL.
 
-    OPTIONAL sections: **Examples**, **Edge cases**, **References**, **Assets**.
+    - **Success criteria:** Evaluation criteria against which the agent can
+      mark its own homework. Include deterministic scripts — eg. linters, other
+      validators — that the agent can run, if possible. REQUIRED.
+
+    - **Examples:** A small number of canonical input/output examples. OPTIONAL.
+
+    - **Assets:** Static assets, such as templates, that the agent MAY use to
+      help it to compose its output. OPTIONAL.
+
+    - **References:** Additional reference material, such as coding standards,
+      the agent can load on-demand. For each, specify a trigger condition.
+      OPTIONAL.
+
+    Sections MAY be reordered as appropriate to maximize the effectiveness of
+    the skill.
 
 -   **Keep instructions and rules separate.**
 
@@ -171,6 +185,13 @@ references, and scripts. All artifacts pass the validator.
     Mark requirement levels with MUST, SHOULD, MAY, etc. See
     [requirements levels](./references/create-skill-requirements-levels.md)
     for the allowed subset of RFC 2119 keywords.
+
+    Every instruction, rule, and success criterion MUST be built around one
+    of these keywords, stated explicitly or clearly implied by phrasing
+    (eg. "Run the validator before finishing" implies MUST). A step with no
+    requirement level is ambiguous about whether it can be skipped or
+    varied — pick the keyword that matches how much the agent is allowed
+    to deviate.
 
 -   **Explain the _why_ behind non-obvious requirements.**
 
@@ -227,9 +248,12 @@ references, and scripts. All artifacts pass the validator.
 
     - *Step checklists* for multi-step workflows where the agent must track
       progress across dependencies or validation gates.
+
     - *Output templates* — provide concrete structure rather than prose
       descriptions; long or conditional templates belong in `assets/`.
+
     - *Validation loops* — run a validator, fix failures, repeat until it passes.
+
     - *Plan-validate-execute* — for batch or destructive operations, produce a
       plan, validate it, then execute. The validator MUST produce error messages
       specific enough for the agent to self-correct.
@@ -240,89 +264,89 @@ references, and scripts. All artifacts pass the validator.
     avoid collisions when skills are installed side-by-side; this matters most
     for hosts that flatten all resources into one shared directory.
 
-## Success criteria
+##  Edge cases
 
-- **Front-matter MUST be valid.** The `name` and `description` fields MUST be
-  present and non-empty, and `name` MUST match the directory name.
+-   **Improving an existing skill:** Read the current `SKILL.md` first, then treat
+    the improvement like a new draft. Rewrite rather than patch. Preserve the
+    `name` field unchanged.
 
-- **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
-  `**Input:**` and `**Output:**` paragraphs, `## Instructions` or `## Rules`,
-  and `## Success criteria`.
+-   **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
+    Use it as a reference for domain knowledge, but adapt the instructions and
+    format to the bundled template and the conventions of the project you are
+    authoring in. Don't copy verbatim.
 
-- **The Input and Output paragraphs MUST be present and prominent.** They MUST
-  appear immediately after the title, before the first `##`. The **Input**
-  paragraph MUST state whether input is REQUIRED or OPTIONAL, and MUST state
-  whether the skill runs non-interactively to completion or may interact with
-  the user — blocking to ask questions, present options, and wait for answers.
+##  Success criteria
 
-- **The skill MUST be token-efficient.** No section is padded with detail that
-  belongs in a `references/` file, and `SKILL.md` SHOULD be under ~300 lines.
+-   **Front-matter MUST be valid.** The `name` and `description` fields MUST be
+    present and non-empty, and `name` MUST match the directory name.
 
-- **The `description` MUST be specific enough to trigger correctly.** It MUST
-  name both the capability and the contexts that should invoke it — not just a
-  one-line summary of what the skill does.
+-   **All REQUIRED paragraphs MUST be present.** At minimum: the `#` title, the
+    `**Input:**` and `**Output:**` paragraphs, `## Instructions` or `## Rules`,
+    and `## Success criteria`.
 
-- **A `README.md` MUST exist alongside the `SKILL.md`.**
+-   **The Input and Output paragraphs MUST be present and prominent.** They MUST
+    appear immediately after the title, before the first `##`. The **Input**
+    paragraph MUST state whether input is REQUIRED or OPTIONAL, and MUST state
+    whether the skill runs non-interactively to completion or may interact with
+    the user — blocking to ask questions, present options, and wait for answers.
 
-## Edge cases
+-   **The skill MUST be token-efficient.** No section is padded with detail that
+    belongs in a `references/` file, and `SKILL.md` SHOULD be under ~300 lines.
 
-- **Improving an existing skill:** Read the current `SKILL.md` first, then treat
-  the improvement like a new draft. Rewrite rather than patch. Preserve the
-  `name` field unchanged.
+-   **The `description` MUST be specific enough to trigger correctly.** It MUST
+    name both the capability and the contexts that should invoke it — not just a
+    one-line summary of what the skill does.
 
-- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
-  Use it as a reference for domain knowledge, but adapt the instructions and
-  format to the bundled template and the conventions of the project you are
-  authoring in. Don't copy verbatim.
+-   **A `README.md` MUST exist alongside the `SKILL.md`.**
 
-## Examples
+##  Examples
 
-A minimal skill with no bundled resources:
+-   **A minimal skill with no bundled resources:**
 
-```
-skills/
-└── commit/
-    ├── SKILL.md
-    └── README.md
-```
+    ```
+    skills/
+    └── commit/
+        ├── SKILL.md
+        └── README.md
+    ```
 
-A skill with bundled scripts and references:
+-   **A skill with bundled scripts and references:**
 
-```
-skills/
-└── code-openapi/
-    ├── SKILL.md
-    ├── README.md
-    ├── scripts/
-    │   └── validate.sh
-    └── references/
-        ├── error-codes.md
-        └── schema-patterns.md
-```
+    ```
+    skills/
+    └── code-openapi/
+        ├── SKILL.md
+        ├── README.md
+        ├── scripts/
+        │   └── validate.sh
+        └── references/
+            ├── error-codes.md
+            └── schema-patterns.md
+    ```
 
-## Assets
+##  Assets
 
-- [Skill template](./assets/skill-template/skill-name/SKILL.md):
-  The bundled `SKILL.md` template to base new skills on.
+-   [Skill template](./assets/skill-template/skill-name/SKILL.md):
+    The bundled `SKILL.md` template to base new skills on.
 
-## References
+##  References
 
-- [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md):
-  Technical standard for formatting Markdown documents. Skills `*.md` files MUST
-  follow the formatting conventions described in this standard.
+-   [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md):
+    Technical standard for formatting Markdown documents. Skills `*.md` files MUST
+    follow the formatting conventions described in this standard.
 
-- [Collision safety for bundled resources](./references/create-skill-collision-safety.md):
-  How to namespace bundled resources so they don't collide across skills.
-  Read before adding files to `assets/`, `references/`, or `scripts/`.
+-   [Collision safety for bundled resources](./references/create-skill-collision-safety.md):
+    How to namespace bundled resources so they don't collide across skills.
+    Read before adding files to `assets/`, `references/`, or `scripts/`.
 
-- [skills/create-skill/references/create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md):
-  Read when wording requirement levels. This document defines a subset of
-  RFC 2119 to use.
+-   [skills/create-skill/references/create-skill-requirements-levels.md](./references/create-skill-requirements-levels.md):
+    Read when wording requirement levels. This document defines a subset of
+    RFC 2119 to use.
 
-- [Preferred model](./references/create-skill-preferred-model.md):
-  Read when deciding whether what model to pint to the skill via
-  `metadata.preferred_model`.
+-   [Preferred model](./references/create-skill-preferred-model.md):
+    Read when deciding whether what model to pint to the skill via
+    `metadata.preferred_model`.
 
-- [Interactive vs. non-interactive skills](./references/create-skill-interactive.md):
-  Read when deciding whether a skill prompts the user mid-flow, and whether to
-  declare `metadata.interactive` (default `yes`).
+-   [Interactive vs. non-interactive skills](./references/create-skill-interactive.md):
+    Read when deciding whether a skill prompts the user mid-flow, and whether to
+    declare `metadata.interactive: no` (default `yes`).
