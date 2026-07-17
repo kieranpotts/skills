@@ -11,13 +11,9 @@ metadata:
   preferred_model: claude-opus-4-8
 ```
 
-`metadata` is the Agent Skills standard's sanctioned place for vendor data, so
-the key validates against the canonical schema and the skill stays portable —
-hosts that do not understand it simply ignore it.
-
-My [`realize`](https://github.com/kieranpotts/pi) extension for Pi uses this
-metadata to toggle the model used to run a skill.
-
 Pin a model only when the skill genuinely depends on it (eg. a judgment-heavy
 review skill that needs a stronger model). Most skills should omit the field and
 inherit the host's default.
+
+This is a proprietary metadata field and few clients (agent harnesses) will
+support it. See https://github.com/kieranpotts/pi for an example implementation.

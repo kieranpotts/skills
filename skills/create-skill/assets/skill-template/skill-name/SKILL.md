@@ -16,8 +16,8 @@ metadata:
 
 One sentence, copied from the description, describing what the skill does.
 
-**Input:** Describe the information will require to perform the task encoded
-in this skills.
+**Input:** Describe the information the agent will require to perform the
+task encoded in this skill.
 
 - Alternatively a discrete piece of information required, as a single bullet
   point.
@@ -38,7 +38,7 @@ report, a direct edit, a file, a commit, the conversation itself.
 
 Optionally, specify how the agent should summarize the outcomes of its work.
 
-##  Instructions
+## Instructions
 
 1.  **Run the extract script.**
 
@@ -48,73 +48,70 @@ Optionally, specify how the agent should summarize the outcomes of its work.
 
 2.  ...
 
-##  Rules
+## Rules
 
--   **Base new scripts on this template:**
+- **Base new scripts on this template:**
 
-    ```sh
-    #!/bin/env sh
-    set -eu
+  ```sh
+  #!/bin/env sh
+  set -eu
 
-    # ...
-    ```
+  # ...
+  ```
 
--   **Variable naming convention:**
+- **Variable naming convention:**
 
-    - `UPPER_SNAKE_CASE` for variables exported to the environment.
-    - `lower_snake_case` for everything else, including functions.
+  - `UPPER_SNAKE_CASE` for variables exported to the environment.
+  - `lower_snake_case` for everything else, including functions.
 
-    ```sh
-    # ❌ No:
-    readonly OUTPUT_DIR="/tmp/out"
+  ```sh
+  # ❌ No:
+  readonly OUTPUT_DIR="/tmp/out"
 
-    # ✅ Yes:
-    readonly output_dir="/tmp/out"
+  # ✅ Yes:
+  readonly output_dir="/tmp/out"
 
-    # ✅ Yes:
-    export MY_APP_LOG_LEVEL="info"
-    ```
+  # ✅ Yes:
+  export MY_APP_LOG_LEVEL="info"
+  ```
 
-##  Edge cases
+## Edge cases
 
--   **Some edge case.**
+- **Some edge case.**
+  Describe the edge case and how the agent should handle it.
 
-    Describe the edge case and how the agent should handle it.
+## Success criteria
 
-##  Success criteria
+- **The output matches the expected format.**
+  Describe the specific structural or syntactic requirement — eg. the regex
+  passes, the file is in the right location, the required fields are present.
 
--   **The output matches the expected format.**
+- **All rules have been respected.**
+  Review the completed output against the rules above before finishing.
 
-    Describe the specific structural or syntactic requirement — eg. the regex
-    passes, the file is in the right location, the required fields are present.
+- **Some domain-specific check.**
+  Add one or two concrete, observable conditions specific to this skill —
+  things the agent can verify without running external tooling.
 
--   **All rules have been respected.**
+  Follow on paragraph here.
 
-    Review the completed output against the rules above before finishing.
+## Examples
 
--   **Some domain-specific check.**
+- **Some example scenario.**
+  Describe a representative input and the expected output or behavior.
 
-    Add one or two concrete, observable conditions specific to this skill —
-    things the agent can verify without running external tooling.]
+## Assets
 
-##  Examples
+- [Some template](./assets/template.md):
+  The bundled template to fill out in step N.
 
--   **Some example scenario.**
+## References
 
-    Describe a representative input and the expected output or behavior.
+- [API errors](./references/api-errors.md):
+  Read if the API returns a non-200 status code.
 
-##   Assets
+- [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
+  Used this skill for [purpose].
 
--   [Some template](./assets/template.md):
-    The bundled template to fill out in step N.
-
-##   References
-
--   [API errors](./references/api-errors.md):
-    Read if the API returns a non-200 status code.
-
--   [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
-    Used this skill for [purpose].
-
--   [Other skill](../skill-name/SKILL.md):
-    Used this skill for [purpose] — include only if required to create this skill.
+- [Other skill](../skill-name/SKILL.md):
+  Used this skill for [purpose] — include only if required to create this skill.
