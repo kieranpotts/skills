@@ -2,11 +2,10 @@
 name: refactor
 description: >-
   Improve the internal quality of existing code without changing its observable
-  behavior. Tests pass before and after. Each step is small and reversible. Use
-  when readability, structure, coupling, naming, or other design qualities need
-  work — distinct from bug fixes and feature work — or when the user says
-  "refactor this for readability", "clean up the structure of this module", or
-  "reduce the coupling here without changing behavior".
+  behavior. Use when readability, structure, coupling, naming, or other design
+  qualities need improving. Or use when the user says something like "refactor
+  this for readability", "clean up the structure of this module", or "reduce the
+  coupling here without changing behavior".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,8 +14,14 @@ metadata:
 
 # Refactor
 
-Improve the internal quality of existing code without changing its
-observable behavior.
+Improve the internal quality of existing code without changing its observable
+behavior. Tests MUST be untouched, and they MUST pass both before and after your
+changes.
+
+Implement your refactors in small steps, each step being small and reversible.
+
+Refactoring is distinct from bug fixes and feature work — do not confuse them.
+If in doubt, stop and return an error message.
 
 **Input:**
 

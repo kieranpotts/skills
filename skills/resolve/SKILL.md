@@ -1,11 +1,10 @@
 ---
 name: resolve
 description: >-
-  Action the open review comments on a pull request — implement each fix in
-  code, verify it, and mark the comment resolved. Use after a review has posted
-  its comments and the author has dismissed any they do not want actioned, to
-  clear the remaining open comments before re-testing, or when the user says
-  "action the review comments" or "address the feedback on this PR".
+  Action the open review comments on a pull request. Implement each fix in
+  code, verify it, and mark the comment resolved. Use after a code review,
+  or when the user says something like "action the review comments" or "address
+  the feedback on this PR".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -13,6 +12,9 @@ metadata:
 ---
 
 # Resolve
+
+Action the open review comments on a pull request. Implement each fix in code,
+verify it, and mark the comment as resolved.
 
 **Input:**
 

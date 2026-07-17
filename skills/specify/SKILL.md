@@ -1,13 +1,11 @@
 ---
 name: specify
 description: >-
-  Validate a product requirements document (PRD) and, if complete, file it as a
-  proposal in the project's software requirements specification (SRS)
-  repository. Rejects an incomplete PRD with reasons, rather than asking
-  questions. Use when a PRD exists and is ready to be turned into a
-  specification, before any design or coding work begins, or when the user says
-  "turn this into acceptance criteria", "turn this into a spec", or "prepare
-  these as software requirements".
+  Write or update a formal software requirements specification (SRS) from a
+  product requirements document (PRD) or other informal requirements written
+  in business language. Use when the user says something like "turn this into
+  acceptance criteria", "turn this into a spec", or "prepare these as software
+  requirements".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -16,8 +14,17 @@ metadata:
 
 # Specify
 
-Validate a product requirements document (PRD) and, if complete, file it as a
-proposal in the project's software requirements specification (SRS) repository.
+Write or update a formal software requirements specification (SRS) from a
+product requirements document (PRD) or other informal requirements written
+in business language.
+
+If the requirements are vague or incomplete — or otherwise insufficient to
+translate into a formal requirements specification written as testable
+acceptance criteria — reject with reasons. Do NOT attempt to fill-in missing
+requirements.
+
+Specification only. Do NOT make any code or configuration changes to the
+software itself.
 
 **Input:**
 

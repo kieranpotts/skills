@@ -2,13 +2,11 @@
 name: proof
 description: >-
   Proofread prose — Markdown, AsciiDoc, reStructuredText, plain text — making
-  conservative copy edits only — spelling, grammar, punctuation, typos, awkward
-  phrasing, and consistency of terminology and capitalization. Never touches
-  technical meaning, code, or markup syntax. Edits in place and reports a
-  summary; committing is left to the version-control skills. Use when polishing
+  conservative copy edits — spelling, grammar, punctuation, typos, awkward
+  phrasing, and consistency of terminology and capitalization. Use when polishing
   documentation, a README, release notes, or any written content before it
-  ships, or when the user says "proofread this document" or "check this for
-  spelling and grammar".
+  ships, or when the user says something like "proofread this document" or
+  "check this for spelling and grammar".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -17,9 +15,10 @@ metadata:
 
 # Proof
 
-Proofread prose, making conservative copy edits only — spelling, grammar,
-punctuation, typos, awkward phrasing, and consistency of terminology and
-capitalization.
+Proofread prose, making conservative copy edits — spelling, grammar, punctuation,
+typos, awkward phrasing, and consistency of terminology and capitalization.
+
+Do NOT change code examples or technical meaning.
 
 **Input:**
 

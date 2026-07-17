@@ -17,6 +17,8 @@ metadata:
 Create a new skill or improve an existing one, either in this skills collection
 or a downstream project.
 
+Do NOT make any code or configuration changes to any software.
+
 **Input:**
 
 - A description of the skill to create, or a path to an existing skill

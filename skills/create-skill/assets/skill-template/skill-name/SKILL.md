@@ -3,7 +3,7 @@ name: skill-name
 description: >-
   One sentence describing what the skill does. Optional sentence describing
   what's out of scope. Use when <specific triggers — user phrasings, situations,
-  file types, contexts>. Do NOT use this skill for <exceptions...>.
+  file types, contexts>.
 compatibility: requires <tool> or <tool>, and <tool>
 license: <license>
 metadata:
@@ -15,6 +15,8 @@ metadata:
 # <Skill name>
 
 One sentence, copied from the description, describing what the skill does.
+
+Optionally, set boundaries. What's out of scope?
 
 **Input:**
 

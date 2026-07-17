@@ -1,14 +1,10 @@
 ---
 name: validate
 description: >-
-  Evaluate completed, tested work against the users' actual needs — not against
-  the agreed acceptance criteria — to judge whether the specification itself
-  should evolve. Produce prioritized suggestions for changes to the requirements
-  specification. Use once all of a plan's increments are built and tested, as a
-  product-level checkpoint that asks "did we build the right thing?" and feeds
-  the specification feedback loop. Also use when the user says "validate this
-  against what the user actually needed" or "check the working software against
-  the original goal".
+  Validate the requirements specification against the users' actual needs.
+  Use when the user asks something like "did we build the right thing?", "does
+  the software fulfil its goals?", or "what gaps can you find in the
+  requirements specification?"
 license: CC0-1.0
 metadata:
   interactive: no
@@ -17,18 +13,23 @@ metadata:
 
 # Validate
 
-Ask: "Did we build the right thing?" You are expected to re-examine the current
-iteration of the software against the users' actual needs. Query the existing
-requirement specifications, looking for gaps between what was specified and what
-actual user needs may be. Product prioritized suggestions for how the
-specifications may evolve. Do NOT make any code or configuration changes to
-the software itself.
+Validate the requirements specification of a software system. Do they match
+the users' _actual_ needs, do you think? Look for gaps between what has been
+specified, and what users' actual needs are likely to be.
+
+Produce a report with prioritized suggestions for how the software could be
+improved for better product-market fit.
+
+Evaluation only. Do NOT make any code or configuration changes to the software
+itself.
 
 **Input:**
 
-- **Completed, tested work. REQUIRED.**
-  Work that has already passed **[test](../test/SKILL.md)** (verified against
-  its ACs). Run once all of a plan's increments are complete.
+- **The target codebase. REQUIRED.** If the user gives an explicit path or URL,
+  use that. Otherwise use the repository containing the current working
+  directory. Failing that, the projects listed in `AGENTS.md`; failing that, all
+  code repositories in nested subdirectories. If none can be found, stop and
+  alert the user.
 
 - **The originating statement of need. REQUIRED.** The preserved PRD, the
   specification's outcome and success measures, or the discovery report.

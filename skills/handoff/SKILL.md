@@ -1,13 +1,14 @@
 ---
 name: handoff
 description: >-
-  Compact the current conversation into a handoff document so a fresh agent or
-  sapien can pick up the work. Save it outside the project (the OS temp
-  directory) and reference existing artifacts (PRDs, plans, ADRs, issues,
-  commits) rather than duplicating them. Use when ending a session, switching
+  Compact the conversation into a summary of the main inputs, actions taken,
+  and outcomes. Save the summary into a single document, persisted on disk.
+  Another agent, or a human, can read this document and continue the work
+  from where the current session left off. Use when ending a session, switching
   agents, approaching context limits, or pausing work that someone else will
-  resume, or when the user says "hand this off to the next session" or "write up
-  where we got to before I stop".
+  resume, or when the user says something like "hand this off to the next
+  session", "write up where we've got to", or "I'm going to bed now, see you
+  tomorrow".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,6 +16,13 @@ metadata:
 ---
 
 # Handoff
+
+Compact the current conversation into a handoff document, so a fresh agent or
+human can pick up the work. Save the handoff document outside the project, such
+as to the operating system's temporary file path. Reference existing documents
+such as PRDs and delivery plans, without replicating them.
+
+Do NOT make any code or configuration changes to any software components.
 
 **Input:**
 

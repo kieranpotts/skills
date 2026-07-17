@@ -1,12 +1,10 @@
 ---
 name: branch
 description: >-
-  Git branching conventions, including the trunk model (`dev` → `test` →
-  `ready`), short-lived `temp/*` branches, and long-lived `epic/*` branches,
-  plus naming rules and validation regex. Use when creating a new branch, naming
-  a feature or fix branch, or validating branch names before push, or when the
-  user says "what should I call this branch?", "create a branch for this work",
-  or "is this branch name valid?".
+  Create a new development branch, or validate a branch name. Use when creating
+  a new branch, naming a feature or fix branch, or validating branch names
+  before push, or when the user says something like "what should I call this
+  branch?", "create a branch for this work", or "is this branch name valid?".
 compatibility: requires git
 license: CC0-1.0
 metadata:
@@ -15,6 +13,11 @@ metadata:
 ---
 
 # Branch
+
+Create a new development branch in one or more Git repositories, or validate a
+branch name, following the conventions described herein.
+
+Do NOT make any code or configuration changes to the software itself.
 
 **Input:**
 

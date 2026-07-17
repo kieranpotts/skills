@@ -1,13 +1,9 @@
 ---
 name: research
 description: >-
-  Research a topic the agent or project does not yet understand — a library,
-  protocol, pattern, regulation, prior-art approach — by gathering current
-  external sources, then produce a structured, cited research report. Discovery
-  and synthesis only, no code or doc changes. Use when a decision is blocked on
-  missing knowledge, when the user says "research X", "look into X", "find out
-  how X works", or before a design decision when an option depends on facts the
-  team does not yet hold.
+  Research a topic. Use when a decision is blocked on missing knowledge, or when
+  the user says something like "research X", "look into X", or "find out how X
+  works".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,6 +11,14 @@ metadata:
 ---
 
 # Research
+
+Research a given topic. The topic could be anything: a library, a protocol, a
+pattern, a regulation, or any other prior art. Gather external reference
+resources, analyze those resources, then produce a structured, cited research
+report.
+
+Discovery and synthesis only. Do NOT make any changes to any code or
+configuration, or to any documentation beyond the research report itself.
 
 **Input:**
 

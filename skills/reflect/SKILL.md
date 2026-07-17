@@ -1,12 +1,9 @@
 ---
 name: reflect
 description: >-
-  Extract durable lessons from the current session — corrections, validated
-  approaches, revealed preferences, project decisions outside the code — and
-  persist them to the agent's memory system or to repo-committed convention
-  files (AGENTS.md / CLAUDE.md). Use at session end to make future sessions
-  start smarter, or when the user says "reflect on this session", "what should
-  you remember from this?", or "save the lessons from our work today".
+  Extract durable lessons from the current session. Use at session end, or when
+  the user says something like "reflect on this session", "what should you
+  remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -14,6 +11,10 @@ metadata:
 ---
 
 # Reflect
+
+Extract durable lessons from the current session. Capture corrections, validated
+approached, revealed preferences, and project decisions. Persist this information
+on disk.
 
 **Input:**
 

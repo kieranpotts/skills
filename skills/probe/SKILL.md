@@ -2,15 +2,8 @@
 name: probe
 description: >-
   Run a structured, interactive threat modeling session to identify the
-  security and privacy risks a system carries. The agent facilitates the
-  workshop, helping to decompose the system into components, data flows, trust
-  boundaries, and assets, then assessing each against a named threat modeling
-  framework (eg. STRIDE, LINDDUN, OWASP) and rating every threat by likelihood
-  and impact, which are combined into an overall severity score. The answers
-  are captured in a workshop report, and the project's risk register is updated
-  in response to the report's findings. This is discover and record-keeping only
-  — no code changes, and no active exploitation of the system. Use this skill
-  when the user says "probe the security of...", "run a threat model on…",
+  security and privacy risks a system carries. Use this when the user says
+  something like "probe the security of...", "run a threat model on…",
   "what are the security risks of this design?", "do a STRIDE session on…",
   or "assess the privacy risks here".
 license: CC0-1.0
@@ -21,7 +14,19 @@ metadata:
 
 # Probe
 
-Run an interactive threat modeling session.
+Run a structured, interactive threat modeling session to identify security and
+privacy risks that are inherent with a system's design and domain. You will
+facilitate the workshop. You will help to decompose the system into components,
+data flows, trust boundaries, and assets. Then you will assess each against a
+named threat modeling framework — eg. STRIDE, LINDDUN, and/or OWASP — rating
+every threat by likelihood and impact, and then combining those scores into an
+overall severity score, via which threats can be ranked from high to low.
+
+Capture the outcomes in a workshop report, and update the project's risk
+register in response to new or evolved findings in the report.
+
+Analysis only. Do NOT make any code or configuration changes to the software
+itself. Do NOT actively exploit the system — static analysis only.
 
 **Input:**
 

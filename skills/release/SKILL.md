@@ -1,11 +1,8 @@
 ---
 name: release
 description: >-
-  Release branching strategy — either a single `release` trunk for continuous
-  deployment, or `release/<version>` branches for release trains — and
-  version-tagging conventions. Use when preparing a release, creating a release
-  branch, or tagging a release version, or when the user says "cut a release",
-  "tag version X", or "prepare a release branch".
+  Prepare a new software release. Use when the user says something like
+  "cut a release", "tag version X", or "prepare a release branch".
 compatibility: requires git
 license: CC0-1.0
 metadata:
@@ -14,6 +11,12 @@ metadata:
 ---
 
 # Release
+
+Prepare a new software release.
+
+Do NOT make any code or configuration changes to the software itself. However,
+changes to other artifacts such as the project CHANGELOG may be made, as
+instructed herein.
 
 **Input:**
 

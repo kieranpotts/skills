@@ -1,12 +1,12 @@
 ---
 name: plan
 description: >-
-  Break delivery of a designed change into a sequence of small, independently
-  mergeable steps. Each step is shippable, testable, and reversible on its own.
-  Use after the design is agreed and before any implementation begins. Use
-  whenever a change is bigger than a single commit or touches multiple seams, or
-  when the user says "break this design into steps", "plan the implementation",
-  or "how should we sequence this work?".
+  Break down delivery of design or functional changes into a sequence of small,
+  independently deployable steps. Use after a design has been agreed, but before
+  implementation begins. Use whenever a change is bigger than a single commit or
+  touches multiple seams, or when the user says something like "break this
+  design into steps", "plan the implementation", or "how should we sequence
+  this work?".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -15,8 +15,12 @@ metadata:
 
 # Plan
 
-Break delivery of a designed change into a sequence of small, independently
-mergeable steps.
+Break down delivery of design or functional changes into a sequence of small,
+independently deployable steps. Each step is testable, reversible, and shippable
+on its own.
+
+Planning only. Do NOT make any code or configuration changes to the software
+itself.
 
 **Input:**
 

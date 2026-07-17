@@ -1,15 +1,10 @@
 ---
 name: design
 description: >-
-  Explore architectural options and trade-offs for a feature or change.
-  Enumerate alternatives, evaluate them against the nine software design
-  qualities (completeness, correctness, performance, reliability, experience,
-  habitability, cohesiveness, changeability, simplicity), then recommend one
-  with reasoning. Gated on an approved specification — do not begin until the
-  upstream specification proposal is approved (ACCEPTED), not merely proposed.
-  Use when the change has architecturally significant decisions, before planning
-  or implementation, or when the user says "design this feature", "what are the
-  options for building this?", or "work out the architecture for this change".
+  Explore architectural options and trade-offs for a feature or other requirement.
+  Use when a code change involves architecturally significant decisions, or when
+  the user says something like "design this feature", "what are the options for
+  building this?", or "work out the architecture for this change".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -17,6 +12,15 @@ metadata:
 ---
 
 # Design
+
+Explore architectural options and trade-offs for a feature or other change in
+requirements. Enumerate alternatives, evaluate them against nine software design
+qualities — completeness, correctness, performance, reliability, experience,
+habitability, cohesiveness, changeability, and simplicity — then recommend one
+option with clear reasoning for why its trade-offs are optimally balanced.
+
+Architectural design only. Do NOT make any code or configuration changes to the
+software itself.
 
 **Input:**
 

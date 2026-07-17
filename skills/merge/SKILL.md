@@ -1,12 +1,12 @@
 ---
 name: merge
 description: >-
-  Consolidate divergence between two git branches using the right strategy for
-  the branch type. Pick fast-forward, merge commit, rebase, or squash-merge per
-  the project's branching conventions. Verify, resolve conflicts, run tests,
-  then push. Use any time work on one branch is being integrated into another,
-  or when the user says "merge this branch into dev", "integrate temp/... back
-  into the trunk", or "promote dev to test".
+  Consolidate divergence between two Git branches. Use the appropriate merge
+  strategy — eg. fast-forward, merge commit, rebase, or squash-merge — depending
+  on the source and target branch types. Use any time work on one branch is
+  being integrated into another, or when the user says something like "merge
+  this branch into…", "integrate <source-branch-name> back into the trunk", or
+  "promote <source-branch-name> to <target-branch-name>".
 compatibility: requires git
 license: CC0-1.0
 metadata:
@@ -16,8 +16,10 @@ metadata:
 
 # Merge
 
-Consolidate divergence between two git branches using the strategy the
-project's branching convention prescribes for that branch type.
+Consolidate divergence between two Git branches using the most appropriate merge
+strategy.
+
+Do NOT make any code or configuration changes to the software itself.
 
 **Input:**
 

@@ -1,14 +1,11 @@
 ---
 name: audit
 description: >-
-  Evaluate the as-built architecture of a software system, in one pass. Report
-  code smells and anti-patterns like shallow abstractions, tangled
-  dependencies, single-caller wrappers, inverted dependencies, and misnamed
-  abstractions. Scoped to architecture — security and privacy review is a
-  separate concern, handled by the probe skill and tracked in the risk
-  register. Evaluation only – no code changes. Use this skill when the user
-  says "audit this codebase", "audit the architecture", "is the design still
-  sound?", or "check the codebase for structural drift".
+  Audit the static structure of a software system, both its code and data,
+  and report code smells and anti-patterns. Security and privacy is
+  out-of-scope. Use this skill when the user says something like "audit this
+  codebase", "do an architectural audit", "is the design still sound?", or
+  "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -16,6 +13,18 @@ metadata:
 ---
 
 # Audit
+
+Audit the as-built static structure (code plus data) of a software system. Report
+code smells and anti-patterns like shallow abstractions, tangled dependencies,
+single-caller wrappers, inverted dependencies, and misnamed abstractions.
+Uncover edge cases, such as uncommon failure modes, that are not handled
+gracefully.
+
+This task is scoped to static review of code and data structures. Review of
+security and privacy is out-of-scope.
+
+Evaluation only. Do NOT make any code or configuration changes to the software
+itself.
 
 **Input:**
 
