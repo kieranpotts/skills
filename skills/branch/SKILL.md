@@ -17,27 +17,34 @@ metadata:
 Create a new development branch in one or more Git repositories, or validate a
 branch name, following the conventions described herein.
 
-Do NOT make any code or configuration changes to the software itself.
+You MUST NOT make any code or configuration changes to the software itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **A branch request or names to validate. REQUIRED.** A request to create or
-  name a branch, or one or more existing branch names to validate.
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md`. If the target codebase
+  cannot be found, stop and alert the user.
 
-- **The project's branch model. REQUIRED.** The trunk names, `temp/*` and
-  `epic/*` conventions, and the naming regex supply what is checked against.
+- Branch name or description — OPTIONAL.
+  If not specified by the user, you will generate a random branch name.
+  Instructions are below.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
-
-**Output:**
-
-A correctly-named branch created from the right base, or a pass/fail
+**Output:** A correctly-named branch created from the right base, or a pass/fail
 verdict on the supplied names with the specific rule each one violates. This
 skill names and validates branches and stops; it does not merge, cut releases,
 or author commit messages.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 
