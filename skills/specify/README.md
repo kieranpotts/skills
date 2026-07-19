@@ -98,8 +98,6 @@ implementation.
 
 ## How to invoke
 
-> Specify <URL or path to PRD or equivalent>
-
 > Turn this into acceptance criteria.
 
 > Turn this into a spec.

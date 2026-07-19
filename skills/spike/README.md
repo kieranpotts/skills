@@ -21,10 +21,7 @@ the production version is re-implemented cleanly.
 
 ## How to invoke
 
-> I want to investigate if Postgres LISTEN/NOTIFY can sustain 5000
-> dispatches/sec at p95 < 50ms?
-
-> Spike on whether X is feasible.
+> So a spike on whether X is feasible.
 
 > Prototype this to answer the open question.
 

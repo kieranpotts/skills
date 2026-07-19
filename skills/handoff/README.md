@@ -24,7 +24,9 @@ This skill instructs the agent to run non-interactively.
 
 > Hand this off to the next session.
 
-> Write up where we got to before I stop.
+> Write up where we've got to.
+
+> I'm going to bed now, see you tomorrow.
 
 ## Recommended models
 

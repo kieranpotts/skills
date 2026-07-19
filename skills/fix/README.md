@@ -22,7 +22,7 @@ This skill instructs the agent to run non-interactively.
 
 > Make the type-checker pass.
 
-> This is broken.
+> Implement the fix to resolve this known bug.
 
 ## Recommended models
 

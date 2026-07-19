@@ -24,11 +24,11 @@ the need / gaps found), but changes no specification and no code.
 
 ## How to invoke
 
-> Validate this against what the user actually needed.
-
 > Did we build the right thing?
 
-> Check the working software against the original goal.
+> Does the software fulfil its goals?
+
+> What gaps can you find in the requirements specification?
 
 ## Recommended models
 

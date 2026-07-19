@@ -23,7 +23,7 @@ reference-and-apply.
 
 > Cut a release.
 
-> Tag version 2.1.0.
+> Tag version X.
 
 > Prepare a release branch.
 

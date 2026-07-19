@@ -16,8 +16,6 @@ action is left open, with a comment explaining why it was skipped.
 
 ## How to invoke
 
-> Resolve PR #482
-
 > Action the review comments.
 
 > Address the feedback on this PR.

@@ -27,7 +27,9 @@ This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-> Audit the architecture.
+> Audit this codebase.
+
+> Do an architectural audit.
 
 > Is the design still sound?
 

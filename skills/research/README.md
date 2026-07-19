@@ -24,7 +24,7 @@ certainty.
 
 ## How to invoke
 
-> Research does library X support streaming responses, and from which version?
+> Research X.
 
 > Look into X.
 
