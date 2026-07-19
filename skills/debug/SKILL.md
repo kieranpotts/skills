@@ -14,26 +14,45 @@ metadata:
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **A bug or performance regression whose cause is not obvious. REQUIRED.** A
-  reported bug or performance regression whose cause is not obvious from reading
-  the code — the symptom, where it shows up, and any reproduction the user
-  already has. For performance work, a numerical baseline and threshold stand in
-  for the symptom.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-**Output:**
+- A bug or performance regression whose cause is not obvious — REQUIRED.
+  A reported bug or performance regression whose cause is not obvious from
+  reading the code — the symptom, where it shows up, and any reproduction the
+  user already has. For performance work, a numerical baseline and threshold
+  stand in for the symptom.
 
-A verified fix landed with a regression test that locks the bug out,
+**Output:** A verified fix landed with a regression test that locks the bug out,
 the diagnostic instrumentation removed, and the correct cause recorded in the
 commit or PR message for the next reader. If no reliable feedback loop can be
 built, the skill stops and says so — listing what it tried and what it needs —
 rather than guessing.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

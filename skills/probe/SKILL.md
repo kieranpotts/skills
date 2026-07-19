@@ -25,18 +25,39 @@ overall severity score, via which threats can be ranked from high to low.
 Capture the outcomes in a workshop report, and update the project's risk
 register in response to new or evolved findings in the report.
 
-Analysis only. Do NOT make any code or configuration changes to the software
-itself. Do NOT actively exploit the system — static analysis only.
+Analysis only. You MUST NOT make any code or configuration changes to the
+software itself, and you MUST NOT actively exploit the system — static analysis
+only.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context and
+environment, if possible. If you're uncertain about the input requirements,
+prompt the user for clarification.
 
-- **What to assess. REQUIRED.** A subsystem, service, data flow, feature, or
-  design. The user MAY point at a codebase, a design doc, a diagram, or simply
-  describe it in the session. This can be vague at the start — the session
-  sharpens it through decomposition.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-- **Where to write the outcome. REQUIRED.** The project's risk register — a
-  concrete implementation of [TS-54: Threat
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
+
+- What to assess — REQUIRED.
+  A subsystem, service, data flow, feature, or design. The user MAY point at a
+  codebase, a design doc, a diagram, or simply describe it in the session. This
+  can be vague at the start — the session sharpens it through decomposition.
+
+- Where to write the outcome — REQUIRED.
+  The project's risk register — a concrete implementation of [TS-54: Threat
   Modeling](https://github.com/kieranpotts/standards/tree/dev/src/054). Check the
   `AGENTS.md` file in the current working directory for the path or URL of the
   risk register (it is typically a separate repository, see
@@ -44,12 +65,7 @@ itself. Do NOT actively exploit the system — static analysis only.
   the current working directory has a `risks/` subdirectory containing a
   `REGISTER.md`. If the register cannot be located, stop and alert the user.
 
-Gather the rest of the information you need by prompting the user. Ask one
-question at a time.
-
-**Output:**
-
-Two artifacts, written to the risk register store, following the
+**Output:** Two artifacts, written to the risk register store, following the
 conventions defined there:
 
 1. **An immutable session report** at `risks/YYYY-MM-DD-<slug>/` (or wherever the

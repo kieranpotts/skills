@@ -20,30 +20,50 @@ characteristics, API ergonomics, integration risks, etc. Your work is time-boxed
 and scope-collapsed, and the artifacts your produce will never be promoted to
 production.
 
-Research and development only. Do NOT make any code or configuration changes to
-the production software itself. Keep spikes in branches off the main trunk, in
-separate worktrees if possible, or separately-cloned repositories.
+Research and development only. You MUST NOT make any code or configuration
+changes to the production software itself. Keep spikes in branches off the main
+trunk, in separate worktrees if possible, or separately-cloned repositories.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **One falsifiable question. REQUIRED.** A specific feasibility, performance,
-  ergonomics, or integration-risk question that cannot be answered by reasoning
-  alone, with the evidence that would close it defined up front.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-**Output:**
+- One falsifiable question — REQUIRED.
+  A specific feasibility, performance, ergonomics, or integration-risk question
+  that cannot be answered by reasoning alone, with the evidence that would close
+  it defined up front.
 
-The answer, durably captured — a measurement, observable behavior,
+**Output:** The answer, durably captured — a measurement, observable behavior,
 or working integration, recorded so it is reproducible from the notes alone, and
 landed in the appropriate artifact (an ADR or design-doc update, a revision to
 acceptance criteria, or a decision-log note). The spike code is thrown away or
 quarantined in a clearly-marked throwaway location, never promoted. Whatever
 consumes the answer — resuming design, revising the specification, the
 production re-implementation — is the orchestrator's concern, not this skill's.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

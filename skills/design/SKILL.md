@@ -19,29 +19,49 @@ qualities — completeness, correctness, performance, reliability, experience,
 habitability, cohesiveness, changeability, and simplicity — then recommend one
 option with clear reasoning for why its trade-offs are optimally balanced.
 
-Architectural design only. Do NOT make any code or configuration changes to the
-software itself.
+Architectural design only. You MUST NOT make any code or configuration changes
+to the software itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **An approved specification. REQUIRED.** Functional acceptance criteria and
-  non-functional requirements, already reviewed and approved (`ACCEPTED`). This
-  skill consumes that specification; it does not write it, and its entry gate
-  refuses to begin until the approval is in place.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-**Output:**
+- An approved specification — REQUIRED.
+  Functional acceptance criteria and non-functional requirements, already
+  reviewed and approved (`ACCEPTED`). This skill consumes that specification;
+  it does not write it, and its entry gate refuses to begin until the approval
+  is in place.
 
-A recommended design — the chosen option with its evaluation against
+**Output:** A recommended design — the chosen option with its evaluation against
 the nine qualities, the rejected alternatives and why, and a durable decision
 record (ADR, design doc, or PR description). Where a design question cannot be
 answered by reasoning alone, a time-boxed prototype produces the evidence that
 feeds back into the evaluation. Whatever consumes the design — decomposition
 into steps, implementation — is the orchestrator's concern, not this skill's.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

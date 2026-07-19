@@ -18,30 +18,51 @@ metadata:
 Audit a code change for correctness, design, clarity, test coverage, security,
 and completeness. Classify every finding as blocking or non-blocking.
 
-Review only. Do NOT make any code or configuration changes to the software
+Review only. You MUST NOT make any code or configuration changes to the software
 itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **A code change to audit. REQUIRED.** A pull request, a peer's branch, or one's
-  own diff before opening a PR. The comparison base is pinned explicitly.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-- **The specification to check against. REQUIRED.** The acceptance criteria the
-  change claims to satisfy, plus any captured design decision.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- A code change to audit — REQUIRED.
+  A pull request, a peer's branch, or one's own diff before opening a PR. The
+  comparison base is pinned explicitly.
 
-**Output:**
+- The specification to check against — REQUIRED.
+  The acceptance criteria the change claims to satisfy, plus any captured
+  design decision.
 
-A set of findings, each carrying a severity label (Blocking,
+**Output:** A set of findings, each carrying a severity label (Blocking,
 Suggestion, Nit, Praise) and organized along two axes (Specification and
 Standards), closed with an explicit verdict (Approve, Request changes, or
 Comment). Review reports its findings and stops; acting on them — fixing
 presentation, restructuring, re-running the system — is a separate, downstream
 responsibility.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

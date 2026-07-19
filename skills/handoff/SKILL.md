@@ -22,27 +22,47 @@ human can pick up the work. Save the handoff document outside the project, such
 as to the operating system's temporary file path. Reference existing documents
 such as PRDs and delivery plans, without replicating them.
 
-Do NOT make any code or configuration changes to any software components.
+You MUST NOT make any code or configuration changes to any software components.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **The current session's context. REQUIRED.** The work done, the decisions
-  made, the durable artifacts already produced (specifications, designs, plans,
-  ADRs, issues, commits), and the state of the codebase.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-**Output:**
+- The current session's context — REQUIRED.
+  The work done, the decisions made, the durable artifacts already produced
+  (specifications, designs, plans, ADRs, issues, commits), and the state of the
+  codebase.
 
-A single, ephemeral handoff document written to the OS temp
+**Output:** A single, ephemeral handoff document written to the OS temp
 directory (not the repo), referencing those durable artifacts by path or URL
 rather than duplicating them. It captures what's done, what's open, the codebase
 state, suggested next steps, and gotchas. This skill reports the file's absolute
 path and stops; whether the next session is an agent or a human is the
 orchestrator's concern.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

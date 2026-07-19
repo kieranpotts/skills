@@ -20,33 +20,37 @@ specified, and what users' actual needs are likely to be.
 Produce a report with prioritized suggestions for how the software could be
 improved for better product-market fit.
 
-Evaluation only. Do NOT make any code or configuration changes to the software
-itself.
+Evaluation only. You MUST NOT make any code or configuration changes to the
+software itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **The target codebase. REQUIRED.** If the user gives an explicit path or URL,
-  use that. Otherwise use the repository containing the current working
-  directory. Failing that, the projects listed in `AGENTS.md`; failing that, all
-  code repositories in nested subdirectories. If none can be found, stop and
-  alert the user.
+- The software requirements specification — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a software requirements specification (SRS). If it exists as
+  an upstream repository, clone it to a temporary directory locally. Otherwise,
+  look in the current working directory or check the nearest `AGENTS.md`. If
+  the SRS cannot be found, stop and alert the user.
 
-- **The originating statement of need. REQUIRED.** The preserved PRD, the
-  specification's outcome and success measures, or the discovery report.
+- The originating statement of need — OPTIONAL.
+  Look in the context and environment for a preserved product requirements
+  document (PRD) or other similar discovery report that captures, at a high
+  level, the business requirements and user needs for the system.
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
-
-**Output:**
-
-A bounded, prioritized validation report — an explicit verdict
+**Output:** A bounded, prioritized validation report — an explicit verdict
 (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
 specification should evolve, each classified by gap type, backed by evidence,
 and ready to seed a **[refine](../refine/SKILL.md)** →
 **[specify](../specify/SKILL.md)** pass. No specification or code is changed; what
 consumes the report is the orchestrator's concern.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

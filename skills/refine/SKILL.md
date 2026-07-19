@@ -20,18 +20,36 @@ Revise the requirements specification in response to feedback from acceptance
 testing, or from real-world use of working software. Capture what was
 learnt, and identify which acceptance criteria need to be refined.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context and
+environment, if possible. If you're uncertain about the input requirements,
+prompt the user for clarification.
 
-- **A feedback trigger against an existing specification. REQUIRED.** A failing
-  acceptance criterion, an exploratory-testing finding, a stakeholder report
-  against shipped behavior, or an NFR threshold proven wrong in practice.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
+
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
+
+- A feedback trigger against an existing specification — REQUIRED.
+  A failing acceptance criterion, an exploratory-testing finding, a stakeholder
+  report against shipped behavior, or an NFR threshold proven wrong in practice.
 
 Gather the rest of the information you need by prompting the user. Ask one
 question at a time.
 
-**Output:**
-
-Precise edits to the requirements artifacts, conforming to the
+**Output:** Precise edits to the requirements artifacts, conforming to the
 specification conventions (Gherkin, measurable NFRs, explicit scope), each with
 a recorded trigger, type, and rationale; plus a traced list of downstream
 design, planning, code, and test work the refinement implies. The output is

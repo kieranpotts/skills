@@ -6,7 +6,7 @@ description: >-
   remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
-  interactive: yes
+  interactive: no
   preferred_model: ollama/technical-writer
 ---
 
@@ -16,27 +16,52 @@ Extract durable lessons from the current session. Capture corrections, validated
 approached, revealed preferences, and project decisions. Persist this information
 on disk.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **The current session's conversation. REQUIRED.** The source of durable
-  lessons — corrections, validated approaches, revealed preferences, and
-  project decisions surfaced during the work.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-- **The agent's existing memory files. REQUIRED.** Checked so new lessons update
-  or extend prior entries rather than duplicating them.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-- **The repo's convention files. REQUIRED.** `AGENTS.md` / `CLAUDE.md`, the
-  destination for codebase conventions and a source to check against before
-  proposing.
+- The current session's conversation — REQUIRED.
+  The source of durable lessons — corrections, validated approaches, revealed
+  preferences, and project decisions surfaced during the work.
 
-Seek per-candidate approval from the user, prompting before persisting.
+- The agent's existing memory files — REQUIRED.
+  Checked so new lessons update or extend prior entries rather than duplicating
+  them.
 
-**Output:**
+- The repo's convention files — REQUIRED.
+  `AGENTS.md` / `CLAUDE.md`, the destination for codebase conventions and a
+  source to check against before proposing.
 
-Zero or more persisted lessons — memory entries (indexed in
+~~Seek per-candidate approval from the user, prompting before persisting.~~
+
+**Output:** Zero or more persisted lessons — memory entries (indexed in
 `MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
 changing future agent behavior, written only after per-candidate user approval.
 Universal lessons better encoded as a new skill are flagged, not saved.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

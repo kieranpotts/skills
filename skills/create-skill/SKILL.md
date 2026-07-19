@@ -17,30 +17,45 @@ metadata:
 Create a new skill or improve an existing one, either in this skills collection
 or a downstream project.
 
-Do NOT make any code or configuration changes to any software.
+You MUST NOT make any code or configuration changes to any software.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context and
+environment, if possible. If you're uncertain about the input requirements,
+prompt the user for clarification.
+
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
+
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
 - A description of the skill to create, or a path to an existing skill
-  to improve. REQUIRED.
+  to improve — REQUIRED.
 
-- The purpose of the skill. REQUIRED.
+- The purpose of the skill — REQUIRED.
 
-- Trigger conditions. REQUIRED.
+- Trigger conditions  REQUIRED.
 
-- Target project in which to install the skill. OPTIONAL. If not explicitly
+- Target project in which to install the skill — OPTIONAL. If not explicitly
   specified, if the current working directory is inside a Git repository, assume
   that is the target project, else install in the user's home directory at
   `$HOME/.agents/skills/<skill-name>/`.
 
-Gather as much of this information as possible from the surrounding context.
-Prompt the user for anything that's missing or unclear.
-
-**Output:**
-
-A complete skill directory, including a `SKILL.md` file conforming to the
-bundled template, a sibling `README.md` for humans, and any bundled assets,
-references, and scripts. All artifacts pass the validator.
+**Output:** A complete skill directory, including a `SKILL.md` file conforming
+to the bundled template, a sibling `README.md` for humans, and any bundled
+assets, references, and scripts. All artifacts pass the validator.
 
 ## Instructions
 

@@ -20,26 +20,41 @@ design. Walk the decision tree by branch, probing with concrete scenarios,
 sharping fuzzy language, cross-referencing against the codebase and capturing
 crystallized decisions as architectural decision records.
 
-Discovery only. Do NOT make any code or configuration changes to the software
-itself.
+Discovery only. You MUST NOT make any code or configuration changes to the
+software itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context and
+environment, if possible. If you're uncertain about the input requirements,
+prompt the user for clarification.
 
-- **A draft design with soft edges. REQUIRED.** An ADR, design doc, or PR
-  description that has unresolved trade-offs, ambiguous terms, unstated
-  assumptions, or dependencies not yet thought through. This skill does not
-  originate the design; it consumes a draft to sharpen.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-- **Related acceptance criteria and the relevant code. REQUIRED.** The
-  acceptance criteria tied to the design, and the code it touches, so the draft
-  can be cross-referenced against what already exists.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-Gathers the rest of the information you need by prompting the user. Ask one
-question at a time.
+- A draft design with soft edges — REQUIRED.
+  An ADR, design doc, or PR description that has unresolved trade-offs,
+  ambiguous terms, unstated assumptions, or dependencies not yet thought through.
+  This skill does not originate the design; it consumes a draft to sharpen.
 
-**Output:**
+- Related acceptance criteria and the relevant code — REQUIRED.
+  The acceptance criteria tied to the design, and the code it touches, so the
+  draft can be cross-referenced against what already exists.
 
-A decomposition-ready design — every open decision resolved or
+**Output:** A decomposition-ready design — every open decision resolved or
 explicitly deferred, terms reconciled with the glossary
 (`docs/domain-model.md`), code-versus-design contradictions surfaced, and
 qualifying decisions captured as ADRs. Whatever decomposes or otherwise consumes

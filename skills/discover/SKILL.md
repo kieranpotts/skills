@@ -22,12 +22,32 @@ requirements document (PRD) in business language that captures outcomes,
 stakeholders, scope, business rules (with examples), and non-functional
 requirements.
 
-Discovery only. Do NOT make any code or configuration changes to the software
-itself.
+Discovery only. You MUST NOT make any code or configuration changes to the
+software itself.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context and
+environment, if possible. If you're uncertain about the input requirements,
+prompt the user for clarification.
 
-- **A seed PRD or artifacts. OPTIONAL.** The user MAY provide a draft PRD or
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
+
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
+
+- A seed PRD or artifacts — OPTIONAL. The user MAY provide a draft PRD or
   similar artifacts (via file paths, URLs, or pasted text) to be edited in
   place, or to use as a basis for a fresh PRD. The seed may be vague,
   incomplete, or absent.
@@ -35,9 +55,7 @@ itself.
 Gathers the rest of the input you need from the user. Prompt one question at
 a time.
 
-**Output:**
-
-A new or modified PRD in business language, covering outcomes,
+**Output:** A new or modified PRD in business language, covering outcomes,
 stakeholders, scope, rules, examples, non-functional requirements, assumptions,
 and open questions. The PRD enforces completeness by having a counter-example
 for every rule, an explicit out-of-scope list, non-functional requirements

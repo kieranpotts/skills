@@ -1,10 +1,10 @@
 ---
 name: triage
 description: >-
-  Move issues on the project issue tracker through a small state machine of
-  category and state labels. Use when triaging incoming issues, preparing them
-  for AFK (away-from-keyboard) agents, reviewing the backlog, or when the user
-  says something like "triage this issue", "work the incoming issue queue", or
+  Move one issue in a project's issue tracker through a small state machine of
+  state labels. Use when triaging incoming issues, lining them up to be worked
+  on by either humans or downstream agents. Also use when the user says
+  something like "triage this issue", "work the incoming issue queue", or
   "prep this issue for an agent".
 license: CC0-1.0
 metadata:
@@ -14,35 +14,29 @@ metadata:
 
 # Triage
 
-Move issues in a project's issue tracker through a small state machine of
-category and state labels.
+Move a single issue in a project's issue tracker through a small state machine
+of state labels.
 
-For each issue, gather context, recommend a classification, attempt reproduction
-for bugs, grill the issue into shape if needed, then apply the outcome — which
-may be a label change, an agent brief, a needs-info request, or a wontfix issue.
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-**Input:**
+- The target issue — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  issue. This may be a full URL or an ID like "#42".
 
-- **One or more issues to triage. REQUIRED.** Freshly-filed or in-flight issues
-  on the project's tracker, the full thread and any prior triage notes, and the
-  relevant code for reproduction.
-
-- **The label vocabulary. REQUIRED.** The category/state label vocabulary is
-  assumed present (or is set up first).
-
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
-
-**Output:**
-
-A recommended classification per issue, applied as the outcome once
+**Output:** A recommended classification per issue, applied as the outcome once
 the maintainer confirms — a label change, an agent brief (problem statement,
 repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
 needs-info request, or a durably-captured wontfix rationale. This skill
 recommends and routes; it does not implement the fix or write the specification
 that follows.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 

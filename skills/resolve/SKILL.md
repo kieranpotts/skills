@@ -16,26 +16,46 @@ metadata:
 Action the open review comments on a pull request. Implement each fix in code,
 verify it, and mark the comment as resolved.
 
-**Input:**
+**Input:** Determine the following information from the surrounding context
+and environment. You MUST NOT prompt the user for clarification on this task's
+requirements. If you cannot determine the required inputs, stop and alert the
+user with an error message.
 
-- **A pull request with open review comments. REQUIRED.** The un-dismissed
-  comments from [review](../review/SKILL.md); the author has already resolved any
-  they do not want actioned, so what remains is the work list.
+<!--
+- The target codebase — REQUIRED.
+  Look in the user's last input prompt for an explicit reference to a target
+  path or URL to a code repository. If a URL, clone the repository to a
+  temporary directory. Otherwise, assume the target is the code repository
+  under which the current working directory (cwd) sits. If the cwd is not part
+  of a code repository, check the nearest `AGENTS.md` for paths to all the
+  projects in the current workspace, else find all code repositories in nested
+  subdirectories — assume they are all components of the target codebase. If the
+  target codebase cannot be found, stop and alert the user.
 
-- **The code under review. REQUIRED.** The base commit is pinned.
+- Where to write the report — REQUIRED.
+  If not specified by the user, check the nearest `AGENTS.md` file for the path
+  or URL to the audit reports. If not found, check if the current working
+  directory has an `audits/` subdirectory that contains audit reports. If the
+  path to the audit reports cannot be found, stop and alert the user.
+-->
 
-You MUST complete this task non-interactively. You MUST NOT block for user input
-after this initial prompt. You MUST follow the instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+- A pull request with open review comments — REQUIRED.
+  The un-dismissed comments from [review](../review/SKILL.md); the author has
+  already resolved any they do not want actioned, so what remains is the work
+  list.
 
-**Output:**
+- The code under review — REQUIRED. The base commit is pinned.
 
-A branch with each open comment implemented as a minimal, verified
+**Output:** A branch with each open comment implemented as a minimal, verified
 code change; each thread replied to and marked resolved; the fixes committed and
 pushed. Any comment that could not be honestly actioned is left open and
 reported with a reason. The verified change is ready for
 **[test](../test/SKILL.md)**; what runs next is the orchestrator's concern.
+
+**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
+block for user input. You MUST follow the below instructions to completion, else
+fail with an error message. If in doubt about any of the requirements of this
+task, you MUST stop and print an error message.
 
 ## Instructions
 
