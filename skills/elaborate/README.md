@@ -1,6 +1,7 @@
 # Elaborate
 
-The **elaborate** skill is all about **stress-testing a draft design**. It is a
+The **elaborate** skill is all about refining a proposed solution by
+interrogating the design docs. It is a
 highly interactive session with one objective: to nail down an architectural
 design and mitigate the major risks within it.
 

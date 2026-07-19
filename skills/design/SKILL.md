@@ -1,10 +1,10 @@
 ---
 name: design
 description: >-
-  Explore architectural options and trade-offs for a feature or other requirement.
-  Use when a code change involves architecturally significant decisions, or when
-  the user says something like "design this feature", "what are the options for
-  building this?", or "work out the architecture for this change".
+  Explore architectural options and their trade-offs. Use when a code change
+  involves architecturally significant decisions, or when the user says
+  something like "design this feature", "what are the options for building
+  this?", or "work out the architecture for this change".
 license: CC0-1.0
 metadata:
   interactive: no

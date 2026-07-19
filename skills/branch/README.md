@@ -1,6 +1,6 @@
 # Branch
 
-The **branch** skill is all about **git branching strategy**. It codifies a
+The **branch** skill is all about Git branching strategy. It codifies a
 trunk-based branch model: permanent fast-forward-only trunks (`dev` → `test` →
 `ready`), short-lived `temp/*` branches for single-focus changes, and long-lived
 `epic/*` branches for large multi-contributor work, all governed by naming rules

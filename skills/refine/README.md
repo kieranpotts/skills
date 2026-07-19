@@ -1,6 +1,7 @@
 # Refine
 
-The **refine** skill is all about **specification revision**. It edits the
+The **refine** skill is all about producing new business requirements in
+response to acceptance testing feedback. It edits the
 *specification*, not the code, in response to acceptance-testing feedback or to
 use of the working software. The boundary is sharp: if the spec was right and the
 code was wrong, that is a defect fix, not a refinement; refinement is for when

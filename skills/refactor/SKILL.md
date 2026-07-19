@@ -1,10 +1,10 @@
 ---
 name: refactor
 description: >-
-  Improve the internal quality of existing code without changing its observable
-  behavior. Use when readability, structure, coupling, naming, or other design
-  qualities need improving. Or use when the user says something like "refactor
-  this for readability", "clean up the structure of this module", or "reduce the
+  Iterate the design while maintaining stability through system testing. Use
+  when readability, structure, coupling, naming, or other design qualities
+  need improving. Or use when the user says something like "refactor this for
+  readability", "clean up the structure of this module", or "reduce the
   coupling here without changing behavior".
 license: CC0-1.0
 metadata:

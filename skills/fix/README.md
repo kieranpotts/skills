@@ -1,6 +1,7 @@
 # Fix
 
-The **fix** skill is all about **mechanical remediation**. It audits and fixes
+The **fix** skill is all about fixing anything generally broken — failing
+builds, lint, type-checks, etc. It audits and fixes
 anything in the codebase that is broken in an obvious, mechanical way — a failing
 build or compile, a linter or type-checker violation, a deprecation warning, a
 misconfigured tool.

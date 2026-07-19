@@ -1,11 +1,9 @@
 ---
 name: discover
 description: >-
-  Run a structured customer-discovery session to elicit business requirements,
-  producing a product requirements document (PRD) with high-level requirements
-  (both functional and non-functional), business rules, and key stakeholders.
-  Use when requirements are vague, ambiguous, or unclear, or when the user says
-  something like "let's discover the requirements for…", "run a discovery
+  Run a discovery workshop with the customer to elicit product requirements.
+  Use when requirements are vague, ambiguous, or unclear, or when the user
+  says something like "let's discover the requirements for…", "run a discovery
   session on…", "help me understand what the customer actually needs", or
   "interview me about this feature".
 license: CC0-1.0

@@ -1,6 +1,7 @@
 # Plan
 
-The **plan** skill is all about **decomposing a design into deliverable steps**. It
+The **plan** skill is all about decomposing delivery into small, stable
+increments. It
 turns a big up-front design into a sequenced checklist of small construction
 steps that can be built through an iterative loop — supporting continuous
 integration.

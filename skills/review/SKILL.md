@@ -1,12 +1,11 @@
 ---
 name: review
 description: >-
-  Audit a code change for correctness, design, clarity, test coverage, security,
-  and completeness. Classify every finding as blocking or non-blocking. Use when
-  reviewing a pull request, auditing a peer's branch, or self-reviewing changes
-  before opening a PR, or when the user says something like "review this PR",
-  "review my changes before I push", or "check this diff against the spec and
-  our conventions".
+  Evaluate code for style conventions and pattern consistency. Use when
+  reviewing a pull request, auditing a peer's branch, or self-reviewing
+  changes before opening a PR, or when the user says something like "review
+  this PR", "review my changes before I push", or "check this diff against the
+  spec and our conventions".
 license: CC0-1.0
 metadata:
   interactive: no

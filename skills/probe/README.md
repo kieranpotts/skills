@@ -1,6 +1,7 @@
 # Probe
 
-The **probe** skill runs an interactive threat modeling session. The agent
+The **probe** skill is all about running an interactive threat-modeling
+session, and recording security risks. The agent
 facilitates a workshop that decomposes a system into its components, data flows,
 trust boundaries, and assets, then assesses each against one or more threat
 modeling frameworks such as STRIDE, LINDUN, or OWASP. Every identified threat

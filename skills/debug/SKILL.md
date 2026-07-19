@@ -1,9 +1,9 @@
 ---
 name: debug
 description: >-
-  Debug a documented issue in a codebase. Use when the user says something like
-  "debug this" or "diagnose this", reports a bug, says something is
-  broken/throwing/failing, or describes a performance regression.
+  Diagnose and fix unexpected behaviors and runtime issues. Use when the user
+  says something like "debug this" or "diagnose this", reports a bug, says
+  something is broken/throwing/failing, or describes a performance regression.
 license: CC0-1.0
 metadata:
   interactive: no

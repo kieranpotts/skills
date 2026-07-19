@@ -1,10 +1,10 @@
 ---
 name: branch
 description: >-
-  Create a new development branch, or validate a branch name. Use when creating
-  a new branch, naming a feature or fix branch, or validating branch names
-  before push, or when the user says something like "what should I call this
-  branch?", "create a branch for this work", or "is this branch name valid?".
+  Git branching strategy. Use when creating a new branch, naming a feature or
+  fix branch, or validating branch names before push, or when the user says
+  something like "what should I call this branch?", "create a branch for this
+  work", or "is this branch name valid?".
 compatibility: requires git
 license: CC0-1.0
 metadata:

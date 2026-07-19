@@ -1,11 +1,10 @@
 ---
 name: triage
 description: >-
-  Move one issue in a project's issue tracker through a small state machine of
-  state labels. Use when triaging incoming issues, lining them up to be worked
-  on by either humans or downstream agents. Also use when the user says
-  something like "triage this issue", "work the incoming issue queue", or
-  "prep this issue for an agent".
+  Verify that a reported bug or incident is real and reproducible. Use when
+  triaging incoming issues, lining them up to be worked on by either humans or
+  downstream agents. Also use when the user says something like "triage this
+  issue", "work the incoming issue queue", or "prep this issue for an agent".
 license: CC0-1.0
 metadata:
   interactive: no

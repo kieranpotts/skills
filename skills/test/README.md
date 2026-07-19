@@ -1,6 +1,7 @@
 # Test
 
-The **test** skill is all about **acceptance verification**. It verifies the whole
+The **test** skill is all about checking the evolving software for both
+functional correctness and runtime qualities. It verifies the whole
 solution against the specification — it does not write fresh tests for new
 behavior (that's the implementation's job) or diagnose a failure (that's
 separate).

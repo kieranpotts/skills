@@ -1,6 +1,7 @@
 # Release
 
-The **release** skill is all about **release branching and tagging**. It defines
+The **release** skill is all about managing release branches, and applying
+version tags. It defines
 two mutually exclusive release strategies and the rules for each: a single
 permanent **release** trunk auto-promoted from `ready` (for continuous
 deployment), or `release/<version>` branches cut from `ready` (for release

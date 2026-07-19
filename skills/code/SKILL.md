@@ -1,10 +1,10 @@
 ---
 name: code
 description: >-
-  Write code and tests for a small increment of work. Use when implementing one
-  numbered step from a plan, or for any small standalone change whose design is
-  already obvious, or when the user says something like "implement step N of the
-  plan", "code this up", or "build this change".
+  Write code, verified by tests, for one small increment. Use when
+  implementing one numbered step from a plan, or for any small standalone
+  change whose design is already obvious, or when the user says something like
+  "implement step N of the plan", "code this up", or "build this change".
 license: CC0-1.0
 metadata:
   interactive: no

@@ -1,14 +1,11 @@
 ---
 name: handoff
 description: >-
-  Compact the conversation into a summary of the main inputs, actions taken,
-  and outcomes. Save the summary into a single document, persisted on disk.
-  Another agent, or a human, can read this document and continue the work
-  from where the current session left off. Use when ending a session, switching
-  agents, approaching context limits, or pausing work that someone else will
-  resume, or when the user says something like "hand this off to the next
-  session", "write up where we've got to", or "I'm going to bed now, see you
-  tomorrow".
+  Compact a conversation for the next session to pick up. Use when ending a
+  session, switching agents, approaching context limits, or pausing work that
+  someone else will resume, or when the user says something like "hand this
+  off to the next session", "write up where we've got to", or "I'm going to
+  bed now, see you tomorrow".
 license: CC0-1.0
 metadata:
   interactive: no

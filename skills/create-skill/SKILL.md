@@ -1,11 +1,11 @@
 ---
 name: create-skill
 description: >-
-  Create a new skill or improve an existing one, in this skills collection or
+  Author a new skill, or improve an existing one, in this skills collection or
   any downstream project. Use when the user asks to create, write, draft, add,
   or update a skill, or wants to capture a workflow as a reusable skill, or
-  when the user says "create a skill for X", "turn this workflow into a skill",
-  or "improve the <name> skill".
+  when the user says "create a skill for X", "turn this workflow into a
+  skill", or "improve the <name> skill".
 license: CC0-1.0
 metadata:
   interactive: yes

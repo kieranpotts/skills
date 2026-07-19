@@ -1,9 +1,9 @@
 # Code
 
-The **code** skill is all about **test-driven implementation**. It implements one
-change in software code and configuration following the red → green → refactor
-cycle, producing a single small change with accompanying unit tests, and
-integration tests where appropriate.
+The **code** skill is all about writing code, verified by tests, for one small
+increment. It implements one change in software code and configuration
+following the red → green → refactor cycle, producing a single small change
+with accompanying unit tests, and integration tests where appropriate.
 
 It is RECOMMENDED to run this step in small increments toward delivery of a
 larger feature, refactor, performance enhancement, or other outcome. Each pass

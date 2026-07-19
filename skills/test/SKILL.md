@@ -1,11 +1,11 @@
 ---
 name: test
 description: >-
-  Verify a completed change against its full set of acceptance criteria —
-  both functional and non- functional. Use after a change has cleared review,
-  before an integration, or before a release. Use when the user says something
-  like "test this against the spec", "verify this meets the acceptance
-  criteria", or "run acceptance testing on this change".
+  Check the evolving software for both functional correctness and runtime
+  qualities. Use after a change has cleared review, before an integration, or
+  before a release. Use when the user says something like "test this against
+  the spec", "verify this meets the acceptance criteria", or "run acceptance
+  testing on this change".
 license: CC0-1.0
 metadata:
   interactive: no

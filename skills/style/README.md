@@ -1,6 +1,7 @@
 # Style
 
-The **style** skill is all about **cleaning up code presentation**. It makes
+The **style** skill is all about improving code presentation — whitespace,
+style, ordering — without changing structure. It makes
 changes that are visually large but semantically empty: consistent whitespace,
 ordering, line wrapping, quotes, trailing commas, import order, and so on.
 

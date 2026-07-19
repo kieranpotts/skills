@@ -1,10 +1,9 @@
 ---
 name: validate
 description: >-
-  Validate the requirements specification against the users' actual needs.
-  Use when the user asks something like "did we build the right thing?", "does
-  the software fulfil its goals?", or "what gaps can you find in the
-  requirements specification?"
+  Ask, "did we build the right thing?" Use when the user asks something like
+  "did we build the right thing?", "does the software fulfil its goals?", or
+  "what gaps can you find in the requirements specification?"
 license: CC0-1.0
 metadata:
   interactive: no

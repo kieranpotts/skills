@@ -1,8 +1,8 @@
 # Debug
 
-The **debug** skill is all about **disciplined bug diagnosis**. Use it when
-something is broken, throwing, failing, or has regressed in performance, and the
-cause is not obvious from reading the code.
+The **debug** skill is all about diagnosing and fixing unexpected behaviors and
+runtime issues. Use it when something is broken, throwing, failing, or has
+regressed in performance, and the cause is not obvious from reading the code.
 
 It runs a fixed loop: reproduce → minimize → hypothesize → instrument → fix →
 regression-test. The whole skill turns on building a fast, deterministic,

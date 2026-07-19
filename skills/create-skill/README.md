@@ -1,7 +1,8 @@
 # Create skill
 
-The **create-skill** skill helps to create new agent skills and improve existing
-ones, either in this global skills collection or any downstream project.
+The **create-skill** skill is all about authoring a new skill, or improving an
+existing one, either in this global skills collection or any downstream
+project.
 
 It produces a complete skill directory, including:
 

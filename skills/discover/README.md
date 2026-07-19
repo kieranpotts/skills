@@ -1,6 +1,7 @@
 # Discover
 
-The **discover** skill is all about **product-requirements discovery**. It runs an
+The **discover** skill is all about running a discovery workshop with the
+customer to elicit product requirements. It runs an
 interactive workshop that turns a vague business need into a clear product
 requirements document (PRD) — covering the outcome, stakeholders, scope, business
 rules with examples, non-functional requirements, assumptions, and open

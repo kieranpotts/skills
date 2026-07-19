@@ -1,6 +1,6 @@
 # Commit
 
-The **commit** skill is all about **commit message conventions**. It defines a
+The **commit** skill is all about commit message conventions. It defines a
 fixed subject-line format — `<type>: <description>` with an optional
 ` - <flag>` suffix — a set of allowed commit types and flags with precise
 semantics for each, and a validation regex. It enforces atomic commits and, for

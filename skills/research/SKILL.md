@@ -1,9 +1,9 @@
 ---
 name: research
 description: >-
-  Research a topic. Use when a decision is blocked on missing knowledge, or when
-  the user says something like "research X", "look into X", or "find out how X
-  works".
+  Gather external sources on a topic and produce a cited research report. Use
+  when a decision is blocked on missing knowledge, or when the user says
+  something like "research X", "look into X", or "find out how X works".
 license: CC0-1.0
 metadata:
   interactive: no

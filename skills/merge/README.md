@@ -1,6 +1,7 @@
 # Merge
 
-The **merge** skill is all about **branch integration**. It applies the project's
+The **merge** skill is all about consolidating divergence between branches. It
+applies the project's
 branching conventions to integrate a source branch into a target, choosing the
 merge strategy by branch type rather than preference — fast-forward, merge
 commit, rebase, or squash-merge. It runs pre-merge checks, executes the merge,

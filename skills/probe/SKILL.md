@@ -1,11 +1,10 @@
 ---
 name: probe
 description: >-
-  Run a structured, interactive threat modeling session to identify the
-  security and privacy risks a system carries. Use this when the user says
-  something like "probe the security of...", "run a threat model on…",
-  "what are the security risks of this design?", "do a STRIDE session on…",
-  or "assess the privacy risks here".
+  Run an interactive threat-modeling session. Record security risks. Use this
+  when the user says something like "probe the security of...", "run a threat
+  model on…", "what are the security risks of this design?", "do a STRIDE
+  session on…", or "assess the privacy risks here".
 license: CC0-1.0
 metadata:
   interactive: yes

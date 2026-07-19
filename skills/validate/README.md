@@ -1,6 +1,7 @@
 # Validate
 
-The **validate** skill is all about **product fitness review**. Once all of a
+The **validate** skill is all about asking, "did we build the right thing?"
+Once all of a
 plan's increments are built, reviewed, and tested, it steps back and checks the
 working software against the need it was meant to serve — recovered from the
 preserved PRD or the specification's outcome and success measures.

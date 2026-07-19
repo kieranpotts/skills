@@ -1,9 +1,9 @@
 ---
 name: reflect
 description: >-
-  Extract durable lessons from the current session. Use at session end, or when
-  the user says something like "reflect on this session", "what should you
-  remember from this?", or "save the lessons from our work today".
+  Distill durable lessons from the session into memory. Use at session end, or
+  when the user says something like "reflect on this session", "what should
+  you remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
   interactive: no

@@ -1,8 +1,7 @@
 # Audit
 
-The **audit** skill is all about **architectural review**. It evaluates the
-as-built architecture for modularity, consistency, communication patterns, and
-other structural qualities.
+The **audit** skill is all about evaluating the evolving architecture —
+modularity, consistency, coupling, and other structural qualities.
 
 It is scoped to architecture. Security and privacy review is a separate concern,
 handled by the **[probe](../probe/)** skill and tracked in the

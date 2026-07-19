@@ -1,6 +1,7 @@
 # Review
 
-The **review** skill is all about **code review**. It statically analyzes the diff
+The **review** skill is all about evaluating code for style conventions and
+pattern consistency. It statically analyzes the diff
 in an open pull request, checking correctness, design, clarity, test coverage,
 security, and completeness.
 

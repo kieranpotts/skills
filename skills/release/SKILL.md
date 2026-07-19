@@ -1,8 +1,9 @@
 ---
 name: release
 description: >-
-  Prepare a new software release. Use when the user says something like
-  "cut a release", "tag version X", or "prepare a release branch".
+  Manage release branches, apply version tags. Use when the user says
+  something like "cut a release", "tag version X", or "prepare a release
+  branch".
 compatibility: requires git
 license: CC0-1.0
 metadata:

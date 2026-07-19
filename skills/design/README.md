@@ -1,6 +1,7 @@
 # Design
 
-The **design** skill is all about **architectural decision making**. It takes a
+The **design** skill is all about exploring architectural options and their
+trade-offs. It takes a
 formal software requirements specification (SRS) — something more substantial
 than a vague product requirements document (PRD) written in business language —
 and enumerates design options for each significant architectural decision

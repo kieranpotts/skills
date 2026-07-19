@@ -1,7 +1,8 @@
 # Spike
 
-The **spike** skill is all about **throwaway experimentation**. It treats the code
-as a byproduct and the *answer* as the deliverable.
+The **spike** skill is all about developing throwaway code to answer design
+questions. It treats the code as a byproduct and the *answer* as the
+deliverable.
 
 It frames one falsifiable question, defines up front the evidence that would
 close it, and sets an enforced time-box. Then it takes the shortest path — no

@@ -1,6 +1,7 @@
 # Reflect
 
-The **reflect** skill is all about **durable lesson capture**. It distills
+The **reflect** skill is all about distilling durable lessons from the session
+into memory. It distills
 *working-style* continuity — how to collaborate well with this user, in this
 codebase — as distinct from task state, which belongs in a handoff document.
 

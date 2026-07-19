@@ -1,8 +1,8 @@
 ---
 name: elaborate
 description: >-
-  Interview the user to interrogate a proposed solution to a problem. Use after
-  a draft design exists but before it is decomposed into implementation
+  Refine a proposed solution by interrogating the design docs. Use after a
+  draft design exists but before it is decomposed into implementation
   increments (via a delivery plan), and when that design has ambiguities,
   unstated assumptions, or contested terms. Also use when the user says
   something like "interrogate this design", "grill me on this draft", or

@@ -1,6 +1,7 @@
 # Handoff
 
-The **handoff** skill is all about **session continuity**. It compacts a
+The **handoff** skill is all about compacting a conversation for the next
+session to pick up. It compacts a
 conversation into an ephemeral handoff document so a fresh agent or sapien can
 resume the work, capturing just enough state to continue without repeating work,
 re-litigating decisions, or re-walking dead ends.

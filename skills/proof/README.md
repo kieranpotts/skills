@@ -1,6 +1,7 @@
 # Proof
 
-The **proof** skill is all about **conservative proofreading**. It makes the edits
+The **proof** skill is all about proofreading, then conservatively editing,
+text for spelling, grammar, and consistency. It makes the edits
 a careful human editor would make on a final pass, and nothing more, across
 Markdown, AsciiDoc, reStructuredText, and plain text. It fixes spelling, grammar,
 punctuation, and typos; smooths genuinely awkward phrasing where meaning is

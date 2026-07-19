@@ -1,12 +1,13 @@
 ---
 name: fix
 description: >-
-  Fix a known issue in a codebase. Use this where the cause is already known,
-  eg. debugging has already taken place to identify the cause, or the cause it
-  evident from a tool's own output. Use when a build, compile, lint, type-check,
-  or other deterministic gate is failing. Or use when the user says something
-  like "fix the build", "fix the lint errors", "make the type-checker pass", or
-  "implement the fix to resolve this known bug".
+  Fix anything generally broken — failing builds, lint, type-checks, etc. Use
+  this where the cause is already known, eg. debugging has already taken place
+  to identify the cause, or the cause it evident from a tool's own output. Use
+  when a build, compile, lint, type-check, or other deterministic gate is
+  failing. Or use when the user says something like "fix the build", "fix the
+  lint errors", "make the type-checker pass", or "implement the fix to resolve
+  this known bug".
 license: CC0-1.0
 metadata:
   interactive: no

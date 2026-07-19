@@ -1,7 +1,8 @@
 # Specify
 
-The **specify** skill is all about **turning requirements into testable acceptance
-criteria**. It transforms a business-oriented product requirements document
+The **specify** skill is all about specifying functional and non-functional
+requirements as testable acceptance criteria. It transforms a business-oriented
+product requirements document
 (PRD), or similar artifact, into executable acceptance criteria, and opens a pull
 request against the project's software requirements specification (SRS)
 repository, ready for the user to review.

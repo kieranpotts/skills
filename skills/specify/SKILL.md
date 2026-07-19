@@ -1,10 +1,9 @@
 ---
 name: specify
 description: >-
-  Write or update a formal software requirements specification (SRS) from a
-  product requirements document (PRD) or other informal requirements written
-  in business language. Use when the user says something like "turn this into
-  acceptance criteria", "turn this into a spec", or "prepare these as software
+  Specify functional and non-functional requirements as testable acceptance
+  criteria. Use when the user says something like "turn this into acceptance
+  criteria", "turn this into a spec", or "prepare these as software
   requirements".
 license: CC0-1.0
 metadata:

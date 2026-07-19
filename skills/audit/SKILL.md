@@ -1,11 +1,10 @@
 ---
 name: audit
 description: >-
-  Audit the static structure of a software system, both its code and data,
-  and report code smells and anti-patterns. Security and privacy is
-  out-of-scope. Use this skill when the user says something like "audit this
-  codebase", "do an architectural audit", "is the design still sound?", or
-  "check the codebase for structural drift".
+  Evaluate the evolving architecture — modularity, consistency, coupling, etc.
+  Security and privacy is out-of-scope. Use this skill when the user says
+  something like "audit this codebase", "do an architectural audit", "is the
+  design still sound?", or "check the codebase for structural drift".
 license: CC0-1.0
 metadata:
   interactive: no

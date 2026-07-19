@@ -1,6 +1,7 @@
 # Research
 
-The **research** skill is all about **external knowledge gathering**. It looks
+The **research** skill is all about gathering external sources on a topic and
+producing a cited research report. It looks
 *outward* to pull knowledge inward: a library, protocol, pattern, regulation, or
 prior-art approach the agent or project does not yet understand.
 

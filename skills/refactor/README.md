@@ -1,8 +1,8 @@
 # Refactor
 
-The **refactor** skill is all about **behavior-preserving restructuring**. It
-restructures source code, without changing observable behavior, to improve a
-single named target quality.
+The **refactor** skill is all about iterating the design while maintaining
+stability through system testing. It restructures source code, without
+changing observable behavior, to improve a single named target quality.
 
 The agent works in a sequence of small steps — rename one symbol, extract one
 function, inline one variable — each of which compiles, passes tests, and could

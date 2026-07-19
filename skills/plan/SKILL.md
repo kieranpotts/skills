@@ -1,12 +1,11 @@
 ---
 name: plan
 description: >-
-  Break down delivery of design or functional changes into a sequence of small,
-  independently deployable steps. Use after a design has been agreed, but before
-  implementation begins. Use whenever a change is bigger than a single commit or
-  touches multiple seams, or when the user says something like "break this
-  design into steps", "plan the implementation", or "how should we sequence
-  this work?".
+  Decompose delivery into small, stable increments. Use after a design has
+  been agreed, but before implementation begins. Use whenever a change is
+  bigger than a single commit or touches multiple seams, or when the user says
+  something like "break this design into steps", "plan the implementation", or
+  "how should we sequence this work?".
 license: CC0-1.0
 metadata:
   interactive: no

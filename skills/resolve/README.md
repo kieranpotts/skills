@@ -1,6 +1,7 @@
 # Resolve
 
-The **resolve** skill is all about **actioning review comments**. It takes the
+The **resolve** skill is all about actioning open review comments, and marking
+them as resolved. It takes the
 comments left on an open pull request, reviews each in turn, and responds with a
 comment and — where appropriate — a code change.
 
