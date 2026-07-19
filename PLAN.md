@@ -2,34 +2,90 @@
 
 ## Skills
 
-- [ ] audit
-- [ ] branch
-- [ ] code
-- [ ] commit
-- [ ] create-skill
-- [ ] debug
-- [ ] design
-- [ ] discover
-- [ ] elaborate
-- [ ] fix
-- [ ] handoff
-- [ ] merge
-- [ ] plan
-- [ ] probe
-- [ ] proof
-- [ ] refactor
-- [ ] refine
-- [ ] reflect
-- [ ] release
-- [ ] research
-- [ ] resolve
-- [ ] review
-- [ ] specify
-- [ ] spike
-- [ ] style
-- [ ] test
-- [ ] triage
-- [ ] validate
+- audit
+  - [x] README
+  - [ ] SKILL
+- branch
+  - [ ] README
+  - [ ] SKILL
+- code
+  - [ ] README
+  - [ ] SKILL
+- commit
+  - [ ] README
+  - [ ] SKILL
+- create-skill
+  - [ ] README
+  - [ ] SKILL
+- debug
+  - [ ] README
+  - [ ] SKILL
+- design
+  - [x] README
+  - [ ] SKILL
+- discover
+  - [ ] README
+  - [ ] SKILL
+- elaborate
+  - [ ] README
+  - [ ] SKILL
+- fix
+  - [ ] README
+  - [ ] SKILL
+- handoff
+  - [ ] README
+  - [ ] SKILL
+- merge
+  - [ ] README
+  - [ ] SKILL
+- plan
+  - [ ] README
+  - [ ] SKILL
+- probe
+  - [ ] README
+  - [ ] SKILL
+- proof
+  - [ ] README
+  - [ ] SKILL
+- refactor
+  - [x] README
+  - [ ] SKILL
+- refine
+  - [ ] README
+  - [ ] SKILL
+- reflect
+  - [ ] README
+  - [ ] SKILL
+- release
+  - [ ] README
+  - [ ] SKILL
+- research
+  - [ ] README
+  - [ ] SKILL
+- resolve
+  - [ ] README
+  - [ ] SKILL
+- review
+  - [ ] README
+  - [ ] SKILL
+- specify
+  - [ ] README
+  - [ ] SKILL
+- spike
+  - [ ] README
+  - [ ] SKILL
+- style
+  - [ ] README
+  - [ ] SKILL
+- test
+  - [ ] README
+  - [ ] SKILL
+- triage
+  - [ ] README
+  - [ ] SKILL
+- validate
+  - [ ] README
+  - [ ] SKILL
 
 ## Docs
 
