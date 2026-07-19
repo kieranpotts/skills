@@ -104,7 +104,7 @@ Each skill operates in one of two possible modes:
 | **[elaborate](./skills/elaborate/)** | Refine a proposed solution by interrogating the design docs. |🤖🧑|
 | **[fix](./skills/fix/)** | Fix anything generally broken — failing builds, lint, type-checks, etc. | 🤖 |
 | **[plan](./skills/plan/)** | Decompose delivery into small, stable increments. | 🤖 |
-| **[probe](./skills/probe/)** | Run an interactive threat modeling session. Record security risks. |🤖🧑|
+| **[probe](./skills/probe/)** | Run an interactive threat-modeling session. Record security risks. |🤖🧑|
 | **[refactor](./skills/refactor/)** | Iterate the design while maintaining stability through system testing. | 🤖 |
 | **[refine](./skills/refine/)** | Produce new business requirements in response to acceptance testing feedback. |🤖🧑|
 | **[resolve](./skills/resolve/)** | Action open review comments. Mark them as resolved. | 🤖 |
@@ -146,29 +146,18 @@ Each skill operates in one of two possible modes:
 
 ### 🪟 Context management
 
-These skills are designed to each describe discrete development lifecycle stages,
-such that the skills can be composed into all sorts of interesting development
-workflows.
+It is strongly RECOMMENDED that each skill be invoked in a fresh context window,
+for two reasons:
 
-This is achieved by using durable artifacts that are persisted to disk — such as
-product requirements documents, delivery plans, and commit messages — as the
-sole interface between skills.
+- **Contamination.** Skills like **review**, **audit**, and **validate** are
+  meant to interrogate work already done. If the agent still holds the
+  conversation that produced that prior art, its behavior will be influenced
+  by that background context. It will carry its own justifications forward,
+  making it less effective in its adversarial role.
 
-No skill is dependent on shared context influenced by the invocation of another
-skill. Indeed, loading two or more skills into the same agent instance risks
-contaminating the context, and so lessening the effectiveness of each individual
-skill. For example, skills like **review**, **audit**, and **validate** are
-meant to interrogate work already done. When an agent still holds the
-conversation that produced that prior art, its behavior will be influenced by
-that background context. The agent will be less effective in its adversarial
-role, since it will carry its own justifications forward.
-
-For these reasons, it is strongly RECOMMENDED that each skill be invoked in a
-fresh context window.
-
-Long-running sessions are also subject to context summarization, which can be
-lossy. Starting each skill in a fresh agent session helps to avoid the loss
-of important context.
+- **Lossy summarization.** Long-running sessions are subject to context
+  summarization, which can drop important detail. Starting each skill in a
+  fresh agent session can help to avoid the loss of important context.
 
 ### 🪡 Workflow composition
 
@@ -177,13 +166,11 @@ skill invokes, or even knows about, another skill. Each does its one job,
 reports the result, and stops.
 
 Instead, skills are connected by contracts. One skill's output is another
-skill's input.
-
-Critically, those inputs and outputs are artifacts persisted to disk — eg. a
-requirements spec, a design doc, or a delivery plan — not state held in a
-conversation thread or context window. This decouples skills temporally as well
-as structurally. A downstream skill doesn't need to be loaded into the same
-agent session as the upstream skill that produced its input.
+skill's input, and that input/output is always a durable artifact persisted to
+disk — eg. a requirements spec, a design doc, or a delivery plan — never state
+held in a conversation thread or context window. This decouples skills both
+temporally and structurally: a downstream skill doesn't need to be loaded into
+the same agent session as the upstream skill that produced its input.
 
 These design constraints are what allow these skills to be composed into all
 sorts of different agentic workflows.
@@ -245,7 +232,7 @@ and are not intended to be incorporated into automated delivery pipelines.
 
 However, these interactive steps tend to happen upstream in the software
 development lifecycle, so the outcomes from these steps may be configured to
-kickoff downstream agentic workflows.
+kick off downstream agentic workflows.
 
 ```mermaid
 flowchart LR
@@ -281,7 +268,7 @@ by your agent harnesses. There are two ways to do this:
 
 Change to the root directory of the project in which you want to install these
 skills. Use Vercel's [skills CLI](https://www.skills.sh/) to download the skills
-directly from GitHub and installs them in the paths supported by your target
+directly from GitHub and install them in the paths supported by your target
 agent harnesses, relative to the current working directory.
 
 ```sh
@@ -361,7 +348,7 @@ from its root.
 
 At least one harnesses flag is required: `--claude`, `--pi`, `--copilot`,
 `--cursor`, and/or `--agents`. Alternatively, use `--all` to install the skills
-into multiple locations so that every support agent harness will auto-discover
+into multiple locations so that every supported agent harness will auto-discover
 them.
 
 Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format in
@@ -410,7 +397,7 @@ skills, and to commit them to your own projects — make them your own!
 
 > [!NOTE]
 > One thing you might want to modify in the installed skills files are Cursor's
-> `alwaysApply` setting and Copilot's `applyTo` setting. These ate set to `true`
+> `alwaysApply` setting and Copilot's `applyTo` setting. These are set to `true`
 > and `"**"` respectively, which means the skills will always be in scope in those
 > agent harnesses. You might want to tune these settings so the skills are brought
 > into context only under specific conditions.
