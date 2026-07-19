@@ -1,26 +1,28 @@
 # Design
 
 The **design** skill is all about exploring architectural options and their
-trade-offs. It takes a
-formal software requirements specification (SRS) — something more substantial
-than a vague product requirements document (PRD) written in business language —
-and enumerates design options for each significant architectural decision
-required to realize a solution.
+trade-offs.
 
-For each option, the agent evaluates it against nine design qualities:
+The agent takes a software requirements specification (SRS), or a proposed
+set of changes to one, and enumerates design options for each significant
+architectural decision required to realize a solution.
+
+For each possible solution, the agent evaluates it against nine qualities:
 completeness, correctness, performance, reliability, experience, habitability,
-cohesiveness, changeability, and simplicity. The outcome is a recommended
-option, with well-articulated reasoning, for each major architectural decision,
-captured in a durable architectural decision record (ADR).
+cohesiveness, changeability, and simplicity.
 
-For trivial changes, the user may skip straight from specifying requirements
-(**[specify](../specify/)**) to implementing them (**[code](../code/)**). This step
-is required when there are genuine architectural trade-offs to consider. To
-answer an open question the design turns on, reach for **[spike](../spike/)**; to
-stress-test a draft, **[elaborate](../elaborate/)**.
+The outcome is one recommended option, with well-articulated reasoning, for each
+major architectural decision, captured in a durable architectural decision
+record (ADR) in a design docs repository.
 
-This skill instructs the agent to run non-interactively where possible, but to
-prompt to clarify unclear constraints.
+The proposed design changes may be further refined using the **spike** and
+**elaborate** skills. The **[spike](../spike/)** skill will implement throwaway
+code to answer feasibility questions in the proposed solution. The
+**[elaborate](../elaborate/)** skill is an interactive session used to
+stress-test a draft design.
+
+This skill instructs the agent to run non-interactively. Therefore, the agent is
+not expected to prompt for answers to its questions.
 
 ## How to invoke
 
@@ -40,13 +42,26 @@ separates frontier models from mid-tier ones.
 
 ## Suggested workflows
 
+The following flow diagram represents one possible way to compose this skill
+with others in agentic workflows.
+
+The **[specify](../specify/)** skill captures changes to software requirement
+specifications (SRS), a set of problems that the **[design](../design/)** skill
+proposes a solution to. The resulting design docs can be fed into the
+**[plan](../plan/)** skill, which will decompose the design into a set of
+incremental delivery steps, supporting continuous integration.
+
+Optionally, design work may be supported by the **[spike](../spike/)** skill
+(to answer feasibility questions) and/or the **[elaborate](../elaborate/)**
+skill (to stress-test the draft design).
+
 ```mermaid
 flowchart LR
   %% Node labels and classes.
   specify["🤖\nspecify"]:::agentic
   design["🤖\ndesign"]:::agentic
   plan["🤖\nplan"]:::agentic
-  spike["🤖🧑\nspike"]:::anthropic
+  spike["🤖\nspike"]:::agentic
   elaborate["🤖🧑\nelaborate"]:::anthropic
 
   %% Main workflow sequence.
@@ -59,11 +74,25 @@ flowchart LR
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
-  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**design** takes an approved specification and produces the ADRs that
-**[plan](../plan/)** then decomposes. Along the way it can call out to
-**[spike](../spike/)** to answer feasibility questions and to
-**[elaborate](../elaborate/)** to stress-test the draft.
+For trivial changes, the user may skip straight from specifying requirements
+(**[specify](../specify/)**) to implementing them (**[code](../code/)**). This
+**design** step is really only required when there are genuine architectural
+trade-offs to consider.
+
+```mermaid
+flowchart LR
+  %% Node labels and classes.
+  specify["🤖\nspecify"]:::agentic
+  code["🤖\ncode"]:::agentic
+
+  %% Main workflow sequence.
+  specify ==> code
+
+  %% Class definitions.
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+```
+
+
