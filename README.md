@@ -213,11 +213,13 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
+### 🧭 Orchestration
+
 Agentic workflows like this may themselves be orchestrated by a supervisor agent
 (🤖), a script (⚙️), or a human (🧑) — or a combination of all three.
 
 To allow for fully agentic workflows, in which no human checkpoints are needed
-at all, most of the workflow skills are designed to be run non-interactively.
+at all, most of the workflow skills are designed to be run non-interactively (🤖).
 Most skills instruct the agents to take everything they need from the context
 window and the environment. The agents either complete their tasks autonomously,
 or they fail with a specific account of what input is missing. They're
@@ -227,12 +229,13 @@ But a small number of skills will prompt the user to make decisions as the agent
 explores options to move forward. For example, the **[discover](./skills/discover/)**
 skill asks questions to elicit product requirements, while the
 **[elaborate](./skills/elaborate/)** skill interrogates a proposed architectural
-design. These interactive skills are intended to be invoked directly by humans
-and are not intended to be incorporated into automated delivery pipelines.
+design. These interactive skills (🤖🧑) are intended to be invoked directly by
+humans.
 
-However, these interactive steps tend to happen upstream in the software
-development lifecycle, so the outcomes from these steps may be configured to
-kick off downstream agentic workflows.
+Interactive skills are not meant to be used away-from-keyboard, and therefore
+they can't be incorporated into highly automated specs-to-code workflows. However,
+these skills may be used as triggers for such workflows, sitting upstream in
+the software development lifecycle.
 
 ```mermaid
 flowchart LR
