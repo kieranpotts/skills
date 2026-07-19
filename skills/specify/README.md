@@ -19,6 +19,14 @@ inputted PRD and either rejects it as incomplete or autonomously completes the
 transformation to the SRS, closing by returning the URL of the pull request that
 needs the user's approval.
 
+<!--
+But skills alone can't guarantee predictable, consistent outcomes. Effective
+agentic workflows are dependent upon concrete, unambiguous, testable success
+criteria, and deterministic gates that independently verify agent output against
+those criteria. These components of an agentic workflow are outside of the scope
+of this skills repository.
+-->
+
 > [!IMPORTANT]
 > This is a critical step in an agentic workflow.
 >
