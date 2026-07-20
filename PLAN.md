@@ -8,17 +8,19 @@
   - [x] AGENTS
   - [x] docs/
   - [ ] Skills
-  - [x] .github
+  - [x] GitHub workflows
+  - [x] issue templates
   - [ ] PR template
   - [x] indexes and templates
-  - [ ] Example artifacts
+  - [x] Example artifacts
 - Designs
   - [X] README
   - [ ] CONTRIBUTING
   - [ ] AGENTS
   - [ ] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] GitHub workflows
+  - [ ] issue templates
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
@@ -28,7 +30,8 @@
   - [ ] AGENTS
   - [ ] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] GitHub workflows
+  - [ ] issue templates
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
@@ -38,7 +41,8 @@
   - [ ] AGENTS
   - [ ] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] GitHub workflows
+  - [ ] issue templates
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
@@ -48,7 +52,8 @@
   - [ ] AGENTS
   - [ ] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] GitHub workflows
+  - [ ] issue templates
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
@@ -58,7 +63,8 @@
   - [ ] AGENTS
   - [ ] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] GitHub workflows
+  - [ ] issue templates
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
@@ -150,7 +156,7 @@
   - [ ] README
   - [ ] SKILL
 
-## Docs
+### Docs
 
 - [x] README
 - [ ] Design: What is agentic software development?
