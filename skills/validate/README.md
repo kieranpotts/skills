@@ -26,7 +26,7 @@ the need / gaps found), but changes no specification and no code.
 
 > Did we build the right thing?
 
-> Does the software fulfil its goals?
+> Does the software fulfill its goals?
 
 > What gaps can you find in the requirements specification?
 

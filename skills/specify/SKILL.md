@@ -19,7 +19,7 @@ in business language.
 
 If the requirements are vague or incomplete — or otherwise insufficient to
 translate into a formal requirements specification written as testable
-acceptance criteria — reject with reasons. You MUST NOT attempt to fill-in
+acceptance criteria — reject with reasons. You MUST NOT attempt to fill in
 missing requirements.
 
 Specification only. You MUST NOT make any code or configuration changes to the

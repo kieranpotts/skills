@@ -16,8 +16,8 @@ are the most important sensors for controlling outcomes. Nevertheless,
 inferential sensors do bring added value to agentic workflows. They can help to
 improve the quality of the output by adding more perspectives.
 
-The critical design constraint is that an agent that generates output (eg. write
-program code) must not be the one that analyzes that output (eg. does code
+The critical design constraint is that an agent that generates output (eg.
+writes program code) must not be the one that analyzes that output (eg. does code
 review). Models exhibit sycophancy. An agent asked to critique its own recent
 work is biased toward judging it favorably.
 

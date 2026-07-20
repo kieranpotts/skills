@@ -16,7 +16,7 @@ metadata:
 
 Build throwaway code to answer a specific question — eg. feasibility, performance
 characteristics, API ergonomics, integration risks, etc. Your work is time-boxed
-and scope-collapsed, and the artifacts your produce will never be promoted to
+and scope-collapsed, and the artifacts you produce will never be promoted to
 production.
 
 Research and development only. You MUST NOT make any code or configuration

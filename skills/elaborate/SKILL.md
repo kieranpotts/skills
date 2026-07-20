@@ -17,7 +17,7 @@ metadata:
 
 Interview the user, one question at a time, to stress-test and sharpen a draft
 design. Walk the decision tree by branch, probing with concrete scenarios,
-sharping fuzzy language, cross-referencing against the codebase and capturing
+sharpening fuzzy language, cross-referencing against the codebase and capturing
 crystallized decisions as architectural decision records.
 
 Discovery only. You MUST NOT make any code or configuration changes to the

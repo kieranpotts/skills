@@ -13,7 +13,7 @@ metadata:
 # Reflect
 
 Extract durable lessons from the current session. Capture corrections, validated
-approached, revealed preferences, and project decisions. Persist this information
+approaches, revealed preferences, and project decisions. Persist this information
 on disk.
 
 **Input:** Determine the following information from the surrounding context

@@ -11,7 +11,7 @@ one job, reports the result, and stops.
 
 This means the workflow composition lives externally to the skills files. The
 order in which skills are run, and the deterministic approval gates that are
-injected between the agentic steps, is the responsibility of the orchestrator —
+injected between the agentic steps, are the responsibility of the orchestrator —
 the person or thing that is running the workflow.
 
 An orchestrator may be a human, manually invoking each skill via their agent

@@ -6,7 +6,7 @@ facilitates a workshop that decomposes a system into its components, data flows,
 trust boundaries, and assets, then assesses each against one or more threat
 modeling frameworks such as STRIDE, LINDUN, or OWASP. Every identified threat
 is rated for likelihood and impact, which are tallied to yield an overall
-severity score, which finally is used to rank the treats.
+severity score, which finally is used to rank the threats.
 
 The agent is instructed to update a risk register with its findings, following
 instructions provided in the risk register.
@@ -72,10 +72,10 @@ flowchart LR
 - [kieranpotts/risks](https://github.com/kieranpotts/risks) is a reference for
   a risk register maintained in Markdown files under version control.
 
-- [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model): Microsoft's pneumonic
+- [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model): Microsoft's mnemonic
   threat modeling framework is the RECOMMENDED baseline framework for threat
   classification.
 
 - [LINDDUN](https://linddun.org/): A useful framework for extending STRIDE with
-  privacy-oriented threat classifications. User this wherever
+  privacy-oriented threat classifications. Use this wherever
   personally-identifiable data exists in the target system.

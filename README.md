@@ -161,7 +161,7 @@ for two reasons:
 
 ### 🪡 Workflow composition
 
-None of the skills in this collection explicitly handoff to other skills. No
+None of the skills in this collection explicitly hand off to other skills. No
 skill invokes, or even knows about, another skill. Each does its one job,
 reports the result, and stops.
 
@@ -349,7 +349,7 @@ from its root.
 ./run/install --help
 ```
 
-At least one harnesses flag is required: `--claude`, `--pi`, `--copilot`,
+At least one harness flag is required: `--claude`, `--pi`, `--copilot`,
 `--cursor`, and/or `--agents`. Alternatively, use `--all` to install the skills
 into multiple locations so that every supported agent harness will auto-discover
 them.

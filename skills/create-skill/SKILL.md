@@ -46,7 +46,7 @@ prompt the user for clarification.
 
 - The purpose of the skill — REQUIRED.
 
-- Trigger conditions  REQUIRED.
+- Trigger conditions — REQUIRED.
 
 - Target project in which to install the skill — OPTIONAL. If not explicitly
   specified, if the current working directory is inside a Git repository, assume
@@ -87,7 +87,7 @@ assets, references, and scripts. All artifacts pass the validator.
 
     Skill names MUST be kebab-case and SHOULD be meaningful actions or verbs,
     eg. "specify", "commit", "release", "review"). Prefer single verbs, but
-    use `<verb>-<noun>` when disambiguation is needed, eg."create-skill".
+    use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
 4.  **Write the `SKILL.md` file.**
 

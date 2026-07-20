@@ -2,7 +2,7 @@
 name: validate
 description: >-
   Ask, "did we build the right thing?" Use when the user asks something like
-  "did we build the right thing?", "does the software fulfil its goals?", or
+  "did we build the right thing?", "does the software fulfill its goals?", or
   "what gaps can you find in the requirements specification?"
 license: CC0-1.0
 metadata:

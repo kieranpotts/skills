@@ -18,7 +18,7 @@ metadata:
 
 Revise the requirements specification in response to feedback from acceptance
 testing, or from real-world use of working software. Capture what was
-learnt, and identify which acceptance criteria need to be refined.
+learned, and identify which acceptance criteria need to be refined.
 
 **Input:** Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,

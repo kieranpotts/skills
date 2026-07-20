@@ -3,7 +3,7 @@ name: fix
 description: >-
   Fix anything generally broken — failing builds, lint, type-checks, etc. Use
   this where the cause is already known, eg. debugging has already taken place
-  to identify the cause, or the cause it evident from a tool's own output. Use
+  to identify the cause, or the cause is evident from a tool's own output. Use
   when a build, compile, lint, type-check, or other deterministic gate is
   failing. Or use when the user says something like "fix the build", "fix the
   lint errors", "make the type-checker pass", or "implement the fix to resolve

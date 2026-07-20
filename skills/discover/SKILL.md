@@ -14,7 +14,7 @@ metadata:
 
 # Discover
 
-Run a structured discover session with the customer, or their representative,
+Run a structured discovery session with the customer, or their representative,
 to elicit business requirements before specification. Produce a product
 requirements document (PRD) in business language that captures outcomes,
 stakeholders, scope, business rules (with examples), and non-functional
@@ -204,7 +204,7 @@ asking the next. You SHOULD let each answer shape the question that follows.
   No technical jargon. No data structures, APIs, schemas, or code. The PRD
   MUST read sensibly to a non-technical customer. If a concept can only be
   expressed in technical terms, it does not belong here — defer it to the
-  technical design phase (see **[design](../design/SKILL.md)**.
+  technical design phase (see **[design](../design/SKILL.md)**).
 
 - **You MUST NOT volunteer solutions.**
 

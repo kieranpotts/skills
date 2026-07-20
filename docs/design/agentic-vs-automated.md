@@ -31,5 +31,5 @@ Linting, building, packaging, deploying, migrating… these steps in the softwar
 development lifecycle are best left scripted. This is why you won't find "build"
 or "deploy" skills in this collection. Those steps do not belong here.
 
-Agent skills are for the parts of the software development life cycle that
+Agent skills are for the parts of the software development lifecycle that
 resist automation by conventional tools.

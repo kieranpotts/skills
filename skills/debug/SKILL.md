@@ -226,7 +226,7 @@ task, you MUST stop and print an error message.
 
 - **You MUST NOT proceed to hypothesis until you have reproduced the bug.**
 
-  A  hypothesis tested against a non-reproducing symptom is a guess.
+  A hypothesis tested against a non-reproducing symptom is a guess.
 
 - **You MUST generate hypotheses in a ranked set before testing any of them.**
 
