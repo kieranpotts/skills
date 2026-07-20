@@ -4,11 +4,14 @@
 
 - Audits
   - [X] README
-  - [ ] CONTRIBUTING
-  - [ ] AGENTS
-  - [ ] docs/
+  - [x] CONTRIBUTING
+  - [x] AGENTS
+  - [x] docs/
   - [ ] Skills
-  - [ ] .github
+  - [x] .github
+  - [ ] PR template
+  - [x] indexes and templates
+  - [ ] Example artifacts
 - Designs
   - [X] README
   - [ ] CONTRIBUTING
@@ -16,6 +19,9 @@
   - [ ] docs/
   - [ ] Skills
   - [ ] .github
+  - [ ] PR template
+  - [ ] indexes and templates
+  - [ ] Example artifacts
 - Specs
   - [X] README
   - [ ] CONTRIBUTING
@@ -23,6 +29,9 @@
   - [ ] docs/
   - [ ] Skills
   - [ ] .github
+  - [ ] PR template
+  - [ ] indexes and templates
+  - [ ] Example artifacts
 - RFCs
   - [X] README
   - [ ] CONTRIBUTING
@@ -30,6 +39,9 @@
   - [ ] docs/
   - [ ] Skills
   - [ ] .github
+  - [ ] PR template
+  - [ ] indexes and templates
+  - [ ] Example artifacts
 - Risks
   - [X] README
   - [x] CONTRIBUTING
@@ -37,6 +49,9 @@
   - [ ] docs/
   - [ ] Skills
   - [ ] .github
+  - [ ] PR template
+  - [ ] indexes and templates
+  - [ ] Example artifacts
 - Plans
   - [X] README
   - [ ] CONTRIBUTING
@@ -44,6 +59,9 @@
   - [ ] docs/
   - [ ] Skills
   - [ ] .github
+  - [ ] PR template
+  - [ ] indexes and templates
+  - [ ] Example artifacts
 
 ## Skills
 
