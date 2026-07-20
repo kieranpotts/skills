@@ -2,12 +2,48 @@
 
 ## Artifacts
 
-- [ ] Audits
-- [ ] Designs
-- [ ] Specs
-- [ ] RFCs
-- [ ] Risks
-- [ ] Plans
+- Audits
+  - [X] README
+  - [ ] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
+- Designs
+  - [X] README
+  - [ ] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
+- Specs
+  - [X] README
+  - [ ] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
+- RFCs
+  - [X] README
+  - [ ] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
+- Risks
+  - [X] README
+  - [x] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
+- Plans
+  - [X] README
+  - [ ] CONTRIBUTING
+  - [ ] AGENTS
+  - [ ] docs/
+  - [ ] Skills
+  - [ ] .github
 
 ## Skills
 
