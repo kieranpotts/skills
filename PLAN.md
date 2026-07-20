@@ -1,5 +1,14 @@
 # Plan
 
+## Artifacts
+
+- [ ] Audits
+- [ ] Designs
+- [ ] Specs
+- [ ] RFCs
+- [ ] Risks
+- [ ] Plans
+
 ## Skills
 
 - audit
