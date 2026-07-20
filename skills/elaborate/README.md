@@ -50,7 +50,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**elaborate** is a helper to **[design](../design/)**: it takes the draft design,
+**elaborate** is a helper to **[design](../design/):** it takes the draft design,
 interrogates it with the user, and returns a sharpened design ready to be
 decomposed by **[plan](../plan/)**.
 
