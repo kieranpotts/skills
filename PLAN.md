@@ -10,9 +10,10 @@
   - [ ] Skills
   - [x] GitHub workflows
   - [x] issue templates
-  - [ ] PR template
+  - [x] PR template
   - [x] indexes and templates
   - [x] Example artifacts
+  - [ ] Fork to Hacks
 - Designs
   - [X] README
   - [ ] CONTRIBUTING
@@ -24,6 +25,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Fork to Hacks
 - Specs
   - [X] README
   - [ ] CONTRIBUTING
@@ -35,6 +37,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Fork to Hacks
 - RFCs
   - [X] README
   - [ ] CONTRIBUTING
@@ -46,6 +49,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Fork to Hacks
 - Risks
   - [X] README
   - [x] CONTRIBUTING
@@ -57,6 +61,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Fork to Hacks
 - Plans
   - [X] README
   - [ ] CONTRIBUTING
@@ -68,6 +73,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Fork to Hacks
 
 ## Skills
 
