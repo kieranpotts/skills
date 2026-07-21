@@ -175,10 +175,11 @@ task, you MUST stop and print an error message.
 
 ## Success criteria
 
-- **The release branch exists and follows the chosen naming convention.**
+- **The release branch MUST exist and MUST follow the chosen naming convention.**
 
-  Either a permanent **release** trunk or a temporary `release/<version>` branch,
-  matching `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+  It MUST be either a permanent **release** trunk or a temporary
+  `release/<version>` branch, matching
+  `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
 - **The release branch points to the `ready` tip from which it was cut.**
 

@@ -236,14 +236,15 @@ task, you MUST stop and print an error message.
   task. Resume the refactor afterward.
 
 - **If a move redraws module boundaries, changes a public interface, or alters
-  the data model, it is a design change, not a refactor.**
+  the data model, it MUST be treated as a design change, not a refactor.**
 
-  Send it back through design first.
+  It MUST be sent back through design first.
 
-- **A pre-emptive refactor to make the next feature easier is allowed only when
-  the next feature is concretely planned.**
+- **A pre-emptive refactor to make the next feature easier MUST only be done
+  when the next feature is concretely planned.**
 
-  Refactoring for hypothetical future work is speculative and often wrong.
+  Refactoring for hypothetical future work SHOULD NOT be done — it is
+  speculative and often wrong.
 
 - **If the target area is large legacy with many problems, you MUST pick one
   named quality per refactor session and plan a sequence of refactors over time.**

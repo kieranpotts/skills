@@ -83,7 +83,7 @@ task, you MUST stop and print an error message.
 
 ## Rules
 
-- **Allowed branches are limited to the trunk, temporary, and epic forms.**
+- **Branches MUST be one of the trunk, temporary, or epic forms.**
 
   *Permanent trunks:*
 

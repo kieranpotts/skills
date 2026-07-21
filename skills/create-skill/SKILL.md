@@ -220,19 +220,19 @@ assets, references, and scripts. All artifacts pass the validator.
   requirement level is ambiguous about whether it can be skipped or
   varied.
 
-- **Explain the _why_ behind non-obvious requirements.**
+- **Non-obvious requirements MUST explain the _why_ behind them.**
 
   Instead of bare imperatives, explain the reasoning so the agent can apply
-  judgment in edge cases. When multiple approaches are valid, prefer
-  explaining the _purpose_ over prescribing exact steps.
+  judgment in edge cases. When multiple approaches are valid, you SHOULD
+  explain the _purpose_ over prescribing exact steps.
 
-- **Match prescriptiveness to fragility.**
+- **Prescriptiveness MUST match fragility.**
 
-  Be prescriptive — exact commands, flags, ordering — when operations are
-  fragile, consistency is critical, or a specific sequence must be followed.
-  Otherwise, avoid enumerating every edge case in the body. Instead, handle
-  genuinely tricky edge cases in the edge cases section or a separate
-  `references/` file.
+  You SHOULD be prescriptive — exact commands, flags, ordering — when
+  operations are fragile, consistency is critical, or a specific sequence
+  must be followed. Otherwise, you SHOULD NOT enumerate every edge case in
+  the body. Instead, genuinely tricky edge cases SHOULD be handled in the
+  edge cases section or a separate `references/` file.
 
   Simple skills need only instructions and success criteria.
 

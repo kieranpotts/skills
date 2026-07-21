@@ -316,11 +316,11 @@ notes continuously — you are building the report as you go.
   Flag when a claimed control does not actually cover the boundary it is meant
   to. No sycophancy.
 
-- **Only track what is worth tracking.**
+- **You SHOULD only track what is worth tracking.**
 
-  The register is not a dump of every threat considered. A threat is promoted
-  only when it carries residual exposure worth watching over time. Over-filling
-  the register erodes its value as a live view of real risk.
+  The register MUST NOT be a dump of every threat considered. A threat SHOULD
+  be promoted only when it carries residual exposure worth watching over time.
+  Over-filling the register erodes its value as a live view of real risk.
 
 - **You MUST take notes continuously.**
 
