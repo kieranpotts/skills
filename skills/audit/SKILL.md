@@ -172,19 +172,19 @@ task, you MUST stop and print an error message.
 
 - **You MUST NOT read existing design docs, threat models, etc.**
 
-  You MUST form your judgment from analysis of the code alone. Knowledge
-  of the _intended_ architecture would bias your review toward the design
-  trade-offs already considered; the audit SHOULD surface genuinely novel
-  suggestions.
+  You MUST form your judgment from analysis of the code and data structures
+  alone.
+
+  Knowledge of the _intended_ architecture would bias your review toward the
+  design trade-offs already considered.
 
   The evaluation MUST be your honest, independent assessment of the as-built
   system.
 
-- **Discovery only: you MUST NOT change code.**
+- **Discovery only. You MUST NOT change any code or other production artifacts.**
 
-  You MUST NOT change any code in the audited repositories.
-
-- **You MUST NOT commit, branch, file issues, or open pull requests.**
+  In addition, you MUST NOT commit, branch, file issues, or open pull requests
+  against the code repositories of the audited codebases.
 
   Your only output is your report, written to disk. You MUST NOT commit it,
   create a branch for it, file issues, or open pull requests to implement
