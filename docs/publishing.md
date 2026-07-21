@@ -13,8 +13,8 @@ telemetry.
 - The repo must be public on GitHub.
 
 - Each skill must be discoverable by the `skills` CLI. It will look for a
-  root-level `SKILL.md`, or a `skills/` directory following the [Agent
-  Skills](https://agentskills.io/) convention (which this repo uses).
+  root-level `SKILL.md`, or a `skills/` directory following the
+  [Agent Skills](https://agentskills.io/) conventions.
 
 - Each `SKILL.md` needs YAML front-matter with at least `name` (lowercase,
   hyphens) and `description`.
