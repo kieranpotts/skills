@@ -36,8 +36,6 @@ not expected to prompt for answers to its questions.
 
 > Is the design still sound?
 
-> Check the codebase for structural drift.
-
 ## Recommended models
 
 A premium frontier reasoning model is the best fit here. This skill's value

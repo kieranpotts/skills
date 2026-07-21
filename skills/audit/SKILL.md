@@ -3,8 +3,8 @@ name: audit
 description: >-
   Evaluate the evolving architecture — modularity, consistency, coupling, etc.
   Security and privacy is out-of-scope. Use this skill when the user says
-  something like "audit this codebase", "do an architectural audit", "is the
-  design still sound?", or "check the codebase for structural drift".
+  something like "audit this codebase", "do an architectural audit", or "is the
+  design still sound?".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -20,10 +20,8 @@ Uncover edge cases, such as uncommon failure modes, that are not handled
 gracefully.
 
 This task is scoped to static review of code and data structures. Review of
-security and privacy is out-of-scope.
-
-Evaluation only. You MUST NOT make any code or configuration changes to the
-software itself.
+security and privacy is out-of-scope. Review of dynamic qualities observed
+at runtime, such as latency and throughput, is also out-of-scope.
 
 **Input:** Determine the following information from the surrounding context
 and environment. You MUST NOT prompt the user for clarification on this task's
@@ -48,14 +46,8 @@ user with an error message.
 
 **Output:** An artifact capturing candidates for architecture improvements, each
 candidate citing specific files and lines, stating what is observed and the cost
-it imposes, and optionally pointing toward a fix. The report is written to the
-audit reports store, following the conventions defined there.
-
-Security and privacy findings are out-of-scope for this skill. If you notice a
-security concern during the review — eg. an injection point, a broken auth
-boundary, unsafe secrets handling — do NOT write it up as an audit finding.
-Instead note it for referral to a threat modeling session, then continue the
-architecture review.
+it imposes. The report is written to the audit reports store, following the
+conventions defined there.
 
 **Interactivity:** You MUST complete this task non-interactively. You MUST NOT
 block for user input. You MUST follow the below instructions to completion, else
@@ -66,98 +58,111 @@ task, you MUST stop and print an error message.
 
 1.  **Establish scope.**
 
-    You MUST decide what is in scope — which repositories, services, or
-    directories — based on the target codebase. If a URL is provided, you MUST
-    assume the target repository is to be cloned.
+    Decide what is in scope — which repositories, services, or directories —
+    based on the target codebase.
 
-    You SHOULD pin the codebase to a specific revision, eg.
-    `owner/repo@<commit-sha>`, where possible.
+    Try to pin the codebase to a specific revision, eg. `owner/repo@<commit-sha>`,
+    else assume the `HEAD` commit of the default branch.
 
-2.  **Identify modules.**
+2.  **Read the source code.**
 
-    You MUST analyze the target codebase and identify the major component parts
-    of the system, and SHOULD identify the architectural tiers, eg. UI, services,
-    domain, infrastructure.
+3.  **Read the data schema.**
 
-3.  **Identify communication patterns.**
+    Look for migrations files or object-relational mappings from which the
+    data schema of the the persistence layers can be determined.
 
-    You SHOULD identify the communication patterns and protocols between the
-    major layers, and between the components within each layer.
+4.  **Identify modules.**
 
-4.  **Check on module depth.**
+    Analyze the target codebase and identify the major component parts
+    of the system.
 
-    For each significant module, you SHOULD ask: if I removed this module, where
+    Identify the architectural tiers, eg. UI, services, domain, infrastructure.
+
+5.  **Identify communication patterns.**
+
+    Identify the communication patterns and protocols between the major
+    layers, and between the components within each layer.
+
+6.  **Check on module depth.**
+
+    For each significant module, ask: if I removed this module, where
     would its complexity go?
 
-    If complexity would concentrate elsewhere in a worse arrangement, the module
-    is deep — earning its keep. But if the effect would be to simply redistribute
-    the complexity, the module is shallow — potentially NOT earning its keep.
+    If complexity would concentrate elsewhere in a worse arrangement, the
+    module is deep — earning its keep. But if the effect would be to simply
+    redistribute the complexity, the module is shallow — potentially NOT
+    earning its keep.
 
-    You SHOULD flag shallow modules. They hide a thin layer of behavior behind an
-    interface wider than the behavior justifies.
+    Flag shallow modules in the audit report. Shallow modules hide only a
+    thin layer of behavior behind an interface wider than the behavior
+    justifies.
 
-5.  **Examine the module boundaries.**
+7.  **Examine the module boundaries.**
 
-    You SHOULD enumerate the significant structural boundaries — between
-    architectural tiers, between modules, and at the edges where the system
-    integrates with external services or stores.
+    Enumerate the significant structural boundaries — between architectural
+    tiers, between modules, and at the edges where the system integrates
+    with external services or stores.
 
-    For each, ask: is the boundary in the right place, and does it leak? A clean
-    boundary exposes a narrow, intention-revealing interface and hides its
-    internals; a leaky one forces callers to know about the other side's
-    representation, ordering, or lifecycle.
+    For each boundary, ask: is the boundary in the right place, and does it
+    leak? A clean boundary exposes a narrow, intention-revealing interface and
+    hides its internals. A leaky one forces callers to know about the other
+    side's representation, ordering, or lifecycle.
 
-    You SHOULD flag boundaries that are misplaced, too wide, or that leak
-    implementation detail across the divide.
+    In your audit report, flag boundaries that are misplaced, too wide, or that
+    leak implementation detail across the divide.
 
-    (Trust boundaries — where data crosses from an untrusted actor — are a
-    security concern, out of scope here. You MUST note any you spot for referral
-    to a threat modeling session, and move on.)
+    Trust boundaries — where data crosses from an untrusted actor — are a
+    security concern, and are out-of-scope here.
 
-6.  **Look for these specific code smells.**
+8.  **Look for these specific code smells.**
 
-    - **Wide interfaces relative to behavior.** Many exported functions for
-      thin underlying logic. Often the boundary is in the wrong place.
+    - **Wide interfaces relative to behavior.**
+      Many exported functions for thin underlying logic. Often the boundary is
+      in the wrong place.
 
-    - **Tangled dependencies.** Modules importing each other directly or via
-      chains that resist independent change. Touching one requires touching
-      several.
+    - **Tangled dependencies.**
+      Modules importing each other directly or via chains that resist
+      independent change. Touching one requires touching several.
 
-    - **Single-caller abstractions.** An interface, base class, or helper
-      used by exactly one caller. The abstraction wasn't earned.
+    - **Single-caller abstractions.**
+      An interface, base class, or helper used by exactly one caller.
+      The abstraction wasn't earned.
 
-    - **Repeated patterns not yet abstracted.** Three or more places doing
-      the same shape of work, none extracted. Worth promoting to a named
-      concept.
+    - **Repeated patterns not yet abstracted.**
+      Three or more places doing the same shape of work, none extracted.
+      Worth promoting to a named concept.
 
-    - **Inverted dependencies.** Lower-level modules importing higher-level
-      ones. Stable code depending on volatile code.
+    - **Inverted dependencies.**
+      Lower-level modules importing higher-level ones. Stable code depending
+      on more volatile code.
 
-    - **Names that don't match content.** A utility doing domain logic, a
-      "manager" with a single method, or a "service" component that's actually
-      just a thin DAO.
+    - **Names that don't match content.**
+      A utility doing domain logic, a "manager" with a single method, or a
+      "service" component that's actually just a thin DAO.
 
-7.  **Prioritize findings by impact ÷ effort.**
+9.  **Prioritize findings by impact ÷ effort.**
 
-    - **Impact:** How much the rest of the codebase simplifies if this is fixed.
-      Findings that unlock other improvements rank high.
+    For each finding, determine:
 
-    - **Effort:** How invasive the change would be. Local renames rank above
-      cross-cutting restructures.
+    - **Impact:**
+      How much the rest of the codebase will be simplified if the issue is
+      fixed. Findings that unlock other improvements rank high.
 
-    You MUST assign each finding a **Priority** — HIGH, MEDIUM, or LOW — from
-    this ranking, and MUST order the report by it. The top entry is the cheapest
+    - **Effort:**
+      How invasive the change would be. Local renames rank above cross-cutting
+      restructures.
+
+    - **Priority:**
+      From the impact and effort scores, determine an overall priority rating
+      of `HIGH`, `MEDIUM`, or `LOW`. The highest priority items are those that
+      will yield the highest impact relative to the effort involved.
+
+    Order the findings by priority. The top entry will be the cheapest
     high-impact fix.
 
-    If more than 10 candidates remain after ranking, you MUST delete the
-    lowest-ranking entries so the report is capped at 10.
+10.  **Write the report.**
 
-8.  **Write the report.**
-
-    You MUST write the report into the project's audit-report collection. You
-    MUST follow the instructions in the audit reports collection or repository,
-    identified via user input. Look for an `AGENTS.md` file, else `README.md`.
-    You SHOULD follow instructions in local agent skills files, if useful.
+    Follow the instructions in the existing collection of audit reports.
 
     If no instructions can be found, you SHOULD analyze existing audit reports,
     establish common conventions, and follow those conventions in the writing of
@@ -167,7 +172,6 @@ task, you MUST stop and print an error message.
 
 - **You MUST NOT read existing design docs, threat models, etc.**
 
-  You MUST NOT read any design documentation or threat models that you find.
   You MUST form your judgment from analysis of the code alone. Knowledge
   of the _intended_ architecture would bias your review toward the design
   trade-offs already considered; the audit SHOULD surface genuinely novel
@@ -214,6 +218,15 @@ task, you MUST stop and print an error message.
   referral to a threat modeling session and the
   [risk register](https://github.com/kieranpotts/risks), then continue the
   architecture review. See the **[probe](../probe/)** skill.
+
+<!--
+Security and privacy findings are out-of-scope for this skill. If you notice a
+security concern during the review — eg. an injection point, a broken auth
+boundary, unsafe secrets handling — do NOT write it up as an audit finding.
+Instead note it for referral to a threat modeling session, then continue the
+architecture review.
+-->
+
 
 - **"Not worth fixing" MAY be a valid conclusion.**
 
