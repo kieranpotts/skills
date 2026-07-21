@@ -85,7 +85,7 @@
 
 - audit
   - [x] README
-  - [ ] SKILL
+  - [x] SKILL
 - branch
   - [ ] README
   - [ ] SKILL
