@@ -45,7 +45,7 @@ user with an error message.
 
 - The project's `CHANGELOG.md` — REQUIRED. For direct commits to `dev` or
   `temp/*`.** For direct commits to `dev` or a `temp/*` branch, the
-  `CHANGELOG.md` is also in scope.
+  `CHANGELOG.md` is also in-scope.
 
 **Output:** A conforming commit message in the `<type>: <description>` format
 (with any optional flag, body, and footers), or a pass/fail verdict on the

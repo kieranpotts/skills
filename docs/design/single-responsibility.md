@@ -4,7 +4,7 @@ To achieve [composable agentic workflows](./composable-pipelines.md), in which
 individual steps may have multiple trigger conditions and be sequenced
 differently across multiple pipelines, each agent skill should define a single,
 discrete step and instruct the agent to stop at a well-defined boundary.
-Similarly, each deterministic script should be narrow in scope and not reach
+Similarly, each deterministic script should be narrow in-scope and not reach
 into adjacent concerns.
 
 For maximum composability, no one agent skill should do both _evaluation_ and

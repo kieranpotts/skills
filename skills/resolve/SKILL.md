@@ -137,7 +137,7 @@ task, you MUST stop and print an error message.
 
   The author's curation happened before this skill ran. A comment that is
   still open is one the author wants done. Disagreeing with, deferring, or
-  rejecting a comment is out of scope.
+  rejecting a comment is out-of-scope.
 
 - **You MUST make one minimal change per comment.**
 
@@ -182,7 +182,7 @@ task, you MUST stop and print an error message.
 - **A comment asks for more than a fix — a redesign.**
 
   If actioning a comment would mean restructuring beyond the change under
-  review, it is not a resolve-loop task. Surface it as out of scope for this
+  review, it is not a resolve-loop task. Surface it as out-of-scope for this
   skill rather than ballooning the diff; architecturally significant rework is
   a separate, upstream responsibility.
 

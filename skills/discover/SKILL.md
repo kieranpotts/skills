@@ -120,7 +120,7 @@ asking the next. Let each answer shape the question that follows.
 
 4.  **Establish scope.**
 
-    Ask: *"What is deliberately out of scope here? What are we choosing
+    Ask: *"What is deliberately out-of-scope here? What are we choosing
     not to address?"*
 
     An explicit out-of-scope list is one of the most valuable discovery
@@ -254,7 +254,7 @@ asking the next. Let each answer shape the question that follows.
 
 - **Scope MUST be explicit in both directions.**
 
-  The *Out of scope* list MUST be non-empty. Discovery without explicit
+  The *out-of-scope* list MUST be non-empty. Discovery without explicit
   exclusions hides ambiguity.
 
 - **Assumptions MUST be flagged as assumptions.**

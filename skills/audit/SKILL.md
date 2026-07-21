@@ -39,8 +39,9 @@ user with an error message.
   target codebase cannot be found, stop and alert the user.
 
 - Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
+  Find the location of the existing audit reports collection for the target
+  codebase. If not specified by the user, check the nearest `AGENTS.md` file for
+  the path or URL to the audit reports. If not found, check if the current working
   directory has an `audits/` subdirectory that contains audit reports. If the
   path to the audit reports cannot be found, stop and alert the user.
 
@@ -144,15 +145,15 @@ task, you MUST stop and print an error message.
 
     For each finding, determine:
 
-    - **Impact:**
+    - **Impact.**
       How much the rest of the codebase will be simplified if the issue is
       fixed. Findings that unlock other improvements rank high.
 
-    - **Effort:**
+    - **Effort.**
       How invasive the change would be. Local renames rank above cross-cutting
       restructures.
 
-    - **Priority:**
+    - **Priority.**
       From the impact and effort scores, determine an overall priority rating
       of `HIGH`, `MEDIUM`, or `LOW`. The highest priority items are those that
       will yield the highest impact relative to the effort involved.
@@ -162,7 +163,8 @@ task, you MUST stop and print an error message.
 
 10.  **Write the report.**
 
-    Follow the instructions in the existing collection of audit reports.
+    Follow the instructions in the existing store of audit reports to
+    prepare a new architecture audit report, ready for the user to review.
 
     If no instructions can be found, you SHOULD analyze existing audit reports,
     establish common conventions, and follow those conventions in the writing of
@@ -178,100 +180,46 @@ task, you MUST stop and print an error message.
   Knowledge of the _intended_ architecture would bias your review toward the
   design trade-offs already considered.
 
-  The evaluation MUST be your honest, independent assessment of the as-built
-  system.
+  Your evaluation of the architecture MUST be your honest, independent
+  assessment of the as-built system.
 
 - **Discovery only. You MUST NOT change any code or other production artifacts.**
 
   In addition, you MUST NOT commit, branch, file issues, or open pull requests
   against the code repositories of the audited codebases.
 
-  Your only output is your report, written to disk. You MUST NOT commit it,
-  create a branch for it, file issues, or open pull requests to implement
-  your findings, where the target path is within a version control repository.
+  Your only output is your report, written to disk as determined by the
+  instructions and conventions of the existing store of audit reports.
 
-  The collection's own workflow — a human, or a companion skill — owns
-  branching, committing, and indexing. Writing the report file is where this
-  skill MUST stop. The user SHALL decide what to do with your report next.
+- **Focus audit reports on findings, not fixes.**
 
-- **You SHOULD cite files and lines.**
+  Your _observations_ are the deliverable. You MAY suggest fixes and alternative
+  designs, but strictly these are out-of-scope for audit reports, so mention
+  them only in passing.
 
-  Be concrete. Every finding SHOULD name specific paths where possible.
-  Vague findings ("the API layer is messy") SHOULD be avoided.
+- **Security and privacy findings are out-of-scope.**
 
-- **You MAY suggest options for fixes.**
+  You SHOULD NOT report security or privacy weaknesses — eg. injection points,
+  broken auth boundaries, unsafe secrets handling, etc.
 
-  You MUST state your findings before offering any suggestions about how to
-  improve things.
+  These concerns are the scope of the **[probe](../probe/)** skill.
 
-  A pointer toward a fix is OPTIONAL, and MUST stay a pointer — never a
-  worked-out alternative design.
-
-  Your _observations_ are the deliverable. A reader MAY reject your
-  suggested fixes but still find the observations useful.
-
-- **Security and privacy findings are out of scope.**
-
-  This skill evaluates architecture only. You MUST NOT report security or
-  privacy weaknesses — injection points, broken auth boundaries, unsafe secrets
-  handling, and the like — as audit findings. If you notice one, note it for
-  referral to a threat modeling session and the
-  [risk register](https://github.com/kieranpotts/risks), then continue the
-  architecture review. See the **[probe](../probe/)** skill.
-
-<!--
-Security and privacy findings are out-of-scope for this skill. If you notice a
-security concern during the review — eg. an injection point, a broken auth
-boundary, unsafe secrets handling — do NOT write it up as an audit finding.
-Instead note it for referral to a threat modeling session, then continue the
-architecture review.
--->
-
-
-- **"Not worth fixing" MAY be a valid conclusion.**
-
-  Not every smell earns a fix. Where the cost of the change would exceed the
-  cost of the smell, you SHOULD say so — recording it as low priority, with the
-  rationale.
-
-- **You MUST stay within the codebase's idioms.**
+- **Stay within the codebase's idioms.**
 
   You MUST NOT flag style choices that are consistent across the codebase as
-  smells just because you would prefer a different style. The audit MUST target
-  structural problems, not preferences.
+  smells, just because you would prefer a different style.
+
+  Your audit report MUST target structural problems, not preferences.
 
 ## Success criteria
 
 - **The report MUST cite a specific file for every finding.**
 
-  Each finding MUST name a module/file path and a concrete observation. Vague
-  platitudes MUST NOT appear.
+  Each finding MUST name a module/file path and a concrete observation.
 
-- **Findings MUST be prioritized by impact ÷ effort.**
+  Vague platitudes like "the API layer is messy" MUST NOT appear in your report.
 
-  Each finding MUST carry a Priority (High / Medium / Low) derived from the
-  ranking, and the report MUST be ordered by it. A reader SHOULD be able to
-  stop after the top three entries and still have something actionable.
+- **Findings MUST be prioritized.**
 
-- **The audited repositories MUST be left unchanged.**
-
-  Their tracked files MUST be unchanged after this skill runs — `git diff` over
-  them MUST be empty. The new report file in the audit-report collection MUST be
-  the only expected artifact.
-
-- **The report MUST exist on disk and MUST NOT be committed.**
-
-  The report file MUST be present at the location the collection's conventions
-  (or `AGENTS.md`) specify, and `git status` MUST show it untracked — never
-  staged or committed by this skill.
-
-- **The report MUST be bounded.**
-
-  It MUST contain between 5 and 10 findings, and MUST NOT exceed 10. It
-  MUST NOT be an exhaustive enumeration of every observed smell.
-
-- **The report MUST conform to the audit template.**
-
-  It MUST carry the metadata header (including the Subject snapshot), a findings
-  table, and per-finding Type / Priority / Location — matching the project's
-  `TEMPLATE.md`, or the fallback structure where none exists.
+  Each finding MUST carry a priority of of `HIGH`, `MEDIUM`, or `LOW`,
+  calculated based on your assessment of the impact and effort.

@@ -117,8 +117,8 @@ notes continuously — you are building the report as you go.
 
     Ask, one at a time:
 
-    - *"What exactly is in scope — which components, services, and data flows?"*
-    - *"What is deliberately out of scope, so we can judge the coverage?"*
+    - *"What exactly is in-scope — which components, services, and data flows?"*
+    - *"What is deliberately out-of-scope, so we can judge the coverage?"*
     - *"What's the technology stack, and what are the deployment environments?"*
     - *"Can we pin this to a specific revision — `owner/repo@<commit>`?"*
 
@@ -154,7 +154,7 @@ notes continuously — you are building the report as you go.
 
     STRIDE (Spoofing, Tampering, Repudiation, Information disclosure, Denial of
     service, Elevation of privilege) is the recommended default. Add
-    LINDDUN when personal data is in scope. Whatever is chosen, every threat is
+    LINDDUN when personal data is in-scope. Whatever is chosen, every threat is
     classified under a named category from it.
 
 6.  **Sweep for common weaknesses.**

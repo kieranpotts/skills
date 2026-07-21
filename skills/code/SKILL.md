@@ -130,7 +130,7 @@ task, you MUST stop and print an error message.
   Bundling steps multiplies review surface, hides bugs, and makes rollback
   painful. If you finish a step fast, commit, branch, and start the next one.
 
-- **You MUST stay in scope.**
+- **You MUST stay in-scope.**
 
   Out-of-scope work MUST go in a follow-up step or a separate `temp/*` branch.
   "While I'm here" is how scope creep starts.

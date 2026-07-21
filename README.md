@@ -401,7 +401,7 @@ skills, and to commit them to your own projects — make them your own!
 > [!NOTE]
 > One thing you might want to modify in the installed skills files are Cursor's
 > `alwaysApply` setting and Copilot's `applyTo` setting. These are set to `true`
-> and `"**"` respectively, which means the skills will always be in scope in those
+> and `"**"` respectively, which means the skills will always be in-scope in those
 > agent harnesses. You might want to tune these settings so the skills are brought
 > into context only under specific conditions.
 

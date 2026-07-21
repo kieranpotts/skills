@@ -25,11 +25,11 @@ point of view.>
 
 ## Scope
 
-**In scope:**
+**In-scope:**
 
 <What is covered.>
 
-**Out of scope:**
+**Out-of-scope:**
 
 <What is deliberately excluded.>
 

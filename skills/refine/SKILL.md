@@ -76,7 +76,7 @@ reported and the skill stops; it changes no code itself.
       the user experience is still unacceptable (or vice versa — the threshold
       was over-strict).
 
-    - *Out-of-scope item turns out to be in scope* (or vice versa).
+    - *Out-of-scope item turns out to be in-scope* (or vice versa).
 
     - *Contradiction between two ACs* surfaced during implementation or testing.
 

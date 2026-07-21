@@ -286,7 +286,7 @@ task, you MUST stop and print an error message.
 
   **Files likely involved:** `db/pool.go`, `middleware/error_handler.go`.
 
-  **Out of scope:** Changing the default `pool_size`. Adding a circuit
+  **Out-of-scope:** Changing the default `pool_size`. Adding a circuit
   breaker. Both deferred; raise separate issues if wanted.
   ```
 

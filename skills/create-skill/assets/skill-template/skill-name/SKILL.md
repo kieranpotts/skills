@@ -2,7 +2,7 @@
 name: skill-name
 description: >-
   One sentence describing what the skill does. Optional sentence describing
-  what's out of scope. Use when <specific triggers — user phrasings, situations,
+  what's out-of-scope. Use when <specific triggers — user phrasings, situations,
   file types, contexts>.
 compatibility: requires <tool> or <tool>, and <tool>
 license: <license>
@@ -16,7 +16,7 @@ metadata:
 
 One sentence, copied from the description, describing what the skill does.
 
-Optionally, set boundaries. What's out of scope?
+Optionally, set boundaries. What's out-of-scope?
 
 **Input:** Determine the following information from the surrounding context
 and environment. You MUST NOT prompt the user for clarification on this task's
