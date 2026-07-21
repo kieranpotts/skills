@@ -64,54 +64,54 @@ task, you MUST stop and print an error message.
 
 1.  **Frame the question.**
 
-    You MUST restate the topic as one or more specific, answerable questions. A
+    Restate the topic as one or more specific, answerable questions. A
     good frame is falsifiable and scoped: *"Does library X support streaming
-    responses, and from which version?"* beats *"research library X"*. You MUST
-    note explicitly what decision the answer unblocks — that decision sets the
+    responses, and from which version?"* beats *"research library X"*. Note
+    explicitly what decision the answer unblocks — that decision sets the
     depth and stopping point.
 
-    If the request is too broad to answer in one pass, you MUST narrow it to the
+    If the request is too broad to answer in one pass, narrow it to the
     questions that actually block progress and list the rest as deferred.
 
 2.  **Check what is already known first.**
 
-    Before reaching outward, you MUST check inward sources that may already hold
+    Before reaching outward, check inward sources that may already hold
     the answer: the codebase, `docs/`, existing ADRs, committed convention files
-    (`AGENTS.md` / `CLAUDE.md`), and agent memory. You MUST note what you found
+    (`AGENTS.md` / `CLAUDE.md`), and agent memory. Note what you found
     and what gap remains, as required by the Rules.
 
-    If the question is fully answerable from inward sources, you MUST skip the
+    If the question is fully answerable from inward sources, skip the
     external search and report the finding with its in-repo source.
 
 3.  **Gather external sources.**
 
-    You SHOULD use web search and fetch (`WebSearch` / `WebFetch` or the host's
+    Use web search and fetch (`WebSearch` / `WebFetch` or the host's
     equivalent) to collect authoritative sources for the remaining gap,
     following the source-preference and citation Rules.
 
 4.  **Corroborate and date every claim.**
 
-    You MUST apply the corroboration and dating Rules to each claim that matters
+    Apply the corroboration and dating Rules to each claim that matters
     to the decision.
 
 5.  **Synthesize into a structured report.**
 
-    You MUST write the report using the structure defined in the Success
-    criteria. You MUST lead with a direct answer to the framed question, then the
+    Write the report using the structure defined in the Success
+    criteria. Lead with a direct answer to the framed question, then the
     supporting evidence, then the open questions. The reader should get the
     actionable conclusion in the first few lines and be able to drill into the
     evidence only if they need to.
 
 6.  **Separate fact from inference.**
 
-    You MUST mark clearly which statements are sourced fact and which are your
-    synthesis or recommendation. You MUST NOT present an inference as if a source
-    asserted it. If the evidence is thin, you MUST say the confidence is low — an
+    Mark clearly which statements are sourced fact and which are your
+    synthesis or recommendation. Do not present an inference as if a source
+    asserted it. If the evidence is thin, say the confidence is low — an
     honest "the sources don't settle this" is more useful than false certainty.
 
 7.  **State where the report should go — but do not put it there.**
 
-    You MUST end by naming the natural destination(s) for the findings (an input
+    End by naming the natural destination(s) for the findings (an input
     to a design decision, an ADR, a persisted memory entry, or simply the user's
     review) and stop. Writing into those destinations is a separate, explicit
     step the caller initiates.

@@ -67,14 +67,14 @@ task, you MUST stop and print an error message.
 
 1.  **Check the entry gate.**
 
-    You MUST confirm the relevant specification proposal is `ACCEPTED`. If it is
-    `DRAFT`, `PROPOSED`, or missing, you MUST stop, tell the user the design
+    Confirm the relevant specification proposal is `ACCEPTED`. If it is
+    `DRAFT`, `PROPOSED`, or missing, stop, tell the user the design
     phase is gated on an approved specification, and direct them to approve or
     write one first.
 
 2.  **Gather the constraints.**
 
-    Before exploring options, you MUST write down:
+    Before exploring options, write down:
 
     - *Functional ACs* the design must satisfy (from the approved
       specification).
@@ -88,11 +88,11 @@ task, you MUST stop and print an error message.
     - *Budget*: time, complexity tolerance, team familiarity, operational
       headroom.
 
-    If any constraint is unclear, you MUST ask the user before proceeding.
+    If any constraint is unclear, ask the user before proceeding.
 
 3.  **Identify the decision points.**
 
-    You MUST list the *architecturally significant* choices the design must
+    List the *architecturally significant* choices the design must
     make — the ones that would be expensive to reverse later. Typical examples:
 
     - Module/service boundaries.
@@ -103,18 +103,18 @@ task, you MUST stop and print an error message.
     - Concurrency / parallelism model.
 
     Cosmetic or easily-reversed decisions (variable names, file layout) are not
-    decision points — you SHOULD defer them.
+    decision points — defer them.
 
 4.  **Enumerate alternatives per decision point.**
 
-    You MUST produce at least two options for each decision point, including a
+    Produce at least two options for each decision point, including a
     do-nothing or simplest-possible alternative. A single option masquerading as
     "the design" is an assumption, not a design.
 
 5.  **Evaluate each option against the nine design qualities.**
 
-    For each option, you MUST note its impact (positive, neutral, negative) on
-    each quality. You MUST be specific — "improves performance" is not useful;
+    For each option, note its impact (positive, neutral, negative) on
+    each quality. Be specific — "improves performance" is not useful;
     "removes the N+1 query, cutting p95 by ~40ms" is.
 
     - *Completeness*: does it cover all the functional ACs?
@@ -129,31 +129,31 @@ task, you MUST stop and print an error message.
     - *Changeability*: how easily can it adapt to plausible future requirements?
     - *Simplicity*: does it minimize unnecessary complexity?
 
-    Most options will trade qualities against one another. You MUST capture the
+    Most options will trade qualities against one another. Capture the
     trade explicitly.
 
 6.  **Recommend one, with reasoning.**
 
-    You MUST state which option to pick and *why* it wins on the qualities that
-    matter most for this domain. You MUST name the qualities being prioritized
-    and the qualities being sacrificed. If two options are close, you MUST say so
+    State which option to pick and *why* it wins on the qualities that
+    matter most for this domain. Name the qualities being prioritized
+    and the qualities being sacrificed. If two options are close, say so
     and ask the user to break the tie.
 
 7.  **Capture the decision.**
 
-    For architecturally-significant decisions, you MUST write a short
+    For architecturally-significant decisions, write a short
     Architecture Decision Record (ADR) — context, options considered, decision,
     consequences. For smaller designs, a paragraph in the PR description or a
-    comment on the issue MAY suffice.
+    comment on the issue may suffice.
 
-    You MUST include enough that a developer six months from now can answer "why
+    Include enough that a developer six months from now can answer "why
     did we do it this way?" without re-running the exercise.
 
 8.  **Report the design and stop.**
 
-    You MUST flag any soft edges that remain — ambiguous terms, unstated
+    Flag any soft edges that remain — ambiguous terms, unstated
     assumptions, contested trade-offs — so they can be stress-tested before
-    decomposition. You MUST report the design and stop; what consumes it is the
+    decomposition. Report the design and stop; what consumes it is the
     orchestrator's concern.
 
 ## Rules

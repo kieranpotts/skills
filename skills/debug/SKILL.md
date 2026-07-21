@@ -58,7 +58,7 @@ task, you MUST stop and print an error message.
 
 1.  **Build a feedback loop.**
 
-    You MUST try construction methods in roughly this order:
+    Try construction methods in roughly this order:
 
     1. *Failing test* at whatever seam reaches the bug — unit, integration, e2e.
 
@@ -91,7 +91,7 @@ task, you MUST stop and print an error message.
         drive *them* with a structured script so the loop is still automated.
         Captured output feeds back to you.
 
-    Then you SHOULD iterate on the loop itself:
+    Then iterate on the loop itself:
 
     - Can it be faster? (Cache setup, skip unrelated init, narrow test scope.)
 
@@ -103,7 +103,7 @@ task, you MUST stop and print an error message.
 
 2.  **Reproduce.**
 
-    You MUST run the loop, watch the bug appear, and confirm:
+    Run the loop, watch the bug appear, and confirm:
 
     - [ ] The loop produces the failure mode the *user* described — not a
       different failure that happens to be nearby.
@@ -116,21 +116,21 @@ task, you MUST stop and print an error message.
 
 3.  **Hypothesize.**
 
-    You MUST generate ranked hypotheses before testing any of them. Each
-    hypothesis MUST be falsifiable. You MUST state the prediction it makes:
+    Generate ranked hypotheses before testing any of them. Each
+    hypothesis needs to be falsifiable. State the prediction it makes:
 
     > "If <X> is the cause, then <changing Y> will make the bug disappear /
     <changing Z> will make it worse."
 
-    If you cannot state the prediction, you MUST discard or sharpen the
+    If you cannot state the prediction, discard or sharpen the
     hypothesis.
 
-    You MAY show the ranked list to the user as a checkpoint, but MUST NOT block
-    on a response. You SHOULD proceed with your ranking if the user is AFK.
+    Optionally show the ranked list to the user as a checkpoint, but do not block
+    on a response — proceed with your ranking if the user is AFK.
 
 4.  **Instrument.**
 
-    Each probe MUST map to a specific prediction from step 3. You MUST change one
+    Map each probe to a specific prediction from step 3. Change one
     variable at a time.
 
     Tool preference:
@@ -142,23 +142,23 @@ task, you MUST stop and print an error message.
 
     3. Never "log everything and grep".
 
-    You MUST tag every debug log with a unique prefix, eg. `[DEBUG-a4f2]`.
+    Tag every debug log with a unique prefix, eg. `[DEBUG-a4f2]`.
     Cleanup at the end becomes a single grep.
 
-    For performance regressions, you MUST establish a baseline measurement
+    For performance regressions, establish a baseline measurement
     (timing harness, `performance.now()`, profiler, query plan), then bisect.
     Measure first, fix second.
 
 5.  **Fix and regression-test.**
 
-    You MUST write the regression test *before* the fix — but only if there is a
+    Write the regression test *before* the fix — but only if there is a
     correct seam for it.
 
     A correct seam is one where the test exercises the *real bug pattern* as it
     occurs at the call site. If the only available seam is too shallow, a
     regression test there gives false confidence.
 
-    If no correct seam exists, that itself is the finding. You MUST note it — the
+    If no correct seam exists, that itself is the finding. Note it — the
     codebase architecture is preventing the bug from being locked down — and
     flag it in the post-mortem.
 
@@ -192,9 +192,9 @@ task, you MUST stop and print an error message.
     - [ ] The hypothesis that turned out correct is stated in the commit / PR
       message — so the next debugger learns.
 
-    Then you SHOULD ask: what would have prevented this bug? If the answer
+    Then ask: what would have prevented this bug? If the answer
     involves architectural change (no good test seam, tangled callers, hidden
-    coupling), you SHOULD make a recommendation — *after* the fix is in, not
+    coupling), make a recommendation — *after* the fix is in, not
     before.
 
 ## Rules

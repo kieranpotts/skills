@@ -67,7 +67,7 @@ task, you MUST stop and print an error message.
 
 1.  **Identify source and target.**
 
-    You MUST state both branches explicitly. "Merge into main" is ambiguous when
+    State both branches explicitly. "Merge into main" is ambiguous when
     there are multiple trunks. Write it down:
 
     ```
@@ -75,12 +75,12 @@ task, you MUST stop and print an error message.
     Target: dev
     ```
 
-    You MUST confirm both exist locally and are up to date with their remotes
+    Confirm both exist locally and are up to date with their remotes
     (`git fetch`).
 
 2.  **Identify the branch type and choose the strategy.**
 
-    You MUST determine the strategy from the branch type, per the project's
+    Determine the strategy from the branch type, per the project's
     branching convention:
 
     | Source → Target              | Strategy                | Command                                  |
@@ -95,36 +95,36 @@ task, you MUST stop and print an error message.
 
     Before merging into the target:
 
-    - *For `temp/*` → `dev`*: you MUST rebase the source onto the latest `dev`
+    - *For `temp/*` → `dev`*: rebase the source onto the latest `dev`
       (`git rebase dev`). This is the "rebase-up" step. The result is a linear
       history; the FF merge that follows adds no new commit.
 
-    - *For `epic/*` → `dev`*: you MUST ensure the latest `dev` has already been
+    - *For `epic/*` → `dev`*: ensure the latest `dev` has already been
       merged *down* into the epic (`git checkout epic/x && git merge --no-ff
-      dev`). Then, still on the `epic/*` branch, you MUST add a commit that
+      dev`). Then, still on the `epic/*` branch, add a commit that
       updates `CHANGELOG.md` under the `[Unreleased]` section (using the
       project's changelog entry format). This commit is squashed in with the rest
       of the epic's changes and is how the CHANGELOG lands on `dev`.
 
-    - *For trunk-to-trunk*: you MUST verify that the upstream trunk is a direct
+    - *For trunk-to-trunk*: verify that the upstream trunk is a direct
       ancestor of the downstream target before running the merge. If it is not,
-      you MUST escalate per the Rules.
+      escalate per the Rules.
 
 4.  **Run pre-merge checks on the source.**
 
-    Before merging, you MUST confirm:
+    Before merging, confirm:
 
     - `git status` clean.
     - Tests green on the source branch (run the suite locally or check CI).
     - Commit messages valid per the project's message convention.
     - No `WIP` or `TEMPORARY` flagged commits if the target is a shared trunk.
 
-    If any check fails, you MUST fix it on the source branch and re-run the
+    If any check fails, fix it on the source branch and re-run the
     checks.
 
 5.  **Execute the merge.**
 
-    You MUST run the command from the table. Examples:
+    Run the command from the table. Examples:
 
     ```sh
     # temp/* into dev (after rebase-up).
@@ -149,18 +149,18 @@ task, you MUST stop and print an error message.
 
     If the merge stops with conflicts:
 
-    - You MUST list them: `git status` shows the conflicted files.
+    - List them: `git status` shows the conflicted files.
 
-    - You MUST open each and resolve manually, and SHOULD prefer the change that
+    - Open each and resolve manually, preferring the change that
       preserves the target branch's contract over local convenience.
 
-    - You MUST watch for *semantic conflicts*: both sides apply cleanly textually
+    - Watch for *semantic conflicts*: both sides apply cleanly textually
       but the combined behavior is wrong (renamed symbol still referenced by the
       other side, two new functions with the same name in different files, etc.).
-      The compiler / type-checker / test suite catches most of these — you MUST
-      run them after each non-trivial resolution.
+      The compiler / type-checker / test suite catches most of these — run
+      them after each non-trivial resolution.
 
-    - You MUST stage resolutions (`git add <file>`).
+    - Stage resolutions (`git add <file>`).
 
     - For rebase: `git rebase --continue`. For merge: `git commit`.
 
@@ -179,15 +179,15 @@ task, you MUST stop and print an error message.
     git log --oneline -10
     ```
 
-    For trunk merges: you MUST confirm history is linear (`git log --oneline
+    For trunk merges: confirm history is linear (`git log --oneline
     --graph -10` shows no merge bubbles).
 
-    For epic merges into `dev`: you MUST confirm the squash commit is one commit
+    For epic merges into `dev`: confirm the squash commit is one commit
     with a meaningful message.
 
 8.  **Push, then clean up.**
 
-    You MUST push the target, then delete disposable source branches once
+    Push the target, then delete disposable source branches once
     integrated:
 
     ```sh

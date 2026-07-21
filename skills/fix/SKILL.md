@@ -60,8 +60,8 @@ task, you MUST stop and print an error message.
 
 1.  **Run the check and read its output literally.**
 
-    You MUST NOT guess at what a build, compiler, linter, or type-checker wants.
-    You MUST run it, and read the exact error, rule name, message, and location
+    Do not guess at what a build, compiler, linter, or type-checker wants.
+    Run it, and read the exact error, rule name, message, and location
     it reports. Most tools name the problem precisely (eg. `no-unused-vars`, a
     missing import, a type mismatch, an undefined symbol) — that message is the
     spec for the fix.
@@ -69,21 +69,21 @@ task, you MUST stop and print an error message.
 2.  **If auditing rather than responding to a specific failure, run every
     available check.**
 
-    When asked to find what's broken rather than fix a named failure, you MUST
+    When asked to find what's broken rather than fix a named failure,
     run the project's build, compiler, linter, type-checker, and any other static
-    gate, in turn. You MUST compile a list of distinct issues before fixing any —
+    gate, in turn. Compile a list of distinct issues before fixing any —
     fixing one can sometimes resolve or mask another.
 
 3.  **Prefer automated fixes where they exist.**
 
     Many linters support `--fix`; some build/compile errors are resolved by `npm
     install`/dependency updates or regenerating lockfiles; some deprecation
-    warnings have an automated migration codemod. You SHOULD run these first,
+    warnings have an automated migration codemod. Run these first,
     then re-check — automated fixes rarely resolve everything.
 
 4.  **Fix remaining issues at their reported location.**
 
-    You MUST make the minimal change that resolves the specific error — not a
+    Make the minimal change that resolves the specific error — not a
     broader rewrite. A type error usually wants a narrower type, a missing null
     check, or a corrected signature; a build or compile failure usually wants a
     missing dependency, a broken import path, a stale generated file, or a config
@@ -92,8 +92,8 @@ task, you MUST stop and print an error message.
 5.  **If a check is wrong for this case, suppress it explicitly — never
     silently.**
 
-    Some violations are false positives for the specific context. You MUST
-    suppress with an inline directive (`// eslint-disable-next-line <rule> --
+    Some violations are false positives for the specific context. Suppress
+    with an inline directive (`// eslint-disable-next-line <rule> --
     <reason>`, `# type: ignore[<code>] -- <reason>`) that names the rule and
     states why it doesn't apply here. An unexplained suppression is worse than
     the violation — the next reader can't tell if it was a judgment call or
@@ -101,8 +101,8 @@ task, you MUST stop and print an error message.
 
 6.  **Re-run every check that was failing.**
 
-    You MUST re-run after each fix and again after all fixes. You MUST confirm
-    each reported issue is resolved AND no new ones were introduced. Fixes can
+    Re-run after each fix and again after all fixes. Confirm
+    each reported issue is resolved and no new ones were introduced. Fixes can
     shift errors elsewhere — especially type narrowing or dependency changes,
     which can surface or hide other errors.
 

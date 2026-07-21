@@ -67,13 +67,13 @@ task, you MUST stop and print an error message.
 
 1.  **Pull the acceptance criteria.**
 
-    You MUST recover the full set of ACs the change is meant to satisfy:
-    functional ACs and non-functional ACs. If ACs are missing or vague, you MUST
+    Recover the full set of ACs the change is meant to satisfy:
+    functional ACs and non-functional ACs. If ACs are missing or vague,
     stop and resolve them against the specification before testing.
 
 2.  **Run the automated suite.**
 
-    You MUST execute, in this order:
+    Execute, in this order:
 
     1. Smoke tests.
     2. Unit tests.
@@ -81,18 +81,18 @@ task, you MUST stop and print an error message.
     4. System / end-to-end tests.
     5. Acceptance tests.
 
-    You MUST investigate any failure before continuing.
+    Investigate any failure before continuing.
 
 3.  **Cover the gaps manually for non-automatable ACs.**
 
-    You MUST walk each scenario from the specification end-to-end through the
-    running application, and MUST capture observable evidence: screenshot, screen
-    recording, console output, log excerpt. For accessibility, you MUST check
+    Walk each scenario from the specification end-to-end through the
+    running application, and capture observable evidence: screenshot, screen
+    recording, console output, log excerpt. For accessibility, check
     keyboard navigation, screen-reader pass, and contrast.
 
 4.  **Verify non-functional requirements.**
 
-    For each NFR, you MUST:
+    For each NFR:
 
     - *Performance*: run the load/benchmark/profiling check against the stated
       threshold and record the measured number.
@@ -106,19 +106,19 @@ task, you MUST stop and print an error message.
 
 5.  **Do a short exploratory pass.**
 
-    You SHOULD spend the allocated time-box off-script, probing areas adjacent to
+    Spend the allocated time-box off-script, probing areas adjacent to
     the change: inputs the specification did not anticipate, combining the new
     feature with existing features, edge cases, and a regression smoke test of
-    the most-critical existing flow. You MUST document anything surprising.
+    the most-critical existing flow. Document anything surprising.
 
 6.  **Map ACs to evidence and report.**
 
-    You MUST produce a summary mapping each AC or scenario to its outcome and
+    Produce a summary mapping each AC or scenario to its outcome and
     evidence. Status is one of: PASS, FAIL, BLOCKED, or N/A.
 
 7.  **Report the verdict.**
 
-    You MUST classify the outcome and report it. You MUST NOT act on it.
+    Classify the outcome and report it. Do not act on it.
 
 ## Rules
 

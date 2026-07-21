@@ -55,34 +55,34 @@ task, you MUST stop and print an error message.
 
 1.  **Recover the original need, not just the ACs.**
 
-    You MUST pull the originating intent from the strongest available source, in
+    Pull the originating intent from the strongest available source, in
     order: the preserved PRD, the specification's outcome / goal / success-measure
     sections, or the discovery report. If no statement of need survives anywhere,
-    you MUST report that absence as the first finding.
+    report that absence as the first finding.
 
 2.  **Walk the working software as the user, against the need.**
 
-    You MUST exercise the completed, tested increments end-to-end, as the user
+    Exercise the completed, tested increments end-to-end, as the user
     pursuing their actual goal. For each user outcome the specification claimed to
-    serve, you MUST check whether the working software lets the user achieve it in
+    serve, check whether the working software lets the user achieve it in
     practice, whether the path is as direct as the need warrants, and whether it
-    meets the stated success measure. You MUST capture observed behavior.
+    meets the stated success measure. Capture observed behavior.
 
 3.  **Surface the gaps between specification and need.**
 
-    You MUST classify each gap by type: **Unmet need**, **Wrong target**,
+    Classify each gap by type: **Unmet need**, **Wrong target**,
     **Missing requirement**, **Over-specification**, or **Stale assumption**, and
-    MUST tie each gap to evidence.
+    tie each gap to evidence.
 
 4.  **Prioritize by need-impact ÷ change-cost.**
 
-    You MUST rank gaps by how much closing them serves the user's real need
+    Rank gaps by how much closing them serves the user's real need
     against how disruptive the specification change would be. "Leave it" is a
     valid finding where the fix costs more than the gap.
 
 5.  **Produce the validation report.**
 
-    You MUST use this structure:
+    Use this structure:
 
     ```markdown
     # Validation report
@@ -111,7 +111,7 @@ task, you MUST stop and print an error message.
 
 6.  **Report the verdict and stop.**
 
-    You MUST report MEETS THE NEED or GAPS FOUND. You MUST NOT draft
+    Report MEETS THE NEED or GAPS FOUND. Do not draft
     specification edits here; what consumes the report is the orchestrator's
     concern.
 

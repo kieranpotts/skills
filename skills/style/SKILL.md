@@ -64,39 +64,39 @@ task, you MUST stop and print an error message.
 
 1.  **Confirm the change is presentation only.**
 
-    Before reformatting, you MUST identify exactly what is changing: whitespace,
+    Before reformatting, identify exactly what is changing: whitespace,
     indentation, line wrapping, trailing newlines, quote style, trailing commas,
     semicolons, import ordering or grouping, casing of literals, line endings,
     final newline, BOM, and encoding. If you cannot describe the change in those
-    terms, you MUST stop and re-classify as a structural refactor.
+    terms, stop and re-classify as a structural refactor.
 
 2.  **Prefer the project's configured formatter.**
 
-    You SHOULD run the project's formatter rather than hand-editing. You SHOULD
-    look for, in order, a formatter config file, a formatter script in
+    Run the project's formatter rather than hand-editing. Look for, in order,
+    a formatter config file, a formatter script in
     `package.json`, `Makefile`, `justfile`, etc., or a pre-commit hook that
-    configures the formatter. You MUST use the configured tool with the
+    configures the formatter. Use the configured tool with the
     configured options.
 
 3.  **Scope the run deliberately.**
 
-    You MUST decide what to format: the file or files just touched, a single
+    Decide what to format: the file or files just touched, a single
     directory, or the whole repo. Wider scope means a noisier diff.
 
 4.  **Verify behavior is unchanged.**
 
-    You MUST run the test suite after the formatting pass. You MUST be especially
+    Run the test suite after the formatting pass. Be especially
     careful with significant-whitespace languages (Python, YAML, Make, Haskell),
     auto-removal of side-effect imports, quote-style changes inside strings, and
     generated files.
 
 5.  **Commit as `style:`.**
 
-    You MUST make one formatting commit per scope using the `style:` commit type.
+    Make one formatting commit per scope using the `style:` commit type.
 
 6.  **Consider automation for next time.**
 
-    If you formatted by hand, you SHOULD open a follow-up `maintenance:` task to
+    If you formatted by hand, open a follow-up `maintenance:` task to
     add or fix the formatter config, wire it into a pre-commit hook, and wire it
     into CI as a check that fails on unformatted code.
 

@@ -57,21 +57,21 @@ task, you MUST stop and print an error message.
 
 1.  **Restate the step's scope.**
 
-    You MUST quote the step from the plan, and state in one sentence what is
+    Quote the step from the plan, and state in one sentence what is
     in-scope and what is out-of-scope.
 
-    If the step is ambiguous, you MUST stop and clarify before writing code.
+    If the step is ambiguous, stop and clarify before writing code.
 
 2.  **Set up the feedback loop.**
 
-    Before writing the implementation, you MUST confirm you can run the relevant
+    Before writing the implementation, confirm you can run the relevant
     tests, you know the exact command, and the test runner is wired to the editor
-    or terminal for one-keystroke re-runs. If the loop is slow or missing, you
-    MUST fix the loop first.
+    or terminal for one-keystroke re-runs. If the loop is slow or missing,
+    fix the loop first.
 
 3.  **Write the failing test first (TDD default).**
 
-    You MUST follow red → green → refactor:
+    Follow red → green → refactor:
 
     - *Red*: write the smallest test that captures the behavior to add. Run it.
       Confirm it fails for the *expected* reason (assertion mismatch, not import
@@ -83,28 +83,28 @@ task, you MUST stop and print an error message.
     - *Refactor*: improve the structure of code and test while all tests stay
       green.
 
-    You MUST repeat for each piece of behavior, one cycle at a time.
+    Repeat for each piece of behavior, one cycle at a time.
 
 4.  **Choose test doubles.**
 
-    For each dependency, you SHOULD pick the lightest viable double, preferring
+    For each dependency, pick the lightest viable double, preferring
     real implementations over test doubles:
 
     - Real implementation > lightweight fake > stub > mock.
 
-    You SHOULD replace dependencies with doubles only when they are slow,
+    Replace dependencies with doubles only when they are slow,
     non-deterministic, or unavailable.
 
 5.  **Apply the project's coding standards.**
 
-    You MUST match the surrounding code's idioms — naming, file layout, error
-    handling, logging. If unsure, you SHOULD read 2-3 nearby files first. New
-    code SHOULD be indistinguishable in style from existing code unless the
+    Match the surrounding code's idioms — naming, file layout, error
+    handling, logging. If unsure, read 2-3 nearby files first. New
+    code should be indistinguishable in style from existing code unless the
     existing code is what the step is replacing.
 
 6.  **Review the diff before committing.**
 
-    You MUST read the diff as if you were the reviewer. Check:
+    Read the diff as if you were the reviewer. Check:
 
     - Is everything in this diff in the step's scope?
 
@@ -115,13 +115,13 @@ task, you MUST stop and print an error message.
 
     - Could a future reader understand the *why* without you?
 
-    You MUST trim anything that does not pay its way.
+    Trim anything that does not pay its way.
 
 7.  **Commit.**
 
     One step = one commit (or a small batch of `step:` commits if subdivision
-    helps reviewers). You MUST use the project's commit type vocabulary and
-    format, and SHOULD reference the issue or plan in the body or footer.
+    helps reviewers). Use the project's commit type vocabulary and
+    format, and reference the issue or plan in the body or footer where relevant.
 
 ## Rules
 

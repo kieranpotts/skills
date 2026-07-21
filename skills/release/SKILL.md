@@ -63,7 +63,7 @@ task, you MUST stop and print an error message.
 
 1.  **Determine the release model and naming convention.**
 
-    You MUST choose one release strategy per the Rules section:
+    Choose one release strategy per the Rules section:
 
     - A single **release trunk**.
 
@@ -71,20 +71,20 @@ task, you MUST stop and print an error message.
 
 2.  **Cut or advance the release branch from `ready`.**
 
-    - For the **release** trunk: you MUST fast-forward it to the current `ready` tip.
+    - For the **release** trunk: fast-forward it to the current `ready` tip.
 
-    - For a `release/<version>` branch: you MUST run `git checkout -b release/<version> ready`.
+    - For a `release/<version>` branch: run `git checkout -b release/<version> ready`.
 
 3.  **Promote the `[Unreleased]` CHANGELOG section.**
 
-    Before tagging, you MUST rename the `[Unreleased]` section in `CHANGELOG.md`
+    Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md`
     to the version and date (eg. `## [1.2.0] - 2026-05-27`), and add a new empty
-    `[Unreleased]` section above it. You MUST include this as part of the
+    `[Unreleased]` section above it. Include this as part of the
     `release:` commit on the release branch.
 
 4.  **Tag the release.**
 
-    You MUST create an annotated version tag on the release branch:
+    Create an annotated version tag on the release branch:
 
     ```sh
     git tag -a v<version> -m "<release_notes>"
@@ -92,19 +92,19 @@ task, you MUST stop and print an error message.
 
 5.  **Build and ship artifacts.**
 
-    You MUST build production artifacts and ship them to the project's external
+    Build production artifacts and ship them to the project's external
     artifact registry (Docker, npm, PyPI, S3, etc.), indexed by the version tag.
 
 6.  **Clean up the release branch, if used.**
 
-    For `release/<version>` branches, you MUST delete the branch after a
+    For `release/<version>` branches, delete the branch after a
     successful deployment pipeline. The **release** trunk is permanent and is
     never deleted.
 
 7.  **Prepare release notes for end users.**
 
-    Where the project expects them, you SHOULD derive release notes from the
-    newly promoted versioned section of `CHANGELOG.md`. You SHOULD filter out
+    Where the project expects them, derive release notes from the
+    newly promoted versioned section of `CHANGELOG.md`. Filter out
     internal changes (`refactor:`, `style:`, `step:`, `maintenance:`) and write
     the remainder in plain, non-technical language. The format and publication
     channel are project-specific.

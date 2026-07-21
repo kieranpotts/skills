@@ -71,7 +71,7 @@ task, you MUST stop and print an error message.
 
 1.  **Name the quality you are improving.**
 
-    Refactoring without a named target produces aimless churn. You MUST pick from
+    Refactoring without a named target produces aimless churn. Pick from
     the design qualities and state it:
 
     - "Improve *cohesiveness*: this module mixes order parsing with email
@@ -94,11 +94,11 @@ task, you MUST stop and print an error message.
     A refactor is only safe if a fast, trustworthy test suite confirms behavior
     preservation. Before changing anything:
 
-    - You MUST identify the tests that cover the code being touched.
+    - Identify the tests that cover the code being touched.
 
-    - You MUST run them and confirm they pass.
+    - Run them and confirm they pass.
 
-    - If coverage is thin, you MUST add *characterization tests* first — tests
+    - If coverage is thin, add *characterization tests* first — tests
       that pin down the current behavior, whatever it is. This is a separate prior
       step (commit as `step:` or `maintenance:`).
 
@@ -116,7 +116,7 @@ task, you MUST stop and print an error message.
 
 4.  **Execute one move at a time.**
 
-    For each move, you MUST:
+    For each move:
 
     1. Make the change.
     2. Run the relevant tests.
@@ -134,13 +134,13 @@ task, you MUST stop and print an error message.
 
     - You feel the urge to "add this small feature while I'm restructuring".
 
-    You MUST stop and revert to the last green state. The behavior change is a
+    Stop and revert to the last green state. The behavior change is a
     separate task (a bug fix or a feature step), with its own commit and its own
     review.
 
 6.  **Re-evaluate against the named quality.**
 
-    After the moves, you SHOULD re-read the code with the original target quality
+    After the moves, re-read the code with the original target quality
     in mind. Did the change actually improve it? Quality improvements should be
     observable:
 
@@ -155,7 +155,7 @@ task, you MUST stop and print an error message.
 7.  **Commit and integrate.**
 
     Each move is a `refactor:` commit. A series of related moves forms the
-    branch. You SHOULD integrate via the project's branching conventions —
+    branch. Integrate via the project's branching conventions —
     typically a short-lived `temp/*` branch fast-forwarded into `dev`.
 
 ## Rules

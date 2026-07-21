@@ -64,22 +64,22 @@ the sharpened design is the orchestrator's concern, not this skill's.
 
 1.  **Load the context.**
 
-    Before asking anything, you MUST read the draft design, related acceptance
+    Before asking anything, read the draft design, related acceptance
     criteria, the relevant code (modules touched, public APIs, tests), and any
     existing `docs/domain-model.md` or `docs/adr/` decisions in the area. If a
-    question can be answered by reading the code instead of asking the user, you
-    SHOULD read the code.
+    question can be answered by reading the code instead of asking the user,
+    read the code.
 
 2.  **Map the decision tree.**
 
-    You SHOULD list the open decisions in dependency order: which block others,
-    which terms are loose, which assumptions have alternatives. You SHOULD plan
-    to walk the tree top-down. You MUST keep the list as your scratchpad, and
-    MUST NOT publish it for the user.
+    List the open decisions in dependency order: which block others,
+    which terms are loose, which assumptions have alternatives. Plan
+    to walk the tree top-down. Keep the list as your scratchpad, and
+    do not publish it for the user.
 
 3.  **Ask one question. Wait. Then the next.**
 
-    For each open node, you MUST state the question precisely, offer your
+    For each open node, state the question precisely, offer your
     recommended answer with one-line reasoning, and wait for the response. A good
     question is specific, scoped, and answerable in one sentence: *"I see X in
     the draft. I read it as meaning A, but it could mean B. I'd lean A because
@@ -87,34 +87,34 @@ the sharpened design is the orchestrator's concern, not this skill's.
 
 4.  **Sharpen fuzzy language as it appears.**
 
-    When the user uses a vague or overloaded term, you MUST stop and pin it down.
-    If the glossary already defines the term differently, you MUST surface the
-    conflict. You MUST update `docs/domain-model.md` (or create it) the moment a
+    When the user uses a vague or overloaded term, stop and pin it down.
+    If the glossary already defines the term differently, surface the
+    conflict. Update `docs/domain-model.md` (or create it) the moment a
     term is resolved — inline, not at the end.
 
 5.  **Probe with concrete scenarios.**
 
-    When the user makes a domain assertion, you SHOULD invent a scenario that
+    When the user makes a domain assertion, invent a scenario that
     tests its boundary and ask what happens. Concrete scenarios expose
     unaccounted cases faster than abstract debate.
 
 6.  **Cross-reference against the code.**
 
-    When the user states "we do X", you MUST check whether the code agrees. If
-    you find a contradiction, you MUST surface it immediately and ask which side
+    When the user states "we do X", check whether the code agrees. If
+    you find a contradiction, surface it immediately and ask which side
     is right.
 
 7.  **Capture decisions as they crystallize.**
 
-    When a decision is settled, you MUST write it down immediately. You MUST
-    update `docs/domain-model.md` for resolved terms. You SHOULD create an ADR
+    When a decision is settled, write it down immediately. Update
+    `docs/domain-model.md` for resolved terms. Create an ADR
     only for decisions that are hard to reverse, surprising without context, and
     the result of a real trade-off.
 
 8.  **End the session when the tree is resolved.**
 
-    You MUST end when every open decision is resolved or explicitly deferred,
-    terms match the glossary, and no contradictions remain. You MUST report the
+    End when every open decision is resolved or explicitly deferred,
+    terms match the glossary, and no contradictions remain. Report the
     sharpened design, or — if elaboration uncovered a flaw too large to resolve —
     report that the draft needs structural rework before it can proceed.
 

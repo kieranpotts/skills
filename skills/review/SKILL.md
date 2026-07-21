@@ -67,22 +67,22 @@ task, you MUST stop and print an error message.
 
 1.  **Understand what the change is and why.**
 
-    You MUST read the PR description, linked issue, or commit body. You MUST
-    identify the acceptance criteria (or the specification) it claims to satisfy.
-    You MUST note any captured design decision behind it. If the *why* is unclear
-    from the description, you SHOULD ask the author.
+    Read the PR description, linked issue, or commit body. Identify
+    the acceptance criteria (or the specification) it claims to satisfy.
+    Note any captured design decision behind it. If the *why* is unclear
+    from the description, ask the author.
 
 2.  **Pin the comparison base, then read the diff in commit order.**
 
-    You MUST state the comparison base explicitly — a commit SHA, branch name,
-    tag, or `main`. You MUST capture the diff command once (eg. `git diff
+    State the comparison base explicitly — a commit SHA, branch name,
+    tag, or `main`. Capture the diff command once (eg. `git diff
     <base>...HEAD` for three-dot, merge-base comparison) so every subsequent step
-    references the same set of changes. You SHOULD read the diff in commit order,
+    references the same set of changes. Read the diff in commit order,
     not file-by-file.
 
 3.  **Check correctness.**
 
-    You MUST check, against the ACs and the design:
+    Check, against the ACs and the design:
 
     - Does the change implement what the AC requires?
 
@@ -97,7 +97,7 @@ task, you MUST stop and print an error message.
 
 4.  **Check design.**
 
-    You MUST check:
+    Check:
 
     - Does the change follow the architecture and patterns established in the
       codebase? Match the style of nearby files unless the change is
@@ -114,7 +114,7 @@ task, you MUST stop and print an error message.
 
 5.  **Check clarity.**
 
-    You MUST check:
+    Check:
 
     - Could a developer unfamiliar with this area understand *what* the code
       does and *why*?
@@ -129,7 +129,7 @@ task, you MUST stop and print an error message.
 
 6.  **Check test coverage.**
 
-    You MUST check:
+    Check:
 
     - Does every new behavior have at least one test that fails when the
       behavior is removed?
@@ -143,8 +143,8 @@ task, you MUST stop and print an error message.
 
 7.  **Check security.**
 
-    For any change that touches input, auth, persistence, or external calls, you
-    MUST check:
+    For any change that touches input, auth, persistence, or external calls,
+    check:
 
     - Are inputs validated at the system boundary?
 
@@ -159,7 +159,7 @@ task, you MUST stop and print an error message.
 
 8.  **Check completeness.**
 
-    You MUST check that the change includes everything it needs to ship:
+    Check that the change includes everything it needs to ship:
 
     - Documentation updates (README, API docs, runbook).
 
@@ -173,9 +173,9 @@ task, you MUST stop and print an error message.
 
 9.  **Classify and write findings.**
 
-    You MUST assign every comment a severity label:
+    Assign every comment a severity label:
 
-    - *Blocking*: MUST be addressed before merge (correctness, security, missing
+    - *Blocking*: to be addressed before merge (correctness, security, missing
       tests for new behavior, breaks the build).
 
     - *Suggestion*: would improve the change but is acceptable as-is.
@@ -184,11 +184,11 @@ task, you MUST stop and print an error message.
 
     - *Praise*: explicitly noting something well done. Reinforces good patterns.
 
-    You MUST write each comment to be specific and actionable.
+    Write each comment to be specific and actionable.
 
 10. **Conclude with an explicit verdict.**
 
-    You MUST choose one of:
+    Choose one of:
 
     - *Approve*: ship it; no blocking comments.
 

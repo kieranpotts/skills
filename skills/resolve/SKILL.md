@@ -68,38 +68,38 @@ task, you MUST stop and print an error message.
       --jq '.reviewThreads[] | select(.isResolved == false)'
     ```
 
-    You MUST capture each thread's comment ID, anchored file and line, and
-    requested change. If there are no open comments, you MUST report that and stop.
+    Capture each thread's comment ID, anchored file and line, and
+    requested change. If there are no open comments, report that and stop.
 
 2.  **Pin the working base.**
 
-    You MUST state the branch and base commit you are working against, exactly as
+    State the branch and base commit you are working against, exactly as
     **[review](../review/SKILL.md)** pinned its comparison base. If the branch has
-    advanced past the reviewed commit, you MUST re-anchor each comment to its
+    advanced past the reviewed commit, re-anchor each comment to its
     current location before editing.
 
 3.  **Order the comments by dependency, not by line.**
 
-    You MUST group related comments and sequence them so an earlier fix does not
+    Group related comments and sequence them so an earlier fix does not
     invalidate a later one. Structural comments (rename, extract, move) usually
     precede local comments inside the code they touch.
 
 4.  **Implement each comment as the smallest faithful change.**
 
-    For each open comment, you MUST apply exactly the change it asks for. If a
-    comment names a concrete fix, you MUST apply that fix; if it names a problem
-    without a fix, you MUST apply the smallest change that resolves the problem in
+    For each open comment, apply exactly the change it asks for. If a
+    comment names a concrete fix, apply that fix; if it names a problem
+    without a fix, apply the smallest change that resolves the problem in
     the style of the surrounding code.
 
 5.  **Verify each fix.**
 
-    For correctness findings, you MUST add or extend a test that fails before the
-    fix and passes after; for missing-test findings, you MUST add the missing
-    test; otherwise you MUST run the existing tests covering the touched code.
+    For correctness findings, add or extend a test that fails before the
+    fix and passes after; for missing-test findings, add the missing
+    test; otherwise run the existing tests covering the touched code.
 
 6.  **Reply, then resolve, each thread.**
 
-    For each actioned comment, you MUST leave a one-line reply stating what
+    For each actioned comment, leave a one-line reply stating what
     changed and where (`Fixed in <sha> — validates amount at the boundary,
     returns 400`), then mark the thread resolved:
 
@@ -112,23 +112,23 @@ task, you MUST stop and print an error message.
       }' -F threadId=<threadId>
     ```
 
-    If the host has no resolvable-thread API, you MUST record the resolution in
+    If the host has no resolvable-thread API, record the resolution in
     the reply and the commit message instead, and report which comments were
     addressed so a human can close the threads.
 
 7.  **Commit the resolutions.**
 
-    You MUST commit the fixes with a message that ties them to the review (eg.
-    `fix: address review comments on order validation`). You MUST keep the
+    Commit the fixes with a message that ties them to the review (eg.
+    `fix: address review comments on order validation`). Keep the
     resolution work in its own commit(s), separate from the original
-    implementation commits. You MUST push the branch.
+    implementation commits. Push the branch.
 
 8.  **Report what could not be resolved.**
 
     If any open comment could **not** be actioned — it contradicts another open
     comment, depends on a decision outside this change, rests on a
     misunderstanding the code cannot satisfy, or asks for a redesign beyond the
-    change under review — you MUST leave the thread open and report it with a
+    change under review — leave the thread open and report it with a
     specific account of why.
 
 ## Rules

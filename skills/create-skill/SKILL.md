@@ -61,7 +61,7 @@ assets, references, and scripts. All artifacts pass the validator.
 
 1.  **Clarify the scope and target project for the skill.**
 
-    You MUST establish what the skill should do and when it should trigger
+    Establish what the skill should do and when it should trigger
     before drafting anything. Extract as much as you can from the conversation
     before asking questions. At minimum, understand the task, trigger
     situations, expected input and output, and any hard constraints or edge
@@ -69,30 +69,30 @@ assets, references, and scripts. All artifacts pass the validator.
 
 2.  **Research the domain.**
 
-    Before writing, you SHOULD gather relevant context. Look up tool
+    Before writing, gather relevant context. Look up tool
     documentation, check the project for similar existing skills, and
     identify any scripts or reference files that ought to be bundled. Come
     prepared so you can minimize questions to the user.
 
 3.  **Choose a name and location.**
 
-    You MUST identify the target directory for installation. If not
-    explicitly specified, is the current working directory under a Git
-    directory? If so, assume the root directory of the Git repository is the
+    Identify the target directory for installation. If not
+    explicitly specified, check whether the current working directory is under a Git
+    directory. If so, assume the root directory of the Git repository is the
     target. If not, assume the user's home directory is the target — for
     global installation of the new skill.
 
-    Under the target directory, the skill file MUST be installed at
+    Under the target directory, install the skill file at
     `.agents/skills/<skill-name>/SKILL.md`.
 
-    Skill names MUST be kebab-case and SHOULD be meaningful actions or verbs,
-    eg. "specify", "commit", "release", "review"). Prefer single verbs, but
+    Use kebab-case for skill names, and favor meaningful actions or verbs,
+    eg. "specify", "commit", "release", "review". Prefer single verbs, but
     use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
 4.  **Write the `SKILL.md` file.**
 
-    You MUST use the [bundled template](./assets/skill-template/skill-name/SKILL.md)
-    and MUST include the sections, front-matter, and formatting required by
+    Use the [bundled template](./assets/skill-template/skill-name/SKILL.md)
+    and include the sections, front-matter, and formatting required by
     the rules below.
 
 5.  **Bundle supporting files if needed.**
@@ -100,29 +100,29 @@ assets, references, and scripts. All artifacts pass the validator.
     Add files to `scripts/`, `references/`, or `assets/` when the skill
     needs them.
 
-    You MUST include instructions in `SKILL.md` for when and how to run any
+    Include instructions in `SKILL.md` for when and how to run any
     scripts, load any references, or extract any assets.
 
-    You SHOULD namespace every bundled file to avoid collisions when the skill
+    Namespace every bundled file to avoid collisions when the skill
     is installed alongside others. See the collision safety instructions,
     [here](./references/create-skill-collision-safety.md).
 
 6.  **Write the `README.md`.**
 
-    You MUST use the [bundled template](./assets/skill-template/skill-name/README.md).
+    Use the [bundled template](./assets/skill-template/skill-name/README.md).
 
     This is human-readable documentation. Describe what the skill does, how to
     invoke it, and provide invocation examples.
 
 7.  **Review the draft.**
 
-    You SHOULD re-read the completed `SKILL.md` with fresh eyes. Check for
+    Re-read the completed `SKILL.md` with fresh eyes. Check for
     unnecessary verbosity, redundant rules, or instructions that assume too
     much. Trim anything that isn't pulling its weight.
 
 8.  **Validate the skill.**
 
-    You MUST run the bundled validator against the new skill directory:
+    Run the bundled validator against the new skill directory:
 
     ```sh
     scripts/validate.sh <path/to/new-skill-dir>
@@ -131,7 +131,7 @@ assets, references, and scripts. All artifacts pass the validator.
     The script wraps `skills-ref validate` (if installed) for canonical Agent
     Skills checks, and adds repo-specific checks.
 
-    You MUST fix any reported failures before finishing.
+    Fix any reported failures before finishing.
 
 ## Rules
 

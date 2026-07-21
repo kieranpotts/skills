@@ -55,9 +55,9 @@ task, you MUST stop and print an error message.
       external access, manual verification).
     - `wontfix` — will not be actioned.
 
-    Every triaged issue MUST carry *exactly one* category label and *exactly one*
+    Every triaged issue carries *exactly one* category label and *exactly one*
     state label. The actual strings in the tracker may differ (eg. `kind/bug`
-    instead of `bug`); you MUST maintain a mapping if so.
+    instead of `bug`); maintain a mapping if so.
 
     The state machine:
 
@@ -77,35 +77,35 @@ task, you MUST stop and print an error message.
 
 2.  **Identify which issues need attention.**
 
-    You MUST query the tracker for three buckets, oldest first:
+    Query the tracker for three buckets, oldest first:
 
     1. *Unlabeled* — never triaged.
     2. *`needs-triage`* — evaluation in progress.
     3. *`needs-info` with new reporter activity* — the reporter has replied
        since the last triage notes, so the issue needs re-evaluation.
 
-    You MUST present counts and a one-line summary per issue, and MUST let the
+    Present counts and a one-line summary per issue, and let the
     maintainer pick which to work on next.
 
 3.  **Gather context for the chosen issue.**
 
-    You MUST read the full issue: body, comments, labels, reporter, dates. You
-    MUST parse any prior triage notes so you do not re-ask resolved questions.
-    You SHOULD explore the relevant code to understand which modules the issue
-    touches. You MUST check the out-of-scope knowledge base (eg.
+    Read the full issue: body, comments, labels, reporter, dates.
+    Parse any prior triage notes so you do not re-ask resolved questions.
+    Explore the relevant code to understand which modules the issue
+    touches. Check the out-of-scope knowledge base (eg.
     `docs/out-of-scope/`) for any prior rejection of a similar issue and link to
     it.
 
 4.  **Recommend a classification.**
 
-    You MUST state your category and state recommendation with reasoning, plus a
-    brief codebase summary relevant to the issue. You MUST wait for direction
+    State your category and state recommendation with reasoning, plus a
+    brief codebase summary relevant to the issue. Wait for direction
     from the maintainer before applying any labels.
 
 5.  **For bugs: attempt reproduction.**
 
-    You SHOULD read the reporter's steps, trace the code, and run the failing
-    command. You MUST report one of:
+    Read the reporter's steps, trace the code, and run the failing
+    command. Report one of:
 
     - *Successful repro*: include the exact code path that triggered the bug.
     - *Failed repro*: state what you tried and what happened instead.
@@ -115,14 +115,14 @@ task, you MUST stop and print an error message.
 
 6.  **Grill the issue into shape (if needed).**
 
-    If the issue is under-specified for whichever state it's heading to, you
-    MUST interrogate it — question the reporter and the code until its
+    If the issue is under-specified for whichever state it's heading to,
+    interrogate it — question the reporter and the code until its
     requirements are sharp. The output is a sharpened set of requirements, ready
     to be implemented, escalated to a human, or rejected with a captured reason.
 
 7.  **Apply the outcome.**
 
-    You MUST map state to action:
+    Map state to action:
 
     - *`ready-for-agent`* → post an agent-brief comment (template below). Apply
       the label.
@@ -139,7 +139,7 @@ task, you MUST stop and print an error message.
 
 8.  **Mark AI-generated activity.**
 
-    If the triage is being performed by an AI agent, you MUST prefix every
+    If the triage is being performed by an AI agent, prefix every
     comment posted with a short disclaimer (eg. `> *AI-generated during
     triage.*`) so the reporter and maintainer can distinguish agent activity from
     human activity at a glance.

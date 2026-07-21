@@ -68,7 +68,7 @@ task, you MUST stop and print an error message.
 
 1.  **Frame one question.**
 
-    You MUST state the question in one sentence. It MUST be falsifiable:
+    State the question in one sentence. It must be falsifiable:
 
     - ❌ "See if Postgres works for this." (Not a question.)
 
@@ -80,26 +80,26 @@ task, you MUST stop and print an error message.
     - ✅ "Does the new SDK's streaming API surface errors mid-stream, or only at
       stream close?"
 
-    If you cannot phrase the question this way, you MUST return to the design
+    If you cannot phrase the question this way, return to the design
     work first.
 
 2.  **Define the answer that ends the spike.**
 
-    Before writing any code, you MUST write down what evidence would close the
+    Before writing any code, write down what evidence would close the
     question: a measured number against a threshold, a reproducible behavior, or
-    a working integration. If no such evidence is definable, you MUST refine the
+    a working integration. If no such evidence is definable, refine the
     question.
 
 3.  **Time-box.**
 
-    You MUST state the budget in hours or days. When the time-box expires, you
-    MUST stop and capture what you learned even if the question is not fully
+    State the budget in hours or days. When the time-box expires,
+    stop and capture what you learned even if the question is not fully
     answered, then decide whether to invest another time-box or take a different
     path.
 
 4.  **Take the shortest path.**
 
-    You MUST skip everything that does not contribute to answering the question:
+    Skip everything that does not contribute to answering the question:
     tests beyond the assertion that answers the question, error handling beyond
     observing the failure mode, abstraction, interfaces, configuration, auth,
     logging, monitoring, documentation, hardcoded values, fixture inputs, and a
@@ -107,22 +107,22 @@ task, you MUST stop and print an error message.
 
 5.  **Isolate the spike.**
 
-    You MUST keep spike code out of the production codebase. You SHOULD use a
+    Keep spike code out of the production codebase. Use a
     separate repo or `spikes/` subdirectory, a branch named
     `spike/spike-<question>` that will not be merged, or a scratch directory
-    outside any tracked path. You MUST mark the entry point file with a comment
+    outside any tracked path. Mark the entry point file with a comment
     naming it as a spike.
 
 6.  **Run the experiment, capture findings.**
 
-    You MUST run the spike, and MUST record the exact commands, the observed
+    Run the spike, and record the exact commands, the observed
     result against the expected evidence, numerical measurements with environment
     details, and any surprises that matter even though the question did not ask
     about them.
 
 7.  **Decide.**
 
-    Based on the findings, you MUST take one of these paths:
+    Based on the findings, take one of these paths:
 
     - *Answer is positive* → the design question is closed. The production
       version is re-implemented from scratch.
@@ -135,10 +135,10 @@ task, you MUST stop and print an error message.
 
 8.  **Document the answer, then throw the code away.**
 
-    You MUST update the relevant artifact (ADR or design-doc update for an
+    Update the relevant artifact (ADR or design-doc update for an
     architectural question, revision to acceptance criteria for a specification
     question, or a short note in the repo's decision log for a tooling/library
-    question). Once the answer is captured, you MUST delete the spike code, or
+    question). Once the answer is captured, delete the spike code, or
     move it to a clearly-marked throwaway location with a README naming the
     question, the answer, and the date.
 

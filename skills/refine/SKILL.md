@@ -59,7 +59,7 @@ reported and the skill stops; it changes no code itself.
 
 1.  **Name the trigger.**
 
-    You MUST state, in one sentence, what feedback prompted the refinement.
+    State, in one sentence, what feedback prompted the refinement.
     Possible triggers:
 
     - *AC failure in testing that, on inspection, reflects a specification
@@ -84,27 +84,27 @@ reported and the skill stops; it changes no code itself.
 
 2.  **Locate the specific specification artifact to change.**
 
-    You MUST identify exactly which document, file, or section is wrong:
+    Identify exactly which document, file, or section is wrong:
 
     - A `.feature` file and a specific scenario.
     - An NFR bullet under a named heading.
     - An out-of-scope entry.
     - A constraint, assumption, or stakeholder note.
 
-    If the requirement was never captured at all — a true gap — you MUST say so.
+    If the requirement was never captured at all — a true gap — say so.
     The refinement is then an *addition*, not an *edit*.
 
 3.  **Decide the type of change.**
 
-    You MUST classify before drafting:
+    Classify before drafting:
 
-    - *Correction*: an existing AC is wrong and MUST be rewritten. (The most
+    - *Correction*: an existing AC is wrong and needs rewriting. (The most
       common case.)
 
-    - *Addition*: a missing AC MUST be added. New scenario, new NFR, new
+    - *Addition*: a missing AC needs adding. New scenario, new NFR, new
       out-of-scope entry.
 
-    - *Removal*: an AC was over-specified and MUST be deleted. (Rare. Be careful
+    - *Removal*: an AC was over-specified and needs deleting. (Rare. Be careful
       — users often *think* an AC is wrong when really the *implementation* is.)
 
     - *Reclassification*: an item moves between scope/out-of-scope, or between
@@ -118,36 +118,36 @@ reported and the skill stops; it changes no code itself.
 
 4.  **Draft the edit in the specification's own form.**
 
-    You MUST write the refinement using the project's specification conventions
+    Write the refinement using the project's specification conventions
     (see the Rules section).
 
 5.  **Record the rationale and the trigger.**
 
-    Every refinement MUST carry a short justification:
+    Every refinement carries a short justification:
 
     - Why the previous version was wrong.
     - What evidence convinced you (test name, conversation, measurement).
     - What ruled out alternative interpretations.
 
-    You MUST file this with the specification edit (commit body, PR description,
+    File this with the specification edit (commit body, PR description,
     or an explicit "Refinement log" section in the specification).
 
 6.  **Trace downstream impact.**
 
     Refining a specification is rarely free. Before declaring the refinement
-    done, you MUST map the ripple:
+    done, map the ripple:
 
     - Which design decisions assumed the old AC?
     - Which planned delivery steps are now wrong?
     - Which code increments need to change?
     - Which test cases (automated or manual) need updating?
 
-    For each downstream artifact, you MUST flag whether it needs adjustment,
+    For each downstream artifact, flag whether it needs adjustment,
     re-verification, or no change.
 
 7.  **Report the output.**
 
-    You MUST present the refined specification, the recorded rationale, and the
+    Present the refined specification, the recorded rationale, and the
     traced downstream impact list. Refinement is about *what is required*, not
     *how to build it*.
 

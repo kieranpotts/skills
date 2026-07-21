@@ -67,7 +67,7 @@ task, you MUST stop and print an error message.
 
 1.  **Scan the conversation for non-obvious lessons.**
 
-    You MUST walk the session looking for four signal types:
+    Walk the session looking for four signal types:
 
     - **Corrections.** The user redirected the approach: *"no, don't do that"*,
       *"we don't do it that way here"*, *"stop doing X"*. Each correction is a
@@ -85,12 +85,12 @@ task, you MUST stop and print an error message.
 
 2.  **Filter the candidates.**
 
-    You MUST evaluate each candidate against the drop criteria in the Rules
+    Evaluate each candidate against the drop criteria in the Rules
     section.
 
 3.  **Classify each surviving candidate.**
 
-    You MUST assign one of these types — the type drives the format and the
+    Assign one of these types — the type drives the format and the
     destination:
 
     - **`user`** — The user's role, expertise, working preferences.
@@ -114,51 +114,51 @@ task, you MUST stop and print an error message.
 
 4.  **Walk the user through each candidate.**
 
-    You MUST follow the one-at-a-time procedure in the Rules section. For each
-    candidate, you MUST present a one-sentence summary, the proposed type and
-    destination, and a draft of the entry as it would be written. You MUST ask
+    Follow the one-at-a-time procedure in the Rules section. For each
+    candidate, present a one-sentence summary, the proposed type and
+    destination, and a draft of the entry as it would be written. Ask
     for approval before persisting.
 
 5.  **Write each accepted lesson.**
 
-    For memory destinations, you MUST use the format defined in the Success
+    For memory destinations, use the format defined in the Success
     criteria.
 
-    You SHOULD cross-link related memories with `[[name]]`.
+    Cross-link related memories with `[[name]]`.
 
-    For codebase-convention destinations, you MUST append a concise rule to `AGENTS.md`
+    For codebase-convention destinations, append a concise rule to `AGENTS.md`
     (or `CLAUDE.md`, whichever the project uses) in the section that fits —
     usually `## Rules` or a project-specific equivalent.
 
 6.  **Update the `MEMORY.md` index.**
 
-    For each new memory file, you MUST add a one-line entry:
+    For each new memory file, add a one-line entry:
 
     ```
     - [Title](file.md) — one-line hook
     ```
 
-    `MEMORY.md` is an index, not a memory. You SHOULD keep entries terse.
+    `MEMORY.md` is an index, not a memory. Keep entries terse.
 
 7.  **Handle duplicates and contradictions during the walk-through.**
 
     If a candidate is close to an existing memory:
 
-    - If the existing entry is stale or wrong, you SHOULD *update* it instead of
+    - If the existing entry is stale or wrong, *update* it instead of
       creating a new one.
 
-    - If the new lesson refines an existing one, you SHOULD edit the existing
+    - If the new lesson refines an existing one, edit the existing
       entry to incorporate the refinement.
 
-    - You SHOULD only create a new file when the lesson is genuinely fresh.
+    - Only create a new file when the lesson is genuinely fresh.
 
-    If a candidate *contradicts* an existing memory, you MUST surface the
-    contradiction in the walk-through. You MUST ask the user which reflects
+    If a candidate *contradicts* an existing memory, surface the
+    contradiction in the walk-through. Ask the user which reflects
     current truth, then update or delete the stale entry.
 
 8.  **Report briefly.**
 
-    Once the walk-through is complete, you MUST print the report described in the
+    Once the walk-through is complete, print the report described in the
     Success criteria.
 
 ## Rules
