@@ -7,7 +7,7 @@
   - [x] CONTRIBUTING
   - [x] AGENTS
   - [x] docs/
-  - [ ] Skills
+  - [x] Skills
   - [x] GitHub workflows
   - [x] issue templates
   - [x] PR template
