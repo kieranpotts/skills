@@ -171,24 +171,24 @@
 ### Docs
 
 - [x] README
-- [ ] Design: What is agentic software development?
-- [ ] Design: Agentic versus automated
-- [ ] Design: Objectives of agentic workflow design
-- [ ] Design: Guides and sensors
-- [ ] Design: Calibration
-- [ ] Design: Deterministic sensors
-- [ ] Design: Inferential sensors
-- [ ] Design: Composable pipelines
-- [ ] Design: Iterative and incremental
-- [ ] Design: Single responsibility
-- [ ] Design: Rules versus knowledge
-- [ ] Design: Loose coupling
-- [ ] Design: Interface definitions
-- [ ] Design: Persistence
-- [ ] Design: Version control as the substrate
-- [ ] Design: Isolated environments
-- [ ] Design: Interactive versus non-interactive
-- [ ] Design: Human-in-the-loop
+- [x] Design: What is agentic software development?
+- [x] Design: Agentic versus automated
+- [x] Design: Objectives of agentic workflow design
+- [x] Design: Guides and sensors
+- [x] Design: Calibration
+- [x] Design: Deterministic sensors
+- [x] Design: Inferential sensors
+- [x] Design: Composable pipelines
+- [x] Design: Iterative and incremental
+- [x] Design: Single responsibility
+- [x] Design: Rules versus knowledge
+- [x] Design: Loose coupling
+- [x] Design: Interface definitions
+- [x] Design: Persistence
+- [x] Design: Version control as the substrate
+- [x] Design: Isolated environments
+- [x] Design: Interactive versus non-interactive
+- [x] Design: Human-in-the-loop
 
 ### Misc
 
