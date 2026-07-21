@@ -13,6 +13,7 @@
   - [x] PR template
   - [x] indexes and templates
   - [x] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 - Designs
   - [X] README
@@ -25,6 +26,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 - Specs
   - [X] README
@@ -37,6 +39,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 - RFCs
   - [X] README
@@ -49,6 +52,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 - Risks
   - [X] README
@@ -61,6 +65,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 - Plans
   - [X] README
@@ -73,6 +78,7 @@
   - [ ] PR template
   - [ ] indexes and templates
   - [ ] Example artifacts
+  - [ ] Final spellcheck
   - [ ] Fork to Hacks
 
 ## Skills
@@ -183,3 +189,7 @@
 - [ ] Design: Isolated environments
 - [ ] Design: Interactive versus non-interactive
 - [ ] Design: Human-in-the-loop
+
+### Misc
+
+- [ ] Final spellcheck
