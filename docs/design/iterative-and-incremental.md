@@ -4,18 +4,43 @@ One of the risks of fully agentic/automated specs-to-code workflows is that you
 end up with, essentially, a waterfall process. Large-scale code changes all land
 at once.
 
-This has numerous problems. If you have humans-in-the-loop downstream to review
-agent output, then those poor humans will have to contend with large diffs to
-review via pull requests — a big bottleneck in delivery. Worse still are all the
-risks associated with the resulting big bang releases.
+This has numerous problems. If you have [humans-in-the-loop](./human-in-the-loop.md)
+downstream to review agent output, then those poor humans will have to contend
+with large diffs to review via pull requests — a big bottleneck in delivery.
+Worse still are all the risks associated with the resulting big bang releases.
 
 This can be resolved by breaking down deliverables into an incremental
 development plan, enabling continuous integration. This is represented in the
-flow diagram in the section on [composable
-pipelines](./composable-pipelines.md), where a "plan" step is responsible for
+following flow diagram, where a "plan" step is responsible for
 decomposing deliverables into small increments of work, which are subsequently
 integrated (in the "integrate" step) in a piecemeal fashion while keeping the
 system stable.
+
+```mermaid
+flowchart LR
+  plan["🤖\nplan"]:::agentic
+  code["🤖\ncode"]:::agentic
+  build["⚙️\nbuild"]:::scripted
+  test["⚙️\ntest"]:::scripted
+  review["🤖\nreview"]:::agentic
+  integrate["⚙️\nintegrate"]:::scripted
+  human["🧑\nreview"]:::anthropic
+
+  plan ==> code
+  code ==> build
+  build == pass ==> test
+  test == pass ==> review
+  review ==> integrate
+
+  build -- fail --> code
+  test -- fail --> code
+  review -- fail --> human
+  integrate == incremental loop ==> plan
+
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
 
 Automated incremental build-outs like this require big up-front design, which
 itself is dependent on a complete specification being in place from the start.

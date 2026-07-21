@@ -2,8 +2,8 @@
 
 For skills to be [composable](./composable-pipelines.md) into different
 workflows, they need to be loosely coupled from one another. And for skills to
-be loosely coupled, they must be connected by contracts — [interface
-definitions](./interface-definitions.md) — not by direct handoffs.
+be loosely coupled, they must be connected by contracts —
+[interface definitions](./interface-definitions.md) — not by direct handoffs.
 
 One skill's output is the input to the next skill in the pipeline. But no skill
 should directly refer to, invoke, or hand off to another skill. Each does its

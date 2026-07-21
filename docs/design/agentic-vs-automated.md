@@ -4,7 +4,7 @@ An agentic workflow consists of a mix of both agentic and automated steps.
 [Humans enter the loop](./human-in-the-loop.md) where steps cannot be reliably
 handled by some combination of agents and automation.
 
-We should be clear about the definitions of automated versus agentic.
+We should be clear about the definitions of "automated" versus "agentic".
 
 **Automated** tasks are deterministic. They involve computation using the
 traditional, instructions-based programming model. Given a set of inputs, the

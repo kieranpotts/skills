@@ -1,20 +1,23 @@
 # Inferential sensors
 
-Not all [sensors](./guides-and-sensors.md) can be scripted. Inferential sensors
-are the second category of sensor — alongside [deterministic
-sensors](./deterministic-sensors.md) — in which one agent is tasked with judging
-the output from another agent further upstream in the workflow. They can be run
-only by agents, and cannot be offloaded to traditional scripts.
+Not all [sensors](./guides-and-sensors.md) can be
+[scripted](./deterministic-sensors.md). Inferential sensors are the second
+category of sensor. This is where an agent is tasked with judging the output
+from another agent further upstream in a workflow.
+
+Inferential sensors can be run only by agents, and cannot be offloaded to
+traditional scripts.
 
 Agent skills that describe how to "review" and "audit" code are examples of
 inferential sensors. They are distinct from deterministic sensors like "build"
 and "test".
 
 We must not depend on inferential sensors to verify the outcomes of our agentic
-workflows. Deterministic sensors — especially executable acceptance criteria —
-are the most important sensors for controlling outcomes. Nevertheless,
-inferential sensors do bring added value to agentic workflows. They can help to
-improve the quality of the output by adding more perspectives.
+workflows. [Deterministic sensors](./deterministic-sensors.md) — especially
+executable acceptance criteria — are the most important sensors for controlling
+outcomes. Nevertheless, inferential sensors do bring added value to agentic
+workflows. They can help to improve the quality of the output by adding more
+perspectives.
 
 The critical design constraint is that an agent that generates output (eg.
 writes program code) must not be the one that analyzes that output (eg. does code

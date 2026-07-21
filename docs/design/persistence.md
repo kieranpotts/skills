@@ -14,5 +14,5 @@ reasoning, tool output that mattered for five minutes and then didn't. If every
 step's full working state has to be carried forward in-context so the next step
 can use it, context windows fill with noise, recall degrades, and costs climb.
 
-Writing only the *distilled* output of a step to disk — a spec, a design doc, a
+Writing only the _distilled_ output of a step to disk — a spec, a design doc, a
 plan, a set of review findings — lets the next step start from a clean slate.

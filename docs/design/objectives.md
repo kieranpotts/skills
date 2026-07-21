@@ -12,13 +12,12 @@ given clear, self-verifiable criteria for what "done" and "correct" look like.
 Beneath that overriding objective sit four supporting ones:
 
 - **Composability.** Each step in a workflow is a small, sharp tool with a
-  well-defined interface, which any orchestrator — human, script, or agent — can
-  [compose](./composable-pipelines.md) into new pipelines.
+  well-defined interface, which any orchestrator — a human, script, or agent —
+  can [compose](./composable-pipelines.md) into new pipelines.
 
 - **Portability.** Skills encode [rules, not
   knowledge](./rules-versus-knowledge.md), staying technology- and
-  domain-agnostic so they run unmodified across projects — and, per the
-  consistency objective, across models.
+  domain-agnostic so they run unmodified across projects and across models.
 
 - **Context economy.** The quality of a model's output degrades as its context
   window fills, so workflows are designed to keep each agent's context trim —
@@ -28,5 +27,5 @@ Beneath that overriding objective sit four supporting ones:
 
 - **Earned autonomy.** As deterministic verification proves itself, fewer
   [humans are needed in the loop](./human-in-the-loop.md). The long-term goal is
-  production-grade code delivered from specifications with minimal human
-  involvement downstream.
+  production-grade code delivered from specifications ("specs-to-code") with
+  minimal human involvement downstream.

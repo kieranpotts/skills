@@ -1,13 +1,13 @@
 # Deterministic sensors
 
 [Sensors](./guides-and-sensors.md) regulate the quality of the evolving
-software. There are two types: deterministic sensors, and [inferential
-sensors](./inferential-sensors.md).
+software. There are two types: deterministic sensors, and
+[inferential sensors](./inferential-sensors.md).
 
 The deterministic sensors are our automated quality gates in which we impose our
-strong opinions on the expected outcomes from our agents. The deterministic
-sensors include our linters, build and packaging scripts, deployment pipelines,
-and of course the all-important acceptance tests.
+[strong opinions](./calibration.md) on the expected outcomes from our agents.
+The deterministic sensors include our linters, build and packaging scripts,
+deployment pipelines, and of course the all-important acceptance tests.
 
 A variety of deterministic sensors must exist to verify the evolving software at
 multiple levels, including but not limited to: code quality (eg.
@@ -42,8 +42,10 @@ in agentic workflows.
 
 The less that validation of outcomes is dependent upon judgment, and the more it
 is handled by independent, deterministic sensors, the more predictably your
-agentic workflows will behave. And, as your trust in your agentic workflows
-increases, you will gain the confidence to have fewer humans in the loop. Having
-lots of deterministic sensors, operating at multiple levels of verification, and
+agentic workflows will behave.
+
+As your trust in your agentic workflows increases, you will gain the confidence
+to have fewer [humans in the loop](./human-in-the-loop.md). Having lots of
+deterministic sensors, operating at multiple levels of verification, and
 run by automated scripts not by autonomous agents, is the path to fully agentic
 software delivery.

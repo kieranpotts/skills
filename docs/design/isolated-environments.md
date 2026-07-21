@@ -1,11 +1,11 @@
 # Isolated environments
 
-[Persisting state](./persistence.md) to a [shared
-repository](./version-control-substrate.md) solves handoff between sequential
-steps. But it creates a new problem when more than one agent or script needs to
-operate on that repository concurrently — whether that's parallel subagents
-building independent increments, or a human still working in the same checkout
-while an agent runs.
+[Persisting state](./persistence.md) to a
+[shared repository](./version-control-substrate.md) solves handoff between
+sequential steps. But it creates a new problem when more than one agent or
+script needs to operate on that repository concurrently — whether that's
+parallel subagents building independent increments, or a human still working in
+the same checkout while an agent runs.
 
 Two processes writing to the same working tree at the same time will corrupt
 each other's work. One process's uncommitted edits become visible,

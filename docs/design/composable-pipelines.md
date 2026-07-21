@@ -14,13 +14,13 @@ cannot be fully handled by a combination of agents and scripts.
 
 ```mermaid
 flowchart LR
-  plan["🤖\nplan"]:::primary
-  code["🤖\ncode"]:::primary
+  plan["🤖\nplan"]:::agentic
+  code["🤖\ncode"]:::agentic
   build["⚙️\nbuild"]:::scripted
   test["⚙️\ntest"]:::scripted
-  review["🤖\nreview"]:::primary
+  review["🤖\nreview"]:::agentic
   integrate["⚙️\nintegrate"]:::scripted
-  human["🧑\nreview"]:::tertiary
+  human["🧑\nreview"]:::anthropic
 
   plan ==> code
   code ==> build
@@ -33,9 +33,9 @@ flowchart LR
   review -- fail --> human
   integrate == incremental loop ==> plan
 
-  classDef primary fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
-  classDef tertiary fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
 To realize workflows like this, the skills that specify the agentic steps, and
@@ -48,7 +48,8 @@ an agent, a script, or a human — can compose the skills into new, interesting
 workflows.
 
 This is how we engineer agentic workflows. A fully agentic workflow involves no
-humans-in-the-loop after an initial trigger.
+humans-in-the-loop after an initial trigger and before review of the generated
+artifacts.
 
 An agentic workflow is not a single linear pipeline with one front door. Work
 can enter the lifecycle at different points, depending on what triggered it.
