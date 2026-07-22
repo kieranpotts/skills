@@ -51,9 +51,6 @@ designs, plans, and code all coexist in the same system. All the artifacts that
 are read and written by agents are branched, committed, reviewed, and merged the
 same way. Auditability and rollback are built-in for free.
 
-**👉 [Read more about the design principles](./docs/design/)** that underpin
-these agent skills.
-
 The source files conform to the [Agent Skills](https://agentskills.io/) standard
 — natively compatible with Claude Code, Pi, and other agents. The [built-in
 installer](./run/install) transpiles the source files to GitHub Copilot
