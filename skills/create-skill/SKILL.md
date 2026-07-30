@@ -14,70 +14,59 @@ metadata:
 
 # Create skill
 
-Create a new skill or improve an existing one, either in this skills collection
-or a downstream project.
+Create a new skill or improve an existing one, either in this skills
+collection or a downstream project.
 
 You MUST NOT make any code or configuration changes to any software.
 
-**Input:** Determine the following information from the surrounding context and
+## Input
+
+Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
-- A description of the skill to create, or a path to an existing skill
-  to improve — REQUIRED.
+- A description of the skill to create, or a path to an existing skill to
+  improve — REQUIRED.
 
 - The purpose of the skill — REQUIRED.
 
 - Trigger conditions — REQUIRED.
 
 - Target project in which to install the skill — OPTIONAL. If not explicitly
-  specified, if the current working directory is inside a Git repository, assume
-  that is the target project, else install in the user's home directory at
-  `$HOME/.agents/skills/<skill-name>/`.
+  specified, if the current working directory is inside a Git repository,
+  assume that is the target project, else install in the user's home
+  directory at `$HOME/.agents/skills/<skill-name>/`.
 
-**Output:** A complete skill directory, including a `SKILL.md` file conforming
-to the bundled template, a sibling `README.md` for humans, and any bundled
-assets, references, and scripts. All artifacts pass the validator.
+## Output
+
+A complete skill directory, including a `SKILL.md` file conforming to the
+bundled template, a sibling `README.md` for humans, and any bundled assets,
+references, and scripts. All artifacts pass the validator.
+
+This skill is interactive. The agent MAY prompt the user for clarification on
+the scope, purpose, trigger conditions, and target project for the skill.
 
 ## Instructions
 
-1.  **Clarify the scope and target project for the skill.**
+1.  Clarify the scope and target project for the skill.
 
-    Establish what the skill should do and when it should trigger
-    before drafting anything. Extract as much as you can from the conversation
+    Establish what the skill should do and when it should trigger before
+    drafting anything. Extract as much as you can from the conversation
     before asking questions. At minimum, understand the task, trigger
     situations, expected input and output, and any hard constraints or edge
     cases.
 
-2.  **Research the domain.**
+2.  Research the domain.
 
-    Before writing, gather relevant context. Look up tool
-    documentation, check the project for similar existing skills, and
-    identify any scripts or reference files that ought to be bundled. Come
-    prepared so you can minimize questions to the user.
+    Before writing, gather relevant context. Look up tool documentation,
+    check the project for similar existing skills, and identify any scripts
+    or reference files that ought to be bundled. Come prepared so you can
+    minimize questions to the user.
 
-3.  **Choose a name and location.**
+3.  Choose a name and location.
 
-    Identify the target directory for installation. If not
-    explicitly specified, check whether the current working directory is under a Git
+    Identify the target directory for installation. If not explicitly
+    specified, check whether the current working directory is under a Git
     directory. If so, assume the root directory of the Git repository is the
     target. If not, assume the user's home directory is the target — for
     global installation of the new skill.
@@ -89,38 +78,38 @@ assets, references, and scripts. All artifacts pass the validator.
     eg. "specify", "commit", "release", "review". Prefer single verbs, but
     use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
-4.  **Write the `SKILL.md` file.**
+4.  Write the `SKILL.md` file.
 
     Use the [bundled template](./assets/skill-template/skill-name/SKILL.md)
-    and include the sections, front-matter, and formatting required by
-    the rules below.
+    and include the sections, front-matter, and formatting required by the
+    rules below.
 
-5.  **Bundle supporting files if needed.**
+5.  Bundle supporting files if needed.
 
-    Add files to `scripts/`, `references/`, or `assets/` when the skill
-    needs them.
+    Add files to `scripts/`, `references/`, or `assets/` when the skill needs
+    them.
 
-    Include instructions in `SKILL.md` for when and how to run any
-    scripts, load any references, or extract any assets.
+    Include instructions in `SKILL.md` for when and how to run any scripts,
+    load any references, or extract any assets.
 
-    Namespace every bundled file to avoid collisions when the skill
-    is installed alongside others. See the collision safety instructions,
+    Namespace every bundled file to avoid collisions when the skill is
+    installed alongside others. See the collision safety instructions,
     [here](./references/create-skill-collision-safety.md).
 
-6.  **Write the `README.md`.**
+6.  Write the `README.md`.
 
     Use the [bundled template](./assets/skill-template/skill-name/README.md).
 
-    This is human-readable documentation. Describe what the skill does, how to
-    invoke it, and provide invocation examples.
+    This is human-readable documentation. Describe what the skill does, how
+    to invoke it, and provide invocation examples.
 
-7.  **Review the draft.**
+7.  Review the draft.
 
-    Re-read the completed `SKILL.md` with fresh eyes. Check for
-    unnecessary verbosity, redundant rules, or instructions that assume too
-    much. Trim anything that isn't pulling its weight.
+    Re-read the completed `SKILL.md` with fresh eyes. Check for unnecessary
+    verbosity, redundant rules, or instructions that assume too much. Trim
+    anything that isn't pulling its weight.
 
-8.  **Validate the skill.**
+8.  Validate the skill.
 
     Run the bundled validator against the new skill directory:
 
@@ -128,14 +117,14 @@ assets, references, and scripts. All artifacts pass the validator.
     scripts/validate.sh <path/to/new-skill-dir>
     ```
 
-    The script wraps `skills-ref validate` (if installed) for canonical Agent
-    Skills checks, and adds repo-specific checks.
+    The script wraps `skills-ref validate` (if installed) for canonical
+    Agent Skills checks, and adds repo-specific checks.
 
     Fix any reported failures before finishing.
 
 ## Rules
 
-- **The `description` field is the primary trigger mechanism.**
+- The `description` field is the primary trigger mechanism.
 
   It determines when an agent invokes the skill. You SHOULD err toward
   being explicit rather than brief. You MUST follow this two-sentence
@@ -145,7 +134,7 @@ assets, references, and scripts. All artifacts pass the validator.
   2. Second sentence — `Use when ...` followed by specific triggers (user
      phrasings, situations, file types, contexts).
 
-  ```
+  ```sh
   ✅ Good:
   Extract text and tables from PDF files, forms, or documents. Use when
   working with PDF files or when the user mentions PDFs, forms, or
@@ -155,59 +144,59 @@ assets, references, and scripts. All artifacts pass the validator.
   Helps with documents.
   ```
 
-- **`SKILL.md` MUST include the canonical sections.**
+- `SKILL.md` MUST include the canonical sections.
 
-  - **Front-matter:** `name` and `description` are REQUIRED. `compatibility`
-    and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model via
-    `preferred_model` and MAY declare `interactive: no` if it never blocks on
-    the user.
+  - Front-matter: `name` and `description` are REQUIRED. `compatibility`
+    and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model
+    via `preferred_model` and MAY declare `interactive: no` if it never
+    blocks on the user.
 
-  - **Description:** Immediately after the level 1 heading, which is the title
+  - Description: Immediately after the level 1 heading, which is the title
     of the skill, include a short one or two sentence description of the
     skill's purpose. This MAY be copied from the first part of the header
     description.
 
-  - **Input/output:** Immediately after the description, describe the input
-    and output — what the skill consumes and produces. The input MUST ALWAYS be
-    a bulleted list, even for a single input: each item a bold-lead bullet whose
-    bold text is a short description followed by the requirement level (`- **The
-    input. REQUIRED.** …`), with explanatory text after the bold lead. Give each
-    genuinely distinct input its own bullet — split a primary input and a
-    supporting convention/context into separate items rather than joining them
-    with "plus". The interactivity statement MUST be its own paragraph
-    immediately after the input list, stating whether the skill runs
-    non-interactively to completion or is interactive — and, if interactive,
-    being explicit about the circumstances in which the agent prompts the user.
+  - Input/output: Immediately after the description, describe the input and
+    output — what the skill consumes and produces. The input MUST ALWAYS be
+    a bulleted list, even for a single input: each item a bold-lead bullet
+    whose bold text is a short description followed by the requirement
+    level (`- **The input. REQUIRED.** …`), with explanatory text after the
+    bold lead. Give each genuinely distinct input its own bullet — split a
+    primary input and a supporting convention/context into separate items
+    rather than joining them with "plus". The interactivity statement MUST
+    be its own paragraph immediately after the input list, stating whether
+    the skill runs non-interactively to completion or is interactive — and,
+    if interactive, being explicit about the circumstances in which the
+    agent prompts the user.
 
-  - **Instructions** or **Rules:** MUST include at least one of these two
-    sections.
+  - Instructions or Rules: MUST include at least one of these two sections.
 
-  - **Edge cases:** Potential edge cases to warn about. OPTIONAL.
+  - Edge cases: Potential edge cases to warn about. OPTIONAL.
 
-  - **Success criteria:** Evaluation criteria against which the agent can
-    mark its own homework. Include deterministic scripts — eg. linters, other
+  - Success criteria: Evaluation criteria against which the agent can mark
+    its own homework. Include deterministic scripts — eg. linters, other
     validators — that the agent can run, if possible. REQUIRED.
 
-  - **Examples:** A small number of canonical input/output examples. OPTIONAL.
+  - Examples: A small number of canonical input/output examples. OPTIONAL.
 
-  - **Assets:** Static assets, such as templates, that the agent MAY use to
+  - Assets: Static assets, such as templates, that the agent MAY use to
     help it to compose its output. OPTIONAL.
 
-  - **References:** Additional reference material, such as coding standards,
+  - References: Additional reference material, such as coding standards,
     the agent can load on-demand. For each, specify a trigger condition.
     OPTIONAL.
 
-  Sections MAY be reordered as appropriate to maximize the effectiveness of
-  the skill.
+  Sections MAY be reordered as appropriate to maximize the effectiveness
+  of the skill.
 
-- **Keep instructions and rules separate.**
+- Keep instructions and rules separate.
 
-  Instructions are ordered steps — the procedural workflow the agent follows.
-  Rules are individual, non-sequential guidelines, recommendations, and
-  constraints. You MUST keep them separate. You MUST NOT embed rules inside
-  instructions, or instructions inside rules.
+  Instructions are ordered steps — the procedural workflow the agent
+  follows. Rules are individual, non-sequential guidelines, recommendations,
+  and constraints. You MUST keep them separate. You MUST NOT embed rules
+  inside instructions, or instructions inside rules.
 
-- **Use RFC 2119 keywords consistently.**
+- Use RFC 2119 keywords consistently.
 
   Mark requirement levels with MUST, SHOULD, MAY, etc. See
   [requirements levels](./references/create-skill-requirements-levels.md)
@@ -215,18 +204,18 @@ assets, references, and scripts. All artifacts pass the validator.
 
   Every instruction, rule, and success criterion MUST be built around one
   of these keywords, stated explicitly. For example, rather than writing
-  "run the validator before finishing", be explicit in the requirement level
-  by writing "you MUST run the validator before finishing". A step with no
-  requirement level is ambiguous about whether it can be skipped or
-  varied.
+  "run the validator before finishing", be explicit in the requirement
+  level by writing "you MUST run the validator before finishing". A step
+  with no requirement level is ambiguous about whether it can be skipped
+  or varied.
 
-- **Non-obvious requirements MUST explain the _why_ behind them.**
+- Non-obvious requirements MUST explain the why behind them.
 
   Instead of bare imperatives, explain the reasoning so the agent can apply
   judgment in edge cases. When multiple approaches are valid, you SHOULD
-  explain the _purpose_ over prescribing exact steps.
+  explain the purpose over prescribing exact steps.
 
-- **Prescriptiveness MUST match fragility.**
+- Prescriptiveness MUST match fragility.
 
   You SHOULD be prescriptive — exact commands, flags, ordering — when
   operations are fragile, consistency is critical, or a specific sequence
@@ -236,72 +225,73 @@ assets, references, and scripts. All artifacts pass the validator.
 
   Simple skills need only instructions and success criteria.
 
-- **Provide defaults, not menus.**
+- Provide defaults, not menus.
 
   When multiple tools or approaches could work, pick one as the default and
-  mention alternatives as escape hatches. The agent SHOULD follow the default
-  unless there is a specific reason not to.
+  mention alternatives as escape hatches. The agent SHOULD follow the
+  default unless there is a specific reason not to.
 
-- **Favor procedures over declarations.**
+- Favor procedures over declarations.
 
-  You SHOULD teach the agent _how to approach_ a class of problems, not
-  what to produce for a single instance. A reusable method that generalizes
+  You SHOULD teach the agent how to approach a class of problems, not what
+  to produce for a single instance. A reusable method that generalizes
   beats a hardcoded answer.
 
-- **Keep the skill token-efficient.**
+- Keep the skill token-efficient.
 
-  Skills are loaded into the agent's context window. `SKILL.md` SHOULD stay
-  under ~300 lines. Offload deep detail to `references/` files. Link them with
-  a trigger condition so they're only read when needed. Extract recurring
-  logic to `scripts/`. Balance token efficiency against human readability.
+  Skills are loaded into the agent's context window. `SKILL.md` SHOULD
+  stay under ~300 lines. Offload deep detail to `references/` files. Link
+  them with a trigger condition so they're only read when needed. Extract
+  recurring logic to `scripts/`. Balance token efficiency against human
+  readability.
 
-- **Keep gotchas in `SKILL.md`.**
+- Keep gotchas in `SKILL.md`.
 
   Environment-specific facts that defy reasonable assumptions (wrong field
   names, soft-delete filters, non-obvious API constraints) MUST stay in the
-  main file — the agent needs them _before_ it encounters the situation. When
-  an agent makes a mistake you have to correct, add the correction to the edge
-  cases section.
+  main file — the agent needs them before it encounters the situation.
+  When an agent makes a mistake you have to correct, add the correction to
+  the edge cases section.
 
-- **Use imperative form in instructions.**
+- Use imperative form in instructions.
 
-  Instructions SHOULD read as commands: "use this format", not "you should
-  use this format".
+  Instructions SHOULD read as commands: "use this format", not "you
+  should use this format".
 
-- **Use consistent terminology.**
+- Use consistent terminology.
 
   One word MUST mean one thing. Avoid synonyms.
 
-- **Reach for proven structural techniques when they fit.**
+- Reach for proven structural techniques when they fit.
 
   You SHOULD use these where applicable:
 
-  - **Step checklists** for multi-step workflows where the agent must track
+  - Step checklists for multi-step workflows where the agent must track
     progress across dependencies or validation gates.
 
-  - **Output templates** provide concrete structure rather than prose
+  - Output templates provide concrete structure rather than prose
     descriptions. Long or conditional templates belong in `assets/`.
 
-  - **Validation loops** run a validator, fix failures, and repeat until it
+  - Validation loops run a validator, fix failures, and repeat until it
     passes.
 
-  - **Plan-validate-execute** for batch or destructive operations. Produce a
-    plan, validate it, then execute. The validator MUST produce error messages
-    specific enough for the agent to self-correct.
+  - Plan-validate-execute for batch or destructive operations. Produce a
+    plan, validate it, then execute. The validator MUST produce error
+    messages specific enough for the agent to self-correct.
 
-- **Only `scripts/`, `references/`, and `assets/` are propagated.**
+- Only `scripts/`, `references/`, and `assets/` are propagated.
 
   Installers ignore any other bundled subdirectories. You SHOULD namespace
   every file to avoid collisions when skills are installed side-by-side.
 
 ## Edge cases
 
-- **Improving an existing skill.**
+- Improving an existing skill.
 
   Read the current `SKILL.md` first, then treat the improvement like a new
   draft. Rewrite rather than patch. Preserve the `name` field unchanged.
 
-- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
+- A similar skill already exists elsewhere, eg. in Anthropic's skills repo.
 
   Use it as a reference for domain knowledge, but adapt the instructions and
   format to the bundled template and the conventions of the project you are
@@ -309,51 +299,51 @@ assets, references, and scripts. All artifacts pass the validator.
 
 ## Success criteria
 
-- **Front-matter MUST be valid.**
+- Front-matter MUST be valid.
 
-  The `name` and `description` fields MUST be present and non-empty, and `name`
-  MUST match the directory name.
+  The `name` and `description` fields MUST be present and non-empty, and
+  `name` MUST match the directory name.
 
-- **All REQUIRED paragraphs MUST be present.**
+- All REQUIRED paragraphs MUST be present.
 
-  At minimum: the `#` title, the `**Input:**` and `**Output:**` sections,
+  At minimum: the `#` title, the `## Input` and `## Output` sections,
   `## Instructions` or `## Rules`, and `## Success criteria`.
 
-- **The input and output sections MUST be present and prominent.**
+- The input and output sections MUST be present and prominent.
 
-  They MUST appear immediately after the title, before the first `##`. The input
-  section MUST be a bulleted list, each item marking its input "REQUIRED" or
-  "OPTIONAL" inside the bold lead. A separate paragraph immediately after MUST
-  state whether the agent should run non-interactively to completion or if it
-  may interact with the user — blocking to ask questions, presenting options,
-  and waiting for answers.
+  They MUST appear immediately after the title, before the first `##`. The
+  input section MUST be a bulleted list, each item marking its input
+  "REQUIRED" or "OPTIONAL" inside the bold lead. A separate paragraph
+  immediately after MUST state whether the agent should run
+  non-interactively to completion or if it may interact with the user —
+  blocking to ask questions, presenting options, and waiting for answers.
 
-- **The skill MUST be token-efficient.**
+- The skill MUST be token-efficient.
 
-  No section is padded with detail that belongs in a `references/` file. The
-  `SKILL.md` SHOULD be under ~300 lines.
+  No section is padded with detail that belongs in a `references/` file.
+  The `SKILL.md` SHOULD be under ~300 lines.
 
-- **The `description` MUST be specific enough to trigger correctly.**
+- The `description` MUST be specific enough to trigger correctly.
 
-  It MUST name both the capability and the contexts that should invoke it — not
-  just a one-line summary of what the skill does.
+  It MUST name both the capability and the contexts that should invoke it
+  — not just a one-line summary of what the skill does.
 
-- **A `README.md` MUST exist alongside the `SKILL.md`.**
+- A `README.md` MUST exist alongside the `SKILL.md`.
 
 ## Examples
 
-- **A minimal skill with no bundled resources:**
+- A minimal skill with no bundled resources:
 
-  ```
+  ```sh
   skills/
   └── commit/
       ├── SKILL.md
       └── README.md
   ```
 
-- **A skill with bundled scripts and references:**
+- A skill with bundled scripts and references:
 
-  ```
+  ```sh
   skills/
   └── code-openapi/
       ├── SKILL.md
@@ -368,14 +358,14 @@ assets, references, and scripts. All artifacts pass the validator.
 ## Assets
 
 - [Skill template](./assets/skill-template/skill-name/SKILL.md):
-  The bundled `SKILL.md` template to base new skills on. New skills MUST follow
-  the structure and formatting herein.
+  The bundled `SKILL.md` template to base new skills on. New skills MUST
+  follow the structure and formatting herein.
 
 ## References
 
 - [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md):
-  Technical standard for formatting Markdown documents. Skills `*.md` files MUST
-  follow the formatting conventions described in this standard.
+  Technical standard for formatting Markdown documents. Skills `*.md` files
+  MUST follow the formatting conventions described in this standard.
 
 - [Collision safety for bundled resources](./references/create-skill-collision-safety.md):
   How to namespace bundled resources so they don't collide across skills.
@@ -390,5 +380,6 @@ assets, references, and scripts. All artifacts pass the validator.
   `metadata.preferred_model`.
 
 - [Interactive vs. non-interactive skills](./references/create-skill-interactive.md):
-  Read when deciding whether a skill prompts the user mid-flow, and whether to
-  declare `metadata.interactive: no` (default `yes`).
+  Read when deciding whether a skill prompts the user mid-flow, and whether
+  to declare `metadata.interactive: no` (default `yes`).
+````

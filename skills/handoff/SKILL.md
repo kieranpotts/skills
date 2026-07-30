@@ -19,62 +19,48 @@ human can pick up the work. Save the handoff document outside the project, such
 as to the operating system's temporary file path. Reference existing documents
 such as PRDs and delivery plans, without replicating them.
 
-You MUST NOT make any code or configuration changes to any software components.
+You MUST NOT make any code or configuration changes to any software
+components.
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
 - The current session's context — REQUIRED.
   The work done, the decisions made, the durable artifacts already produced
-  (specifications, designs, plans, ADRs, issues, commits), and the state of the
-  codebase.
+  (specifications, designs, plans, ADRs, issues, commits), and the state of
+  the codebase.
 
-**Output:** A single, ephemeral handoff document written to the OS temp
-directory (not the repo), referencing those durable artifacts by path or URL
-rather than duplicating them. It captures what's done, what's open, the codebase
-state, suggested next steps, and gotchas. This skill reports the file's absolute
+## Output
+
+A single, ephemeral handoff document written to the OS temp directory (not
+the repo), referencing those durable artifacts by path or URL rather than
+duplicating them. It captures what's done, what's open, the codebase state,
+suggested next steps, and gotchas. This skill reports the file's absolute
 path and stops; whether the next session is an agent or a human is the
 orchestrator's concern.
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Identify what the next session needs to know.**
+1.  Identify what the next session needs to know.
 
-    If the user passed an argument describing the next session's focus (eg.
-    "next session continues with the API integration"), use it to scope
-    the handoff. Otherwise, treat the handoff as covering the full state
-    of the current work.
+    If the user passed an argument describing the next session's focus
+    (eg. "next session continues with the API integration"), use it to
+    scope the handoff. Otherwise, treat the handoff as covering the full
+    state of the current work.
 
-    Ask yourself: if this conversation vanished now, what would a
-    fresh agent need in order to *not* repeat the work, *not* re-litigate
-    decisions, and *not* re-walk dead ends?
+    Ask yourself: if this conversation vanished now, what would a fresh
+    agent need in order to not repeat the work, not re-litigate decisions,
+    and not re-walk dead ends?
 
-2.  **Inventory existing artifacts.**
+2.  Inventory existing artifacts.
 
     Before writing anything, list the durable artifacts the current work
     has already produced:
@@ -87,129 +73,132 @@ task, you MUST stop and print an error message.
     - Recent commits worth pointing at.
     - Any updated entries in `docs/domain-model.md`.
 
-3.  **Draft the document.**
+3.  Draft the document.
 
-    Write the handoff using the structure defined in the Success
-    criteria.
+    Write the handoff using the structure defined in the Success criteria.
 
-    If the handoff is for a human rather than an agent, replace
-    "Suggested next steps" with "Suggested first action" and describe the
-    concrete next step the human should take.
+    If the handoff is for a human rather than an agent, replace "Suggested
+    next steps" with "Suggested first action" and describe the concrete
+    next step the human should take.
 
-4.  **Redact sensitive information.**
+4.  Redact sensitive information.
 
     Before writing the file, strip:
 
     - API keys, tokens, passwords, secrets of any kind.
-    - Personally identifiable information (real names, emails, IDs, addresses).
+    - Personally identifiable information (real names, emails, IDs,
+      addresses).
     - Internal-only URLs or hostnames.
 
     If in doubt, redact.
 
-5.  **Save to a temporary location.**
+5.  Save to a temporary location.
 
     Write to the OS temp directory:
 
-    - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back to
-      `/tmp`).
+    - macOS / Linux: `$TMPDIR/handoff-<topic>-<timestamp>.md` (fall back
+      to `/tmp`).
     - Windows: `%TEMP%\handoff-<topic>-<timestamp>.md`.
 
-6.  **Tell the user the absolute path.**
+6.  Tell the user the absolute path.
 
     Print the full absolute path.
 
-7.  **Handle an imminent context limit.**
+7.  Handle an imminent context limit.
 
-    If the context limit is imminent, write the handoff immediately,
-    even if other work was mid-flight.
+    If the context limit is imminent, write the handoff immediately, even
+    if other work was mid-flight.
 
-8.  **Handle parallel work streams.**
+8.  Handle parallel work streams.
 
     If the session covered two unrelated streams of work, write one
     handoff per stream.
 
-9.  **Handle an empty handoff.**
+9.  Handle an empty handoff.
 
     If the user provided no topic and the conversation covered nothing
-    substantive, say so and stop. Do not write a fabricated
-    handoff document.
+    substantive, say so and stop. Do not write a fabricated handoff
+    document.
 
-10. **Handle unconfirmed decisions.**
+10. Handle unconfirmed decisions.
 
-    If the handoff would contain a partial decision the user has not confirmed,
-    mark it explicitly as unconfirmed in "What's open", not in "What's
-    been done".
+    If the handoff would contain a partial decision the user has not
+    confirmed, mark it explicitly as unconfirmed in "What's open", not in
+    "What's been done".
 
 ## Rules
 
-- **You MUST reference, not duplicate.**
+- You MUST reference, not duplicate.
 
-  Every fact already captured in a specification, plan, ADR, issue, commit, or
-  diff MUST be referenced by path or URL. Duplication invites drift.
+  Every fact already captured in a specification, plan, ADR, issue, commit,
+  or diff MUST be referenced by path or URL. Duplication invites drift.
 
-- **The handoff is ephemeral.**
+- The handoff is ephemeral.
 
-  It MUST live outside the repo, and MUST be discarded once the next session
-  has absorbed it. If a piece of the handoff turns out to be durable, you MUST
-  promote it to the relevant project artifact (ADR, specification update,
-  runbook) and remove it from the handoff.
+  It MUST live outside the repo, and MUST be discarded once the next
+  session has absorbed it. If a piece of the handoff turns out to be
+  durable, you MUST promote it to the relevant project artifact (ADR,
+  specification update, runbook) and remove it from the handoff.
 
-- **You MUST be specific about what's open.**
+- You MUST be specific about what's open.
 
-  "Some questions remain about the API" is unhelpful. "Two questions remain on
-  the API: (1) idempotency behavior on retry; (2) whether to accept partial
-  updates — both blocked on product input" is actionable.
+  "Some questions remain about the API" is unhelpful. "Two questions
+  remain on the API: (1) idempotency behavior on retry; (2) whether to
+  accept partial updates — both blocked on product input" is actionable.
 
-- **You SHOULD suggest next steps, and MUST NOT dictate them.**
+- You SHOULD suggest next steps, and MUST NOT dictate them.
 
-  Name the work relevant to the road ahead, but the next session decides what
-  to do. You MUST NOT pretend to know what the next session will encounter.
+  Name the work relevant to the road ahead, but the next session decides
+  what to do. You MUST NOT pretend to know what the next session will
+  encounter.
 
-- **You MUST redact aggressively.**
+- You MUST redact aggressively.
 
-  Anything that looks remotely like a credential, real identity, or internal
-  URL MUST be removed. The bar is: "could this embarrass anyone if pasted into
-  a public channel?"
+  Anything that looks remotely like a credential, real identity, or
+  internal URL MUST be removed. The bar is: "could this embarrass anyone
+  if pasted into a public channel?"
 
-- **You MUST NOT fabricate state to fill the template.**
+- You MUST NOT fabricate state to fill the template.
 
-  If a section has nothing to say, you MUST omit it or write "none" explicitly.
-  An empty section is honest; an invented one is misleading.
+  If a section has nothing to say, you MUST omit it or write "none"
+  explicitly. An empty section is honest; an invented one is misleading.
 
 ## Success criteria
 
-- **The handoff MUST live outside the repo.**
+- The handoff MUST live outside the repo.
 
   Written to a temp-directory path, not the project tree.
 
-- **The handoff MUST use the following structure, omitting any section that has
-  nothing to report:**
+- The handoff MUST use the following structure, omitting any section that
+  has nothing to report:
 
   - `# Handoff: <topic> (<date>)`
   - `## What's been done` — summary of decisions and completed work.
   - `## What's open` — outstanding questions and blockers.
-  - `## State of the codebase` — branch, working-tree status, known test
-    failures, temporary instrumentation.
-  - `## Suggested next steps` — the work the next session should pick up.
-  - `## Watch out for` — gotchas, environmental quirks, explored dead ends.
+  - `## State of the codebase` — branch, working-tree status, known
+    test failures, temporary instrumentation.
+  - `## Suggested next steps` — the work the next session should pick
+    up.
+  - `## Watch out for` — gotchas, environmental quirks, explored dead
+    ends.
 
-- **The handoff MUST reference every durable artifact by path or URL, and MUST
-  NOT paste artifact content.**
+- The handoff MUST reference every durable artifact by path or URL, and
+  MUST NOT paste artifact content.
 
-- **The handoff MUST NOT contain credentials, PII, or internal-only URLs.**
+- The handoff MUST NOT contain credentials, PII, or internal-only URLs.
 
-- **Outstanding questions MUST be stated specifically, with their blockers
-  named.**
+- Outstanding questions MUST be stated specifically, with their blockers
+  named.
 
-- **The next session MUST be able to read the handoff alone and know what to do
-  next.**
+- The next session MUST be able to read the handoff alone and know what to
+  do next.
 
-- **If there was nothing substantive to hand off, the output MUST say so
-  explicitly rather than produce a fabricated document.**
+- If there was nothing substantive to hand off, the output MUST say so
+  explicitly rather than produce a fabricated document.
 
 ## Examples
 
-- **A compact handoff:**
+- A compact handoff:
 
   ```md
   # Handoff: orders POST endpoint (2026-05-26)
@@ -220,7 +209,7 @@ task, you MUST stop and print an error message.
 
   ## What's open
   Outstanding questions, decisions deferred, work in progress.
-  Be specific about *what* is undecided and *why*.
+  Be specific about what is undecided and why.
 
   ## State of the codebase
   Current branch, working-tree status, any tests known failing, any
@@ -236,3 +225,7 @@ task, you MUST stop and print an error message.
   Gotchas, environmental quirks, decisions that look obvious but
   weren't, dead-ends already explored that should not be re-tried.
   ```
+
+## References
+
+None.

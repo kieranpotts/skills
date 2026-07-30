@@ -17,72 +17,64 @@ metadata:
 # Refine
 
 Revise the requirements specification in response to feedback from acceptance
-testing, or from real-world use of working software. Capture what was
-learned, and identify which acceptance criteria need to be refined.
+testing, or from real-world use of working software. Capture what was learned,
+and identify which acceptance criteria need to be refined.
 
-**Input:** Determine the following information from the surrounding context and
+## Input
+
+Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
 - A feedback trigger against an existing specification — REQUIRED.
-  A failing acceptance criterion, an exploratory-testing finding, a stakeholder
-  report against shipped behavior, or an NFR threshold proven wrong in practice.
+  A failing acceptance criterion, an exploratory-testing finding, a
+  stakeholder report against shipped behavior, or an NFR threshold proven
+  wrong in practice.
 
 Gather the rest of the information you need by prompting the user. Ask one
 question at a time.
 
-**Output:** Precise edits to the requirements artifacts, conforming to the
-specification conventions (Gherkin, measurable NFRs, explicit scope), each with
-a recorded trigger, type, and rationale; plus a traced list of downstream
-design, planning, code, and test work the refinement implies. The output is
-reported and the skill stops; it changes no code itself.
+## Output
+
+Precise edits to the requirements artifacts, conforming to the specification
+conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded
+trigger, type, and rationale; plus a traced list of downstream design,
+planning, code, and test work the refinement implies. The output is reported
+and the skill stops; it changes no code itself.
+
+This skill is interactive. The agent prompts the user for clarification,
+asking one question at a time and waiting for the answer before proceeding.
 
 ## Instructions
 
-1.  **Name the trigger.**
+1.  Name the trigger.
 
     State, in one sentence, what feedback prompted the refinement.
     Possible triggers:
 
-    - *AC failure in testing that, on inspection, reflects a specification
-      error*: the test correctly verified what the specification demanded, but
-      the demand was wrong.
+    - AC failure in testing that, on inspection, reflects a specification
+      error: the test correctly verified what the specification demanded,
+      but the demand was wrong.
 
-    - *Specification gap revealed by exploratory testing*: a scenario nobody
-      anticipated.
+    - Specification gap revealed by exploratory testing: a scenario
+      nobody anticipated.
 
-    - *Stakeholder feedback on working software*: "this is what we said, but
-      it's not what we needed".
+    - Stakeholder feedback on working software: "this is what we said,
+      but it's not what we needed".
 
-    - *NFR threshold mismatch*: the measured number is inside the threshold but
-      the user experience is still unacceptable (or vice versa — the threshold
-      was over-strict).
+    - NFR threshold mismatch: the measured number is inside the threshold
+      but the user experience is still unacceptable (or vice versa — the
+      threshold was over-strict).
 
-    - *Out-of-scope item turns out to be in-scope* (or vice versa).
+    - Out-of-scope item turns out to be in-scope (or vice versa).
 
-    - *Contradiction between two ACs* surfaced during implementation or testing.
+    - Contradiction between two ACs surfaced during implementation or
+      testing.
 
-    Without a named trigger, you are not refining — you are second-guessing.
+    Without a named trigger, you are not refining — you are
+    second-guessing.
 
-2.  **Locate the specific specification artifact to change.**
+2.  Locate the specific specification artifact to change.
 
     Identify exactly which document, file, or section is wrong:
 
@@ -92,36 +84,38 @@ reported and the skill stops; it changes no code itself.
     - A constraint, assumption, or stakeholder note.
 
     If the requirement was never captured at all — a true gap — say so.
-    The refinement is then an *addition*, not an *edit*.
+    The refinement is then an addition, not an edit.
 
-3.  **Decide the type of change.**
+3.  Decide the type of change.
 
     Classify before drafting:
 
-    - *Correction*: an existing AC is wrong and needs rewriting. (The most
+    - Correction: an existing AC is wrong and needs rewriting. (The most
       common case.)
 
-    - *Addition*: a missing AC needs adding. New scenario, new NFR, new
+    - Addition: a missing AC needs adding. New scenario, new NFR, new
       out-of-scope entry.
 
-    - *Removal*: an AC was over-specified and needs deleting. (Rare. Be careful
-      — users often *think* an AC is wrong when really the *implementation* is.)
+    - Removal: an AC was over-specified and needs deleting. (Rare. Be
+      careful — users often think an AC is wrong when really the
+      implementation is.)
 
-    - *Reclassification*: an item moves between scope/out-of-scope, or between
-      functional and non-functional, or between blocking and deferred.
+    - Reclassification: an item moves between scope/out-of-scope, or
+      between functional and non-functional, or between blocking and
+      deferred.
 
-    - *Threshold adjustment*: an NFR target is loosened or tightened with new
-      justification.
+    - Threshold adjustment: an NFR target is loosened or tightened with
+      new justification.
 
-    Each type has different consequences downstream; flagging the type up front
-    makes the rest of the change reviewable.
+    Each type has different consequences downstream; flagging the type
+    up front makes the rest of the change reviewable.
 
-4.  **Draft the edit in the specification's own form.**
+4.  Draft the edit in the specification's own form.
 
     Write the refinement using the project's specification conventions
     (see the Rules section).
 
-5.  **Record the rationale and the trigger.**
+5.  Record the rationale and the trigger.
 
     Every refinement carries a short justification:
 
@@ -132,10 +126,10 @@ reported and the skill stops; it changes no code itself.
     File this with the specification edit (commit body, PR description,
     or an explicit "Refinement log" section in the specification).
 
-6.  **Trace downstream impact.**
+6.  Trace downstream impact.
 
-    Refining a specification is rarely free. Before declaring the refinement
-    done, map the ripple:
+    Refining a specification is rarely free. Before declaring the
+    refinement done, map the ripple:
 
     - Which design decisions assumed the old AC?
     - Which planned delivery steps are now wrong?
@@ -145,119 +139,123 @@ reported and the skill stops; it changes no code itself.
     For each downstream artifact, flag whether it needs adjustment,
     re-verification, or no change.
 
-7.  **Report the output.**
+7.  Report the output.
 
     Present the refined specification, the recorded rationale, and the
-    traced downstream impact list. Refinement is about *what is required*, not
-    *how to build it*.
+    traced downstream impact list. Refinement is about what is required,
+    not how to build it.
 
 ## Rules
 
-- **You MUST refine the specification, not the code.**
+- You MUST refine the specification, not the code.
 
-  If the right response is "fix the implementation to match the existing AC",
-  that is a code-defect fix, not a refinement. Refinement happens when the AC
-  itself was wrong, missing, or ambiguous — not when the implementation
-  drifted from a correct AC.
+  If the right response is "fix the implementation to match the existing
+  AC", that is a code-defect fix, not a refinement. Refinement happens
+  when the AC itself was wrong, missing, or ambiguous — not when the
+  implementation drifted from a correct AC.
 
-- **You MUST NOT silently rewrite a passed AC.**
+- You MUST NOT silently rewrite a passed AC.
 
-  An AC that previously passed — in testing or in production — is part of the
-  contract with users and stakeholders. Changing it without explicit
-  acknowledgment is how regressions arrive disguised as cleanups. You MUST
-  always record the change, the reason, and what was previously promised.
+  An AC that previously passed — in testing or in production — is part
+  of the contract with users and stakeholders. Changing it without
+  explicit acknowledgment is how regressions arrive disguised as
+  cleanups. You MUST always record the change, the reason, and what was
+  previously promised.
 
-- **Refinement REQUIRES evidence.**
+- Refinement REQUIRES evidence.
 
-  A specification change driven by "I thought about it more" is suspect. You
-  MUST tie the change to an observation: a failing test, a stakeholder quote, a
-  measurement, a UX session. The evidence belongs in the rationale.
+  A specification change driven by "I thought about it more" is suspect.
+  You MUST tie the change to an observation: a failing test, a
+  stakeholder quote, a measurement, a UX session. The evidence belongs
+  in the rationale.
 
-- **You MUST make one refinement per logical change.**
+- You MUST make one refinement per logical change.
 
-  Bundling unrelated specification edits ("while we're here, also fix the
-  refund timeout AC") produces a diff nobody can review. You MUST refine one AC
-  per pass; queue the others.
+  Bundling unrelated specification edits ("while we're here, also fix
+  the refund timeout AC") produces a diff nobody can review. You MUST
+  refine one AC per pass; queue the others.
 
-- **Refinements MUST conform to the specification conventions.**
+- Refinements MUST conform to the specification conventions.
 
-  Gherkin form, testability, measurable NFRs, explicit out-of-scope. A refined
-  specification that breaks the conventions is no better than the unrefined
-  one.
+  Gherkin form, testability, measurable NFRs, explicit out-of-scope. A
+  refined specification that breaks the conventions is no better than
+  the unrefined one.
 
-- **You MUST distinguish "specification was wrong" from "user changed their mind".**
+- You MUST distinguish "specification was wrong" from "user changed
+  their mind".
 
   Both produce a specification edit, but the framing matters. A user who
   changes their mind is fine — record it as such. A specification that
-  misrepresented what the user wanted from day one is a process failure worth
-  noting; the next specification should not repeat it.
+  misrepresented what the user wanted from day one is a process failure
+  worth noting; the next specification should not repeat it.
 
-- **Refinement MUST NOT be used to expand scope.**
+- Refinement MUST NOT be used to expand scope.
 
   Net-new features that were never part of the original ask are not
-  refinements — they are new specs. Treat them as such and capture them as a
-  fresh specification in their own right; the refine path is for fixing what
-  was already there.
+  refinements — they are new specs. Treat them as such and capture them
+  as a fresh specification in their own right; the refine path is for
+  fixing what was already there.
 
-- **You MUST capture follow-up items, not absorb them.**
+- You MUST capture follow-up items, not absorb them.
 
-  A refinement session often surfaces other latent gaps. Note them, raise
-  tracking issues, but you MUST NOT stuff them into the current refinement. One
-  change at a time, traceable.
+  A refinement session often surfaces other latent gaps. Note them,
+  raise tracking issues, but you MUST NOT stuff them into the current
+  refinement. One change at a time, traceable.
 
-- **If a refinement contradicts a recently-shipped feature, you MUST flag the
-  need for a deprecation / migration story and a design pass before assuming the
-  change can land.**
+- If a refinement contradicts a recently-shipped feature, you MUST flag
+  the need for a deprecation / migration story and a design pass before
+  assuming the change can land.
 
-- **If stakeholders disagree on whether the specification was wrong, you MUST
-  NOT unilaterally refine.**
+- If stakeholders disagree on whether the specification was wrong, you
+  MUST NOT unilaterally refine.
 
-  Surface the disagreement, capture both positions, and route to whatever
-  decision process the project uses.
+  Surface the disagreement, capture both positions, and route to
+  whatever decision process the project uses.
 
-- **If a stakeholder reframes a new feature as "we always wanted this", you MUST
-  push back and route the new ask through a fresh specification.**
+- If a stakeholder reframes a new feature as "we always wanted this",
+  you MUST push back and route the new ask through a fresh
+  specification.
 
-  Refinement should leave the *purpose* of the original specification intact;
-  expansion replaces it.
+  Refinement should leave the purpose of the original specification
+  intact; expansion replaces it.
 
 ## Success criteria
 
-- **Every refinement MUST name its trigger and its type.**
+- Every refinement MUST name its trigger and its type.
 
-  Correction / addition / removal / reclassification / threshold-adjustment,
-  plus the observation that prompted it.
+  Correction / addition / removal / reclassification /
+  threshold-adjustment, plus the observation that prompted it.
 
-- **The edit MUST be shown as before / after.**
+- The edit MUST be shown as before / after.
 
   Reviewers see what changed without diffing in their heads.
 
-- **The rationale MUST be recorded with the edit.**
+- The rationale MUST be recorded with the edit.
 
-  The specification or its commit history explains *why*, not just *what*.
+  The specification or its commit history explains why, not just what.
   Future readers can reconstruct the decision without re-litigating it.
 
-- **Downstream impact MUST be traced.**
+- Downstream impact MUST be traced.
 
-  A list of affected artifacts (design, planned steps, code, tests) MUST exist,
-  with status. Nothing MUST be silently invalidated.
+  A list of affected artifacts (design, planned steps, code, tests) MUST
+  exist, with status. Nothing MUST be silently invalidated.
 
-- **No code or test MUST have been changed inside this skill.**
+- No code or test MUST have been changed inside this skill.
 
-  The output is a specification edit and a traced impact list. Implementation
-  lives downstream.
+  The output is a specification edit and a traced impact list.
+  Implementation lives downstream.
 
-- **If a refinement reveals an untestable AC, the refined AC MUST be in
-  testable form.**
+- If a refinement reveals an untestable AC, the refined AC MUST be in
+  testable form.
 
-- **If no specification existed in writing, the output MUST include the newly
-  written assumed specification plus the refinement applied to it.**
+- If no specification existed in writing, the output MUST include the
+  newly written assumed specification plus the refinement applied to it.
 
 ## Examples
 
-- **A correction triggered by a failing AC:**
+- A correction triggered by a failing AC:
 
-  ```
+  ```sh
   Trigger: AC-3 (same idempotency key returns same order) — FAIL in test;
           on inspection, the specification mandates 200 OK, but the agreed
           contract with the SDK team is 200 OK + warning header.
@@ -286,9 +284,9 @@ reported and the skill stops; it changes no code itself.
     - test: orders.spec.ts:89 needs an updated assertion
   ```
 
-- **An addition triggered by exploratory testing:**
+- An addition triggered by exploratory testing:
 
-  ```
+  ```sh
   Trigger: Exploratory pass in test found that replaying an idempotency
           key 24h later behaves inconsistently — TTL was never specified.
 
@@ -314,9 +312,9 @@ reported and the skill stops; it changes no code itself.
     - test: new acceptance scenario above.
   ```
 
-- **A threshold adjustment:**
+- A threshold adjustment:
 
-  ```
+  ```sh
   Trigger: NFR "p95 latency < 200ms" measured at 188ms in test; users
           still report slowness. UX research shows perceived slowness
           starts at 150ms for this interaction.
@@ -335,3 +333,7 @@ reported and the skill stops; it changes no code itself.
     - plan: add a "performance tightening" increment.
     - test: re-run perf suite against new threshold (currently FAIL).
   ```
+
+## References
+
+None.

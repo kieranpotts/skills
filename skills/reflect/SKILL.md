@@ -12,40 +12,24 @@ metadata:
 
 # Reflect
 
-Extract durable lessons from the current session. Capture corrections, validated
-approaches, revealed preferences, and project decisions. Persist this information
-on disk.
+Extract durable lessons from the current session. Capture corrections,
+validated approaches, revealed preferences, and project decisions. Persist
+this information on disk.
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
 - The current session's conversation — REQUIRED.
-  The source of durable lessons — corrections, validated approaches, revealed
-  preferences, and project decisions surfaced during the work.
+  The source of durable lessons — corrections, validated approaches,
+  revealed preferences, and project decisions surfaced during the work.
 
 - The agent's existing memory files — REQUIRED.
-  Checked so new lessons update or extend prior entries rather than duplicating
-  them.
+  Checked so new lessons update or extend prior entries rather than
+  duplicating them.
 
 - The repo's convention files — REQUIRED.
   `AGENTS.md` / `CLAUDE.md`, the destination for codebase conventions and a
@@ -53,210 +37,219 @@ user with an error message.
 
 ~~Seek per-candidate approval from the user, prompting before persisting.~~
 
-**Output:** Zero or more persisted lessons — memory entries (indexed in
-`MEMORY.md`) and/or appended convention rules — each non-obvious and capable of
-changing future agent behavior, written only after per-candidate user approval.
+## Output
+
+Zero or more persisted lessons — memory entries (indexed in `MEMORY.md`)
+and/or appended convention rules — each non-obvious and capable of changing
+future agent behavior, written only after per-candidate user approval.
 Universal lessons better encoded as a new skill are flagged, not saved.
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Scan the conversation for non-obvious lessons.**
+1.  Scan the conversation for non-obvious lessons.
 
     Walk the session looking for four signal types:
 
-    - **Corrections.** The user redirected the approach: *"no, don't do that"*,
-      *"we don't do it that way here"*, *"stop doing X"*. Each correction is a
+    - Corrections. The user redirected the approach: "no, don't do that",
+      "we don't do it that way here", "stop doing X". Each correction is a
       candidate.
 
-    - **Validated approaches.** The user accepted a non-obvious choice without
-      pushback, especially where your first instinct would have been different.
-      Quiet acceptance of an unusual move is a signal.
+    - Validated approaches. The user accepted a non-obvious choice without
+      pushback, especially where your first instinct would have been
+      different. Quiet acceptance of an unusual move is a signal.
 
-    - **Revealed preferences.** How the user wants to work — response length,
+    - Revealed preferences. How the user wants to work — response length,
       tone, format, levels of explanation, when to ask vs. when to act.
 
-    - **Project decisions outside version control.** Constraints, deadlines,
-      stakeholder requirements, business context the codebase does not encode.
+    - Project decisions outside version control. Constraints, deadlines,
+      stakeholder requirements, business context the codebase does not
+      encode.
 
-2.  **Filter the candidates.**
+2.  Filter the candidates.
 
     Evaluate each candidate against the drop criteria in the Rules
     section.
 
-3.  **Classify each surviving candidate.**
+3.  Classify each surviving candidate.
 
     Assign one of these types — the type drives the format and the
     destination:
 
-    - **`user`** — The user's role, expertise, working preferences.
-      *Destination: user-level memory if universal across projects;
-      project-level memory if specific to this project.*
+    - `user` — The user's role, expertise, working preferences.
+      Destination: user-level memory if universal across projects;
+      project-level memory if specific to this project.
 
-    - **`feedback`** — Guidance on how to approach work. Corrections and
-      validated approaches both fit here. *Destination: project-level memory
-      (usually); user-level if it applies regardless of project.*
+    - `feedback` — Guidance on how to approach work. Corrections and
+      validated approaches both fit here. Destination: project-level
+      memory (usually); user-level if it applies regardless of project.
 
-    - **`project`** — Facts, decisions, or constraints about ongoing work that
-      aren't captured in version control. *Destination: project-level memory.*
+    - `project` — Facts, decisions, or constraints about ongoing work
+      that aren't captured in version control. Destination: project-level
+      memory.
 
-    - **`reference`** — Pointers to where information lives in external systems
-      (Linear, Slack, Confluence, dashboards). *Destination: project-level
-      memory.*
+    - `reference` — Pointers to where information lives in external
+      systems (Linear, Slack, Confluence, dashboards). Destination:
+      project-level memory.
 
-    - **Codebase convention** — A repository-specific rule or pattern other
-      contributors (human and agent) should see. *Destination: AGENTS.md or
-      CLAUDE.md — committed to the repo, not private memory.*
+    - Codebase convention — A repository-specific rule or pattern other
+      contributors (human and agent) should see. Destination: AGENTS.md
+      or CLAUDE.md — committed to the repo, not private memory.
 
-4.  **Walk the user through each candidate.**
+4.  Walk the user through each candidate.
 
     Follow the one-at-a-time procedure in the Rules section. For each
     candidate, present a one-sentence summary, the proposed type and
-    destination, and a draft of the entry as it would be written. Ask
-    for approval before persisting.
+    destination, and a draft of the entry as it would be written. Ask for
+    approval before persisting.
 
-5.  **Write each accepted lesson.**
+5.  Write each accepted lesson.
 
     For memory destinations, use the format defined in the Success
     criteria.
 
     Cross-link related memories with `[[name]]`.
 
-    For codebase-convention destinations, append a concise rule to `AGENTS.md`
-    (or `CLAUDE.md`, whichever the project uses) in the section that fits —
-    usually `## Rules` or a project-specific equivalent.
+    For codebase-convention destinations, append a concise rule to
+    `AGENTS.md` (or `CLAUDE.md`, whichever the project uses) in the
+    section that fits — usually `## Rules` or a project-specific
+    equivalent.
 
-6.  **Update the `MEMORY.md` index.**
+6.  Update the `MEMORY.md` index.
 
     For each new memory file, add a one-line entry:
 
-    ```
+    ```sh
     - [Title](file.md) — one-line hook
     ```
 
     `MEMORY.md` is an index, not a memory. Keep entries terse.
 
-7.  **Handle duplicates and contradictions during the walk-through.**
+7.  Handle duplicates and contradictions during the walk-through.
 
     If a candidate is close to an existing memory:
 
-    - If the existing entry is stale or wrong, *update* it instead of
+    - If the existing entry is stale or wrong, update it instead of
       creating a new one.
 
-    - If the new lesson refines an existing one, edit the existing
-      entry to incorporate the refinement.
+    - If the new lesson refines an existing one, edit the existing entry
+      to incorporate the refinement.
 
     - Only create a new file when the lesson is genuinely fresh.
 
-    If a candidate *contradicts* an existing memory, surface the
+    If a candidate contradicts an existing memory, surface the
     contradiction in the walk-through. Ask the user which reflects
     current truth, then update or delete the stale entry.
 
-8.  **Report briefly.**
+8.  Report briefly.
 
-    Once the walk-through is complete, print the report described in the
-    Success criteria.
+    Once the walk-through is complete, print the report described in
+    the Success criteria.
 
 ## Rules
 
-- **You MUST walk one candidate at a time.**
+- You MUST walk one candidate at a time.
 
   Walk through proposals individually. Batching invites blind approval;
-  one-at-a-time invites scrutiny. Wait for the user's answer before moving on.
+  one-at-a-time invites scrutiny. Wait for the user's answer before
+  moving on.
 
-- **You MUST filter ruthlessly.**
+- You MUST filter ruthlessly.
 
   Drop a candidate if any of the following apply:
 
-  - It is derivable from the current code, git history, or existing project
-    docs.
+  - It is derivable from the current code, git history, or existing
+    project docs.
 
   - It is a standard best practice any reasonable agent would follow.
 
   - It is a one-off task detail with no reusable shape.
 
-  - It is already captured in an existing memory file or convention doc. Check
-    existing memories AND `AGENTS.md` / `CLAUDE.md` before proposing.
+  - It is already captured in an existing memory file or convention
+    doc. Check existing memories AND `AGENTS.md` / `CLAUDE.md` before
+    proposing.
 
-  A candidate survives if it would meaningfully change how a *fresh* agent
-  behaves on a *future* session.
+  A candidate survives if it would meaningfully change how a fresh agent
+  behaves on a future session.
 
-- **You MUST reference external systems, not duplicate them.**
+- You MUST reference external systems, not duplicate them.
 
-  If the lesson is about a Linear ticket, Slack thread, or external dashboard,
-  you MUST save a `reference` memory that points at it — you MUST NOT paste its
-  content. The external system is the source of truth.
+  If the lesson is about a Linear ticket, Slack thread, or external
+  dashboard, you MUST save a `reference` memory that points at it — you
+  MUST NOT paste its content. The external system is the source of
+  truth.
 
-- **Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.**
+- Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.
 
-  Things other contributors need to see MUST be committed to the repo. Memory
-  files are agent-private; committed convention files are team-visible. Pick
-  the right destination.
+  Things other contributors need to see MUST be committed to the repo.
+  Memory files are agent-private; committed convention files are
+  team-visible. Pick the right destination.
 
-- **You MUST redact aggressively.**
+- You MUST redact aggressively.
 
-  Memory persists. You MUST strip API keys, tokens, real names, internal-only
-  URLs, and anything else that would embarrass if leaked.
+  Memory persists. You MUST strip API keys, tokens, real names,
+  internal-only URLs, and anything else that would embarrass if leaked.
 
-- **You MUST distinguish rules from facts.**
+- You MUST distinguish rules from facts.
 
-  `feedback` (how to work) and `project` (what's true now) MUST carry the
-  **Why:** + **How to apply:** structure — their reason gives future agents room
-  for judgment on edge cases. `user` and `reference` types are statements of
-  fact and need no such scaffolding.
+  `feedback` (how to work) and `project` (what's true now) MUST carry
+  the Why: + How to apply: structure — their reason gives future agents
+  room for judgment on edge cases. `user` and `reference` types are
+  statements of fact and need no such scaffolding.
 
-- **You SHOULD update rather than duplicate.**
+- You SHOULD update rather than duplicate.
 
-  A new lesson close to an existing memory SHOULD usually edit the existing
-  entry, not create a sibling. Two entries saying nearly-the-same thing is
-  worse than one entry saying it accurately.
+  A new lesson close to an existing memory SHOULD usually edit the
+  existing entry, not create a sibling. Two entries saying
+  nearly-the-same thing is worse than one entry saying it accurately.
 
-- **If the session contained nothing worth saving, you MUST say so explicitly
-  and stop.**
+- If the session contained nothing worth saving, you MUST say so
+  explicitly and stop.
 
   Do not manufacture lessons to justify the invocation.
 
-- **If the user disagrees with a proposed lesson, you MUST drop it.**
+- If the user disagrees with a proposed lesson, you MUST drop it.
 
-  The user's view of their own preferences trumps your inference from the
-  conversation.
+  The user's view of their own preferences trumps your inference from
+  the conversation.
 
-- **If a lesson is genuinely universal, you MUST flag it as a candidate for a
-  new skill rather than save it as memory.**
+- If a lesson is genuinely universal, you MUST flag it as a candidate
+  for a new skill rather than save it as memory.
 
-  Lessons that apply regardless of user / project belong in a skill, not a
-  memory entry.
+  Lessons that apply regardless of user / project belong in a skill,
+  not a memory entry.
 
-- **If the agent's memory system has no obvious file path, you MUST fall back
-  to `AGENTS.md` for codebase conventions and skip the memory-file steps for
-  `user` / `feedback` / `project` / `reference` types.**
+- If the agent's memory system has no obvious file path, you MUST
+  fall back to `AGENTS.md` for codebase conventions and skip the
+  memory-file steps for `user` / `feedback` / `project` / `reference`
+  types.
 
   Flag the deferred candidates in the final report.
 
 ## Success criteria
 
-- **Every saved lesson MUST be non-obvious and MUST change future agent
-  behavior.**
+- Every saved lesson MUST be non-obvious and MUST change future agent
+  behavior.
 
-  A reader of the entry can identify what you would do *differently* because
-  of it.
+  A reader of the entry can identify what you would do differently
+  because of it.
 
-- **Each `feedback` and `project` entry MUST have both a Why: and a How to apply:
-  line.**
+- Each `feedback` and `project` entry MUST have both a Why: and a How
+  to apply: line.
 
-- **Every new memory file MUST be indexed in `MEMORY.md`.**
+- Every new memory file MUST be indexed in `MEMORY.md`.
 
   An unindexed memory file is invisible to future sessions.
 
-- **No saved lesson MUST duplicate an existing memory or convention doc entry.**
+- No saved lesson MUST duplicate an existing memory or convention doc
+  entry.
 
-- **No credentials, PII, or internal URLs MUST appear in any saved entry.**
+- No credentials, PII, or internal URLs MUST appear in any saved entry.
 
-- **Memory entries MUST follow the required format.**
+- Memory entries MUST follow the required format.
 
   ```markdown
   ---
@@ -275,6 +268,11 @@ task, you MUST stop and print an error message.
   **How to apply:** <When and where this guidance kicks in.>
   ```
 
-- **The final report MUST state how many candidates were proposed and how many
-  were saved (by type), the paths/filenames of new and updated entries, and any
-  skipped candidates worth revisiting in a future session.**
+- The final report MUST state how many candidates were proposed and how
+  many were saved (by type), the paths/filenames of new and updated
+  entries, and any skipped candidates worth revisiting in a future
+  session.
+
+## References
+
+None.

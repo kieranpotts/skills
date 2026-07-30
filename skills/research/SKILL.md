@@ -20,188 +20,178 @@ report.
 Discovery and synthesis only. You MUST NOT make any changes to any code or
 configuration, or to any documentation beyond the research report itself.
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
 - A knowledge gap to close — REQUIRED. A topic or question blocked on
-  knowledge the agent does not hold and cannot derive from the codebase — how a
-  library behaves, what a protocol mandates, how others solved a comparable
-  problem, what a regulation requires, whether an approach is still current.
+  knowledge the agent does not hold and cannot derive from the codebase —
+  how a library behaves, what a protocol mandates, how others solved a
+  comparable problem, what a regulation requires, whether an approach is
+  still current.
 
-**Output:** A single, cited research report — a direct answer to the framed
-question, the supporting evidence (each decision-bearing claim sourced and,
-where time-sensitive, dated), the open questions, and a suggested destination
-for the findings. This skill produces the report and stops; writing the findings
+## Output
+
+A single, cited research report — a direct answer to the framed question,
+the supporting evidence (each decision-bearing claim sourced and, where
+time-sensitive, dated), the open questions, and a suggested destination for
+the findings. This skill produces the report and stops; writing the findings
 into a design doc, an ADR, persisted memory, or anywhere else is a separate,
 explicit step the caller initiates.
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Frame the question.**
+1.  Frame the question.
 
     Restate the topic as one or more specific, answerable questions. A
-    good frame is falsifiable and scoped: *"Does library X support streaming
-    responses, and from which version?"* beats *"research library X"*. Note
+    good frame is falsifiable and scoped: "Does library X support streaming
+    responses, and from which version?" beats "research library X". Note
     explicitly what decision the answer unblocks — that decision sets the
     depth and stopping point.
 
     If the request is too broad to answer in one pass, narrow it to the
     questions that actually block progress and list the rest as deferred.
 
-2.  **Check what is already known first.**
+2.  Check what is already known first.
 
     Before reaching outward, check inward sources that may already hold
-    the answer: the codebase, `docs/`, existing ADRs, committed convention files
-    (`AGENTS.md` / `CLAUDE.md`), and agent memory. Note what you found
-    and what gap remains, as required by the Rules.
+    the answer: the codebase, `docs/`, existing ADRs, committed convention
+    files (`AGENTS.md` / `CLAUDE.md`), and agent memory. Note what you
+    found and what gap remains, as required by the Rules.
 
     If the question is fully answerable from inward sources, skip the
     external search and report the finding with its in-repo source.
 
-3.  **Gather external sources.**
+3.  Gather external sources.
 
     Use web search and fetch (`WebSearch` / `WebFetch` or the host's
     equivalent) to collect authoritative sources for the remaining gap,
     following the source-preference and citation Rules.
 
-4.  **Corroborate and date every claim.**
+4.  Corroborate and date every claim.
 
-    Apply the corroboration and dating Rules to each claim that matters
-    to the decision.
+    Apply the corroboration and dating Rules to each claim that matters to
+    the decision.
 
-5.  **Synthesize into a structured report.**
+5.  Synthesize into a structured report.
 
-    Write the report using the structure defined in the Success
-    criteria. Lead with a direct answer to the framed question, then the
-    supporting evidence, then the open questions. The reader should get the
-    actionable conclusion in the first few lines and be able to drill into the
-    evidence only if they need to.
+    Write the report using the structure defined in the Success criteria.
+    Lead with a direct answer to the framed question, then the supporting
+    evidence, then the open questions. The reader should get the actionable
+    conclusion in the first few lines and be able to drill into the evidence
+    only if they need to.
 
-6.  **Separate fact from inference.**
+6.  Separate fact from inference.
 
     Mark clearly which statements are sourced fact and which are your
     synthesis or recommendation. Do not present an inference as if a source
     asserted it. If the evidence is thin, say the confidence is low — an
-    honest "the sources don't settle this" is more useful than false certainty.
+    honest "the sources don't settle this" is more useful than false
+    certainty.
 
-7.  **State where the report should go — but do not put it there.**
+7.  State where the report should go — but do not put it there.
 
-    End by naming the natural destination(s) for the findings (an input
-    to a design decision, an ADR, a persisted memory entry, or simply the user's
-    review) and stop. Writing into those destinations is a separate, explicit
-    step the caller initiates.
+    End by naming the natural destination(s) for the findings (an input to
+    a design decision, an ADR, a persisted memory entry, or simply the
+    user's review) and stop. Writing into those destinations is a separate,
+    explicit step the caller initiates.
 
 ## Rules
 
-- **You MUST cite everything that matters.**
+- You MUST cite everything that matters.
 
-  Every claim the decision rests on MUST carry a source URL and an access date.
-  An uncited claim in a research report is just an opinion.
+  Every claim the decision rests on MUST carry a source URL and an access
+  date. An uncited claim in a research report is just an opinion.
 
-- **You SHOULD prefer primary sources over secondary, and recent over old.**
+- You SHOULD prefer primary sources over secondary, and recent over old.
 
-  Prefer the spec over the blog post about the spec. Prefer the current docs
-  over a three-year-old tutorial. When you must rely on something older, you
-  MUST flag its age.
+  Prefer the spec over the blog post about the spec. Prefer the current
+  docs over a three-year-old tutorial. When you must rely on something
+  older, you MUST flag its age.
 
-- **You MUST treat forums, blogs, and AI-generated content as leads to verify
-  against a primary source, not as conclusions.**
+- You MUST treat forums, blogs, and AI-generated content as leads to
+  verify against a primary source, not as conclusions.
 
-- **You MUST date version- and time-sensitive facts.**
+- You MUST date version- and time-sensitive facts.
 
   "As of version 4.2" or "as of 2026-06" attached to a claim is REQUIRED
-  whenever the fact can change. The world moves; the report should say when it
-  was photographed.
+  whenever the fact can change. The world moves; the report should say
+  when it was photographed.
 
-- **You MUST distinguish fact from inference.**
+- You MUST distinguish fact from inference.
 
-  Sourced facts and your own synthesis are different categories and MUST read
-  as different categories. Recommendations MUST be clearly labeled as yours,
-  not the sources'.
+  Sourced facts and your own synthesis are different categories and MUST
+  read as different categories. Recommendations MUST be clearly labeled
+  as yours, not the sources'.
 
-- **You MUST surface disagreement, not launder it.**
+- You MUST surface disagreement, not launder it.
 
-  When sources conflict, present the conflict and your read of which is more
-  credible and why. You MUST NOT silently collapse it into a single confident
-  answer.
+  When sources conflict, present the conflict and your read of which is
+  more credible and why. You MUST NOT silently collapse it into a single
+  confident answer.
 
-- **Discovery only: you MUST NOT make production changes.**
+- Discovery only: you MUST NOT make production changes.
 
-  This skill MUST NOT edit code, project docs, or shipped skills. It produces a
-  report. Acting on the report is a separate, explicit step.
+  This skill MUST NOT edit code, project docs, or shipped skills. It
+  produces a report. Acting on the report is a separate, explicit step.
 
-- **You MUST stop when the framed question is answered.**
+- You MUST stop when the framed question is answered.
 
-  Research expands to fill the time available. When the questions from step 1
-  are answered to the confidence the decision needs, you MUST stop — you MUST
-  NOT keep reading for completeness.
+  Research expands to fill the time available. When the questions from
+  step 1 are answered to the confidence the decision needs, you MUST stop
+  — you MUST NOT keep reading for completeness.
 
-- **You MUST NOT fabricate URLs or pretend to have browsed when web access is
-  unavailable.**
+- You MUST NOT fabricate URLs or pretend to have browsed when web access
+  is unavailable.
 
-- **You MUST NOT perform an unnecessary external search if the codebase or
-  existing project docs already answer the question.**
+- You MUST NOT perform an unnecessary external search if the codebase or
+  existing project docs already answer the question.
 
-- **If web access is unavailable, you MUST answer as far as the inward sources
-  and the model's own knowledge allow, mark that portion's confidence as
-  reduced, and you MUST NOT fabricate URLs or pretend to have browsed.**
+- If web access is unavailable, you MUST answer as far as the inward
+  sources and the model's own knowledge allow, mark that portion's
+  confidence as reduced, and you MUST NOT fabricate URLs or pretend to
+  have browsed.
 
-- **If sources are paywalled or unreachable, you MUST note that they exist but
-  could not be verified, and find an open alternative where one exists.**
+- If sources are paywalled or unreachable, you MUST note that they exist
+  but could not be verified, and find an open alternative where one
+  exists.
 
 ## Success criteria
 
-- **The framed question MUST be answered, or its unanswerability explained.**
+- The framed question MUST be answered, or its unanswerability
+  explained.
 
-  The report opens with a direct answer, or with a clear statement of why no
-  answer was reachable and what would be needed.
+  The report opens with a direct answer, or with a clear statement of
+  why no answer was reachable and what would be needed.
 
-- **Every decision-bearing claim MUST be cited; time-sensitive claims MUST be
-  dated.**
+- Every decision-bearing claim MUST be cited; time-sensitive claims
+  MUST be dated.
 
-  A reader can follow each material claim to a source and judge whether it is
-  still current.
+  A reader can follow each material claim to a source and judge whether
+  it is still current.
 
-- **Fact and inference MUST be visibly separated.**
+- Fact and inference MUST be visibly separated.
 
   Nothing you inferred is presented as something a source asserted.
 
-- **The report MUST be actionable from its first few lines.**
+- The report MUST be actionable from its first few lines.
 
-  The conclusion leads; the evidence supports. The reader is not made to
-  assemble the answer themselves.
+  The conclusion leads; the evidence supports. The reader is not made
+  to assemble the answer themselves.
 
-- **The research report MUST be the only artifact produced.**
+- The research report MUST be the only artifact produced.
 
-  Code, project docs, and shipped skills are untouched. The output is a report
-  plus a suggested destination.
+  Code, project docs, and shipped skills are untouched. The output is a
+  report plus a suggested destination.
 
-- **The report MUST follow this structure:**
+- The report MUST follow this structure:
 
   ```md
   # Research: <topic>
@@ -234,4 +224,8 @@ task, you MUST stop and print an error message.
   - [Title](url) - accessed <date> - <one-line note on what it covers>
   ```
 
-- **Deferred questions, if any, MUST be listed.**
+- Deferred questions, if any, MUST be listed.
+
+## References
+
+None.

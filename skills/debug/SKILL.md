@@ -14,28 +14,12 @@ metadata:
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
-
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
 
 - A bug or performance regression whose cause is not obvious — REQUIRED.
   A reported bug or performance regression whose cause is not obvious from
@@ -43,119 +27,121 @@ user with an error message.
   user already has. For performance work, a numerical baseline and threshold
   stand in for the symptom.
 
-**Output:** A verified fix landed with a regression test that locks the bug out,
-the diagnostic instrumentation removed, and the correct cause recorded in the
-commit or PR message for the next reader. If no reliable feedback loop can be
-built, the skill stops and says so — listing what it tried and what it needs —
-rather than guessing.
+## Output
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+A verified fix landed with a regression test that locks the bug out, the
+diagnostic instrumentation removed, and the correct cause recorded in the
+commit or PR message for the next reader. If no reliable feedback loop can be
+built, the skill stops and says so — listing what it tried and what it needs
+— rather than guessing.
+
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Build a feedback loop.**
+1.  Build a feedback loop.
 
     Try construction methods in roughly this order:
 
-    1. *Failing test* at whatever seam reaches the bug — unit, integration, e2e.
+    1. Failing test at whatever seam reaches the bug — unit, integration, e2e.
 
-    2. *Curl / HTTP script* against a running dev server.
+    2. Curl / HTTP script against a running dev server.
 
-    3. *CLI invocation* with a fixture input, diffing stdout against a
+    3. CLI invocation with a fixture input, diffing stdout against a
        known-good snapshot.
 
-    4. *Headless browser script* (Playwright / Puppeteer) — drives the UI,
+    4. Headless browser script (Playwright / Puppeteer) — drives the UI,
        asserts on DOM/console/network.
 
-    5. *Replay a captured trace*. Save a real network request / payload / event
+    5. Replay a captured trace. Save a real network request / payload / event
        log to disk; replay it through the code path in isolation.
 
-    6. *Throwaway harness*. Spin up a minimal subset of the system (one service,
-       mocked deps) that exercises the bug code path with a single function
-       call.
+    6. Throwaway harness. Spin up a minimal subset of the system (one
+       service, mocked deps) that exercises the bug code path with a single
+       function call.
 
-    7. *Property / fuzz loop*. If the bug is "sometimes wrong output", run 1000
-       random inputs and look for the failure mode.
+    7. Property / fuzz loop. If the bug is "sometimes wrong output", run
+       1000 random inputs and look for the failure mode.
 
-    8. *Bisection harness*. If the bug appeared between two known states
-       (commit, dataset, version), automate "boot at state X, check, repeat" so
-       you can `git bisect run` it.
+    8. Bisection harness. If the bug appeared between two known states
+       (commit, dataset, version), automate "boot at state X, check,
+       repeat" so you can `git bisect run` it.
 
-    9. *Differential loop*. Run the same input through old-version vs
+    9. Differential loop. Run the same input through old-version vs
        new-version (or two configs) and diff outputs.
 
-    10. *Human-in-the-loop bash script*. Last resort. If a human must click,
-        drive *them* with a structured script so the loop is still automated.
+    10. Human-in-the-loop bash script. Last resort. If a human must click,
+        drive them with a structured script so the loop is still automated.
         Captured output feeds back to you.
 
     Then iterate on the loop itself:
 
-    - Can it be faster? (Cache setup, skip unrelated init, narrow test scope.)
+    - Can it be faster? (Cache setup, skip unrelated init, narrow test
+      scope.)
 
-    - Can the signal be sharper? (Assert on the specific symptom, not "didn't
-      crash".)
+    - Can the signal be sharper? (Assert on the specific symptom, not
+      "didn't crash".)
 
-    - Can it be more deterministic? (Pin time, seed RNG, isolate filesystem,
-      freeze network.)
+    - Can it be more deterministic? (Pin time, seed RNG, isolate
+      filesystem, freeze network.)
 
-2.  **Reproduce.**
+2.  Reproduce.
 
     Run the loop, watch the bug appear, and confirm:
 
-    - [ ] The loop produces the failure mode the *user* described — not a
+    - [ ] The loop produces the failure mode the user described — not a
       different failure that happens to be nearby.
 
     - [ ] The failure is reproducible across multiple runs (or, for
       non-deterministic bugs, at a high enough rate to debug against).
 
-    - [ ] You have captured the exact symptom (error message, wrong output, slow
-      timing) so later phases can verify the fix actually addresses it.
+    - [ ] You have captured the exact symptom (error message, wrong
+      output, slow timing) so later phases can verify the fix actually
+      addresses it.
 
-3.  **Hypothesize.**
+3.  Hypothesize.
 
-    Generate ranked hypotheses before testing any of them. Each
-    hypothesis needs to be falsifiable. State the prediction it makes:
+    Generate ranked hypotheses before testing any of them. Each hypothesis
+    needs to be falsifiable. State the prediction it makes:
 
     > "If <X> is the cause, then <changing Y> will make the bug disappear /
     <changing Z> will make it worse."
 
-    If you cannot state the prediction, discard or sharpen the
-    hypothesis.
+    If you cannot state the prediction, discard or sharpen the hypothesis.
 
-    Optionally show the ranked list to the user as a checkpoint, but do not block
-    on a response — proceed with your ranking if the user is AFK.
+    Optionally show the ranked list to the user as a checkpoint, but do not
+    block on a response — proceed with your ranking if the user is AFK.
 
-4.  **Instrument.**
+4.  Instrument.
 
     Map each probe to a specific prediction from step 3. Change one
     variable at a time.
 
     Tool preference:
 
-    1. *Debugger / REPL inspection* if the environment supports it. One
+    1. Debugger / REPL inspection if the environment supports it. One
        breakpoint beats ten logs.
 
-    2. *Targeted logs* at the boundaries that distinguish hypotheses.
+    2. Targeted logs at the boundaries that distinguish hypotheses.
 
     3. Never "log everything and grep".
 
-    Tag every debug log with a unique prefix, eg. `[DEBUG-a4f2]`.
-    Cleanup at the end becomes a single grep.
+    Tag every debug log with a unique prefix, eg. `[DEBUG-a4f2]`. Cleanup at
+    the end becomes a single grep.
 
-    For performance regressions, establish a baseline measurement
-    (timing harness, `performance.now()`, profiler, query plan), then bisect.
+    For performance regressions, establish a baseline measurement (timing
+    harness, `performance.now()`, profiler, query plan), then bisect.
     Measure first, fix second.
 
-5.  **Fix and regression-test.**
+5.  Fix and regression-test.
 
-    Write the regression test *before* the fix — but only if there is a
+    Write the regression test before the fix — but only if there is a
     correct seam for it.
 
-    A correct seam is one where the test exercises the *real bug pattern* as it
-    occurs at the call site. If the only available seam is too shallow, a
+    A correct seam is one where the test exercises the real bug pattern as
+    it occurs at the call site. If the only available seam is too shallow, a
     regression test there gives false confidence.
 
     If no correct seam exists, that itself is the finding. Note it — the
@@ -175,7 +161,7 @@ task, you MUST stop and print an error message.
     5. Re-run the step-1 feedback loop against the original (un-minimized)
        scenario.
 
-6.  **Clean up and post-mortem.**
+6.  Clean up and post-mortem.
 
     Before declaring done:
 
@@ -186,136 +172,145 @@ task, you MUST stop and print an error message.
     - [ ] All `[DEBUG-...]` instrumentation removed (grep the prefix to
       confirm).
 
-    - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug
-      location).
+    - [ ] Throwaway prototypes deleted (or moved to a clearly-marked
+      debug location).
 
-    - [ ] The hypothesis that turned out correct is stated in the commit / PR
-      message — so the next debugger learns.
+    - [ ] The hypothesis that turned out correct is stated in the commit /
+      PR message — so the next debugger learns.
 
-    Then ask: what would have prevented this bug? If the answer
-    involves architectural change (no good test seam, tangled callers, hidden
-    coupling), make a recommendation — *after* the fix is in, not
-    before.
+    Then ask: what would have prevented this bug? If the answer involves
+    architectural change (no good test seam, tangled callers, hidden
+    coupling), make a recommendation — after the fix is in, not before.
 
 ## Rules
 
-- **The feedback loop is the skill.**
+- The feedback loop is the skill.
 
   Build the right loop and the bug is 90% fixed. Without one, you are
-  guessing. You MUST treat loop construction as the primary task, not a setup
-  step. You MUST NOT proceed past step 1 until you have a loop you believe in.
+  guessing. You MUST treat loop construction as the primary task, not a
+  setup step. You MUST NOT proceed past step 1 until you have a loop you
+  believe in.
 
-- **For non-deterministic bugs, you MUST raise the reproduction rate.**
+- For non-deterministic bugs, you MUST raise the reproduction rate.
 
-  The goal is not a clean repro but a *higher* reproduction rate. Loop the
-  trigger 100×, parallelize, add stress, narrow timing windows, inject sleeps.
-  A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it is.
+  The goal is not a clean repro but a higher reproduction rate. Loop the
+  trigger 100×, parallelize, add stress, narrow timing windows, inject
+  sleeps. A 50%-flake bug is debuggable; 1% is not — keep raising the rate
+  until it is.
 
-- **If you genuinely cannot build a loop, you MUST stop and say so explicitly.**
+- If you genuinely cannot build a loop, you MUST stop and say so
+  explicitly.
 
   List what you tried. Ask the user for one of:
 
   - Access to an environment that reproduces it.
 
-  - A captured artifact (HAR file, log dump, core dump, screen recording with
-    timestamps).
+  - A captured artifact (HAR file, log dump, core dump, screen recording
+    with timestamps).
 
   - Permission to add temporary production instrumentation.
 
   You MUST NOT proceed to hypothesize without a loop.
 
-- **You MUST NOT proceed to hypothesis until you have reproduced the bug.**
+- You MUST NOT proceed to hypothesis until you have reproduced the bug.
 
   A hypothesis tested against a non-reproducing symptom is a guess.
 
-- **You MUST generate hypotheses in a ranked set before testing any of them.**
+- You MUST generate hypotheses in a ranked set before testing any of them.
 
-  Single-hypothesis generation anchors on the first plausible idea. Produce
-  alternatives so the leading candidate is chosen by comparison, not by default.
+  Single-hypothesis generation anchors on the first plausible idea.
+  Produce alternatives so the leading candidate is chosen by comparison,
+  not by default.
 
-- **You MUST change one variable at a time when instrumenting.**
+- You MUST change one variable at a time when instrumenting.
 
-  Changing two things at once turns a successful test into ambiguous evidence.
+  Changing two things at once turns a successful test into ambiguous
+  evidence.
 
-- **Each instrumenting probe MUST map to a specific hypothesis prediction.**
+- Each instrumenting probe MUST map to a specific hypothesis prediction.
 
   A probe that does not test a prediction is noise.
 
-- **You MUST tag all debug instrumentation with a unique prefix.**
+- You MUST tag all debug instrumentation with a unique prefix.
 
-  eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds every
-  probe to remove.
+  eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds
+  every probe to remove.
 
-- **For performance work, you MUST measure before you change.**
+- For performance work, you MUST measure before you change.
 
   Establish a baseline with a profiler, timing harness, query plan, or
-  `performance.now()`. Then bisect. Logs are the wrong tool for performance.
+  `performance.now()`. Then bisect. Logs are the wrong tool for
+  performance.
 
-- **You MUST state the correct hypothesis in the commit or PR message.**
+- You MUST state the correct hypothesis in the commit or PR message.
 
   The next person debugging this area benefits from knowing what the real
   cause was — not just what the fix is.
 
 ## Edge cases
 
-- **Performance regression, not a functional bug.**
+- Performance regression, not a functional bug.
 
-  Skip "watch it crash" — the bug is a measurement. Replace step 2's symptom
-  capture with a numerical baseline + threshold, and the step-1 loop becomes a
-  benchmark, not a test.
+  Skip "watch it crash" — the bug is a measurement. Replace step 2's
+  symptom capture with a numerical baseline + threshold, and the step-1
+  loop becomes a benchmark, not a test.
 
-- **Heisenbug that disappears under instrumentation.**
+- Heisenbug that disappears under instrumentation.
 
-  The probe itself is changing timing. Switch to a sampling profiler, post-hoc
-  log analysis, or hardware-level tracing rather than synchronous logging.
+  The probe itself is changing timing. Switch to a sampling profiler,
+  post-hoc log analysis, or hardware-level tracing rather than
+  synchronous logging.
 
-- **Bug only reproduces in production.**
+- Bug only reproduces in production.
 
-  Do not skip the loop. Capture a production artifact (HAR, request log, db
-  snapshot) and replay it locally. If that is impossible, get explicit
-  permission before adding production instrumentation, and tag it the same way
-  (`[DEBUG-...]`) for guaranteed cleanup.
+  Do not skip the loop. Capture a production artifact (HAR, request log,
+  db snapshot) and replay it locally. If that is impossible, get explicit
+  permission before adding production instrumentation, and tag it the same
+  way (`[DEBUG-...]`) for guaranteed cleanup.
 
-- **The user's reported symptom is not the real bug.**
+- The user's reported symptom is not the real bug.
 
-  In step 2, if the loop fails to reproduce the *user's* described symptom but
-  reproduces something nearby, stop and check in with the user before chasing
-  the wrong bug.
+  In step 2, if the loop fails to reproduce the user's described symptom
+  but reproduces something nearby, stop and check in with the user before
+  chasing the wrong bug.
 
 ## Success criteria
 
-- **A feedback loop MUST exist and MUST be recorded.**
+- A feedback loop MUST exist and MUST be recorded.
 
-  The exact command, script, or test that reproduces the bug MUST be committed
-  or pasted into the PR/commit message. A future debugger can re-run it.
+  The exact command, script, or test that reproduces the bug MUST be
+  committed or pasted into the PR/commit message. A future debugger can
+  re-run it.
 
-- **The original repro MUST no longer reproduce.**
+- The original repro MUST no longer reproduce.
 
   Re-running the loop after the fix MUST show the bug is gone.
 
-- **A regression test MUST exist, or its absence MUST be documented.**
+- A regression test MUST exist, or its absence MUST be documented.
 
-  The test MUST pass after the fix and fail when the fix is reverted. If no
-  correct seam was available, that finding MUST be recorded.
+  The test MUST pass after the fix and fail when the fix is reverted. If
+  no correct seam was available, that finding MUST be recorded.
 
-- **All tagged instrumentation MUST have been removed.**
+- All tagged instrumentation MUST have been removed.
 
-  `grep` for the debug prefix MUST return zero hits in the committed code.
+  `grep` for the debug prefix MUST return zero hits in the committed
+  code.
 
-- **The correct hypothesis MUST be stated in the commit or PR message.**
+- The correct hypothesis MUST be stated in the commit or PR message.
 
-  Future readers learn what the real cause was, not just what the fix changed.
+  Future readers learn what the real cause was, not just what the fix
+  changed.
 
-- **The hypothesis set MUST be ranked and falsifiable.**
+- The hypothesis set MUST be ranked and falsifiable.
 
-  The output MUST include 3-5 ranked hypotheses, each with a stated prediction
-  that could disprove it.
+  The output MUST include 3-5 ranked hypotheses, each with a stated
+  prediction that could disprove it.
 
 ## Examples
 
-- **Hypothesis format:**
+- Hypothesis format:
 
-  ```
+  ```sh
   1. Likely (~50%): The cache key omits the tenant ID, so tenant A's
     response is returned for tenant B. If true, hard-coding tenant ID
     into the key in `cache.ts:42` will fix the symptom.
@@ -333,10 +328,15 @@ task, you MUST stop and print an error message.
     reproduce the bug (it should NOT, if this is the cause).
   ```
 
-- **Tagged debug log:**
+- Tagged debug log:
 
   ```ts
   console.log(`[DEBUG-a4f2] cache key for tenant=${tenantId}: ${key}`)
   ```
 
-Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before commit.
+  Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before
+  commit.
+
+## References
+
+None.

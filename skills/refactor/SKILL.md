@@ -15,106 +15,92 @@ metadata:
 # Refactor
 
 Improve the internal quality of existing code without changing its observable
-behavior. Tests MUST be untouched, and they MUST pass both before and after your
-changes.
+behavior. Tests MUST be untouched, and they MUST pass both before and after
+your changes.
 
-Implement your refactors in small steps, each step being small and reversible.
+Implement your refactors in small steps, each step being small and
+reversible.
 
-Refactoring is distinct from bug fixes and feature work — do not confuse them.
-If in doubt, stop and return an error message.
+Refactoring is distinct from bug fixes and feature work — do not confuse
+them. If in doubt, stop and return an error message.
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
 
-<!--
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If the
-  target codebase cannot be found, stop and alert the user.
-
-- Where to write the report — REQUIRED.
-  If not specified by the user, check the nearest `AGENTS.md` file for the path
-  or URL to the audit reports. If not found, check if the current working
-  directory has an `audits/` subdirectory that contains audit reports. If the
-  path to the audit reports cannot be found, stop and alert the user.
--->
-
 - Existing, tested code — REQUIRED.
-  The code to restructure, plus a passing safety net to preserve. This skill
-  does not invent the goal from scratch; it consumes a passing safety net to
-  preserve.
+  The code to restructure, plus a passing safety net to preserve. This
+  skill does not invent the goal from scratch; it consumes a passing safety
+  net to preserve.
 
 - A named target quality — REQUIRED.
   The single design quality (readability, structure, coupling, naming,
   decomposition) being improved. This skill consumes a quality to improve
   rather than inventing one.
 
-**Output:** A series of small `refactor:` commits that improve the named quality
-while leaving externally observable behavior identical — tests green before and
-after every move, each commit independently revertible, the diff free of feature
-or bug-fix work. Whatever reviews, integrates, or sequences the next task is the
-orchestrator's concern, not this skill's.
+## Output
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+A series of small `refactor:` commits that improve the named quality while
+leaving externally observable behavior identical — tests green before and
+after every move, each commit independently revertible, the diff free of
+feature or bug-fix work. Whatever reviews, integrates, or sequences the next
+task is the orchestrator's concern, not this skill's.
+
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Name the quality you are improving.**
+1.  Name the quality you are improving.
 
     Refactoring without a named target produces aimless churn. Pick from
     the design qualities and state it:
 
-    - "Improve *cohesiveness*: this module mixes order parsing with email
+    - "Improve cohesiveness: this module mixes order parsing with email
       rendering — split them."
 
-    - "Improve *simplicity*: this 4-level inheritance hierarchy can collapse
+    - "Improve simplicity: this 4-level inheritance hierarchy can collapse
       into a single function."
 
-    - "Improve *changeability*: the price calculation is duplicated across three
-      call sites — extract one helper."
+    - "Improve changeability: the price calculation is duplicated across
+      three call sites — extract one helper."
 
-    - "Improve *habitability*: the variable names obscure what the function
+    - "Improve habitability: the variable names obscure what the function
       does."
 
-    If you cannot name the target quality, you are not refactoring — you are
-    rearranging.
+    If you cannot name the target quality, you are not refactoring — you
+    are rearranging.
 
-2.  **Verify a safety net exists.**
+2.  Verify a safety net exists.
 
-    A refactor is only safe if a fast, trustworthy test suite confirms behavior
-    preservation. Before changing anything:
+    A refactor is only safe if a fast, trustworthy test suite confirms
+    behavior preservation. Before changing anything:
 
     - Identify the tests that cover the code being touched.
 
     - Run them and confirm they pass.
 
-    - If coverage is thin, add *characterization tests* first — tests
-      that pin down the current behavior, whatever it is. This is a separate prior
-      step (commit as `step:` or `maintenance:`).
+    - If coverage is thin, add characterization tests first — tests
+      that pin down the current behavior, whatever it is. This is a
+      separate prior step (commit as `step:` or `maintenance:`).
 
-3.  **Plan the refactor in small reversible moves.**
+3.  Plan the refactor in small reversible moves.
 
-    A good refactor is a sequence of *minute* changes, each of which:
+    A good refactor is a sequence of minute changes, each of which:
 
     - Compiles.
     - Passes tests.
     - Could be reverted on its own.
 
-    Typical move sizes: rename one symbol, extract one function, inline one
-    variable, move one method, replace one conditional with a polymorphic
-    dispatch. Not "restructure the auth subsystem".
+    Typical move sizes: rename one symbol, extract one function, inline
+    one variable, move one method, replace one conditional with a
+    polymorphic dispatch. Not "restructure the auth subsystem".
 
-4.  **Execute one move at a time.**
+4.  Execute one move at a time.
 
     For each move:
 
@@ -124,163 +110,177 @@ task, you MUST stop and print an error message.
     4. Commit as `refactor:` using the project's commit format.
     5. Move to the next.
 
-5.  **Watch for behavior changes.**
+5.  Watch for behavior changes.
 
-    Several signals indicate the refactor has crossed into "behavior change":
+    Several signals indicate the refactor has crossed into "behavior
+    change":
 
-    - A test that passed before now fails (and the test itself was correct).
+    - A test that passed before now fails (and the test itself was
+      correct).
 
     - You feel the urge to "fix this bug while I'm here".
 
-    - You feel the urge to "add this small feature while I'm restructuring".
+    - You feel the urge to "add this small feature while I'm
+      restructuring".
 
     Stop and revert to the last green state. The behavior change is a
-    separate task (a bug fix or a feature step), with its own commit and its own
-    review.
+    separate task (a bug fix or a feature step), with its own commit and
+    its own review.
 
-6.  **Re-evaluate against the named quality.**
+6.  Re-evaluate against the named quality.
 
-    After the moves, re-read the code with the original target quality
-    in mind. Did the change actually improve it? Quality improvements should be
-    observable:
+    After the moves, re-read the code with the original target quality in
+    mind. Did the change actually improve it? Quality improvements should
+    be observable:
 
     - Cohesion: a module now has one responsibility instead of three.
-    - Simplicity: line count dropped, branching dropped, indirections dropped.
+    - Simplicity: line count dropped, branching dropped, indirections
+      dropped.
     - Coupling: imports between modules dropped.
-    - Habitability: a reader can answer "what does this do" without scrolling.
+    - Habitability: a reader can answer "what does this do" without
+      scrolling.
 
     If you can't point at the improvement, the refactor was speculative —
     consider reverting.
 
-7.  **Commit and integrate.**
+7.  Commit and integrate.
 
     Each move is a `refactor:` commit. A series of related moves forms the
-    branch. Integrate via the project's branching conventions —
-    typically a short-lived `temp/*` branch fast-forwarded into `dev`.
+    branch. Integrate via the project's branching conventions — typically
+    a short-lived `temp/*` branch fast-forwarded into `dev`.
 
 ## Rules
 
-- **A refactor MUST preserve externally observable behavior.**
+- A refactor MUST preserve externally observable behavior.
 
-  A refactor that changes externally observable behavior is mislabeled. The
-  contract with reviewers and operators is that tests MUST pass before and
-  after, and runtime behavior MUST be identical. If you cannot promise that, it
-  is not a refactor.
+  A refactor that changes externally observable behavior is mislabeled.
+  The contract with reviewers and operators is that tests MUST pass
+  before and after, and runtime behavior MUST be identical. If you cannot
+  promise that, it is not a refactor.
 
-- **You MUST work in small, reversible moves.**
+- You MUST work in small, reversible moves.
 
-  Big-bang restructuring is a recipe for unreviewable diffs and unrevertable
-  mistakes. Refactor in moves a reviewer can hold in their head.
+  Big-bang restructuring is a recipe for unreviewable diffs and
+  unrevertable mistakes. Refactor in moves a reviewer can hold in their
+  head.
 
-- **You MUST NOT batch multiple moves into a single `refactor:` commit.**
+- You MUST NOT batch multiple moves into a single `refactor:` commit.
 
-  Granularity is what makes refactors safe to roll back and easy to review.
+  Granularity is what makes refactors safe to roll back and easy to
+  review.
 
-- **You MUST NOT bundle a refactor with a feature or a bug fix.**
+- You MUST NOT bundle a refactor with a feature or a bug fix.
 
-  Mixed commits make it impossible to tell what changed behavior and what
-  didn't. Refactor first as `refactor:` commits; then change behavior as
-  `feature:`, `fix:`, or `step:` commits.
+  Mixed commits make it impossible to tell what changed behavior and
+  what didn't. Refactor first as `refactor:` commits; then change
+  behavior as `feature:`, `fix:`, or `step:` commits.
 
-- **If coverage is thin or absent, you MUST add characterization tests as a
-  prior `maintenance:` or `step:` commit, or defer the refactor.**
+- If coverage is thin or absent, you MUST add characterization tests as a
+  prior `maintenance:` or `step:` commit, or defer the refactor.
 
-  No tests = no safety net = no refactor. Do not press on without coverage.
+  No tests = no safety net = no refactor. Do not press on without
+  coverage.
 
-- **You MUST NOT refactor code that has no tests and where you cannot quickly
-  add some.**
+- You MUST NOT refactor code that has no tests and where you cannot
+  quickly add some.
 
   Without a safety net, you are guessing.
 
-- **You MUST NOT continue if a behavior change is detected mid-refactor.**
+- You MUST NOT continue if a behavior change is detected mid-refactor.
 
-  Revert to the last green state and treat the behavior change as a separate
-  bug-fix or feature task.
+  Revert to the last green state and treat the behavior change as a
+  separate bug-fix or feature task.
 
-- **You MUST stop before adding speculative flexibility.**
+- You MUST stop before adding speculative flexibility.
 
-  A refactor that introduces an abstraction for a future need is usually a
-  guess. You SHOULD wait for the second or third use case before extracting;
-  one occurrence is just code.
+  A refactor that introduces an abstraction for a future need is usually
+  a guess. You SHOULD wait for the second or third use case before
+  extracting; one occurrence is just code.
 
-- **You MUST apply the deletion test.**
+- You MUST apply the deletion test.
 
   When considering removing or inlining a module, imagine deleting it
-  entirely. If complexity *vanishes* — the module was a pass-through doing
-  nothing the callers couldn't trivially do inline — delete it. If complexity
-  *reappears spread across the callers*, the module was earning its keep
-  through locality; either keep it as-is, or *deepen* it (move more behavior
-  behind the interface) rather than remove it.
+  entirely. If complexity vanishes — the module was a pass-through doing
+  nothing the callers couldn't trivially do inline — delete it. If
+  complexity reappears spread across the callers, the module was earning
+  its keep through locality; either keep it as-is, or deepen it (move
+  more behavior behind the interface) rather than remove it.
 
-  The test works in reverse too: when tempted to *extract* a new module, ask
-  whether deleting it from the imagined design would re-spread complexity
-  across callers. If the answer is no, the extraction is premature.
+  The test works in reverse too: when tempted to extract a new module,
+  ask whether deleting it from the imagined design would re-spread
+  complexity across callers. If the answer is no, the extraction is
+  premature.
 
-  This rule pairs with the design principle "prefer deep modules to shallow
-  ones": that principle is the *target*, this one is the *diagnostic*.
+  This rule pairs with the design principle "prefer deep modules to
+  shallow ones": that principle is the target, this one is the
+  diagnostic.
 
-- **You MUST improve one quality at a time.**
+- You MUST improve one quality at a time.
 
   Trying to improve cohesion, simplicity, and naming in the same commit
-  produces a diff nobody can review. Pick one. The others can be follow-ups.
+  produces a diff nobody can review. Pick one. The others can be
+  follow-ups.
 
-- **The diff SHOULD be smaller than expected.**
+- The diff SHOULD be smaller than expected.
 
-  A refactor that *grows* the codebase substantially is usually disguised
+  A refactor that grows the codebase substantially is usually disguised
   feature work or premature abstraction. Be suspicious of large positive
   diffs.
 
-- **If the refactor reveals a bug, you MUST stop the refactor.**
+- If the refactor reveals a bug, you MUST stop the refactor.
 
-  Commit any green moves already made, then switch to fixing the bug as its own
-  task. Resume the refactor afterward.
+  Commit any green moves already made, then switch to fixing the bug as
+  its own task. Resume the refactor afterward.
 
-- **If a move redraws module boundaries, changes a public interface, or alters
-  the data model, it MUST be treated as a design change, not a refactor.**
+- If a move redraws module boundaries, changes a public interface, or
+  alters the data model, it MUST be treated as a design change, not a
+  refactor.
 
   It MUST be sent back through design first.
 
-- **A pre-emptive refactor to make the next feature easier MUST only be done
-  when the next feature is concretely planned.**
+- A pre-emptive refactor to make the next feature easier MUST only be
+  done when the next feature is concretely planned.
 
   Refactoring for hypothetical future work SHOULD NOT be done — it is
   speculative and often wrong.
 
-- **If the target area is large legacy with many problems, you MUST pick one
-  named quality per refactor session and plan a sequence of refactors over time.**
+- If the target area is large legacy with many problems, you MUST pick
+  one named quality per refactor session and plan a sequence of refactors
+  over time.
 
   Do not try to fix it all at once.
 
 ## Success criteria
 
-- **External behavior MUST be unchanged.**
+- External behavior MUST be unchanged.
 
-  Every test that passed before MUST pass after. Manual smoke of the affected
-  paths MUST confirm no observable difference.
+  Every test that passed before MUST pass after. Manual smoke of the
+  affected paths MUST confirm no observable difference.
 
-- **The named quality MUST be measurably improved.**
+- The named quality MUST be measurably improved.
 
   State which quality and how it changed (lines, dependencies,
   responsibilities, names). Vague "this is cleaner" is not enough.
 
-- **Each commit MUST be a single small move.**
+- Each commit MUST be a single small move.
 
   Reviewable in minutes. Revertable on its own.
 
-- **The diff MUST contain only restructuring.**
+- The diff MUST contain only restructuring.
 
-  No feature or bug-fix work MUST be mixed in. Anything else MUST be in a
-  separate commit and a separate review thread.
+  No feature or bug-fix work MUST be mixed in. Anything else MUST be in
+  a separate commit and a separate review thread.
 
-- **Tests MUST have passed after every move, not just at the end.**
+- Tests MUST have passed after every move, not just at the end.
 
-- **The PR description MUST name the quality being improved and the moves taken.**
+- The PR description MUST name the quality being improved and the moves
+  taken.
 
 ## Examples
 
-- **A small, named refactor in three moves:**
+- A small, named refactor in three moves:
 
-  ```
+  ```sh
   Target quality: cohesiveness — OrderService currently does parsing,
   pricing, and persistence in one class.
 
@@ -301,11 +301,15 @@ task, you MUST stop and print an error message.
   module with three.
   ```
 
-- **Recognizing a behavior change mid-refactor:**
+- Recognizing a behavior change mid-refactor:
 
-  ```
+  ```sh
   While extracting OrderParser I noticed the original code accepted
   negative quantities silently and the new code throws. That's a bug
   fix, not a refactor. Reverted the throw; opened a separate fix:
   commit and tracking issue. Resumed the refactor.
   ```
+
+## References
+
+None.

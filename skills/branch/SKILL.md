@@ -19,8 +19,10 @@ branch name, following the conventions described herein.
 
 You MUST NOT make any code or configuration changes to the software itself.
 
-**Input:** Determine the following information from the surrounding context
-and environment. You MUST NOT prompt the user for clarification on this task's
+## Input
+
+Determine the following information from the surrounding context and
+environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the required inputs, stop and alert the
 user with an error message.
 
@@ -36,25 +38,26 @@ user with an error message.
   If not specified by the user, you will generate a random branch name.
   Instructions are below.
 
-**Output:** A correctly-named branch created from the right base, or a pass/fail
-verdict on the supplied names with the specific rule each one violates. This
-skill names and validates branches and stops; it does not merge, cut releases,
-or author commit messages.
+## Output
 
-**Interactivity:** You MUST complete this task non-interactively. You MUST NOT
-block for user input. You MUST follow the below instructions to completion, else
-fail with an error message. If in doubt about any of the requirements of this
-task, you MUST stop and print an error message.
+A correctly-named branch created from the right base, or a pass/fail verdict on
+the supplied names with the specific rule each one violates. This skill names
+and validates branches and stops; it does not merge, cut releases, or author
+commit messages.
+
+This task runs non-interactively to completion. It does not block for user
+input. If in doubt about any of the requirements of this task, stop and print
+an error message.
 
 ## Instructions
 
-1.  **Classify the work.**
+1.  Classify the work.
 
-    Decide whether the change belongs on a trunk branch (`dev`, `test`,
-    or `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
+    Decide whether the change belongs on a trunk branch (`dev`, `test`, or
+    `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
     directly on `dev` (for a one- or two-commit change).
 
-2.  **Form the branch name.**
+2.  Form the branch name.
 
     For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
 
@@ -64,54 +67,55 @@ task, you MUST stop and print an error message.
     - Append a lowercase, hyphen-delimited description of the work.
     - Keep the total length within the budget.
 
-3.  **Validate the name against the regex.**
+3.  Validate the name against the regex.
 
-    Test the name against `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
-    If it fails, rewrite the name and re-test until it passes, or report
-    the specific rule that was violated.
+    Test the name against
+    `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
+    If it fails, rewrite the name and re-test until it passes, or report the
+    specific rule that was violated.
 
-4.  **Choose the correct base branch.**
+4.  Choose the correct base branch.
 
-    For `temp/*` and `epic/*` branches, base the branch on `dev` only —
-    never on `test`, `ready`, or a release branch.
+    For `temp/*` and `epic/*` branches, base the branch on `dev` only — never
+    on `test`, `ready`, or a release branch.
 
-5.  **Create or report.**
+5.  Create or report.
 
-    If the request is to create a branch, create it from the chosen
-    base. If the request is to validate, report a pass/fail verdict for
-    each supplied name, naming the rule each failure violates.
+    If the request is to create a branch, create it from the chosen base. If
+    the request is to validate, report a pass/fail verdict for each supplied
+    name, naming the rule each failure violates.
 
 ## Rules
 
-- **Branches MUST be one of the trunk, temporary, or epic forms.**
+- Branches MUST be one of the trunk, temporary, or epic forms.
 
-  *Permanent trunks:*
+  Permanent trunks:
 
-  ```
+  ```sh
   dev
   test
   ready
   ```
 
-  *Short-lived temporary branches:*
+  Short-lived temporary branches:
 
-  ```
+  ```sh
   temp/[<id>-]<description>
   ```
 
-  *Long-lived epic branches:*
+  Long-lived epic branches:
 
-  ```
+  ```sh
   epic/[<id>-]<description>
   ```
 
   Validation regex (for all branch types):
 
-  ```
+  ```sh
   ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
   ```
 
-- **Branch names MUST be lowercase and hyphen-delimited.**
+- Branch names MUST be lowercase and hyphen-delimited.
 
   - Branch names MUST be full lowercase.
 
@@ -123,16 +127,16 @@ task, you MUST stop and print an error message.
   - The OPTIONAL `<id>` typically corresponds to an issue number or tracking
     system identifier. Include it if known.
 
-  - Temporary and epic branch names SHOULD NOT exceed 50 characters total, and
-    MUST NOT exceed 72.
+  - Temporary and epic branch names SHOULD NOT exceed 50 characters total,
+    and MUST NOT exceed 72.
 
-- **Trunk branches are permanent and immutable.**
+- Trunk branches are permanent and immutable.
 
   Trunks are append-only and fixed-forward. There are up to three:
 
   - `dev`: The primary integration trunk. All work originates here. This is
-    the only REQUIRED branch. Most projects SHOULD use `dev` as their default
-    branch.
+    the only REQUIRED branch. Most projects SHOULD use `dev` as their
+    default branch.
 
   - `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` to
     trigger comprehensive testing (integration tests, system tests,
@@ -142,10 +146,10 @@ task, you MUST stop and print an error message.
     commits on `test`. It MUST remain shippable at all times, enabling
     continuous delivery.
 
-- **Temporary branches are short-lived and focused.**
+- Temporary branches are short-lived and focused.
 
-  Temporary branches (`temp/*`) capture single-focused changes spanning a small
-  number of commits. Commonly associated with an issue/bug.
+  Temporary branches (`temp/*`) capture single-focused changes spanning a
+  small number of commits. Commonly associated with an issue/bug.
 
   - MUST be cut from `dev`, never from `test`, `ready`, or release branches.
 
@@ -160,7 +164,7 @@ task, you MUST stop and print an error message.
   - MUST be deleted after integration; the commit history is preserved in
     `dev`.
 
-- **Epic branches are long-lived and coordinated.**
+- Epic branches are long-lived and coordinated.
 
   Epic branches (`epic/*`) are for multi-developer coordination on complex
   changes.
@@ -177,13 +181,13 @@ task, you MUST stop and print an error message.
     epic branch (never rebase). This is safer for long-lived branches with
     multiple contributors since it preserves the history of the branch.
 
-  - MUST be reintegrated with `dev` using the squash-merge strategy. One fresh
-    commit hits the trunk.
+  - MUST be reintegrated with `dev` using the squash-merge strategy. One
+    fresh commit hits the trunk.
 
   - MUST be deleted after integration into `dev`. A fresh epic branch MAY be
     recreated if further long-running development work is required.
 
-- **All changes MUST flow forward through the trunks.**
+- All changes MUST flow forward through the trunks.
 
   Work MUST originate on `dev` and flow forward through `test` → `ready` →
   release. Trunk branches are fixed-forward only. If a problem is discovered
@@ -195,58 +199,62 @@ task, you MUST stop and print an error message.
 
 ## Success criteria
 
-- **The branch name MUST validate against the model.**
+- The branch name MUST validate against the model.
 
   It MUST match
   `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
-  — one of the three trunks, or a `temp/` or `epic/` branch with a kebab-case
-  description.
+  — one of the three trunks, or a `temp/` or `epic/` branch with a
+  kebab-case description.
 
-- **The name MUST be well-formed.**
+- The name MUST be well-formed.
 
   It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
   and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
   `temp/*` and `epic/*` branches.
 
-- **The branch type MUST fit the work.**
+- The branch type MUST fit the work.
 
   `temp/*` MUST be used for a short, single-focus change; `epic/*` for
-  long-lived, multi-contributor work that cannot be continuously integrated. A
-  change of one or two commits needs no branch beyond `dev`.
+  long-lived, multi-contributor work that cannot be continuously integrated.
+  A change of one or two commits needs no branch beyond `dev`.
 
-- **`temp/*` and `epic/*` branches MUST be cut from `dev`.**
+- `temp/*` and `epic/*` branches MUST be cut from `dev`.
 
   They MUST NOT be cut from `test`, `ready`, or a release branch.
 
-- **Changes MUST flow forward only.**
+- Changes MUST flow forward only.
 
   Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
   NOT be committed directly to a downstream trunk.
 
 ## Examples
 
-- **Trunk branches:**
+- Trunk branches:
 
-  ```
+  ```sh
   dev
   test
   ready
   ```
 
-- **Temporary branches:**
+- Temporary branches:
 
-  ```
+  ```sh
   temp/42-add-search-endpoint
   temp/178-fix-auth-timeout
   temp/TS-504-migrate-user-schema
   temp/update-dependencies
   ```
 
-- **Epic branches:**
+- Epic branches:
 
-  ```
+  ```sh
   epic/billing-v2-rewrite
   epic/PRODUCT-187-auth-overhaul
   epic/infra-migrate-kubernetes
   epic/major-ui-redesign
   ```
+
+## References
+
+None.
