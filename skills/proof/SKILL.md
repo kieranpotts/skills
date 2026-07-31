@@ -170,6 +170,15 @@ print an error message.
   Removing it is a content edit, not a copy edit, so list each instance in
   the summary for the author to remove rather than deleting it yourself.
 
+- You MUST flag, but NOT rewrite, overused semicolons and misused colons.
+
+  Both are common AI writing smells. A semicolon joining two independent
+  clauses can almost always be split into two plain sentences; a colon
+  should only ever introduce a list, never an explainer clause. Splitting
+  or rephrasing changes sentence structure, so it is out of scope for this
+  skill's edits — flag each instance (with the sentence) in the summary as
+  a suggestion for the author.
+
 - You MUST treat front matter and metadata conservatively.
 
   Proofread human-readable values (a `title:` or `description:`) but
