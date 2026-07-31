@@ -162,6 +162,14 @@ print an error message.
   you MUST NOT do it — note it in the summary as a suggestion for the
   author.
 
+- You MUST flag, but NOT remove, leftover chatbot artifacts.
+
+  Conversational residue from AI-assisted drafting — "I hope this helps!",
+  "Certainly!", "Let me know if you'd like me to expand on this", "You're
+  absolutely right that" — does not belong in shipped documentation.
+  Removing it is a content edit, not a copy edit, so list each instance in
+  the summary for the author to remove rather than deleting it yourself.
+
 - You MUST treat front matter and metadata conservatively.
 
   Proofread human-readable values (a `title:` or `description:`) but
