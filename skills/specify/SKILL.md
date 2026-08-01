@@ -111,10 +111,12 @@ print an error message.
     prompting for them. Preserve the originating PRD as the origin
     artifact if the scaffolding procedure provides for it.
 
-6.  Author the specification content — follow `write-spec`.
+6.  Author the specification content — follow the repository's content rules.
 
-    Read the SRS repository's content-authoring skill (`write-spec`, or
-    its equivalent) and apply its rules to the validated PRD, mapping:
+    Read the SRS repository's content-authoring conventions — a skill if it
+    names one for this in its `AGENTS.md`, otherwise its style guide or
+    best-practices documentation — and apply its rules to the validated PRD,
+    mapping:
 
     - The PRD's rules and examples / counter-examples → functional
       acceptance criteria.
@@ -308,12 +310,13 @@ declaration in its root `AGENTS.md`:
 
 The shape of the specification content itself — Gherkin acceptance
 criteria, measurable non-functional requirements, the out-of-scope
-section — is defined by the target SRS repository's content rules (its
-`write-spec` skill), not here. This skill validates the PRD, then
-carries out the procedure that the repository's `draft-spec` →
-`write-spec` → `propose-spec` skills define — reading their rules and
-running them non-interactively — to file the proposal to whatever
-format and process that repository prescribes.
+section — is defined by the target SRS repository's own content rules
+(wherever it documents them — a skill, a style guide, a best-practices
+page), not here. This skill validates the PRD, then carries out the
+procedure that the repository's `draft-spec` → (author against its content
+rules) → `propose-spec` skills define — reading their rules and running
+them non-interactively — to file the proposal to whatever format and
+process that repository prescribes.
 
 ## References
 
