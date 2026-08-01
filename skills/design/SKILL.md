@@ -27,36 +27,50 @@ to the software itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - An approved specification — REQUIRED.
   Functional acceptance criteria and non-functional requirements, already
-  reviewed and approved (`ACCEPTED`). This skill consumes that specification;
-  it does not write it, and its entry gate refuses to begin until the approval
-  is in place.
+  reviewed and approved. This skill consumes that specification; it does not
+  write it, and its entry gate refuses to begin until the approval is in
+  place.
+
+- Where the specification and the decision store live — REQUIRED.
+  Discover both rather than assuming them: check this session's context
+  first, then the environment (a convention file such as `AGENTS.md`, a
+  workspace manifest, a configured connector). If neither settles it, ask the
+  user. Either MAY be a directory in this repository, a separate repository,
+  or an external service such as a tracker or wiki — do not assume a
+  filesystem path, a file name, or a document structure. Different projects
+  call the decision store an RFC archive, a decision log, or an ADR
+  directory; they are the same role.
 
 ## Output
 
 A recommended design — the chosen option with its evaluation against the nine
-qualities, the rejected alternatives and why, and a durable decision record
-(ADR, design doc, or PR description). Where a design question cannot be
+qualities, the rejected alternatives and why, and the decision captured
+durably in the project's decision store. Where a design question cannot be
 answered by reasoning alone, a time-boxed prototype produces the evidence that
 feeds back into the evaluation. Whatever consumes the design — decomposition
 into steps, implementation — is the orchestrator's concern, not this skill's.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+This task otherwise runs non-interactively to completion. You MUST NOT prompt
+the user about the substance of the design; if in doubt about that, stop and
+print an error message. You MAY prompt solely to establish where the
+specification and decision store are, when context and environment do not
+settle it.
 
 ## Instructions
 
 1.  Check the entry gate.
 
-    Confirm the relevant specification proposal is `ACCEPTED`. If it is
-    `DRAFT`, `PROPOSED`, or missing, stop, tell the user the design phase is
-    gated on an approved specification, and direct them to approve or write
-    one first.
+    Resolve the specification store (see Input), then confirm the relevant
+    requirements are approved — whatever state that store uses to mean
+    "agreed and ready to build". If they are still draft, still under review,
+    or missing entirely, stop, tell the user the design phase is gated on an
+    approved specification, and direct them to approve or write one first.
 
 2.  Gather the constraints.
 
@@ -128,10 +142,17 @@ an error message.
 
 7.  Capture the decision.
 
-    For architecturally-significant decisions, write a short Architecture
-    Decision Record (ADR) — context, options considered, decision,
-    consequences. For smaller designs, a paragraph in the PR description or a
-    comment on the issue may suffice.
+    For architecturally-significant decisions, write a decision record into
+    the project's decision store — context, options considered, decision,
+    consequences — using whatever template and lifecycle that store defines.
+    For smaller designs, a paragraph in the change description or a comment
+    on the issue may suffice.
+
+    Do not invent a parallel location for decisions. If the project already
+    keeps an RFC archive, a decision log, or an ADR directory, that is where
+    this goes. Descriptive design documentation — what the architecture *is*
+    — is a different artifact from the record of *why*; keep the rationale in
+    the decision store and let the design documentation link to it.
 
     Include enough that a developer six months from now can answer "why did
     we do it this way?" without re-running the exercise.
@@ -147,12 +168,21 @@ an error message.
 
 - You MUST NOT design against an unapproved specification.
 
-  The specification is the design's contract. Until the user has approved it
-  (`ACCEPTED`), its acceptance criteria can still change in review —
-  designing against a moving target wastes the work. If the specification is
-  unapproved, missing, or still `PROPOSED`, you MUST stop and send the user
-  back to approve it (or to write one, clarifying the requirements first, if
-  it does not yet exist). This is the SDLC phase gate.
+  The specification is the design's contract. Until the user has approved it,
+  its acceptance criteria can still change in review — designing against a
+  moving target wastes the work. If the specification is unapproved, missing,
+  or still under review, you MUST stop and send the user back to approve it
+  (or to write one, clarifying the requirements first, if it does not yet
+  exist). This is the SDLC phase gate.
+
+- You MUST discover artifact locations and conventions; you MUST NOT assume
+  them.
+
+  This skill is used across projects that keep requirements and decisions in
+  different places, in different formats, under different tools. A path, file
+  name, template, or lifecycle state that is right in one project is wrong in
+  the next. Resolve each store first, then read and follow whatever
+  conventions it documents for itself.
 
 - You MUST always produce alternatives.
 
@@ -235,7 +265,7 @@ an error message.
 
 - The entry gate MUST have been checked: the specification is approved.
 
-  Design MUST proceed only against an approved (`ACCEPTED`) specification.
+  Design MUST proceed only against an approved specification.
   If the specification was unapproved or merely proposed, the skill MUST
   have stopped and sent the user to approve it first.
 
@@ -259,8 +289,15 @@ an error message.
 
 - The decision MUST be captured durably.
 
-  ADR, design doc, or PR description — somewhere a future reader can find
-  it without asking.
+  Written into the project's own decision store, in that store's own form —
+  somewhere a future reader can find it without asking, and without a second
+  copy of the rationale existing anywhere else.
+
+- The stores MUST have been discovered, not assumed.
+
+  The location and access method for both the specification and the decision
+  store MUST trace to session context, to the environment, or to an answer
+  from the user.
 
 ## Examples
 

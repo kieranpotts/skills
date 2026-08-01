@@ -7,7 +7,7 @@ description: >-
   issue", "work the incoming issue queue", or "prep this issue for an agent".
 license: CC0-1.0
 metadata:
-  interactive: no
+  interactive: yes
   preferred_model: ollama/technical-lead
 ---
 
@@ -19,13 +19,23 @@ machine of state labels.
 ## Input
 
 Determine the following information from the surrounding context and
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+environment.
 
 - The target issue — REQUIRED.
   Look in the user's last input prompt for an explicit reference to a target
   issue. This may be a full URL or an ID like "#42".
+
+- The issue tracker, and the project's label vocabulary — REQUIRED.
+  Discover both rather than assuming them: check this session's context
+  first, then the environment (a convention file such as `AGENTS.md`, the
+  labels the tracker actually defines, a configured connector). If neither
+  settles it, ask the user. The tracker MAY be GitHub, GitLab, Jira, Linear,
+  or anything else — do not assume a particular host or API.
+
+- Where rejected ideas are recorded — REQUIRED for a `wontfix` outcome.
+  The project's durable record of what is deliberately out of scope. Discover
+  it as above; where a project has none, propose a location rather than
+  assuming one.
 
 ## Output
 
@@ -36,13 +46,27 @@ needs-info request, or a durably-captured wontfix rationale. This skill
 recommends and routes; it does not implement the fix or write the
 specification that follows.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+This skill is interactive. Triage is a maintainer's decision: the agent
+presents its recommendation and waits for direction before applying labels,
+posting comments, or closing anything. It also prompts to establish the
+tracker, the label vocabulary, and the out-of-scope record when context and
+environment do not settle them.
 
 ## Instructions
 
-1.  Establish the label vocabulary.
+1.  Establish the tracker and the label vocabulary.
+
+    Resolve which tracker this project uses and how to read and write to it
+    (see Input). Then establish its label vocabulary from the labels that
+    tracker actually defines, plus anything the project's convention file
+    says about them.
+
+    The model below is the default shape to map onto — two category labels
+    and five state labels. Where the project already has an equivalent
+    vocabulary under different names (`kind/bug`, `status/blocked`,
+    `triage/needed`), use the project's names and maintain the mapping. Where
+    the project has no vocabulary at all, propose this one and get the
+    maintainer's agreement before applying it.
 
     Two category labels:
 
@@ -59,8 +83,7 @@ print an error message.
     - `wontfix` — will not be actioned.
 
     Every triaged issue carries exactly one category label and exactly
-    one state label. The actual strings in the tracker may differ (eg.
-    `kind/bug` instead of `bug`); maintain a mapping if so.
+    one state label, in whatever names this project uses for them.
 
     The state machine:
 
@@ -96,9 +119,8 @@ print an error message.
     Read the full issue: body, comments, labels, reporter, dates. Parse
     any prior triage notes so you do not re-ask resolved questions.
     Explore the relevant code to understand which modules the issue
-    touches. Check the out-of-scope knowledge base (eg.
-    `docs/out-of-scope/`) for any prior rejection of a similar issue and
-    link to it.
+    touches. Check the project's record of rejected ideas (see Input) for any
+    prior rejection of a similar issue, and link to it.
 
 4.  Recommend a classification.
 
@@ -137,9 +159,9 @@ print an error message.
     - `needs-info` → post a triage-notes comment (template below) with
       specific outstanding questions. Apply the label.
     - `wontfix` (bug) → post a polite explanation and close.
-    - `wontfix` (enhancement) → capture the rejection in the
-      out-of-scope knowledge base (`docs/out-of-scope/<topic>.md`), link
-      to it from a closing comment, then close.
+    - `wontfix` (enhancement) → capture the rejection in the project's
+      record of rejected ideas, link to it from a closing comment, then
+      close.
     - `needs-triage` → apply the label only. Optionally comment if
       there's partial progress to record.
 
@@ -157,6 +179,14 @@ print an error message.
   Recommend; you MUST NOT unilaterally label, comment, or close. The
   maintainer applies labels and closes issues; the skill makes that
   decision cheap.
+
+- You MUST discover the tracker and its vocabulary; you MUST NOT assume
+  them.
+
+  This skill is used across projects on different trackers with different
+  label schemes and different places for recording rejected ideas. A host,
+  API, label string, or path that is right in one project is wrong in the
+  next. Resolve them first, then work in the project's own terms.
 
 - You MUST flag conflicting labels before resolving them.
 
@@ -185,10 +215,11 @@ print an error message.
 
 - Out-of-scope rejections MUST be durable.
 
-  A one-line "wontfix" close on an enhancement is easily lost. You
-  MUST capture the reasoning in `docs/out-of-scope/<topic>.md` so the
-  next person to file the same idea gets the explanation by reference,
-  not by re-litigation.
+  A one-line "wontfix" close on an enhancement is easily lost. You MUST
+  capture the reasoning wherever this project durably records rejected
+  ideas, so the next person to file the same idea gets the explanation by
+  reference, not by re-litigation. Where the project has no such record,
+  propose creating one rather than closing with the reasoning unrecorded.
 
 - `ready-for-agent` issues MUST have a brief.
 
@@ -240,8 +271,11 @@ print an error message.
   Problem statement, ACs, files likely involved, and explicit
   out-of-scope items.
 
-- `wontfix` enhancement closures MUST be captured in
-  `docs/out-of-scope/`.
+- `wontfix` enhancement closures MUST be captured durably, wherever this
+  project records rejected ideas.
+
+- The tracker, label vocabulary, and out-of-scope record MUST have been
+  discovered, not assumed.
 
 - AI-generated comments MUST be marked.
 
@@ -304,9 +338,8 @@ print an error message.
   > *AI-generated during triage.*
 
   Thanks for the suggestion. We've decided not to pursue this; rationale
-  captured in [`docs/out-of-scope/bulk-import-via-csv.md`](../docs/out-of-scope/bulk-import-via-csv.md)
-  so future suggestions land on a reasoned reply rather than starting from
-  scratch. Closing.
+  captured in the out-of-scope record (linked) so future suggestions land on
+  a reasoned reply rather than starting from scratch. Closing.
   ```
 
 ## References

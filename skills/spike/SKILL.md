@@ -28,13 +28,21 @@ repositories.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - One falsifiable question — REQUIRED.
   A specific feasibility, performance, ergonomics, or integration-risk
   question that cannot be answered by reasoning alone, with the evidence
   that would close it defined up front.
+
+- Where the answer should be recorded — REQUIRED. The project's decision
+  store, design documentation, or specification, depending on what kind of
+  question this is. Discover it rather than assuming it: check this session's
+  context first, then the environment (a convention file such as `AGENTS.md`,
+  a workspace manifest, a configured connector). If neither settles it, ask
+  the user. Do not assume a filesystem path or a document structure.
 
 ## Output
 
@@ -123,12 +131,12 @@ an error message.
 
 8.  Document the answer, then throw the code away.
 
-    Update the relevant artifact (ADR or design-doc update for an
-    architectural question, revision to acceptance criteria for a
-    specification question, or a short note in the repo's decision log
-    for a tooling/library question). Once the answer is captured, delete
-    the spike code, or move it to a clearly-marked throwaway location
-    with a README naming the question, the answer, and the date.
+    Update the relevant artifact in whichever store owns it: the decision
+    store for an architectural question, the specification for a requirements
+    question, the design documentation for a structural one. Use that store's
+    own form. Once the answer is captured, delete the spike code, or move it
+    to a clearly-marked throwaway location with a README naming the question,
+    the answer, and the date.
 
 ## Rules
 
@@ -242,8 +250,9 @@ an error message.
 
 - The findings MUST be captured durably.
 
-  ADR, design doc, specification update, or decision log — somewhere
-  the answer survives after the code is gone.
+  In whichever of the project's own stores owns that kind of answer —
+  somewhere it survives after the code is gone. The store MUST have been
+  discovered, not assumed.
 
 - The code MUST be disposed of or quarantined.
 

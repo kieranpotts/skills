@@ -209,6 +209,33 @@ the scope, purpose, trigger conditions, and target project for the skill.
   with no requirement level is ambiguous about whether it can be skipped
   or varied.
 
+- Skills MUST discover where artifacts live; they MUST NOT assume it.
+
+  A skill is installed across projects that use different methods and
+  tools. It MUST NOT hard-code the location, file name, format, or internal
+  structure of any artifact it reads or writes — requirements, decision
+  records, design documentation, delivery plans, audit reports, risk
+  registers, changelogs, glossaries, issue trackers.
+
+  Where a skill consumes or produces such an artifact, its `## Input`
+  section MUST carry a bullet naming the store and requiring its discovery:
+  from session context first, then the environment (a convention file, a
+  workspace manifest, an existing directory, a configured connector), then
+  by asking the user. State explicitly that the store MAY be a directory in
+  the current repository, a separate repository, or an external service.
+
+  Having resolved a store, the skill MUST follow whatever conventions that
+  store documents for itself. The store owns its template, its lifecycle,
+  and its format; the skill owns only the method. A skill that prescribes a
+  path or a document structure of its own works in exactly one project.
+
+- Skills MUST NOT reference other skills by name.
+
+  A global skill MUST NOT name a project-level skill, and a project-level
+  skill MUST NOT name a global one. Refer to the *procedure* a store defines
+  rather than the named skill that implements it. Cross-references couple
+  the two layers and break independent installation.
+
 - Non-obvious requirements MUST explain the why behind them.
 
   Instead of bare imperatives, explain the reasoning so the agent can apply
@@ -327,6 +354,17 @@ the scope, purpose, trigger conditions, and target project for the skill.
 
   It MUST name both the capability and the contexts that should invoke it
   — not just a one-line summary of what the skill does.
+
+- No artifact location, file name, or document structure MUST be hard-coded.
+
+  Every artifact the skill reads or writes MUST be discovered — from
+  context, from the environment, or by asking. Grep the draft for literal
+  paths and file names; each one MUST either be an illustrative example
+  clearly marked as such, or be removed.
+
+- No other skill MUST be referenced by name.
+
+  Neither a global skill from a project-level one, nor the reverse.
 
 - A `README.md` MUST exist alongside the `SKILL.md`.
 

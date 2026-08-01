@@ -24,14 +24,21 @@ configuration, or to any documentation beyond the research report itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - A knowledge gap to close — REQUIRED. A topic or question blocked on
   knowledge the agent does not hold and cannot derive from the codebase —
   how a library behaves, what a protocol mandates, how others solved a
   comparable problem, what a regulation requires, whether an approach is
   still current.
+
+- The project's own knowledge sources — REQUIRED, to check before reaching
+  outward. Its convention files, documentation, decision store, and agent
+  memory. Discover these rather than assuming them: check this session's
+  context first, then the environment. If neither settles it, ask the user.
+  Do not assume a filesystem path or a document structure.
 
 ## Output
 
@@ -61,10 +68,11 @@ an error message.
 
 2.  Check what is already known first.
 
-    Before reaching outward, check inward sources that may already hold
-    the answer: the codebase, `docs/`, existing ADRs, committed convention
-    files (`AGENTS.md` / `CLAUDE.md`), and agent memory. Note what you
-    found and what gap remains, as required by the Rules.
+    Before reaching outward, check the inward sources that may already hold
+    the answer: the codebase, the project's documentation, its decision
+    store, its committed convention files, and agent memory — wherever this
+    project actually keeps those. Note what you found and what gap remains,
+    as required by the Rules.
 
     If the question is fully answerable from inward sources, skip the
     external search and report the finding with its in-repo source.

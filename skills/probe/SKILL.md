@@ -40,29 +40,27 @@ prompt the user for clarification.
   This can be vague at the start — the session sharpens it through
   decomposition.
 
-- Where to write the outcome — REQUIRED.
-  The project's risk register — a concrete implementation of [TS-54: Threat
-  Modeling](https://github.com/kieranpotts/standards/tree/dev/src/054). Check
-  the `AGENTS.md` file in the current working directory for the path or URL of
-  the risk register (it is typically a separate repository, see
-  [`risks`](https://github.com/kieranpotts/risks)). If not found, check whether
-  the current working directory has a `risks/` subdirectory containing a
-  `REGISTER.md`. If the register cannot be located, stop and alert the user.
+- Where the risk store lives, and how to write to it — REQUIRED.
+  Discover this rather than assuming it: check this session's context first,
+  then the environment (a convention file such as `AGENTS.md`, a workspace
+  manifest, a configured connector). If neither settles it, ask the user. The
+  store MAY be a directory in this repository, a separate repository, or an
+  external service such as a GRC platform or issue tracker — do not assume a
+  filesystem path, a file name, or a document structure.
 
 ## Output
 
-Two artifacts, written to the risk register store, following the conventions
-defined there:
+Two artifacts, written to the risk store, following whatever conventions that
+store defines for itself:
 
-1. An immutable session report at `risks/YYYY-MM-DD-<slug>/` (or wherever
-   the store's conventions place it), built from the store's `TEMPLATE.md` —
-   business context, technical scope, system decomposition, the threat
-   assessment table, the risks raised, mitigation strategies, and
-   follow-ups.
+1. An immutable, dated session report — business context, technical scope,
+   system decomposition, the threat assessment, the risks raised, mitigation
+   strategies, and follow-ups. Use the store's own report template and
+   placement where it has them; where it does not, use the bundled fallback
+   template and match the structure of existing reports.
 
-2. New rows in the living `REGISTER.md` for the threats worth tracking over
-   time, using that register's columns (Ref, Risk, Type, Details, Probability,
-   Impact, Severity, Mitigation, Status, Residual risk, Reviewed).
+2. New entries in the store's living register for the threats worth tracking
+   over time, using whatever fields that register actually defines.
 
 The session report is a point-in-time snapshot. The register is the living
 source of truth for where each risk stands. A threat may appear in the
@@ -80,13 +78,19 @@ Ask one question at a time and wait for each answer before asking the next.
 Let each answer shape the question that follows. Take notes continuously —
 you are building the report as you go.
 
-1.  Locate the register and confirm the seed.
+1.  Locate the risk store and confirm the seed.
 
-    Find the risk register store first (see Input), and read its
-    `AGENTS.md` or `README.md`, its `TEMPLATE.md`, and its `REGISTER.md` so
-    you follow local conventions and know the existing Ref numbering. If the
-    register cannot be found, stop and tell the user — there is nowhere to
-    record the outcome.
+    Establish where this project records security and privacy risk, and how
+    to write to it. Work outward: what the session context already tells
+    you, then the environment — a convention file at the project root, a
+    workspace manifest, a directory that plainly holds risk records, a
+    configured connector. If none of that settles it, ask the user.
+
+    Then read whatever that store publishes about itself — its convention
+    file, its contributor documentation, its report template, its existing
+    register — so you follow its conventions and continue its existing
+    reference numbering. If no store can be established even after asking,
+    stop and tell the user: there is nowhere to record the outcome.
 
     Restate what is to be assessed, in one sentence: "We're
     threat-modeling <subsystem / flow> — is that the scope you mean?"
@@ -219,10 +223,11 @@ you are building the report as you go.
     - "If it happened, how bad — Catastrophic, Critical, Severe,
       Marginal, or Negligible?"
 
-    Combine likelihood × impact into a Severity (Critical / High / Medium /
-    Low) using the store's scoring scheme (see its `docs/risk-rating.md`).
-    Apply the scheme consistently — do not eyeball severities independently
-    of likelihood and impact.
+    Combine likelihood × impact into a severity using the store's own
+    scoring scheme, wherever it documents one. Where it documents none, use
+    Critical / High / Medium / Low and say in the report that you supplied
+    the scale. Apply whichever scheme consistently — do not eyeball
+    severities independently of likelihood and impact.
 
 9.  Decide which threats become tracked risks.
 
@@ -247,29 +252,28 @@ you are building the report as you go.
 
 11. Write the session report.
 
-    Confirm with the user that the assessment is complete, then fill out
-    the store's `TEMPLATE.md` into a new dated report directory
-    (`risks/YYYY-MM-DD-<slug>/`, using today's date and a short kebab-case
-    slug of the scope). Populate the Summary, Business context, Technical
-    scope, Decomposition tables, Threat assessment table, Risks raised,
-    Mitigation strategies, and Follow-ups from your notes.
+    Confirm with the user that the assessment is complete, then write the
+    report where and how the store expects it — its own template, its own
+    naming and placement convention. Populate the summary, business context,
+    technical scope, decomposition, threat assessment, risks raised,
+    mitigation strategies, and follow-ups from your notes.
 
-    Follow the store's own conventions (its `AGENTS.md`, `README.md`, and
-    any local skills). If none can be found, match the structure of existing
-    session reports in the store.
+    Follow the store's own conventions wherever it documents them. Where it
+    documents none, match the structure of the reports already in it. Where
+    the store is empty and offers no template, use the bundled fallback
+    template and say that you did.
 
 12. Update the living register.
 
-    For each risk under Risks raised, append a row to the store's
-    `REGISTER.md`, using its exact columns. Continue the register's
-    existing Ref numbering — do not restart or collide with existing refs.
-    Set Status to Pending (or the agreed target date), and fill
-    Probability, Impact, Severity, Mitigation, and Residual risk from the
-    session. Set Reviewed to today's date. Keep the register sorted by
-    severity per its own instructions.
+    For each risk raised, add an entry to the store's register, using
+    whatever fields it actually defines. Continue its existing reference
+    numbering — do not restart or collide with existing references. Record
+    the status, the likelihood, impact, and severity, the mitigation, the
+    residual risk, and the review date, mapped onto the fields the register
+    provides. Keep it ordered however the store orders it.
 
-    Report both artifacts — the new report path and the register rows
-    added — as this skill's output, and stop.
+    Report both artifacts — where the report was written and which register
+    entries were added — as this skill's output, and stop.
 
 ## Rules
 
@@ -288,11 +292,20 @@ you are building the report as you go.
 
 - You MUST NOT commit, branch, file issues, or open pull requests.
 
-  Your output is the two artifacts written to disk. The risk register
-  store's own workflow — a human, or its companion skills (eg.
-  `draft-session`, `land-session`, `update-register`) — owns branching,
-  committing, and indexing. Writing the files is where this skill MUST
-  stop. The user SHALL decide what to do with the outcome next.
+  Your output is the two artifacts, written where the store keeps them.
+  Branching, committing, reviewing, and indexing belong to the store's own
+  workflow — whatever procedure it documents, or a human. Writing the
+  artifacts is where this skill MUST stop. The user SHALL decide what to do
+  with the outcome next.
+
+- You MUST discover the store's location and conventions; you MUST NOT
+  assume them.
+
+  This skill is used across projects that record risk in different places
+  and formats — a directory of Markdown, a separate repository, a GRC
+  platform, an issue tracker. A path, file name, field set, or rating scale
+  that is right in one project is wrong in the next. Resolve the store
+  first, then read and follow whatever conventions it documents for itself.
 
 - Every threat MUST be classified and rated.
 
@@ -335,56 +348,58 @@ you are building the report as you go.
 
 ## Success criteria
 
-- The register store MUST have been located before the session starts.
+- The risk store MUST have been discovered before the session starts.
 
-  If no `REGISTER.md` / risk store can be found, the skill MUST have
-  stopped and alerted the user — there is nowhere valid to record the
+  Its location and access method MUST trace to session context, to the
+  environment, or to an answer from the user — never to an assumed path. If
+  no store could be established even after asking, the skill MUST have
+  stopped and alerted the user: there is nowhere valid to record the
   outcome.
 
-- A dated, scoped session report MUST exist on disk.
+- A dated, scoped session report MUST exist in the store.
 
-  A new `risks/YYYY-MM-DD-<slug>/` report MUST be present, built from the
-  store's template, citing the exact system context assessed (components,
-  data flows, and `repo@commit` where applicable) so it is a reproducible
-  point-in-time snapshot.
+  Written where and how that store places reports, citing the exact system
+  context assessed (components, data flows, and the revision under
+  assessment where applicable) so it is a reproducible point-in-time
+  snapshot.
 
 - Every threat in the report MUST be classified and rated.
 
   Each row in the threat assessment MUST carry a framework category, a
   likelihood, an impact, and a derived severity. None may be blank.
 
-- Every risk raised MUST appear as a register row.
+- Every risk raised MUST appear in the register.
 
-  Each threat listed under Risks raised MUST have a corresponding row in
-  `REGISTER.md`, with a unique Ref continuing the existing numbering, a
-  mitigation (or explicit accept decision), a residual risk, and a
-  Reviewed date. The report's Risks raised list and the new register rows
-  MUST agree.
+  Each threat listed under Risks raised MUST have a corresponding register
+  entry, with a unique reference continuing the existing numbering, a
+  mitigation (or explicit accept decision), a residual risk, and a review
+  date — mapped onto whatever fields that register defines. The report's
+  Risks raised list and the new register entries MUST agree.
 
 - The register MUST remain a valid living document.
 
-  New rows MUST use the register's exact columns and MUST NOT duplicate or
-  collide with existing Refs. The register MUST stay sorted per its own
-  conventions.
+  New entries MUST use the register's own fields and MUST NOT duplicate or
+  collide with existing references. The register MUST stay ordered per its
+  own conventions.
 
-- Nothing MUST be committed.
+- Nothing MUST be committed or published.
 
-  `git status` in the register store MUST show the new report and the
-  modified `REGISTER.md` as uncommitted — never staged, branched, or
-  committed by this skill. The assessed codebase MUST be left unchanged —
-  `git diff` over it MUST be empty.
+  Where the store is version-controlled, the new report and the modified
+  register MUST be left uncommitted — never staged, branched, or committed
+  by this skill. Where the store is an external service, the entries MUST be
+  left in whatever draft or unpublished state that service offers, or
+  reported for the user to file. The assessed codebase MUST be left
+  unchanged.
 
 ## References
 
-- [TS-54: Threat Modeling](https://github.com/kieranpotts/standards/tree/dev/src/054):
-  The underlying standard — the workshop method, the decomposition model,
-  the STRIDE/LINDDUN frameworks, the rating scheme, and the register
-  fields.
-
-- [`risks`](https://github.com/kieranpotts/risks): The reference
-  implementation of the risk register store this skill writes into — its
-  `TEMPLATE.md`, `REGISTER.md`, and conventions.
+- [TS-54: Threat
+  Modeling](https://github.com/kieranpotts/standards/tree/latest/dev/src/054):
+  One documented instance of the method this skill follows — the workshop
+  procedure, the decomposition model, the STRIDE/LINDDUN frameworks, and a
+  rating scheme. Read it when the target store documents no method of its
+  own. Where the store does document one, the store wins.
 
 - [`assets/probe/threat-report.template.md`](./assets/probe/threat-report.template.md):
   A fallback threat-report template, used only when the target store
-  provides no `TEMPLATE.md` of its own.
+  provides no template of its own.

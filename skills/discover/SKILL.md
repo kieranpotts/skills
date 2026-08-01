@@ -34,6 +34,14 @@ prompt the user for clarification.
   place, or to use as a basis for a fresh PRD. The seed may be vague,
   incomplete, or absent.
 
+- Where the PRD should be written — REQUIRED. Discover this rather than
+  assuming it: check this session's context first, then the environment (a
+  convention file such as `AGENTS.md`, an existing directory of product
+  documentation, a configured connector). If neither settles it, ask the
+  user. It MAY be a file in this repository, a separate repository, or an
+  external service such as a wiki or tracker — do not assume a filesystem
+  path or a file name.
+
 Gathers the rest of the input you needs from the user. Prompt one question
 at a time.
 

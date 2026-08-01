@@ -95,9 +95,38 @@ and MUST pass the validator checks — described below.
 
 - Each `SKILL.md` MUST also include `## Success criteria`.
 
-- Each `SKILL.md` MUST include a `## Interface` section that clearly defines
-  the input and output expected of the agent, plus instructions whether
-  the agent should prompt the user for more input (interactive mode).
+- Each `SKILL.md` MUST include `## Input` and `## Output` sections,
+  immediately after the title and before any other `##` heading. Together
+  they define what the agent consumes and produces, and a paragraph
+  immediately after the input list MUST state whether the agent runs
+  non-interactively to completion or may prompt the user.
+
+- Skills MUST discover where artifacts live; they MUST NOT assume it.
+
+  These skills are installed globally and run against projects that use
+  different methods and tools. A skill MUST NOT hard-code the location,
+  file name, format, or internal structure of any artifact it reads or
+  writes — requirements, decision records, design documentation, delivery
+  plans, audit reports, risk registers, changelogs, glossaries, issue
+  trackers.
+
+  Resolve each artifact store in this order: what the session context
+  already establishes, then the environment (a convention file, a workspace
+  manifest, an existing directory, a configured connector), then by asking
+  the user. A store MAY be a directory in the current repository, a separate
+  repository, or an external service — never assume a filesystem path.
+
+  Having resolved a store, follow whatever conventions that store documents
+  for itself. The store owns its template, its lifecycle, and its format;
+  the skill owns only the method.
+
+- Skills MUST NOT reference other skills by name.
+
+  A global skill MUST NOT name a project-level skill, and a project-level
+  skill MUST NOT name a global one. Refer to the *procedure* a store defines
+  ("carry out whatever the store prescribes for filing a change"), never to
+  the named skill that happens to implement it. This keeps both layers
+  independently installable.
 
 - A `SKILL.md`'s `## References` section, if present, MAY point to a mix of
   both internal and external references resources — the skill's own bundled

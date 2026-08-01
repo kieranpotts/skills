@@ -31,6 +31,14 @@ prompt the user for clarification.
   stakeholder report against shipped behavior, or an NFR threshold proven
   wrong in practice.
 
+- Where the requirements specification lives, and how to edit it — REQUIRED.
+  Discover it rather than assuming it: check this session's context first,
+  then the environment (a convention file such as `AGENTS.md`, a workspace
+  manifest, a configured connector). If neither settles it, ask the user. It
+  MAY be a directory in this repository, a separate repository, or an
+  external service — do not assume a filesystem path, a file name, or a
+  document structure.
+
 Gather the rest of the information you need by prompting the user. Ask one
 question at a time.
 
@@ -175,11 +183,19 @@ asking one question at a time and waiting for the answer before proceeding.
   the refund timeout AC") produces a diff nobody can review. You MUST
   refine one AC per pass; queue the others.
 
-- Refinements MUST conform to the specification conventions.
+- Refinements MUST conform to the store's own specification conventions.
 
-  Gherkin form, testability, measurable NFRs, explicit out-of-scope. A
-  refined specification that breaks the conventions is no better than
-  the unrefined one.
+  Whatever form that store uses for acceptance criteria, its expression of
+  measurable NFRs, and its explicit out-of-scope boundary. Read those
+  conventions from the store; you MUST NOT impose a format of your own. A
+  refined specification that breaks the store's conventions is no better
+  than the unrefined one.
+
+- You MUST discover the specification store; you MUST NOT assume it.
+
+  This skill is used across projects that keep requirements in different
+  places and formats. Resolve the store first, then read and follow whatever
+  conventions it documents for itself.
 
 - You MUST distinguish "specification was wrong" from "user changed
   their mind".

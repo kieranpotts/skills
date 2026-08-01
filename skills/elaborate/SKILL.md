@@ -39,16 +39,29 @@ prompt the user for clarification.
   The acceptance criteria tied to the design, and the code it touches, so
   the draft can be cross-referenced against what already exists.
 
+- Where the glossary and the decision store live — REQUIRED.
+  The project's record of its ubiquitous language, and its record of settled
+  decisions. Discover both rather than assuming them: check this session's
+  context first, then the environment (a convention file such as `AGENTS.md`,
+  a workspace manifest, an existing glossary or decision directory, a
+  configured connector). If neither settles it, ask the user. Either MAY be a
+  file in this repository, a separate repository, or an external service such
+  as a wiki — do not assume a filesystem path, a file name, or a document
+  structure. Where a project genuinely has neither, create them in the most
+  conventional place for that project and say where you put them.
+
 ## Output
 
 A decomposition-ready design — every open decision resolved or explicitly
-deferred, terms reconciled with the glossary (`docs/domain-model.md`),
+deferred, terms reconciled with the project's glossary,
 code-versus-design contradictions surfaced, and qualifying decisions captured
-as ADRs. Whatever decomposes or otherwise consumes the sharpened design is
-the orchestrator's concern, not this skill's.
+in the project's decision store. Whatever decomposes or otherwise consumes
+the sharpened design is the orchestrator's concern, not this skill's.
 
 This skill is interactive. The agent prompts the user one question at a
-time, waits for the answer, and then asks the next.
+time, waits for the answer, and then asks the next — including to establish
+where the glossary and decision store live, when context and environment do
+not settle it.
 
 ## Instructions
 
@@ -56,9 +69,9 @@ time, waits for the answer, and then asks the next.
 
     Before asking anything, read the draft design, related acceptance
     criteria, the relevant code (modules touched, public APIs, tests), and
-    any existing `docs/domain-model.md` or `docs/adr/` decisions in the
-    area. If a question can be answered by reading the code instead of
-    asking the user, read the code.
+    any existing entries in the project's glossary and decision store that
+    touch this area. If a question can be answered by reading the code
+    instead of asking the user, read the code.
 
 2.  Map the decision tree.
 
@@ -79,7 +92,7 @@ time, waits for the answer, and then asks the next.
 
     When the user uses a vague or overloaded term, stop and pin it down.
     If the glossary already defines the term differently, surface the
-    conflict. Update `docs/domain-model.md` (or create it) the moment a term
+    conflict. Update the glossary (or create it) the moment a term
     is resolved — inline, not at the end.
 
 5.  Probe with concrete scenarios.
@@ -96,10 +109,11 @@ time, waits for the answer, and then asks the next.
 
 7.  Capture decisions as they crystallize.
 
-    When a decision is settled, write it down immediately. Update
-    `docs/domain-model.md` for resolved terms. Create an ADR only for
-    decisions that are hard to reverse, surprising without context, and the
-    result of a real trade-off.
+    When a decision is settled, write it down immediately. Update the
+    glossary for resolved terms. Write a decision record — into the project's
+    decision store, in whatever form that store uses — only for decisions
+    that are hard to reverse, surprising without context, and the result of a
+    real trade-off.
 
 8.  End the session when the tree is resolved.
 
@@ -135,7 +149,7 @@ time, waits for the answer, and then asks the next.
 - You MUST sharpen language inline.
 
   A vague term left in the conversation infects every subsequent
-  decision. Stop, pin it down, update `docs/domain-model.md`, then
+  decision. Stop, pin it down, update the glossary, then
   proceed.
 
 - You MUST surface code-versus-specification contradictions immediately.
@@ -149,18 +163,28 @@ time, waits for the answer, and then asks the next.
   three-criteria filter (hard to reverse, surprising without context, real
   trade-off). When in doubt, you SHOULD NOT.
 
-- `docs/domain-model.md` is a glossary, not a specification.
+- The glossary is a glossary, not a specification.
 
   You MUST keep implementation details out. An entry is what the term IS,
   in one or two sentences. Behavior, persistence, and protocols belong in
   code, ADRs, or the specification.
 
+- You MUST discover the glossary and decision store; you MUST NOT assume
+  them.
+
+  This skill is used across projects that keep their language and their
+  decisions in different places and formats. A path, file name, or document
+  structure that is right in one project is wrong in the next. Resolve both
+  first, then read and follow whatever conventions they carry.
+
 - You SHOULD create artifacts lazily.
 
-  No `docs/domain-model.md` yet? Create it when the first term is
-  resolved, not at session start. No `docs/adr/`? Create it when the first
-  ADR is needed. Empty files signal nothing; lazily-created ones signal
-  the design is being captured as it solidifies.
+  No glossary yet? Create it when the first term is
+  resolved, not at session start. No decision store? Create it when the first
+  decision record is needed. Empty files signal nothing; lazily-created ones
+  signal the design is being captured as it solidifies. When you do create
+  one, put it where that project would conventionally expect it, and say
+  where you put it.
 
 - You MUST NOT publish the internal decision tree as a list for the user.
 
@@ -200,7 +224,7 @@ time, waits for the answer, and then asks the next.
   Pause, summarize the unresolved branch, and ask the user whether to
   keep elaborating or to send the draft back for a structural rethink.
 
-- The project does not yet have a `docs/domain-model.md`.
+- The project does not yet have a glossary.
 
   Create it when the first term is resolved, not at session start. Use
   the format shown in the examples. Do not pre-populate it with terms
@@ -221,7 +245,7 @@ time, waits for the answer, and then asks the next.
 
 - Terms used in the conversation MUST match the glossary.
 
-  Either they already did, or `docs/domain-model.md` was updated inline
+  Either they already did, or the glossary was updated inline
   as they were resolved.
 
 - Contradictions between stated design and existing code MUST have been
@@ -260,11 +284,11 @@ time, waits for the answer, and then asks the next.
   User: (b). And the refund should be partial if only some line items
   were paid.
 
-  Agent: Got it. Updating docs/domain-model.md with the new definition of
+  Agent: Got it. Updating the glossary with the new definition of
   "Cancellation". Then asking the next question.
   ```
 
-- A captured `docs/domain-model.md` update:
+- A captured glossary update, in this project's chosen location and format:
 
   ```md
   # Domain model

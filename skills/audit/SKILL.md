@@ -27,8 +27,9 @@ runtime, such as latency and throughput, is also out-of-scope.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - The target codebase — REQUIRED.
   Look in the user's last input prompt for an explicit reference to a target
@@ -40,23 +41,27 @@ user with an error message.
   subdirectories — assume they are all components of the target codebase. If
   the target codebase cannot be found, stop and alert the user.
 
-- Where to write the report — REQUIRED.
-  Find the location of the existing audit reports collection for the target
-  codebase. If not specified by the user, check the nearest `AGENTS.md` file
-  for the path or URL to the audit reports. If not found, check if the current
-  working directory has an `audits/` subdirectory that contains audit reports.
-  If the path to the audit reports cannot be found, stop and alert the user.
+- Where the audit store lives, and how to write to it — REQUIRED.
+  Discover this rather than assuming it: check this session's context first,
+  then the environment (a convention file such as `AGENTS.md`, a workspace
+  manifest, a directory that plainly holds audit reports, a configured
+  connector). If neither settles it, ask the user. The store MAY be a
+  directory in this repository, a separate repository, or an external service
+  such as a wiki — do not assume a filesystem path, a file name, or a report
+  structure.
 
 ## Output
 
 An artifact capturing candidates for architecture improvements, each candidate
 citing specific files and lines, stating what is observed and the cost it
-imposes. The report is written to the audit reports store, following the
-conventions defined there.
+imposes. The report is written to the audit store, following whatever
+conventions that store defines for itself.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+This task otherwise runs non-interactively to completion. You MUST NOT prompt
+the user about the substance of the audit; if in doubt about that, stop and
+print an error message. You MAY prompt solely to establish where the audit
+store is and how to write to it, when context and environment do not settle
+it.
 
 ## Instructions
 
@@ -168,12 +173,15 @@ an error message.
 
 10.  Write the report.
 
-    Follow the instructions in the existing store of audit reports to
-    prepare a new architecture audit report, ready for the user to review.
+    Resolve the audit store (see Input), then read whatever it publishes
+    about itself — its convention file, its template, its contributor
+    documentation — and prepare a new audit report to those conventions,
+    ready for the user to review.
 
-    If no instructions can be found, you SHOULD analyze existing audit
-    reports, establish common conventions, and follow those conventions in
-    the writing of your new report.
+    If the store documents no conventions, analyze the reports already in it,
+    establish the common shape, and follow that. If the store is empty and
+    undocumented, use your own structure and say in your report which
+    structure you chose, so the next audit can match it.
 
 ## Rules
 
@@ -209,6 +217,14 @@ an error message.
 
   These concerns are the scope of the [probe](../probe/) skill.
 
+- You MUST discover the audit store's location and conventions; you MUST NOT
+  assume them.
+
+  This skill is used across projects that keep audit reports in different
+  places and formats. A path, file name, or report structure that is right in
+  one project is wrong in the next. Resolve the store first, then read and
+  follow whatever conventions it documents for itself.
+
 - Stay within the codebase's idioms.
 
   You MUST NOT flag style choices that are consistent across the codebase as
@@ -217,6 +233,12 @@ an error message.
   Your audit report MUST target structural problems, not preferences.
 
 ## Success criteria
+
+- The audit store MUST have been discovered, not assumed.
+
+  Its location and access method MUST trace to session context, to the
+  environment, or to an answer from the user. No path, file name, or report
+  structure MUST have been taken for granted.
 
 - The report MUST cite a specific file for every finding.
 

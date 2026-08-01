@@ -23,8 +23,9 @@ as instructed herein.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - A request to prepare a release — REQUIRED.
 
@@ -61,12 +62,13 @@ an error message.
     - For a `release/<version>` branch: run
       `git checkout -b release/<version> ready`.
 
-3.  Promote the `[Unreleased]` CHANGELOG section.
+3.  Promote the changelog's unreleased section.
 
-    Before tagging, rename the `[Unreleased]` section in `CHANGELOG.md` to
-    the version and date (eg. `## [1.2.0] - 2026-05-27`), and add a new empty
-    `[Unreleased]` section above it. Include this as part of the `release:`
-    commit on the release branch.
+    Where the project keeps a changelog, promote its unreleased section to
+    the version and date being released (eg. `## [1.2.0] - 2026-05-27`), and
+    open a fresh empty unreleased section above it. Follow that changelog's
+    own format. Include this as part of the `release:` commit on the release
+    branch. Where the project keeps no changelog, skip this step.
 
 4.  Tag the release.
 
@@ -91,10 +93,10 @@ an error message.
 7.  Prepare release notes for end users.
 
     Where the project expects them, derive release notes from the newly
-    promoted versioned section of `CHANGELOG.md`. Filter out internal
-    changes (`refactor:`, `style:`, `step:`, `maintenance:`) and write the
-    remainder in plain, non-technical language. The format and publication
-    channel are project-specific.
+    promoted versioned section of the changelog. Filter out internal changes
+    (`refactor:`, `style:`, `step:`, `maintenance:`) and write the remainder
+    in plain, non-technical language. The format and publication channel are
+    project-specific.
 
 ## Rules
 
@@ -158,11 +160,12 @@ an error message.
   They SHOULD be referenced in external artifact repos for
   traceability.
 
-- The `[Unreleased]` CHANGELOG section MUST be promoted at release time.
+- The changelog's unreleased section MUST be promoted at release time,
+  where the project keeps a changelog.
 
-  Before tagging, rename it to the version and date and add a fresh
-  empty `[Unreleased]` section above it. This MUST land in the
-  `release:` commit.
+  Before tagging, promote it to the version and date and open a fresh empty
+  unreleased section above it. This MUST land in the `release:` commit.
+  Discover the changelog rather than assuming `CHANGELOG.md`.
 
 ## Success criteria
 
@@ -182,11 +185,11 @@ an error message.
   An annotated `v<version>` tag (eg. `v1.2.0`) MUST mark the release,
   and version tags are treated as permanent.
 
-- The CHANGELOG MUST be promoted.
+- The changelog MUST be promoted, where the project keeps one.
 
-  The `[Unreleased]` section MUST be renamed to the version and date, a
-  fresh empty `[Unreleased]` MUST be added above it, and this MUST land
-  in the `release:` commit.
+  Its unreleased section MUST be promoted to the version and date, a fresh
+  empty unreleased section MUST be opened above it, and this MUST land in
+  the `release:` commit.
 
 - Artifacts MUST live outside Git.
 

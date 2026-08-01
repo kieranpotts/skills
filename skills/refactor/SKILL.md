@@ -28,8 +28,9 @@ them. If in doubt, stop and return an error message.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - Existing, tested code — REQUIRED.
   The code to restructure, plus a passing safety net to preserve. This

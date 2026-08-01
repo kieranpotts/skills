@@ -25,8 +25,9 @@ software itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - A code change to audit — REQUIRED.
   A pull request, a peer's branch, or one's own diff before opening a PR.
@@ -35,6 +36,14 @@ user with an error message.
 - The specification to check against — REQUIRED.
   The acceptance criteria the change claims to satisfy, plus any captured
   design decision.
+
+- Where the specification, the decision store, and the project's standards
+  live — REQUIRED. Discover these rather than assuming them: check this
+  session's context first, then the environment (a convention file such as
+  `AGENTS.md`, a workspace manifest, a configured connector). If none settles
+  it, ask the user. Each MAY be a directory in this repository, a separate
+  repository, or an external service — do not assume a filesystem path, a
+  file name, or a document structure.
 
 ## Output
 
@@ -45,9 +54,10 @@ Review reports its findings and stops; acting on them — fixing presentation,
 restructuring, re-running the system — is a separate, downstream
 responsibility.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+This task otherwise runs non-interactively to completion. You MUST NOT prompt
+the user about the substance of the task; if in doubt about that, stop and
+print an error message. You MAY prompt solely to establish where an artifact
+lives or how to access it, when context and environment do not settle it.
 
 ## Instructions
 
@@ -188,6 +198,15 @@ an error message.
       reviewer.
 
 ## Rules
+
+- You MUST discover artifact locations and conventions; you MUST NOT assume
+  them.
+
+  This skill is used across projects that keep their artifacts in different
+  places, in different formats, under different tools. A path, file name,
+  template, or lifecycle state that is right in one project is wrong in the
+  next. Resolve each store first, then read and follow whatever conventions
+  it documents for itself.
 
 - You MUST understand the why before reading code.
 

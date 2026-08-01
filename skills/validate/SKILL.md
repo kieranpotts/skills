@@ -26,15 +26,18 @@ software itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
-- The software requirements specification — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a software requirements specification (SRS). If it exists
-  as an upstream repository, clone it to a temporary directory locally.
-  Otherwise, look in the current working directory or check the nearest
-  `AGENTS.md`. If the SRS cannot be found, stop and alert the user.
+- The requirements specification, and where it lives — REQUIRED.
+  Discover it rather than assuming it: check this session's context first,
+  then the environment (a convention file such as `AGENTS.md`, a workspace
+  manifest, a configured connector). If neither settles it, ask the user. It
+  MAY be a directory in this repository, a separate repository, or an
+  external service such as a tracker or wiki — do not assume a filesystem
+  path, a file name, or a document structure. Where it is a remote
+  repository, clone it locally to read it.
 
 - The originating statement of need — OPTIONAL.
   Look in the context and environment for a preserved product requirements

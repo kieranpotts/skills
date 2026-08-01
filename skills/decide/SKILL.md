@@ -10,6 +10,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: yes
+  preferred_model: ollama/software-architect
 ---
 
 # Decide
@@ -19,27 +20,48 @@ it up as an RFC — a document whose purpose is to be argued with *before* the
 decision is settled.
 
 Covers decisions about architecture, process, technology, and tooling. This
-skill authors the RFC's content only. Moving it through its lifecycle
-(`DRAFT` → `PROPOSED` → `ACCEPTED` → `IMPLEMENTED`) and landing it in a trunk
-is the job of the workflow skills in the RFC repository.
+skill authors the decision record's content only. Moving it through whatever
+lifecycle the decision store defines, and landing it there, belongs to that
+store's own workflow.
 
-Do NOT use this skill to record a decision that has already been made — that
-is an architecture decision record, and belongs with the
-[`design`](../design/) skill. An RFC is written while the outcome is still
-open.
+An RFC is written while the outcome is still open. A decision that has
+already been settled is recorded the same way — as a decision record in the
+same store, written retrospectively — not as a separate class of artifact
+kept somewhere else.
 
-**Input**: A decision that needs making — REQUIRED. Supplied as the user's
-description, an issue, a discussion thread, or an upstream design doc. This
-skill is interactive: it ALSO gathers what it needs (motivation, constraints,
-candidate options, stakeholders) from the user through prompts during the
-session, so the initial input MAY be partial or absent.
+## Input
 
-**Output**: A completed RFC document, written against the target project's
-RFC template where one exists, stating the decision, its motivation, the
-alternatives considered, the honest trade-offs, a recommendation, and the
-conditions under which that recommendation would change. Deliberately out of
-scope: cutting branches, opening pull requests, applying labels, or merging —
-those belong to the RFC repository's workflow skills.
+Determine the following from the surrounding context and environment.
+
+- A decision that needs making — REQUIRED.
+  Supplied as the user's description, an issue, a discussion thread, or an
+  upstream design doc. This skill ALSO gathers what it needs (motivation,
+  constraints, candidate options, stakeholders) from the user through
+  prompts during the session, so the initial input MAY be partial or absent.
+
+- Where the decision store lives, and how to write to it — REQUIRED.
+  Discover this rather than assuming it: check this session's context first,
+  then the environment (a convention file such as `AGENTS.md`, a workspace
+  manifest, a configured connector). If neither settles it, ask the user.
+  The store MAY be a directory in this repository, a separate repository, or
+  an external service such as a wiki or documentation platform — do not
+  assume a filesystem path, a file name, or a document structure. Different
+  projects call this an RFC archive, a decision log, an ADR directory, or a
+  set of key design decisions; they are the same role.
+
+## Output
+
+A completed decision record, written against the target store's own template
+where it has one, stating the decision, its motivation, the alternatives
+considered, the honest trade-offs, a recommendation, and the conditions under
+which that recommendation would change.
+
+Deliberately out of scope: cutting branches, opening pull requests, applying
+labels, or merging — those belong to the store's own workflow.
+
+This skill is interactive. The agent prompts the user to gather what the
+decision needs, and to establish where the decision store is when context and
+environment do not settle it.
 
 ## Instructions
 
@@ -53,15 +75,20 @@ those belong to the RFC repository's workflow skills.
     decision — sharpen it until it is ("adopt pnpm as the package manager for
     all TypeScript services").
 
-2.  **Check the decision warrants an RFC.**
+2.  **Check the decision warrants a record.**
 
-    An RFC earns its cost when the decision is expensive to reverse, crosses
-    team or service boundaries, or sets a precedent others will follow.
+    A decision record earns its cost when the decision is expensive to
+    reverse, crosses team or service boundaries, or sets a precedent others
+    will follow.
 
-    If it is cheap to reverse and touches one module, skip the RFC and just
-    make the change. If the decision is already settled and only needs
-    recording, write an ADR instead. Say so and stop rather than generating
-    ceremony.
+    If it is cheap to reverse and touches one module, skip the record and
+    just make the change. Say so and stop rather than generating ceremony.
+
+    If the decision is already settled and only needs recording, still write
+    it here — the same store, the same shape, entered at whatever state that
+    store uses for a decision already taken. Note in the record that it was
+    written retrospectively, so a reader knows the alternatives were weighed
+    before the fact rather than after.
 
 3.  **Establish the motivation.**
 
@@ -137,14 +164,17 @@ those belong to the RFC repository's workflow skills.
     separate decision. Do not paper over unknowns — an RFC that hides them
     gets ambushed in review, and the ambush costs more than the admission.
 
-11. **Write it up against the target template.**
+11. **Write it up against the target store's own template.**
 
-    If the project has an RFC template, fill out its sections. In a
-    [`kieranpotts/rfc`](https://github.com/kieranpotts/rfc)-style repository
-    that is `rfc/TEMPLATE.md` — Summary, Motivation, Impact, Current state,
-    Proposed state, Alternatives, Trade-offs and risks, Questions,
-    References — plus the metadata header and a topic category
-    (`architecture`, `process`, `technology`, or `tooling`).
+    Resolve the decision store (see Input), then read whatever it publishes
+    about itself — its template, its convention file, its contributor
+    documentation — and fill out the sections it actually defines, including
+    any metadata header and any categorisation it expects.
+
+    Where the store has no template, cover at minimum: summary, motivation,
+    impact, current state, proposed state, alternatives, trade-offs and
+    risks, open questions, and references. Where the store is not empty but
+    undocumented, match the shape of the records already in it.
 
     Write the proposed state in the present tense, describing the system as
     it would be. Lead with the summary; keep it skimmable. Where a diagram
@@ -164,6 +194,15 @@ those belong to the RFC repository's workflow skills.
     no purchase — no stated downsides, no alternatives taken seriously, no
     conditions that would change the recommendation — collects agreement
     rather than scrutiny, which is how bad decisions get ratified.
+
+-   **You MUST discover the decision store's location and conventions; you
+    MUST NOT assume them.**
+
+    This skill is used across projects that record decisions in different
+    places and formats — an RFC archive, an ADR directory, a decision log, a
+    wiki space. A path, file name, template, or section structure that is
+    right in one project is wrong in the next. Resolve the store first, then
+    read and follow whatever conventions it documents for itself.
 
 -   **You MUST NOT present a strawman alternative.**
 
@@ -214,7 +253,7 @@ those belong to the RFC repository's workflow skills.
     If the decision statement needs an "and", it is probably two RFCs.
     Bundled decisions are hard to accept or reject cleanly, because reviewers
     may agree with one half and not the other. Split them, and use the
-    template's `Depends on` field to link them.
+    store's own mechanism for linking dependent records.
 
 -   **The discussion has already happened.**
 
@@ -256,10 +295,17 @@ those belong to the RFC repository's workflow skills.
 
     At least one concrete condition under which a different option wins.
 
--   **The document fits the target template.**
+-   **The store was discovered, not assumed.**
 
-    Every section the project's RFC template requires is present and filled,
-    with no leftover template boilerplate.
+    Its location and access method trace to session context, to the
+    environment, or to an answer from the user — no path, file name, or
+    document structure was taken for granted.
+
+-   **The document fits the target store's template.**
+
+    Every section that store's template requires is present and filled, with
+    no leftover boilerplate. Where the store had no template, the minimum
+    section set is covered and the report says which shape was used.
 
 -   **No lifecycle action was taken.**
 

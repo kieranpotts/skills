@@ -26,8 +26,9 @@ components.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - The current session's context — REQUIRED.
   The work done, the decisions made, the durable artifacts already produced
@@ -71,7 +72,7 @@ an error message.
     - Issue / ticket references.
     - PR or branch references.
     - Recent commits worth pointing at.
-    - Any updated entries in `docs/domain-model.md`.
+    - Any updated entries in the project's glossary.
 
 3.  Draft the document.
 

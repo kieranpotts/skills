@@ -25,8 +25,9 @@ You MUST NOT make any code or configuration changes to the software itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - A source branch and a target branch — REQUIRED.
   Both committed (no uncommitted work) and up to date with their remotes.
@@ -86,11 +87,11 @@ an error message.
 
     - For `epic/*` → `dev`: ensure the latest `dev` has already been
       merged down into the epic (`git checkout epic/x && git merge --no-ff
-      dev`). Then, still on the `epic/*` branch, add a commit that
-      updates `CHANGELOG.md` under the `[Unreleased]` section (using the
-      project's changelog entry format). This commit is squashed in with
-      the rest of the epic's changes and is how the CHANGELOG lands on
-      `dev`.
+      dev`). Then, still on the `epic/*` branch, add a commit that records
+      the epic's changes in the project's changelog, if it keeps one, using
+      that changelog's own format and unreleased section. This commit is
+      squashed in with the rest of the epic's changes and is how the
+      changelog entry lands on `dev`.
 
     - For trunk-to-trunk: verify that the upstream trunk is a direct
       ancestor of the downstream target before running the merge. If it is
@@ -273,11 +274,11 @@ an error message.
 
   No trunk branch was deleted during clean-up.
 
-- For `epic/*` → `dev`: the CHANGELOG MUST be updated in a pre-merge
-  commit on the epic branch.
+- For `epic/*` → `dev`: the changelog MUST be updated in a pre-merge
+  commit on the epic branch, where the project keeps one.
 
-  The `[Unreleased]` section MUST contain an entry for the epic's
-  changes, committed to the `epic/*` branch before the squash-merge.
+  Its unreleased section MUST contain an entry for the epic's changes,
+  committed to the `epic/*` branch before the squash-merge.
 
 - No conflict markers MUST remain in the merged result.
 

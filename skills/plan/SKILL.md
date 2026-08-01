@@ -25,8 +25,9 @@ software itself.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - An agreed design and its acceptance criteria — REQUIRED. The chosen
   option and the acceptance criteria it must deliver, for a change larger
@@ -34,6 +35,14 @@ user with an error message.
 
 - The project's commit-type vocabulary and branch model — REQUIRED. These
   inform how steps are labeled and integrated.
+
+- Where the design, the specification, and the plan store live — REQUIRED.
+  Discover these rather than assuming them: check this session's context
+  first, then the environment (a convention file such as `AGENTS.md`, a
+  workspace manifest, a configured connector). If none settles it, ask the
+  user. Each MAY be a directory in this repository, a separate repository, or
+  an external service such as a tracker or wiki — do not assume a filesystem
+  path, a file name, or a document structure.
 
 ## Output
 
@@ -43,9 +52,10 @@ stated pass/fail signal, any prior-step dependency, and any flag, fixture, or
 migration named where used. The plan is reported as the artifact and the
 skill stops; it writes no code itself.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+This task otherwise runs non-interactively to completion. You MUST NOT prompt
+the user about the substance of the task; if in doubt about that, stop and
+print an error message. You MAY prompt solely to establish where an artifact
+lives or how to access it, when context and environment do not settle it.
 
 ## Instructions
 
@@ -118,6 +128,15 @@ an error message.
     If any answer is no, re-split or re-order.
 
 ## Rules
+
+- You MUST discover artifact locations and conventions; you MUST NOT assume
+  them.
+
+  This skill is used across projects that keep their artifacts in different
+  places, in different formats, under different tools. A path, file name,
+  template, or lifecycle state that is right in one project is wrong in the
+  next. Resolve each store first, then read and follow whatever conventions
+  it documents for itself.
 
 - Each step MUST address one concern.
 

@@ -14,29 +14,33 @@ metadata:
 
 # Commit
 
-xxxxxxxxxxxxxxxxxxxxxxxxxx
+Compose a commit message that conforms to the project's convention, or
+validate existing messages against it, and produce the matching changelog
+entry where the project keeps one.
 
 ## Input
 
 Determine the following information from the surrounding context and
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+environment.
 
 - A change to describe, or messages to validate — REQUIRED. A description of
   a change to compose a message for, or one or more existing commit messages
   to validate (a branch's history before push).
 
-- The project's `CHANGELOG.md` — REQUIRED for direct commits to `dev` or a
-  `temp/*` branch. The `CHANGELOG.md` is also in-scope for these commits.
+- The project's changelog, if it keeps one — REQUIRED for direct commits to
+  an integration trunk or a short-lived branch. Discover it rather than
+  assuming it: check this session's context first, then the environment (a
+  convention file such as `AGENTS.md`, a changelog file at the project root,
+  a release-notes tool). If the project keeps no changelog, skip the
+  changelog steps and say so. Do not create one uninvited.
 
 ## Output
 
 A conforming commit message in the `<type>: <description>` format (with any
 optional flag, body, and footers), or a pass/fail verdict on the supplied
 messages naming the rule each one violates. Where required, the matching
-`[Unreleased]` changelog entry is produced too. This skill composes and
-validates messages and stops; it neither stages nor commits.
+changelog entry is produced too. This skill composes and validates messages
+and stops; it neither stages nor commits.
 
 This task runs non-interactively to completion. It does not block for user
 input. If in doubt about any of the requirements of this task, stop and print
@@ -72,13 +76,14 @@ an error message.
     footers (eg. `Closes: #123`, `Refs: #456`) separated from the body by a
     single blank line.
 
-5.  Update the CHANGELOG for direct commits to `dev` and `temp/*`.
+5.  Update the changelog for direct commits to a trunk or short-lived
+    branch.
 
-    When committing directly to `dev` or a `temp/*` branch, add a bullet to
-    the `[Unreleased]` section of the project's `CHANGELOG.md` (or
-    equivalent) as part of the same commit. Use the same `type: description`
-    format as the subject line, including any flag. Do not add a bullet for
-    `chore:` commits.
+    Where the project keeps a changelog (see Input), add an entry for this
+    change as part of the same commit, in whatever section that changelog
+    uses for unreleased work. Use the same `type: description` format as the
+    subject line, including any flag. Do not add an entry for `chore:`
+    commits. Where the project keeps no changelog, skip this step.
 
 6.  Validate the message.
 
@@ -228,12 +233,13 @@ an error message.
   - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed
     to `origin/dev` or other trunks in multi-contributor repositories.
 
-- You MUST update the CHANGELOG for commits to `dev` and `temp/*`.
+- You MUST update the changelog for commits to a trunk or short-lived
+  branch, where the project keeps one.
 
-  When committing directly to `dev` or a `temp/*` branch, update the
-  project's `CHANGELOG.md` (or equivalent) as part of the same commit.
-  Document the change under an `[Unreleased]` section at the top of the
-  file.
+  Update it as part of the same commit, recording the change in whatever
+  section that changelog uses for unreleased work. Discover the changelog's
+  location and format rather than assuming `CHANGELOG.md` — and where the
+  project keeps none, say so rather than creating one uninvited.
 
   All commit types SHOULD be recorded — including `style:` and `refactor:`.
   The only exception is `chore:`, which is housekeeping too minor to warrant
@@ -269,11 +275,11 @@ an error message.
   trailing `:` artifacts. The colon MUST come immediately after the type,
   nothing else.
 
-- The CHANGELOG MUST be updated for direct commits to `dev` and `temp/*`
-  branches, unless the type is `chore:`.
+- The changelog MUST be updated for direct commits to a trunk or short-lived
+  branch, unless the type is `chore:` or the project keeps no changelog.
 
-  The `[Unreleased]` section MUST exist and MUST contain a bullet for this
-  commit, using the same `type: description` format as the subject line.
+  Its unreleased section MUST contain an entry for this commit, using the
+  same `type: description` format as the subject line.
 
 ## Examples
 

@@ -6,7 +6,7 @@ description: >-
   you remember from this?", or "save the lessons from our work today".
 license: CC0-1.0
 metadata:
-  interactive: no
+  interactive: yes
   preferred_model: ollama/technical-writer
 ---
 
@@ -20,8 +20,9 @@ this information on disk.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the required inputs, stop and alert the
-user with an error message.
+requirements; if you cannot determine them, stop and alert the user with an
+error message. You MAY prompt solely to establish where an artifact lives or
+how to access it, when context and environment do not settle it.
 
 - The current session's conversation — REQUIRED.
   The source of durable lessons — corrections, validated approaches,
@@ -31,22 +32,28 @@ user with an error message.
   Checked so new lessons update or extend prior entries rather than
   duplicating them.
 
-- The repo's convention files — REQUIRED.
-  `AGENTS.md` / `CLAUDE.md`, the destination for codebase conventions and a
-  source to check against before proposing.
+- The project's committed convention file — REQUIRED.
+  The destination for codebase conventions, and a source to check against
+  before proposing. Discover it rather than assuming it: it may be
+  `AGENTS.md`, `CLAUDE.md`, a contributor guide, or something else. Check
+  this session's context first, then the environment. If neither settles it,
+  ask the user.
 
-~~Seek per-candidate approval from the user, prompting before persisting.~~
+- The agent's memory system, and how it is indexed — REQUIRED.
+  Discover this from the harness rather than assuming a layout. Where no
+  memory system is available, say so and fall back to the committed
+  convention file for codebase conventions.
 
 ## Output
 
-Zero or more persisted lessons — memory entries (indexed in `MEMORY.md`)
-and/or appended convention rules — each non-obvious and capable of changing
-future agent behavior, written only after per-candidate user approval.
-Universal lessons better encoded as a new skill are flagged, not saved.
+Zero or more persisted lessons — memory entries, indexed however that memory
+system indexes them, and/or appended convention rules — each non-obvious and
+capable of changing future agent behavior, written only after per-candidate
+user approval. Universal lessons better encoded as a new skill are flagged,
+not saved.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+This skill is interactive. The agent walks the user through each candidate
+one at a time and waits for approval before persisting anything.
 
 ## Instructions
 
@@ -96,8 +103,8 @@ an error message.
       project-level memory.
 
     - Codebase convention — A repository-specific rule or pattern other
-      contributors (human and agent) should see. Destination: AGENTS.md
-      or CLAUDE.md — committed to the repo, not private memory.
+      contributors (human and agent) should see. Destination: the project's
+      committed convention file — not private memory.
 
 4.  Walk the user through each candidate.
 
@@ -113,20 +120,14 @@ an error message.
 
     Cross-link related memories with `[[name]]`.
 
-    For codebase-convention destinations, append a concise rule to
-    `AGENTS.md` (or `CLAUDE.md`, whichever the project uses) in the
-    section that fits — usually `## Rules` or a project-specific
-    equivalent.
+    For codebase-convention destinations, append a concise rule to the
+    project's committed convention file, in the section that fits.
 
-6.  Update the `MEMORY.md` index.
+6.  Update the memory index.
 
-    For each new memory file, add a one-line entry:
-
-    ```sh
-    - [Title](file.md) — one-line hook
-    ```
-
-    `MEMORY.md` is an index, not a memory. Keep entries terse.
+    Where the memory system keeps an index, add a one-line entry for each new
+    memory, in that index's own form — typically a title, a link, and a short
+    hook. The index is an index, not a memory. Keep entries terse.
 
 7.  Handle duplicates and contradictions during the walk-through.
 
@@ -168,9 +169,8 @@ an error message.
 
   - It is a one-off task detail with no reusable shape.
 
-  - It is already captured in an existing memory file or convention
-    doc. Check existing memories AND `AGENTS.md` / `CLAUDE.md` before
-    proposing.
+  - It is already captured in an existing memory or in the project's
+    convention file. Check both before proposing.
 
   A candidate survives if it would meaningfully change how a fresh agent
   behaves on a future session.
@@ -182,11 +182,13 @@ an error message.
   MUST NOT paste its content. The external system is the source of
   truth.
 
-- Codebase conventions MUST go to AGENTS.md / CLAUDE.md, not memory.
+- Codebase conventions MUST go to the project's committed convention file,
+  not to memory.
 
   Things other contributors need to see MUST be committed to the repo.
-  Memory files are agent-private; committed convention files are
-  team-visible. Pick the right destination.
+  Memory is agent-private; committed convention files are team-visible. Pick
+  the right destination — and discover which file that project actually uses
+  rather than assuming a name.
 
 - You MUST redact aggressively.
 
@@ -222,10 +224,9 @@ an error message.
   Lessons that apply regardless of user / project belong in a skill,
   not a memory entry.
 
-- If the agent's memory system has no obvious file path, you MUST
-  fall back to `AGENTS.md` for codebase conventions and skip the
-  memory-file steps for `user` / `feedback` / `project` / `reference`
-  types.
+- If no memory system is available, you MUST fall back to the project's
+  committed convention file for codebase conventions, and skip the memory
+  steps for `user` / `feedback` / `project` / `reference` types.
 
   Flag the deferred candidates in the final report.
 
@@ -240,9 +241,9 @@ an error message.
 - Each `feedback` and `project` entry MUST have both a Why: and a How
   to apply: line.
 
-- Every new memory file MUST be indexed in `MEMORY.md`.
+- Every new memory MUST be indexed, where the memory system keeps an index.
 
-  An unindexed memory file is invisible to future sessions.
+  An unindexed memory is invisible to future sessions.
 
 - No saved lesson MUST duplicate an existing memory or convention doc
   entry.
