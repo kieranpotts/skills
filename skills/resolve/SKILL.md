@@ -24,7 +24,7 @@ error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
 - **A pull request with open review comments — REQUIRED.** The un-dismissed
-  comments from [review](../review/SKILL.md); the author has already
+  comments on the pull request; the author has already
   resolved any they do not want actioned, so what remains is the work list.
 
 - **The code under review — REQUIRED.** The base commit is pinned.
@@ -71,8 +71,7 @@ You will achieve the following outcomes:
 - Resolution work MUST be committed and pushed.
 
   In its own commit(s), separate from the original implementation, with
-  the branch pushed so the re-review and [test](../test/SKILL.md) see
-  the fixes.
+  the branch pushed so re-review and CI see the fixes.
 
 ## Instructions
 
@@ -91,8 +90,8 @@ You will achieve the following outcomes:
 
 2.  Pin the working base.
 
-    State the branch and base commit you are working against, exactly as
-    [review](../review/SKILL.md) pinned its comparison base. If the branch
+    State the branch and base commit you are working against, matching the
+    base the review pinned its comments to. If the branch
     has advanced past the reviewed commit, re-anchor each comment to its
     current location before editing.
 

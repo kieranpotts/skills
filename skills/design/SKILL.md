@@ -129,7 +129,8 @@ You will achieve the following outcomes:
     - Budget: time, complexity tolerance, team familiarity, operational
       headroom.
 
-    If any constraint is unclear, ask the user before proceeding.
+    If any constraint is unclear, stop and report what is missing rather
+    than designing against a guess.
 
 3.  Identify the decision points.
 
@@ -299,8 +300,8 @@ You will achieve the following outcomes:
 
 - Two options are genuinely tied.
 
-  Say so. Present both with their trade-offs and ask the user to break the
-  tie. Do not flip a coin and proceed silently.
+  Say so. Present both with their trade-offs and stop — the tie is the
+  caller's to break. Do not flip a coin and proceed silently.
 
 ## Examples
 

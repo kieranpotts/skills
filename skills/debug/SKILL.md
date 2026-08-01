@@ -242,7 +242,7 @@ You will achieve the following outcomes:
 - If you genuinely cannot build a loop, you MUST stop and say so
   explicitly.
 
-  List what you tried. Ask the user for one of:
+  List what you tried, and state what you need in order to proceed:
 
   - Access to an environment that reproduces it.
 
@@ -251,7 +251,7 @@ You will achieve the following outcomes:
 
   - Permission to add temporary production instrumentation.
 
-    You MUST NOT proceed to hypothesize without a loop.
+  You MUST NOT proceed to hypothesize without a loop.
 
 - You MUST NOT proceed to hypothesis until you have reproduced the bug.
 
@@ -312,8 +312,8 @@ You will achieve the following outcomes:
 - The user's reported symptom is not the real bug.
 
   In step 2, if the loop fails to reproduce the user's described symptom
-  but reproduces something nearby, stop and check in with the user before
-  chasing the wrong bug.
+  but reproduces something nearby, stop and report the discrepancy rather
+  than chasing the wrong bug.
 
 ## Examples
 

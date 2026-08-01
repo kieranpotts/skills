@@ -126,8 +126,8 @@ You will achieve the following outcomes:
 - If the cause isn't already evident, you MUST NOT use this skill.
 
   fix resolves breakage a tool has already diagnosed. If you need to form
-  and test hypotheses about why something is failing, you MUST switch to
-  [debug](../debug/SKILL.md).
+  and test hypotheses about why something is failing, you MUST stop and
+  switch to systematic diagnosis instead.
 
 - You MUST make the minimal change that resolves the reported issue.
 
@@ -187,7 +187,7 @@ You will achieve the following outcomes:
 
   If investigation reveals there's no evident fix — the error message
   doesn't point anywhere conclusive, or the "obvious" fix doesn't
-  resolve it — stop and switch to [debug](../debug/SKILL.md) rather than
+  resolve it — stop and switch to systematic diagnosis rather than
   guessing repeatedly.
 
 ## Examples

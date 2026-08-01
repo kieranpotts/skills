@@ -148,19 +148,18 @@ You will achieve the following outcomes:
     assumed.
 
     Where the decision depends on external facts — library maturity,
-    licensing, benchmark numbers, API capability — use the
-    [`research`](../research/) skill to establish them. Where it depends on
-    whether something will actually work, use the [`spike`](../spike/) skill.
-    Do not build a recommendation on unverified assumptions; either verify
-    them or carry them into the open questions.
+    licensing, benchmark numbers, API capability — establish them from
+    primary sources. Where it depends on whether something will actually
+    work, build the smallest throwaway experiment that settles it. Do not
+    build a recommendation on unverified assumptions; either verify them or
+    carry them into the open questions.
 
 6.  Enumerate genuine alternatives.
     At least two real options, plus doing nothing. Each MUST be an option a
     competent colleague could actually advocate.
 
-    For architecture decisions, run the trade-off analysis with the
-    [`design`](../design/) skill and bring its conclusions here rather than
-    duplicating the method.
+    For architecture decisions, run the trade-off analysis separately and
+    bring its conclusions here rather than reproducing the working.
 
 7.  Weigh the trade-offs honestly.
     For each option, state what it costs, what it risks, and who carries the
@@ -176,8 +175,8 @@ You will achieve the following outcomes:
     contributors, the service level agreement. Note effects on cross-cutting
     concerns: security, performance, availability, the technology stack.
 
-    For decisions with a security dimension, the [`probe`](../probe/) skill
-    can surface threats worth naming here.
+    For decisions with a security dimension, name the threats the choice
+    introduces or mitigates.
 
 9.  Recommend one option — and say what would change your mind.
     Name the recommendation and the reasoning: which factors dominate, and
@@ -222,14 +221,14 @@ You will achieve the following outcomes:
   conditions that would change the recommendation — collects agreement
   rather than scrutiny, which is how bad decisions get ratified.
 
--   **You MUST discover the decision store's location and conventions; you
-    MUST NOT assume them.**
+- You MUST discover the decision store's location and conventions; you MUST
+  NOT assume them.
 
-    This skill is used across projects that record decisions in different
-    places and formats — an RFC archive, an ADR directory, a decision log, a
-    wiki space. A path, file name, template, or section structure that is
-    right in one project is wrong in the next. Resolve the store first, then
-    read and follow whatever conventions it documents for itself.
+  This skill is used across projects that record decisions in different
+  places and formats — an RFC archive, an ADR directory, a decision log, a
+  wiki space. A path, file name, template, or section structure that is
+  right in one project is wrong in the next. Resolve the store first, then
+  read and follow whatever conventions it documents for itself.
 
 - You MUST NOT present a strawman alternative.
 

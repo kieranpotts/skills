@@ -188,9 +188,9 @@ You will achieve the following outcomes:
 
 - The time-box MUST be enforced, not aspirational.
 
-  When the budget is gone, you MUST stop. The decision to extend MUST
-  be explicit and made with the user, not absorbed quietly into the
-  work. A single spike's time-box MUST NOT exceed 3–5 days; anything
+  When the budget is gone, you MUST stop and report what the budget bought
+  and what is still unknown. A decision to extend MUST be explicit and
+  belongs to the caller; it MUST NOT be absorbed quietly into the work. A single spike's time-box MUST NOT exceed 3–5 days; anything
   larger MUST be split into multiple spikes or treated as project work.
 
 - Production concerns MUST be explicitly skipped.

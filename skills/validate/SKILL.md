@@ -55,8 +55,7 @@ You will achieve the following outcomes:
 - A bounded, prioritized validation report — an explicit verdict (MEETS THE
   NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
   specification should evolve, each classified by gap type, backed by
-  evidence, and ready to seed a [refine](../refine/SKILL.md) →
-  [specify](../specify/SKILL.md) pass.
+  evidence, and ready to seed a revision of the specification.
 
 - No specification or code was changed. Acting on the report was left to
   the caller.
@@ -75,7 +74,7 @@ You will achieve the following outcomes:
 
   Unmet need / wrong target / missing requirement / over-specification /
   stale assumption, plus what the specification should say instead,
-  ready for [refine](../refine/SKILL.md).
+  ready for whoever revises it.
 
 - The verdict MUST be explicit.
 
@@ -143,7 +142,7 @@ You will achieve the following outcomes:
     over-specification / stale assumption — one sentence, with evidence.>
     **Evidence.** <Observed behavior, measurement, or flow step.>
     **Suggested direction.** <What the specification should say instead,
-    for `refine` to draft — or "leave it" with rationale.>
+    for someone else to draft — or "leave it" with rationale.>
     **Change cost.** <Small / medium / large.>
 
     ### 2. <Outcome / need>
@@ -160,7 +159,7 @@ You will achieve the following outcomes:
 - You MUST validate against the need, not the specification.
 
   The specification is the thing under suspicion. Judging the software
-  against the ACs only re-runs [test](../test/SKILL.md). You MUST judge
+  against the ACs only re-runs the acceptance tests. You MUST judge
   it against the originating need — the PRD, the outcome, the success
   measure — so a passing-but-wrong specification can be caught.
 
@@ -168,8 +167,8 @@ You will achieve the following outcomes:
 
   This skill MUST NOT change any specification artifact and MUST NOT
   change any code. It outputs a report of suggestions. Editing the
-  requirements is [refine](../refine/SKILL.md)'s responsibility; this
-  skill's job ends at the suggestion.
+  requirements belongs to whoever acts on the report; this skill's job
+  ends at the suggestion.
 
 - Every finding MUST carry evidence.
 
@@ -180,8 +179,8 @@ You will achieve the following outcomes:
 - You MUST distinguish a specification gap from an implementation defect.
 
   If the software fails because the code does not meet a correct AC,
-  that is a defect for [test](../test/SKILL.md) and diagnosis — not a
-  validation finding. Validation fires only when the AC itself,
+  that is an implementation defect, for testing and diagnosis to catch —
+  not a validation finding. Validation fires only when the AC itself,
   faithfully implemented, fails to serve the need.
 
 - "Meets the need" is a valid verdict.

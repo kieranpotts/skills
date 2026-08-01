@@ -250,7 +250,8 @@ You will achieve the following outcomes:
   You SHOULD NOT report security or privacy weaknesses — eg. injection
   points, broken auth boundaries, unsafe secrets handling, etc.
 
-  These concerns are the scope of the [probe](../probe/) skill.
+  Security review is a separate exercise, with its own method and its own
+  report.
 
 - You MUST adopt an existing scaffolded report rather than creating a second
   one.
