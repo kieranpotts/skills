@@ -175,8 +175,16 @@ it.
 
     Resolve the audit store (see Input), then read whatever it publishes
     about itself — its convention file, its template, its contributor
-    documentation — and prepare a new audit report to those conventions,
-    ready for the user to review.
+    documentation.
+
+    First check whether a report has already been scaffolded for this audit —
+    a blank or placeholder-filled report matching this scope, on the current
+    branch or in the store. If one exists, write the findings into it.
+    Creating a second report alongside a scaffolded one splits the record and
+    leaves an empty artifact behind.
+
+    Otherwise, prepare a new audit report to the store's conventions, ready
+    for the user to review.
 
     If the store documents no conventions, analyze the reports already in it,
     establish the common shape, and follow that. If the store is empty and
@@ -217,6 +225,14 @@ it.
 
   These concerns are the scope of the [probe](../probe/) skill.
 
+- You MUST adopt an existing scaffolded report rather than creating a second
+  one.
+
+  A store's own workflow may scaffold a blank report and open it for review
+  before the audit runs. Where such a scaffold exists for this scope, the
+  findings MUST be written into it. Two artifacts for one audit is a split
+  record.
+
 - You MUST discover the audit store's location and conventions; you MUST NOT
   assume them.
 
@@ -233,6 +249,11 @@ it.
   Your audit report MUST target structural problems, not preferences.
 
 ## Success criteria
+
+- Exactly one report MUST exist for this audit.
+
+  Any scaffold already present for this scope MUST have been written into,
+  not duplicated.
 
 - The audit store MUST have been discovered, not assumed.
 

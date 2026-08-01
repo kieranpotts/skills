@@ -252,9 +252,16 @@ you are building the report as you go.
 
 11. Write the session report.
 
-    Confirm with the user that the assessment is complete, then write the
-    report where and how the store expects it — its own template, its own
-    naming and placement convention. Populate the summary, business context,
+    Confirm with the user that the assessment is complete.
+
+    First check whether a report has already been scaffolded for this scope —
+    a blank or placeholder-filled report matching this assessment, on the
+    current branch or in the store. If one exists, write into it. Creating a
+    second report alongside a scaffolded one splits the record and leaves an
+    empty artifact behind.
+
+    Otherwise, write the report where and how the store expects it — its own
+    template, its own naming and placement convention. Populate the summary, business context,
     technical scope, decomposition, threat assessment, risks raised,
     mitigation strategies, and follow-ups from your notes.
 
@@ -348,6 +355,14 @@ you are building the report as you go.
 
 ## Success criteria
 
+- You MUST adopt an existing scaffolded report rather than creating a second
+  one.
+
+  A store's own workflow may scaffold a blank report and open it for review
+  before the assessment runs. Where such a scaffold exists for this scope,
+  the findings MUST be written into it. Two artifacts for one assessment is a
+  split record.
+
 - The risk store MUST have been discovered before the session starts.
 
   Its location and access method MUST trace to session context, to the
@@ -356,9 +371,10 @@ you are building the report as you go.
   stopped and alerted the user: there is nowhere valid to record the
   outcome.
 
-- A dated, scoped session report MUST exist in the store.
+- A dated, scoped session report MUST exist in the store — exactly one.
 
-  Written where and how that store places reports, citing the exact system
+  Written where and how that store places reports, adopting any scaffold
+  already present for this scope rather than creating a second artifact, citing the exact system
   context assessed (components, data flows, and the revision under
   assessment where applicable) so it is a reproducible point-in-time
   snapshot.
