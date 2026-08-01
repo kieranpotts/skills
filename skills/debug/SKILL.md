@@ -12,7 +12,14 @@ metadata:
 
 # Debug
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
+Diagnose a bug or performance regression whose cause is not obvious, then fix
+it. Build a reliable feedback loop first, reproduce the failure, form ranked
+falsifiable hypotheses, instrument to test them one variable at a time, then
+fix and lock the behavior down with a regression test.
+
+The feedback loop is the skill: without one you are guessing. Where the cause
+is already evident — a compiler, linter, or type-checker has named it — this
+is the wrong skill; that is mechanical repair, not diagnosis.
 
 ## Input
 
