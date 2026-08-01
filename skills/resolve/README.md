@@ -32,9 +32,9 @@ intent.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  review["🤖\nreview"]:::agentic
-  resolve["🤖\nresolve"]:::agentic
-  integrate["⚙️\nintegrate"]:::scripted
+  review["🤖<br/>review"]:::agentic
+  resolve["🤖<br/>resolve"]:::agentic
+  integrate["⚙️<br/>integrate"]:::scripted
 
   %% Main workflow sequence.
   review ==> resolve

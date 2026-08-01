@@ -39,9 +39,9 @@ subtle defects and over-report style nitpicks.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  test["⚙️\ntest"]:::scripted
-  review["🤖\nreview"]:::agentic
-  resolve["🤖\nresolve"]:::agentic
+  test["⚙️<br/>test"]:::scripted
+  review["🤖<br/>review"]:::agentic
+  resolve["🤖<br/>resolve"]:::agentic
 
   %% Main workflow sequence.
   test ==> review

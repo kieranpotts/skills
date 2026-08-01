@@ -30,9 +30,9 @@ right choice, and an automated formatter is often better still.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  code["🤖\ncode"]:::agentic
-  styleSkill["🤖\nstyle"]:::agentic
-  lint["⚙️\nlint"]:::scripted
+  code["🤖<br/>code"]:::agentic
+  styleSkill["🤖<br/>style"]:::agentic
+  lint["⚙️<br/>lint"]:::scripted
 
   %% Main workflow sequence.
   code ==> styleSkill

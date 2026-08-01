@@ -42,9 +42,9 @@ further — a capability that degrades noticeably in smaller models.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  discover["🤖🧑\ndiscover"]:::anthropic
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
+  discover["🤖🧑<br/>discover"]:::anthropic
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
 
   %% Main workflow sequence.
   discover <-.-> specify

@@ -36,9 +36,9 @@ judgment.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  branch["🤖\nbranch"]:::agentic
-  commit["🤖\ncommit"]:::agentic
-  merge["🤖\nmerge"]:::agentic
+  branch["🤖<br/>branch"]:::agentic
+  commit["🤖<br/>commit"]:::agentic
+  merge["🤖<br/>merge"]:::agentic
 
   %% Main workflow sequence.
   branch ==> commit

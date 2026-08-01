@@ -58,10 +58,10 @@ that with throwaway code. For decisions that are architectural in nature, the
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  research["🤖\nresearch"]:::agentic
-  decide["🤖🧑\ndecide"]:::anthropic
-  spike["🤖\nspike"]:::agentic
-  design["🤖\ndesign"]:::agentic
+  research["🤖<br/>research"]:::agentic
+  decide["🤖🧑<br/>decide"]:::anthropic
+  spike["🤖<br/>spike"]:::agentic
+  design["🤖<br/>design"]:::agentic
 
   %% Main workflow sequence.
   research ==> decide
@@ -82,11 +82,11 @@ implemented decision on `main`.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  decide["🤖🧑\ndecide"]:::anthropic
-  scaffold["🤖\nscaffold-rfc"]:::agentic
-  propose["🤖\npropose-rfc"]:::agentic
-  accept["🤖\naccept-rfc"]:::agentic
-  implement["🤖\nimplement-rfc"]:::agentic
+  decide["🤖🧑<br/>decide"]:::anthropic
+  scaffold["🤖<br/>scaffold-rfc"]:::agentic
+  propose["🤖<br/>propose-rfc"]:::agentic
+  accept["🤖<br/>accept-rfc"]:::agentic
+  implement["🤖<br/>implement-rfc"]:::agentic
 
   %% Main workflow sequence.
   scaffold ==> decide

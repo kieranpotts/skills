@@ -116,10 +116,10 @@ softer, more contestable call.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  discover["🤖🧑\ndiscover"]:::anthropic
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  refine["🤖🧑\nrefine"]:::anthropic
+  discover["🤖🧑<br/>discover"]:::anthropic
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  refine["🤖🧑<br/>refine"]:::anthropic
 
   %% Main workflow sequence.
   discover <-.-> specify

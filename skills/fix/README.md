@@ -35,9 +35,9 @@ unnecessary overhead for well-diagnosed lint, build, or type errors.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  build["⚙️\nbuild"]:::scripted
-  fix["🤖\nfix"]:::agentic
-  code["🤖\ncode"]:::agentic
+  build["⚙️<br/>build"]:::scripted
+  fix["🤖<br/>fix"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   build -- fail --> fix

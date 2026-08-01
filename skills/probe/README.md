@@ -50,9 +50,9 @@ conducted in parallel.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  design["🤖\ndesign"]:::agentic
-  probe["🤖🧑\nprobe"]:::anthropic
-  audit["🤖\naudit"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  probe["🤖🧑<br/>probe"]:::anthropic
+  audit["🤖<br/>audit"]:::agentic
 
   %% Main workflow sequence.
   design ==> probe

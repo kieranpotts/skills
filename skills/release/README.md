@@ -37,9 +37,9 @@ model is sufficient. This is rule application, not judgment.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  merge["🤖\nmerge"]:::agentic
-  release["🤖\nrelease"]:::agentic
-  deploy["⚙️\ndeploy"]:::scripted
+  merge["🤖<br/>merge"]:::agentic
+  release["🤖<br/>release"]:::agentic
+  deploy["⚙️<br/>deploy"]:::scripted
 
   %% Main workflow sequence.
   merge ==> release

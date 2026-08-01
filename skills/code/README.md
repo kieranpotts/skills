@@ -31,11 +31,11 @@ steps with subtle algorithmic or concurrency complexity.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  plan["🤖\nplan"]:::agentic
-  triage["🤖\ntriage"]:::agentic
-  code["🤖\ncode"]:::agentic
-  styleSkill["🤖\nstyle"]:::agentic
-  integrate["⚙️\nintegrate"]:::scripted
+  plan["🤖<br/>plan"]:::agentic
+  triage["🤖<br/>triage"]:::agentic
+  code["🤖<br/>code"]:::agentic
+  styleSkill["🤖<br/>style"]:::agentic
+  integrate["⚙️<br/>integrate"]:::scripted
 
   %% Main workflow sequence.
   plan ==> code

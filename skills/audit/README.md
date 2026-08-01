@@ -62,9 +62,9 @@ structural improvements proposed in the report.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  integrate["⚙️\nintegrate"]:::scripted
-  audit["🤖\naudit"]:::agentic
-  refactor["🤖\nrefactor"]:::agentic
+  integrate["⚙️<br/>integrate"]:::scripted
+  audit["🤖<br/>audit"]:::agentic
+  refactor["🤖<br/>refactor"]:::agentic
 
   %% Main workflow sequence.
   integrate ==> audit

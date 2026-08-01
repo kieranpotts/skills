@@ -40,9 +40,9 @@ cause.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  test["⚙️\ntest"]:::scripted
-  debug["🤖\ndebug"]:::agentic
-  code["🤖\ncode"]:::agentic
+  test["⚙️<br/>test"]:::scripted
+  debug["🤖<br/>debug"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   test -- fail --> debug

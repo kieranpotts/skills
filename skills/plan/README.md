@@ -32,9 +32,9 @@ which tends to under-think dependencies between steps.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  design["🤖\ndesign"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  code["🤖\ncode"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  plan["🤖<br/>plan"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   design ==> plan

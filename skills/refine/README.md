@@ -41,9 +41,9 @@ reveals a deeper misunderstanding of the requirements rather than a simple gap.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  validate["🤖\nvalidate"]:::agentic
-  refine["🤖🧑\nrefine"]:::anthropic
-  specify["🤖\nspecify"]:::agentic
+  validate["🤖<br/>validate"]:::agentic
+  refine["🤖🧑<br/>refine"]:::anthropic
+  specify["🤖<br/>specify"]:::agentic
 
   %% Main workflow sequence.
   validate --> refine

@@ -43,10 +43,10 @@ satisfies intent.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  build["⚙️\nbuild"]:::scripted
-  test["🤖\ntest"]:::agentic
-  integrate["⚙️\nintegrate"]:::scripted
-  debug["🤖\ndebug"]:::agentic
+  build["⚙️<br/>build"]:::scripted
+  test["🤖<br/>test"]:::agentic
+  integrate["⚙️<br/>integrate"]:::scripted
+  debug["🤖<br/>debug"]:::agentic
 
   %% Main workflow sequence.
   build ==> test

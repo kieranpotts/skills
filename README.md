@@ -180,16 +180,16 @@ pipeline cannot be fully handled by only the agentic and automated steps.
 
 ```mermaid
 flowchart LR
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  code["🤖\ncode"]:::agentic
-  build["⚙️\nbuild"]:::scripted
-  test["⚙️\ntest"]:::scripted
-  review["🤖\nreview"]:::agentic
-  resolve["🤖\nresolve"]:::agentic
-  deploy["⚙️\ndeploy"]:::scripted
-  human["🧑\nreview"]:::anthropic
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  plan["🤖<br/>plan"]:::agentic
+  code["🤖<br/>code"]:::agentic
+  build["⚙️<br/>build"]:::scripted
+  test["⚙️<br/>test"]:::scripted
+  review["🤖<br/>review"]:::agentic
+  resolve["🤖<br/>resolve"]:::agentic
+  deploy["⚙️<br/>deploy"]:::scripted
+  human["🧑<br/>review"]:::anthropic
 
   specify ==> design
   design ==> plan
@@ -237,13 +237,13 @@ the software development lifecycle.
 
 ```mermaid
 flowchart LR
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  code["🤖\ncode"]:::agentic
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  plan["🤖<br/>plan"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
-  discover["🤖🧑\ndiscover"]:::anthropic
-  elaborate["🤖🧑\nelaborate"]:::anthropic
+  discover["🤖🧑<br/>discover"]:::anthropic
+  elaborate["🤖🧑<br/>elaborate"]:::anthropic
 
   specify ==> design
   design ==> plan

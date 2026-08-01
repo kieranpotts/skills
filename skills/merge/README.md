@@ -40,9 +40,9 @@ understanding intent on both branches, not just diff lines.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  commit["🤖\ncommit"]:::agentic
-  merge["🤖\nmerge"]:::agentic
-  release["🤖\nrelease"]:::agentic
+  commit["🤖<br/>commit"]:::agentic
+  merge["🤖<br/>merge"]:::agentic
+  release["🤖<br/>release"]:::agentic
 
   %% Main workflow sequence.
   commit ==> merge

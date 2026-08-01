@@ -37,8 +37,8 @@ ergonomics) and getting the experiment design wrong would waste the time-box.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  design["🤖\ndesign"]:::agentic
-  spike["🤖\nspike"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  spike["🤖<br/>spike"]:::agentic
 
   %% Main workflow sequence.
   design <-.-> spike

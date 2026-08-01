@@ -43,10 +43,10 @@ the documented requirements.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  audit["🤖\naudit"]:::agentic
-  validate["🤖\nvalidate"]:::agentic
-  deploy["⚙️\ndeploy"]:::scripted
-  refine["🤖🧑\nrefine"]:::anthropic
+  audit["🤖<br/>audit"]:::agentic
+  validate["🤖<br/>validate"]:::agentic
+  deploy["⚙️<br/>deploy"]:::scripted
+  refine["🤖🧑<br/>refine"]:::anthropic
 
   %% Main workflow sequence.
   audit ==> validate

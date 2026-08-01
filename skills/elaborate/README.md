@@ -38,8 +38,8 @@ proposition is the model's ability to find the weak point in an argument.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  design["🤖\ndesign"]:::agentic
-  elaborate["🤖🧑\nelaborate"]:::anthropic
+  design["🤖<br/>design"]:::agentic
+  elaborate["🤖🧑<br/>elaborate"]:::anthropic
 
   %% Main workflow sequence.
   design <-.-> elaborate

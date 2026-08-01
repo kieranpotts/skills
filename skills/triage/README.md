@@ -40,8 +40,8 @@ an issue needs to be "grilled into shape" before it's ready for an agent.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  triage["🤖\ntriage"]:::agentic
-  code["🤖\ncode"]:::agentic
+  triage["🤖<br/>triage"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   triage ==> code

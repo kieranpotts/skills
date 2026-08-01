@@ -58,11 +58,11 @@ skill (to stress-test the draft design).
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  specify["🤖\nspecify"]:::agentic
-  design["🤖\ndesign"]:::agentic
-  plan["🤖\nplan"]:::agentic
-  spike["🤖\nspike"]:::agentic
-  elaborate["🤖🧑\nelaborate"]:::anthropic
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  plan["🤖<br/>plan"]:::agentic
+  spike["🤖<br/>spike"]:::agentic
+  elaborate["🤖🧑<br/>elaborate"]:::anthropic
 
   %% Main workflow sequence.
   specify ==> design
@@ -85,8 +85,8 @@ trade-offs to consider.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  specify["🤖\nspecify"]:::agentic
-  code["🤖\ncode"]:::agentic
+  specify["🤖<br/>specify"]:::agentic
+  code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   specify ==> code
