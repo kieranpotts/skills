@@ -11,7 +11,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: ollama/xxxxxxxxxxxxxxxxxxxxxxxxx
+  preferred_model: ollama/prose-writing
 ---
 
 # Refine

@@ -182,7 +182,7 @@ You will achieve the following outcomes:
     For each finding, determine:
 
     - Impact.
-      How much the the rest of the codebase will be simplified if the issue
+      How much the rest of the codebase will be simplified if the issue
       is fixed. Findings that unlock other improvements rank high.
 
     - Effort.

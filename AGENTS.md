@@ -16,8 +16,9 @@ Each skill is portable and independent. No skill hands off to another skill.
 You can install or delete any one skill on its own, and orchestrate them
 into all sorts of workflows.
 
-Every `SKILL.md` file SHOULD be token-efficient (RECOMMENDED limit: 300 lines)
-and MUST pass the validator checks — described below.
+Every `SKILL.md` file SHOULD be token-efficient (RECOMMENDED limit: 500
+lines, counting blank lines) and MUST pass the validator checks — described
+below.
 
 ## Tech stack
 
@@ -82,7 +83,9 @@ and MUST pass the validator checks — described below.
   **[create-skill](./skills/create-skill/SKILL.md)** skill. See also
   [`docs/creating-skills.md`](./docs/creating-skills.md).
 
-- `SKILL.md` files SHOULD NOT exceed 300 lines.
+- `SKILL.md` files SHOULD NOT exceed 500 lines. The count is of physical
+  lines, blank lines included — it is a budget on the file as loaded into
+  the context window, not on its prose.
 
 - Each skill directory MUST contain a sibling `README.md`.
 

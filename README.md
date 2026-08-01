@@ -95,7 +95,7 @@ Each skill operates in one of two possible modes:
 |-------|-------------|----|
 | **[audit](./skills/audit/)** | Evaluate the evolving architecture — modularity, consistency, coupling, etc. | 🤖 |
 | **[code](./skills/code/)** | Write code, verified by tests, for one small increment. | 🤖 |
-| **[decide](./skills/decide/)** | Make a technical decision. | 🤖 |
+| **[decide](./skills/decide/)** | Frame a technical decision as an RFC. | 🤖 |
 | **[debug](./skills/debug/)** | Diagnose and fix unexpected behaviors and runtime issues. | 🤖 |
 | **[design](./skills/design/)** | Explore architectural options and their trade-offs. | 🤖 |
 | **[discover](./skills/discover/)** | Run a discovery workshop with the customer to elicit product requirements. |🤖🧑|

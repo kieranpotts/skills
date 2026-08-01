@@ -92,14 +92,15 @@ run_repo_checks() {
     failed=1
   fi
 
-  # SKILL.md is under ~300 lines (this repo's stricter token-efficiency rule;
-  # the canonical Agent Skills guidance is ~500).
+  # SKILL.md is under 500 lines, matching the canonical Agent Skills
+  # guidance. Physical lines, blank lines included — the budget is on the
+  # file as loaded into the context window, not on its prose.
   local line_count
   line_count=$(wc -l <"${skill_md}")
-  if (( line_count <= 300 )); then
-    printf "  [PASS] SKILL.md is %d lines (<= 300)\n" "${line_count}" >&2
+  if (( line_count <= 500 )); then
+    printf "  [PASS] SKILL.md is %d lines (<= 500)\n" "${line_count}" >&2
   else
-    printf "  [FAIL] SKILL.md is %d lines (exceeds 300-line limit)\n" "${line_count}" >&2
+    printf "  [FAIL] SKILL.md is %d lines (exceeds 500-line limit)\n" "${line_count}" >&2
     failed=1
   fi
 
@@ -159,7 +160,76 @@ run_repo_checks() {
     printf "         Rules, criteria, and examples should be plain prose\n" >&2
   fi
 
+  check_preferred_model "${skill_md}" || failed=1
+
   return "${failed}"
+}
+
+#
+# 'metadata.preferred_model' names a model that must actually exist. The
+# vocabulary is not hard-coded: it is read from `ollama list` where Ollama is
+# installed, else from the modelfiles repo. Where neither is available the
+# check is skipped rather than guessed at.
+#
+model_vocabulary() {
+  if command -v ollama >/dev/null 2>&1; then
+    # Strip the ':tag' suffix; 'prose-writing:latest' is 'prose-writing'.
+    if ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }' | grep -q .; then
+      ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }'
+      return 0
+    fi
+  fi
+
+  # Fall back to the modelfiles repo, checked at its conventional siblings of
+  # this collection. Each subdirectory of a dist tree is one model.
+  local here candidate
+  here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  for candidate in \
+    "${MODELFILES_DIR:-}" \
+    "${here}/../../../../../modelfiles/default" \
+    "${here}/../../../../modelfiles" \
+    "${HOME}/dev/personal/kieranpotts/modelfiles/default"; do
+    [[ -n "${candidate}" && -d "${candidate}/dist/default" ]] || continue
+    find "${candidate}/dist/default" -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
+    return 0
+  done
+
+  return 1
+}
+
+check_preferred_model() {
+  local skill_md="$1"
+  local declared vocabulary
+
+  # Read only the front matter, so prose mentioning the field is not matched.
+  declared="$(awk '
+    NR == 1 && $0 == "---" { infm = 1; next }
+    infm && $0 == "---" { exit }
+    infm && /^[[:space:]]+preferred_model:[[:space:]]*/ {
+      sub(/^[[:space:]]*preferred_model:[[:space:]]*/, ""); print; exit
+    }' "${skill_md}")"
+
+  if [[ -z "${declared}" ]]; then
+    printf "  [PASS] No 'preferred_model' declared (optional)\n" >&2
+    return 0
+  fi
+
+  if ! vocabulary="$(model_vocabulary)"; then
+    printf "  [SKIP] Cannot check 'preferred_model' — no 'ollama' and no modelfiles repo\n" >&2
+    return 0
+  fi
+
+  # 'ollama/prose-writing' names the 'prose-writing' model on the ollama
+  # provider. Compare on the model name alone.
+  local model="${declared##*/}"
+  if grep -qxF "${model}" <<<"${vocabulary}"; then
+    printf "  [PASS] preferred_model '%s' exists\n" "${declared}" >&2
+    return 0
+  fi
+
+  printf "  [FAIL] preferred_model '%s' is not an available model\n" "${declared}" >&2
+  printf "         Available: %s\n" "$(tr '\n' ' ' <<<"${vocabulary}")" >&2
+  return 1
 }
 
 main "$@"

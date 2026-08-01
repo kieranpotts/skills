@@ -8,7 +8,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/xxxxxxxxxxxxxxxxxxxxxx
+  preferred_model: ollama/prose-writing
 ---
 
 # Specify

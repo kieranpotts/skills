@@ -72,8 +72,9 @@ You will achieve the following outcomes:
 - No other skill is referenced by name — neither a global skill from a
   project-level one, nor the reverse.
 
-- The `SKILL.md` is token-efficient, and under ~300 lines. No section is
-  padded with detail that belongs in a `references/` file.
+- The `SKILL.md` is token-efficient, and under 500 lines — physical lines,
+  blank lines included. No section is padded with detail that belongs in a
+  `references/` file.
 
 - A `README.md` exists alongside the `SKILL.md`.
 
@@ -334,7 +335,8 @@ You will achieve the following outcomes:
 - Keep the skill token-efficient.
 
   Skills are loaded into the agent's context window. `SKILL.md` SHOULD
-  stay under ~300 lines. Offload deep detail to `references/` files. Link
+  stay under 500 lines, counting blank lines — the budget is on the file as
+  loaded, not on its prose. Offload deep detail to `references/` files. Link
   them with a trigger condition so they're only read when needed. Extract
   recurring logic to `scripts/`. Balance token efficiency against human
   readability.
