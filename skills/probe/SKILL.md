@@ -8,7 +8,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: ollama/security-analysis
+  preferred_model: ollama/SECURITY_DEEP
 ---
 
 # Probe

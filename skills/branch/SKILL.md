@@ -9,7 +9,7 @@ compatibility: requires git
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/technical-reasoning
+  preferred_model: ollama/WORKFLOW_BASIC
 ---
 
 # Branch

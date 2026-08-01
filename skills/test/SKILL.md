@@ -9,7 +9,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/computer-programming
+  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Test

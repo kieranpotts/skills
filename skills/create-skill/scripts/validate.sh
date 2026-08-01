@@ -173,7 +173,7 @@ run_repo_checks() {
 #
 model_vocabulary() {
   if command -v ollama >/dev/null 2>&1; then
-    # Strip the ':tag' suffix; 'prose-writing:latest' is 'prose-writing'.
+    # Strip the ':tag' suffix; 'PROSE_DEEP:latest' is 'PROSE_DEEP'.
     if ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }' | grep -q .; then
       ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }'
       return 0
@@ -219,7 +219,7 @@ check_preferred_model() {
     return 0
   fi
 
-  # 'ollama/prose-writing' names the 'prose-writing' model on the ollama
+  # 'ollama/PROSE_DEEP' names the 'PROSE_DEEP' model on the ollama
   # provider. Compare on the model name alone.
   local model="${declared##*/}"
   if grep -qxF "${model}" <<<"${vocabulary}"; then
