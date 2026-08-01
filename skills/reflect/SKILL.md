@@ -16,7 +16,7 @@ Extract durable lessons from the current session. Capture corrections,
 validated approaches, revealed preferences, and project decisions. Persist
 this information on disk.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -24,36 +24,79 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The current session's conversation — REQUIRED.
-  The source of durable lessons — corrections, validated approaches,
-  revealed preferences, and project decisions surfaced during the work.
+- **The current session's conversation — REQUIRED.** The source of durable
+  lessons — corrections, validated approaches, revealed preferences, and
+  project decisions surfaced during the work.
 
-- The agent's existing memory files — REQUIRED.
-  Checked so new lessons update or extend prior entries rather than
-  duplicating them.
+- **The agent's existing memory files — REQUIRED.** Checked so new lessons
+  update or extend prior entries rather than duplicating them.
 
-- The project's committed convention file — REQUIRED.
-  The destination for codebase conventions, and a source to check against
-  before proposing. Discover it rather than assuming it: it may be
-  `AGENTS.md`, `CLAUDE.md`, a contributor guide, or something else. Check
-  this session's context first, then the environment. If neither settles it,
-  ask the user.
+- **The project's committed convention file — REQUIRED.** The destination
+  for codebase conventions, and a source to check against before proposing.
+  Discover it rather than assuming it: it may be `AGENTS.md`, `CLAUDE.md`, a
+  contributor guide, or something else. Check this session's context first,
+  then the environment. If neither settles it, ask the user.
 
-- The agent's memory system, and how it is indexed — REQUIRED.
-  Discover this from the harness rather than assuming a layout. Where no
-  memory system is available, say so and fall back to the committed
-  convention file for codebase conventions.
-
-## Output
-
-Zero or more persisted lessons — memory entries, indexed however that memory
-system indexes them, and/or appended convention rules — each non-obvious and
-capable of changing future agent behavior, written only after per-candidate
-user approval. Universal lessons better encoded as a new skill are flagged,
-not saved.
+- **The agent's memory system, and how it is indexed — REQUIRED.** Discover
+  this from the harness rather than assuming a layout. Where no memory
+  system is available, say so and fall back to the committed convention file
+  for codebase conventions.
 
 This skill is interactive. The agent walks the user through each candidate
 one at a time and waits for approval before persisting anything.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- Zero or more persisted lessons — memory entries, indexed however that
+  memory system indexes them, and/or appended convention rules — each
+  non-obvious and capable of changing future agent behavior, written only
+  after per-candidate user approval.
+
+- Universal lessons better encoded as a new skill are flagged, not saved.
+
+- Every saved lesson MUST be non-obvious and MUST change future agent
+  behavior.
+
+  A reader of the entry can identify what you would do differently
+  because of it.
+
+- Each `feedback` and `project` entry MUST have both a Why: and a How
+  to apply: line.
+
+- Every new memory MUST be indexed, where the memory system keeps an index.
+
+  An unindexed memory is invisible to future sessions.
+
+- No saved lesson MUST duplicate an existing memory or convention doc
+  entry.
+
+- No credentials, PII, or internal URLs MUST appear in any saved entry.
+
+- Memory entries MUST follow the required format.
+
+  ```markdown
+  ---
+  name: <short-kebab-case-slug>
+  description: <one-line summary — specific, used by future agents to decide relevance>
+  metadata:
+  type: <user | feedback | project | reference>
+  ---
+
+  <Lesson content.>
+
+  <For `feedback` and `project` types, follow with:>
+
+  **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
+
+  **How to apply:** <When and where this guidance kicks in.>
+  ```
+
+- The final report MUST state how many candidates were proposed and how
+  many were saved (by type), the paths/filenames of new and updated
+  entries, and any skipped candidates worth revisiting in a future
+  session.
 
 ## Instructions
 
@@ -172,8 +215,8 @@ one at a time and waits for approval before persisting anything.
   - It is already captured in an existing memory or in the project's
     convention file. Check both before proposing.
 
-  A candidate survives if it would meaningfully change how a fresh agent
-  behaves on a future session.
+    A candidate survives if it would meaningfully change how a fresh agent
+    behaves on a future session.
 
 - You MUST reference external systems, not duplicate them.
 
@@ -229,50 +272,6 @@ one at a time and waits for approval before persisting anything.
   steps for `user` / `feedback` / `project` / `reference` types.
 
   Flag the deferred candidates in the final report.
-
-## Success criteria
-
-- Every saved lesson MUST be non-obvious and MUST change future agent
-  behavior.
-
-  A reader of the entry can identify what you would do differently
-  because of it.
-
-- Each `feedback` and `project` entry MUST have both a Why: and a How
-  to apply: line.
-
-- Every new memory MUST be indexed, where the memory system keeps an index.
-
-  An unindexed memory is invisible to future sessions.
-
-- No saved lesson MUST duplicate an existing memory or convention doc
-  entry.
-
-- No credentials, PII, or internal URLs MUST appear in any saved entry.
-
-- Memory entries MUST follow the required format.
-
-  ```markdown
-  ---
-  name: <short-kebab-case-slug>
-  description: <one-line summary — specific, used by future agents to decide relevance>
-  metadata:
-    type: <user | feedback | project | reference>
-  ---
-
-  <Lesson content.>
-
-  <For `feedback` and `project` types, follow with:>
-
-  **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
-
-  **How to apply:** <When and where this guidance kicks in.>
-  ```
-
-- The final report MUST state how many candidates were proposed and how
-  many were saved (by type), the paths/filenames of new and updated
-  entries, and any skipped candidates worth revisiting in a future
-  session.
 
 ## References
 

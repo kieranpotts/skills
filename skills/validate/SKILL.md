@@ -22,7 +22,7 @@ improved for better product-market fit.
 Evaluation only. You MUST NOT make any code or configuration changes to the
 software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -30,7 +30,7 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The requirements specification, and where it lives — REQUIRED.
+- **The requirements specification, and where it lives — REQUIRED.**
   Discover it rather than assuming it: check this session's context first,
   then the environment (a convention file such as `AGENTS.md`, a workspace
   manifest, a configured connector). If neither settles it, ask the user. It
@@ -39,23 +39,57 @@ how to access it, when context and environment do not settle it.
   path, a file name, or a document structure. Where it is a remote
   repository, clone it locally to read it.
 
-- The originating statement of need — OPTIONAL.
-  Look in the context and environment for a preserved product requirements
-  document (PRD) or other similar discovery report that captures, at a
-  high level, the business requirements and user needs for the system.
-
-## Output
-
-A bounded, prioritized validation report — an explicit verdict (MEETS THE
-NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
-specification should evolve, each classified by gap type, backed by
-evidence, and ready to seed a [refine](../refine/SKILL.md) →
-[specify](../specify/SKILL.md) pass. No specification or code is changed;
-what consumes the report is the orchestrator's concern.
+- **The originating statement of need — OPTIONAL.** Look in the context and
+  environment for a preserved product requirements document (PRD) or other
+  similar discovery report that captures, at a high level, the business
+  requirements and user needs for the system.
 
 This task runs non-interactively to completion. It does not block for user
 input. If in doubt about any of the requirements of this task, stop and
 print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A bounded, prioritized validation report — an explicit verdict (MEETS THE
+  NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
+  specification should evolve, each classified by gap type, backed by
+  evidence, and ready to seed a [refine](../refine/SKILL.md) →
+  [specify](../specify/SKILL.md) pass.
+
+- No specification or code was changed. Acting on the report was left to
+  the caller.
+
+- The originating need MUST be recovered before the software is judged.
+
+  PRD, outcome, or success measure MUST be consulted first. Validation
+  against the ACs alone is verification, not validation.
+
+- Every finding MUST cite evidence.
+
+  Observed behavior, a measurement, or a flow step — not an assertion
+  of preference.
+
+- Each finding MUST name its gap type and a suggested direction.
+
+  Unmet need / wrong target / missing requirement / over-specification /
+  stale assumption, plus what the specification should say instead,
+  ready for [refine](../refine/SKILL.md).
+
+- The verdict MUST be explicit.
+
+  MEETS THE NEED or GAPS FOUND — it MUST NOT be implied.
+
+- No specification or code MUST have been changed.
+
+  The git tree MUST be unchanged. The output is a report of
+  suggestions; enacting them is downstream.
+
+- The report MUST be bounded.
+
+  It MUST contain 5–10 prioritized candidates, not an exhaustive
+  wishlist.
 
 ## Instructions
 
@@ -119,7 +153,7 @@ print an error message.
 6.  Report the verdict and stop.
 
     Report MEETS THE NEED or GAPS FOUND. Do not draft specification edits
-    here; what consumes the report is the orchestrator's concern.
+    here; acting on the report is left to the caller.
 
 ## Rules
 
@@ -163,38 +197,6 @@ print an error message.
   original need — it is a new requirement. You MUST note it as a
   follow-up, but MUST NOT smuggle it into the validation report as
   though the specification was wrong to omit it.
-
-## Success criteria
-
-- The originating need MUST be recovered before the software is judged.
-
-  PRD, outcome, or success measure MUST be consulted first. Validation
-  against the ACs alone is verification, not validation.
-
-- Every finding MUST cite evidence.
-
-  Observed behavior, a measurement, or a flow step — not an assertion
-  of preference.
-
-- Each finding MUST name its gap type and a suggested direction.
-
-  Unmet need / wrong target / missing requirement / over-specification /
-  stale assumption, plus what the specification should say instead,
-  ready for [refine](../refine/SKILL.md).
-
-- The verdict MUST be explicit.
-
-  MEETS THE NEED or GAPS FOUND — it MUST NOT be implied.
-
-- No specification or code MUST have been changed.
-
-  The git tree MUST be unchanged. The output is a report of
-  suggestions; enacting them is downstream.
-
-- The report MUST be bounded.
-
-  It MUST contain 5–10 prioritized candidates, not an exhaustive
-  wishlist.
 
 ## References
 

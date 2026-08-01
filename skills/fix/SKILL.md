@@ -20,7 +20,7 @@ Fix anything in a codebase that is broken in an obvious, mechanical way, eg.
 failing builds, lint or type-check violations, deprecation warnings, or
 broken tool configs.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -28,19 +28,42 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The broken thing — REQUIRED.
-  A failing build/compile/lint/type-check command, an error message, or an
-  instruction to audit a part of the codebase for things that are broken.
-
-## Output
-
-The build, compile, lint, or type-check passes; the reported breakage is
-resolved at its source, or explicitly suppressed with a recorded
-justification. No unrelated behavior change.
+- **The broken thing — REQUIRED.** A failing build/compile/lint/type-check
+  command, an error message, or an instruction to audit a part of the
+  codebase for things that are broken.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- The build, compile, lint, or type-check passes; the reported breakage is
+  resolved at its source, or explicitly suppressed with a recorded
+  justification.
+
+- No unrelated behavior change.
+
+- The check MUST exit zero.
+
+  Re-running the exact command that originally failed MUST now pass,
+  with no remaining violations.
+
+- No new issues MUST have been introduced.
+
+  The full set of checks — not just the one that originally failed — MUST
+  pass after the change.
+
+- Every suppression MUST state a reason.
+
+  `grep` for suppression directives in the diff; each one MUST have an
+  inline justification.
+
+- The commit MUST be scoped to the fix.
+
+  No unrelated feature or `style:` changes MUST be bundled in.
 
 ## Instructions
 
@@ -166,27 +189,6 @@ an error message.
   doesn't point anywhere conclusive, or the "obvious" fix doesn't
   resolve it — stop and switch to [debug](../debug/SKILL.md) rather than
   guessing repeatedly.
-
-## Success criteria
-
-- The check MUST exit zero.
-
-  Re-running the exact command that originally failed MUST now pass,
-  with no remaining violations.
-
-- No new issues MUST have been introduced.
-
-  The full set of checks — not just the one that originally failed — MUST
-  pass after the change.
-
-- Every suppression MUST state a reason.
-
-  `grep` for suppression directives in the diff; each one MUST have an
-  inline justification.
-
-- The commit MUST be scoped to the fix.
-
-  No unrelated feature or `style:` changes MUST be bundled in.
 
 ## Examples
 

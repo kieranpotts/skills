@@ -21,7 +21,7 @@ non-blocking.
 Review only. You MUST NOT make any code or configuration changes to the
 software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -29,13 +29,12 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A code change to audit — REQUIRED.
-  A pull request, a peer's branch, or one's own diff before opening a PR.
-  The comparison base is pinned explicitly.
+- **A code change to audit — REQUIRED.** A pull request, a peer's branch, or
+  one's own diff before opening a PR. The comparison base is pinned
+  explicitly.
 
-- The specification to check against — REQUIRED.
-  The acceptance criteria the change claims to satisfy, plus any captured
-  design decision.
+- **The specification to check against — REQUIRED.** The acceptance criteria
+  the change claims to satisfy, plus any captured design decision.
 
 - Where the specification, the decision store, and the project's standards
   live — REQUIRED. Discover these rather than assuming them: check this
@@ -45,19 +44,41 @@ how to access it, when context and environment do not settle it.
   repository, or an external service — do not assume a filesystem path, a
   file name, or a document structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the task; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where an
+artifact lives or how to access it, when context and environment do not
+settle it.
 
-A set of findings, each carrying a severity label (Blocking, Suggestion,
-Nit, Praise) and organized along two axes (Specification and Standards),
-closed with an explicit verdict (Approve, Request changes, or Comment).
-Review reports its findings and stops; acting on them — fixing presentation,
-restructuring, re-running the system — is a separate, downstream
-responsibility.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the task; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where an artifact
-lives or how to access it, when context and environment do not settle it.
+You will achieve the following outcomes:
+
+- A set of findings, each carrying a severity label (Blocking, Suggestion,
+  Nit, Praise) and organized along two axes (Specification and Standards),
+  closed with an explicit verdict (Approve, Request changes, or Comment).
+
+- Review reports its findings and stops; acting on them — fixing
+  presentation, restructuring, re-running the system — is a separate,
+  downstream responsibility.
+
+- Findings MUST be organized into two axes: Specification and Standards.
+
+  The two axes MUST be kept distinct in the review output.
+
+- Every comment MUST carry a severity label.
+
+  Blocking, Suggestion, Nit, or Praise. There MUST be no bare
+  comments.
+
+- Every finding MUST be specific and actionable.
+
+  Each comment MUST name the file/line, describe the issue, and
+  suggest a direction.
+
+- The verdict MUST be explicit.
+
+  Approve, Request changes, or Comment. It MUST NOT be implied.
 
 ## Instructions
 
@@ -312,26 +333,6 @@ lives or how to access it, when context and environment do not settle it.
   through it?" is a legitimate review comment. Approving code you
   don't understand is how subtle bugs ship.
 
-## Success criteria
-
-- Findings MUST be organized into two axes: Specification and Standards.
-
-  The two axes MUST be kept distinct in the review output.
-
-- Every comment MUST carry a severity label.
-
-  Blocking, Suggestion, Nit, or Praise. There MUST be no bare
-  comments.
-
-- Every finding MUST be specific and actionable.
-
-  Each comment MUST name the file/line, describe the issue, and
-  suggest a direction.
-
-- The verdict MUST be explicit.
-
-  Approve, Request changes, or Comment. It MUST NOT be implied.
-
 ## Examples
 
 - A labeled comment set on a hypothetical diff:
@@ -367,15 +368,15 @@ lives or how to access it, when context and environment do not settle it.
   - [PASS]    AC-1 (concurrent same-key requests return one row) is
     implemented and tested.
 
-  ## Standards
+    ## Standards
   - [Suggestion] CONTRIBUTING.md §3.2 requires retries to use jitter;
     the new retry loop has none (handlers/orders.ts:67).
   - [Praise]   Test naming follows the project convention in
     CLAUDE.md §"Tests".
 
-  Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
-  on the Specification finding; Standards finding non-blocking.
-  ```
+    Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
+    on the Specification finding; Standards finding non-blocking.
+    ```
 
 ## References
 

@@ -15,7 +15,7 @@ metadata:
 Action the open review comments on a pull request. Implement each fix in
 code, verify it, and mark the comment as resolved.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -23,24 +23,56 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A pull request with open review comments — REQUIRED.
-  The un-dismissed comments from [review](../review/SKILL.md); the author
-  has already resolved any they do not want actioned, so what remains is
-  the work list.
+- **A pull request with open review comments — REQUIRED.** The un-dismissed
+  comments from [review](../review/SKILL.md); the author has already
+  resolved any they do not want actioned, so what remains is the work list.
 
-- The code under review — REQUIRED. The base commit is pinned.
-
-## Output
-
-A branch with each open comment implemented as a minimal, verified code
-change; each thread replied to and marked resolved; the fixes committed and
-pushed. Any comment that could not be honestly actioned is left open and
-reported with a reason. The verified change is ready for
-[test](../test/SKILL.md); what runs next is the orchestrator's concern.
+- **The code under review — REQUIRED.** The base commit is pinned.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A branch with each open comment implemented as a minimal, verified code
+  change; each thread replied to and marked resolved; the fixes committed
+  and pushed.
+
+- Any comment that could not be honestly actioned is left open and reported
+  with a reason.
+
+- The verified change is ready for acceptance testing. What runs next was
+  left to the caller.
+
+- Every open comment MUST be dispositioned.
+
+  Each unresolved comment MUST be either resolved (fixed, verified,
+  replied, marked resolved) or surfaced as blocked with a reason. None
+  MUST be silently skipped.
+
+- Every resolution MUST be verified.
+
+  No thread MUST be marked resolved without a passing test or a run of
+  the existing tests over the touched code.
+
+- Every resolved thread MUST have a reply.
+
+  Stating what changed and where, so the reviewer can confirm it without
+  re-reading the diff.
+
+- The diff MUST be minimal.
+
+  Each change MUST answer a specific comment. No scope creep, no
+  unrequested refactors.
+
+- Resolution work MUST be committed and pushed.
+
+  In its own commit(s), separate from the original implementation, with
+  the branch pushed so the re-review and [test](../test/SKILL.md) see
+  the fixes.
 
 ## Instructions
 
@@ -186,35 +218,6 @@ an error message.
   hosts, or plain patch review), record the resolution in the reply and
   the commit message instead, and report which comments were addressed
   so a human can close the threads.
-
-## Success criteria
-
-- Every open comment MUST be dispositioned.
-
-  Each unresolved comment MUST be either resolved (fixed, verified,
-  replied, marked resolved) or surfaced as blocked with a reason. None
-  MUST be silently skipped.
-
-- Every resolution MUST be verified.
-
-  No thread MUST be marked resolved without a passing test or a run of
-  the existing tests over the touched code.
-
-- Every resolved thread MUST have a reply.
-
-  Stating what changed and where, so the reviewer can confirm it without
-  re-reading the diff.
-
-- The diff MUST be minimal.
-
-  Each change MUST answer a specific comment. No scope creep, no
-  unrequested refactors.
-
-- Resolution work MUST be committed and pushed.
-
-  In its own commit(s), separate from the original implementation, with
-  the branch pushed so the re-review and [test](../test/SKILL.md) see
-  the fixes.
 
 ## Examples
 

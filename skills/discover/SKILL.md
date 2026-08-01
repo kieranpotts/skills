@@ -23,18 +23,18 @@ requirements.
 Discovery only. You MUST NOT make any code or configuration changes to the
 software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-- A seed PRD or artifacts — OPTIONAL. The user MAY provide a draft PRD or
-  similar artifacts (via file paths, URLs, or pasted text) to be edited in
-  place, or to use as a basis for a fresh PRD. The seed may be vague,
+- **A seed PRD or artifacts — OPTIONAL.** The user MAY provide a draft PRD
+  or similar artifacts (via file paths, URLs, or pasted text) to be edited
+  in place, or to use as a basis for a fresh PRD. The seed may be vague,
   incomplete, or absent.
 
-- Where the PRD should be written — REQUIRED. Discover this rather than
+- **Where the PRD should be written — REQUIRED.** Discover this rather than
   assuming it: check this session's context first, then the environment (a
   convention file such as `AGENTS.md`, an existing directory of product
   documentation, a configured connector). If neither settles it, ask the
@@ -45,22 +45,59 @@ prompt the user for clarification.
 Gathers the rest of the input you needs from the user. Prompt one question
 at a time.
 
-## Output
-
-A new or modified PRD in business language, covering outcomes, stakeholders,
-scope, rules, examples, non-functional requirements, assumptions, and open
-questions. The PRD enforces completeness by having a counter-example for
-every rule, an explicit out-of-scope list, non-functional requirements
-explicitly recorded (even if none), and blocking questions resolved.
-Technical implementation and validation details are out-of-scope — this is
-not a specification or design document.
-
-This skill produces the PRD and stops. It does NOT file the PRD in any
-workflow repository, and it does NOT translate the rules and examples into
-testable acceptance criteria. These are separate downstream responsibilities.
-
 This skill is interactive. The agent prompts the user for clarification,
 asking one question at a time and waiting for the answer before proceeding.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A new or modified PRD in business language, covering outcomes,
+  stakeholders, scope, rules, examples, non-functional requirements,
+  assumptions, and open questions.
+
+- The PRD enforces completeness by having a counter-example for every rule,
+  an explicit out-of-scope list, non-functional requirements explicitly
+  recorded (even if none), and blocking questions resolved.
+
+- Technical implementation and validation details are out-of-scope — this is
+  not a specification or design document. This skill produces the PRD and
+  stops.
+
+- It does NOT file the PRD in any workflow repository, and it does NOT
+  translate the rules and examples into testable acceptance criteria. These
+  are separate downstream responsibilities.
+
+- Every rule MUST have at least one example AND one counter-example.
+
+  A rule without a counter-example is not ready to specify from — its
+  boundaries are unclear.
+
+- Scope MUST be explicit in both directions.
+
+  The out-of-scope list MUST be non-empty. Discovery without explicit
+  exclusions hides ambiguity.
+
+- Assumptions MUST be flagged as assumptions.
+
+  A statement of confidence without a source MUST NOT survive in Rules —
+  it MUST have been moved to Assumptions if the customer did not
+  directly say it.
+
+- Open questions MUST name their owners.
+
+  Each unanswered question MUST identify who should answer it next.
+
+- Non-functional requirements MUST be recorded, even if none.
+
+  The Non-functional requirements section MUST state measurable targets
+  where they exist, or "None known" — it MUST NOT be left blank, which a
+  downstream step would read as an omission.
+
+- The PRD MUST read in business language.
+
+  A non-technical reader MUST be able to follow every sentence. No code,
+  no API names, no schema details.
 
 ## Instructions
 
@@ -243,39 +280,6 @@ answer shape the question that follows.
 
   Rigorous. Direct. No fluff. Cover things properly, but you MUST NOT
   pad responses. Remove filler. Show reasoning, not just conclusions.
-
-## Success criteria
-
-- Every rule MUST have at least one example AND one counter-example.
-
-  A rule without a counter-example is not ready to specify from — its
-  boundaries are unclear.
-
-- Scope MUST be explicit in both directions.
-
-  The out-of-scope list MUST be non-empty. Discovery without explicit
-  exclusions hides ambiguity.
-
-- Assumptions MUST be flagged as assumptions.
-
-  A statement of confidence without a source MUST NOT survive in Rules —
-  it MUST have been moved to Assumptions if the customer did not
-  directly say it.
-
-- Open questions MUST name their owners.
-
-  Each unanswered question MUST identify who should answer it next.
-
-- Non-functional requirements MUST be recorded, even if none.
-
-  The Non-functional requirements section MUST state measurable targets
-  where they exist, or "None known" — it MUST NOT be left blank, which a
-  downstream step would read as an omission.
-
-- The PRD MUST read in business language.
-
-  A non-technical reader MUST be able to follow every sentence. No code,
-  no API names, no schema details.
 
 ## Assets
 

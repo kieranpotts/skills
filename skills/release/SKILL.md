@@ -19,7 +19,7 @@ You MUST NOT make any code or configuration changes to the software itself.
 However, changes to other artifacts such as the project CHANGELOG may be made,
 as instructed herein.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -27,23 +27,63 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A request to prepare a release — REQUIRED.
+- **A request to prepare a release — REQUIRED.**
 
-- The project's release model and version-tagging convention — REQUIRED.
+- **The project's release model and version-tagging convention — REQUIRED.**
   Either a single release trunk for continuous deployment, or
   `release/<version>` branches for release trains, plus the version-tagging
   convention that names the release.
 
-## Output
-
-The release branch created or advanced per the model, and the release tagged
-with a correctly-formatted version. This skill applies the release branching
-and tagging convention and stops; it does not author commit messages or
-define the general branch model.
-
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- The release branch created or advanced per the model, and the release
+  tagged with a correctly-formatted version. This skill applies the release
+  branching and tagging convention and stops; it does not author commit
+  messages or define the general branch model.
+
+- The release branch MUST exist and MUST follow the chosen naming
+  convention.
+
+  It MUST be either a permanent release trunk or a temporary
+  `release/<version>` branch, matching
+  `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+
+- The release branch points to the `ready` tip from which it was cut.
+
+  Releases MUST NOT originate from `dev` or `test`.
+
+- The release MUST be tagged.
+
+  An annotated `v<version>` tag (eg. `v1.2.0`) MUST mark the release,
+  and version tags are treated as permanent.
+
+- The changelog MUST be promoted, where the project keeps one.
+
+  Its unreleased section MUST be promoted to the version and date, a fresh
+  empty unreleased section MUST be opened above it, and this MUST land in
+  the `release:` commit.
+
+- Artifacts MUST live outside Git.
+
+  Compiled artifacts MUST be shipped to an external registry (Docker,
+  npm, PyPI, S3, …) and referenced by tag — never committed to the
+  repository.
+
+- No fix MUST have been committed to a release branch.
+
+  Any correction MUST flow `dev` → `ready` → a new release branch;
+  release branches carry only release-preparation commits.
+
+- A `release/<version>` branch, if used, MUST be deleted after tagging
+  and a successful deployment pipeline.
+
+  The release trunk MUST remain intact.
 
 ## Instructions
 
@@ -166,46 +206,6 @@ an error message.
   Before tagging, promote it to the version and date and open a fresh empty
   unreleased section above it. This MUST land in the `release:` commit.
   Discover the changelog rather than assuming `CHANGELOG.md`.
-
-## Success criteria
-
-- The release branch MUST exist and MUST follow the chosen naming
-  convention.
-
-  It MUST be either a permanent release trunk or a temporary
-  `release/<version>` branch, matching
-  `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
-
-- The release branch points to the `ready` tip from which it was cut.
-
-  Releases MUST NOT originate from `dev` or `test`.
-
-- The release MUST be tagged.
-
-  An annotated `v<version>` tag (eg. `v1.2.0`) MUST mark the release,
-  and version tags are treated as permanent.
-
-- The changelog MUST be promoted, where the project keeps one.
-
-  Its unreleased section MUST be promoted to the version and date, a fresh
-  empty unreleased section MUST be opened above it, and this MUST land in
-  the `release:` commit.
-
-- Artifacts MUST live outside Git.
-
-  Compiled artifacts MUST be shipped to an external registry (Docker,
-  npm, PyPI, S3, …) and referenced by tag — never committed to the
-  repository.
-
-- No fix MUST have been committed to a release branch.
-
-  Any correction MUST flow `dev` → `ready` → a new release branch;
-  release branches carry only release-preparation commits.
-
-- A `release/<version>` branch, if used, MUST be deleted after tagging
-  and a successful deployment pipeline.
-
-  The release trunk MUST remain intact.
 
 ## Examples
 

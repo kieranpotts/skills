@@ -25,7 +25,7 @@ missing requirements.
 Specification only. You MUST NOT make any code or configuration changes to
 the software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -33,12 +33,11 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A PRD to transform — REQUIRED.
-  Expected to be sufficiently complete to turn into a formal software
-  requirements specification. This skill does not gather requirements or
-  interview the user; if the PRD is not sufficiently detailed, you MUST
-  reject it with a list of what is missing or ambiguous, and not proceed
-  further.
+- **A PRD to transform — REQUIRED.** Expected to be sufficiently complete to
+  turn into a formal software requirements specification. This skill does
+  not gather requirements or interview the user; if the PRD is not
+  sufficiently detailed, you MUST reject it with a list of what is missing
+  or ambiguous, and not proceed further.
 
 - Where the requirements specification lives, and how to file into it —
   REQUIRED. Discover this rather than assuming it: check this session's
@@ -48,18 +47,72 @@ how to access it, when context and environment do not settle it.
   separate repository, or an external service — do not assume a filesystem
   path, a file name, or a document structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the requirements; if the PRD is
+inadequate, reject it rather than asking. You MAY prompt solely to establish
+where the specification store is and how to file into it, when context and
+environment do not settle it.
 
-The requirements filed into the project's specification store as testable
-acceptance criteria, following that store's own conventions, and left at
-whatever state that store uses for "awaiting review" — awaiting the user's
-review and approval.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the requirements; if the PRD is inadequate,
-reject it rather than asking. You MAY prompt solely to establish where the
-specification store is and how to file into it, when context and environment
-do not settle it.
+You will achieve the following outcomes:
+
+- The requirements filed into the project's specification store as testable
+  acceptance criteria, following that store's own conventions, and left at
+  whatever state that store uses for "awaiting review" — awaiting the user's
+  review and approval.
+
+- The store MUST have been discovered, not assumed.
+
+  The location and access method MUST trace to session context, to the
+  environment, or to an answer from the user. No path, file name, or
+  document structure MUST have been taken for granted.
+
+- The requirements MUST reach the store's "awaiting review" state via that
+  store's own procedure.
+
+  On a valid PRD, the skill MUST leave the change filed and open for
+  review, created by carrying out the scaffold → author → mark-ready
+  procedure the store defines for itself. The format and lifecycle rules
+  MUST be read from the store, not from this skill.
+
+- The user MUST be told the specification awaits their approval.
+
+  The closing message MUST state that the requirements are filed and
+  awaiting review, need the user's approval, and that the design phase MUST
+  NOT begin until the specification is approved. Whatever the store
+  produced MUST be linked.
+
+- The specification MUST conform to the store's content rules.
+
+  The authored artifacts MUST follow the target store's format and
+  conventions — acceptance criteria in the prescribed form, non-functional
+  requirements as that store requires, and implementation detail MUST NOT
+  leak in.
+
+- Functional and non-functional requirements MUST both be present.
+
+  Even if the NFR section is "no new NFRs — inherits from system
+  baseline", it MUST be stated explicitly.
+
+- Out-of-scope items MUST be named.
+
+  The specification MUST include an explicit list of deferred features
+  and adjacent functionality not under review.
+
+- The user, goal, and value MUST be carried from the PRD.
+
+  Each feature block MUST name who it is for, what they achieve, and
+  why — traceable to the PRD's outcome and stakeholders.
+
+- The store's readiness bar MUST be satisfied, or the PRD MUST have been
+  rejected for the gap.
+
+- An incomplete PRD MUST be rejected, not patched.
+
+  When the PRD lacks substantive content, the output MUST be an
+  itemized rejection naming the gaps. Nothing MUST be written to the
+  store.
 
 ## Instructions
 
@@ -282,60 +335,6 @@ do not settle it.
   so the requirements can be gathered before retrying. Write nothing to
   the SRS.
 
-## Success criteria
-
-- The store MUST have been discovered, not assumed.
-
-  The location and access method MUST trace to session context, to the
-  environment, or to an answer from the user. No path, file name, or
-  document structure MUST have been taken for granted.
-
-- The requirements MUST reach the store's "awaiting review" state via that
-  store's own procedure.
-
-  On a valid PRD, the skill MUST leave the change filed and open for
-  review, created by carrying out the scaffold → author → mark-ready
-  procedure the store defines for itself. The format and lifecycle rules
-  MUST be read from the store, not from this skill.
-
-- The user MUST be told the specification awaits their approval.
-
-  The closing message MUST state that the requirements are filed and
-  awaiting review, need the user's approval, and that the design phase MUST
-  NOT begin until the specification is approved. Whatever the store
-  produced MUST be linked.
-
-- The specification MUST conform to the store's content rules.
-
-  The authored artifacts MUST follow the target store's format and
-  conventions — acceptance criteria in the prescribed form, non-functional
-  requirements as that store requires, and implementation detail MUST NOT
-  leak in.
-
-- Functional and non-functional requirements MUST both be present.
-
-  Even if the NFR section is "no new NFRs — inherits from system
-  baseline", it MUST be stated explicitly.
-
-- Out-of-scope items MUST be named.
-
-  The specification MUST include an explicit list of deferred features
-  and adjacent functionality not under review.
-
-- The user, goal, and value MUST be carried from the PRD.
-
-  Each feature block MUST name who it is for, what they achieve, and
-  why — traceable to the PRD's outcome and stakeholders.
-
-- The store's readiness bar MUST be satisfied, or the PRD MUST have been
-  rejected for the gap.
-
-- An incomplete PRD MUST be rejected, not patched.
-
-  When the PRD lacks substantive content, the output MUST be an
-  itemized rejection naming the gaps. Nothing MUST be written to the
-  store.
-
 ## Examples
 
 - Discovering the store. Any of these is a valid resolution — the skill
@@ -349,13 +348,13 @@ do not settle it.
   ## Workflow repositories
   - SRS: ./docs/specs
 
-  #    …or a directory that plainly holds requirements, …or a configured
-  #    connector to a tracker, wiki, or documentation platform.
+    #    …or a directory that plainly holds requirements, …or a configured
+    #    connector to a tracker, wiki, or documentation platform.
 
-  # 3. Ask:
-  #    "I can't find where this project keeps its requirements.
-  #     Where should I file them?"
-  ```
+    # 3. Ask:
+    #    "I can't find where this project keeps its requirements.
+    #     Where should I file them?"
+    ```
 
 The shape of the specification content itself — the acceptance-criteria
 format, how non-functional requirements are expressed, the out-of-scope

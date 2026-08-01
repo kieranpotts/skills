@@ -251,10 +251,10 @@ You will achieve the following outcomes:
 
     Audits are always cut from `main`. If local `main` is behind the
     remote, pull first.
-  ```
+    ```
 
-  Bolding every rule heading turns the section into a wall of emphasis and
-  makes the genuinely important lines harder to find.
+    Bolding every rule heading turns the section into a wall of emphasis and
+    makes the genuinely important lines harder to find.
 
 - Keep instructions and rules separate.
 

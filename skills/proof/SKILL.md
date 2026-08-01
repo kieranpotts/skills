@@ -19,7 +19,7 @@ capitalization.
 
 You MUST NOT change code examples or technical meaning.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -27,20 +27,51 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A set of prose files — REQUIRED.
-  Markdown, AsciiDoc, reStructuredText, or plain text. Defaults to the
-  prose files changed in the working tree when no set is given.
-
-## Output
-
-The same files, edited in place with conservative copy edits only — prose
-words corrected, code/markup/structure untouched — plus a per-file summary
-of the edits made and any items flagged for the author. Nothing is staged,
-committed, or pushed; version control is left to a separate step.
+- **A set of prose files — REQUIRED.** Markdown, AsciiDoc, reStructuredText,
+  or plain text. Defaults to the prose files changed in the working tree
+  when no set is given.
 
 This task runs non-interactively to completion. It does not block for user
 input. If in doubt about any of the requirements of this task, stop and
 print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- The same files, edited in place with conservative copy edits only — prose
+  words corrected, code/markup/structure untouched — plus a per-file summary
+  of the edits made and any items flagged for the author.
+
+- Nothing was staged, committed, or pushed. Version control was left to a
+  separate step.
+
+- Only prose MUST have changed; code, markup, and structure MUST be
+  byte-identical except where prose words were corrected.
+
+  A diff shows word-level prose edits and nothing else — no reflowed
+  blocks, no moved sections, no touched code.
+
+- No technical fact, identifier, version, or command MUST have been
+  altered.
+
+  Anything that looked wrong MUST have been flagged for the author, not
+  silently changed.
+
+- The file's markup MUST remain valid and its original line-wrapping
+  convention MUST be unchanged.
+
+  The document still parses/renders as before; line-wrapping style is
+  unchanged.
+
+- A per-file summary of edits MUST have been reported, and nothing MUST
+  have been committed.
+
+  The summary MUST report which files changed, which were reviewed but
+  left unchanged, and which were skipped as generated or vendored. The
+  user can see what changed and decide when and how to commit it.
+
+- Generated or vendored files MUST have been skipped and reported.
 
 ## Instructions
 
@@ -115,9 +146,9 @@ print an error message.
   - reStructuredText: `::` literal blocks, `.. code-block::` directives,
     `` ``inline`` ``.
 
-  Leave code, commands, and sample output verbatim. If a typo appears
-  inside a code span or block, leave it and flag it in the summary only if
-  it is plausibly prose that was wrongly marked as code.
+    Leave code, commands, and sample output verbatim. If a typo appears
+    inside a code span or block, leave it and flag it in the summary only if
+    it is plausibly prose that was wrongly marked as code.
 
 - You MUST NOT change markup syntax and structure. Links and link
   targets, image refs, macros, cross-references (`xref:`, `<<>>`,
@@ -190,35 +221,6 @@ print an error message.
   convention is discoverable, you MUST NOT impose one.
 
   Report the inconsistency and let the author choose.
-
-## Success criteria
-
-- Only prose MUST have changed; code, markup, and structure MUST be
-  byte-identical except where prose words were corrected.
-
-  A diff shows word-level prose edits and nothing else — no reflowed
-  blocks, no moved sections, no touched code.
-
-- No technical fact, identifier, version, or command MUST have been
-  altered.
-
-  Anything that looked wrong MUST have been flagged for the author, not
-  silently changed.
-
-- The file's markup MUST remain valid and its original line-wrapping
-  convention MUST be unchanged.
-
-  The document still parses/renders as before; line-wrapping style is
-  unchanged.
-
-- A per-file summary of edits MUST have been reported, and nothing MUST
-  have been committed.
-
-  The summary MUST report which files changed, which were reviewed but
-  left unchanged, and which were skipped as generated or vendored. The
-  user can see what changed and decide when and how to commit it.
-
-- Generated or vendored files MUST have been skipped and reported.
 
 ## References
 

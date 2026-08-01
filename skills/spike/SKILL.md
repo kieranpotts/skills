@@ -24,7 +24,7 @@ changes to the production software itself. Keep spikes in branches off the
 main trunk, in separate worktrees if possible, or separately-cloned
 repositories.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -32,32 +32,67 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- One falsifiable question — REQUIRED.
-  A specific feasibility, performance, ergonomics, or integration-risk
-  question that cannot be answered by reasoning alone, with the evidence
-  that would close it defined up front.
+- **One falsifiable question — REQUIRED.** A specific feasibility,
+  performance, ergonomics, or integration-risk question that cannot be
+  answered by reasoning alone, with the evidence that would close it defined
+  up front.
 
-- Where the answer should be recorded — REQUIRED. The project's decision
+- **Where the answer should be recorded — REQUIRED.** The project's decision
   store, design documentation, or specification, depending on what kind of
-  question this is. Discover it rather than assuming it: check this session's
-  context first, then the environment (a convention file such as `AGENTS.md`,
-  a workspace manifest, a configured connector). If neither settles it, ask
-  the user. Do not assume a filesystem path or a document structure.
-
-## Output
-
-The answer, durably captured — a measurement, observable behavior, or working
-integration, recorded so it is reproducible from the notes alone, and landed
-in the appropriate artifact (an ADR or design-doc update, a revision to
-acceptance criteria, or a decision-log note). The spike code is thrown away
-or quarantined in a clearly-marked throwaway location, never promoted.
-Whatever consumes the answer — resuming design, revising the specification,
-the production re-implementation — is the orchestrator's concern, not this
-skill's.
+  question this is. Discover it rather than assuming it: check this
+  session's context first, then the environment (a convention file such as
+  `AGENTS.md`, a workspace manifest, a configured connector). If neither
+  settles it, ask the user. Do not assume a filesystem path or a document
+  structure.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- The answer, durably captured — a measurement, observable behavior, or
+  working integration, recorded so it is reproducible from the notes alone,
+  and landed in the appropriate artifact (an ADR or design-doc update, a
+  revision to acceptance criteria, or a decision-log note).
+
+- The spike code is thrown away or quarantined in a clearly-marked throwaway
+  location, never promoted.
+
+- Nothing beyond the answer was done. Resuming the design, revising the
+  specification, and any production re-implementation were left to the
+  caller.
+
+- A single falsifiable question MUST be stated up front.
+
+  Not a topic, not an area to explore.
+
+- The closing evidence MUST be defined before any code is written.
+
+  Numerical threshold, observable behavior, working integration.
+
+- A time-box MUST be set and respected.
+
+  Hours or days. Reaching the box MUST end the spike, even if the
+  answer is incomplete.
+
+- Production concerns MUST be absent from the code.
+
+  There MUST be no tests, no error handling, no auth, no
+  abstractions beyond what the question requires.
+
+- The findings MUST be captured durably.
+
+  In whichever of the project's own stores owns that kind of answer —
+  somewhere it survives after the code is gone. The store MUST have been
+  discovered, not assumed.
+
+- The code MUST be disposed of or quarantined.
+
+  Deleted, or moved to a clearly-marked throwaway location with a
+  README. It MUST NOT be merged into production paths.
 
 ## Instructions
 
@@ -227,37 +262,6 @@ an error message.
   Push back. Propose a half-day or one-day box. An unbounded PoC is
   the most common path to a production system written without
   specification, design, or planning.
-
-## Success criteria
-
-- A single falsifiable question MUST be stated up front.
-
-  Not a topic, not an area to explore.
-
-- The closing evidence MUST be defined before any code is written.
-
-  Numerical threshold, observable behavior, working integration.
-
-- A time-box MUST be set and respected.
-
-  Hours or days. Reaching the box MUST end the spike, even if the
-  answer is incomplete.
-
-- Production concerns MUST be absent from the code.
-
-  There MUST be no tests, no error handling, no auth, no
-  abstractions beyond what the question requires.
-
-- The findings MUST be captured durably.
-
-  In whichever of the project's own stores owns that kind of answer —
-  somewhere it survives after the code is gone. The store MUST have been
-  discovered, not assumed.
-
-- The code MUST be disposed of or quarantined.
-
-  Deleted, or moved to a clearly-marked throwaway location with a
-  README. It MUST NOT be merged into production paths.
 
 ## Examples
 

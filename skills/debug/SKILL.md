@@ -21,7 +21,7 @@ The feedback loop is the skill: without one you are guessing. Where the cause
 is already evident — a compiler, linter, or type-checker has named it — this
 is the wrong skill; that is mechanical repair, not diagnosis.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -29,23 +29,56 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A bug or performance regression whose cause is not obvious — REQUIRED.
+- **A bug or performance regression whose cause is not obvious — REQUIRED.**
   A reported bug or performance regression whose cause is not obvious from
-  reading the code — the symptom, where it shows up, and any reproduction the
-  user already has. For performance work, a numerical baseline and threshold
-  stand in for the symptom.
-
-## Output
-
-A verified fix landed with a regression test that locks the bug out, the
-diagnostic instrumentation removed, and the correct cause recorded in the
-commit or PR message for the next reader. If no reliable feedback loop can be
-built, the skill stops and says so — listing what it tried and what it needs
-— rather than guessing.
+  reading the code — the symptom, where it shows up, and any reproduction
+  the user already has. For performance work, a numerical baseline and
+  threshold stand in for the symptom.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A verified fix landed with a regression test that locks the bug out, the
+  diagnostic instrumentation removed, and the correct cause recorded in the
+  commit or PR message for the next reader.
+
+- If no reliable feedback loop can be built, the skill stops and says so —
+  listing what it tried and what it needs — rather than guessing.
+
+- A feedback loop MUST exist and MUST be recorded.
+
+  The exact command, script, or test that reproduces the bug MUST be
+  committed or pasted into the PR/commit message. A future debugger can
+  re-run it.
+
+- The original repro MUST no longer reproduce.
+
+  Re-running the loop after the fix MUST show the bug is gone.
+
+- A regression test MUST exist, or its absence MUST be documented.
+
+  The test MUST pass after the fix and fail when the fix is reverted. If
+  no correct seam was available, that finding MUST be recorded.
+
+- All tagged instrumentation MUST have been removed.
+
+  `grep` for the debug prefix MUST return zero hits in the committed
+  code.
+
+- The correct hypothesis MUST be stated in the commit or PR message.
+
+  Future readers learn what the real cause was, not just what the fix
+  changed.
+
+- The hypothesis set MUST be ranked and falsifiable.
+
+  The output MUST include 3-5 ranked hypotheses, each with a stated
+  prediction that could disprove it.
 
 ## Instructions
 
@@ -218,7 +251,7 @@ an error message.
 
   - Permission to add temporary production instrumentation.
 
-  You MUST NOT proceed to hypothesize without a loop.
+    You MUST NOT proceed to hypothesize without a loop.
 
 - You MUST NOT proceed to hypothesis until you have reproduced the bug.
 
@@ -281,38 +314,6 @@ an error message.
   In step 2, if the loop fails to reproduce the user's described symptom
   but reproduces something nearby, stop and check in with the user before
   chasing the wrong bug.
-
-## Success criteria
-
-- A feedback loop MUST exist and MUST be recorded.
-
-  The exact command, script, or test that reproduces the bug MUST be
-  committed or pasted into the PR/commit message. A future debugger can
-  re-run it.
-
-- The original repro MUST no longer reproduce.
-
-  Re-running the loop after the fix MUST show the bug is gone.
-
-- A regression test MUST exist, or its absence MUST be documented.
-
-  The test MUST pass after the fix and fail when the fix is reverted. If
-  no correct seam was available, that finding MUST be recorded.
-
-- All tagged instrumentation MUST have been removed.
-
-  `grep` for the debug prefix MUST return zero hits in the committed
-  code.
-
-- The correct hypothesis MUST be stated in the commit or PR message.
-
-  Future readers learn what the real cause was, not just what the fix
-  changed.
-
-- The hypothesis set MUST be ranked and falsifiable.
-
-  The output MUST include 3-5 ranked hypotheses, each with a stated
-  prediction that could disprove it.
 
 ## Examples
 

@@ -18,35 +18,63 @@ Compose a commit message that conforms to the project's convention, or
 validate existing messages against it, and produce the matching changelog
 entry where the project keeps one.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment.
 
-- A change to describe, or messages to validate — REQUIRED. A description of
-  a change to compose a message for, or one or more existing commit messages
-  to validate (a branch's history before push).
+- **A change to describe, or messages to validate — REQUIRED.** A
+  description of a change to compose a message for, or one or more existing
+  commit messages to validate (a branch's history before push).
 
-- The project's changelog, if it keeps one — REQUIRED for direct commits to
-  an integration trunk or a short-lived branch. Discover it rather than
+- **The project's changelog, if it keeps one — REQUIRED for direct commits
+  to an integration trunk or a short-lived branch.** Discover it rather than
   assuming it: check this session's context first, then the environment (a
   convention file such as `AGENTS.md`, a changelog file at the project root,
   a release-notes tool). If the project keeps no changelog, skip the
   changelog steps and say so. Do not create one uninvited.
 
-## Output
-
-A conforming commit message in the `<type>: <description>` format (with any
-optional flag, body, and footers), or a pass/fail verdict on the supplied
-messages naming the rule each one violates. Where required, the matching
-changelog entry is produced too. This skill composes and validates messages
-and stops; it neither stages nor commits.
-
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
 
-<!-- TODO: Allow direct commits to dev? -->
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A conforming commit message in the `<type>: <description>` format (with
+  any optional flag, body, and footers), or a pass/fail verdict on the
+  supplied messages naming the rule each one violates.
+
+- Where required, the matching changelog entry is produced too. This skill
+  composes and validates messages and stops; it neither stages nor commits.
+  <!-- TODO: Allow direct commits to dev? -->
+
+- The subject line MUST pass the validation regex.
+
+  It MUST match the format defined in the Rules.
+
+- The type semantics MUST fit the changeset.
+
+  Re-read the type's description. If two types feel applicable, consult the
+  Subtle distinctions note — that's where the hard cases are resolved.
+
+- The subject line length MUST be within budget.
+
+  ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the
+  optional flag.
+
+- There MUST be no Conventional Commits artifacts.
+
+  No scope parentheticals (`feature(parser): …`), no leading `!`, no
+  trailing `:` artifacts. The colon MUST come immediately after the type,
+  nothing else.
+
+- The changelog MUST be updated for direct commits to a trunk or short-lived
+  branch, unless the type is `chore:` or the project keeps no changelog.
+
+  Its unreleased section MUST contain an entry for this commit, using the
+  same `type: description` format as the subject line.
 
 ## Instructions
 
@@ -125,11 +153,11 @@ an error message.
   - `step`
   - `style`
 
-  `<description>` MUST be full lowercase and use the imperative mood (eg.
-  "add", not "added" or "adds"). The description MUST NOT end with a period.
+    `<description>` MUST be full lowercase and use the imperative mood (eg.
+    "add", not "added" or "adds"). The description MUST NOT end with a period.
 
-  An optional flag MAY be appended — `<type>: <description> - <flag>` where
-  `<flag>` is one of:
+    An optional flag MAY be appended — `<type>: <description> - <flag>` where
+    `<flag>` is one of:
 
   - `BREAKING`
   - `EXPERIMENT`
@@ -137,10 +165,10 @@ an error message.
   - `TEMPORARY`
   - `WIP`
 
-  Subject line (type + description + flag) SHOULD NOT exceed 50 characters
-  and MUST NOT exceed 72 characters.
+    Subject line (type + description + flag) SHOULD NOT exceed 50 characters
+    and MUST NOT exceed 72 characters.
 
-  Bodies and footers are OPTIONAL and do not require validation.
+    Bodies and footers are OPTIONAL and do not require validation.
 
   - The body SHOULD explain the why of the change, not the what. It MUST be
     separated from the subject line with a single blank line, use proper
@@ -200,7 +228,7 @@ an error message.
   - `style`: Presentation-only code or content changes — whitespace,
     indentation, line wrapping, style. Distinct from refactor.
 
-  Subtle distinctions:
+    Subtle distinctions:
 
   - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a
     user-facing change. `feature`/`runtime` is the commit where the change
@@ -252,34 +280,6 @@ an error message.
   A changelog is for contributors and developers. Release notes — a
   separate artifact — is for end users. So we are interested in recording
   in the changelog internal changes like refactorings and reformattings.
-
-## Success criteria
-
-- The subject line MUST pass the validation regex.
-
-  It MUST match the format defined in the Rules.
-
-- The type semantics MUST fit the changeset.
-
-  Re-read the type's description. If two types feel applicable, consult the
-  Subtle distinctions note — that's where the hard cases are resolved.
-
-- The subject line length MUST be within budget.
-
-  ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the
-  optional flag.
-
-- There MUST be no Conventional Commits artifacts.
-
-  No scope parentheticals (`feature(parser): …`), no leading `!`, no
-  trailing `:` artifacts. The colon MUST come immediately after the type,
-  nothing else.
-
-- The changelog MUST be updated for direct commits to a trunk or short-lived
-  branch, unless the type is `chore:` or the project keeps no changelog.
-
-  Its unreleased section MUST contain an entry for this commit, using the
-  same `type: description` format as the subject line.
 
 ## Examples
 

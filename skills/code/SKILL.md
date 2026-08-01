@@ -15,7 +15,7 @@ metadata:
 
 Write code and tests for a small increment of work.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -23,30 +23,59 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- One scoped, already-designed unit of work — REQUIRED.
-  One numbered plan step (or a small standalone change whose design is already
-  obvious). This skill does not design or decompose; it consumes a step that
-  is ready to implement.
+- **One scoped, already-designed unit of work — REQUIRED.** One numbered
+  plan step (or a small standalone change whose design is already obvious).
+  This skill does not design or decompose; it consumes a step that is ready
+  to implement.
 
-- Where the plan and the project's coding standards live — REQUIRED.
+- **Where the plan and the project's coding standards live — REQUIRED.**
   Discover these rather than assuming them: check this session's context
   first, then the environment (a convention file such as `AGENTS.md`, a
-  workspace manifest, a configured connector). If neither settles it, ask the
-  user. Either MAY be a directory in this repository, a separate repository,
-  or an external service — do not assume a filesystem path or a document
-  structure.
+  workspace manifest, a configured connector). If neither settles it, ask
+  the user. Either MAY be a directory in this repository, a separate
+  repository, or an external service — do not assume a filesystem path or a
+  document structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the task; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where an
+artifact lives or how to access it, when context and environment do not
+settle it.
 
-A committed, tested change for that single step — the implementation plus its
-tests, scope-locked to the step, with a clean reviewable diff and a
-conventional commit. Whatever reviews, tests further, or sequences the next
-step is the orchestrator's concern, not this skill's.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the task; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where an artifact
-lives or how to access it, when context and environment do not settle it.
+You will achieve the following outcomes:
+
+- A committed, tested change for that single step — the implementation plus
+  its tests, scope-locked to the step, with a clean reviewable diff and a
+  conventional commit.
+
+- Nothing beyond the step was done. Reviewing, further testing, and
+  sequencing the next step were left to the caller.
+
+- The diff MUST stay within the step's stated scope.
+
+  Re-read the diff with the step quoted next to it. Anything outside the
+  scope MUST be removed or moved to its own step.
+
+- All new behavior MUST be tested.
+
+  Each piece of added behavior MUST have at least one test that fails when
+  the behavior is removed.
+
+- The test loop MUST be fast and run clean.
+
+  `<10s` for the relevant suite. No skipped, pending, or flaky tests MUST
+  be added.
+
+- The code MUST match the surrounding style.
+
+  Naming, layout, error handling, and comment density MUST be consistent
+  with nearby files.
+
+- The commit MUST follow the project's commit format.
+
+  Correct type, lowercase imperative description, atomic scope.
 
 ## Instructions
 
@@ -153,13 +182,13 @@ lives or how to access it, when context and environment do not settle it.
 
   ```sh
   WRONG (horizontal):
-    RED:   test1, test2, test3, test4, test5
-    GREEN: impl1, impl2, impl3, impl4, impl5
+  RED:   test1, test2, test3, test4, test5
+  GREEN: impl1, impl2, impl3, impl4, impl5
 
   RIGHT (vertical):
-    RED → GREEN: test1 → impl1
-    RED → GREEN: test2 → impl2
-    RED → GREEN: test3 → impl3
+  RED → GREEN: test1 → impl1
+  RED → GREEN: test2 → impl2
+  RED → GREEN: test3 → impl3
   ```
 
   Tests written in bulk verify imagined behavior, not actual behavior.
@@ -232,32 +261,6 @@ lives or how to access it, when context and environment do not settle it.
   The goal is to learn, not to ship. Skip TDD, skip strict scope discipline,
   but throw the prototype away when done. Re-implement properly under this
   skill afterward.
-
-## Success criteria
-
-- The diff MUST stay within the step's stated scope.
-
-  Re-read the diff with the step quoted next to it. Anything outside the
-  scope MUST be removed or moved to its own step.
-
-- All new behavior MUST be tested.
-
-  Each piece of added behavior MUST have at least one test that fails when
-  the behavior is removed.
-
-- The test loop MUST be fast and run clean.
-
-  `<10s` for the relevant suite. No skipped, pending, or flaky tests MUST
-  be added.
-
-- The code MUST match the surrounding style.
-
-  Naming, layout, error handling, and comment density MUST be consistent
-  with nearby files.
-
-- The commit MUST follow the project's commit format.
-
-  Correct type, lowercase imperative description, atomic scope.
 
 ## Examples
 

@@ -28,48 +28,101 @@ Analysis only. You MUST NOT make any code or configuration changes to the
 software itself, and you MUST NOT actively exploit the system — static
 analysis only.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-- What to assess — REQUIRED.
-  A subsystem, service, data flow, feature, or design. The user MAY point at
-  a codebase, a design doc, a diagram, or simply describe it in the session.
-  This can be vague at the start — the session sharpens it through
-  decomposition.
+- **What to assess — REQUIRED.** A subsystem, service, data flow, feature,
+  or design. The user MAY point at a codebase, a design doc, a diagram, or
+  simply describe it in the session. This can be vague at the start — the
+  session sharpens it through decomposition.
 
-- Where the risk store lives, and how to write to it — REQUIRED.
+- **Where the risk store lives, and how to write to it — REQUIRED.**
   Discover this rather than assuming it: check this session's context first,
   then the environment (a convention file such as `AGENTS.md`, a workspace
-  manifest, a configured connector). If neither settles it, ask the user. The
-  store MAY be a directory in this repository, a separate repository, or an
-  external service such as a GRC platform or issue tracker — do not assume a
-  filesystem path, a file name, or a document structure.
-
-## Output
-
-Two artifacts, written to the risk store, following whatever conventions that
-store defines for itself:
-
-1. An immutable, dated session report — business context, technical scope,
-   system decomposition, the threat assessment, the risks raised, mitigation
-   strategies, and follow-ups. Use the store's own report template and
-   placement where it has them; where it does not, use the bundled fallback
-   template and match the structure of existing reports.
-
-2. New entries in the store's living register for the threats worth tracking
-   over time, using whatever fields that register actually defines.
-
-The session report is a point-in-time snapshot. The register is the living
-source of truth for where each risk stands. A threat may appear in the
-report's assessment but NOT be promoted to the register — only risks worth
-tracking over time are.
+  manifest, a configured connector). If neither settles it, ask the user.
+  The store MAY be a directory in this repository, a separate repository, or
+  an external service such as a GRC platform or issue tracker — do not
+  assume a filesystem path, a file name, or a document structure.
 
 This skill is interactive. The agent facilitates a structured workshop,
 asking one question at a time and waiting for each answer before asking the
-next.
+  next.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- Two artifacts, written to the risk store, following whatever conventions
+  that store defines for itself: 1. An immutable, dated session report —
+  business context, technical scope, system decomposition, the threat
+  assessment, the risks raised, mitigation strategies, and follow-ups.
+
+- Use the store's own report template and placement where it has them; where
+  it does not, use the bundled fallback template and match the structure of
+  existing reports. 2.
+
+- New entries in the store's living register for the threats worth tracking
+  over time, using whatever fields that register actually defines. The
+  session report is a point-in-time snapshot.
+
+- The register is the living source of truth for where each risk stands. A
+  threat may appear in the report's assessment but NOT be promoted to the
+  register — only risks worth tracking over time are.
+
+- You MUST adopt an existing scaffolded report rather than creating a second
+  one.
+
+  A store's own workflow may scaffold a blank report and open it for review
+  before the assessment runs. Where such a scaffold exists for this scope,
+  the findings MUST be written into it. Two artifacts for one assessment is a
+  split record.
+
+- The risk store MUST have been discovered before the session starts.
+
+  Its location and access method MUST trace to session context, to the
+  environment, or to an answer from the user — never to an assumed path. If
+  no store could be established even after asking, the skill MUST have
+  stopped and alerted the user: there is nowhere valid to record the
+  outcome.
+
+- A dated, scoped session report MUST exist in the store — exactly one.
+
+  Written where and how that store places reports, adopting any scaffold
+  already present for this scope rather than creating a second artifact, citing the exact system
+  context assessed (components, data flows, and the revision under
+  assessment where applicable) so it is a reproducible point-in-time
+  snapshot.
+
+- Every threat in the report MUST be classified and rated.
+
+  Each row in the threat assessment MUST carry a framework category, a
+  likelihood, an impact, and a derived severity. None may be blank.
+
+- Every risk raised MUST appear in the register.
+
+  Each threat listed under Risks raised MUST have a corresponding register
+  entry, with a unique reference continuing the existing numbering, a
+  mitigation (or explicit accept decision), a residual risk, and a review
+  date — mapped onto whatever fields that register defines. The report's
+  Risks raised list and the new register entries MUST agree.
+
+- The register MUST remain a valid living document.
+
+  New entries MUST use the register's own fields and MUST NOT duplicate or
+  collide with existing references. The register MUST stay ordered per its
+  own conventions.
+
+- Nothing MUST be committed or published.
+
+  Where the store is version-controlled, the new report and the modified
+  register MUST be left uncommitted — never staged, branched, or committed
+  by this skill. Where the store is an external service, the entries MUST be
+  left in whatever draft or unpublished state that service offers, or
+  reported for the user to file. The assessed codebase MUST be left
+  unchanged.
 
 ## Instructions
 
@@ -352,60 +405,6 @@ you are building the report as you go.
 
   Direct. No fluff. No padding. Show the reasoning behind a severity, not
   just the verdict.
-
-## Success criteria
-
-- You MUST adopt an existing scaffolded report rather than creating a second
-  one.
-
-  A store's own workflow may scaffold a blank report and open it for review
-  before the assessment runs. Where such a scaffold exists for this scope,
-  the findings MUST be written into it. Two artifacts for one assessment is a
-  split record.
-
-- The risk store MUST have been discovered before the session starts.
-
-  Its location and access method MUST trace to session context, to the
-  environment, or to an answer from the user — never to an assumed path. If
-  no store could be established even after asking, the skill MUST have
-  stopped and alerted the user: there is nowhere valid to record the
-  outcome.
-
-- A dated, scoped session report MUST exist in the store — exactly one.
-
-  Written where and how that store places reports, adopting any scaffold
-  already present for this scope rather than creating a second artifact, citing the exact system
-  context assessed (components, data flows, and the revision under
-  assessment where applicable) so it is a reproducible point-in-time
-  snapshot.
-
-- Every threat in the report MUST be classified and rated.
-
-  Each row in the threat assessment MUST carry a framework category, a
-  likelihood, an impact, and a derived severity. None may be blank.
-
-- Every risk raised MUST appear in the register.
-
-  Each threat listed under Risks raised MUST have a corresponding register
-  entry, with a unique reference continuing the existing numbering, a
-  mitigation (or explicit accept decision), a residual risk, and a review
-  date — mapped onto whatever fields that register defines. The report's
-  Risks raised list and the new register entries MUST agree.
-
-- The register MUST remain a valid living document.
-
-  New entries MUST use the register's own fields and MUST NOT duplicate or
-  collide with existing references. The register MUST stay ordered per its
-  own conventions.
-
-- Nothing MUST be committed or published.
-
-  Where the store is version-controlled, the new report and the modified
-  register MUST be left uncommitted — never staged, branched, or committed
-  by this skill. Where the store is an external service, the entries MUST be
-  left in whatever draft or unpublished state that service offers, or
-  reported for the user to file. The assessed codebase MUST be left
-  unchanged.
 
 ## References
 

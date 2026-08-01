@@ -19,7 +19,7 @@ branch name, following the conventions described herein.
 
 You MUST NOT make any code or configuration changes to the software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -27,28 +27,57 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md`. If the target codebase
-  cannot be found, stop and alert the user.
+- **The target codebase — REQUIRED.** Look in the user's last input prompt
+  for an explicit reference to a target path or URL to a code repository. If
+  a URL, clone the repository to a temporary directory. Otherwise, assume
+  the target is the code repository under which the current working
+  directory (cwd) sits. If the cwd is not part of a code repository, check
+  the nearest `AGENTS.md`. If the target codebase cannot be found, stop and
+  alert the user.
 
-- Branch name or description — OPTIONAL.
-  If not specified by the user, you will generate a random branch name.
-  Instructions are below.
-
-## Output
-
-A correctly-named branch created from the right base, or a pass/fail verdict on
-the supplied names with the specific rule each one violates. This skill names
-and validates branches and stops; it does not merge, cut releases, or author
-commit messages.
+- **Branch name or description — OPTIONAL.** If not specified by the user,
+  you will generate a random branch name. Instructions are below.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A correctly-named branch created from the right base, or a pass/fail
+  verdict on the supplied names with the specific rule each one violates.
+  This skill names and validates branches and stops; it does not merge, cut
+  releases, or author commit messages.
+
+- The branch name MUST validate against the model.
+
+  It MUST match
+  `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
+  — one of the three trunks, or a `temp/` or `epic/` branch with a
+  kebab-case description.
+
+- The name MUST be well-formed.
+
+  It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
+  and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
+  `temp/*` and `epic/*` branches.
+
+- The branch type MUST fit the work.
+
+  `temp/*` MUST be used for a short, single-focus change; `epic/*` for
+  long-lived, multi-contributor work that cannot be continuously integrated.
+  A change of one or two commits needs no branch beyond `dev`.
+
+- `temp/*` and `epic/*` branches MUST be cut from `dev`.
+
+  They MUST NOT be cut from `test`, `ready`, or a release branch.
+
+- Changes MUST flow forward only.
+
+  Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
+  NOT be committed directly to a downstream trunk.
 
 ## Instructions
 
@@ -197,36 +226,6 @@ an error message.
 
   Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
   reviewed periodically and either deleted or revived.
-
-## Success criteria
-
-- The branch name MUST validate against the model.
-
-  It MUST match
-  `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
-  — one of the three trunks, or a `temp/` or `epic/` branch with a
-  kebab-case description.
-
-- The name MUST be well-formed.
-
-  It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
-  and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
-  `temp/*` and `epic/*` branches.
-
-- The branch type MUST fit the work.
-
-  `temp/*` MUST be used for a short, single-focus change; `epic/*` for
-  long-lived, multi-contributor work that cannot be continuously integrated.
-  A change of one or two commits needs no branch beyond `dev`.
-
-- `temp/*` and `epic/*` branches MUST be cut from `dev`.
-
-  They MUST NOT be cut from `test`, `ready`, or a release branch.
-
-- Changes MUST flow forward only.
-
-  Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
-  NOT be committed directly to a downstream trunk.
 
 ## Examples
 

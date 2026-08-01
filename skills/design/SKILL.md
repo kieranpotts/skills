@@ -23,7 +23,7 @@ balanced.
 Architectural design only. You MUST NOT make any code or configuration changes
 to the software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -31,36 +31,77 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- An approved specification — REQUIRED.
-  Functional acceptance criteria and non-functional requirements, already
-  reviewed and approved. This skill consumes that specification; it does not
-  write it, and its entry gate refuses to begin until the approval is in
-  place.
+- **An approved specification — REQUIRED.** Functional acceptance criteria
+  and non-functional requirements, already reviewed and approved. This skill
+  consumes that specification; it does not write it, and its entry gate
+  refuses to begin until the approval is in place.
 
-- Where the specification and the decision store live — REQUIRED.
+- **Where the specification and the decision store live — REQUIRED.**
   Discover both rather than assuming them: check this session's context
   first, then the environment (a convention file such as `AGENTS.md`, a
-  workspace manifest, a configured connector). If neither settles it, ask the
-  user. Either MAY be a directory in this repository, a separate repository,
-  or an external service such as a tracker or wiki — do not assume a
-  filesystem path, a file name, or a document structure. Different projects
-  call the decision store an RFC archive, a decision log, or an ADR
+  workspace manifest, a configured connector). If neither settles it, ask
+  the user. Either MAY be a directory in this repository, a separate
+  repository, or an external service such as a tracker or wiki — do not
+  assume a filesystem path, a file name, or a document structure. Different
+  projects call the decision store an RFC archive, a decision log, or an ADR
   directory; they are the same role.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the design; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where
+the specification and decision store are, when context and environment do
+not settle it.
 
-A recommended design — the chosen option with its evaluation against the nine
-qualities, the rejected alternatives and why, and the decision captured
-durably in the project's decision store. Where a design question cannot be
-answered by reasoning alone, a time-boxed prototype produces the evidence that
-feeds back into the evaluation. Whatever consumes the design — decomposition
-into steps, implementation — is the orchestrator's concern, not this skill's.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the design; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where the
-specification and decision store are, when context and environment do not
-settle it.
+You will achieve the following outcomes:
+
+- A recommended design — the chosen option with its evaluation against the
+  nine qualities, the rejected alternatives and why, and the decision
+  captured durably in the project's decision store.
+
+- Where a design question could not be answered by reasoning alone, a
+  time-boxed prototype produced the evidence that fed back into the
+  evaluation.
+
+- Nothing beyond the design was produced. Decomposition into steps and
+  implementation were left to the caller.
+
+- The entry gate MUST have been checked: the specification is approved.
+
+  Design MUST proceed only against an approved specification.
+  If the specification was unapproved or merely proposed, the skill MUST
+  have stopped and sent the user to approve it first.
+
+- The constraints MUST be written down.
+
+  Functional ACs, NFRs, existing-system shape, and budget MUST be explicit
+  before any option is enumerated.
+
+- Each decision point MUST have 2-4 evaluated alternatives.
+
+  No decision MUST be presented as the only option.
+
+- Each option MUST have been evaluated against the nine qualities.
+
+  Not every quality needs detailed treatment for every option, but the
+  dominant qualities for the domain MUST be explicitly weighed.
+
+- The recommendation MUST name which qualities it prioritizes.
+
+  "We pick X because it optimizes for Y and Z, accepting weaker W."
+
+- The decision MUST be captured durably.
+
+  Written into the project's own decision store, in that store's own form —
+  somewhere a future reader can find it without asking, and without a second
+  copy of the rationale existing anywhere else.
+
+- The stores MUST have been discovered, not assumed.
+
+  The location and access method for both the specification and the decision
+  store MUST trace to session context, to the environment, or to an answer
+  from the user.
 
 ## Instructions
 
@@ -261,44 +302,6 @@ settle it.
   Say so. Present both with their trade-offs and ask the user to break the
   tie. Do not flip a coin and proceed silently.
 
-## Success criteria
-
-- The entry gate MUST have been checked: the specification is approved.
-
-  Design MUST proceed only against an approved specification.
-  If the specification was unapproved or merely proposed, the skill MUST
-  have stopped and sent the user to approve it first.
-
-- The constraints MUST be written down.
-
-  Functional ACs, NFRs, existing-system shape, and budget MUST be explicit
-  before any option is enumerated.
-
-- Each decision point MUST have 2-4 evaluated alternatives.
-
-  No decision MUST be presented as the only option.
-
-- Each option MUST have been evaluated against the nine qualities.
-
-  Not every quality needs detailed treatment for every option, but the
-  dominant qualities for the domain MUST be explicitly weighed.
-
-- The recommendation MUST name which qualities it prioritizes.
-
-  "We pick X because it optimizes for Y and Z, accepting weaker W."
-
-- The decision MUST be captured durably.
-
-  Written into the project's own decision store, in that store's own form —
-  somewhere a future reader can find it without asking, and without a second
-  copy of the rationale existing anywhere else.
-
-- The stores MUST have been discovered, not assumed.
-
-  The location and access method for both the specification and the decision
-  store MUST trace to session context, to the environment, or to an answer
-  from the user.
-
 ## Examples
 
 - A compact decision capture:
@@ -311,34 +314,34 @@ settle it.
   - p95 dispatch latency target: <200ms.
   - Team operates Postgres already; no Kafka/RabbitMQ in stack.
 
-  Options considered:
-  1. Postgres LISTEN/NOTIFY (CHOSEN)
+    Options considered:
+    1. Postgres LISTEN/NOTIFY (CHOSEN)
     + No new infra; reuses existing operational knowledge (habitability,
       simplicity).
     + Meets latency target (measured ~30ms p95 in spike).
     - Caps at ~few-thousand jobs/sec; not future-proof past 10x growth.
 
-  2. Add Redis Streams
+    2. Add Redis Streams
     + Higher throughput ceiling.
     - New operational surface; on-call team is unfamiliar (habitability -).
     - Extra failure mode (Redis unavailability) for a problem we don't
       have today.
 
-  3. Add SQS
+    3. Add SQS
     + Managed, durable, scalable.
     - Adds AWS coupling; cross-region latency makes p95 marginal.
     - More expensive at our volume.
 
-  Decision: Option 1. Optimizes for habitability and simplicity while
-  meeting the stated NFRs. Re-evaluate if sustained throughput exceeds
-  2000 jobs/sec, at which point Option 2 or 3 becomes worth the cost.
+    Decision: Option 1. Optimizes for habitability and simplicity while
+    meeting the stated NFRs. Re-evaluate if sustained throughput exceeds
+    2000 jobs/sec, at which point Option 2 or 3 becomes worth the cost.
 
-  Consequences:
+    Consequences:
   - Workers must hold a long-lived Postgres connection (connection pool
     sizing impact).
   - Migration to a real queue is a known future cost; design the dispatch
     interface to make that swap straightforward.
-  ```
+    ```
 
 ## References
 

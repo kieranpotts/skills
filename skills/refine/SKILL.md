@@ -20,38 +20,71 @@ Revise the requirements specification in response to feedback from acceptance
 testing, or from real-world use of working software. Capture what was learned,
 and identify which acceptance criteria need to be refined.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-- A feedback trigger against an existing specification — REQUIRED.
-  A failing acceptance criterion, an exploratory-testing finding, a
+- **A feedback trigger against an existing specification — REQUIRED.** A
+  failing acceptance criterion, an exploratory-testing finding, a
   stakeholder report against shipped behavior, or an NFR threshold proven
   wrong in practice.
 
-- Where the requirements specification lives, and how to edit it — REQUIRED.
-  Discover it rather than assuming it: check this session's context first,
-  then the environment (a convention file such as `AGENTS.md`, a workspace
-  manifest, a configured connector). If neither settles it, ask the user. It
-  MAY be a directory in this repository, a separate repository, or an
-  external service — do not assume a filesystem path, a file name, or a
-  document structure.
+- **Where the requirements specification lives, and how to edit it —
+  REQUIRED.** Discover it rather than assuming it: check this session's
+  context first, then the environment (a convention file such as
+  `AGENTS.md`, a workspace manifest, a configured connector). If neither
+  settles it, ask the user. It MAY be a directory in this repository, a
+  separate repository, or an external service — do not assume a filesystem
+  path, a file name, or a document structure.
 
 Gather the rest of the information you need by prompting the user. Ask one
 question at a time.
 
-## Output
-
-Precise edits to the requirements artifacts, conforming to the specification
-conventions (Gherkin, measurable NFRs, explicit scope), each with a recorded
-trigger, type, and rationale; plus a traced list of downstream design,
-planning, code, and test work the refinement implies. The output is reported
-and the skill stops; it changes no code itself.
-
 This skill is interactive. The agent prompts the user for clarification,
 asking one question at a time and waiting for the answer before proceeding.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- Precise edits to the requirements artifacts, conforming to the
+  specification conventions (Gherkin, measurable NFRs, explicit scope), each
+  with a recorded trigger, type, and rationale; plus a traced list of
+  downstream design, planning, code, and test work the refinement implies.
+
+- The output is reported and the skill stops; it changes no code itself.
+
+- Every refinement MUST name its trigger and its type.
+
+  Correction / addition / removal / reclassification /
+  threshold-adjustment, plus the observation that prompted it.
+
+- The edit MUST be shown as before / after.
+
+  Reviewers see what changed without diffing in their heads.
+
+- The rationale MUST be recorded with the edit.
+
+  The specification or its commit history explains why, not just what.
+  Future readers can reconstruct the decision without re-litigating it.
+
+- Downstream impact MUST be traced.
+
+  A list of affected artifacts (design, planned steps, code, tests) MUST
+  exist, with status. Nothing MUST be silently invalidated.
+
+- No code or test MUST have been changed inside this skill.
+
+  The output is a specification edit and a traced impact list.
+  Implementation lives downstream.
+
+- If a refinement reveals an untestable AC, the refined AC MUST be in
+  testable form.
+
+- If no specification existed in writing, the output MUST include the
+  newly written assumed specification plus the refinement applied to it.
 
 ## Instructions
 
@@ -234,38 +267,6 @@ asking one question at a time and waiting for the answer before proceeding.
 
   Refinement should leave the purpose of the original specification
   intact; expansion replaces it.
-
-## Success criteria
-
-- Every refinement MUST name its trigger and its type.
-
-  Correction / addition / removal / reclassification /
-  threshold-adjustment, plus the observation that prompted it.
-
-- The edit MUST be shown as before / after.
-
-  Reviewers see what changed without diffing in their heads.
-
-- The rationale MUST be recorded with the edit.
-
-  The specification or its commit history explains why, not just what.
-  Future readers can reconstruct the decision without re-litigating it.
-
-- Downstream impact MUST be traced.
-
-  A list of affected artifacts (design, planned steps, code, tests) MUST
-  exist, with status. Nothing MUST be silently invalidated.
-
-- No code or test MUST have been changed inside this skill.
-
-  The output is a specification edit and a traced impact list.
-  Implementation lives downstream.
-
-- If a refinement reveals an untestable AC, the refined AC MUST be in
-  testable form.
-
-- If no specification existed in writing, the output MUST include the
-  newly written assumed specification plus the refinement applied to it.
 
 ## Examples
 

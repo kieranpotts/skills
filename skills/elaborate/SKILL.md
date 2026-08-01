@@ -23,45 +23,79 @@ capturing crystallized decisions as architectural decision records.
 Discovery only. You MUST NOT make any code or configuration changes to the
 software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment, if possible. If you're uncertain about the input requirements,
 prompt the user for clarification.
 
-- A draft design with soft edges — REQUIRED.
-  An ADR, design doc, or PR description that has unresolved trade-offs,
-  ambiguous terms, unstated assumptions, or dependencies not yet thought
-  through. This skill does not originate the design; it consumes a draft to
-  sharpen.
+- **A draft design with soft edges — REQUIRED.** An ADR, design doc, or PR
+  description that has unresolved trade-offs, ambiguous terms, unstated
+  assumptions, or dependencies not yet thought through. This skill does not
+  originate the design; it consumes a draft to sharpen.
 
-- Related acceptance criteria and the relevant code — REQUIRED.
-  The acceptance criteria tied to the design, and the code it touches, so
-  the draft can be cross-referenced against what already exists.
+- **Related acceptance criteria and the relevant code — REQUIRED.** The
+  acceptance criteria tied to the design, and the code it touches, so the
+  draft can be cross-referenced against what already exists.
 
-- Where the glossary and the decision store live — REQUIRED.
-  The project's record of its ubiquitous language, and its record of settled
+- **Where the glossary and the decision store live — REQUIRED.** The
+  project's record of its ubiquitous language, and its record of settled
   decisions. Discover both rather than assuming them: check this session's
-  context first, then the environment (a convention file such as `AGENTS.md`,
-  a workspace manifest, an existing glossary or decision directory, a
-  configured connector). If neither settles it, ask the user. Either MAY be a
-  file in this repository, a separate repository, or an external service such
-  as a wiki — do not assume a filesystem path, a file name, or a document
-  structure. Where a project genuinely has neither, create them in the most
-  conventional place for that project and say where you put them.
-
-## Output
-
-A decomposition-ready design — every open decision resolved or explicitly
-deferred, terms reconciled with the project's glossary,
-code-versus-design contradictions surfaced, and qualifying decisions captured
-in the project's decision store. Whatever decomposes or otherwise consumes
-the sharpened design is the orchestrator's concern, not this skill's.
+  context first, then the environment (a convention file such as
+  `AGENTS.md`, a workspace manifest, an existing glossary or decision
+  directory, a configured connector). If neither settles it, ask the user.
+  Either MAY be a file in this repository, a separate repository, or an
+  external service such as a wiki — do not assume a filesystem path, a file
+  name, or a document structure. Where a project genuinely has neither,
+  create them in the most conventional place for that project and say where
+  you put them.
 
 This skill is interactive. The agent prompts the user one question at a
 time, waits for the answer, and then asks the next — including to establish
 where the glossary and decision store live, when context and environment do
 not settle it.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A decomposition-ready design — every open decision resolved or explicitly
+  deferred, terms reconciled with the project's glossary, code-versus-design
+  contradictions surfaced, and qualifying decisions captured in the
+  project's decision store.
+
+- Nothing beyond the sharpened design was produced. Decomposition and
+  implementation were left to the caller.
+
+- Every open decision in the draft MUST be resolved or deferred with a
+  stated reason.
+
+  Nothing left dangling in the "we'll figure that out later" pile
+  without "later" being named.
+
+- Each question MUST have been asked one at a time, with a recommended
+  answer.
+
+  No batched questions, no open-ended prompts without a lean.
+
+- Terms used in the conversation MUST match the glossary.
+
+  Either they already did, or the glossary was updated inline
+  as they were resolved.
+
+- Contradictions between stated design and existing code MUST have been
+  surfaced.
+
+  Not glossed, not assumed away.
+
+- Decisions that meet the three-criteria filter MUST have become ADRs.
+
+  Decisions that did not, did not.
+
+- The output MUST be decomposition-ready.
+
+  A reader can pick up the design and break it into steps without
+  re-asking the questions this skill resolved.
 
 ## Instructions
 
@@ -230,38 +264,6 @@ not settle it.
   the format shown in the examples. Do not pre-populate it with terms
   that have not actually been the subject of a question.
 
-## Success criteria
-
-- Every open decision in the draft MUST be resolved or deferred with a
-  stated reason.
-
-  Nothing left dangling in the "we'll figure that out later" pile
-  without "later" being named.
-
-- Each question MUST have been asked one at a time, with a recommended
-  answer.
-
-  No batched questions, no open-ended prompts without a lean.
-
-- Terms used in the conversation MUST match the glossary.
-
-  Either they already did, or the glossary was updated inline
-  as they were resolved.
-
-- Contradictions between stated design and existing code MUST have been
-  surfaced.
-
-  Not glossed, not assumed away.
-
-- Decisions that meet the three-criteria filter MUST have become ADRs.
-
-  Decisions that did not, did not.
-
-- The output MUST be decomposition-ready.
-
-  A reader can pick up the design and break it into steps without
-  re-asking the questions this skill resolved.
-
 ## Examples
 
 - A single Q-and-A turn during elaboration:
@@ -298,17 +300,17 @@ not settle it.
 
   ## Language
 
-  **Order:**
+  Order:
   A collection of line items submitted by a customer for fulfillment.
   _Avoid_: Purchase, transaction.
 
-  **Cancellation:**
+  Cancellation:
   The act of revoking an Order before it has been fully shipped. Triggers
   refunds for any line items already paid for; refunds are partial when
   only some line items were paid.
   _Avoid_: Void, abort.
 
-  **Customer:**
+  Customer:
   A person or organization that places Orders.
   _Avoid_: Client, buyer, account.
   ```

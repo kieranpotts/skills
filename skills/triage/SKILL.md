@@ -16,41 +16,65 @@ metadata:
 Move a single issue in a project's issue tracker through a small state
 machine of state labels.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment.
 
-- The target issue — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  issue. This may be a full URL or an ID like "#42".
+- **The target issue — REQUIRED.** Look in the user's last input prompt for
+  an explicit reference to a target issue. This may be a full URL or an ID
+  like "#42".
 
-- The issue tracker, and the project's label vocabulary — REQUIRED.
+- **The issue tracker, and the project's label vocabulary — REQUIRED.**
   Discover both rather than assuming them: check this session's context
   first, then the environment (a convention file such as `AGENTS.md`, the
   labels the tracker actually defines, a configured connector). If neither
   settles it, ask the user. The tracker MAY be GitHub, GitLab, Jira, Linear,
   or anything else — do not assume a particular host or API.
 
-- Where rejected ideas are recorded — REQUIRED for a `wontfix` outcome.
-  The project's durable record of what is deliberately out of scope. Discover
-  it as above; where a project has none, propose a location rather than
-  assuming one.
-
-## Output
-
-A recommended classification per issue, applied as the outcome once the
-maintainer confirms — a label change, an agent brief (problem statement,
-repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
-needs-info request, or a durably-captured wontfix rationale. This skill
-recommends and routes; it does not implement the fix or write the
-specification that follows.
+- **Where rejected ideas are recorded — REQUIRED for a `wontfix` outcome.**
+  The project's durable record of what is deliberately out of scope.
+  Discover it as above; where a project has none, propose a location rather
+  than assuming one.
 
 This skill is interactive. Triage is a maintainer's decision: the agent
 presents its recommendation and waits for direction before applying labels,
 posting comments, or closing anything. It also prompts to establish the
 tracker, the label vocabulary, and the out-of-scope record when context and
 environment do not settle them.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A recommended classification per issue, applied as the outcome once the
+  maintainer confirms — a label change, an agent brief (problem statement,
+  repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
+  needs-info request, or a durably-captured wontfix rationale.
+
+- Nothing was implemented. The fix, and the specification that follows,
+  were left to the caller.
+
+- Every triaged issue MUST carry one category and one state label.
+
+- State transitions MUST follow the machine.
+
+  Unusual transitions MUST be flagged, not silently performed.
+
+- `ready-for-agent` issues MUST have a brief.
+
+  Problem statement, ACs, files likely involved, and explicit
+  out-of-scope items.
+
+- `wontfix` enhancement closures MUST be captured durably, wherever this
+  project records rejected ideas.
+
+- The tracker, label vocabulary, and out-of-scope record MUST have been
+  discovered, not assumed.
+
+- AI-generated comments MUST be marked.
+
+- Outstanding questions MUST be specific and actionable.
 
 ## Instructions
 
@@ -258,29 +282,6 @@ environment do not settle them.
   Trust them. Apply what they asked for, even if your recommendation
   differed. Do not relitigate.
 
-## Success criteria
-
-- Every triaged issue MUST carry one category and one state label.
-
-- State transitions MUST follow the machine.
-
-  Unusual transitions MUST be flagged, not silently performed.
-
-- `ready-for-agent` issues MUST have a brief.
-
-  Problem statement, ACs, files likely involved, and explicit
-  out-of-scope items.
-
-- `wontfix` enhancement closures MUST be captured durably, wherever this
-  project records rejected ideas.
-
-- The tracker, label vocabulary, and out-of-scope record MUST have been
-  discovered, not assumed.
-
-- AI-generated comments MUST be marked.
-
-- Outstanding questions MUST be specific and actionable.
-
 ## Examples
 
 - A `needs-info` triage-notes comment:
@@ -290,18 +291,18 @@ environment do not settle them.
 
   ## Triage notes
 
-  **What we've established so far:**
+  What we've established so far:
   - Reproduced on Postgres 15.4 with `MAX_CONNECTIONS=10` (steps from
     reporter, run locally).
   - Pool exhaustion happens when N concurrent requests exceed pool size,
     which is expected. The unexpected part is the `500` response, not
     the saturation itself.
 
-  **What we still need from you (@reporter):**
+    What we still need from you (@reporter):
   - Are you seeing this on Postgres 14 as well, or only 15.x?
   - What value of `pool_size` are you running with?
   - Is your client setting a request timeout? If so, what value?
-  ```
+    ```
 
 - A `ready-for-agent` agent-brief comment:
 
@@ -319,18 +320,18 @@ environment do not settle them.
   **Expected behavior.** Saturated pool returns `503` with a `Retry-After`
   header. The retry-after value is tunable via config.
 
-  **Acceptance criteria:**
+  Acceptance criteria:
   - [ ] Saturated pool returns `503`.
   - [ ] Response includes a `Retry-After` header (config-tunable, default
         5 seconds).
   - [ ] Existing tests that assert `500-on-pool-error` are updated to
         assert `503` instead.
 
-  **Files likely involved:** `db/pool.go`, `middleware/error_handler.go`.
+    **Files likely involved:** `db/pool.go`, `middleware/error_handler.go`.
 
-  **Out-of-scope:** Changing the default `pool_size`. Adding a circuit
-  breaker. Both deferred; raise separate issues if wanted.
-  ```
+    **Out-of-scope:** Changing the default `pool_size`. Adding a circuit
+    breaker. Both deferred; raise separate issues if wanted.
+    ```
 
 - A wontfix-enhancement closure with out-of-scope capture:
 

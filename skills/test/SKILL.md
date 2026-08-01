@@ -20,7 +20,7 @@ observed behavior, or other measurement) and report whether passed, failed,
 or blocked. Report failures as either implementation defects or specification
 defects, without fixing either.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -28,35 +28,65 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A completed change — REQUIRED.
-  The change has already cleared review (static qualities checked); this
-  skill verifies the dynamic ones.
+- **A completed change — REQUIRED.** The change has already cleared review
+  (static qualities checked); this skill verifies the dynamic ones.
 
-- Its specification — REQUIRED.
-  The full set of acceptance criteria, functional and non-functional,
-  supplies what to verify against.
+- **Its specification — REQUIRED.** The full set of acceptance criteria,
+  functional and non-functional, supplies what to verify against.
 
-- Where the specification lives — REQUIRED.
-  Discover it rather than assuming it: check this session's context first,
-  then the environment (a convention file such as `AGENTS.md`, a workspace
-  manifest, a configured connector). If neither settles it, ask the user. It
-  MAY be a directory in this repository, a separate repository, or an
-  external service such as a tracker or wiki — do not assume a filesystem
-  path, a file name, or a document structure.
+- **Where the specification lives — REQUIRED.** Discover it rather than
+  assuming it: check this session's context first, then the environment (a
+  convention file such as `AGENTS.md`, a workspace manifest, a configured
+  connector). If neither settles it, ask the user. It MAY be a directory in
+  this repository, a separate repository, or an external service such as a
+  tracker or wiki — do not assume a filesystem path, a file name, or a
+  document structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the task; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where an
+artifact lives or how to access it, when context and environment do not
+settle it.
 
-A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED /
-N/A) and observable evidence, with an explicit verdict. Failures are
-classified — an implementation defect, or a wrong/missing/ambiguous AC (a
-specification defect) — and reported, not fixed. Whatever consumes the report
-— diagnosing a defect, editing the specification, releasing — is the
-orchestrator's concern, not this skill's.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the task; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where an artifact
-lives or how to access it, when context and environment do not settle it.
+You will achieve the following outcomes:
+
+- A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED
+  / N/A) and observable evidence, with an explicit verdict. Failures are
+  classified — an implementation defect, or a wrong/missing/ambiguous AC (a
+  specification defect) — and reported, not fixed.
+
+- Nothing beyond the report was done. Diagnosing defects, editing the
+  specification, and releasing were left to the caller.
+
+- Every AC MUST have a status and evidence.
+
+  PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence.
+
+- Functional and non-functional ACs MUST both be covered.
+
+  Neither MUST be skipped.
+
+- Failures and blockers MUST NOT be downgraded.
+
+  A FAIL reported as a defect MUST NOT be flipped to PASS without
+  re-verification. A BLOCKED MUST NOT be silently dropped.
+
+- Failures MUST be classified and reported, not fixed.
+
+  Each FAIL MUST be reported as either an implementation defect or a
+  specification defect.
+
+- The verification environment MUST be recorded.
+
+  Especially for NFR measurements, the environment (hardware, dataset,
+  traffic profile) MUST be captured alongside the numbers.
+
+- The verdict MUST be explicit.
+
+  "Ready to ship", "ready for review", or "blocked on X" — not
+  implied.
 
 ## Instructions
 
@@ -211,36 +241,6 @@ lives or how to access it, when context and environment do not settle it.
   Run the full pipeline (smoke → unit → integration → system →
   acceptance) plus the NFR suite on the release candidate. Performance
   and security checks are not optional at release.
-
-## Success criteria
-
-- Every AC MUST have a status and evidence.
-
-  PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence.
-
-- Functional and non-functional ACs MUST both be covered.
-
-  Neither MUST be skipped.
-
-- Failures and blockers MUST NOT be downgraded.
-
-  A FAIL reported as a defect MUST NOT be flipped to PASS without
-  re-verification. A BLOCKED MUST NOT be silently dropped.
-
-- Failures MUST be classified and reported, not fixed.
-
-  Each FAIL MUST be reported as either an implementation defect or a
-  specification defect.
-
-- The verification environment MUST be recorded.
-
-  Especially for NFR measurements, the environment (hardware, dataset,
-  traffic profile) MUST be captured alongside the numbers.
-
-- The verdict MUST be explicit.
-
-  "Ready to ship", "ready for review", or "blocked on X" — not
-  implied.
 
 ## Examples
 

@@ -22,7 +22,7 @@ such as PRDs and delivery plans, without replicating them.
 You MUST NOT make any code or configuration changes to any software
 components.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -30,23 +30,57 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The current session's context — REQUIRED.
-  The work done, the decisions made, the durable artifacts already produced
-  (specifications, designs, plans, ADRs, issues, commits), and the state of
-  the codebase.
-
-## Output
-
-A single, ephemeral handoff document written to the OS temp directory (not
-the repo), referencing those durable artifacts by path or URL rather than
-duplicating them. It captures what's done, what's open, the codebase state,
-suggested next steps, and gotchas. This skill reports the file's absolute
-path and stops; whether the next session is an agent or a human is the
-orchestrator's concern.
+- **The current session's context — REQUIRED.** The work done, the decisions
+  made, the durable artifacts already produced (specifications, designs,
+  plans, ADRs, issues, commits), and the state of the codebase.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A single, ephemeral handoff document written to the OS temp directory (not
+  the repo), referencing those durable artifacts by path or URL rather than
+  duplicating them.
+
+- It captures what's done, what's open, the codebase state, suggested next
+  steps, and gotchas. This skill reports the file's absolute path and stops;
+  whether the next session is an agent or a human is the orchestrator's
+  concern.
+
+- The handoff MUST live outside the repo.
+
+  Written to a temp-directory path, not the project tree.
+
+- The handoff MUST use the following structure, omitting any section that
+  has nothing to report:
+
+  - `# Handoff: <topic> (<date>)`
+  - `## What's been done` — summary of decisions and completed work.
+  - `## What's open` — outstanding questions and blockers.
+  - `## State of the codebase` — branch, working-tree status, known
+    test failures, temporary instrumentation.
+  - `## Suggested next steps` — the work the next session should pick
+    up.
+  - `## Watch out for` — gotchas, environmental quirks, explored dead
+    ends.
+
+- The handoff MUST reference every durable artifact by path or URL, and
+  MUST NOT paste artifact content.
+
+- The handoff MUST NOT contain credentials, PII, or internal-only URLs.
+
+- Outstanding questions MUST be stated specifically, with their blockers
+  named.
+
+- The next session MUST be able to read the handoff alone and know what to
+  do next.
+
+- If there was nothing substantive to hand off, the output MUST say so
+  explicitly rather than produce a fabricated document.
 
 ## Instructions
 
@@ -163,39 +197,6 @@ an error message.
 
   If a section has nothing to say, you MUST omit it or write "none"
   explicitly. An empty section is honest; an invented one is misleading.
-
-## Success criteria
-
-- The handoff MUST live outside the repo.
-
-  Written to a temp-directory path, not the project tree.
-
-- The handoff MUST use the following structure, omitting any section that
-  has nothing to report:
-
-  - `# Handoff: <topic> (<date>)`
-  - `## What's been done` — summary of decisions and completed work.
-  - `## What's open` — outstanding questions and blockers.
-  - `## State of the codebase` — branch, working-tree status, known
-    test failures, temporary instrumentation.
-  - `## Suggested next steps` — the work the next session should pick
-    up.
-  - `## Watch out for` — gotchas, environmental quirks, explored dead
-    ends.
-
-- The handoff MUST reference every durable artifact by path or URL, and
-  MUST NOT paste artifact content.
-
-- The handoff MUST NOT contain credentials, PII, or internal-only URLs.
-
-- Outstanding questions MUST be stated specifically, with their blockers
-  named.
-
-- The next session MUST be able to read the handoff alone and know what to
-  do next.
-
-- If there was nothing substantive to hand off, the output MUST say so
-  explicitly rather than produce a fabricated document.
 
 ## Examples
 

@@ -24,7 +24,7 @@ reversible.
 Refactoring is distinct from bug fixes and feature work — do not confuse
 them. If in doubt, stop and return an error message.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -32,27 +32,53 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- Existing, tested code — REQUIRED.
-  The code to restructure, plus a passing safety net to preserve. This
-  skill does not invent the goal from scratch; it consumes a passing safety
-  net to preserve.
+- **Existing, tested code — REQUIRED.** The code to restructure, plus a
+  passing safety net to preserve. This skill does not invent the goal from
+  scratch; it consumes a passing safety net to preserve.
 
-- A named target quality — REQUIRED.
-  The single design quality (readability, structure, coupling, naming,
-  decomposition) being improved. This skill consumes a quality to improve
-  rather than inventing one.
-
-## Output
-
-A series of small `refactor:` commits that improve the named quality while
-leaving externally observable behavior identical — tests green before and
-after every move, each commit independently revertible, the diff free of
-feature or bug-fix work. Whatever reviews, integrates, or sequences the next
-task is the orchestrator's concern, not this skill's.
+- **A named target quality — REQUIRED.** The single design quality
+  (readability, structure, coupling, naming, decomposition) being improved.
+  This skill consumes a quality to improve rather than inventing one.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A series of small `refactor:` commits that improve the named quality while
+  leaving externally observable behavior identical — tests green before and
+  after every move, each commit independently revertible, the diff free of
+  feature or bug-fix work.
+
+- Nothing beyond the restructuring was done. Reviewing, integrating, and
+  sequencing the next task were left to the caller.
+
+- External behavior MUST be unchanged.
+
+  Every test that passed before MUST pass after. Manual smoke of the
+  affected paths MUST confirm no observable difference.
+
+- The named quality MUST be measurably improved.
+
+  State which quality and how it changed (lines, dependencies,
+  responsibilities, names). Vague "this is cleaner" is not enough.
+
+- Each commit MUST be a single small move.
+
+  Reviewable in minutes. Revertable on its own.
+
+- The diff MUST contain only restructuring.
+
+  No feature or bug-fix work MUST be mixed in. Anything else MUST be in
+  a separate commit and a separate review thread.
+
+- Tests MUST have passed after every move, not just at the end.
+
+- The PR description MUST name the quality being improved and the moves
+  taken.
 
 ## Instructions
 
@@ -250,32 +276,6 @@ an error message.
   over time.
 
   Do not try to fix it all at once.
-
-## Success criteria
-
-- External behavior MUST be unchanged.
-
-  Every test that passed before MUST pass after. Manual smoke of the
-  affected paths MUST confirm no observable difference.
-
-- The named quality MUST be measurably improved.
-
-  State which quality and how it changed (lines, dependencies,
-  responsibilities, names). Vague "this is cleaner" is not enough.
-
-- Each commit MUST be a single small move.
-
-  Reviewable in minutes. Revertable on its own.
-
-- The diff MUST contain only restructuring.
-
-  No feature or bug-fix work MUST be mixed in. Anything else MUST be in
-  a separate commit and a separate review thread.
-
-- Tests MUST have passed after every move, not just at the end.
-
-- The PR description MUST name the quality being improved and the moves
-  taken.
 
 ## Examples
 

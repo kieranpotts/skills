@@ -20,7 +20,7 @@ report.
 Discovery and synthesis only. You MUST NOT make any changes to any code or
 configuration, or to any documentation beyond the research report itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -28,30 +28,95 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- A knowledge gap to close — REQUIRED. A topic or question blocked on
+- **A knowledge gap to close — REQUIRED.** A topic or question blocked on
   knowledge the agent does not hold and cannot derive from the codebase —
   how a library behaves, what a protocol mandates, how others solved a
   comparable problem, what a regulation requires, whether an approach is
   still current.
 
-- The project's own knowledge sources — REQUIRED, to check before reaching
-  outward. Its convention files, documentation, decision store, and agent
-  memory. Discover these rather than assuming them: check this session's
-  context first, then the environment. If neither settles it, ask the user.
-  Do not assume a filesystem path or a document structure.
-
-## Output
-
-A single, cited research report — a direct answer to the framed question,
-the supporting evidence (each decision-bearing claim sourced and, where
-time-sensitive, dated), the open questions, and a suggested destination for
-the findings. This skill produces the report and stops; writing the findings
-into a design doc, an ADR, persisted memory, or anywhere else is a separate,
-explicit step the caller initiates.
+- **The project's own knowledge sources — REQUIRED.** , to check before
+  reaching outward. Its convention files, documentation, decision store, and
+  agent memory. Discover these rather than assuming them: check this
+  session's context first, then the environment. If neither settles it, ask
+  the user. Do not assume a filesystem path or a document structure.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- A single, cited research report — a direct answer to the framed question,
+  the supporting evidence (each decision-bearing claim sourced and, where
+  time-sensitive, dated), the open questions, and a suggested destination
+  for the findings.
+
+- This skill produces the report and stops; writing the findings into a
+  design doc, an ADR, persisted memory, or anywhere else is a separate,
+  explicit step the caller initiates.
+
+- The framed question MUST be answered, or its unanswerability
+  explained.
+
+  The report opens with a direct answer, or with a clear statement of
+  why no answer was reachable and what would be needed.
+
+- Every decision-bearing claim MUST be cited; time-sensitive claims
+  MUST be dated.
+
+  A reader can follow each material claim to a source and judge whether
+  it is still current.
+
+- Fact and inference MUST be visibly separated.
+
+  Nothing you inferred is presented as something a source asserted.
+
+- The report MUST be actionable from its first few lines.
+
+  The conclusion leads; the evidence supports. The reader is not made
+  to assemble the answer themselves.
+
+- The research report MUST be the only artifact produced.
+
+  Code, project docs, and shipped skills are untouched. The output is a
+  report plus a suggested destination.
+
+- The report MUST follow this structure:
+
+  ```md
+  # Research: <topic>
+
+  **Question:** <the specific question(s) framed in step 1>
+  **Decision this unblocks:** <what becomes possible once answered>
+  **As of:** <date>
+
+  ## Answer
+
+  <Direct, actionable answer in 1-3 sentences. The reader who stops
+  here should still have what they need.>
+
+  ## Findings
+
+  - <Claim.> [source](url), accessed <date>. <Version/date the claim holds for.>
+  - <Claim.> Corroborated by [source A](url) and [source B](url).
+  - <Where sources disagreed, the disagreement and your read of it.>
+
+    ## Open questions / low-confidence areas
+
+  - <What the research could not settle, and what it would take to settle it.>
+
+    ## Suggested destination
+
+    <Where these findings should go next: design input, ADR, memory, user review.>
+
+    ## Sources
+
+  - [Title](url) - accessed <date> - <one-line note on what it covers>
+    ```
+
+- Deferred questions, if any, MUST be listed.
 
 ## Instructions
 
@@ -170,69 +235,6 @@ an error message.
 - If sources are paywalled or unreachable, you MUST note that they exist
   but could not be verified, and find an open alternative where one
   exists.
-
-## Success criteria
-
-- The framed question MUST be answered, or its unanswerability
-  explained.
-
-  The report opens with a direct answer, or with a clear statement of
-  why no answer was reachable and what would be needed.
-
-- Every decision-bearing claim MUST be cited; time-sensitive claims
-  MUST be dated.
-
-  A reader can follow each material claim to a source and judge whether
-  it is still current.
-
-- Fact and inference MUST be visibly separated.
-
-  Nothing you inferred is presented as something a source asserted.
-
-- The report MUST be actionable from its first few lines.
-
-  The conclusion leads; the evidence supports. The reader is not made
-  to assemble the answer themselves.
-
-- The research report MUST be the only artifact produced.
-
-  Code, project docs, and shipped skills are untouched. The output is a
-  report plus a suggested destination.
-
-- The report MUST follow this structure:
-
-  ```md
-  # Research: <topic>
-
-  **Question:** <the specific question(s) framed in step 1>
-  **Decision this unblocks:** <what becomes possible once answered>
-  **As of:** <date>
-
-  ## Answer
-
-  <Direct, actionable answer in 1-3 sentences. The reader who stops
-  here should still have what they need.>
-
-  ## Findings
-
-  - <Claim.> [source](url), accessed <date>. <Version/date the claim holds for.>
-  - <Claim.> Corroborated by [source A](url) and [source B](url).
-  - <Where sources disagreed, the disagreement and your read of it.>
-
-  ## Open questions / low-confidence areas
-
-  - <What the research could not settle, and what it would take to settle it.>
-
-  ## Suggested destination
-
-  <Where these findings should go next: design input, ADR, memory, user review.>
-
-  ## Sources
-
-  - [Title](url) - accessed <date> - <one-line note on what it covers>
-  ```
-
-- Deferred questions, if any, MUST be listed.
 
 ## References
 

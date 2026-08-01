@@ -23,7 +23,7 @@ This task is scoped to static review of code and data structures. Review of
 security and privacy is out-of-scope. Review of dynamic qualities observed at
 runtime, such as latency and throughput, is also out-of-scope.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -31,37 +31,64 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The target codebase — REQUIRED.
-  Look in the user's last input prompt for an explicit reference to a target
-  path or URL to a code repository. If a URL, clone the repository to a
-  temporary directory. Otherwise, assume the target is the code repository
-  under which the current working directory (cwd) sits. If the cwd is not part
-  of a code repository, check the nearest `AGENTS.md` for paths to all the
-  projects in the current workspace, else find all code repositories in nested
-  subdirectories — assume they are all components of the target codebase. If
-  the target codebase cannot be found, stop and alert the user.
+- **The target codebase — REQUIRED.** Look in the user's last input prompt
+  for an explicit reference to a target path or URL to a code repository. If
+  a URL, clone the repository to a temporary directory. Otherwise, assume
+  the target is the code repository under which the current working
+  directory (cwd) sits. If the cwd is not part of a code repository, check
+  the nearest `AGENTS.md` for paths to all the projects in the current
+  workspace, else find all code repositories in nested subdirectories —
+  assume they are all components of the target codebase. If the target
+  codebase cannot be found, stop and alert the user.
 
-- Where the audit store lives, and how to write to it — REQUIRED.
+- **Where the audit store lives, and how to write to it — REQUIRED.**
   Discover this rather than assuming it: check this session's context first,
   then the environment (a convention file such as `AGENTS.md`, a workspace
   manifest, a directory that plainly holds audit reports, a configured
   connector). If neither settles it, ask the user. The store MAY be a
-  directory in this repository, a separate repository, or an external service
-  such as a wiki — do not assume a filesystem path, a file name, or a report
-  structure.
+  directory in this repository, a separate repository, or an external
+  service such as a wiki — do not assume a filesystem path, a file name, or
+  a report structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the audit; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where
+the audit store is and how to write to it, when context and environment do
+not settle it.
 
-An artifact capturing candidates for architecture improvements, each candidate
-citing specific files and lines, stating what is observed and the cost it
-imposes. The report is written to the audit store, following whatever
-conventions that store defines for itself.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the audit; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where the audit
-store is and how to write to it, when context and environment do not settle
-it.
+You will achieve the following outcomes:
+
+- An artifact capturing candidates for architecture improvements, each
+  candidate citing specific files and lines, stating what is observed and
+  the cost it imposes.
+
+- The report is written to the audit store, following whatever conventions
+  that store defines for itself.
+
+- Exactly one report MUST exist for this audit.
+
+  Any scaffold already present for this scope MUST have been written into,
+  not duplicated.
+
+- The audit store MUST have been discovered, not assumed.
+
+  Its location and access method MUST trace to session context, to the
+  environment, or to an answer from the user. No path, file name, or report
+  structure MUST have been taken for granted.
+
+- The report MUST cite a specific file for every finding.
+
+  Each finding MUST name a module/file path and a concrete observation.
+
+  Vague platitudes like "the API layer is messy" MUST NOT appear in your
+  report.
+
+- Findings MUST be prioritized.
+
+  Each finding MUST carry a priority of `HIGH`, `MEDIUM`, or `LOW`,
+  calculated based on your assessment of the impact and effort.
 
 ## Instructions
 
@@ -247,31 +274,6 @@ it.
   smells, just because you would prefer a different style.
 
   Your audit report MUST target structural problems, not preferences.
-
-## Success criteria
-
-- Exactly one report MUST exist for this audit.
-
-  Any scaffold already present for this scope MUST have been written into,
-  not duplicated.
-
-- The audit store MUST have been discovered, not assumed.
-
-  Its location and access method MUST trace to session context, to the
-  environment, or to an answer from the user. No path, file name, or report
-  structure MUST have been taken for granted.
-
-- The report MUST cite a specific file for every finding.
-
-  Each finding MUST name a module/file path and a concrete observation.
-
-  Vague platitudes like "the API layer is messy" MUST NOT appear in your
-  report.
-
-- Findings MUST be prioritized.
-
-  Each finding MUST carry a priority of `HIGH`, `MEDIUM`, or `LOW`,
-  calculated based on your assessment of the impact and effort.
 
 ## References
 

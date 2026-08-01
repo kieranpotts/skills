@@ -20,7 +20,7 @@ without altering behavior, structure, or meaning.
 
 Prefer to use automated formatters configured at the project level.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -28,23 +28,50 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- The code or content to normalize — REQUIRED.
-  A set of files, a diff, or the working tree.
+- **The code or content to normalize — REQUIRED.** A set of files, a diff,
+  or the working tree.
 
-- The configured formatter and style conventions — REQUIRED.
-  The project's formatter and style conventions, where they exist.
-
-## Output
-
-The same files with presentation-only edits applied (whitespace,
-indentation, wrapping, quotes, ordering), behavior and structure provably
-unchanged, ideally via the project's automated formatter, ready to commit
-under a `style:` commit. This skill normalizes presentation and stops; it
-makes no structural or behavioral change.
+- **The configured formatter and style conventions — REQUIRED.** The
+  project's formatter and style conventions, where they exist.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and print
-an error message.
+input. If in doubt about any of the requirements of this task, stop and
+print an error message.
+
+## Success criteria
+
+You will achieve the following outcomes:
+
+- The same files with presentation-only edits applied (whitespace,
+  indentation, wrapping, quotes, ordering), behavior and structure provably
+  unchanged, ideally via the project's automated formatter, ready to commit
+  under a `style:` commit.
+
+- This skill normalizes presentation and stops; it makes no structural or
+  behavioral change.
+
+- External behavior MUST be unchanged.
+
+  Tests MUST pass after the style pass. `git diff -w` between pre and
+  post MUST show no changes.
+
+- The diff MUST contain only presentation changes.
+
+  There MUST be no renames, no logic edits, no structural moves.
+
+- The commit MUST be a single `style:` commit per scope.
+
+  There MUST be no bundled feature, fix, refactor, or config changes.
+
+- The formatter, if any, MUST have been used as configured.
+
+  It MUST NOT be hand-edited around the formatter. It MUST NOT be run
+  with non-standard options.
+
+- Tooling gap, if any, MUST be captured.
+
+  If hand-formatting was necessary, a follow-up `maintenance:` task
+  MUST exist to add or fix the automation.
 
 ## Instructions
 
@@ -183,31 +210,6 @@ an error message.
   A Python re-indent turned a method into a nested function. The test
   suite caught it. Lesson: never run an auto-formatter on a
   significant-whitespace language without test coverage.
-
-## Success criteria
-
-- External behavior MUST be unchanged.
-
-  Tests MUST pass after the style pass. `git diff -w` between pre and
-  post MUST show no changes.
-
-- The diff MUST contain only presentation changes.
-
-  There MUST be no renames, no logic edits, no structural moves.
-
-- The commit MUST be a single `style:` commit per scope.
-
-  There MUST be no bundled feature, fix, refactor, or config changes.
-
-- The formatter, if any, MUST have been used as configured.
-
-  It MUST NOT be hand-edited around the formatter. It MUST NOT be run
-  with non-standard options.
-
-- Tooling gap, if any, MUST be captured.
-
-  If hand-formatting was necessary, a follow-up `maintenance:` task
-  MUST exist to add or fix the automation.
 
 ## Examples
 

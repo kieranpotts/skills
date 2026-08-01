@@ -21,7 +21,7 @@ shippable on its own.
 Planning only. You MUST NOT make any code or configuration changes to the
 software itself.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
@@ -29,33 +29,72 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- An agreed design and its acceptance criteria — REQUIRED. The chosen
+- **An agreed design and its acceptance criteria — REQUIRED.** The chosen
   option and the acceptance criteria it must deliver, for a change larger
   than one atomic commit or touching multiple seams.
 
-- The project's commit-type vocabulary and branch model — REQUIRED. These
-  inform how steps are labeled and integrated.
+- **The project's commit-type vocabulary and branch model — REQUIRED.**
+  These inform how steps are labeled and integrated.
 
-- Where the design, the specification, and the plan store live — REQUIRED.
-  Discover these rather than assuming them: check this session's context
-  first, then the environment (a convention file such as `AGENTS.md`, a
-  workspace manifest, a configured connector). If none settles it, ask the
-  user. Each MAY be a directory in this repository, a separate repository, or
-  an external service such as a tracker or wiki — do not assume a filesystem
-  path, a file name, or a document structure.
+- **Where the design, the specification, and the plan store live —
+  REQUIRED.** Discover these rather than assuming them: check this session's
+  context first, then the environment (a convention file such as
+  `AGENTS.md`, a workspace manifest, a configured connector). If none
+  settles it, ask the user. Each MAY be a directory in this repository, a
+  separate repository, or an external service such as a tracker or wiki — do
+  not assume a filesystem path, a file name, or a document structure.
 
-## Output
+This task otherwise runs non-interactively to completion. You MUST NOT
+prompt the user about the substance of the task; if in doubt about that,
+stop and print an error message. You MAY prompt solely to establish where an
+artifact lives or how to access it, when context and environment do not
+settle it.
 
-A numbered checklist of small steps, each independently mergeable, testable,
-and reversible, ordered riskiest-first, with a mode tag (`HITL`/`AFK`), a
-stated pass/fail signal, any prior-step dependency, and any flag, fixture, or
-migration named where used. The plan is reported as the artifact and the
-skill stops; it writes no code itself.
+## Success criteria
 
-This task otherwise runs non-interactively to completion. You MUST NOT prompt
-the user about the substance of the task; if in doubt about that, stop and
-print an error message. You MAY prompt solely to establish where an artifact
-lives or how to access it, when context and environment do not settle it.
+You will achieve the following outcomes:
+
+- A numbered checklist of small steps, each independently mergeable,
+  testable, and reversible, ordered riskiest-first, with a mode tag
+  (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and
+  any flag, fixture, or migration named where used.
+
+- The plan is reported as the artifact and the skill stops; it writes no
+  code itself.
+
+- The plan MUST be a numbered checklist of steps.
+
+- Every step MUST be independently mergeable, testable, and reversible.
+
+  Re-read each step with that filter. Anything that fails the filter MUST
+  be split.
+
+- Each step SHOULD be reviewable in under 30 minutes, and certainly under
+  one working day.
+
+- The first step MUST be the thinnest plausible end-to-end slice.
+
+  Not the easiest. Not the most polished. The thinnest.
+
+- Riskier steps MUST come before easier ones.
+
+  Front-loaded risk is a feature of a good plan, not a flaw.
+
+- Each step MUST have a stated pass/fail signal.
+
+  A test name, a curl command, a metric threshold — something
+  observable.
+
+- Each step MUST include a mode tag (`HITL` or `AFK`), any prior-step
+  dependency, and any flag, fixture, or migration involved.
+
+- Step descriptions MUST be tight.
+
+  The plan MUST NOT substitute for the design document.
+
+- If the plan is a single step, the output MUST say so explicitly and
+  direct the caller to proceed with implementation rather than returning
+  a plan artifact.
 
 ## Instructions
 
@@ -195,42 +234,6 @@ lives or how to access it, when context and environment do not settle it.
 
   The plan still applies; the integration target changes.
 
-## Success criteria
-
-- The plan MUST be a numbered checklist of steps.
-
-- Every step MUST be independently mergeable, testable, and reversible.
-
-  Re-read each step with that filter. Anything that fails the filter MUST
-  be split.
-
-- Each step SHOULD be reviewable in under 30 minutes, and certainly under
-  one working day.
-
-- The first step MUST be the thinnest plausible end-to-end slice.
-
-  Not the easiest. Not the most polished. The thinnest.
-
-- Riskier steps MUST come before easier ones.
-
-  Front-loaded risk is a feature of a good plan, not a flaw.
-
-- Each step MUST have a stated pass/fail signal.
-
-  A test name, a curl command, a metric threshold — something
-  observable.
-
-- Each step MUST include a mode tag (`HITL` or `AFK`), any prior-step
-  dependency, and any flag, fixture, or migration involved.
-
-- Step descriptions MUST be tight.
-
-  The plan MUST NOT substitute for the design document.
-
-- If the plan is a single step, the output MUST say so explicitly and
-  direct the caller to proceed with implementation rather than returning
-  a plan artifact.
-
 ## Examples
 
 - A plan for "add an /orders POST endpoint with idempotency":
@@ -264,13 +267,13 @@ lives or how to access it, when context and environment do not settle it.
   - (b) add a settings UI to display the new billing data,
   - (c) update copy on the existing checkout page.
 
-  Correct order: a, b, c.
-  Wrong order: c, b, a.
+    Correct order: a, b, c.
+    Wrong order: c, b, a.
 
-  The SDK integration carries unknown risk. Discovering an SDK
-  incompatibility on day 1 lets the team replan. Discovering it on day
-  3, after the UI and copy work are merged, wastes that work.
-  ```
+    The SDK integration carries unknown risk. Discovering an SDK
+    incompatibility on day 1 lets the team replan. Discovering it on day
+    3, after the UI and copy work are merged, wastes that work.
+    ```
 
 ## References
 
