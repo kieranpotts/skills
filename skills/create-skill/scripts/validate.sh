@@ -120,18 +120,43 @@ run_repo_checks() {
     failed=1
   fi
 
-  # Prominent '**Input:**' and '**Output:**' paragraphs are required.
-  if grep -qE '^\*\*Input\*\*:' "${skill_md}"; then
-    printf "  [PASS] Has '**Input:**' paragraph\n" >&2
+  # '## Parameters' is required.
+  if grep -qE '^## +Parameters\b' "${skill_md}"; then
+    printf "  [PASS] Has '## Parameters' section\n" >&2
   else
-    printf "  [FAIL] Missing '**Input:**' paragraph\n" >&2
+    printf "  [FAIL] Missing '## Parameters' section\n" >&2
     failed=1
   fi
-  if grep -qE '^\*\*Output\*\*:' "${skill_md}"; then
-    printf "  [PASS] Has '**Output:**' paragraph\n" >&2
+
+  # '## Parameters' and '## Success criteria' must come first, in that order,
+  # before any other '##' heading.
+  first_two="$(grep -E '^## +' "${skill_md}" | head -2 | sed -E 's/^## +//')"
+  expected="$(printf 'Parameters\nSuccess criteria')"
+  if [ "${first_two}" = "${expected}" ]; then
+    printf "  [PASS] '## Parameters' then '## Success criteria' lead the body\n" >&2
   else
-    printf "  [FAIL] Missing '**Output:**' paragraph\n" >&2
+    printf "  [FAIL] First two sections must be '## Parameters' then '## Success criteria'\n" >&2
+    printf "         Found: %s\n" "$(echo "${first_two}" | tr '\n' '/')" >&2
     failed=1
+  fi
+
+  # There must be no separate output section — it is absorbed by the
+  # success criteria.
+  if grep -qE '^## +Output\b|^\*\*Output\*\*:' "${skill_md}"; then
+    printf "  [FAIL] Has an output section; fold it into '## Success criteria'\n" >&2
+    failed=1
+  else
+    printf "  [PASS] No separate output section\n" >&2
+  fi
+
+  # Inline bold is reserved for the '## Parameters' leads. Flag bold-lead
+  # bullets appearing anywhere after the success criteria heading.
+  bold_after="$(awk '/^## +Success criteria/{f=1} f && /^- +\*\*/{c++} END{print c+0}' "${skill_md}")"
+  if [ "${bold_after}" -eq 0 ]; then
+    printf "  [PASS] Inline bold confined to '## Parameters'\n" >&2
+  else
+    printf "  [WARN] %d bold-lead bullet(s) after '## Success criteria'\n" "${bold_after}" >&2
+    printf "         Rules, criteria, and examples should be plain prose\n" >&2
   fi
 
   return "${failed}"

@@ -19,32 +19,65 @@ collection or a downstream project.
 
 You MUST NOT make any code or configuration changes to any software.
 
-## Input
+## Parameters
 
 Determine the following information from the surrounding context and
-environment, if possible. If you're uncertain about the input requirements,
+environment, if possible. If you're uncertain about the required parameters,
 prompt the user for clarification.
 
-- A description of the skill to create, or a path to an existing skill to
-  improve — REQUIRED.
+- **A description of the skill — REQUIRED.** Either a description of a new
+  skill to create, or a path to an existing skill to improve.
 
-- The purpose of the skill — REQUIRED.
+- **The purpose of the skill — REQUIRED.** What it is for.
 
-- Trigger conditions — REQUIRED.
+- **Trigger conditions — REQUIRED.** The situations and user phrasings that
+  should invoke it.
 
-- Target project in which to install the skill — OPTIONAL. If not explicitly
-  specified, if the current working directory is inside a Git repository,
-  assume that is the target project, else install in the user's home
-  directory at `$HOME/.agents/skills/<skill-name>/`.
+- **Target project — OPTIONAL.** Where to install the skill. If not
+  explicitly specified, and the current working directory is inside a Git
+  repository, assume that is the target project. Otherwise install in the
+  user's home directory at `$HOME/.agents/skills/<skill-name>/`.
 
-## Output
+## Success criteria
 
-A complete skill directory, including a `SKILL.md` file conforming to the
-bundled template, a sibling `README.md` for humans, and any bundled assets,
-references, and scripts. All artifacts pass the validator.
+You will achieve the following outcomes:
 
-This skill is interactive. The agent MAY prompt the user for clarification on
-the scope, purpose, trigger conditions, and target project for the skill.
+- A complete skill directory exists at the target location, holding a
+  `SKILL.md`, a sibling `README.md` for humans, and any bundled `assets/`,
+  `references/`, and `scripts/`.
+
+- The front-matter is valid. The `name` and `description` fields are present
+  and non-empty, and `name` matches the directory name.
+
+- The canonical sections are present, in order: the `#` title and its
+  description, `## Parameters`, `## Success criteria`, and at least one of
+  `## Instructions` or `## Rules`. `## Parameters` and `## Success criteria`
+  come before any other `##` heading.
+
+- The parameters are a bulleted list, each item naming its requirement level
+  — REQUIRED or OPTIONAL — inside a bold lead. The preamble states whether
+  the agent may prompt the user, matching the `metadata.interactive` flag.
+
+- Inline bold appears only in the `## Parameters` leads. Rules, success
+  criteria, instructions, edge cases, and examples are plain prose.
+
+- The `description` names both the capability and the contexts that should
+  invoke the skill, following the two-sentence pattern.
+
+- No artifact location, file name, or document structure is hard-coded.
+  Every artifact the skill reads or writes is discovered from context, from
+  the environment, or by asking. Any literal path that remains is an
+  illustrative example, clearly marked as such.
+
+- No other skill is referenced by name — neither a global skill from a
+  project-level one, nor the reverse.
+
+- The `SKILL.md` is token-efficient, and under ~300 lines. No section is
+  padded with detail that belongs in a `references/` file.
+
+- A `README.md` exists alongside the `SKILL.md`.
+
+- The validator passes against the skill directory.
 
 ## Instructions
 
@@ -144,7 +177,7 @@ the scope, purpose, trigger conditions, and target project for the skill.
   Helps with documents.
   ```
 
-- `SKILL.md` MUST include the canonical sections.
+- `SKILL.md` MUST include the canonical sections, in the canonical order.
 
   - Front-matter: `name` and `description` are REQUIRED. `compatibility`
     and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model
@@ -152,42 +185,76 @@ the scope, purpose, trigger conditions, and target project for the skill.
     blocks on the user.
 
   - Description: Immediately after the level 1 heading, which is the title
-    of the skill, include a short one or two sentence description of the
-    skill's purpose. This MAY be copied from the first part of the header
-    description.
+    of the skill, include a short one to three sentence description of the
+    skill's purpose, and what it does NOT do. This MAY be adapted from the
+    first part of the front-matter description.
 
-  - Input/output: Immediately after the description, describe the input and
-    output — what the skill consumes and produces. The input MUST ALWAYS be
-    a bulleted list, even for a single input: each item a bold-lead bullet
-    whose bold text is a short description followed by the requirement
-    level (`- **The input. REQUIRED.** …`), with explanatory text after the
-    bold lead. Give each genuinely distinct input its own bullet — split a
-    primary input and a supporting convention/context into separate items
-    rather than joining them with "plus". The interactivity statement MUST
-    be its own paragraph immediately after the input list, stating whether
-    the skill runs non-interactively to completion or is interactive — and,
-    if interactive, being explicit about the circumstances in which the
-    agent prompts the user.
+  - `## Parameters`: REQUIRED. What the skill consumes. Open with a short
+    preamble telling the agent to determine these from the surrounding
+    context and environment, and stating whether it may prompt the user
+    when uncertain — this is where interactivity is declared, matching the
+    `metadata.interactive` flag.
 
-  - Instructions or Rules: MUST include at least one of these two sections.
+    The parameters MUST ALWAYS be a bulleted list, even for a single
+    parameter. Each item is a bold-lead bullet naming the parameter and its
+    requirement level, with explanatory text following in plain prose:
 
-  - Edge cases: Potential edge cases to warn about. OPTIONAL.
+    ```md
+    - **Scope — REQUIRED.** A description of the target system.
 
-  - Success criteria: Evaluation criteria against which the agent can mark
-    its own homework. Include deterministic scripts — eg. linters, other
-    validators — that the agent can run, if possible. REQUIRED.
+    - **Audit date — OPTIONAL.** Assume today if not given.
+    ```
 
-  - Examples: A small number of canonical input/output examples. OPTIONAL.
+    Give each genuinely distinct parameter its own bullet. Do not join a
+    primary parameter and a supporting one with "plus".
 
-  - Assets: Static assets, such as templates, that the agent MAY use to
-    help it to compose its output. OPTIONAL.
+  - `## Success criteria`: REQUIRED, and placed directly after
+    `## Parameters` — before the instructions, so the agent knows what it
+    is aiming at before it starts. Open with `You will achieve the
+    following outcomes:`, then list the observable end state as plain
+    bullets.
 
-  - References: Additional reference material, such as coding standards,
-    the agent can load on-demand. For each, specify a trigger condition.
-    OPTIONAL.
+    This section absorbs what the skill produces: an outcome bullet names
+    an artifact that exists, a state that holds, or a check that passes.
+    There is no separate output section. Include deterministic checks — a
+    linter, a validator, a command — wherever the agent can run one.
 
-  Sections MAY be reordered as appropriate to maximize the effectiveness
-  of the skill.
+  - `## Instructions`: The ordered procedural steps. REQUIRED unless the
+    skill is purely declarative, in which case `## Rules` alone suffices.
+
+  - `## Rules`: Individual, non-sequential constraints. REQUIRED unless the
+    skill is purely procedural, in which case `## Instructions` alone
+    suffices. At least one of Instructions or Rules MUST be present.
+
+  - `## Edge cases`: Potential edge cases to warn about. OPTIONAL.
+
+  - `## Examples`: A small number of canonical examples. OPTIONAL.
+
+  - `## Assets`: Static assets, such as templates, the agent MAY use to
+    compose its output. OPTIONAL.
+
+  - `## References`: Additional reference material the agent can load
+    on-demand. For each, specify a trigger condition. OPTIONAL.
+
+- You SHOULD use inline bold sparingly.
+
+  Bold carries meaning only while it is rare. Reserve it for the lead of
+  each `## Parameters` bullet, where it separates the parameter name and
+  requirement level from the prose that explains it.
+
+  Rules, success criteria, instructions, edge cases, and examples are
+  written as plain prose. A rule states its constraint in a full sentence,
+  optionally followed by an indented paragraph giving the reason:
+
+  ```md
+  - You MUST branch from `main`, not from any other branch.
+
+    Audits are always cut from `main`. If local `main` is behind the
+    remote, pull first.
+  ```
+
+  Bolding every rule heading turns the section into a wall of emphasis and
+  makes the genuinely important lines harder to find.
 
 - Keep instructions and rules separate.
 
@@ -323,50 +390,6 @@ the scope, purpose, trigger conditions, and target project for the skill.
   Use it as a reference for domain knowledge, but adapt the instructions and
   format to the bundled template and the conventions of the project you are
   authoring in. Don't copy verbatim.
-
-## Success criteria
-
-- Front-matter MUST be valid.
-
-  The `name` and `description` fields MUST be present and non-empty, and
-  `name` MUST match the directory name.
-
-- All REQUIRED paragraphs MUST be present.
-
-  At minimum: the `#` title, the `## Input` and `## Output` sections,
-  `## Instructions` or `## Rules`, and `## Success criteria`.
-
-- The input and output sections MUST be present and prominent.
-
-  They MUST appear immediately after the title, before the first `##`. The
-  input section MUST be a bulleted list, each item marking its input
-  "REQUIRED" or "OPTIONAL" inside the bold lead. A separate paragraph
-  immediately after MUST state whether the agent should run
-  non-interactively to completion or if it may interact with the user —
-  blocking to ask questions, presenting options, and waiting for answers.
-
-- The skill MUST be token-efficient.
-
-  No section is padded with detail that belongs in a `references/` file.
-  The `SKILL.md` SHOULD be under ~300 lines.
-
-- The `description` MUST be specific enough to trigger correctly.
-
-  It MUST name both the capability and the contexts that should invoke it
-  — not just a one-line summary of what the skill does.
-
-- No artifact location, file name, or document structure MUST be hard-coded.
-
-  Every artifact the skill reads or writes MUST be discovered — from
-  context, from the environment, or by asking. Grep the draft for literal
-  paths and file names; each one MUST either be an illustrative example
-  clearly marked as such, or be removed.
-
-- No other skill MUST be referenced by name.
-
-  Neither a global skill from a project-level one, nor the reverse.
-
-- A `README.md` MUST exist alongside the `SKILL.md`.
 
 ## Examples
 

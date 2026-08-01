@@ -95,11 +95,29 @@ and MUST pass the validator checks — described below.
 
 - Each `SKILL.md` MUST also include `## Success criteria`.
 
-- Each `SKILL.md` MUST include `## Input` and `## Output` sections,
-  immediately after the title and before any other `##` heading. Together
-  they define what the agent consumes and produces, and a paragraph
-  immediately after the input list MUST state whether the agent runs
-  non-interactively to completion or may prompt the user.
+- Each `SKILL.md` MUST include `## Parameters` and `## Success criteria`,
+  in that order, immediately after the title and before any other `##`
+  heading.
+
+  `## Parameters` defines what the agent consumes, as a bulleted list whose
+  items carry their requirement level in a bold lead. Its preamble MUST
+  state whether the agent may prompt the user, matching the
+  `metadata.interactive` flag.
+
+  `## Success criteria` defines the observable end state, and absorbs what
+  the skill produces — there is no separate output section. It comes before
+  the instructions so the agent knows what it is aiming at before it starts.
+
+- Inline bold SHOULD be used sparingly.
+
+  Reserve it for the lead of each `## Parameters` bullet. Rules, success
+  criteria, instructions, edge cases, and examples are plain prose. Bold
+  carries meaning only while it is rare.
+
+- The reference implementation is
+  [`draft-audit`](https://github.com/kieranpotts/audits/tree/main/.agents/skills/draft-audit).
+
+  When the conventions here are ambiguous, match that skill's shape.
 
 - Skills MUST discover where artifacts live; they MUST NOT assume it.
 
