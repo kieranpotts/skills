@@ -10,7 +10,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: yes
-  preferred_model: ollama/software-architect
+  preferred_model: ollama/technical-reasoning
 ---
 
 # Decide

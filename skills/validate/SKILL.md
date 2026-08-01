@@ -7,7 +7,7 @@ description: >-
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/product-manager
+  preferred_model: ollama/xxxxxxxxxxxxxxxx
 ---
 
 # Validate
