@@ -11,8 +11,12 @@ to be already closed and marked as resolved. It is the counterpart to
 **[review](../review/)**, which performs static analysis on a PR's diff and leaves
 the comments that **resolve** then actions.
 
-This skill instructs the agent to run non-interactively. Any comment it cannot
-action is left open, with a comment explaining why it was skipped.
+Any comment it cannot action is left open, with a comment explaining why it was
+skipped.
+
+## Interactivity
+
+This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
@@ -22,10 +26,8 @@ action is left open, with a comment explaining why it was skipped.
 
 ## Recommended models
 
-Actioning review comments is implementation work against an already-specified
-fix, so a mid-tier coding model is usually sufficient. Escalate to a frontier
-model only when a review comment is ambiguous enough to require re-deriving
-intent.
+A mid-tier coding model is sufficient for this task. Escalate to a frontier
+model for ambiguous review comments.
 
 ## Suggested workflows
 

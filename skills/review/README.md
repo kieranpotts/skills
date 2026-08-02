@@ -17,6 +17,8 @@ The agent surfaces findings without fixing them; orchestrators may hand off to
 **[resolve](../resolve/)** to action the open comments. For a wider architectural
 review, see **[audit](../audit/)**.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively.
 
 ## How to invoke
@@ -29,10 +31,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-Reviewing a change for correctness, design, security, and completeness is
-judgment-heavy and adversarial by nature — you're looking for what the author
-missed. Use a frontier reasoning model; mid-tier models tend to under-report
-subtle defects and over-report style nitpicks.
+A frontier reasoning model is best suited to this task.
 
 ## Suggested workflows
 

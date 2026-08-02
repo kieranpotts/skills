@@ -21,6 +21,8 @@ code to answer feasibility questions in the proposed solution. The
 **[elaborate](../elaborate/)** skill is an interactive session used to
 stress-test a draft design.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively. Therefore, the agent is
 not expected to prompt for answers to its questions.
 
@@ -34,11 +36,8 @@ not expected to prompt for answers to its questions.
 
 ## Recommended models
 
-This is squarely a job for a frontier reasoning model, ideally with extended
-thinking enabled. Enumerating real alternatives and weighing them against
-competing design qualities (performance vs. simplicity, changeability vs.
-completeness) requires the kind of deliberate, multi-step reasoning that
-separates frontier models from mid-tier ones.
+A frontier reasoning model, ideally with extended thinking enabled, is best
+suited to this task.
 
 ## Suggested workflows
 
@@ -74,6 +73,7 @@ flowchart LR
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 

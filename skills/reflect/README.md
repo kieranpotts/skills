@@ -17,6 +17,8 @@ then a short report of what was saved. It says so plainly when a session
 contained nothing worth saving. It is the companion to **[handoff](../handoff/)**:
 **handoff** carries task state to the next session, **reflect** carries the lessons.
 
+## Interactivity
+
 This skill is interactive — one candidate at a time, no batching, because
 batching invites blind approval.
 
@@ -30,9 +32,7 @@ batching invites blind approval.
 
 ## Recommended models
 
-Extracting durable lessons from a session is a synthesis task over a
-conversation the model already has in context. A mid-tier model is sufficient —
-the bar is faithful, well-organized extraction, not novel reasoning.
+A mid-tier model is sufficient for this task.
 
 ## Related skills
 

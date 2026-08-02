@@ -12,6 +12,8 @@ resolve it. Unlike **[style](../style/)**, which makes subjective presentation
 judgment calls, **fix** targets a tool's pass/fail verdict: the check either
 passes or it doesn't, and there is nothing to judge.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively.
 
 ## How to invoke
@@ -26,9 +28,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-The cause is already known or evident from tool output, so this is mechanical
-remediation. A mid-tier coding model is sufficient; frontier reasoning is
-unnecessary overhead for well-diagnosed lint, build, or type errors.
+A mid-tier coding model is sufficient for this task.
 
 ## Suggested workflows
 

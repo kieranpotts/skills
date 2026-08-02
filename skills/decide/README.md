@@ -21,6 +21,8 @@ through `DRAFT` → `PROPOSED` → `ACCEPTED` → `IMPLEMENTED` — is handled
 separately by the workflow skills in the
 [kieranpotts/rfc](https://github.com/kieranpotts/rfc) repository.
 
+## Interactivity
+
 This skill is interactive. The agent is expected to interview the user —
 about motivation, constraints, candidate options, and stakeholders — rather
 than guessing at them.
@@ -37,11 +39,8 @@ than guessing at them.
 
 ## Recommended models
 
-A frontier reasoning model, ideally with extended thinking enabled. The hard
-part of an RFC is not the prose — it is enumerating alternatives that are
-genuinely competitive, and being honest about the downsides of the option you
-favor. Weaker models tend to produce advocacy: one real option, two
-strawmen, and no stated cost.
+A frontier reasoning model, ideally with extended thinking enabled, is best
+suited to this task.
 
 ## Suggested workflows
 
@@ -72,6 +71,7 @@ flowchart LR
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
@@ -96,6 +96,7 @@ flowchart LR
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 

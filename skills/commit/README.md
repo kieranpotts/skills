@@ -1,19 +1,13 @@
 # Commit
 
-The **commit** skill is all about commit message conventions. It defines a
-fixed subject-line format — `<type>: <description>` with an optional
-` - <flag>` suffix — a set of allowed commit types and flags with precise
-semantics for each, and a validation regex. It enforces atomic commits and, for
-direct commits to `dev` or `temp/*`, a matching `CHANGELOG.md` entry under
-`[Unreleased]`.
+The **commit** skill encapsulates the rules for creating revisions in Git defined in
+[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
 
-Use it when composing a commit message, validating a branch's messages before
-push, or troubleshooting a failed commit-validation CI job. Note: this
-convention is deliberately **not** Conventional Commits — scopes like
-`feature(parser):` fail validation; the colon comes immediately after the type.
+The skill defines a fixed subject-line format — `<type>: <description>` with an
+optional ` - <flag>` suffix. The `<type>` is derived from an allowed list of
+commit types, each with precise semantics.
 
-It records the work opened by **[branch](../branch/)**, ahead of integration by
-**[merge](../merge/)**.
+## Interactivity
 
 This skill instructs the agent to run non-interactively.
 
@@ -27,9 +21,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-A small, fast model is sufficient. Composing or validating a commit message
-against a fixed format and a set of allowed types is pattern-matching, not
-judgment.
+A small, fast model is sufficient for this task.
 
 ## Suggested workflows
 
@@ -50,18 +42,17 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-Commits accumulate on the branch opened by **branch**, each one atomic and
-conventionally formatted, until the change is complete and ready for **merge**.
-
 ## Related skills
 
-- **[branch](../branch/):** opens the branch this skill records work on.
-
-- **[merge](../merge/):** integrates the branch once its commits are complete.
+- **[branch](../branch/)**
+- **[merge](../merge/)**
+- **[release](../release/)**
 
 ## References
 
-- [This GitHub
-  action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages)
+- [This GitHub action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages)
   is used to validate commit messages against the conventions described in TS-9
   and this skill.
+
+- [These pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks)
+  also validate commit messages against the same conventions.

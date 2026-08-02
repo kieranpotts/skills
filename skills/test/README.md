@@ -18,9 +18,13 @@ in the first place is **[validate](../validate/)**'s job. It classifies each
 failure as an implementation defect or a specification defect and reports it
 without fixing, handing genuine bugs to **[debug](../debug/)**.
 
-This skill instructs the agent to run non-interactively, and tests **against the
-specification, not the implementation**. It never silently weakens an AC,
-downgrades a BLOCKED to PASS, or retries a flaky test until green.
+It tests **against the specification, not the implementation**. It never
+silently weakens an AC, downgrades a BLOCKED to PASS, or retries a flaky test
+until green.
+
+## Interactivity
+
+This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
@@ -32,11 +36,8 @@ downgrades a BLOCKED to PASS, or retries a flaky test until green.
 
 ## Recommended models
 
-Mapping acceptance criteria to evidence and classifying pass/fail/blocked is
-careful, structured verification work. A mid-tier model is generally sufficient;
-escalate to a frontier reasoning model when acceptance criteria are
-non-functional and require judgment about whether observed behavior actually
-satisfies intent.
+A mid-tier model is sufficient for this task. Escalate to a frontier reasoning
+model for non-functional acceptance criteria.
 
 ## Suggested workflows
 

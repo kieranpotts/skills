@@ -23,6 +23,8 @@ The **refactor** skill will update the same design docs as those maintained by
 the **[design](../design/)** skill, ensuring that architecture models and other
 documentation is kept synchronized with changes made to the system.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively. Therefore, the agent is
 not expected to prompt for answers to its questions.
 
@@ -36,12 +38,8 @@ not expected to prompt for answers to its questions.
 
 ## Recommended models
 
-A frontier reasoning model, fine-tuned for programming tasks, is the safest
-default, since refactoring requires careful judgment and deep knowledge of
-system design trade-offs.
-
-However, small, well-scoped refactors can be run on a good mid-tier coding
-model.
+A frontier reasoning model, fine-tuned for programming tasks, is best suited to
+this task. Small, well-scoped refactors can use a mid-tier coding model.
 
 ## Suggested workflows
 
@@ -65,6 +63,7 @@ flowchart LR
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
 ## Related skills

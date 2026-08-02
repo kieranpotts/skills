@@ -1,13 +1,15 @@
 # Code
 
 The **code** skill is all about writing code, verified by tests, for one small
-increment. It implements one change in software code and configuration
-following the red → green → refactor cycle, producing a single small change
-with accompanying unit tests, and integration tests where appropriate.
+increment. The agent is instructed to implement one small change in software
+code and configuration following the red → green → refactor cycle. Unit tests,
+and also integration tests where appropriate, are written alongside the code.
 
 It is RECOMMENDED to run this step in small increments toward delivery of a
 larger feature, refactor, performance enhancement, or other outcome. Each pass
 yields a small, clean diff for review.
+
+## Interactivity
 
 This skill instructs the agent to run non-interactively.
 
@@ -21,10 +23,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-Implementation of a single, already-scoped step benefits from a strong
-coding-tuned model, but the design decisions have already been made upstream, so
-a mid-tier coding model is usually enough. Reserve frontier reasoning models for
-steps with subtle algorithmic or concurrency complexity.
+A mid-tier coding model is sufficient for this task.
 
 ## Suggested workflows
 
@@ -35,13 +34,11 @@ flowchart LR
   triage["🤖<br/>triage"]:::agentic
   code["🤖<br/>code"]:::agentic
   styleSkill["🤖<br/>style"]:::agentic
-  integrate["⚙️<br/>integrate"]:::scripted
 
   %% Main workflow sequence.
   plan ==> code
   triage ==> code
   code ==> styleSkill
-  integrate ==> code
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -49,17 +46,13 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**code** is the first step of the build-increments loop, fed by a step from
-**[plan](../plan/)** or a brief from **[triage](../triage/)**. Each increment then
-flows through style, lint, build, test, review, resolve, and integrate — and the
-loop returns to **code** for the next increment.
-
 ## Related skills
 
-- **[plan](../plan/):** supplies the numbered step this skill implements.
+- **[plan](../plan/)** can be used to decompose a requirements specification
+  into a pipeline of small changes, which can then be delivered individually
+  using the code skill.
 
-- **[triage](../triage/):** supplies an agent brief as an alternative entry
-  point when there's no plan.
+- **[triage](../triage/)** is an alterative trigger for code changes.
 
-- **[style](../style/):** runs immediately after this skill in the
-  build-increments loop, normalizing presentation.
+- **[style](../style/)** can be used to normalize code presentation after
+  code edits are made.

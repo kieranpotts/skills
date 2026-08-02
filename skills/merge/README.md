@@ -1,24 +1,17 @@
 # Merge
 
-The **merge** skill is all about consolidating divergence between branches. It
-applies the project's
-branching conventions to integrate a source branch into a target, choosing the
-merge strategy by branch type rather than preference — fast-forward, merge
-commit, rebase, or squash-merge. It runs pre-merge checks, executes the merge,
-resolves conflicts deliberately (watching for *semantic* conflicts that apply
-cleanly but break behavior), verifies the merged result builds and tests green,
-pushes, and deletes the disposable source branch.
+The **merge** skill encapsulates the rules for
+integrating work between divergent Git branches defined in
+[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
 
-Use it any time work on one branch is being integrated into another. Tell it the
-source and target branches. It assumes a clean working tree (stash or commit
-first) and picks the strategy from the branch types.
+The skill defines pre-merge checks, provides scripts to execute merges, and
+provides guidance on resolving conflicts.
 
-It integrates the work opened by **[branch](../branch/)** and recorded by
-**[commit](../commit/)**, and promotes trunks toward a **[release](../release/)**.
+## Interactivity
 
-This skill instructs the agent to run non-interactively, and it escalates rather
-than improvises: if a trunk fast-forward fails, that signals a workflow
-violation, and it stops rather than papering over it.
+This skill instructs the agent to run non-interactively. If an error is
+encountered (eg. a fast-forward operation fails), the agent is instructed
+to escalate rather than improvise a solution.
 
 ## How to invoke
 
@@ -30,10 +23,8 @@ violation, and it stops rather than papering over it.
 
 ## Recommended models
 
-Most merges are mechanical (choosing a strategy, resolving trivial conflicts),
-which a mid-tier model handles fine. Escalate to a frontier reasoning model only
-when conflicts are semantically tangled and resolving them requires
-understanding intent on both branches, not just diff lines.
+A mid-tier model is sufficient for this task. Escalate to a frontier reasoning
+model for semantically tangled conflicts.
 
 ## Suggested workflows
 
@@ -54,14 +45,8 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-Once commits are complete, **merge** integrates the branch and promotes trunks up
-the `dev` → `test` → `ready` chain, from where **release** can ship.
-
 ## Related skills
 
-- **[branch](../branch/):** opens the work this skill later integrates.
-
-- **[commit](../commit/):** records the changes this skill merges.
-
-- **[release](../release/):** ships the trunk once this skill has promoted it
-  to `ready`.
+- **[branch](../branch/)**
+- **[commit](../commit/)**
+- **[release](../release/)**

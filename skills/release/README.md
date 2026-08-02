@@ -1,23 +1,14 @@
 # Release
 
-The **release** skill is all about managing release branches, and applying
-version tags. It defines
-two mutually exclusive release strategies and the rules for each: a single
-permanent **release** trunk auto-promoted from `ready` (for continuous
-deployment), or `release/<version>` branches cut from `ready` (for release
-trains). It applies the chosen strategy — cutting from the `ready` trunk tip,
-tagging with annotated `v<version>` tags, and promoting the `[Unreleased]`
-changelog section to a versioned, dated heading.
+The **release** skill encapsulates the rules for cutting release branches defined in
+[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
 
-Use it to choose a strategy, cut a release branch, or tag a version. Describe
-the release context and it applies the matching strategy, names the branch/tag,
-and handles the changelog promotion.
+The skill defines two mutually exclusive release strategies: a single
+permanent `release` trunk , or `release/<version>` branches.
 
-It is the final git-workflow skill, taking the trunk that **[merge](../merge/)**
-has promoted to `ready` and shipping it.
+## Interactivity
 
-This skill instructs the agent to run non-interactively; it is
-reference-and-apply.
+This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
@@ -29,8 +20,7 @@ reference-and-apply.
 
 ## Recommended models
 
-Release branching and versioning follow a fixed convention, so a small, fast
-model is sufficient. This is rule application, not judgment.
+A small, fast model is sufficient for this task.
 
 ## Suggested workflows
 
@@ -51,10 +41,8 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**release** cuts from the `ready` trunk that **merge** has promoted, tags the
-version, and hands a tagged artifact to the scripted deploy step.
-
 ## Related skills
 
-- **[merge](../merge/):** promotes the trunk to `ready` that this skill then
-  ships.
+- **[branch](../branch/)**
+- **[commit](../commit/)**
+- **[merge](../merge/)**

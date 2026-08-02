@@ -15,10 +15,17 @@ or prep issues for agents — before the build loop sets about resolving the iss
 It assumes an issue tracker with category/state labels (and sets up the
 vocabulary if missing).
 
-This skill instructs the agent to run non-interactively, but it **recommends
-rather than decides:** triage is the maintainer's call, so it does the legwork
-and waits for direction before applying labels or closing. AI-generated comments
-are marked with a disclaimer.
+It **recommends rather than decides:** triage is the maintainer's call, so it
+does the legwork and waits for direction before applying labels or closing.
+AI-generated comments are marked with a disclaimer.
+
+## Interactivity
+
+This skill is interactive. Triage is a maintainer's decision: the agent
+presents its recommendation and waits for direction before applying labels,
+posting comments, or closing anything. It also prompts to establish the
+tracker, the label vocabulary, and the out-of-scope record when context and
+environment do not settle them.
 
 ## How to invoke
 
@@ -30,10 +37,8 @@ are marked with a disclaimer.
 
 ## Recommended models
 
-Classifying issues and moving them through a state machine is largely
-rule-based, so a mid-tier model is sufficient for most of the workflow. A
-frontier model helps when reproducing an ambiguous bug report or judging whether
-an issue needs to be "grilled into shape" before it's ready for an agent.
+A mid-tier model is sufficient for most of this task. A frontier model helps
+with ambiguous bug reports.
 
 ## Suggested workflows
 

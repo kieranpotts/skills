@@ -18,6 +18,8 @@ of the current work; an argument scopes the handoff to the next session's focus.
 It is the companion to **[reflect](../reflect/)**: **handoff** carries task state to
 the next session, **reflect** carries the working-style lessons.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively.
 
 ## How to invoke
@@ -30,9 +32,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-Compacting a conversation into a handoff document is mostly summarization and
-cross-referencing existing artifacts. A mid-tier model handles this well; the
-main requirement is faithful compression, not deep reasoning.
+A mid-tier model is sufficient for this task.
 
 ## Related skills
 

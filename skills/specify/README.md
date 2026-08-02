@@ -15,10 +15,9 @@ approved, work can begin on the solution design — see **[design](../design/)**
 Accepting or rejecting proposed changes to the requirements specification is an
 important decision left to sapiens, not agents.
 
-This skill instructs the agent to run non-interactively. It validates the
-inputted PRD and either rejects it as incomplete or autonomously completes the
-transformation to the SRS, closing by returning the URL of the pull request that
-needs the user's approval.
+It validates the inputted PRD and either rejects it as incomplete or
+autonomously completes the transformation to the SRS, closing by returning the
+URL of the pull request that needs the user's approval.
 
 <!--
 But skills alone can't guarantee predictable, consistent outcomes. Effective
@@ -96,6 +95,10 @@ See the [**📋 Software Requirements Specification
 (SRS)**](https://github.com/kieranpotts/specs) repository for a reference
 implementation.
 
+## Interactivity
+
+This skill instructs the agent to run non-interactively.
+
 ## How to invoke
 
 > Turn this into acceptance criteria.
@@ -106,10 +109,8 @@ implementation.
 
 ## Recommended models
 
-Validating a PRD against the specification schema and rejecting incomplete input
-is largely rule-based, so a mid-tier model handles it well. A frontier model
-helps when judging whether examples are genuinely unambiguous, which is a
-softer, more contestable call.
+A mid-tier model is sufficient for this task. A frontier model helps with
+softer, more contestable judgment calls.
 
 ## Suggested workflows
 

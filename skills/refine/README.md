@@ -19,6 +19,8 @@ It is the companion to **[validate](../validate/)**, which supplies the
 suggestions it acts on, and it is analogous to **[refactor](../refactor/)**, which
 serves the equivalent role for the design.
 
+## Interactivity
+
 This skill is interactive where stakeholders must resolve a disagreement.
 
 ## How to invoke
@@ -31,10 +33,8 @@ This skill is interactive where stakeholders must resolve a disagreement.
 
 ## Recommended models
 
-Revising a specification from acceptance-testing feedback requires understanding
-what was learned and why it invalidates existing acceptance criteria. A mid-tier
-reasoning model is generally sufficient; escalate to frontier when the feedback
-reveals a deeper misunderstanding of the requirements rather than a simple gap.
+A mid-tier reasoning model is sufficient for this task. Escalate to a frontier
+model for deeper misunderstandings of the requirements.
 
 ## Suggested workflows
 

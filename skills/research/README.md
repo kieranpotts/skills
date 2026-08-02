@@ -17,10 +17,13 @@ Use it when a decision is blocked on missing knowledge — often ahead of a
 question; writing the findings into a design doc, ADR, or memory is a separate
 step the caller initiates.
 
-This skill instructs the agent to run non-interactively; it is discovery and
-synthesis only, and changes no code, docs, or skills. Where there's no web
-access, or the honest answer is "it depends", it says so rather than fabricating
-certainty.
+It is discovery and synthesis only, and changes no code, docs, or skills. Where
+there's no web access, or the honest answer is "it depends", it says so rather
+than fabricating certainty.
+
+## Interactivity
+
+This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
@@ -32,11 +35,8 @@ certainty.
 
 ## Recommended models
 
-Research and synthesis over current external sources benefits from a frontier
-reasoning model with strong long-context handling — the value is in weighing
-conflicting sources and building a coherent, cited argument, not just retrieving
-facts. Extended thinking helps when the topic has genuine trade-offs to
-reconcile.
+A frontier reasoning model with strong long-context handling is best suited to
+this task.
 
 ## Related skills
 

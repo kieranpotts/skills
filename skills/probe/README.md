@@ -19,6 +19,12 @@ This skill is discovery and record-keeping only. The agent is explicitly
 instructed to NOT change the assessed code, and threat identification never
 includes actively exploiting the system.
 
+## Interactivity
+
+This skill is interactive. The agent facilitates the session, and the user
+(and any participants they relay for) answers as the business, technical, and
+security stakeholders.
+
 ## How to invoke
 
 > Probe the security of the payment flow.
@@ -33,11 +39,7 @@ includes actively exploiting the system.
 
 ## Recommended models
 
-Threat modeling is an interactive, adversarial-reasoning conversation. It runs
-best on a frontier model that can hold copious context and surface non-obvious
-attack paths, challenge optimistic likelihood estimates, and hold the whole
-decomposition in view while assessing each boundary. These capabilities
-noticeably degrade in smaller models.
+A frontier model is best suited to this task.
 
 ## Suggested workflows
 

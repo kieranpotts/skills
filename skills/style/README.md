@@ -10,6 +10,8 @@ documentation, requirements specifications, and more. Use it where conventional
 linting tools are unavailable for the target format. Where **[proof](../proof/)**
 corrects language, **style** normalizes presentation.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively.
 
 ## How to invoke
@@ -22,8 +24,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-Pure formatting changes need no reasoning at all — a small, fast model is the
-right choice, and an automated formatter is often better still.
+A small, fast model is sufficient for this task.
 
 ## Suggested workflows
 

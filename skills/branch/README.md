@@ -1,18 +1,13 @@
 # Branch
 
-The **branch** skill is all about Git branching strategy. It codifies a
-trunk-based branch model: permanent fast-forward-only trunks (`dev` → `test` →
-`ready`), short-lived `temp/*` branches for single-focus changes, and long-lived
-`epic/*` branches for large multi-contributor work, all governed by naming rules
-and a validation regex.
+The **branch** skill encapsulates the rules for a Git branching strategy defined in
+[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
 
-Use it when creating a new branch, naming a feature or fix branch, or checking
-branch names before push. It tells you which branch type fits the work, what to
-name it, and whether a proposed name is well-formed.
+It codifies a trunk-based branch model consisting of three fast-forwarded trunks
+(`dev` → `test` → `ready`), short-lived `temp/*` branches, and long-lived
+`epic/*` branches.
 
-It opens the git-workflow chain: **branch** starts the work,
-**[commit](../commit/)** records it, **[merge](../merge/)** integrates it, and
-**[release](../release/)** ships it.
+## Interactivity
 
 This skill instructs the agent to run non-interactively.
 
@@ -26,8 +21,7 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-This is a rule-lookup task — apply a naming convention and a validation regex. A
-small, fast model is sufficient; no extended reasoning is needed.
+A small, fast model is sufficient for this task.
 
 ## Suggested workflows
 
@@ -48,16 +42,8 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-Create the branch before any work begins. Commits then accumulate on it, and
-when the change is complete it is merged back into a trunk. The name is validated
-up front, so a malformed branch name never reaches a push.
-
 ## Related skills
 
-- **[commit](../commit/):** records the work once a branch is open, the next
-  link in the git-workflow chain.
-
-- **[merge](../merge/):** integrates the branch once its commits are complete.
-
-- **[release](../release/):** ships the trunk once merge has promoted it
-  through to `ready`.
+- **[commit](../commit/)**
+- **[merge](../merge/)**
+- **[release](../release/)**

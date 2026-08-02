@@ -16,9 +16,13 @@ in the working tree (falling back to asking); otherwise point it at a file, glob
 or directory. Where it overlaps with **[style](../style/)**, the division is clear:
 **style** normalizes presentation, **proof** corrects language.
 
+It reports a per-file summary of what changed.
+
+## Interactivity
+
 This skill instructs the agent to run non-interactively, and stops at the edits:
 it does **not** branch, commit, or open PRs, so you can proofread on any branch
-and commit on your own terms. It reports a per-file summary of what changed.
+and commit on your own terms.
 
 ## How to invoke
 
@@ -28,9 +32,7 @@ and commit on your own terms. It reports a per-file summary of what changed.
 
 ## Recommended models
 
-Proofreading is precise but shallow work — spelling, grammar, consistency — with
-no technical judgment involved. A small, fast model is sufficient and often
-preferable, since it won't second-guess or rewrite content beyond the brief.
+A small, fast model is sufficient for this task.
 
 ## Related skills
 

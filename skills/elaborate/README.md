@@ -16,6 +16,8 @@ stated design and what the code actually does.
 It is a companion to **[design](../design/)**, applied to a draft before it is
 decomposed by **[plan](../plan/)**.
 
+## Interactivity
+
 This skill is interactive; it interviews the user one question at a time.
 
 ## How to invoke
@@ -28,10 +30,7 @@ This skill is interactive; it interviews the user one question at a time.
 
 ## Recommended models
 
-Interrogating a draft design one question at a time, sharpening fuzzy language,
-and cross-referencing the codebase is judgment-heavy, interactive work. Use a
-frontier reasoning model — this is one of the few skills where the entire value
-proposition is the model's ability to find the weak point in an argument.
+A frontier reasoning model is best suited to this task.
 
 ## Suggested workflows
 

@@ -15,22 +15,23 @@ Use it when a design question can't be answered by reasoning alone, or when a
 specification is too speculative to commit to without evidence. It is a companion
 to **[design](../design/)**, answering the open questions a design turns on.
 
-This skill instructs the agent to run non-interactively. Negative answers are
-captured with the same care as positive ones, and the code is never promoted —
-the production version is re-implemented cleanly.
+Negative answers are captured with the same care as positive ones, and the code
+is never promoted — the production version is re-implemented cleanly.
+
+## Interactivity
+
+This skill instructs the agent to run non-interactively.
 
 ## How to invoke
 
-> So a spike on whether X is feasible.
+> Do a spike on whether X is feasible.
 
 > Prototype this to answer the open question.
 
 ## Recommended models
 
-A spike answers a specific feasibility or performance question with throwaway
-code, so a mid-tier coding model is usually enough. Reach for a frontier
-reasoning model when the open question itself is subtle (e.g. concurrency or API
-ergonomics) and getting the experiment design wrong would waste the time-box.
+A mid-tier coding model is sufficient for this task. Reach for a frontier
+reasoning model when the open question itself is subtle.
 
 ## Suggested workflows
 

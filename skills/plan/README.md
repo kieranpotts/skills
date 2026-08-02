@@ -10,6 +10,8 @@ Steps are ordered by risk: the unknowns are tackled first, the polish last. It
 names the seams where flags, fixtures, or migrations decouple steps. Use it when
 the change is substantially larger than a few atomic commits.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively.
 
 ## How to invoke
@@ -22,10 +24,8 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-Decomposing a design into small, safely sequenced, independently mergeable steps
-is a reasoning-heavy planning task. A frontier reasoning model, ideally with
-extended thinking, produces materially better sequencing than a mid-tier model,
-which tends to under-think dependencies between steps.
+A frontier reasoning model, ideally with extended thinking, is best suited to
+this task.
 
 ## Suggested workflows
 

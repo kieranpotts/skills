@@ -12,6 +12,8 @@ It produces a complete skill directory, including:
 
 The agent is instructed to ensure all artifacts pass the validator.
 
+## Interactivity
+
 The agent is instructed to prompt the user for input to help it form the skill.
 
 ## How to invoke
@@ -24,15 +26,11 @@ The agent is instructed to prompt the user for input to help it form the skill.
 
 ## Recommended models
 
-A mid-tier model will handle basic skill authoring, especially since the schema
-and structure are well defined in this skill so the agent is mostly following
-instructions.
-
-Reach for a frontier reasoning model when drafting a genuinely new skill from
-scratch, where getting the scope, triggers, and boundaries right requires
-weighing trade-offs, rather than following a template.
+A mid-tier model is sufficient for basic skill authoring. Reach for a frontier
+reasoning model when drafting a genuinely new skill from scratch.
 
 ## Related skills
 
-- **[reflect](../reflect/):** flags a universal, session-derived lesson as a
-  candidate for a new skill authored here, rather than saving it to memory.
+- **[reflect](../reflect/)** draws lessons from an AI session, which can then
+  be used as the basis for new skills to persist those learnings to disk
+  rather than relying on memory.

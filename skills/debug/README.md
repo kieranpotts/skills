@@ -13,6 +13,8 @@ removed, and the underlying cause documented.
 Unlike **[fix](../fix/)**, which resolves an already-diagnosed tool failure,
 **debug** is for failures whose cause must first be found.
 
+## Interactivity
+
 This skill instructs the agent to run non-interactively. But if the agent cannot
 build a reliable feedback loop, it is instructed to stop and say what it needs,
 rather than guessing.
@@ -29,11 +31,7 @@ rather than guessing.
 
 ## Recommended models
 
-Debugging hard, non-obvious failures is a hypothesis-driven investigation, and
-that calls for a frontier reasoning or extended-thinking model. The skill's
-value is in generating and discriminating between competing explanations under
-uncertainty — shallow pattern-matching tends to fixate on the first plausible
-cause.
+A frontier reasoning or extended-thinking model is best suited to this task.
 
 ## Suggested workflows
 
@@ -54,21 +52,12 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**debug** is the failure branch off the build loop's test step. Once the fix and
-its regression test are green, the corrected increment rejoins the loop back at
-**[code](../code/)**.
-
 ## Related skills
 
-- **[fix](../fix/):** resolves a failure once the cause is already known; this
-  skill is for failures whose cause must first be found.
+- **[fix](../fix/)** resolves a failure once the cause is already known.
 
-- **[test](../test/):** a failing test run triggers this skill's diagnosis.
-
-- **[code](../code/):** the verified fix and its regression test rejoin the
-  build loop here.
+- **[test](../test/)** verifies the system against its requirements.
 
 ## References
 
-- [Original source — mattpocock/skills
-  `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md)
+- [mattpocock/skills `diagnose`](https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnose/SKILL.md). This was the original source for this skill.

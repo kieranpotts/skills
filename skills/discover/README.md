@@ -17,6 +17,8 @@ out-of-scope. If the requirements are already clearly articulated in a written
 artifact, skip ahead to **[specify](../specify/)**, which takes that artifact as
 input.
 
+## Interactivity
+
 This skill is interactive; the agent runs a back-and-forth interview with the
 user.
 
@@ -32,10 +34,8 @@ user.
 
 ## Recommended models
 
-Requirements elicitation is an interactive, ambiguity-resolving conversation,
-best run on a frontier model with strong conversational reasoning. The skill
-needs to notice when an answer is vague, contradictory, or incomplete and probe
-further — a capability that degrades noticeably in smaller models.
+A frontier model with strong conversational reasoning is best suited to this
+task.
 
 ## Suggested workflows
 
