@@ -30,4 +30,5 @@ A small, fast model is sufficient for this task.
 
 ## Related skills
 
-- **[style](../style/)** normalizes presentation of prose.
+- **[style](../style/).** Normalizes presentation, while this skill corrects
+  language.

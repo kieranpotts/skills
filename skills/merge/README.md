@@ -47,6 +47,10 @@ flowchart LR
 
 ## Related skills
 
-- **[branch](../branch/)**
-- **[commit](../commit/)**
-- **[release](../release/)**
+- **[branch](../branch/).** Defines the branching model that this skill
+  integrates work between.
+
+- **[commit](../commit/).** Creates the revisions that this skill integrates.
+
+- **[release](../release/).** Cuts release branches, which are subsequently
+  integrated using this skill.

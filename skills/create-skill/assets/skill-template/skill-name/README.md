@@ -26,3 +26,9 @@ Provide examples of input and typical output. OPTIONAL.
 List sibling skills this one naturally pairs with, and why — eg. what feeds
 this skill, what it hands off to, or what it's a companion or alternative to.
 OPTIONAL.
+
+Format each entry as a bullet, with a blank line between entries. Bold the
+skill link and put the trailing period inside the bold:
+
+- **[skill-name](../skill-name/).** One or two sentences explaining how the
+  two skills relate.

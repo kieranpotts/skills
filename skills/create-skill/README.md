@@ -31,6 +31,6 @@ reasoning model when drafting a genuinely new skill from scratch.
 
 ## Related skills
 
-- **[reflect](../reflect/)** draws lessons from an AI session, which can then
-  be used as the basis for new skills to persist those learnings to disk
+- **[reflect](../reflect/).** Draws lessons from an AI session, which can then
+  be used as the basis for new skills, persisting those learnings to disk
   rather than relying on memory.

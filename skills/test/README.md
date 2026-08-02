@@ -49,7 +49,7 @@ flowchart LR
 
 ## Related skills
 
-- **[validate](../validate/)** asks whether the specification this skill
+- **[validate](../validate/).** Asks whether the specification this skill
   verifies against was right in the first place.
 
-- **[diagnose](../diagnose/)** can receive any bugs revealed in testing.
+- **[diagnose](../diagnose/).** Receives any bugs revealed in testing.

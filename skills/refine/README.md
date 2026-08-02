@@ -51,9 +51,10 @@ flowchart LR
 
 ## Related skills
 
-- **[validate](../validate/)** is a companion skill that can be supply suggestions
-  that this skill then acts on.
+- **[validate](../validate/).** Companion skill that supplies the suggestions
+  this skill then acts on.
 
-- **[specify](../specify/)** receives the specification edit this skill produces.
+- **[specify](../specify/).** Receives the specification edits this skill
+  produces.
 
-- **[refactor](../refactor/)** is the structural analogue to this skill.
+- **[refactor](../refactor/).** The structural analogue to this skill.

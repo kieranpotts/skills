@@ -49,7 +49,7 @@ flowchart LR
 
 ## Related skills
 
-- **[resolve](../resolve/)** actions the open comments this skill leaves.
+- **[resolve](../resolve/).** Actions the open comments this skill leaves.
 
-- **[audit](../audit/)** is a wider, design-level companion to this skill's
+- **[audit](../audit/).** A wider, design-level companion to this skill's
   PR-level pass.

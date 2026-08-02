@@ -43,6 +43,10 @@ flowchart LR
 
 ## Related skills
 
-- **[branch](../branch/)**
-- **[commit](../commit/)**
-- **[merge](../merge/)**
+- **[branch](../branch/).** Defines the trunks that release branches are cut
+  from.
+
+- **[commit](../commit/).** Creates the revisions that a release is assembled
+  from.
+
+- **[merge](../merge/).** Integrates release branches back into the trunks.

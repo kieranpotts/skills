@@ -56,8 +56,7 @@ flowchart LR
 
 ## Related skills
 
-- **[audit](../audit/)** surfaces the structural drift, which this skill can
+- **[audit](../audit/).** Surfaces the structural drift that this skill can
   subsequently act on.
 
-- The refactor skill updates the same design docs as the **[design](../design/)**
-  skill does.
+- **[design](../design/).** Updates the same design docs that this skill does.

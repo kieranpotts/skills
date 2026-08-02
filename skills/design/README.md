@@ -59,7 +59,13 @@ flowchart LR
 
 ## Related skills
 
-- **[specify](../specify/)** supplies the requirements that this skill proposes a solution to.
-- **[plan](../plan/)** decomposes the resulting design into incremental delivery steps.
-- **[elaborate](../elaborate/):** stress-tests a draft design before it's decomposed.
-- **[spike](../spike/)** answers feasibility questions the design turns on.
+- **[specify](../specify/).** Supplies the requirements that this skill
+  proposes a solution to.
+
+- **[plan](../plan/).** Decomposes the resulting design into incremental
+  delivery steps.
+
+- **[elaborate](../elaborate/).** Stress-tests a draft design before it is
+  decomposed.
+
+- **[spike](../spike/).** Answers feasibility questions the design turns on.

@@ -43,5 +43,7 @@ flowchart LR
 
 ## Related skills
 
-- **[design](../design/)** supplies the proposed architectural changes that this skill decomposes into work tasks.
-- **[code](../code/)** picks up each step this skill produces, one at a time.
+- **[design](../design/).** Supplies the proposed architectural changes that
+  this skill decomposes into work tasks.
+
+- **[code](../code/).** Picks up each step this skill produces, one at a time.

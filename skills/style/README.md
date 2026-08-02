@@ -50,4 +50,5 @@ flowchart LR
 
 ## Related skills
 
-- **[proof](../proof/)** corrects language, while this skill normalizes presentation.
+- **[proof](../proof/).** Corrects language, while this skill normalizes
+  presentation.

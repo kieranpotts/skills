@@ -32,6 +32,9 @@ suited to this task.
 
 ## Related skills
 
-- **[research](../research/)** can be used to establish facts to support an RFC.
-- **[spike](../spike/)** can be used to answer questions by developing working, but throwaway, code.
-- **[design](../design/)** supplies architectural trade-off analysis.
+- **[research](../research/).** Establishes facts to support an RFC.
+
+- **[spike](../spike/).** Answers questions by developing working, but
+  throwaway, code.
+
+- **[design](../design/).** Supplies architectural trade-off analysis.

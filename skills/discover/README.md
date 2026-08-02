@@ -55,7 +55,8 @@ flowchart LR
 
 ## Related skills
 
-- **[specify](../specify/)** turns the resulting PRD into acceptance criteria.
+- **[specify](../specify/).** Turns the resulting PRD into acceptance
+  criteria.
 
 ## References
 

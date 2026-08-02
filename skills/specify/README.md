@@ -58,5 +58,8 @@ flowchart LR
 
 ## Related skills
 
-- **[discover](../discover/)** supplies the PRD this skill transforms into acceptance criteria.
-- **[design](../design/)** builds against the acceptance criteria this skill produces.
+- **[discover](../discover/).** Supplies the PRD this skill transforms into
+  acceptance criteria.
+
+- **[design](../design/).** Builds against the acceptance criteria this skill
+  produces.

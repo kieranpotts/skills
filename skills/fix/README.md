@@ -47,4 +47,5 @@ flowchart LR
 
 ## Related skills
 
-- **[diagnose](../diagnose/)** finds the underlying cause for an issue.
+- **[diagnose](../diagnose/).** Finds the underlying cause of an issue, which
+  this skill then remedies.

@@ -28,7 +28,8 @@ A mid-tier model is sufficient for this task.
 
 ## Related skills
 
-- **[reflect](../reflect/)** is a companion skill that extracts lessons from an agent session.
+- **[reflect](../reflect/).** Companion skill that distills durable lessons
+  from an agent session, while this skill persists task state.
 
 ## References
 

@@ -59,8 +59,11 @@ flowchart LR
 
 ## Related skills
 
-- **[design](../design/)** may trigger a threat-modeling session in response to major design changes.
-- **[audit](../audit/)** is a companion skill that inspects a system's structural integrity.
+- **[design](../design/).** May trigger a threat-modeling session in response
+  to major design changes.
+
+- **[audit](../audit/).** Companion skill that inspects a system's structural
+  integrity.
 
 ## References
 

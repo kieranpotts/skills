@@ -44,6 +44,11 @@ flowchart LR
 
 ## Related skills
 
-- **[commit](../commit/)**
-- **[merge](../merge/)**
-- **[release](../release/)**
+- **[commit](../commit/).** Creates the revisions that land on the branches
+  this skill defines.
+
+- **[merge](../merge/).** Integrates work between the divergent branches this
+  skill creates.
+
+- **[release](../release/).** Cuts release branches from the trunks this skill
+  defines.

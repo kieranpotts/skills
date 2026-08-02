@@ -50,8 +50,10 @@ flowchart LR
 
 ## Related skills
 
-- **[refine](../refine/)** may be used to act on the gaps this skill surfaces.
+- **[refine](../refine/).** Acts on the specification gaps this skill
+  surfaces.
 
-- **[audit](../audit/)** checks the architectural integrity of the evolving system.
+- **[audit](../audit/).** Checks the architectural integrity of the evolving
+  system.
 
-- **[test](../test/)** verifies the system against its specification.
+- **[test](../test/).** Verifies the system against its specification.

@@ -50,8 +50,11 @@ flowchart LR
 
 ## Related skills
 
-- **[design](../design/)** supplies the draft architectural changes this skill interrogates.
-- **[plan](../plan/)** decomposes the sharpened design once elaboration is done.
+- **[design](../design/).** Supplies the draft architectural changes this
+  skill interrogates.
+
+- **[plan](../plan/).** Decomposes the sharpened design once elaboration is
+  done.
 
 ## References
 

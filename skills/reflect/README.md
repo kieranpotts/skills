@@ -32,5 +32,5 @@ A mid-tier model is sufficient for this task.
 
 ## Related skills
 
-- **[handoff](../handoff/)** is a companion skill for persisting task state
+- **[handoff](../handoff/).** Companion skill for persisting task state
   between discrete agent sessions.

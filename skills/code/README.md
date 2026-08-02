@@ -48,11 +48,11 @@ flowchart LR
 
 ## Related skills
 
-- **[plan](../plan/)** can be used to decompose a requirements specification
-  into a pipeline of small changes, which can then be delivered individually
-  using the code skill.
+- **[plan](../plan/).** Decomposes a requirements specification into a
+  pipeline of small changes, which can then be delivered individually using
+  the code skill.
 
-- **[triage](../triage/)** is an alterative trigger for code changes.
+- **[triage](../triage/).** An alternative trigger for code changes.
 
-- **[style](../style/)** can be used to normalize code presentation after
-  code edits are made.
+- **[style](../style/).** Normalizes code presentation after code edits are
+  made.

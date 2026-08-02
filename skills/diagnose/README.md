@@ -56,10 +56,10 @@ flowchart LR
 
 ## Related skills
 
-- **[triage](../triage/)** establishes that a reported bug is real before
+- **[triage](../triage/).** Establishes that a reported bug is real before
   anyone spends time on it.
 
-- **[fix](../fix/)** applies the remedy once this skill has confirmed the
+- **[fix](../fix/).** Applies the remedy once this skill has confirmed the
   cause, and turns the red regression test green.
 
 ## References

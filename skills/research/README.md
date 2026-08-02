@@ -30,5 +30,8 @@ this task.
 
 ## Related skills
 
-This skill can help to support **[design](../design/)** and
-**[spike](../spike/)** work.
+- **[design](../design/).** Consumes research reports as evidence for
+  architectural trade-offs.
+
+- **[spike](../spike/).** Answers questions with throwaway code, where
+  external sources alone are not enough.

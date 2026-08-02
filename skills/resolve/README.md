@@ -50,4 +50,4 @@ flowchart LR
 
 ## Related skills
 
-- **[review](../review/)** leaves the comments this skill then actions.
+- **[review](../review/).** Leaves the comments this skill then actions.

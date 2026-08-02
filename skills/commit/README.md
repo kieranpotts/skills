@@ -44,9 +44,12 @@ flowchart LR
 
 ## Related skills
 
-- **[branch](../branch/)**
-- **[merge](../merge/)**
-- **[release](../release/)**
+- **[branch](../branch/).** Defines the branching model that commits land on.
+
+- **[merge](../merge/).** Integrates commits between divergent branches.
+
+- **[release](../release/).** Cuts release branches from the committed
+  history.
 
 ## References
 

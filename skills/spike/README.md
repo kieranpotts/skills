@@ -40,4 +40,5 @@ flowchart LR
 
 ## Related skills
 
-- This skill is a companion to the **[design](../design/)** skill.
+- **[design](../design/).** Companion skill that poses the questions a spike
+  answers with throwaway code.
