@@ -1,21 +1,16 @@
 # Review
 
 The **review** skill is all about evaluating code for style conventions and
-pattern consistency. It statically analyzes the diff
-in an open pull request, checking correctness, design, clarity, test coverage,
-security, and completeness.
+pattern consistency.
+
+The agent is instructed to statically analyzes the diff in an open pull request,
+checking correctness, design, clarity, test coverage, security, and completeness.
 
 Findings are specific and actionable, each carrying a severity (blocking,
 suggestion, nitpick, praise) and organized along two axes:
 
-- **Specification:** does it faithfully implement the issue/ACs.
-- **Standards:** does it conform to the repo's conventions.
-
-It closes with an explicit verdict — approve, request changes, or comment. Use it
-when auditing a coworker's branch, or self-reviewing changes before opening a PR.
-The agent surfaces findings without fixing them; orchestrators may hand off to
-**[resolve](../resolve/)** to action the open comments. For a wider architectural
-review, see **[audit](../audit/)**.
+- **Specification.** Does it faithfully implement the issue/ACs?
+- **Standards.** Does it conform to the repo's conventions?
 
 ## Interactivity
 
@@ -52,13 +47,9 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**review** runs once an increment builds and tests green, leaving comments for
-**[resolve](../resolve/)** to action before integration. For a wider,
-design-level pass, **[audit](../audit/)** is the companion.
-
 ## Related skills
 
-- **[resolve](../resolve/):** actions the open comments this skill leaves.
+- **[resolve](../resolve/)** actions the open comments this skill leaves.
 
-- **[audit](../audit/):** the wider, design-level companion to this skill's
+- **[audit](../audit/)** is a wider, design-level companion to this skill's
   PR-level pass.

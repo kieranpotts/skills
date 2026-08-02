@@ -1,22 +1,14 @@
 # Handoff
 
 The **handoff** skill is all about compacting a conversation for the next
-session to pick up. It compacts a
-conversation into an ephemeral handoff document so a fresh agent or sapien can
-resume the work, capturing just enough state to continue without repeating work,
-re-litigating decisions, or re-walking dead ends.
+session to pick up.
 
-It references the durable artifacts the work has produced by path or URL rather
-than duplicating them, drafts a structured document (what's done, what's open,
-codebase state, next steps, gotchas), redacts secrets, and writes it to the OS
-temp directory — never the repo, because a handoff is a session bridge, not a
-project artifact.
+The agent is instructed to compact a conversation into an ephemeral handoff
+document so a fresh agent or human can resume the work. The document should
+capture just enough state to continue, removing issues that have been resolved
+and decisions that have been made.
 
-Use it when ending a session, switching agents, approaching context limits, or
-pausing work someone else will resume. With no argument it covers the full state
-of the current work; an argument scopes the handoff to the next session's focus.
-It is the companion to **[reflect](../reflect/)**: **handoff** carries task state to
-the next session, **reflect** carries the working-style lessons.
+The agent is instructed to write the handoff document to the OS temp directory.
 
 ## Interactivity
 
@@ -36,11 +28,9 @@ A mid-tier model is sufficient for this task.
 
 ## Related skills
 
-- **[reflect](../reflect/):** its companion — this skill carries task state to
-  the next session, reflect carries working-style lessons.
+- **[reflect](../reflect/)** is a companion skill that extracts lessons from an agent session.
 
 ## References
 
-- [Original source — mattpocock/skills
-  **handoff**](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md):
-  The skill this one is adapted from.
+- This skill is adapted from
+  [Matt Pocock's `handoff` skill](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md).

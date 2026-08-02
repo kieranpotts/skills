@@ -1,14 +1,9 @@
 # Plan
 
 The **plan** skill is all about decomposing delivery into small, stable
-increments. It
-turns a big up-front design into a sequenced checklist of small construction
-steps that can be built through an iterative loop — supporting continuous
-integration.
-
-Steps are ordered by risk: the unknowns are tackled first, the polish last. It
-names the seams where flags, fixtures, or migrations decouple steps. Use it when
-the change is substantially larger than a few atomic commits.
+increments. It turns a big up-front design into a sequenced checklist of small
+construction steps that can be built through an iterative loop, so supporting
+continuous integration.
 
 ## Interactivity
 
@@ -46,14 +41,7 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**plan** takes the ADRs from **[design](../design/)** and emits an ordered checklist
-of steps, each of which **[code](../code/)** picks up one at a time to drive the
-build-increments loop.
-
 ## Related skills
 
-- **[design](../design/):** supplies the ADRs this skill decomposes into a
-  checklist of steps.
-
-- **[code](../code/):** picks up each step this skill produces, one at a
-  time.
+- **[design](../design/)** supplies the proposed architectural changes that this skill decomposes into work tasks.
+- **[code](../code/)** picks up each step this skill produces, one at a time.

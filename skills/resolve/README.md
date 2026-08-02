@@ -1,18 +1,18 @@
 # Resolve
 
 The **resolve** skill is all about actioning open review comments, and marking
-them as resolved. It takes the
-comments left on an open pull request, reviews each in turn, and responds with a
-comment and — where appropriate — a code change.
+them as resolved.
+
+The agent is instructed to takes the comments left on an open pull request,
+to review each in turn, and respond with a comment and — where appropriate — a
+code change.
 
 It assumes the user has already curated the review, such that every comment still
-open requires resolution; comments that do not require a resolution are assumed
-to be already closed and marked as resolved. It is the counterpart to
-**[review](../review/)**, which performs static analysis on a PR's diff and leaves
-the comments that **resolve** then actions.
+open requires resolution. Comments that do not require a resolution are assumed
+to be already closed and marked as resolved.
 
-Any comment it cannot action is left open, with a comment explaining why it was
-skipped.
+Any comment the agent cannot action is left open, with a comment explaining why
+it was skipped.
 
 ## Interactivity
 
@@ -48,9 +48,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**resolve** closes the loop after **[review](../review/)**: it actions the open
-comments so the increment can proceed to the scripted integrate step.
-
 ## Related skills
 
-- **[review](../review/):** leaves the comments this skill then actions.
+- **[review](../review/)** leaves the comments this skill then actions.

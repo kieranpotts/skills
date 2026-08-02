@@ -1,23 +1,17 @@
 # Refine
 
 The **refine** skill is all about producing new business requirements in
-response to acceptance testing feedback. It edits the
-*specification*, not the code, in response to acceptance-testing feedback or to
-use of the working software. The boundary is sharp: if the spec was right and the
-code was wrong, that is a defect fix, not a refinement; refinement is for when
-the acceptance criterion itself is wrong, missing, contradictory, or ambiguous.
+response to acceptance testing feedback.
 
-It drafts the edit in the specification's own conventions (Gherkin scenarios,
-measurable NFRs, explicit out-of-scope) shown before-and-after, records the
-rationale and evidence, and traces the downstream impact on design, plan, code,
-and tests. It is disciplined: one logical change per pass, never a silent rewrite
-of a passed AC, never scope expansion in disguise. It changes no code — the
-output is a specification edit plus a traced impact list, ready to flow into
-**[specify](../specify/)**.
+The agent is instructed to edit the _specification_, not the code, in response
+to acceptance-testing feedback or to real-world use of the working software.
 
-It is the companion to **[validate](../validate/)**, which supplies the
-suggestions it acts on, and it is analogous to **[refactor](../refactor/)**, which
-serves the equivalent role for the design.
+The boundary is sharp: if the spec was right and the code was wrong, that is a
+defect fix, not a refinement. Refinement is for when the acceptance criterion
+itself is wrong, missing, contradictory, or ambiguous.
+
+The agent drafts the edit in the specification's own conventions. It makes no
+changes to code.
 
 ## Interactivity
 
@@ -55,16 +49,11 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**refine** closes the product feedback loop: **[validate](../validate/)** surfaces
-where the specification diverged from the real need, **refine** edits the
-specification, and the change flows back into **[specify](../specify/)**.
-
 ## Related skills
 
-- **[validate](../validate/):** supplies the suggestions this skill acts on.
+- **[validate](../validate/)** is a companion skill that can be supply suggestions
+  that this skill then acts on.
 
-- **[specify](../specify/):** receives the specification edit this skill
-  produces.
+- **[specify](../specify/)** receives the specification edit this skill produces.
 
-- **[refactor](../refactor/):** its structural analogue — refactor serves the
-  design where this skill serves the specification.
+- **[refactor](../refactor/)** is the structural analogue to this skill.

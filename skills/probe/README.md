@@ -1,19 +1,16 @@
 # Probe
 
 The **probe** skill is all about running an interactive threat-modeling
-session, and recording security risks. The agent
-facilitates a workshop that decomposes a system into its components, data flows,
-trust boundaries, and assets, then assesses each against one or more threat
-modeling frameworks such as STRIDE, LINDUN, or OWASP. Every identified threat
-is rated for likelihood and impact, which are tallied to yield an overall
-severity score, which finally is used to rank the threats.
+workshop, and recording security risks.
 
-The agent is instructed to update a risk register with its findings, following
-instructions provided in the risk register.
+The agent is instructed to facilitate a workshop in which the target system is
+decomposed into its components, data flows, trust boundaries, and assets, then
+each part of the system is assessed against one or more threat modeling
+frameworks such as STRIDE, LINDUN, or OWASP. Every identified threat is rated
+for likelihood and impact, which are tallied to yield an overall severity
+score, which finally is used to rank the threats.
 
-The agent acts as a security analyst, facilitating the session. The user (and
-any participants they relay for) answers as the business, technical, and
-security stakeholders.
+The agent is instructed to update a risk register with its findings.
 
 This skill is discovery and record-keeping only. The agent is explicitly
 instructed to NOT change the assessed code, and threat identification never
@@ -21,9 +18,9 @@ includes actively exploiting the system.
 
 ## Interactivity
 
-This skill is interactive. The agent facilitates the session, and the user
-(and any participants they relay for) answers as the business, technical, and
-security stakeholders.
+This skill is interactive. The agent acts as a security analyst, facilitating
+the session. The user answers as the business, technical, and security
+stakeholders.
 
 ## How to invoke
 
@@ -42,12 +39,6 @@ security stakeholders.
 A frontier model is best suited to this task.
 
 ## Suggested workflows
-
-This skill complements the **[design](../design/)** and **[audit](../audit/)**
-skills. Typically, threat modeling sessions will be triggered in response to
-major changes to a system's design. Architectural reviews, which focus more on
-the structural integrity of the design rather than its risk profile, may be
-conducted in parallel.
 
 ```mermaid
 flowchart LR
@@ -68,11 +59,8 @@ flowchart LR
 
 ## Related skills
 
-- **[design](../design/):** typically triggers a threat-modeling session in
-  response to major design changes.
-
-- **[audit](../audit/):** a structural-integrity companion, typically run in
-  parallel — audit assesses architecture, this skill assesses risk.
+- **[design](../design/)** may trigger a threat-modeling session in response to major design changes.
+- **[audit](../audit/)** is a companion skill that inspects a system's structural integrity.
 
 ## References
 
@@ -81,11 +69,3 @@ flowchart LR
 
 - [kieranpotts/risks](https://github.com/kieranpotts/risks) is a reference for
   a risk register maintained in Markdown files under version control.
-
-- [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model): Microsoft's mnemonic
-  threat modeling framework is the RECOMMENDED baseline framework for threat
-  classification.
-
-- [LINDDUN](https://linddun.org/): A useful framework for extending STRIDE with
-  privacy-oriented threat classifications. Use this wherever
-  personally-identifiable data exists in the target system.

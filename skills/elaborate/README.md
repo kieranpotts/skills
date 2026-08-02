@@ -1,9 +1,9 @@
 # Elaborate
 
 The **elaborate** skill is all about refining a proposed solution by
-interrogating the design docs. It is a
-highly interactive session with one objective: to nail down an architectural
-design and mitigate the major risks within it.
+interrogating the design docs. It is a highly interactive session with one
+objective: to nail down an architectural design and mitigate the major risks
+within it.
 
 For input it requires architectural design artifacts — anything in a textual
 format (some models will also process images). The agent interrogates the
@@ -12,9 +12,6 @@ design choices. Each question carries a recommended answer, so the user can agre
 quickly or articulate a disagreement. The agent sharpens fuzzy terms, probes
 assertions with concrete scenarios, and surfaces contradictions between the
 stated design and what the code actually does.
-
-It is a companion to **[design](../design/)**, applied to a draft before it is
-decomposed by **[plan](../plan/)**.
 
 ## Interactivity
 
@@ -39,9 +36,11 @@ flowchart LR
   %% Node labels and classes.
   design["🤖<br/>design"]:::agentic
   elaborate["🤖🧑<br/>elaborate"]:::anthropic
+  plan["🤖<br/>plan"]:::agentic
 
   %% Main workflow sequence.
-  design <-.-> elaborate
+  design ==> elaborate
+  elaborate ==> plan
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -49,23 +48,16 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**elaborate** is a helper to **[design](../design/):** it takes the draft design,
-interrogates it with the user, and returns a sharpened design ready to be
-decomposed by **[plan](../plan/)**.
-
 ## Related skills
 
-- **[design](../design/):** supplies the draft this skill interrogates.
-
-- **[plan](../plan/):** decomposes the sharpened design once elaboration is
-  done.
+- **[design](../design/)** supplies the draft architectural changes this skill interrogates.
+- **[plan](../plan/)** decomposes the sharpened design once elaboration is done.
 
 ## References
 
-- Inspired by Matt Pocock's
-  [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md)
-  skill.
+- [Matt Pocock's `grill-me` skill](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md)
+  is the inspiration for this one.
 
-- The name of this skill is taken from the elaboration phase in the [Unified
-  Process](https://www.amazon.co.uk/dp/0201571692). The goal of this phase is to
-  establish and validate a proposed system architecture.
+- The name of this skill is taken from the elaboration phase in the
+  [Unified Process](https://www.amazon.co.uk/dp/0201571692). The goal of this
+  phase is to establish and validate a proposed system architecture.

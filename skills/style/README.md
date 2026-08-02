@@ -1,14 +1,17 @@
 # Style
 
 The **style** skill is all about improving code presentation — whitespace,
-style, ordering — without changing structure. It makes
-changes that are visually large but semantically empty: consistent whitespace,
-ordering, line wrapping, quotes, trailing commas, import order, and so on.
+style, ordering — without changing structure.
+
+The agent is instructed to make changes that are visually large but semantically
+empty: consistent whitespace, ordering, line wrapping, quotes, trailing commas,
+import order, and so on.
 
 The rules apply to all kinds of text content — not only code, but technical
-documentation, requirements specifications, and more. Use it where conventional
-linting tools are unavailable for the target format. Where **[proof](../proof/)**
-corrects language, **style** normalizes presentation.
+documentation, requirements specifications, and more.
+
+Use this skill where conventional linting tools are unavailable for the target
+format.
 
 ## Interactivity
 
@@ -45,13 +48,6 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**style** runs immediately after **[code](../code/)** in the build-increments loop,
-normalizing presentation before the scripted lint step checks it.
-
 ## Related skills
 
-- **[code](../code/):** runs immediately before this skill in the
-  build-increments loop.
-
-- **[proof](../proof/):** corrects language where this skill normalizes
-  presentation.
+- **[proof](../proof/)** corrects language, while this skill normalizes presentation.

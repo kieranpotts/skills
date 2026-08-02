@@ -1,25 +1,22 @@
 # Discover
 
 The **discover** skill is all about running a discovery workshop with the
-customer to elicit product requirements. It runs an
-interactive workshop that turns a vague business need into a clear product
-requirements document (PRD) — covering the outcome, stakeholders, scope, business
-rules with examples, non-functional requirements, assumptions, and open
-questions.
+customer to elicit product requirements.
+
+The agent is instructed to run an interactive workshop that turns a vague
+business need into a clear product requirements document (PRD) covering the
+outcome, stakeholders, scope, business rules with examples, non-functional
+requirements, assumptions, and open questions.
 
 The agent acts as a business analyst and interviews the user, who answers as the
 customer, either directly or by relaying what real customers have said.
 
-Use it when the product requirements are vague, ambiguous, or unclear in any
-way, or when you simply need help writing the PRD. Its scope is confined to
-business requirements; formal specification and design are expressly
-out-of-scope. If the requirements are already clearly articulated in a written
-artifact, skip ahead to **[specify](../specify/)**, which takes that artifact as
-input.
+Use this skill when the product requirements are vague, ambiguous, or unclear in
+any way, or when you simply need help writing the PRD.
 
 ## Interactivity
 
-This skill is interactive; the agent runs a back-and-forth interview with the
+This skill is interactive. The agent runs a back-and-forth interview with the
 user.
 
 ## How to invoke
@@ -47,7 +44,7 @@ flowchart LR
   design["🤖<br/>design"]:::agentic
 
   %% Main workflow sequence.
-  discover <-.-> specify
+  discover ==> specify
   specify ==> design
 
   %% Class definitions.
@@ -56,20 +53,15 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
-**discover** sits at the front of the workflow, feeding a PRD into
-**[specify](../specify/)**, which turns it into the acceptance criteria that
-**[design](../design/)** then builds against.
-
 ## Related skills
 
-- **[specify](../specify/):** turns the resulting PRD into acceptance
-  criteria.
+- **[specify](../specify/)** turns the resulting PRD into acceptance criteria.
 
 ## References
 
 - [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/)
   (Matt Wynne, 2015): The core technique — rules, examples, and questions,
-  captured in a single session.
+  captured in a discovery session.
 
 - [Specification by Example](https://gojko.net/books/specification-by-example/)
   (Gojko Adzic): The broader philosophy — refine requirements through concrete
