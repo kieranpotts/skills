@@ -49,36 +49,32 @@ asking one question at a time and waiting for the answer before proceeding.
 
 You will achieve the following outcomes:
 
-- Precise edits to the requirements artifacts, conforming to the
+- Precise edits to the requirements artifacts MUST conform to the
   specification conventions (Gherkin, measurable NFRs, explicit scope), each
-  with a recorded trigger, type, and rationale; plus a traced list of
+  with a recorded trigger, type, and rationale, plus a traced list of
   downstream design, planning, code, and test work the refinement implies.
 
-- The output is reported and the skill stops; it changes no code itself.
+- The output MUST be reported and the skill MUST stop there; it changes no
+  code itself.
 
-- Every refinement MUST name its trigger and its type.
+- Every refinement MUST name its trigger and its type — correction /
+  addition / removal / reclassification / threshold-adjustment — plus the
+  observation that prompted it.
 
-  Correction / addition / removal / reclassification /
-  threshold-adjustment, plus the observation that prompted it.
+- The edit MUST be shown as before / after, so reviewers see what changed
+  without diffing in their heads.
 
-- The edit MUST be shown as before / after.
+- The rationale MUST be recorded with the edit: the specification or its
+  commit history MUST explain why, not just what, so future readers can
+  reconstruct the decision without re-litigating it.
 
-  Reviewers see what changed without diffing in their heads.
+- Downstream impact MUST be traced: a list of affected artifacts (design,
+  planned steps, code, tests) MUST exist, with status, and nothing MUST be
+  silently invalidated.
 
-- The rationale MUST be recorded with the edit.
-
-  The specification or its commit history explains why, not just what.
-  Future readers can reconstruct the decision without re-litigating it.
-
-- Downstream impact MUST be traced.
-
-  A list of affected artifacts (design, planned steps, code, tests) MUST
-  exist, with status. Nothing MUST be silently invalidated.
-
-- No code or test MUST have been changed inside this skill.
-
-  The output is a specification edit and a traced impact list.
-  Implementation lives downstream.
+- No code or test MUST have been changed inside this skill — the output is
+  a specification edit and a traced impact list, and implementation lives
+  downstream.
 
 - If a refinement reveals an untestable AC, the refined AC MUST be in
   testable form.

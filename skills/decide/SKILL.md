@@ -57,50 +57,44 @@ and environment do not settle it.
 
 You will achieve the following outcomes:
 
-- A completed decision record, written against the target store's own
-  template where it has one, stating the decision, its motivation, the
-  alternatives considered, the honest trade-offs, a recommendation, and the
-  conditions under which that recommendation would change.
+- The skill MUST produce a completed decision record, written against the
+  target store's own template where it has one, stating the decision, its
+  motivation, the alternatives considered, the honest trade-offs, a
+  recommendation, and the conditions under which that recommendation would
+  change.
 
-- No lifecycle action was taken. No branch was cut, pull request opened,
+- No lifecycle action MUST be taken — no branch cut, pull request opened,
   label applied, or merge performed — those belong to the store's own
   workflow.
 
-- The decision statement is a single, disagreeable sentence.
-
-  One sentence, specific enough that a reviewer could reasonably argue the
+- The decision statement MUST be a single, disagreeable sentence: one
+  sentence, specific enough that a reviewer could reasonably argue the
   opposite, accompanied by an explicit out-of-scope list.
 
-- At least two genuine alternatives are evaluated, plus doing nothing.
+- At least two genuine alternatives MUST be evaluated, plus doing nothing,
+  and none of them MUST be a strawman — each MUST be an option a competent
+  colleague could advocate.
 
-  None of them is a strawman; each is an option a competent colleague could
-  advocate.
-
-- The downsides of the recommendation are stated explicitly.
-
-  The RFC names what the preferred option costs and what it risks, not only
+- The downsides of the recommendation MUST be stated explicitly: the RFC
+  MUST name what the preferred option costs and what it risks, not only
   what it gains.
 
-- Every load-bearing claim is marked verified or assumed.
+- Every load-bearing claim MUST be marked verified or assumed: no
+  assumption MUST be presented as established fact, and unverified ones
+  MUST appear in the open questions.
 
-  No assumption is presented as established fact; unverified ones appear in
-  the open questions.
+- The RFC MUST state what would change the recommendation — at least one
+  concrete condition under which a different option wins.
 
-- The RFC states what would change the recommendation.
+- The store MUST have been discovered, not assumed: its location and
+  access method MUST trace to session context, to the environment, or to
+  an answer from the user — no path, file name, or document structure MUST
+  have been taken for granted.
 
-  At least one concrete condition under which a different option wins.
-
-- The store was discovered, not assumed.
-
-  Its location and access method trace to session context, to the
-  environment, or to an answer from the user — no path, file name, or
-  document structure was taken for granted.
-
-- The document fits the target store's template.
-
-  Every section that store's template requires is present and filled, with
-  no leftover boilerplate. Where the store had no template, the minimum
-  section set is covered and the report says which shape was used.
+- The document MUST fit the target store's template: every section that
+  store's template requires MUST be present and filled, with no leftover
+  boilerplate, and where the store had no template, the minimum section
+  set MUST be covered and the report MUST say which shape was used.
 
 ## Instructions
 

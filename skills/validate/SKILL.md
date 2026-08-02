@@ -52,43 +52,35 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A bounded, prioritized validation report — an explicit verdict (MEETS THE
-  NEED / GAPS FOUND) and, where gaps exist, suggestions for how the
-  specification should evolve, each classified by gap type, backed by
-  evidence, and ready to seed a revision of the specification.
+- A bounded, prioritized validation report MUST be produced — an explicit
+  verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions
+  for how the specification should evolve, each classified by gap type,
+  backed by evidence, and ready to seed a revision of the specification.
 
-- No specification or code was changed. Acting on the report was left to
-  the caller.
+- No specification or code MUST have been changed; acting on the report
+  MUST be left to the caller.
 
-- The originating need MUST be recovered before the software is judged.
-
-  PRD, outcome, or success measure MUST be consulted first. Validation
+- The originating need MUST be recovered before the software is judged: the
+  PRD, outcome, or success measure MUST be consulted first, since validation
   against the ACs alone is verification, not validation.
 
-- Every finding MUST cite evidence.
+- Every finding MUST cite evidence: observed behavior, a measurement, or a
+  flow step — not an assertion of preference.
 
-  Observed behavior, a measurement, or a flow step — not an assertion
-  of preference.
+- Each finding MUST name its gap type and a suggested direction — unmet
+  need / wrong target / missing requirement / over-specification / stale
+  assumption, plus what the specification should say instead, ready for
+  whoever revises it.
 
-- Each finding MUST name its gap type and a suggested direction.
+- The verdict MUST be explicit: MEETS THE NEED or GAPS FOUND — it MUST NOT
+  be implied.
 
-  Unmet need / wrong target / missing requirement / over-specification /
-  stale assumption, plus what the specification should say instead,
-  ready for whoever revises it.
+- No specification or code MUST have been changed: the git tree MUST be
+  unchanged, and the output MUST be a report of suggestions, with enacting
+  them left downstream.
 
-- The verdict MUST be explicit.
-
-  MEETS THE NEED or GAPS FOUND — it MUST NOT be implied.
-
-- No specification or code MUST have been changed.
-
-  The git tree MUST be unchanged. The output is a report of
-  suggestions; enacting them is downstream.
-
-- The report MUST be bounded.
-
-  It MUST contain 5–10 prioritized candidates, not an exhaustive
-  wishlist.
+- The report MUST be bounded: it MUST contain 5–10 prioritized candidates,
+  not an exhaustive wishlist.
 
 ## Instructions
 

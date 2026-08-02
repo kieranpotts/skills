@@ -42,39 +42,35 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A conforming commit message in the `<type>: <description>` format (with
-  any optional flag, body, and footers), or a pass/fail verdict on the
-  supplied messages naming the rule each one violates.
+- The skill MUST produce a conforming commit message in the
+  `<type>: <description>` format (with any optional flag, body, and
+  footers), or a pass/fail verdict on the supplied messages naming the rule
+  each one violates.
 
-- Where required, the matching changelog entry is produced too. This skill
-  composes and validates messages and stops; it neither stages nor commits.
+- Where required, the matching changelog entry MUST be produced too; this
+  skill composes and validates messages and stops — it MUST NOT stage or
+  commit.
   <!-- TODO: Allow direct commits to dev? -->
 
-- The subject line MUST pass the validation regex.
+- The subject line MUST pass the validation regex and MUST match the format
+  defined in the Rules.
 
-  It MUST match the format defined in the Rules.
+- The type semantics MUST fit the changeset: re-read the type's
+  description, and if two types feel applicable, consult the Subtle
+  distinctions note — that's where the hard cases are resolved.
 
-- The type semantics MUST fit the changeset.
-
-  Re-read the type's description. If two types feel applicable, consult the
-  Subtle distinctions note — that's where the hard cases are resolved.
-
-- The subject line length MUST be within budget.
-
-  ≤50 characters RECOMMENDED, ≤72 characters maximum. Includes the
+- The subject line length MUST be within budget — ≤50 characters
+  RECOMMENDED, ≤72 characters maximum — and this budget includes the
   optional flag.
 
-- There MUST be no Conventional Commits artifacts.
+- There MUST be no Conventional Commits artifacts: no scope parentheticals
+  (`feature(parser): …`), no leading `!`, no trailing `:` artifacts, and the
+  colon MUST come immediately after the type, nothing else.
 
-  No scope parentheticals (`feature(parser): …`), no leading `!`, no
-  trailing `:` artifacts. The colon MUST come immediately after the type,
-  nothing else.
-
-- The changelog MUST be updated for direct commits to a trunk or short-lived
-  branch, unless the type is `chore:` or the project keeps no changelog.
-
-  Its unreleased section MUST contain an entry for this commit, using the
-  same `type: description` format as the subject line.
+- The changelog MUST be updated for direct commits to a trunk or
+  short-lived branch, unless the type is `chore:` or the project keeps no
+  changelog, and its unreleased section MUST contain an entry for this
+  commit, using the same `type: description` format as the subject line.
 
 ## Instructions
 

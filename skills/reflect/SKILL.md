@@ -49,25 +49,23 @@ one at a time and waits for approval before persisting anything.
 
 You will achieve the following outcomes:
 
-- Zero or more persisted lessons — memory entries, indexed however that
-  memory system indexes them, and/or appended convention rules — each
-  non-obvious and capable of changing future agent behavior, written only
-  after per-candidate user approval.
+- Zero or more persisted lessons MUST exist — memory entries, indexed
+  however that memory system indexes them, and/or appended convention
+  rules — each non-obvious and capable of changing future agent behavior,
+  written only after per-candidate user approval.
 
-- Universal lessons better encoded as a new skill are flagged, not saved.
+- Universal lessons better encoded as a new skill MUST be flagged, not
+  saved.
 
 - Every saved lesson MUST be non-obvious and MUST change future agent
-  behavior.
-
-  A reader of the entry can identify what you would do differently
-  because of it.
+  behavior, such that a reader of the entry can identify what you would do
+  differently because of it.
 
 - Each `feedback` and `project` entry MUST have both a Why: and a How
   to apply: line.
 
-- Every new memory MUST be indexed, where the memory system keeps an index.
-
-  An unindexed memory is invisible to future sessions.
+- Every new memory MUST be indexed, where the memory system keeps an
+  index — an unindexed memory is invisible to future sessions.
 
 - No saved lesson MUST duplicate an existing memory or convention doc
   entry.

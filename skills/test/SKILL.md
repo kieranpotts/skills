@@ -52,41 +52,34 @@ settle it.
 
 You will achieve the following outcomes:
 
-- A verification report — every AC mapped to a status (PASS / FAIL / BLOCKED
-  / N/A) and observable evidence, with an explicit verdict. Failures are
-  classified — an implementation defect, or a wrong/missing/ambiguous AC (a
-  specification defect) — and reported, not fixed.
+- A verification report MUST be produced — every AC mapped to a status
+  (PASS / FAIL / BLOCKED / N/A) and observable evidence, with an explicit
+  verdict; failures MUST be classified — an implementation defect, or a
+  wrong/missing/ambiguous AC (a specification defect) — and reported, not
+  fixed.
 
-- Nothing beyond the report was done. Diagnosing defects, editing the
-  specification, and releasing were left to the caller.
+- Nothing beyond the report MUST have been done: diagnosing defects, editing
+  the specification, and releasing MUST be left to the caller.
 
-- Every AC MUST have a status and evidence.
+- Every AC MUST have a status and evidence: PASS / FAIL / BLOCKED / N/A,
+  each with a pointer to the evidence.
 
-  PASS / FAIL / BLOCKED / N/A, each with a pointer to the evidence.
+- Functional and non-functional ACs MUST both be covered; neither MUST be
+  skipped.
 
-- Functional and non-functional ACs MUST both be covered.
+- Failures and blockers MUST NOT be downgraded: a FAIL reported as a defect
+  MUST NOT be flipped to PASS without re-verification, and a BLOCKED MUST
+  NOT be silently dropped.
 
-  Neither MUST be skipped.
+- Failures MUST be classified and reported, not fixed: each FAIL MUST be
+  reported as either an implementation defect or a specification defect.
 
-- Failures and blockers MUST NOT be downgraded.
+- The verification environment MUST be recorded — especially for NFR
+  measurements, the environment (hardware, dataset, traffic profile) MUST
+  be captured alongside the numbers.
 
-  A FAIL reported as a defect MUST NOT be flipped to PASS without
-  re-verification. A BLOCKED MUST NOT be silently dropped.
-
-- Failures MUST be classified and reported, not fixed.
-
-  Each FAIL MUST be reported as either an implementation defect or a
-  specification defect.
-
-- The verification environment MUST be recorded.
-
-  Especially for NFR measurements, the environment (hardware, dataset,
-  traffic profile) MUST be captured alongside the numbers.
-
-- The verdict MUST be explicit.
-
-  "Ready to ship", "ready for review", or "blocked on X" — not
-  implied.
+- The verdict MUST be explicit: "Ready to ship", "ready for review", or
+  "blocked on X" — not implied.
 
 ## Instructions
 

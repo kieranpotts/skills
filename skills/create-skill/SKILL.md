@@ -42,43 +42,44 @@ prompt the user for clarification.
 
 You will achieve the following outcomes:
 
-- A complete skill directory exists at the target location, holding a
+- A complete skill directory MUST exist at the target location, holding a
   `SKILL.md`, a sibling `README.md` for humans, and any bundled `assets/`,
   `references/`, and `scripts/`.
 
-- The front-matter is valid. The `name` and `description` fields are present
-  and non-empty, and `name` matches the directory name.
+- The front-matter MUST be valid: the `name` and `description` fields MUST
+  be present and non-empty, and `name` MUST match the directory name.
 
-- The canonical sections are present, in order: the `#` title and its
+- The canonical sections MUST be present, in order: the `#` title and its
   description, `## Parameters`, `## Success criteria`, and at least one of
   `## Instructions` or `## Rules`. `## Parameters` and `## Success criteria`
-  come before any other `##` heading.
+  MUST come before any other `##` heading.
 
-- The parameters are a bulleted list, each item naming its requirement level
-  — REQUIRED or OPTIONAL — inside a bold lead. The preamble states whether
-  the agent may prompt the user, matching the `metadata.interactive` flag.
+- The parameters MUST be a bulleted list, each item naming its requirement
+  level — REQUIRED or OPTIONAL — inside a bold lead. The preamble MUST
+  state whether the agent may prompt the user, matching the
+  `metadata.interactive` flag.
 
-- Inline bold appears only in the `## Parameters` leads. Rules, success
-  criteria, instructions, edge cases, and examples are plain prose.
+- Inline bold MUST appear only in the `## Parameters` leads. Rules, success
+  criteria, instructions, edge cases, and examples MUST be plain prose.
 
-- The `description` names both the capability and the contexts that should
-  invoke the skill, following the two-sentence pattern.
+- The `description` MUST name both the capability and the contexts that
+  should invoke the skill, following the two-sentence pattern.
 
-- No artifact location, file name, or document structure is hard-coded.
-  Every artifact the skill reads or writes is discovered from context, from
-  the environment, or by asking. Any literal path that remains is an
-  illustrative example, clearly marked as such.
+- No artifact location, file name, or document structure MUST be
+  hard-coded. Every artifact the skill reads or writes MUST be discovered
+  from context, from the environment, or by asking. Any literal path that
+  remains MUST be an illustrative example, clearly marked as such.
 
-- No other skill is referenced by name — neither a global skill from a
+- No other skill MUST be referenced by name — neither a global skill from a
   project-level one, nor the reverse.
 
-- The `SKILL.md` is token-efficient, and under 500 lines — physical lines,
-  blank lines included. No section is padded with detail that belongs in a
-  `references/` file.
+- The `SKILL.md` MUST be token-efficient, and MUST be under 500 lines —
+  physical lines, blank lines included. No section SHOULD be padded with
+  detail that belongs in a `references/` file.
 
-- A `README.md` exists alongside the `SKILL.md`.
+- A `README.md` MUST exist alongside the `SKILL.md`.
 
-- The validator passes against the skill directory.
+- The validator MUST pass against the skill directory.
 
 ## Instructions
 

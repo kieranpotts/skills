@@ -54,31 +54,26 @@ settle it.
 
 You will achieve the following outcomes:
 
-- A set of findings, each carrying a severity label (Blocking, Suggestion,
-  Nit, Praise) and organized along two axes (Specification and Standards),
-  closed with an explicit verdict (Approve, Request changes, or Comment).
+- A set of findings MUST exist, each carrying a severity label (Blocking,
+  Suggestion, Nit, Praise) and organized along two axes (Specification and
+  Standards), closed with an explicit verdict (Approve, Request changes,
+  or Comment).
 
-- Review reports its findings and stops; acting on them — fixing
+- Review MUST report its findings and stop there; acting on them — fixing
   presentation, restructuring, re-running the system — is a separate,
   downstream responsibility.
 
-- Findings MUST be organized into two axes: Specification and Standards.
+- Findings MUST be organized into two axes — Specification and
+  Standards — and the two axes MUST be kept distinct in the review output.
 
-  The two axes MUST be kept distinct in the review output.
+- Every comment MUST carry a severity label — Blocking, Suggestion, Nit,
+  or Praise — and there MUST be no bare comments.
 
-- Every comment MUST carry a severity label.
+- Every finding MUST be specific and actionable: each comment MUST name
+  the file/line, describe the issue, and suggest a direction.
 
-  Blocking, Suggestion, Nit, or Praise. There MUST be no bare
-  comments.
-
-- Every finding MUST be specific and actionable.
-
-  Each comment MUST name the file/line, describe the issue, and
-  suggest a direction.
-
-- The verdict MUST be explicit.
-
-  Approve, Request changes, or Comment. It MUST NOT be implied.
+- The verdict MUST be explicit — Approve, Request changes, or Comment —
+  and it MUST NOT be implied.
 
 ## Instructions
 

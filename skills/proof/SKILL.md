@@ -39,37 +39,32 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The same files, edited in place with conservative copy edits only — prose
-  words corrected, code/markup/structure untouched — plus a per-file summary
-  of the edits made and any items flagged for the author.
+- The same files MUST be edited in place with conservative copy edits only
+  — prose words corrected, code/markup/structure untouched — plus a
+  per-file summary of the edits made and any items flagged for the
+  author.
 
-- Nothing was staged, committed, or pushed. Version control was left to a
-  separate step.
+- Nothing MUST have been staged, committed, or pushed; version control
+  MUST be left to a separate step.
 
 - Only prose MUST have changed; code, markup, and structure MUST be
-  byte-identical except where prose words were corrected.
-
-  A diff shows word-level prose edits and nothing else — no reflowed
-  blocks, no moved sections, no touched code.
+  byte-identical except where prose words were corrected, so a diff shows
+  word-level prose edits and nothing else — no reflowed blocks, no moved
+  sections, no touched code.
 
 - No technical fact, identifier, version, or command MUST have been
-  altered.
-
-  Anything that looked wrong MUST have been flagged for the author, not
-  silently changed.
+  altered; anything that looked wrong MUST have been flagged for the
+  author, not silently changed.
 
 - The file's markup MUST remain valid and its original line-wrapping
-  convention MUST be unchanged.
-
-  The document still parses/renders as before; line-wrapping style is
-  unchanged.
+  convention MUST be unchanged — the document still parses/renders as
+  before, and its line-wrapping style is unchanged.
 
 - A per-file summary of edits MUST have been reported, and nothing MUST
-  have been committed.
-
-  The summary MUST report which files changed, which were reviewed but
-  left unchanged, and which were skipped as generated or vendored. The
-  user can see what changed and decide when and how to commit it.
+  have been committed: the summary MUST report which files changed, which
+  were reviewed but left unchanged, and which were skipped as generated
+  or vendored, so the user can see what changed and decide when and how
+  to commit it.
 
 - Generated or vendored files MUST have been skipped and reported.
 

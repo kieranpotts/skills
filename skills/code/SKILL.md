@@ -46,36 +46,28 @@ settle it.
 
 You will achieve the following outcomes:
 
-- A committed, tested change for that single step — the implementation plus
-  its tests, scope-locked to the step, with a clean reviewable diff and a
-  conventional commit.
+- The result MUST be a committed, tested change for that single step — the
+  implementation plus its tests, scope-locked to the step, with a clean
+  reviewable diff and a conventional commit.
 
-- Nothing beyond the step was done. Reviewing, further testing, and
-  sequencing the next step were left to the caller.
+- Nothing beyond the step MUST be done; reviewing, further testing, and
+  sequencing the next step MUST be left to the caller.
 
-- The diff MUST stay within the step's stated scope.
+- The diff MUST stay within the step's stated scope — re-read the diff with
+  the step quoted next to it, and anything outside the scope MUST be removed
+  or moved to its own step.
 
-  Re-read the diff with the step quoted next to it. Anything outside the
-  scope MUST be removed or moved to its own step.
+- All new behavior MUST be tested: each piece of added behavior MUST have at
+  least one test that fails when the behavior is removed.
 
-- All new behavior MUST be tested.
+- The test loop MUST be fast and run clean: `<10s` for the relevant suite,
+  and no skipped, pending, or flaky tests MUST be added.
 
-  Each piece of added behavior MUST have at least one test that fails when
-  the behavior is removed.
+- The code MUST match the surrounding style: naming, layout, error handling,
+  and comment density MUST be consistent with nearby files.
 
-- The test loop MUST be fast and run clean.
-
-  `<10s` for the relevant suite. No skipped, pending, or flaky tests MUST
-  be added.
-
-- The code MUST match the surrounding style.
-
-  Naming, layout, error handling, and comment density MUST be consistent
-  with nearby files.
-
-- The commit MUST follow the project's commit format.
-
-  Correct type, lowercase imperative description, atomic scope.
+- The commit MUST follow the project's commit format, with correct type,
+  lowercase imperative description, and atomic scope.
 
 ## Instructions
 

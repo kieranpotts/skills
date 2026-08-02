@@ -48,32 +48,28 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A series of small `refactor:` commits that improve the named quality while
+- A series of small `refactor:` commits MUST improve the named quality while
   leaving externally observable behavior identical — tests green before and
   after every move, each commit independently revertible, the diff free of
   feature or bug-fix work.
 
-- Nothing beyond the restructuring was done. Reviewing, integrating, and
-  sequencing the next task were left to the caller.
+- Nothing beyond the restructuring MUST be done — reviewing, integrating,
+  and sequencing the next task are left to the caller.
 
-- External behavior MUST be unchanged.
+- External behavior MUST be unchanged: every test that passed before MUST
+  pass after, and manual smoke of the affected paths MUST confirm no
+  observable difference.
 
-  Every test that passed before MUST pass after. Manual smoke of the
-  affected paths MUST confirm no observable difference.
+- The named quality MUST be measurably improved: state which quality and
+  how it changed (lines, dependencies, responsibilities, names) — a vague
+  "this is cleaner" is not enough.
 
-- The named quality MUST be measurably improved.
+- Each commit MUST be a single small move — reviewable in minutes and
+  revertable on its own.
 
-  State which quality and how it changed (lines, dependencies,
-  responsibilities, names). Vague "this is cleaner" is not enough.
-
-- Each commit MUST be a single small move.
-
-  Reviewable in minutes. Revertable on its own.
-
-- The diff MUST contain only restructuring.
-
-  No feature or bug-fix work MUST be mixed in. Anything else MUST be in
-  a separate commit and a separate review thread.
+- The diff MUST contain only restructuring: no feature or bug-fix work
+  MUST be mixed in, and anything else MUST be in a separate commit and a
+  separate review thread.
 
 - Tests MUST have passed after every move, not just at the end.
 

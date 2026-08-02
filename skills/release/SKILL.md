@@ -42,48 +42,38 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The release branch created or advanced per the model, and the release
-  tagged with a correctly-formatted version. This skill applies the release
-  branching and tagging convention and stops; it does not author commit
-  messages or define the general branch model.
+- The release branch MUST be created or advanced per the model, and the
+  release MUST be tagged with a correctly-formatted version — this skill
+  applies the release branching and tagging convention and stops, and does
+  not author commit messages or define the general branch model.
 
 - The release branch MUST exist and MUST follow the chosen naming
-  convention.
-
-  It MUST be either a permanent release trunk or a temporary
+  convention: it MUST be either a permanent release trunk or a temporary
   `release/<version>` branch, matching
   `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
-- The release branch points to the `ready` tip from which it was cut.
+- The release branch MUST point to the `ready` tip from which it was cut,
+  and releases MUST NOT originate from `dev` or `test`.
 
-  Releases MUST NOT originate from `dev` or `test`.
+- The release MUST be tagged: an annotated `v<version>` tag (eg. `v1.2.0`)
+  MUST mark the release, and version tags are treated as permanent.
 
-- The release MUST be tagged.
-
-  An annotated `v<version>` tag (eg. `v1.2.0`) MUST mark the release,
-  and version tags are treated as permanent.
-
-- The changelog MUST be promoted, where the project keeps one.
-
-  Its unreleased section MUST be promoted to the version and date, a fresh
+- The changelog MUST be promoted, where the project keeps one: its
+  unreleased section MUST be promoted to the version and date, a fresh
   empty unreleased section MUST be opened above it, and this MUST land in
   the `release:` commit.
 
-- Artifacts MUST live outside Git.
+- Artifacts MUST live outside Git: compiled artifacts MUST be shipped to
+  an external registry (Docker, npm, PyPI, S3, …) and referenced by tag —
+  never committed to the repository.
 
-  Compiled artifacts MUST be shipped to an external registry (Docker,
-  npm, PyPI, S3, …) and referenced by tag — never committed to the
-  repository.
+- No fix MUST have been committed to a release branch: any correction MUST
+  flow `dev` → `ready` → a new release branch, and release branches carry
+  only release-preparation commits.
 
-- No fix MUST have been committed to a release branch.
-
-  Any correction MUST flow `dev` → `ready` → a new release branch;
-  release branches carry only release-preparation commits.
-
-- A `release/<version>` branch, if used, MUST be deleted after tagging
-  and a successful deployment pipeline.
-
-  The release trunk MUST remain intact.
+- A `release/<version>` branch, if used, MUST be deleted after tagging and
+  a successful deployment pipeline, and the release trunk MUST remain
+  intact.
 
 ## Instructions
 

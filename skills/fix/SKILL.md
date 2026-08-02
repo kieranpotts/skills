@@ -40,30 +40,23 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The build, compile, lint, or type-check passes; the reported breakage is
-  resolved at its source, or explicitly suppressed with a recorded
+- The build, compile, lint, or type-check MUST pass; the reported breakage
+  MUST be resolved at its source, or explicitly suppressed with a recorded
   justification.
 
-- No unrelated behavior change.
+- No unrelated behavior change MUST have been introduced.
 
-- The check MUST exit zero.
+- The check MUST exit zero: re-running the exact command that originally
+  failed MUST now pass, with no remaining violations.
 
-  Re-running the exact command that originally failed MUST now pass,
-  with no remaining violations.
+- No new issues MUST have been introduced — the full set of checks, not
+  just the one that originally failed, MUST pass after the change.
 
-- No new issues MUST have been introduced.
+- Every suppression MUST state a reason: `grep` for suppression directives
+  in the diff, and each one MUST have an inline justification.
 
-  The full set of checks — not just the one that originally failed — MUST
-  pass after the change.
-
-- Every suppression MUST state a reason.
-
-  `grep` for suppression directives in the diff; each one MUST have an
-  inline justification.
-
-- The commit MUST be scoped to the fix.
-
-  No unrelated feature or `style:` changes MUST be bundled in.
+- The commit MUST be scoped to the fix — no unrelated feature or `style:`
+  changes MUST be bundled in.
 
 ## Instructions
 

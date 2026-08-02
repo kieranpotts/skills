@@ -43,47 +43,40 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The target branch updated with the integrated work using the strategy
-  correct for the branch type, conflicts resolved deliberately, tests and
-  build green on the merged result before push, and disposable source
-  branches (`temp/*`, `epic/*`) deleted locally and remotely once landed.
+- The target branch MUST be updated with the integrated work using the
+  strategy correct for the branch type, conflicts resolved deliberately,
+  tests and build green on the merged result before push, and disposable
+  source branches (`temp/*`, `epic/*`) deleted locally and remotely once
+  landed.
 
-- The skill integrates and stops; it neither defines the branching
-  convention nor cuts releases.
+- The skill MUST integrate and stop; it MUST NOT define the branching
+  convention or cut releases.
 
 - The merged history on the target branch MUST reflect the chosen
-  strategy.
+  strategy: `temp/*` branches land via rebase-up + fast-forward, `epic/*`
+  branches land via squash-merge, and trunk promotions land via
+  fast-forward only.
 
-  `temp/*` branches land via rebase-up + fast-forward, `epic/*` branches
-  land via squash-merge, and trunk promotions land via fast-forward
-  only.
+- The merged result MUST build and test green before push, verified
+  locally, not assumed from CI.
 
-- The merged result MUST build and test green before push.
+- Trunk history MUST be linear after a trunk merge — `git log --oneline
+  --graph` MUST show no merge bubbles on `dev`, `test`, `ready`, or
+  release.
 
-  Verified locally, not assumed from CI.
-
-- Trunk history MUST be linear after a trunk merge.
-
-  `git log --oneline --graph` shows no merge bubbles on `dev`, `test`,
-  `ready`, or release.
-
-- All conflicts MUST have been resolved deliberately.
-
-  No `-X ours`, no `-X theirs`, no skipped hooks. Each resolution was
+- All conflicts MUST have been resolved deliberately: no `-X ours`, no
+  `-X theirs`, no skipped hooks, and each resolution MUST have been
   reviewed.
 
-- The source branch MUST be deleted after integration.
+- The source branch MUST be deleted after integration — `temp/*` and
+  `epic/*` MUST be gone locally and remotely once landed.
 
-  `temp/*` and `epic/*` are gone locally and remotely once landed.
-
-- Trunk branches MUST remain intact.
-
-  No trunk branch was deleted during clean-up.
+- Trunk branches MUST remain intact; no trunk branch MUST have been
+  deleted during clean-up.
 
 - For `epic/*` → `dev`: the changelog MUST be updated in a pre-merge
-  commit on the epic branch, where the project keeps one.
-
-  Its unreleased section MUST contain an entry for the epic's changes,
+  commit on the epic branch, where the project keeps one, and its
+  unreleased section MUST contain an entry for the epic's changes,
   committed to the `epic/*` branch before the squash-merge.
 
 - No conflict markers MUST remain in the merged result.

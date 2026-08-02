@@ -57,62 +57,51 @@ environment do not settle it.
 
 You will achieve the following outcomes:
 
-- The requirements filed into the project's specification store as testable
-  acceptance criteria, following that store's own conventions, and left at
-  whatever state that store uses for "awaiting review" — awaiting the user's
-  review and approval.
+- The requirements MUST be filed into the project's specification store as
+  testable acceptance criteria, following that store's own conventions, and
+  left at whatever state that store uses for "awaiting review" — awaiting
+  the user's review and approval.
 
-- The store MUST have been discovered, not assumed.
-
-  The location and access method MUST trace to session context, to the
-  environment, or to an answer from the user. No path, file name, or
-  document structure MUST have been taken for granted.
+- The store MUST have been discovered, not assumed: the location and access
+  method MUST trace to session context, to the environment, or to an answer
+  from the user, and no path, file name, or document structure MUST have
+  been taken for granted.
 
 - The requirements MUST reach the store's "awaiting review" state via that
-  store's own procedure.
+  store's own procedure — on a valid PRD, the skill MUST leave the change
+  filed and open for review, created by carrying out the scaffold → author →
+  mark-ready procedure the store defines for itself, and the format and
+  lifecycle rules MUST be read from the store, not from this skill.
 
-  On a valid PRD, the skill MUST leave the change filed and open for
-  review, created by carrying out the scaffold → author → mark-ready
-  procedure the store defines for itself. The format and lifecycle rules
-  MUST be read from the store, not from this skill.
+- The user MUST be told the specification awaits their approval: the closing
+  message MUST state that the requirements are filed and awaiting review,
+  need the user's approval, and that the design phase MUST NOT begin until
+  the specification is approved, and whatever the store produced MUST be
+  linked.
 
-- The user MUST be told the specification awaits their approval.
+- The specification MUST conform to the store's content rules: the authored
+  artifacts MUST follow the target store's format and conventions —
+  acceptance criteria in the prescribed form, non-functional requirements as
+  that store requires — and implementation detail MUST NOT leak in.
 
-  The closing message MUST state that the requirements are filed and
-  awaiting review, need the user's approval, and that the design phase MUST
-  NOT begin until the specification is approved. Whatever the store
-  produced MUST be linked.
+- Functional and non-functional requirements MUST both be present, and even
+  if the NFR section is "no new NFRs — inherits from system baseline", it
+  MUST be stated explicitly.
 
-- The specification MUST conform to the store's content rules.
+- Out-of-scope items MUST be named: the specification MUST include an
+  explicit list of deferred features and adjacent functionality not under
+  review.
 
-  The authored artifacts MUST follow the target store's format and
-  conventions — acceptance criteria in the prescribed form, non-functional
-  requirements as that store requires, and implementation detail MUST NOT
-  leak in.
-
-- Functional and non-functional requirements MUST both be present.
-
-  Even if the NFR section is "no new NFRs — inherits from system
-  baseline", it MUST be stated explicitly.
-
-- Out-of-scope items MUST be named.
-
-  The specification MUST include an explicit list of deferred features
-  and adjacent functionality not under review.
-
-- The user, goal, and value MUST be carried from the PRD.
-
-  Each feature block MUST name who it is for, what they achieve, and
-  why — traceable to the PRD's outcome and stakeholders.
+- The user, goal, and value MUST be carried from the PRD: each feature block
+  MUST name who it is for, what they achieve, and why — traceable to the
+  PRD's outcome and stakeholders.
 
 - The store's readiness bar MUST be satisfied, or the PRD MUST have been
   rejected for the gap.
 
-- An incomplete PRD MUST be rejected, not patched.
-
-  When the PRD lacks substantive content, the output MUST be an
-  itemized rejection naming the gaps. Nothing MUST be written to the
-  store.
+- An incomplete PRD MUST be rejected, not patched: when the PRD lacks
+  substantive content, the output MUST be an itemized rejection naming the
+  gaps, and nothing MUST be written to the store.
 
 ## Instructions
 

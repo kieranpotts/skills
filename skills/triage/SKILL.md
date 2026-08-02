@@ -47,24 +47,22 @@ environment do not settle them.
 
 You will achieve the following outcomes:
 
-- A recommended classification per issue, applied as the outcome once the
-  maintainer confirms — a label change, an agent brief (problem statement,
-  repro, acceptance criteria, likely files, out-of-scope, AI disclaimer), a
-  needs-info request, or a durably-captured wontfix rationale.
+- A recommended classification per issue MUST be produced, applied as the
+  outcome once the maintainer confirms — a label change, an agent brief
+  (problem statement, repro, acceptance criteria, likely files,
+  out-of-scope, AI disclaimer), a needs-info request, or a
+  durably-captured wontfix rationale.
 
-- Nothing was implemented. The fix, and the specification that follows,
-  were left to the caller.
+- Nothing MUST have been implemented: the fix, and the specification that
+  follows, MUST be left to the caller.
 
 - Every triaged issue MUST carry one category and one state label.
 
-- State transitions MUST follow the machine.
+- State transitions MUST follow the machine, and unusual transitions MUST
+  be flagged, not silently performed.
 
-  Unusual transitions MUST be flagged, not silently performed.
-
-- `ready-for-agent` issues MUST have a brief.
-
-  Problem statement, ACs, files likely involved, and explicit
-  out-of-scope items.
+- `ready-for-agent` issues MUST have a brief: a problem statement, ACs,
+  files likely involved, and explicit out-of-scope items.
 
 - `wontfix` enhancement closures MUST be captured durably, wherever this
   project records rejected ideas.

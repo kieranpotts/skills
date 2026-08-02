@@ -59,43 +59,33 @@ not settle it.
 
 You will achieve the following outcomes:
 
-- A decomposition-ready design — every open decision resolved or explicitly
-  deferred, terms reconciled with the project's glossary, code-versus-design
-  contradictions surfaced, and qualifying decisions captured in the
-  project's decision store.
+- The design MUST be decomposition-ready: every open decision resolved or
+  explicitly deferred, terms reconciled with the project's glossary,
+  code-versus-design contradictions surfaced, and qualifying decisions
+  captured in the project's decision store.
 
-- Nothing beyond the sharpened design was produced. Decomposition and
-  implementation were left to the caller.
+- Nothing beyond the sharpened design MUST have been produced —
+  decomposition and implementation MUST be left to the caller.
 
 - Every open decision in the draft MUST be resolved or deferred with a
-  stated reason.
-
-  Nothing left dangling in the "we'll figure that out later" pile
-  without "later" being named.
+  stated reason, and nothing MUST be left dangling in the "we'll figure
+  that out later" pile without "later" being named.
 
 - Each question MUST have been asked one at a time, with a recommended
-  answer.
+  answer — no batched questions, no open-ended prompts without a lean.
 
-  No batched questions, no open-ended prompts without a lean.
-
-- Terms used in the conversation MUST match the glossary.
-
-  Either they already did, or the glossary was updated inline
-  as they were resolved.
+- Terms used in the conversation MUST match the glossary: either they
+  already did, or the glossary was updated inline as they were resolved.
 
 - Contradictions between stated design and existing code MUST have been
-  surfaced.
+  surfaced, not glossed over or assumed away.
 
-  Not glossed, not assumed away.
+- Decisions that meet the three-criteria filter MUST have become ADRs;
+  decisions that did not, did not.
 
-- Decisions that meet the three-criteria filter MUST have become ADRs.
-
-  Decisions that did not, did not.
-
-- The output MUST be decomposition-ready.
-
-  A reader can pick up the design and break it into steps without
-  re-asking the questions this skill resolved.
+- The output MUST be decomposition-ready: a reader MUST be able to pick up
+  the design and break it into steps without re-asking the questions this
+  skill resolved.
 
 ## Instructions
 

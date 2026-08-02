@@ -52,52 +52,44 @@ asking one question at a time and waiting for the answer before proceeding.
 
 You will achieve the following outcomes:
 
-- A new or modified PRD in business language, covering outcomes,
-  stakeholders, scope, rules, examples, non-functional requirements,
-  assumptions, and open questions.
+- The skill MUST produce a new or modified PRD in business language,
+  covering outcomes, stakeholders, scope, rules, examples, non-functional
+  requirements, assumptions, and open questions.
 
-- The PRD enforces completeness by having a counter-example for every rule,
-  an explicit out-of-scope list, non-functional requirements explicitly
-  recorded (even if none), and blocking questions resolved.
+- The PRD MUST enforce completeness by having a counter-example for every
+  rule, an explicit out-of-scope list, non-functional requirements
+  explicitly recorded (even if none), and blocking questions resolved.
 
-- Technical implementation and validation details are out-of-scope — this is
-  not a specification or design document. This skill produces the PRD and
-  stops.
+- Technical implementation and validation details MUST be out-of-scope —
+  this is not a specification or design document; this skill MUST produce
+  the PRD and stop.
 
-- It does NOT file the PRD in any workflow repository, and it does NOT
-  translate the rules and examples into testable acceptance criteria. These
-  are separate downstream responsibilities.
+- It MUST NOT file the PRD in any workflow repository, and it MUST NOT
+  translate the rules and examples into testable acceptance criteria —
+  these are separate downstream responsibilities.
 
-- Every rule MUST have at least one example AND one counter-example.
-
-  A rule without a counter-example is not ready to specify from — its
+- Every rule MUST have at least one example AND one counter-example — a
+  rule without a counter-example is not ready to specify from, since its
   boundaries are unclear.
 
-- Scope MUST be explicit in both directions.
+- Scope MUST be explicit in both directions: the out-of-scope list MUST be
+  non-empty, since discovery without explicit exclusions hides ambiguity.
 
-  The out-of-scope list MUST be non-empty. Discovery without explicit
-  exclusions hides ambiguity.
+- Assumptions MUST be flagged as assumptions: a statement of confidence
+  without a source MUST NOT survive in Rules — it MUST have been moved to
+  Assumptions if the customer did not directly say it.
 
-- Assumptions MUST be flagged as assumptions.
+- Open questions MUST name their owners: each unanswered question MUST
+  identify who should answer it next.
 
-  A statement of confidence without a source MUST NOT survive in Rules —
-  it MUST have been moved to Assumptions if the customer did not
-  directly say it.
-
-- Open questions MUST name their owners.
-
-  Each unanswered question MUST identify who should answer it next.
-
-- Non-functional requirements MUST be recorded, even if none.
-
-  The Non-functional requirements section MUST state measurable targets
-  where they exist, or "None known" — it MUST NOT be left blank, which a
+- Non-functional requirements MUST be recorded, even if none: the
+  Non-functional requirements section MUST state measurable targets where
+  they exist, or "None known" — it MUST NOT be left blank, which a
   downstream step would read as an omission.
 
-- The PRD MUST read in business language.
-
-  A non-technical reader MUST be able to follow every sentence. No code,
-  no API names, no schema details.
+- The PRD MUST read in business language: a non-technical reader MUST be
+  able to follow every sentence, with no code, no API names, no schema
+  details.
 
 ## Instructions
 

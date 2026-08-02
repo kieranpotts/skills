@@ -37,41 +37,33 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A branch with each open comment implemented as a minimal, verified code
-  change; each thread replied to and marked resolved; the fixes committed
-  and pushed.
+- A branch MUST exist with each open comment implemented as a minimal,
+  verified code change, each thread replied to and marked resolved, and
+  the fixes committed and pushed.
 
-- Any comment that could not be honestly actioned is left open and reported
-  with a reason.
+- Any comment that could not be honestly actioned MUST be left open and
+  reported with a reason.
 
-- The verified change is ready for acceptance testing. What runs next was
-  left to the caller.
+- The verified change MUST be ready for acceptance testing; what runs next
+  is left to the caller.
 
-- Every open comment MUST be dispositioned.
+- Every open comment MUST be dispositioned: each unresolved comment MUST
+  be either resolved (fixed, verified, replied, marked resolved) or
+  surfaced as blocked with a reason, and none MUST be silently skipped.
 
-  Each unresolved comment MUST be either resolved (fixed, verified,
-  replied, marked resolved) or surfaced as blocked with a reason. None
-  MUST be silently skipped.
+- Every resolution MUST be verified: no thread MUST be marked resolved
+  without a passing test or a run of the existing tests over the touched
+  code.
 
-- Every resolution MUST be verified.
+- Every resolved thread MUST have a reply, stating what changed and
+  where, so the reviewer can confirm it without re-reading the diff.
 
-  No thread MUST be marked resolved without a passing test or a run of
-  the existing tests over the touched code.
+- The diff MUST be minimal: each change MUST answer a specific comment,
+  with no scope creep and no unrequested refactors.
 
-- Every resolved thread MUST have a reply.
-
-  Stating what changed and where, so the reviewer can confirm it without
-  re-reading the diff.
-
-- The diff MUST be minimal.
-
-  Each change MUST answer a specific comment. No scope creep, no
-  unrequested refactors.
-
-- Resolution work MUST be committed and pushed.
-
-  In its own commit(s), separate from the original implementation, with
-  the branch pushed so re-review and CI see the fixes.
+- Resolution work MUST be committed and pushed, in its own commit(s),
+  separate from the original implementation, with the branch pushed so
+  re-review and CI see the fixes.
 
 ## Instructions
 

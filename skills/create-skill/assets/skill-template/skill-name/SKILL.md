@@ -50,13 +50,13 @@ how to access it, when context and environment do not settle it. -->
 
 You will achieve the following outcomes:
 
-- [An artifact that exists, named and located.]
+- [An artifact MUST exist, named and located.]
 
-- [A state that holds, stated so it can be checked.]
+- [A state MUST hold, stated so it can be checked.]
 
-- [A deterministic check that passes — a linter, a validator, a command.]
+- [A deterministic check MUST pass — a linter, a validator, a command.]
 
-- [A boundary that was respected: what the skill did NOT touch.]
+- [A boundary MUST have been respected: what the skill did NOT touch.]
 
 ## Instructions
 

@@ -53,46 +53,38 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The answer, durably captured — a measurement, observable behavior, or
-  working integration, recorded so it is reproducible from the notes alone,
-  and landed in the appropriate artifact (an ADR or design-doc update, a
-  revision to acceptance criteria, or a decision-log note).
+- The answer MUST be durably captured — a measurement, observable behavior,
+  or working integration, recorded so it is reproducible from the notes
+  alone, and landed in the appropriate artifact (an ADR or design-doc
+  update, a revision to acceptance criteria, or a decision-log note).
 
-- The spike code is thrown away or quarantined in a clearly-marked throwaway
-  location, never promoted.
+- The spike code MUST be thrown away or quarantined in a clearly-marked
+  throwaway location, never promoted.
 
-- Nothing beyond the answer was done. Resuming the design, revising the
-  specification, and any production re-implementation were left to the
-  caller.
+- Nothing beyond the answer MUST have been done: resuming the design,
+  revising the specification, and any production re-implementation MUST be
+  left to the caller.
 
-- A single falsifiable question MUST be stated up front.
+- A single falsifiable question MUST be stated up front, not a topic and not
+  an area to explore.
 
-  Not a topic, not an area to explore.
+- The closing evidence MUST be defined before any code is written: a
+  numerical threshold, observable behavior, or working integration.
 
-- The closing evidence MUST be defined before any code is written.
+- A time-box MUST be set and respected — hours or days — and reaching the
+  box MUST end the spike, even if the answer is incomplete.
 
-  Numerical threshold, observable behavior, working integration.
+- Production concerns MUST be absent from the code: there MUST be no tests,
+  no error handling, no auth, and no abstractions beyond what the question
+  requires.
 
-- A time-box MUST be set and respected.
+- The findings MUST be captured durably, in whichever of the project's own
+  stores owns that kind of answer — somewhere it survives after the code is
+  gone — and the store MUST have been discovered, not assumed.
 
-  Hours or days. Reaching the box MUST end the spike, even if the
-  answer is incomplete.
-
-- Production concerns MUST be absent from the code.
-
-  There MUST be no tests, no error handling, no auth, no
-  abstractions beyond what the question requires.
-
-- The findings MUST be captured durably.
-
-  In whichever of the project's own stores owns that kind of answer —
-  somewhere it survives after the code is gone. The store MUST have been
-  discovered, not assumed.
-
-- The code MUST be disposed of or quarantined.
-
-  Deleted, or moved to a clearly-marked throwaway location with a
-  README. It MUST NOT be merged into production paths.
+- The code MUST be disposed of or quarantined: deleted, or moved to a
+  clearly-marked throwaway location with a README, and it MUST NOT be
+  merged into production paths.
 
 ## Instructions
 

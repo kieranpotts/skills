@@ -42,36 +42,29 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The same files with presentation-only edits applied (whitespace,
-  indentation, wrapping, quotes, ordering), behavior and structure provably
-  unchanged, ideally via the project's automated formatter, ready to commit
-  under a `style:` commit.
+- The same files MUST have presentation-only edits applied (whitespace,
+  indentation, wrapping, quotes, ordering), with behavior and structure
+  provably unchanged, ideally via the project's automated formatter, ready
+  to commit under a `style:` commit.
 
-- This skill normalizes presentation and stops; it makes no structural or
-  behavioral change.
+- This skill MUST normalize presentation and stop; it MUST make no
+  structural or behavioral change.
 
-- External behavior MUST be unchanged.
+- External behavior MUST be unchanged: tests MUST pass after the style
+  pass, and `git diff -w` between pre and post MUST show no changes.
 
-  Tests MUST pass after the style pass. `git diff -w` between pre and
-  post MUST show no changes.
+- The diff MUST contain only presentation changes: there MUST be no
+  renames, no logic edits, and no structural moves.
 
-- The diff MUST contain only presentation changes.
+- The commit MUST be a single `style:` commit per scope: there MUST be no
+  bundled feature, fix, refactor, or config changes.
 
-  There MUST be no renames, no logic edits, no structural moves.
+- The formatter, if any, MUST have been used as configured: it MUST NOT be
+  hand-edited around the formatter, and it MUST NOT be run with
+  non-standard options.
 
-- The commit MUST be a single `style:` commit per scope.
-
-  There MUST be no bundled feature, fix, refactor, or config changes.
-
-- The formatter, if any, MUST have been used as configured.
-
-  It MUST NOT be hand-edited around the formatter. It MUST NOT be run
-  with non-standard options.
-
-- Tooling gap, if any, MUST be captured.
-
-  If hand-formatting was necessary, a follow-up `maintenance:` task
-  MUST exist to add or fix the automation.
+- Tooling gap, if any, MUST be captured: if hand-formatting was necessary, a
+  follow-up `maintenance:` task MUST exist to add or fix the automation.
 
 ## Instructions
 

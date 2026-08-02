@@ -54,43 +54,37 @@ settle it.
 
 You will achieve the following outcomes:
 
-- A numbered checklist of small steps, each independently mergeable,
-  testable, and reversible, ordered riskiest-first, with a mode tag
-  (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency, and
-  any flag, fixture, or migration named where used.
+- The plan MUST be a numbered checklist of small steps, each independently
+  mergeable, testable, and reversible, ordered riskiest-first, with a mode
+  tag (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency,
+  and any flag, fixture, or migration named where used.
 
-- The plan is reported as the artifact and the skill stops; it writes no
-  code itself.
+- The plan MUST be reported as the artifact and the skill MUST stop; it
+  MUST write no code itself.
 
 - The plan MUST be a numbered checklist of steps.
 
-- Every step MUST be independently mergeable, testable, and reversible.
-
-  Re-read each step with that filter. Anything that fails the filter MUST
-  be split.
+- Every step MUST be independently mergeable, testable, and reversible —
+  re-read each step with that filter, and anything that fails the filter
+  MUST be split.
 
 - Each step SHOULD be reviewable in under 30 minutes, and certainly under
   one working day.
 
-- The first step MUST be the thinnest plausible end-to-end slice.
+- The first step MUST be the thinnest plausible end-to-end slice — not the
+  easiest, not the most polished, the thinnest.
 
-  Not the easiest. Not the most polished. The thinnest.
+- Riskier steps MUST come before easier ones; front-loaded risk is a
+  feature of a good plan, not a flaw.
 
-- Riskier steps MUST come before easier ones.
-
-  Front-loaded risk is a feature of a good plan, not a flaw.
-
-- Each step MUST have a stated pass/fail signal.
-
-  A test name, a curl command, a metric threshold — something
-  observable.
+- Each step MUST have a stated pass/fail signal: a test name, a curl
+  command, a metric threshold — something observable.
 
 - Each step MUST include a mode tag (`HITL` or `AFK`), any prior-step
   dependency, and any flag, fixture, or migration involved.
 
-- Step descriptions MUST be tight.
-
-  The plan MUST NOT substitute for the design document.
+- Step descriptions MUST be tight; the plan MUST NOT substitute for the
+  design document.
 
 - If the plan is a single step, the output MUST say so explicitly and
   direct the caller to proceed with implementation rather than returning

@@ -46,38 +46,31 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A correctly-named branch created from the right base, or a pass/fail
-  verdict on the supplied names with the specific rule each one violates.
-  This skill names and validates branches and stops; it does not merge, cut
-  releases, or author commit messages.
+- The outcome MUST be either a correctly-named branch created from the right
+  base, or a pass/fail verdict on the supplied names with the specific rule
+  each one violates; this skill names and validates branches and stops, and
+  it MUST NOT merge, cut releases, or author commit messages.
 
-- The branch name MUST validate against the model.
-
-  It MUST match
+- The branch name MUST validate against the model: it MUST match
   `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
   — one of the three trunks, or a `temp/` or `epic/` branch with a
   kebab-case description.
 
-- The name MUST be well-formed.
+- The name MUST be well-formed: it MUST be full lowercase, hyphen-delimited,
+  with no underscores or spaces, and within the length budget (≤50
+  characters RECOMMENDED, ≤72 MUST) for `temp/*` and `epic/*` branches.
 
-  It MUST be full lowercase, hyphen-delimited, with no underscores or spaces,
-  and within the length budget (≤50 characters RECOMMENDED, ≤72 MUST) for
-  `temp/*` and `epic/*` branches.
+- The branch type MUST fit the work — `temp/*` MUST be used for a short,
+  single-focus change, and `epic/*` MUST be used for long-lived,
+  multi-contributor work that cannot be continuously integrated; a change of
+  one or two commits needs no branch beyond `dev`.
 
-- The branch type MUST fit the work.
+- `temp/*` and `epic/*` branches MUST be cut from `dev`, and they MUST NOT
+  be cut from `test`, `ready`, or a release branch.
 
-  `temp/*` MUST be used for a short, single-focus change; `epic/*` for
-  long-lived, multi-contributor work that cannot be continuously integrated.
-  A change of one or two commits needs no branch beyond `dev`.
-
-- `temp/*` and `epic/*` branches MUST be cut from `dev`.
-
-  They MUST NOT be cut from `test`, `ready`, or a release branch.
-
-- Changes MUST flow forward only.
-
-  Work MUST originate on `dev` and flow through `test` → `ready`; a fix MUST
-  NOT be committed directly to a downstream trunk.
+- Changes MUST flow forward only: work MUST originate on `dev` and flow
+  through `test` → `ready`, and a fix MUST NOT be committed directly to a
+  downstream trunk.
 
 ## Instructions
 

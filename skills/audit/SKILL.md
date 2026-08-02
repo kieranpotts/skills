@@ -60,35 +60,28 @@ not settle it.
 
 You will achieve the following outcomes:
 
-- An artifact capturing candidates for architecture improvements, each
-  candidate citing specific files and lines, stating what is observed and
-  the cost it imposes.
+- The report MUST be an artifact capturing candidates for architecture
+  improvements, and each candidate MUST cite specific files and lines,
+  stating what is observed and the cost it imposes.
 
-- The report is written to the audit store, following whatever conventions
-  that store defines for itself.
+- The report MUST be written to the audit store, following whatever
+  conventions that store defines for itself.
 
-- Exactly one report MUST exist for this audit.
+- Exactly one report MUST exist for this audit, and any scaffold already
+  present for this scope MUST have been written into, not duplicated.
 
-  Any scaffold already present for this scope MUST have been written into,
-  not duplicated.
+- The audit store MUST have been discovered, not assumed: its location and
+  access method MUST trace to session context, to the environment, or to an
+  answer from the user, and no path, file name, or report structure MUST
+  have been taken for granted.
 
-- The audit store MUST have been discovered, not assumed.
+- The report MUST cite a specific file for every finding — each finding MUST
+  name a module/file path and a concrete observation, and vague platitudes
+  like "the API layer is messy" MUST NOT appear in your report.
 
-  Its location and access method MUST trace to session context, to the
-  environment, or to an answer from the user. No path, file name, or report
-  structure MUST have been taken for granted.
-
-- The report MUST cite a specific file for every finding.
-
-  Each finding MUST name a module/file path and a concrete observation.
-
-  Vague platitudes like "the API layer is messy" MUST NOT appear in your
-  report.
-
-- Findings MUST be prioritized.
-
-  Each finding MUST carry a priority of `HIGH`, `MEDIUM`, or `LOW`,
-  calculated based on your assessment of the impact and effort.
+- Findings MUST be prioritized: each finding MUST carry a priority of
+  `HIGH`, `MEDIUM`, or `LOW`, calculated based on your assessment of the
+  impact and effort.
 
 ## Instructions
 

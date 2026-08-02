@@ -56,52 +56,45 @@ not settle it.
 
 You will achieve the following outcomes:
 
-- A recommended design — the chosen option with its evaluation against the
-  nine qualities, the rejected alternatives and why, and the decision
-  captured durably in the project's decision store.
+- The skill MUST produce a recommended design — the chosen option with its
+  evaluation against the nine qualities, the rejected alternatives and why,
+  and the decision captured durably in the project's decision store.
 
 - Where a design question could not be answered by reasoning alone, a
-  time-boxed prototype produced the evidence that fed back into the
-  evaluation.
+  time-boxed prototype MUST have produced the evidence that fed back into
+  the evaluation.
 
-- Nothing beyond the design was produced. Decomposition into steps and
-  implementation were left to the caller.
+- Nothing beyond the design MUST be produced — decomposition into steps and
+  implementation MUST be left to the caller.
 
 - The entry gate MUST have been checked: the specification is approved.
+  Design MUST proceed only against an approved specification, and if the
+  specification was unapproved or merely proposed, the skill MUST have
+  stopped and sent the user to approve it first.
 
-  Design MUST proceed only against an approved specification.
-  If the specification was unapproved or merely proposed, the skill MUST
-  have stopped and sent the user to approve it first.
+- The constraints MUST be written down: functional ACs, NFRs,
+  existing-system shape, and budget MUST be explicit before any option is
+  enumerated.
 
-- The constraints MUST be written down.
+- Each decision point MUST have 2-4 evaluated alternatives, and no decision
+  MUST be presented as the only option.
 
-  Functional ACs, NFRs, existing-system shape, and budget MUST be explicit
-  before any option is enumerated.
-
-- Each decision point MUST have 2-4 evaluated alternatives.
-
-  No decision MUST be presented as the only option.
-
-- Each option MUST have been evaluated against the nine qualities.
-
-  Not every quality needs detailed treatment for every option, but the
+- Each option MUST have been evaluated against the nine qualities; not
+  every quality needs detailed treatment for every option, but the
   dominant qualities for the domain MUST be explicitly weighed.
 
-- The recommendation MUST name which qualities it prioritizes.
+- The recommendation MUST name which qualities it prioritizes — "We pick X
+  because it optimizes for Y and Z, accepting weaker W."
 
-  "We pick X because it optimizes for Y and Z, accepting weaker W."
+- The decision MUST be captured durably: written into the project's own
+  decision store, in that store's own form — somewhere a future reader can
+  find it without asking, and without a second copy of the rationale
+  existing anywhere else.
 
-- The decision MUST be captured durably.
-
-  Written into the project's own decision store, in that store's own form —
-  somewhere a future reader can find it without asking, and without a second
-  copy of the rationale existing anywhere else.
-
-- The stores MUST have been discovered, not assumed.
-
-  The location and access method for both the specification and the decision
-  store MUST trace to session context, to the environment, or to an answer
-  from the user.
+- The stores MUST have been discovered, not assumed: the location and
+  access method for both the specification and the decision store MUST
+  trace to session context, to the environment, or to an answer from the
+  user.
 
 ## Instructions
 

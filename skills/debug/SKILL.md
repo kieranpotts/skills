@@ -43,42 +43,34 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A verified fix landed with a regression test that locks the bug out, the
-  diagnostic instrumentation removed, and the correct cause recorded in the
-  commit or PR message for the next reader.
+- A verified fix MUST land with a regression test that locks the bug out,
+  the diagnostic instrumentation removed, and the correct cause recorded in
+  the commit or PR message for the next reader.
 
-- If no reliable feedback loop can be built, the skill stops and says so —
-  listing what it tried and what it needs — rather than guessing.
+- If no reliable feedback loop can be built, the skill MUST stop and say
+  so — listing what it tried and what it needs — rather than guessing.
 
-- A feedback loop MUST exist and MUST be recorded.
+- A feedback loop MUST exist and MUST be recorded: the exact command,
+  script, or test that reproduces the bug MUST be committed or pasted into
+  the PR/commit message, so a future debugger can re-run it.
 
-  The exact command, script, or test that reproduces the bug MUST be
-  committed or pasted into the PR/commit message. A future debugger can
-  re-run it.
+- The original repro MUST no longer reproduce — re-running the loop after
+  the fix MUST show the bug is gone.
 
-- The original repro MUST no longer reproduce.
+- A regression test MUST exist, or its absence MUST be documented: the test
+  MUST pass after the fix and fail when the fix is reverted, and if no
+  correct seam was available, that finding MUST be recorded.
 
-  Re-running the loop after the fix MUST show the bug is gone.
+- All tagged instrumentation MUST have been removed — `grep` for the debug
+  prefix MUST return zero hits in the committed code.
 
-- A regression test MUST exist, or its absence MUST be documented.
-
-  The test MUST pass after the fix and fail when the fix is reverted. If
-  no correct seam was available, that finding MUST be recorded.
-
-- All tagged instrumentation MUST have been removed.
-
-  `grep` for the debug prefix MUST return zero hits in the committed
-  code.
-
-- The correct hypothesis MUST be stated in the commit or PR message.
-
-  Future readers learn what the real cause was, not just what the fix
+- The correct hypothesis MUST be stated in the commit or PR message, so
+  future readers learn what the real cause was, not just what the fix
   changed.
 
-- The hypothesis set MUST be ranked and falsifiable.
-
-  The output MUST include 3-5 ranked hypotheses, each with a stated
-  prediction that could disprove it.
+- The hypothesis set MUST be ranked and falsifiable: the output MUST
+  include 3-5 ranked hypotheses, each with a stated prediction that could
+  disprove it.
 
 ## Instructions
 
