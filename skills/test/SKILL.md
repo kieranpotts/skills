@@ -275,7 +275,3 @@ You will achieve the following outcomes:
   Reported as an implementation defect for diagnosis. Test left in place; do
   not delete.
   ```
-
-## References
-
-None.

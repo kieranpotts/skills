@@ -216,7 +216,3 @@ You will achieve the following outcomes:
   convention is discoverable, you MUST NOT impose one.
 
   Report the inconsistency and let the author choose.
-
-## References
-
-None.

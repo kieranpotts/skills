@@ -352,7 +352,3 @@ documents them, not here. This skill validates the PRD, discovers the
 store, then carries out whatever scaffold → author → mark-ready procedure
 that store defines, to file the requirements in whatever format and process
 it prescribes.
-
-## References
-
-None.

@@ -346,7 +346,3 @@ You will achieve the following outcomes:
     - plan: add a "performance tightening" increment.
     - test: re-run perf suite against new threshold (currently FAIL).
   ```
-
-## References
-
-None.

@@ -397,8 +397,7 @@ you are building the report as you go.
 
 ## References
 
-- [TS-54: Threat
-  Modeling](https://github.com/kieranpotts/standards/tree/latest/dev/src/054):
+- [TS-54: Threat Modeling](https://github.com/kieranpotts/standards/tree/latest/dev/src/054):
   One documented instance of the method this skill follows — the workshop
   procedure, the decomposition model, the STRIDE/LINDDUN frameworks, and a
   rating scheme. Read it when the target store documents no method of its

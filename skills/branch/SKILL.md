@@ -247,7 +247,3 @@ You will achieve the following outcomes:
   epic/infra-migrate-kubernetes
   epic/major-ui-redesign
   ```
-
-## References
-
-None.

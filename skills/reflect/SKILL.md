@@ -270,7 +270,3 @@ You will achieve the following outcomes:
   steps for `user` / `feedback` / `project` / `reference` types.
 
   Flag the deferred candidates in the final report.
-
-## References
-
-None.

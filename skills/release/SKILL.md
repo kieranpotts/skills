@@ -219,7 +219,3 @@ You will achieve the following outcomes:
   v1.2.0
   v2.0.0
   ```
-
-## References
-
-None.

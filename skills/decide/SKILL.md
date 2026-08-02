@@ -288,7 +288,3 @@ You will achieve the following outcomes:
   material belongs in a design doc or delivery plan. Keep only the
   implementation detail that a reviewer needs in order to judge the
   decision.
-
-## References
-
-None.

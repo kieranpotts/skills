@@ -223,7 +223,3 @@ You will achieve the following outcomes:
   // eslint-disable-next-line no-explicit-any -- third-party SDK has no types; tracked in #482
   const client: any = createLegacyClient()
   ```
-
-## References
-
-None.

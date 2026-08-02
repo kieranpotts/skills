@@ -188,7 +188,3 @@ You will achieve the following outcomes:
   original need — it is a new requirement. You MUST note it as a
   follow-up, but MUST NOT smuggle it into the validation report as
   though the specification was wrong to omit it.
-
-## References
-
-None.

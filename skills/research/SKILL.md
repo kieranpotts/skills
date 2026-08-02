@@ -228,7 +228,3 @@ You will achieve the following outcomes:
 - If sources are paywalled or unreachable, you MUST note that they exist
   but could not be verified, and find an open alternative where one
   exists.
-
-## References
-
-None.

@@ -306,7 +306,3 @@ You will achieve the following outcomes:
   fix, not a refactor. Reverted the throw; opened a separate fix:
   commit and tracking issue. Resumed the refactor.
   ```
-
-## References
-
-None.

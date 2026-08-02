@@ -336,7 +336,3 @@ You will achieve the following outcomes:
   - Migration to a real queue is a known future cost; design the dispatch
     interface to make that swap straightforward.
     ```
-
-## References
-
-None.

@@ -277,7 +277,3 @@ answer shape the question that follows.
 
 - [Product requirements template](./assets/discover/product-requirements.template.md):
   The bundled PRD template to fill out in the final step.
-
-## References
-
-None.

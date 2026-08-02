@@ -340,7 +340,3 @@ You will achieve the following outcomes:
   captured in the out-of-scope record (linked) so future suggestions land on
   a reasoned reply rather than starting from scratch. Closing.
   ```
-
-## References
-
-None.

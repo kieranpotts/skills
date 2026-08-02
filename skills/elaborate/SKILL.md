@@ -304,7 +304,3 @@ You will achieve the following outcomes:
   A person or organization that places Orders.
   _Avoid_: Client, buyer, account.
   ```
-
-## References
-
-None.

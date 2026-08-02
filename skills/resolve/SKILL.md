@@ -248,7 +248,3 @@ You will achieve the following outcomes:
 
   1 of 2 resolved; 1 surfaced as blocked.
   ```
-
-## References
-
-None.

@@ -329,7 +329,3 @@ You will achieve the following outcomes:
 
   # Resolution: edit the caller to use the new name, stage, continue.
   ```
-
-## References
-
-None.

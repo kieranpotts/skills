@@ -313,7 +313,3 @@ You will achieve the following outcomes:
 
   Closes: #123
   ```
-
-## References
-
-None.

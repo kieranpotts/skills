@@ -372,7 +372,3 @@ You will achieve the following outcomes:
     Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
     on the Specification finding; Standards finding non-blocking.
     ```
-
-## References
-
-None.

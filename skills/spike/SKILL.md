@@ -303,7 +303,3 @@ You will achieve the following outcomes:
   Decision: rules out this vector DB for our cancellable-search workload.
   The design work resumes, evaluating the other two candidates.
   ```
-
-## References
-
-None.

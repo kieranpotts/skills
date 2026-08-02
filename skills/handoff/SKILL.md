@@ -226,7 +226,3 @@ You will achieve the following outcomes:
   Gotchas, environmental quirks, decisions that look obvious but
   weren't, dead-ends already explored that should not be re-tried.
   ```
-
-## References
-
-None.

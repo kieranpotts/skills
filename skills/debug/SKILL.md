@@ -337,7 +337,3 @@ You will achieve the following outcomes:
 
   Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before
   commit.
-
-## References
-
-None.

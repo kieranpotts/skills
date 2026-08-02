@@ -290,7 +290,3 @@ You will achieve the following outcomes:
 
   Refs: #482
   ```
-
-## References
-
-None.

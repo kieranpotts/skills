@@ -268,7 +268,3 @@ You will achieve the following outcomes:
     incompatibility on day 1 lets the team replan. Discovering it on day
     3, after the UI and copy work are merged, wastes that work.
     ```
-
-## References
-
-None.
