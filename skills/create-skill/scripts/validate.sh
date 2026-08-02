@@ -87,6 +87,7 @@ run_repo_checks() {
   # Sibling README.md is required (see create-skill SKILL.md success criteria).
   if [[ -f "${skill_dir}/README.md" ]]; then
     printf "  [PASS] README.md present\n" >&2
+    check_readme_sections "${skill_dir}/README.md" || failed=1
   else
     printf "  [FAIL] Missing sibling README.md\n" >&2
     failed=1
@@ -161,6 +162,58 @@ run_repo_checks() {
   fi
 
   check_preferred_model "${skill_md}" || failed=1
+
+  return "${failed}"
+}
+
+#
+# The human-facing README.md carries a fixed set of sections, in a fixed
+# order. 'Interactivity', 'How to invoke', 'Recommended models', and 'Related
+# skills' are required; 'Examples', 'Suggested workflows', and 'References'
+# are optional, but must sit in their canonical positions when present.
+#
+check_readme_sections() {
+  local readme="$1"
+  local failed=0
+  local canonical section found
+
+  canonical="$(printf '%s\n' \
+    'Interactivity' \
+    'How to invoke' \
+    'Examples' \
+    'Recommended models' \
+    'Suggested workflows' \
+    'Related skills' \
+    'References')"
+
+  # Tolerate extra spaces after the '##' marker, as elsewhere in this script.
+  found="$(grep -E '^## +' "${readme}" | sed -E 's/^## +//; s/[[:space:]]+$//')"
+
+  for section in 'Interactivity' 'How to invoke' 'Recommended models' 'Related skills'; do
+    if grep -qxF "${section}" <<<"${found}"; then
+      printf "  [PASS] README.md has '## %s'\n" "${section}" >&2
+    else
+      printf "  [FAIL] README.md is missing '## %s'\n" "${section}" >&2
+      failed=1
+    fi
+  done
+
+  # Every section must be a known one, and the sections that are present must
+  # appear in canonical order. Filtering the canonical list down to what was
+  # found gives the expected order to compare against.
+  local unknown
+  unknown="$(grep -vxF -f <(printf '%s\n' "${canonical}") <<<"${found}" || true)"
+  if [[ -n "${unknown}" ]]; then
+    printf "  [FAIL] README.md has unrecognized section(s): %s\n" \
+      "$(tr '\n' '/' <<<"${unknown}")" >&2
+    failed=1
+  elif [[ "${found}" == "$(grep -xF -f <(printf '%s\n' "${found}") <<<"${canonical}")" ]]; then
+    printf "  [PASS] README.md sections are in canonical order\n" >&2
+  else
+    printf "  [FAIL] README.md sections are out of order: %s\n" \
+      "$(tr '\n' '/' <<<"${found}")" >&2
+    failed=1
+  fi
 
   return "${failed}"
 }

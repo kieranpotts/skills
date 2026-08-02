@@ -14,7 +14,7 @@ The agent is instructed to ensure all artifacts pass the validator.
 
 ## Interactivity
 
-The agent is instructed to prompt the user for input to help it form the skill.
+The agent is instructed to prompt the user to help it form the skill.
 
 ## How to invoke
 
@@ -32,5 +32,5 @@ reasoning model when drafting a genuinely new skill from scratch.
 ## Related skills
 
 - **[reflect](../reflect/).** Draws lessons from an AI session, which can then
-  be used as the basis for new skills, persisting those learnings to disk
+  be used as the basis for new skills, so persisting those learnings to disk
   rather than relying on memory.

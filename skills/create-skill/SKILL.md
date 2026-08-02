@@ -77,7 +77,9 @@ You will achieve the following outcomes:
   physical lines, blank lines included. No section SHOULD be padded with
   detail that belongs in a `references/` file.
 
-- A `README.md` MUST exist alongside the `SKILL.md`.
+- A `README.md` MUST exist alongside the `SKILL.md`, and MUST carry the
+  `## Interactivity`, `## How to invoke`, `## Recommended models`, and
+  `## Related skills` sections, in the order set by the bundled template.
 
 - The validator MUST pass against the skill directory.
 
@@ -135,8 +137,12 @@ You will achieve the following outcomes:
 
     Use the [bundled template](./assets/skill-template/skill-name/README.md).
 
-    This is human-readable documentation. Describe what the skill does, how
-    to invoke it, and provide invocation examples.
+    This is human-readable documentation. Describe what the skill does,
+    whether it runs interactively, how to invoke it, what class of model it
+    warrants, and how it fits into surrounding workflows.
+
+    Keep the template's section order. Drop the sections marked OPTIONAL
+    where they have nothing to say.
 
 7.  Review the draft.
 
@@ -428,7 +434,7 @@ You will achieve the following outcomes:
 ## References
 
 - [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md):
-  Technical standard for formatting Markdown documents. Skills `*.md` files
+  Technical standard for formatting Markdown documents. Skill files
   MUST follow the formatting conventions described in this standard.
 
 - [Collision safety for bundled resources](./references/create-skill-collision-safety.md):
@@ -446,4 +452,3 @@ You will achieve the following outcomes:
 - [Interactive vs. non-interactive skills](./references/create-skill-interactive.md):
   Read when deciding whether a skill prompts the user mid-flow, and whether
   to declare `metadata.interactive: no` (default `yes`).
-````
