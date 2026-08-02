@@ -1,10 +1,10 @@
 ---
 name: audit
 description: >-
-  Evaluate the evolving architecture — modularity, consistency, coupling, etc.
+  Evaluate the evolving architecture for modularity, consistency, coupling, etc.
   Security and privacy is out-of-scope. Use this skill when the user says
-  something like "audit this codebase", "do an architectural audit", or "is the
-  design still sound?".
+  something like "audit this codebase", "do an architectural audit", or
+  "is the design still sound?".
 license: CC0-1.0
 metadata:
   interactive: no
@@ -13,11 +13,10 @@ metadata:
 
 # Audit
 
-Audit the as-built static structure (code plus data) of a software system.
-Report code smells and anti-patterns like shallow abstractions, tangled
-dependencies, single-caller wrappers, inverted dependencies, and misnamed
-abstractions. Uncover edge cases, such as uncommon failure modes, that are not
-handled gracefully.
+Audit the as-built static structure of a software system. Report code smells
+and anti-patterns like shallow abstractions, tangled dependencies, single-caller
+wrappers, inverted dependencies, and misnamed abstractions. Uncover edge cases,
+such as uncommon failure modes, that are not handled gracefully.
 
 This task is scoped to static review of code and data structures. Review of
 security and privacy is out-of-scope. Review of dynamic qualities observed at
@@ -27,61 +26,37 @@ runtime, such as latency and throughput, is also out-of-scope.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the user
+with an error message.
 
-- **The target codebase — REQUIRED.** Look in the user's last input prompt
-  for an explicit reference to a target path or URL to a code repository. If
-  a URL, clone the repository to a temporary directory. Otherwise, assume
-  the target is the code repository under which the current working
-  directory (cwd) sits. If the cwd is not part of a code repository, check
-  the nearest `AGENTS.md` for paths to all the projects in the current
-  workspace, else find all code repositories in nested subdirectories —
-  assume they are all components of the target codebase. If the target
-  codebase cannot be found, stop and alert the user.
+- **Target codebase — REQUIRED.** Determine the path or URL of the codebase
+  that will be the subject of your audit. If a URL, clone the repository to
+  a temporary local directory. If the codebase location is not explicitly
+  defined, look in the environment. If the current working directory (cwd) is
+  within a code repository, assume that is the target codebase.
 
-- **Where the audit store lives, and how to write to it — REQUIRED.**
-  Discover this rather than assuming it: check this session's context first,
-  then the environment (a convention file such as `AGENTS.md`, a workspace
-  manifest, a directory that plainly holds audit reports, a configured
-  connector). If neither settles it, ask the user. The store MAY be a
-  directory in this repository, a separate repository, or an external
-  service such as a wiki — do not assume a filesystem path, a file name, or
-  a report structure.
-
-This task otherwise runs non-interactively to completion. You MUST NOT
-prompt the user about the substance of the audit; if in doubt about that,
-stop and print an error message. You MAY prompt solely to establish where
-the audit store is and how to write to it, when context and environment do
-not settle it.
+- **Audit reports store — REQUIRED.** The audit reports may be saved to a
+  directory within the target codebase, a separate repository, or an external
+  service such as a wiki.
 
 ## Success criteria
 
 You will achieve the following outcomes:
 
 - The report MUST be an artifact capturing candidates for architecture
-  improvements, and each candidate MUST cite specific files and lines,
-  stating what is observed and the cost it imposes.
+  improvements.
+
+- Each candidate MUST cite specific files and lines, stating what is observed
+  and the cost it imposes.
+
+- Vague platitudes like "the API layer is messy" MUST NOT appear in your report.
 
 - The report MUST be written to the audit store, following whatever
   conventions that store defines for itself.
 
-- Exactly one report MUST exist for this audit, and any scaffold already
-  present for this scope MUST have been written into, not duplicated.
+- Exactly one report MUST exist for this audit.
 
-- The audit store MUST have been discovered, not assumed: its location and
-  access method MUST trace to session context, to the environment, or to an
-  answer from the user, and no path, file name, or report structure MUST
-  have been taken for granted.
-
-- The report MUST cite a specific file for every finding — each finding MUST
-  name a module/file path and a concrete observation, and vague platitudes
-  like "the API layer is messy" MUST NOT appear in your report.
-
-- Findings MUST be prioritized: each finding MUST carry a priority of
-  `HIGH`, `MEDIUM`, or `LOW`, calculated based on your assessment of the
-  impact and effort.
+- Findings SHOULD be prioritized, following the conventions of the audit store.
 
 ## Instructions
 
