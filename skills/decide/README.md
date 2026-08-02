@@ -102,3 +102,14 @@ flowchart LR
 An RFC records a decision while its outcome is still open. To record a
 decision that has already been made, write an architecture decision record via
 the **[design](../design/)** skill instead.
+
+## Related skills
+
+- **[research](../research/):** establishes facts the decision is currently
+  missing.
+
+- **[spike](../spike/):** answers, with throwaway code, whether something will
+  actually work.
+
+- **[design](../design/):** supplies the architectural trade-off analysis this
+  skill frames for stakeholder review.

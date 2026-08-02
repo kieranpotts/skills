@@ -56,3 +56,10 @@ flowchart LR
 **review** runs once an increment builds and tests green, leaving comments for
 **[resolve](../resolve/)** to action before integration. For a wider,
 design-level pass, **[audit](../audit/)** is the companion.
+
+## Related skills
+
+- **[resolve](../resolve/):** actions the open comments this skill leaves.
+
+- **[audit](../audit/):** the wider, design-level companion to this skill's
+  PR-level pass.

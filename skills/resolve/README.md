@@ -48,3 +48,7 @@ flowchart LR
 
 **resolve** closes the loop after **[review](../review/)**: it actions the open
 comments so the increment can proceed to the scripted integrate step.
+
+## Related skills
+
+- **[review](../review/):** leaves the comments this skill then actions.

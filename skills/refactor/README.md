@@ -66,3 +66,10 @@ flowchart LR
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
   classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
 ```
+
+## Related skills
+
+- **[audit](../audit/):** surfaces the structural drift this skill acts on.
+
+- **[design](../design/):** kept synchronized — this skill updates the same
+  design docs the design skill maintains.

@@ -64,6 +64,14 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
+## Related skills
+
+- **[design](../design/):** typically triggers a threat-modeling session in
+  response to major design changes.
+
+- **[audit](../audit/):** a structural-integrity companion, typically run in
+  parallel — audit assesses architecture, this skill assesses risk.
+
 ## References
 
 - [TS-54: Threat Modeling](https://github.com/kieranpotts/standards/tree/dev/src/054)

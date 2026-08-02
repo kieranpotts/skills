@@ -20,3 +20,9 @@ arguments to adjust behavior.
 ## Examples
 
 Provide examples of input and typical output. OPTIONAL.
+
+## Related skills
+
+List sibling skills this one naturally pairs with, and why — eg. what feeds
+this skill, what it hands off to, or what it's a companion or alternative to.
+OPTIONAL.

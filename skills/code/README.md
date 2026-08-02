@@ -53,3 +53,13 @@ flowchart LR
 **[plan](../plan/)** or a brief from **[triage](../triage/)**. Each increment then
 flows through style, lint, build, test, review, resolve, and integrate — and the
 loop returns to **code** for the next increment.
+
+## Related skills
+
+- **[plan](../plan/):** supplies the numbered step this skill implements.
+
+- **[triage](../triage/):** supplies an agent brief as an alternative entry
+  point when there's no plan.
+
+- **[style](../style/):** runs immediately after this skill in the
+  build-increments loop, normalizing presentation.

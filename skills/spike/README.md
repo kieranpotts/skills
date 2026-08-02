@@ -52,3 +52,8 @@ flowchart LR
 **spike** is a helper to **[design](../design/)**: when a decision turns on an
 unknown, it runs a time-boxed experiment, records the finding in the right
 artifact, and returns the answer to the design.
+
+## Related skills
+
+- **[design](../design/):** the decision this skill's throwaway experiment
+  ultimately serves.

@@ -31,3 +31,8 @@ instructions.
 Reach for a frontier reasoning model when drafting a genuinely new skill from
 scratch, where getting the scope, triggers, and boundaries right requires
 weighing trade-offs, rather than following a template.
+
+## Related skills
+
+- **[reflect](../reflect/):** flags a universal, session-derived lesson as a
+  candidate for a new skill authored here, rather than saving it to memory.

@@ -58,3 +58,13 @@ flowchart LR
 **refine** closes the product feedback loop: **[validate](../validate/)** surfaces
 where the specification diverged from the real need, **refine** edits the
 specification, and the change flows back into **[specify](../specify/)**.
+
+## Related skills
+
+- **[validate](../validate/):** supplies the suggestions this skill acts on.
+
+- **[specify](../specify/):** receives the specification edit this skill
+  produces.
+
+- **[refactor](../refactor/):** its structural analogue — refactor serves the
+  design where this skill serves the specification.

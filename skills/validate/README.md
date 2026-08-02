@@ -64,3 +64,14 @@ flowchart LR
 **validate** is the product-level checkpoint after **[audit](../audit/)**: a clean
 verdict clears the work to deploy, while gaps feed **[refine](../refine/)** to
 evolve the specification.
+
+## Related skills
+
+- **[audit](../audit/):** the structural checkpoint that runs ahead of this
+  skill's product-level one.
+
+- **[test](../test/):** verifies against the specification; this skill checks
+  whether the specification itself was right.
+
+- **[refine](../refine/):** acts on the gaps this skill surfaces, flowing the
+  fix into **[specify](../specify/)**.

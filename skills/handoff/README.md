@@ -34,6 +34,11 @@ Compacting a conversation into a handoff document is mostly summarization and
 cross-referencing existing artifacts. A mid-tier model handles this well; the
 main requirement is faithful compression, not deep reasoning.
 
+## Related skills
+
+- **[reflect](../reflect/):** its companion — this skill carries task state to
+  the next session, reflect carries working-style lessons.
+
 ## References
 
 - [Original source — mattpocock/skills

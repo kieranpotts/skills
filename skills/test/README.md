@@ -62,3 +62,11 @@ flowchart LR
 **test** runs the built solution against its acceptance criteria before it can
 integrate; a failure hands off to **[debug](../debug/)**, and only a clean pass
 proceeds.
+
+## Related skills
+
+- **[validate](../validate/):** asks whether the specification this skill
+  verifies against was right in the first place.
+
+- **[debug](../debug/):** receives the genuine bugs this skill's failures
+  reveal.

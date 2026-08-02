@@ -33,3 +33,11 @@ batching invites blind approval.
 Extracting durable lessons from a session is a synthesis task over a
 conversation the model already has in context. A mid-tier model is sufficient —
 the bar is faithful, well-organized extraction, not novel reasoning.
+
+## Related skills
+
+- **[handoff](../handoff/):** its companion — handoff carries task state to
+  the next session, this skill carries working-style lessons.
+
+- **[create-skill](../create-skill/):** a universal lesson gets flagged for a
+  new skill authored here, rather than saved as memory.

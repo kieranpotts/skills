@@ -46,3 +46,11 @@ flowchart LR
 
 **style** runs immediately after **[code](../code/)** in the build-increments loop,
 normalizing presentation before the scripted lint step checks it.
+
+## Related skills
+
+- **[code](../code/):** runs immediately before this skill in the
+  build-increments loop.
+
+- **[proof](../proof/):** corrects language where this skill normalizes
+  presentation.

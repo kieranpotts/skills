@@ -54,6 +54,13 @@ flowchart LR
 interrogates it with the user, and returns a sharpened design ready to be
 decomposed by **[plan](../plan/)**.
 
+## Related skills
+
+- **[design](../design/):** supplies the draft this skill interrogates.
+
+- **[plan](../plan/):** decomposes the sharpened design once elaboration is
+  done.
+
 ## References
 
 - Inspired by Matt Pocock's

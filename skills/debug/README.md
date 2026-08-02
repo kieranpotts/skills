@@ -58,6 +58,16 @@ flowchart LR
 its regression test are green, the corrected increment rejoins the loop back at
 **[code](../code/)**.
 
+## Related skills
+
+- **[fix](../fix/):** resolves a failure once the cause is already known; this
+  skill is for failures whose cause must first be found.
+
+- **[test](../test/):** a failing test run triggers this skill's diagnosis.
+
+- **[code](../code/):** the verified fix and its regression test rejoin the
+  build loop here.
+
 ## References
 
 - [Original source — mattpocock/skills

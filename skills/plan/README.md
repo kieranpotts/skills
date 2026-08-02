@@ -49,3 +49,11 @@ flowchart LR
 **plan** takes the ADRs from **[design](../design/)** and emits an ordered checklist
 of steps, each of which **[code](../code/)** picks up one at a time to drive the
 build-increments loop.
+
+## Related skills
+
+- **[design](../design/):** supplies the ADRs this skill decomposes into a
+  checklist of steps.
+
+- **[code](../code/):** picks up each step this skill produces, one at a
+  time.

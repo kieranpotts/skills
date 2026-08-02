@@ -51,3 +51,13 @@ flowchart LR
 Create the branch before any work begins. Commits then accumulate on it, and
 when the change is complete it is merged back into a trunk. The name is validated
 up front, so a malformed branch name never reaches a push.
+
+## Related skills
+
+- **[commit](../commit/):** records the work once a branch is open, the next
+  link in the git-workflow chain.
+
+- **[merge](../merge/):** integrates the branch once its commits are complete.
+
+- **[release](../release/):** ships the trunk once merge has promoted it
+  through to `ready`.

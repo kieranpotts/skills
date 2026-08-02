@@ -138,3 +138,17 @@ flowchart LR
 criteria that **[design](../design/)** builds against. Feedback from
 **[refine](../refine/)** flows back in when the working software reveals the
 specification itself needs to evolve.
+
+## Related skills
+
+- **[discover](../discover/):** supplies the PRD this skill transforms into
+  acceptance criteria.
+
+- **[design](../design/):** builds against the acceptance criteria this skill
+  produces.
+
+- **[refine](../refine/):** feeds edits back in when working software reveals
+  the specification needs to evolve.
+
+- **[validate](../validate/):** the ultimate source of the feedback that
+  refine turns into a specification edit here.

@@ -52,3 +52,14 @@ flowchart LR
 **fix** is the failure branch off the build loop's build step (and equally off
 lint or the type-checker). Once the tool passes again, the increment rejoins the
 loop back at **[code](../code/)**.
+
+## Related skills
+
+- **[debug](../debug/):** diagnoses the cause when it isn't already evident
+  from tool output.
+
+- **[style](../style/):** distinguishes mechanical pass/fail remediation here
+  from subjective presentation judgment there.
+
+- **[code](../code/):** the increment rejoins the build loop here once the
+  tool passes again.

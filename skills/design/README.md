@@ -95,4 +95,16 @@ flowchart LR
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
 ```
 
+## Related skills
+
+- **[specify](../specify/):** supplies the requirements this skill proposes a
+  solution to.
+
+- **[plan](../plan/):** decomposes the resulting design into incremental
+  delivery steps.
+
+- **[spike](../spike/):** answers feasibility questions the design turns on.
+
+- **[elaborate](../elaborate/):** stress-tests a draft design before it's
+  decomposed.
 

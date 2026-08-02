@@ -61,6 +61,11 @@ loop.
 > enhancements and routes issues through a label state machine. It will be
 > brought into line when the skill itself is updated.
 
+## Related skills
+
+- **[code](../code/):** picks up the agent brief this skill produces to drive
+  the build loop.
+
 ## References
 
 - [Original source — mattpocock/skills

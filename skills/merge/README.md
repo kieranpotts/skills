@@ -56,3 +56,12 @@ flowchart LR
 
 Once commits are complete, **merge** integrates the branch and promotes trunks up
 the `dev` → `test` → `ready` chain, from where **release** can ship.
+
+## Related skills
+
+- **[branch](../branch/):** opens the work this skill later integrates.
+
+- **[commit](../commit/):** records the changes this skill merges.
+
+- **[release](../release/):** ships the trunk once this skill has promoted it
+  to `ready`.

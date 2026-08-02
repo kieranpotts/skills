@@ -37,3 +37,12 @@ reasoning model with strong long-context handling — the value is in weighing
 conflicting sources and building a coherent, cited argument, not just retrieving
 facts. Extended thinking helps when the topic has genuine trade-offs to
 reconcile.
+
+## Related skills
+
+- **[design](../design/):** a design decision is often blocked on the
+  knowledge this skill gathers.
+
+- **[spike](../spike/):** its companion for questions reasoning alone can't
+  answer — this skill looks outward for existing knowledge, spike runs an
+  experiment.

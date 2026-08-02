@@ -60,6 +60,11 @@ flowchart LR
 **[specify](../specify/)**, which turns it into the acceptance criteria that
 **[design](../design/)** then builds against.
 
+## Related skills
+
+- **[specify](../specify/):** turns the resulting PRD into acceptance
+  criteria.
+
 ## References
 
 - [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/)

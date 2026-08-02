@@ -31,3 +31,8 @@ and commit on your own terms. It reports a per-file summary of what changed.
 Proofreading is precise but shallow work — spelling, grammar, consistency — with
 no technical judgment involved. A small, fast model is sufficient and often
 preferable, since it won't second-guess or rewrite content beyond the brief.
+
+## Related skills
+
+- **[style](../style/):** normalizes presentation, where this skill corrects
+  language — the two divide the polish pass between them.

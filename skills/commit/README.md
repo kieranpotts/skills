@@ -53,6 +53,12 @@ flowchart LR
 Commits accumulate on the branch opened by **branch**, each one atomic and
 conventionally formatted, until the change is complete and ready for **merge**.
 
+## Related skills
+
+- **[branch](../branch/):** opens the branch this skill records work on.
+
+- **[merge](../merge/):** integrates the branch once its commits are complete.
+
 ## References
 
 - [This GitHub

@@ -53,3 +53,8 @@ flowchart LR
 
 **release** cuts from the `ready` trunk that **merge** has promoted, tags the
 version, and hands a tagged artifact to the scripted deploy step.
+
+## Related skills
+
+- **[merge](../merge/):** promotes the trunk to `ready` that this skill then
+  ships.
