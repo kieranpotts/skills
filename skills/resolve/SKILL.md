@@ -37,19 +37,9 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A branch MUST exist with each open comment implemented as a minimal,
-  verified code change, each thread replied to and marked resolved, and
-  the fixes committed and pushed.
-
-- Any comment that could not be honestly actioned MUST be left open and
-  reported with a reason.
-
-- The verified change MUST be ready for acceptance testing; what runs next
-  is left to the caller.
-
-- Every open comment MUST be dispositioned: each unresolved comment MUST
-  be either resolved (fixed, verified, replied, marked resolved) or
-  surfaced as blocked with a reason, and none MUST be silently skipped.
+- Every open comment MUST be dispositioned: each one either resolved —
+  fixed, verified, replied to, marked resolved — or left open and surfaced
+  as blocked with a reason. None MUST be silently skipped.
 
 - Every resolution MUST be verified: no thread MUST be marked resolved
   without a passing test or a run of the existing tests over the touched
@@ -141,6 +131,11 @@ You will achieve the following outcomes:
     specific account of why.
 
 ## Rules
+
+- You MUST resolve the comments and stop there.
+
+  The verified change is left ready for acceptance testing; what runs
+  against it next is the caller's.
 
 - Every open comment MUST be treated as a commitment to implement.
 

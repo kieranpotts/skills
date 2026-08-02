@@ -42,35 +42,26 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The skill MUST produce a conforming commit message in the
-  `<type>: <description>` format (with any optional flag, body, and
-  footers), or a pass/fail verdict on the supplied messages naming the rule
-  each one violates.
+- A commit message MUST exist in the `<type>: <description>` format, with
+  any optional flag, body, and footers — or, where messages were supplied
+  for checking, a pass/fail verdict naming the rule each failing message
+  violates.
 
-- Where required, the matching changelog entry MUST be produced too; this
-  skill composes and validates messages and stops — it MUST NOT stage or
-  commit.
-  <!-- TODO: Allow direct commits to dev? -->
+- The subject line MUST pass the validation regex, and its type MUST fit
+  the semantics of the changeset.
 
-- The subject line MUST pass the validation regex and MUST match the format
-  defined in the Rules.
+- The subject line MUST be within budget: 50 characters RECOMMENDED, 72
+  maximum, the optional flag included.
 
-- The type semantics MUST fit the changeset: re-read the type's
-  description, and if two types feel applicable, consult the Subtle
-  distinctions note — that's where the hard cases are resolved.
+- No Conventional Commits artifacts MUST appear: no scope parentheticals
+  (`feature(parser): …`), no leading `!`, no trailing `:` artifacts, and
+  nothing between the type and its colon.
 
-- The subject line length MUST be within budget — ≤50 characters
-  RECOMMENDED, ≤72 characters maximum — and this budget includes the
-  optional flag.
+- Where the project keeps a changelog and the commit targets a trunk or
+  short-lived branch, that changelog's unreleased section MUST carry a
+  matching entry, unless the type is `chore`.
 
-- There MUST be no Conventional Commits artifacts: no scope parentheticals
-  (`feature(parser): …`), no leading `!`, no trailing `:` artifacts, and the
-  colon MUST come immediately after the type, nothing else.
-
-- The changelog MUST be updated for direct commits to a trunk or
-  short-lived branch, unless the type is `chore:` or the project keeps no
-  changelog, and its unreleased section MUST contain an entry for this
-  commit, using the same `type: description` format as the subject line.
+- Nothing MUST have been staged or committed.
 
 ## Instructions
 
@@ -185,7 +176,16 @@ You will achieve the following outcomes:
   `runtime:` commit that makes the requirement verifiable through the
   system's UI.
 
+- You MUST compose and validate messages, and stop there.
+
+  Staging, committing, and pushing belong to a separate step, so the user
+  keeps the final say over what enters history.
+  <!-- TODO: Allow direct commits to dev? -->
+
 - You MUST pick the most appropriate commit type.
+
+  If two types feel applicable, consult the Subtle distinctions note below
+  — that is where the hard cases are resolved.
 
   Choice based on the semantics of the changeset being committed:
 

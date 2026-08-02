@@ -43,19 +43,10 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The target branch MUST be updated with the integrated work using the
-  strategy correct for the branch type, conflicts resolved deliberately,
-  tests and build green on the merged result before push, and disposable
-  source branches (`temp/*`, `epic/*`) deleted locally and remotely once
-  landed.
-
-- The skill MUST integrate and stop; it MUST NOT define the branching
-  convention or cut releases.
-
-- The merged history on the target branch MUST reflect the chosen
-  strategy: `temp/*` branches land via rebase-up + fast-forward, `epic/*`
-  branches land via squash-merge, and trunk promotions land via
-  fast-forward only.
+- The target branch MUST carry the integrated work, and its history MUST
+  reflect the strategy correct for the branch type: `temp/*` branches land
+  via rebase-up + fast-forward, `epic/*` branches land via squash-merge,
+  and trunk promotions land via fast-forward only.
 
 - The merged result MUST build and test green before push, verified
   locally, not assumed from CI.
@@ -66,20 +57,16 @@ You will achieve the following outcomes:
 
 - All conflicts MUST have been resolved deliberately: no `-X ours`, no
   `-X theirs`, no skipped hooks, and each resolution MUST have been
-  reviewed.
+  reviewed. No conflict markers MUST remain in the merged result.
 
-- The source branch MUST be deleted after integration — `temp/*` and
-  `epic/*` MUST be gone locally and remotely once landed.
-
-- Trunk branches MUST remain intact; no trunk branch MUST have been
-  deleted during clean-up.
+- Disposable source branches MUST be gone once landed — `temp/*` and
+  `epic/*` deleted locally and remotely — while every trunk branch MUST
+  remain intact.
 
 - For `epic/*` → `dev`: the changelog MUST be updated in a pre-merge
   commit on the epic branch, where the project keeps one, and its
   unreleased section MUST contain an entry for the epic's changes,
   committed to the `epic/*` branch before the squash-merge.
-
-- No conflict markers MUST remain in the merged result.
 
 ## Instructions
 
@@ -228,6 +215,12 @@ You will achieve the following outcomes:
   `temp/*` → rebase-up + FF. `epic/*` → squash-merge. Trunks → FF-only.
   Picking a different strategy violates the branching conventions and
   corrupts history.
+
+- You MUST integrate and stop there.
+
+  Defining the branching convention and cutting releases are separate
+  responsibilities; this skill lands work under whatever convention the
+  project already keeps.
 
 - If the situation does not match a row in the strategy table, you MUST
   stop and consult the branching convention before improvising.

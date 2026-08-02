@@ -42,13 +42,8 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The same files MUST have presentation-only edits applied (whitespace,
-  indentation, wrapping, quotes, ordering), with behavior and structure
-  provably unchanged, ideally via the project's automated formatter, ready
-  to commit under a `style:` commit.
-
-- This skill MUST normalize presentation and stop; it MUST make no
-  structural or behavioral change.
+- The target files MUST carry presentation-only edits: whitespace,
+  indentation, wrapping, quotes, ordering.
 
 - External behavior MUST be unchanged: tests MUST pass after the style
   pass, and `git diff -w` between pre and post MUST show no changes.

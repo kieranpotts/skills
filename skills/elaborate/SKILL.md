@@ -59,33 +59,23 @@ not settle it.
 
 You will achieve the following outcomes:
 
-- The design MUST be decomposition-ready: every open decision resolved or
-  explicitly deferred, terms reconciled with the project's glossary,
-  code-versus-design contradictions surfaced, and qualifying decisions
-  captured in the project's decision store.
-
-- Nothing beyond the sharpened design MUST have been produced —
-  decomposition and implementation MUST be left to the caller.
+- The design MUST be decomposition-ready: a reader MUST be able to pick it
+  up and break it into steps without re-asking the questions this skill
+  resolved.
 
 - Every open decision in the draft MUST be resolved or deferred with a
   stated reason, and nothing MUST be left dangling in the "we'll figure
   that out later" pile without "later" being named.
 
-- Each question MUST have been asked one at a time, with a recommended
-  answer — no batched questions, no open-ended prompts without a lean.
-
-- Terms used in the conversation MUST match the glossary: either they
-  already did, or the glossary was updated inline as they were resolved.
+- Terms used in the conversation MUST match the project's glossary: either
+  they already did, or the glossary was updated inline as they were
+  resolved.
 
 - Contradictions between stated design and existing code MUST have been
   surfaced, not glossed over or assumed away.
 
-- Decisions that meet the three-criteria filter MUST have become ADRs;
-  decisions that did not, did not.
-
-- The output MUST be decomposition-ready: a reader MUST be able to pick up
-  the design and break it into steps without re-asking the questions this
-  skill resolved.
+- Decisions that meet the three-criteria filter MUST have become ADRs in the
+  project's decision store; decisions that did not, did not.
 
 ## Instructions
 
@@ -152,6 +142,12 @@ You will achieve the following outcomes:
 
   Batched questions force the user to context-switch and produce shallow
   answers. The whole skill is the discipline of single-question turns.
+
+- You MUST sharpen the design and stop there.
+
+  Decomposing it into steps and implementing it are the caller's. This
+  skill's product is a design someone else can now break up with no
+  questions left to ask.
 
 - You MUST always recommend an answer.
 

@@ -42,17 +42,9 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A single, ephemeral handoff document MUST be written to the OS temp
-  directory (not the repo), referencing those durable artifacts by path or
-  URL rather than duplicating them.
-
-- It MUST capture what's done, what's open, the codebase state, suggested
-  next steps, and gotchas; this skill MUST report the file's absolute path
-  and stop, and whether the next session is an agent or a human is the
-  orchestrator's concern.
-
-- The handoff MUST live outside the repo — written to a temp-directory
-  path, not the project tree.
+- A single, ephemeral handoff document MUST exist outside the repo, written
+  to the OS temp directory rather than the project tree, and its absolute
+  path MUST have been reported.
 
 - The handoff MUST use the following structure, omitting any section that
   has nothing to report:
@@ -161,6 +153,12 @@ You will achieve the following outcomes:
     "What's been done".
 
 ## Rules
+
+- You MUST write the handoff and stop there.
+
+  Report the file's absolute path and leave it at that. Whether the next
+  session is an agent or a human is the orchestrator's concern, so write for
+  either.
 
 - You MUST reference, not duplicate.
 

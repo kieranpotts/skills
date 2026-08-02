@@ -49,17 +49,10 @@ one at a time and waits for approval before persisting anything.
 
 You will achieve the following outcomes:
 
-- Zero or more persisted lessons MUST exist — memory entries, indexed
-  however that memory system indexes them, and/or appended convention
-  rules — each non-obvious and capable of changing future agent behavior,
-  written only after per-candidate user approval.
-
-- Universal lessons better encoded as a new skill MUST be flagged, not
-  saved.
-
-- Every saved lesson MUST be non-obvious and MUST change future agent
-  behavior, such that a reader of the entry can identify what you would do
-  differently because of it.
+- Zero or more persisted lessons MUST exist — memory entries and/or
+  appended convention rules — each one non-obvious and capable of changing
+  future agent behavior, such that a reader of the entry can identify what
+  you would do differently because of it.
 
 - Each `feedback` and `project` entry MUST have both a Why: and a How
   to apply: line.
@@ -90,6 +83,9 @@ You will achieve the following outcomes:
 
   **How to apply:** <When and where this guidance kicks in.>
   ```
+
+- Lessons universal enough to belong in a skill MUST have been flagged as
+  such rather than saved as memories.
 
 - The final report MUST state how many candidates were proposed and how
   many were saved (by type), the paths/filenames of new and updated

@@ -47,22 +47,18 @@ environment do not settle them.
 
 You will achieve the following outcomes:
 
-- A recommended classification per issue MUST be produced, applied as the
-  outcome once the maintainer confirms — a label change, an agent brief
-  (problem statement, repro, acceptance criteria, likely files,
-  out-of-scope, AI disclaimer), a needs-info request, or a
-  durably-captured wontfix rationale.
-
-- Nothing MUST have been implemented: the fix, and the specification that
-  follows, MUST be left to the caller.
+- A recommended classification MUST exist for each issue, applied as the
+  outcome only once the maintainer confirms it — a label change, an agent
+  brief, a needs-info request, or a durably-captured wontfix rationale.
 
 - Every triaged issue MUST carry one category and one state label.
 
 - State transitions MUST follow the machine, and unusual transitions MUST
   be flagged, not silently performed.
 
-- `ready-for-agent` issues MUST have a brief: a problem statement, ACs,
-  files likely involved, and explicit out-of-scope items.
+- `ready-for-agent` issues MUST have a brief: a problem statement, a repro,
+  acceptance criteria, the files likely involved, explicit out-of-scope
+  items, and the AI disclaimer.
 
 - `wontfix` enhancement closures MUST be captured durably, wherever this
   project records rejected ideas.
@@ -201,6 +197,11 @@ You will achieve the following outcomes:
   Recommend; you MUST NOT unilaterally label, comment, or close. The
   maintainer applies labels and closes issues; the skill makes that
   decision cheap.
+
+- You MUST triage and stop there.
+
+  The fix, and the specification that precedes it, are the caller's.
+  Classifying an issue is not the same as taking it on.
 
 - You MUST discover the tracker and its vocabulary; you MUST NOT assume
   them.

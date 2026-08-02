@@ -54,26 +54,19 @@ settle it.
 
 You will achieve the following outcomes:
 
-- A set of findings MUST exist, each carrying a severity label (Blocking,
-  Suggestion, Nit, Praise) and organized along two axes (Specification and
-  Standards), closed with an explicit verdict (Approve, Request changes,
-  or Comment).
+- A set of findings MUST exist, each one specific and actionable: naming
+  the file and line, describing the issue, and suggesting a direction.
 
-- Review MUST report its findings and stop there; acting on them — fixing
-  presentation, restructuring, re-running the system — is a separate,
-  downstream responsibility.
+- Findings MUST be organized into two axes, Specification and Standards,
+  kept distinct in the review output. Each Specification finding MUST quote
+  the specification line it tests against; each Standards finding MUST cite
+  the standard by file and rule.
 
-- Findings MUST be organized into two axes — Specification and
-  Standards — and the two axes MUST be kept distinct in the review output.
+- Every finding MUST carry a severity label — Blocking, Suggestion, Nit, or
+  Praise — with no bare comments.
 
-- Every comment MUST carry a severity label — Blocking, Suggestion, Nit,
-  or Praise — and there MUST be no bare comments.
-
-- Every finding MUST be specific and actionable: each comment MUST name
-  the file/line, describe the issue, and suggest a direction.
-
-- The verdict MUST be explicit — Approve, Request changes, or Comment —
-  and it MUST NOT be implied.
+- The review MUST close with an explicit verdict: Approve, Request changes,
+  or Comment.
 
 ## Instructions
 
@@ -223,6 +216,12 @@ You will achieve the following outcomes:
   template, or lifecycle state that is right in one project is wrong in the
   next. Resolve each store first, then read and follow whatever conventions
   it documents for itself.
+
+- You MUST report your findings and stop there.
+
+  Acting on them — fixing the code, restructuring, re-running the system —
+  is a separate, downstream responsibility. A reviewer who starts editing
+  gives up the independence that makes the review worth having.
 
 - You MUST understand the why before reading code.
 

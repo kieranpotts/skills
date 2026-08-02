@@ -57,19 +57,14 @@ and environment do not settle it.
 
 You will achieve the following outcomes:
 
-- The skill MUST produce a completed decision record, written against the
-  target store's own template where it has one, stating the decision, its
+- A completed decision record MUST exist, stating the decision, its
   motivation, the alternatives considered, the honest trade-offs, a
   recommendation, and the conditions under which that recommendation would
   change.
 
-- No lifecycle action MUST be taken — no branch cut, pull request opened,
-  label applied, or merge performed — those belong to the store's own
-  workflow.
-
-- The decision statement MUST be a single, disagreeable sentence: one
-  sentence, specific enough that a reviewer could reasonably argue the
-  opposite, accompanied by an explicit out-of-scope list.
+- The decision statement MUST be a single, disagreeable sentence: specific
+  enough that a reviewer could reasonably argue the opposite, accompanied by
+  an explicit out-of-scope list.
 
 - At least two genuine alternatives MUST be evaluated, plus doing nothing,
   and none of them MUST be a strawman — each MUST be an option a competent
@@ -79,9 +74,8 @@ You will achieve the following outcomes:
   MUST name what the preferred option costs and what it risks, not only
   what it gains.
 
-- Every load-bearing claim MUST be marked verified or assumed: no
-  assumption MUST be presented as established fact, and unverified ones
-  MUST appear in the open questions.
+- Every load-bearing claim MUST be marked verified or assumed, with the
+  unverified ones appearing in the open questions.
 
 - The RFC MUST state what would change the recommendation — at least one
   concrete condition under which a different option wins.
@@ -95,6 +89,9 @@ You will achieve the following outcomes:
   store's template requires MUST be present and filled, with no leftover
   boilerplate, and where the store had no template, the minimum section
   set MUST be covered and the report MUST say which shape was used.
+
+- No lifecycle action MUST have been taken: no branch cut, no pull request
+  opened, no label applied, no merge performed.
 
 ## Instructions
 
@@ -236,6 +233,12 @@ You will achieve the following outcomes:
   source, benchmark, or spike behind it) or explicitly labelled an
   assumption. Assumptions presented as facts are the most common way an RFC
   misleads its reviewers.
+
+- You MUST write the record and stop there.
+
+  Cutting a branch, opening a pull request, applying a label, and merging
+  belong to the store's own workflow, which owns how a decision travels
+  from proposed to accepted.
 
 - You MUST NOT decide on the user's behalf.
 

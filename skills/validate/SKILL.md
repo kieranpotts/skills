@@ -52,13 +52,8 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A bounded, prioritized validation report MUST be produced — an explicit
-  verdict (MEETS THE NEED / GAPS FOUND) and, where gaps exist, suggestions
-  for how the specification should evolve, each classified by gap type,
-  backed by evidence, and ready to seed a revision of the specification.
-
-- No specification or code MUST have been changed; acting on the report
-  MUST be left to the caller.
+- A bounded, prioritized validation report MUST exist, holding 5–10
+  candidates rather than an exhaustive wishlist.
 
 - The originating need MUST be recovered before the software is judged: the
   PRD, outcome, or success measure MUST be consulted first, since validation
@@ -76,11 +71,7 @@ You will achieve the following outcomes:
   be implied.
 
 - No specification or code MUST have been changed: the git tree MUST be
-  unchanged, and the output MUST be a report of suggestions, with enacting
-  them left downstream.
-
-- The report MUST be bounded: it MUST contain 5–10 prioritized candidates,
-  not an exhaustive wishlist.
+  unchanged.
 
 ## Instructions
 

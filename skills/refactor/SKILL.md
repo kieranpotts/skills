@@ -48,30 +48,21 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A series of small `refactor:` commits MUST improve the named quality while
-  leaving externally observable behavior identical — tests green before and
-  after every move, each commit independently revertible, the diff free of
-  feature or bug-fix work.
-
-- Nothing beyond the restructuring MUST be done — reviewing, integrating,
-  and sequencing the next task are left to the caller.
-
 - External behavior MUST be unchanged: every test that passed before MUST
-  pass after, and manual smoke of the affected paths MUST confirm no
+  pass after, and a manual smoke of the affected paths MUST confirm no
   observable difference.
 
-- The named quality MUST be measurably improved: state which quality and
-  how it changed (lines, dependencies, responsibilities, names) — a vague
-  "this is cleaner" is not enough.
-
-- Each commit MUST be a single small move — reviewable in minutes and
-  revertable on its own.
-
-- The diff MUST contain only restructuring: no feature or bug-fix work
-  MUST be mixed in, and anything else MUST be in a separate commit and a
-  separate review thread.
-
 - Tests MUST have passed after every move, not just at the end.
+
+- The named quality MUST be measurably improved, stated as what changed —
+  lines, dependencies, responsibilities, names. A vague "this is cleaner"
+  is not enough.
+
+- Each commit MUST be a single small move, typed `refactor:`, reviewable in
+  minutes and revertible on its own.
+
+- The diff MUST contain only restructuring, with no feature or bug-fix work
+  mixed in.
 
 - The PR description MUST name the quality being improved and the moves
   taken.
@@ -180,6 +171,12 @@ You will achieve the following outcomes:
   The contract with reviewers and operators is that tests MUST pass
   before and after, and runtime behavior MUST be identical. If you cannot
   promise that, it is not a refactor.
+
+- You MUST restructure and stop there.
+
+  Reviewing the result, integrating it, and sequencing whatever comes next
+  are the caller's, so that each refactor stays a self-contained unit of
+  work someone else can judge on its own.
 
 - You MUST work in small, reversible moves.
 

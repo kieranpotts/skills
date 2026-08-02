@@ -42,12 +42,8 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The release branch MUST be created or advanced per the model, and the
-  release MUST be tagged with a correctly-formatted version — this skill
-  applies the release branching and tagging convention and stops, and does
-  not author commit messages or define the general branch model.
-
-- The release branch MUST exist and MUST follow the chosen naming
+- The release branch MUST have been created or advanced, and MUST follow the
+  chosen naming
   convention: it MUST be either a permanent release trunk or a temporary
   `release/<version>` branch, matching
   `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
@@ -129,6 +125,12 @@ You will achieve the following outcomes:
     project-specific.
 
 ## Rules
+
+- You MUST apply the release branching and tagging convention, and stop
+  there.
+
+  Authoring commit messages and defining the general branch model are
+  separate responsibilities.
 
 - A single release strategy MUST be in use.
 

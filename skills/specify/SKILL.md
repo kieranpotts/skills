@@ -58,31 +58,23 @@ environment do not settle it.
 You will achieve the following outcomes:
 
 - The requirements MUST be filed into the project's specification store as
-  testable acceptance criteria, following that store's own conventions, and
-  left at whatever state that store uses for "awaiting review" — awaiting
-  the user's review and approval.
+  testable acceptance criteria, and left at whatever state that store uses
+  for "awaiting review", reached by carrying out the scaffold → author →
+  mark-ready procedure the store defines for itself.
 
 - The store MUST have been discovered, not assumed: the location and access
   method MUST trace to session context, to the environment, or to an answer
   from the user, and no path, file name, or document structure MUST have
   been taken for granted.
 
-- The requirements MUST reach the store's "awaiting review" state via that
-  store's own procedure — on a valid PRD, the skill MUST leave the change
-  filed and open for review, created by carrying out the scaffold → author →
-  mark-ready procedure the store defines for itself, and the format and
-  lifecycle rules MUST be read from the store, not from this skill.
-
-- The user MUST be told the specification awaits their approval: the closing
-  message MUST state that the requirements are filed and awaiting review,
-  need the user's approval, and that the design phase MUST NOT begin until
-  the specification is approved, and whatever the store produced MUST be
-  linked.
-
-- The specification MUST conform to the store's content rules: the authored
-  artifacts MUST follow the target store's format and conventions —
+- The specification MUST conform to the store's own content rules —
   acceptance criteria in the prescribed form, non-functional requirements as
-  that store requires — and implementation detail MUST NOT leak in.
+  that store requires — with no implementation detail leaking in.
+
+- The closing message MUST state that the requirements are filed and
+  awaiting the user's approval, MUST say that the design phase cannot begin
+  until the specification is approved, and MUST link whatever the store
+  produced.
 
 - Functional and non-functional requirements MUST both be present, and even
   if the NFR section is "no new NFRs — inherits from system baseline", it
@@ -96,12 +88,9 @@ You will achieve the following outcomes:
   MUST name who it is for, what they achieve, and why — traceable to the
   PRD's outcome and stakeholders.
 
-- The store's readiness bar MUST be satisfied, or the PRD MUST have been
-  rejected for the gap.
-
-- An incomplete PRD MUST be rejected, not patched: when the PRD lacks
-  substantive content, the output MUST be an itemized rejection naming the
-  gaps, and nothing MUST be written to the store.
+- The store's readiness bar MUST have been satisfied. Where the PRD fell
+  short of it, the output MUST instead be an itemized rejection naming the
+  gaps, with nothing written to the store.
 
 ## Instructions
 

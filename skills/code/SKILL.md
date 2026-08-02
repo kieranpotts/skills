@@ -46,22 +46,17 @@ settle it.
 
 You will achieve the following outcomes:
 
-- The result MUST be a committed, tested change for that single step — the
-  implementation plus its tests, scope-locked to the step, with a clean
-  reviewable diff and a conventional commit.
+- A committed, tested change MUST exist for that single step — the
+  implementation plus its tests, with a clean reviewable diff.
 
-- Nothing beyond the step MUST be done; reviewing, further testing, and
-  sequencing the next step MUST be left to the caller.
-
-- The diff MUST stay within the step's stated scope — re-read the diff with
-  the step quoted next to it, and anything outside the scope MUST be removed
-  or moved to its own step.
+- The diff MUST stay within the step's stated scope, with anything outside
+  it removed or moved to its own step.
 
 - All new behavior MUST be tested: each piece of added behavior MUST have at
   least one test that fails when the behavior is removed.
 
 - The test loop MUST be fast and run clean: `<10s` for the relevant suite,
-  and no skipped, pending, or flaky tests MUST be added.
+  with no skipped, pending, or flaky tests added.
 
 - The code MUST match the surrounding style: naming, layout, error handling,
   and comment density MUST be consistent with nearby files.
@@ -221,7 +216,11 @@ You will achieve the following outcomes:
 - You MUST stop when the step is done.
 
   "Done" = test passes, diff is clean, commit message is written. Not "done
-  plus a bit more". The bit more is the next step.
+  plus a bit more". The bit more is the next step. Reviewing the result,
+  testing it further, and sequencing what comes next are the caller's.
+
+  Before you stop, re-read the diff with the step quoted next to it, and
+  remove or re-home anything the step does not call for.
 
 ## Edge cases
 

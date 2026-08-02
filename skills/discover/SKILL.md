@@ -52,25 +52,19 @@ asking one question at a time and waiting for the answer before proceeding.
 
 You will achieve the following outcomes:
 
-- The skill MUST produce a new or modified PRD in business language,
-  covering outcomes, stakeholders, scope, rules, examples, non-functional
-  requirements, assumptions, and open questions.
+- A new or modified PRD MUST exist, covering outcomes, stakeholders, scope,
+  rules, examples, non-functional requirements, assumptions, and open
+  questions.
 
-- The PRD MUST enforce completeness by having a counter-example for every
-  rule, an explicit out-of-scope list, non-functional requirements
-  explicitly recorded (even if none), and blocking questions resolved.
-
-- Technical implementation and validation details MUST be out-of-scope —
-  this is not a specification or design document; this skill MUST produce
-  the PRD and stop.
-
-- It MUST NOT file the PRD in any workflow repository, and it MUST NOT
-  translate the rules and examples into testable acceptance criteria —
-  these are separate downstream responsibilities.
+- The PRD MUST read in business language: a non-technical reader MUST be
+  able to follow every sentence, with no code, no API names, no schema
+  details, and no implementation or validation detail.
 
 - Every rule MUST have at least one example AND one counter-example — a
   rule without a counter-example is not ready to specify from, since its
   boundaries are unclear.
+
+- Every blocking question MUST have been resolved.
 
 - Scope MUST be explicit in both directions: the out-of-scope list MUST be
   non-empty, since discovery without explicit exclusions hides ambiguity.
@@ -86,10 +80,6 @@ You will achieve the following outcomes:
   Non-functional requirements section MUST state measurable targets where
   they exist, or "None known" — it MUST NOT be left blank, which a
   downstream step would read as an omission.
-
-- The PRD MUST read in business language: a non-technical reader MUST be
-  able to follow every sentence, with no code, no API names, no schema
-  details.
 
 ## Instructions
 
@@ -226,6 +216,13 @@ answer shape the question that follows.
   You MUST NOT batch. A user (or customer) cannot answer four questions in
   a row without losing context, and batching erases the chance to let one
   answer shape the next.
+
+- You MUST produce the PRD and stop there.
+
+  You MUST NOT file it in any workflow repository, and you MUST NOT
+  translate its rules and examples into testable acceptance criteria. Both
+  are separate downstream responsibilities, and a PRD that arrives
+  pre-specified forecloses the questions specification is meant to ask.
 
 - You MUST stay in business language.
 

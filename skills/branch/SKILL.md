@@ -47,23 +47,21 @@ print an error message.
 You will achieve the following outcomes:
 
 - The outcome MUST be either a correctly-named branch created from the right
-  base, or a pass/fail verdict on the supplied names with the specific rule
-  each one violates; this skill names and validates branches and stops, and
-  it MUST NOT merge, cut releases, or author commit messages.
+  base, or a pass/fail verdict on the supplied names, naming the specific
+  rule each one violates.
 
 - The branch name MUST validate against the model: it MUST match
   `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
   — one of the three trunks, or a `temp/` or `epic/` branch with a
   kebab-case description.
 
-- The name MUST be well-formed: it MUST be full lowercase, hyphen-delimited,
-  with no underscores or spaces, and within the length budget (≤50
-  characters RECOMMENDED, ≤72 MUST) for `temp/*` and `epic/*` branches.
+- A `temp/*` or `epic/*` name MUST be within the length budget: 50
+  characters RECOMMENDED, 72 maximum.
 
-- The branch type MUST fit the work — `temp/*` MUST be used for a short,
-  single-focus change, and `epic/*` MUST be used for long-lived,
-  multi-contributor work that cannot be continuously integrated; a change of
-  one or two commits needs no branch beyond `dev`.
+- The branch type MUST fit the work — `temp/*` for a short, single-focus
+  change, `epic/*` for long-lived, multi-contributor work that cannot be
+  continuously integrated. A change of one or two commits needs no branch
+  beyond `dev`.
 
 - `temp/*` and `epic/*` branches MUST be cut from `dev`, and they MUST NOT
   be cut from `test`, `ready`, or a release branch.
@@ -109,6 +107,11 @@ You will achieve the following outcomes:
     name, naming the rule each failure violates.
 
 ## Rules
+
+- You MUST name and validate branches, and stop there.
+
+  Merging, cutting releases, and authoring commit messages are separate
+  responsibilities.
 
 - Branches MUST be one of the trunk, temporary, or epic forms.
 

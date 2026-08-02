@@ -53,18 +53,6 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The answer MUST be durably captured — a measurement, observable behavior,
-  or working integration, recorded so it is reproducible from the notes
-  alone, and landed in the appropriate artifact (an ADR or design-doc
-  update, a revision to acceptance criteria, or a decision-log note).
-
-- The spike code MUST be thrown away or quarantined in a clearly-marked
-  throwaway location, never promoted.
-
-- Nothing beyond the answer MUST have been done: resuming the design,
-  revising the specification, and any production re-implementation MUST be
-  left to the caller.
-
 - A single falsifiable question MUST be stated up front, not a topic and not
   an area to explore.
 
@@ -78,13 +66,15 @@ You will achieve the following outcomes:
   no error handling, no auth, and no abstractions beyond what the question
   requires.
 
-- The findings MUST be captured durably, in whichever of the project's own
-  stores owns that kind of answer — somewhere it survives after the code is
-  gone — and the store MUST have been discovered, not assumed.
+- The answer MUST be captured durably — a measurement, observable behavior,
+  or working integration, recorded so it is reproducible from the notes
+  alone — in whichever of the project's own stores owns that kind of answer,
+  whether an ADR or design-doc update, a revision to acceptance criteria, or
+  a decision-log note. That store MUST have been discovered, not assumed.
 
-- The code MUST be disposed of or quarantined: deleted, or moved to a
-  clearly-marked throwaway location with a README, and it MUST NOT be
-  merged into production paths.
+- The spike code MUST have been disposed of: deleted, or quarantined in a
+  clearly-marked throwaway location with a README, and never merged into
+  production paths.
 
 ## Instructions
 
@@ -172,6 +162,12 @@ You will achieve the following outcomes:
   Promoting spike code to production removes the very property that made
   it cheap to write. If it MUST ship, re-implement it cleanly using what
   was learned.
+
+- You MUST answer the question and stop there.
+
+  Resuming the design, revising the specification, and any production
+  re-implementation are the caller's. The spike buys a decision, and the
+  decision is spent elsewhere.
 
 - You MUST pursue one question per spike.
 

@@ -48,18 +48,13 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A single, cited research report MUST exist — a direct answer to the
-  framed question, the supporting evidence (each decision-bearing claim
-  sourced and, where time-sensitive, dated), the open questions, and a
-  suggested destination for the findings.
+- A single, cited research report MUST exist, opening with a direct answer
+  to the framed question — or with a clear statement of why no answer was
+  reachable and what would be needed.
 
-- This skill MUST produce the report and stop there; writing the findings
-  into a design doc, an ADR, persisted memory, or anywhere else is a
-  separate, explicit step the caller initiates.
-
-- The framed question MUST be answered, or its unanswerability MUST be
-  explained: the report opens with a direct answer, or with a clear
-  statement of why no answer was reachable and what would be needed.
+- The report MUST be actionable from its first few lines: the conclusion
+  leads, the evidence supports, and the reader MUST NOT be made to
+  assemble the answer themselves.
 
 - Every decision-bearing claim MUST be cited, and time-sensitive claims
   MUST be dated, so a reader can follow each material claim to a source
@@ -68,13 +63,11 @@ You will achieve the following outcomes:
 - Fact and inference MUST be visibly separated — nothing you inferred MUST
   be presented as something a source asserted.
 
-- The report MUST be actionable from its first few lines: the conclusion
-  leads, the evidence supports, and the reader MUST NOT be made to
-  assemble the answer themselves.
+- Open questions, including anything deferred, MUST be listed, alongside a
+  suggested destination for the findings.
 
-- The research report MUST be the only artifact produced — code, project
-  docs, and shipped skills are untouched, and the output is a report plus
-  a suggested destination.
+- The report MUST be the only artifact produced: code, project docs, and
+  shipped skills MUST be untouched.
 
 - The report MUST follow this structure:
 
@@ -96,20 +89,18 @@ You will achieve the following outcomes:
   - <Claim.> Corroborated by [source A](url) and [source B](url).
   - <Where sources disagreed, the disagreement and your read of it.>
 
-    ## Open questions / low-confidence areas
+  ## Open questions / low-confidence areas
 
   - <What the research could not settle, and what it would take to settle it.>
 
-    ## Suggested destination
+  ## Suggested destination
 
-    <Where these findings should go next: design input, ADR, memory, user review.>
+  <Where these findings should go next: design input, ADR, memory, user review.>
 
-    ## Sources
+  ## Sources
 
   - [Title](url) - accessed <date> - <one-line note on what it covers>
-    ```
-
-- Deferred questions, if any, MUST be listed.
+  ```
 
 ## Instructions
 
@@ -213,6 +204,10 @@ You will achieve the following outcomes:
   Research expands to fill the time available. When the questions from
   step 1 are answered to the confidence the decision needs, you MUST stop
   — you MUST NOT keep reading for completeness.
+
+  Writing the findings into a design doc, an ADR, persisted memory, or
+  anywhere else is a separate step the caller initiates. Suggest the
+  destination; do not file it there yourself.
 
 - You MUST NOT fabricate URLs or pretend to have browsed when web access
   is unavailable.

@@ -39,34 +39,23 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The same files MUST be edited in place with conservative copy edits only
-  — prose words corrected, code/markup/structure untouched — plus a
-  per-file summary of the edits made and any items flagged for the
-  author.
+- The target files MUST have been edited in place, with only prose words
+  changed. Code, markup, and structure MUST be byte-identical otherwise, so
+  the diff shows word-level prose edits and nothing else — no reflowed
+  blocks, no moved sections, no touched code.
 
-- Nothing MUST have been staged, committed, or pushed; version control
-  MUST be left to a separate step.
+- No technical fact, identifier, version number, or command MUST have been
+  altered.
 
-- Only prose MUST have changed; code, markup, and structure MUST be
-  byte-identical except where prose words were corrected, so a diff shows
-  word-level prose edits and nothing else — no reflowed blocks, no moved
-  sections, no touched code.
+- Each file's markup MUST remain valid and its original line-wrapping
+  convention MUST be unchanged, so the document parses and renders as it
+  did before.
 
-- No technical fact, identifier, version, or command MUST have been
-  altered; anything that looked wrong MUST have been flagged for the
-  author, not silently changed.
+- A per-file summary MUST have been reported, naming which files changed,
+  which were reviewed but left unchanged, which were skipped as generated
+  or vendored, and every item flagged for the author to resolve.
 
-- The file's markup MUST remain valid and its original line-wrapping
-  convention MUST be unchanged — the document still parses/renders as
-  before, and its line-wrapping style is unchanged.
-
-- A per-file summary of edits MUST have been reported, and nothing MUST
-  have been committed: the summary MUST report which files changed, which
-  were reviewed but left unchanged, and which were skipped as generated
-  or vendored, so the user can see what changed and decide when and how
-  to commit it.
-
-- Generated or vendored files MUST have been skipped and reported.
+- Nothing MUST have been staged, committed, or pushed.
 
 ## Instructions
 

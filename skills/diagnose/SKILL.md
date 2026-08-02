@@ -51,11 +51,8 @@ You will achieve the following outcomes:
 - A single confirmed cause MUST be stated, with the evidence that confirmed
   it and the evidence that ruled out the alternatives.
 
-- No production behavior MUST have changed. The working tree MUST contain no
-  attempted remedy — this task diagnoses, it does not repair.
-
-- If no reliable feedback loop can be built, the skill MUST stop and say
-  so — listing what it tried and what it needs — rather than guessing.
+- No production behavior MUST have changed, and the working tree MUST
+  contain no attempted remedy.
 
 - A feedback loop MUST exist and MUST be recorded: the exact command,
   script, or test that reproduces the bug MUST be committed or written into
@@ -72,9 +69,8 @@ You will achieve the following outcomes:
 - All tagged instrumentation MUST have been removed — `grep` for the debug
   prefix MUST return zero hits in the working tree.
 
-- The handover MUST carry the repro command, the failing test (or the
-  documented absence of a seam), the confirmed cause, and any suggested
-  remedy, so the repair can proceed without re-deriving the diagnosis.
+- The handover MUST carry all of the above, plus any suggested remedy, so
+  the repair can proceed without re-deriving the diagnosis.
 
 ## Instructions
 

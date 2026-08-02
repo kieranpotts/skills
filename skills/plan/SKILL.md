@@ -54,19 +54,10 @@ settle it.
 
 You will achieve the following outcomes:
 
-- The plan MUST be a numbered checklist of small steps, each independently
-  mergeable, testable, and reversible, ordered riskiest-first, with a mode
-  tag (`HITL`/`AFK`), a stated pass/fail signal, any prior-step dependency,
-  and any flag, fixture, or migration named where used.
+- The plan MUST be a numbered checklist of steps, with tight descriptions;
+  it MUST NOT substitute for the design document.
 
-- The plan MUST be reported as the artifact and the skill MUST stop; it
-  MUST write no code itself.
-
-- The plan MUST be a numbered checklist of steps.
-
-- Every step MUST be independently mergeable, testable, and reversible —
-  re-read each step with that filter, and anything that fails the filter
-  MUST be split.
+- Every step MUST be independently mergeable, testable, and reversible.
 
 - Each step SHOULD be reviewable in under 30 minutes, and certainly under
   one working day.
@@ -80,15 +71,14 @@ You will achieve the following outcomes:
 - Each step MUST have a stated pass/fail signal: a test name, a curl
   command, a metric threshold — something observable.
 
-- Each step MUST include a mode tag (`HITL` or `AFK`), any prior-step
+- Each step MUST carry a mode tag (`HITL` or `AFK`), any prior-step
   dependency, and any flag, fixture, or migration involved.
 
-- Step descriptions MUST be tight; the plan MUST NOT substitute for the
-  design document.
+- Where the work is genuinely a single step, the output MUST say so
+  explicitly and direct the caller to proceed with implementation rather
+  than returning a plan artifact.
 
-- If the plan is a single step, the output MUST say so explicitly and
-  direct the caller to proceed with implementation rather than returning
-  a plan artifact.
+- No code MUST have been written.
 
 ## Instructions
 
@@ -170,6 +160,15 @@ You will achieve the following outcomes:
   template, or lifecycle state that is right in one project is wrong in the
   next. Resolve each store first, then read and follow whatever conventions
   it documents for itself.
+
+- You MUST produce the plan and stop there.
+
+  Implementing it is a separate act, done against the plan once someone has
+  agreed to it. A plan written and executed in one breath never gets
+  challenged.
+
+- You MUST re-read each step against the mergeable, testable, reversible
+  filter before reporting, and split anything that fails it.
 
 - Each step MUST address one concern.
 

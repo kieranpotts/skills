@@ -59,7 +59,8 @@ You will achieve the following outcomes:
 - The reported breakage MUST be resolved at its source, or explicitly
   suppressed with a recorded justification.
 
-- No unrelated behavior change MUST have been introduced.
+- The commit MUST be scoped to the fix: no unrelated behavior change, and no
+  feature or `style:` work bundled in.
 
 - The check MUST exit zero: re-running the exact command that originally
   failed MUST now pass, with no remaining violations.
@@ -77,9 +78,6 @@ You will achieve the following outcomes:
 - Where the cause came from a diagnosis, it MUST be restated in the commit or
   PR message, so future readers learn what the real cause was, not just what
   the change touched.
-
-- The commit MUST be scoped to the fix — no unrelated feature or `style:`
-  changes MUST be bundled in.
 
 ## Instructions
 

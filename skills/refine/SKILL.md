@@ -49,13 +49,9 @@ asking one question at a time and waiting for the answer before proceeding.
 
 You will achieve the following outcomes:
 
-- Precise edits to the requirements artifacts MUST conform to the
-  specification conventions (Gherkin, measurable NFRs, explicit scope), each
-  with a recorded trigger, type, and rationale, plus a traced list of
-  downstream design, planning, code, and test work the refinement implies.
-
-- The output MUST be reported and the skill MUST stop there; it changes no
-  code itself.
+- Precise edits to the requirements artifacts MUST exist, conforming to the
+  specification store's own conventions — Gherkin, measurable NFRs,
+  explicit scope.
 
 - Every refinement MUST name its trigger and its type — correction /
   addition / removal / reclassification / threshold-adjustment — plus the
@@ -72,15 +68,13 @@ You will achieve the following outcomes:
   planned steps, code, tests) MUST exist, with status, and nothing MUST be
   silently invalidated.
 
-- No code or test MUST have been changed inside this skill — the output is
-  a specification edit and a traced impact list, and implementation lives
-  downstream.
-
-- If a refinement reveals an untestable AC, the refined AC MUST be in
+- Where a refinement reveals an untestable AC, the refined AC MUST be in
   testable form.
 
-- If no specification existed in writing, the output MUST include the
+- Where no specification existed in writing, the output MUST include the
   newly written assumed specification plus the refinement applied to it.
+
+- No code or test MUST have been changed.
 
 ## Instructions
 
