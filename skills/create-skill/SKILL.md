@@ -44,38 +44,26 @@ prompt the user for clarification.
 You will achieve the following outcomes:
 
 - A complete skill directory MUST exist at the target location, holding a
-  `SKILL.md`, a sibling `README.md` for humans, and any bundled `assets/`,
-  `references/`, and `scripts/`.
-
-- The front-matter MUST be valid. The `name` and `description` fields MUST
-  be present and non-empty, and `name` MUST match the directory name.
+  `SKILL.md`, a sibling `README.md` for humans, and any `assets/`,
+  `references/`, and `scripts/` the skill needs.
 
 - The `description` MUST follow the two-sentence pattern, naming both the
   capability and the contexts that should invoke the skill.
 
-- The canonical sections MUST be present, in order: the `#` title and its
-  description, `## Parameters`, `## Success criteria`, and at least one of
-  `## Instructions` or `## Rules`. `## Parameters` and `## Success criteria`
-  MUST come before any other `##` heading.
-
-- The `## Parameters` section MUST open with a preamble whose stance on
-  prompting the user matches the `metadata.interactive` flag, followed by a
-  bulleted list in which every item carries a bold lead naming the parameter
-  and its requirement level, `REQUIRED` or `OPTIONAL`.
+- The `## Parameters` preamble's stance on prompting the user MUST match the
+  `metadata.interactive` flag, and every parameter bullet MUST carry a bold
+  lead naming the parameter and its requirement level, `REQUIRED` or
+  `OPTIONAL`.
 
 - Every instruction, rule, and success criterion MUST carry an explicit
   requirement-level keyword.
 
 - The `SKILL.md` MUST NOT name any other skill.
 
-- The `SKILL.md` MUST be under 500 lines, blank lines included.
-
-- A `README.md` MUST exist alongside the `SKILL.md`, and MUST carry the
-  `## Interactivity`, `## How to invoke`, and `## Recommended models`
-  sections, and MAY carry `## Related skills` too. The order in which the
-  headings appear MUST match the bundled template.
-
-- The validator MUST pass against the skill directory.
+- The validator MUST pass against the skill directory. It covers the
+  front-matter, the presence and order of the canonical sections, the
+  500-line budget, and the `README.md`'s required sections — so those are
+  checked rather than restated here.
 
 ## Instructions
 
