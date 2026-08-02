@@ -1,24 +1,34 @@
 ---
 name: fix
 description: >-
-  Fix anything generally broken — failing builds, lint, type-checks, etc. Use
-  this where the cause is already known, eg. debugging has already taken place
-  to identify the cause, or the cause is evident from a tool's own output. Use
+  Fix anything broken whose cause is already known — failing builds, lint,
+  type-checks, or a bug that systematic diagnosis has already explained. Use
   when a build, compile, lint, type-check, or other deterministic gate is
-  failing. Or use when the user says something like "fix the build", "fix the
-  lint errors", "make the type-checker pass", or "implement the fix to resolve
-  this known bug".
+  failing, or when a diagnosis has handed over a confirmed cause and a failing
+  regression test. Or use when the user says something like "fix the build",
+  "fix the lint errors", "make the type-checker pass", or "implement the fix to
+  resolve this known bug".
 license: CC0-1.0
 metadata:
   interactive: no
-  preferred_model: ollama/CODE_BASIC
+  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Fix
 
-Fix anything in a codebase that is broken in an obvious, mechanical way, eg.
-failing builds, lint or type-check violations, deprecation warnings, or
-broken tool configs.
+Repair something whose cause is already established, and prove the repair
+worked. There are two ways a cause becomes established, and this skill handles
+both:
+
+- A tool named it. A failing build, compile, lint, or type-check reports the
+  problem precisely; the fix is mechanical.
+
+- A diagnosis named it. Systematic investigation has already reproduced the
+  bug, confirmed the causal chain, and left behind a failing regression test.
+
+What the two share is that no hypothesis remains to be formed. If you would
+have to investigate why something is failing, this is the wrong task — stop
+and switch to systematic diagnosis instead.
 
 ## Parameters
 
@@ -28,9 +38,15 @@ requirements; if you cannot determine them, stop and alert the user with an
 error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
-- **The broken thing — REQUIRED.** A failing build/compile/lint/type-check
-  command, an error message, or an instruction to audit a part of the
-  codebase for things that are broken.
+- **The broken thing, and what already explains it — REQUIRED.** Either a
+  failing build/compile/lint/type-check command with its error message, or a
+  diagnosis stating a confirmed cause. Or an instruction to audit a part of
+  the codebase for things that are broken.
+
+- **A failing regression test — OPTIONAL.** Where a diagnosis handed one
+  over, it is the acceptance criterion for the repair. Where a diagnosis
+  documented that no correct seam existed for one, the repro command it
+  handed over stands in.
 
 This task runs non-interactively to completion. It does not block for user
 input. If in doubt about any of the requirements of this task, stop and
@@ -40,14 +56,17 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- The build, compile, lint, or type-check MUST pass; the reported breakage
-  MUST be resolved at its source, or explicitly suppressed with a recorded
-  justification.
+- The reported breakage MUST be resolved at its source, or explicitly
+  suppressed with a recorded justification.
 
 - No unrelated behavior change MUST have been introduced.
 
 - The check MUST exit zero: re-running the exact command that originally
   failed MUST now pass, with no remaining violations.
+
+- Where a failing regression test was handed over, it MUST now pass, and it
+  MUST fail again when the change is reverted. Where none was, the handed-over
+  repro MUST no longer reproduce.
 
 - No new issues MUST have been introduced — the full set of checks, not
   just the one that originally failed, MUST pass after the change.
@@ -55,12 +74,21 @@ You will achieve the following outcomes:
 - Every suppression MUST state a reason: `grep` for suppression directives
   in the diff, and each one MUST have an inline justification.
 
+- Where the cause came from a diagnosis, it MUST be restated in the commit or
+  PR message, so future readers learn what the real cause was, not just what
+  the change touched.
+
 - The commit MUST be scoped to the fix — no unrelated feature or `style:`
   changes MUST be bundled in.
 
 ## Instructions
 
-1.  Run the check and read its output literally.
+1.  Establish which kind of repair this is.
+
+    If a diagnosis has handed over a confirmed cause, go to step 5. Otherwise
+    the cause comes from a tool, and steps 2-4 apply.
+
+2.  Run the check and read its output literally.
 
     Do not guess at what a build, compiler, linter, or type-checker wants.
     Run it, and read the exact error, rule name, message, and location it
@@ -68,7 +96,7 @@ You will achieve the following outcomes:
     missing import, a type mismatch, an undefined symbol) — that message is
     the spec for the fix.
 
-2.  If auditing rather than responding to a specific failure, run every
+3.  If auditing rather than responding to a specific failure, run every
     available check.
 
     When asked to find what's broken rather than fix a named failure, run
@@ -76,22 +104,39 @@ You will achieve the following outcomes:
     static gate, in turn. Compile a list of distinct issues before fixing
     any — fixing one can sometimes resolve or mask another.
 
-3.  Prefer automated fixes where they exist.
+    A check that fails without naming its cause is not in scope here. Set it
+    aside for systematic diagnosis and carry on with the rest.
+
+4.  Prefer automated fixes where they exist.
 
     Many linters support `--fix`; some build/compile errors are resolved by
     `npm install`/dependency updates or regenerating lockfiles; some
     deprecation warnings have an automated migration codemod. Run these
     first, then re-check — automated fixes rarely resolve everything.
 
-4.  Fix remaining issues at their reported location.
+5.  Confirm the handed-over diagnosis before acting on it.
 
-    Make the minimal change that resolves the specific error — not a
-    broader rewrite. A type error usually wants a narrower type, a missing
-    null check, or a corrected signature; a build or compile failure usually
-    wants a missing dependency, a broken import path, a stale generated
-    file, or a config correction.
+    Where the cause came from a diagnosis rather than a tool, run the
+    handed-over repro or regression test first and watch it fail. Read the
+    stated causal chain against the code it names.
 
-5.  If a check is wrong for this case, suppress it explicitly — never
+    If the test passes, or fails for a different reason, or the code no
+    longer matches what the diagnosis describes, the diagnosis is stale.
+    Stop and report that — do not re-derive it here.
+
+6.  Fix at the established location.
+
+    Make the minimal change that resolves the specific error or removes the
+    diagnosed cause — not a broader rewrite. A type error usually wants a
+    narrower type, a missing null check, or a corrected signature; a build or
+    compile failure usually wants a missing dependency, a broken import path,
+    a stale generated file, or a config correction.
+
+    Where a diagnosis suggested a remedy, it is a suggestion, not an
+    instruction. Prefer it unless the code gives you a reason not to; where
+    you depart from it, say why in the commit message.
+
+7.  If a check is wrong for this case, suppress it explicitly — never
     silently.
 
     Some violations are false positives for the specific context. Suppress
@@ -101,26 +146,34 @@ You will achieve the following outcomes:
     than the violation — the next reader can't tell if it was a judgment
     call or laziness.
 
-6.  Re-run every check that was failing.
+8.  Verify, including in reverse.
 
     Re-run after each fix and again after all fixes. Confirm each reported
     issue is resolved and no new ones were introduced. Fixes can shift
     errors elsewhere — especially type narrowing or dependency changes,
     which can surface or hide other errors.
 
-7.  Commit as `fix:` or `maintenance:` depending on scope.
+    Where a regression test was handed over, watch it go green, then revert
+    the change and watch it go red again before restoring it. A test that
+    passes either way proves nothing about the fix.
+
+9.  Commit as `fix:` or `maintenance:` depending on scope.
 
     A small, localized fix to make CI green is typically `fix:`. A larger
     sweep — clearing a backlog of deprecation warnings, fixing many type
     errors after a dependency bump — is `maintenance:`.
 
+    Where the cause came from a diagnosis, carry it into the message. The
+    next person working this area benefits from knowing what the real cause
+    was, not just what the change touched.
+
 ## Rules
 
-- If the cause isn't already evident, you MUST NOT use this skill.
+- If the cause isn't already established, you MUST NOT use this skill.
 
-  fix resolves breakage a tool has already diagnosed. If you need to form
-  and test hypotheses about why something is failing, you MUST stop and
-  switch to systematic diagnosis instead.
+  This task repairs breakage that a tool or a completed diagnosis has already
+  explained. If you need to form and test hypotheses about why something is
+  failing, you MUST stop and switch to systematic diagnosis instead.
 
 - You MUST make the minimal change that resolves the reported issue.
 
@@ -134,6 +187,13 @@ You will achieve the following outcomes:
   to make an error disappear, doesn't fix anything — it hides the signal
   the tool exists to give. You SHOULD prefer the narrowest fix that
   genuinely resolves the rule's intent.
+
+- You MUST NOT weaken a handed-over regression test to make it pass.
+
+  The test encodes the diagnosed bug. Relaxing its assertion, widening its
+  tolerance, skipping it, or moving it to a shallower seam turns the
+  acceptance criterion into a formality. If the test looks wrong, that is a
+  finding to report, not an edit to make.
 
 - You MUST NOT bundle with feature or style work.
 
@@ -175,6 +235,20 @@ You will achieve the following outcomes:
   If after a change the original error is gone but a new, unrelated error
   appears in its place, that's a sign the change addressed the wrong
   thing. Re-read the original error message before declaring done.
+
+- The handed-over diagnosis turns out to be wrong.
+
+  If the minimal change the diagnosis implies does not turn the regression
+  test green, the causal chain has a broken link. Report that back with what
+  you observed. Do not start forming hypotheses of your own — that is the
+  diagnosis task's job, and restarting it here loses the evidence trail.
+
+- No regression test came with the diagnosis.
+
+  Where a diagnosis documented that no correct seam existed for one, verify
+  against its repro command instead, and treat the missing seam as a finding
+  worth surfacing — not as licence to add a shallow test that would pass
+  either way.
 
 - The breakage turns out to have an unclear cause after all.
 
@@ -222,4 +296,19 @@ You will achieve the following outcomes:
   ```ts
   // eslint-disable-next-line no-explicit-any -- third-party SDK has no types; tracked in #482
   const client: any = createLegacyClient()
+  ```
+
+- Verifying a repair against a handed-over regression test:
+
+  ```sh
+  $ npm test -- cache.tenant-isolation   # before: red, as handed over
+  FAIL  expected totals for tenant B, received tenant A
+
+  # Apply the diagnosed fix: include tenant ID in the key at cache.ts:42.
+  $ npm test -- cache.tenant-isolation
+  PASS
+
+  $ git stash && npm test -- cache.tenant-isolation
+  FAIL                                    # the test is testing the fix
+  $ git stash pop
   ```

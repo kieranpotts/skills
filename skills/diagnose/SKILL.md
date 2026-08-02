@@ -1,25 +1,30 @@
 ---
-name: debug
+name: diagnose
 description: >-
-  Diagnose and fix unexpected behaviors and runtime issues. Use when the user
-  says something like "debug this" or "diagnose this", reports a bug, says
-  something is broken/throwing/failing, or describes a performance regression.
+  Find the cause of unexpected behaviors and runtime issues. Evaluation only —
+  no fix is applied. Use when the user says something like "diagnose this",
+  "debug this", or "why is this happening?", reports a bug, says something is
+  broken/throwing/failing, or describes a performance regression.
 license: CC0-1.0
 metadata:
   interactive: no
   preferred_model: ollama/CODE_STANDARD
 ---
 
-# Debug
+# Diagnose
 
-Diagnose a bug or performance regression whose cause is not obvious, then fix
-it. Build a reliable feedback loop first, reproduce the failure, form ranked
-falsifiable hypotheses, instrument to test them one variable at a time, then
-fix and lock the behavior down with a regression test.
+Find the cause of a bug or performance regression whose cause is not obvious.
+Build a reliable feedback loop first, reproduce the failure, form ranked
+falsifiable hypotheses, then instrument to test them one variable at a time
+until one hypothesis survives and the rest are ruled out.
 
 The feedback loop is the skill: without one you are guessing. Where the cause
 is already evident — a compiler, linter, or type-checker has named it — this
 is the wrong skill; that is mechanical repair, not diagnosis.
+
+This skill does not apply the remedy. It stops at a confirmed cause, and hands
+over the evidence that lets someone else — a downstream agent or a human —
+apply and verify a fix.
 
 ## Parameters
 
@@ -43,34 +48,33 @@ print an error message.
 
 You will achieve the following outcomes:
 
-- A verified fix MUST land with a regression test that locks the bug out,
-  the diagnostic instrumentation removed, and the correct cause recorded in
-  the commit or PR message for the next reader.
+- A single confirmed cause MUST be stated, with the evidence that confirmed
+  it and the evidence that ruled out the alternatives.
+
+- No production behavior MUST have changed. The working tree MUST contain no
+  attempted remedy — this task diagnoses, it does not repair.
 
 - If no reliable feedback loop can be built, the skill MUST stop and say
   so — listing what it tried and what it needs — rather than guessing.
 
 - A feedback loop MUST exist and MUST be recorded: the exact command,
-  script, or test that reproduces the bug MUST be committed or pasted into
-  the PR/commit message, so a future debugger can re-run it.
+  script, or test that reproduces the bug MUST be committed or written into
+  the handover, so a future reader can re-run it.
 
-- The original repro MUST no longer reproduce — re-running the loop after
-  the fix MUST show the bug is gone.
-
-- A regression test MUST exist, or its absence MUST be documented: the test
-  MUST pass after the fix and fail when the fix is reverted, and if no
-  correct seam was available, that finding MUST be recorded.
-
-- All tagged instrumentation MUST have been removed — `grep` for the debug
-  prefix MUST return zero hits in the committed code.
-
-- The correct hypothesis MUST be stated in the commit or PR message, so
-  future readers learn what the real cause was, not just what the fix
-  changed.
+- A failing regression test MUST exist at a correct seam, or the absence of
+  such a seam MUST be documented. The test MUST fail against the unmodified
+  code, for the diagnosed reason, and MUST be left failing.
 
 - The hypothesis set MUST be ranked and falsifiable: the output MUST
   include 3-5 ranked hypotheses, each with a stated prediction that could
-  disprove it.
+  disprove it, and each MUST be recorded as confirmed or eliminated.
+
+- All tagged instrumentation MUST have been removed — `grep` for the debug
+  prefix MUST return zero hits in the working tree.
+
+- The handover MUST carry the repro command, the failing test (or the
+  documented absence of a seam), the confirmed cause, and any suggested
+  remedy, so the repair can proceed without re-deriving the diagnosis.
 
 ## Instructions
 
@@ -131,8 +135,8 @@ You will achieve the following outcomes:
       non-deterministic bugs, at a high enough rate to debug against).
 
     - [ ] You have captured the exact symptom (error message, wrong
-      output, slow timing) so later phases can verify the fix actually
-      addresses it.
+      output, slow timing) so the handover can state precisely what a
+      remedy has to address.
 
 3.  Hypothesize.
 
@@ -166,63 +170,84 @@ You will achieve the following outcomes:
 
     For performance regressions, establish a baseline measurement (timing
     harness, `performance.now()`, profiler, query plan), then bisect.
-    Measure first, fix second.
+    Measure first, diagnose second.
 
-5.  Fix and regression-test.
+    A probe MAY temporarily change behavior to test a prediction — that is
+    what an experiment is. Revert every such change once the prediction has
+    been settled. What survives this step is knowledge, not a diff.
 
-    Write the regression test before the fix — but only if there is a
-    correct seam for it.
+5.  Converge on one cause.
 
-    A correct seam is one where the test exercises the real bug pattern as
-    it occurs at the call site. If the only available seam is too shallow, a
-    regression test there gives false confidence.
+    Keep testing predictions until exactly one hypothesis survives. Record,
+    for each of the others, the observation that eliminated it — an
+    untested hypothesis is not an eliminated one.
 
-    If no correct seam exists, that itself is the finding. Note it — the
+    You are done when you can state the full causal chain from trigger to
+    symptom, and every link is something you observed rather than inferred.
+
+    If two hypotheses both survive, the loop is not sharp enough to
+    distinguish them. Go back to step 1 and sharpen it. Do not pick the more
+    plausible one.
+
+6.  Capture a failing regression test.
+
+    The proof of a diagnosis is a test that fails now, for the diagnosed
+    reason, and will pass once the cause is removed. Write it, watch it
+    fail, and leave it failing.
+
+    Write it at a correct seam — one where the test exercises the real bug
+    pattern as it occurs at the call site. If the only available seam is too
+    shallow, a test there gives false confidence.
+
+    If no correct seam exists, that itself is a finding. Record it — the
     codebase architecture is preventing the bug from being locked down — and
-    flag it in the post-mortem.
+    hand over the step-1 loop as the verification method instead.
 
-    If a correct seam exists:
-
-    1. Turn the minimized repro into a failing test at that seam.
-
-    2. Watch it fail.
-
-    3. Apply the fix.
-
-    4. Watch it pass.
-
-    5. Re-run the step-1 feedback loop against the original (un-minimized)
-       scenario.
-
-6.  Clean up and post-mortem.
+7.  Clean up and hand over.
 
     Before declaring done:
-
-    - [ ] Original repro no longer reproduces (re-run the step-1 loop).
-
-    - [ ] Regression test passes (or absence of seam is documented).
 
     - [ ] All `[DEBUG-...]` instrumentation removed (grep the prefix to
       confirm).
 
+    - [ ] All experimental behavior changes from step 4 reverted; the diff
+      contains the failing test and nothing else.
+
     - [ ] Throwaway prototypes deleted (or moved to a clearly-marked
       debug location).
 
-    - [ ] The hypothesis that turned out correct is stated in the commit /
-      PR message — so the next debugger learns.
+    - [ ] The step-1 repro command recorded verbatim.
 
-    Then ask: what would have prevented this bug? If the answer involves
+    Then write the handover, following whatever convention the project's
+    issue or handover store prescribes: the symptom, the repro command, the
+    ranked hypotheses with the confirmed one marked and the rest shown as
+    eliminated, the causal chain, the failing test (or the documented
+    absence of a seam), and a suggested remedy with any alternatives you
+    considered.
+
+    Finally, ask: what would have prevented this bug? If the answer involves
     architectural change (no good test seam, tangled callers, hidden
-    coupling), make a recommendation — after the fix is in, not before.
+    coupling), record it as a separate recommendation — it is not part of
+    the repair.
 
 ## Rules
 
 - The feedback loop is the skill.
 
-  Build the right loop and the bug is 90% fixed. Without one, you are
+  Build the right loop and the bug is 90% found. Without one, you are
   guessing. You MUST treat loop construction as the primary task, not a
   setup step. You MUST NOT proceed past step 1 until you have a loop you
   believe in.
+
+- You MUST NOT apply a fix.
+
+  This task's output is knowledge plus a failing test. Applying the remedy
+  is separate work with its own verification. A diagnosis that arrives with
+  the fix already applied cannot be reviewed as a diagnosis, and the test
+  that should have proven it has already been turned green.
+
+  The one exception is a temporary experimental change made under step 4 to
+  test a prediction, which MUST be reverted before the handover.
 
 - For non-deterministic bugs, you MUST raise the reproduction rate.
 
@@ -269,16 +294,16 @@ You will achieve the following outcomes:
   eg. `[DEBUG-a4f2]`. Makes cleanup deterministic — a single grep finds
   every probe to remove.
 
-- For performance work, you MUST measure before you change.
+- You MUST report a cause as confirmed only if you observed it.
+
+  A cause you reasoned your way to but never watched happen is still a
+  hypothesis. Say so, and say what observation would settle it.
+
+- For performance work, you MUST measure before you conclude.
 
   Establish a baseline with a profiler, timing harness, query plan, or
   `performance.now()`. Then bisect. Logs are the wrong tool for
   performance.
-
-- You MUST state the correct hypothesis in the commit or PR message.
-
-  The next person debugging this area benefits from knowing what the real
-  cause was — not just what the fix is.
 
 ## Edge cases
 
@@ -286,7 +311,8 @@ You will achieve the following outcomes:
 
   Skip "watch it crash" — the bug is a measurement. Replace step 2's
   symptom capture with a numerical baseline + threshold, and the step-1
-  loop becomes a benchmark, not a test.
+  loop becomes a benchmark, not a test. The step-6 failing test is then a
+  benchmark assertion against the threshold.
 
 - Heisenbug that disappears under instrumentation.
 
@@ -306,6 +332,18 @@ You will achieve the following outcomes:
   In step 2, if the loop fails to reproduce the user's described symptom
   but reproduces something nearby, stop and report the discrepancy rather
   than chasing the wrong bug.
+
+- The cause turns out to be trivial once reproduced.
+
+  A one-line typo is still a diagnosis. Hand it over the same way — do not
+  fix it just because it is small. The repair path exists so that every
+  behavior change is verified the same way, whatever its size.
+
+- The remedy is obvious but the cause is contested.
+
+  Suppressing a symptom is not a diagnosis. If you can make the symptom go
+  away without being able to state why, you have not finished step 5 —
+  report the intervention as evidence, not as a conclusion.
 
 ## Examples
 
@@ -336,4 +374,25 @@ You will achieve the following outcomes:
   ```
 
   Cleanup: `grep -r '\[DEBUG-a4f2\]' src/` returns zero hits before
-  commit.
+  handover.
+
+- Handover of a confirmed cause:
+
+  ```md
+  Symptom: tenant B intermittently sees tenant A's dashboard totals.
+  Repro:   `npm test -- cache.tenant-isolation` (added, currently failing)
+
+  Cause (confirmed, hypothesis 1): `buildKey()` in `cache.ts:42` composes
+  the key from route and query string only. Two tenants hitting the same
+  route share a key, so whichever request populates the cache first wins
+  for the TTL. Observed directly: `[DEBUG-a4f2]` logged an identical key
+  for two distinct tenant IDs, and the second request never reached the
+  loader.
+
+  Eliminated: 2 (fresh token per iteration still reproduces), 3 (50ms
+  worker sleep changes nothing), 4 (fixture upstream still reproduces).
+
+  Suggested remedy: include the tenant ID in the key at `cache.ts:42`.
+  Alternative considered: per-tenant cache namespaces — a larger change,
+  but would prevent the whole class of bug.
+  ```

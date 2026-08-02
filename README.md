@@ -96,11 +96,11 @@ Each skill operates in one of two possible modes:
 | **[audit](./skills/audit/)** | Evaluate the evolving architecture — modularity, consistency, coupling, etc. | 🤖 |
 | **[code](./skills/code/)** | Write code, verified by tests, for one small increment. | 🤖 |
 | **[decide](./skills/decide/)** | Frame a technical decision as an RFC. | 🤖 |
-| **[debug](./skills/debug/)** | Diagnose and fix unexpected behaviors and runtime issues. | 🤖 |
 | **[design](./skills/design/)** | Explore architectural options and their trade-offs. | 🤖 |
+| **[diagnose](./skills/diagnose/)** | Find the cause of unexpected behaviors and runtime issues. | 🤖 |
 | **[discover](./skills/discover/)** | Run a discovery workshop with the customer to elicit product requirements. |🤖🧑|
 | **[elaborate](./skills/elaborate/)** | Refine a proposed solution by interrogating the design docs. |🤖🧑|
-| **[fix](./skills/fix/)** | Fix anything generally broken — failing builds, lint, type-checks, etc. | 🤖 |
+| **[fix](./skills/fix/)** | Fix anything broken whose cause is already known — failing builds, lint, type-checks, diagnosed bugs. | 🤖 |
 | **[plan](./skills/plan/)** | Decompose delivery into small, stable increments. | 🤖 |
 | **[probe](./skills/probe/)** | Run an interactive threat-modeling session. Record security risks. |🤖🧑|
 | **[refactor](./skills/refactor/)** | Iterate the design while maintaining stability through system testing. | 🤖 |

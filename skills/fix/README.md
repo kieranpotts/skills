@@ -1,16 +1,32 @@
 # Fix
 
-The **fix** skill is all about fixing anything generally broken — failing
-builds, lint, type-checks, etc. It audits and fixes
-anything in the codebase that is broken in an obvious, mechanical way — a failing
-build or compile, a linter or type-checker violation, a deprecation warning, a
-misconfigured tool.
+The **fix** skill is all about repairing something whose cause is already
+known, and proving the repair worked.
 
-Unlike **[debug](../debug/)**, there is no hypothesis to form — the cause is
-already evident from the tool's own error message, and the task is just to
-resolve it. Unlike **[style](../style/)**, which makes subjective presentation
-judgment calls, **fix** targets a tool's pass/fail verdict: the check either
-passes or it doesn't, and there is nothing to judge.
+## What it does
+
+It handles two kinds of repair, which differ only in where the cause came
+from:
+
+- **A tool named it.** A failing build or compile, a linter or type-checker
+  violation, a deprecation warning, a misconfigured tool. The error message is
+  the spec for the fix.
+
+- **A diagnosis named it.** **[diagnose](../diagnose/)** has already
+  reproduced the bug, confirmed the causal chain, and left behind a failing
+  regression test. That test is the acceptance criterion: **fix** turns it
+  green, then reverts the change to confirm it goes red again. A test that
+  passes either way proves nothing.
+
+What both have in common is that no hypothesis remains to be formed. Where
+investigation is still needed, the skill is instructed to stop and hand back to
+**[diagnose](../diagnose/)** rather than guess — and equally, where a
+handed-over diagnosis turns out to be stale or wrong, it reports that rather
+than quietly re-deriving it.
+
+Unlike **[style](../style/)**, which makes subjective presentation judgment
+calls, **fix** targets a verdict someone else has already reached: the check
+either passes or it doesn't, and there is nothing left to judge.
 
 ## Interactivity
 
@@ -28,7 +44,10 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-A mid-tier coding model is sufficient for this task.
+A mid-tier coding model is sufficient for mechanical, tool-reported breakage.
+Repairing a diagnosed bug is real code work — the cause is known but the remedy
+still has to be designed — so the skill pins a standard coding tier rather than
+a basic one.
 
 ## Suggested workflows
 
@@ -36,11 +55,13 @@ A mid-tier coding model is sufficient for this task.
 flowchart LR
   %% Node labels and classes.
   build["⚙️<br/>build"]:::scripted
+  diagnose["🤖<br/>diagnose"]:::agentic
   fix["🤖<br/>fix"]:::agentic
   code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
   build -- fail --> fix
+  diagnose ==> fix
   fix ==> code
 
   %% Class definitions.
@@ -50,13 +71,14 @@ flowchart LR
 ```
 
 **fix** is the failure branch off the build loop's build step (and equally off
-lint or the type-checker). Once the tool passes again, the increment rejoins the
+lint or the type-checker), and the landing point for a completed diagnosis.
+Once the tool passes or the regression test is green, the increment rejoins the
 loop back at **[code](../code/)**.
 
 ## Related skills
 
-- **[debug](../debug/):** diagnoses the cause when it isn't already evident
-  from tool output.
+- **[diagnose](../diagnose/):** finds the cause when a tool hasn't named it,
+  and hands over the failing test this skill turns green.
 
 - **[style](../style/):** distinguishes mechanical pass/fail remediation here
   from subjective presentation judgment there.

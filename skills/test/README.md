@@ -16,7 +16,7 @@ Use it after a change has cleared review, or before tagging a release. It
 verifies against the agreed specification — whether the specification was right
 in the first place is **[validate](../validate/)**'s job. It classifies each
 failure as an implementation defect or a specification defect and reports it
-without fixing, handing genuine bugs to **[debug](../debug/)**.
+without fixing, handing genuine bugs to **[diagnose](../diagnose/)**.
 
 It tests **against the specification, not the implementation**. It never
 silently weakens an AC, downgrades a BLOCKED to PASS, or retries a flaky test
@@ -47,12 +47,12 @@ flowchart LR
   build["⚙️<br/>build"]:::scripted
   test["🤖<br/>test"]:::agentic
   integrate["⚙️<br/>integrate"]:::scripted
-  debug["🤖<br/>debug"]:::agentic
+  diagnose["🤖<br/>diagnose"]:::agentic
 
   %% Main workflow sequence.
   build ==> test
   test ==> integrate
-  test <-.-> debug
+  test <-.-> diagnose
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -61,13 +61,13 @@ flowchart LR
 ```
 
 **test** runs the built solution against its acceptance criteria before it can
-integrate; a failure hands off to **[debug](../debug/)**, and only a clean pass
-proceeds.
+integrate; a failure hands off to **[diagnose](../diagnose/)**, and only a
+clean pass proceeds.
 
 ## Related skills
 
 - **[validate](../validate/):** asks whether the specification this skill
   verifies against was right in the first place.
 
-- **[debug](../debug/):** receives the genuine bugs this skill's failures
+- **[diagnose](../diagnose/):** receives the genuine bugs this skill's failures
   reveal.
