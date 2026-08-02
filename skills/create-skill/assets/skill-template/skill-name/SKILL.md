@@ -29,9 +29,8 @@ prompt the user for clarification.
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it. -->
+requirements. If you cannot determine the requirements, stop and alert the user
+with an error message. -->
 
 - **The first parameter — REQUIRED.** Describe it, and how to discover it
   from the surrounding context when the user does not supply it explicitly.
@@ -58,6 +57,8 @@ You will achieve the following outcomes:
 
 - [A boundary MUST have been respected: what the skill did NOT touch.]
 
+- Every success criterion MUST have an RFC 2119 keyword.
+
 ## Instructions
 
 1.  First step, in the imperative.
@@ -81,6 +82,10 @@ You will achieve the following outcomes:
 
   Anything with an order belongs in Instructions. Anything that holds
   throughout belongs here.
+
+- Every rule MUST have an RFC 2119 keyword.
+
+- Rules MUST NOT duplicate success criteria.
 
 ## Edge cases
 

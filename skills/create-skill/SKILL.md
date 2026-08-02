@@ -4,8 +4,8 @@ description: >-
   Author a new skill, or improve an existing one, in this skills collection or
   any downstream project. Use when the user asks to create, write, draft, add,
   or update a skill, or wants to capture a workflow as a reusable skill, or
-  when the user says "create a skill for X", "turn this workflow into a
-  skill", or "improve the <name> skill".
+  when the user says "create a skill for X", "turn this workflow into a skill",
+  or "improve the <name> skill".
 license: CC0-1.0
 metadata:
   interactive: yes
@@ -34,9 +34,10 @@ prompt the user for clarification.
   should invoke it.
 
 - **Target project — OPTIONAL.** Where to install the skill. If not
-  explicitly specified, and the current working directory is inside a Git
-  repository, assume that is the target project. Otherwise install in the
-  user's home directory at `$HOME/.agents/skills/<skill-name>/`.
+  explicitly specified by the user, if the current working directory (cwd) is
+  inside a Git repository then you can assume that repository is the target
+  repository. Otherwise install the skill in the user's home directory at
+  `$HOME/.agents/skills/<skill-name>/`.
 
 ## Success criteria
 
@@ -46,82 +47,57 @@ You will achieve the following outcomes:
   `SKILL.md`, a sibling `README.md` for humans, and any bundled `assets/`,
   `references/`, and `scripts/`.
 
-- The front-matter MUST be valid: the `name` and `description` fields MUST
+- The front-matter MUST be valid. The `name` and `description` fields MUST
   be present and non-empty, and `name` MUST match the directory name.
+
+- The `description` MUST follow the two-sentence pattern, naming both the
+  capability and the contexts that should invoke the skill.
 
 - The canonical sections MUST be present, in order: the `#` title and its
   description, `## Parameters`, `## Success criteria`, and at least one of
   `## Instructions` or `## Rules`. `## Parameters` and `## Success criteria`
   MUST come before any other `##` heading.
 
-- The parameters MUST be a bulleted list, each item naming its requirement
-  level — REQUIRED or OPTIONAL — inside a bold lead. The preamble MUST
-  state whether the agent may prompt the user, matching the
-  `metadata.interactive` flag.
+- The `## Parameters` section MUST open with a preamble whose stance on
+  prompting the user matches the `metadata.interactive` flag, followed by a
+  bulleted list in which every item carries a bold lead naming the parameter
+  and its requirement level, `REQUIRED` or `OPTIONAL`.
 
-- Inline bold MUST appear only in the `## Parameters` leads. Rules, success
-  criteria, instructions, edge cases, and examples MUST be plain prose.
+- Every instruction, rule, and success criterion MUST carry an explicit
+  requirement-level keyword.
 
-- The `description` MUST name both the capability and the contexts that
-  should invoke the skill, following the two-sentence pattern.
+- The `SKILL.md` MUST NOT name any other skill.
 
-- No artifact location, file name, or document structure MUST be
-  hard-coded. Every artifact the skill reads or writes MUST be discovered
-  from context, from the environment, or by asking. Any literal path that
-  remains MUST be an illustrative example, clearly marked as such.
-
-- No other skill MUST be referenced by name — neither a global skill from a
-  project-level one, nor the reverse.
-
-- The `SKILL.md` MUST be token-efficient, and MUST be under 500 lines —
-  physical lines, blank lines included. No section SHOULD be padded with
-  detail that belongs in a `references/` file.
+- The `SKILL.md` MUST be under 500 lines, blank lines included.
 
 - A `README.md` MUST exist alongside the `SKILL.md`, and MUST carry the
-  `## Interactivity`, `## How to invoke`, `## Recommended models`, and
-  `## Related skills` sections, in the order set by the bundled template.
+  `## Interactivity`, `## How to invoke`, and `## Recommended models`
+  sections, and MAY carry `## Related skills` too. The order in which the
+  headings appear MUST match the bundled template.
 
 - The validator MUST pass against the skill directory.
 
 ## Instructions
 
-1.  Clarify the scope and target project for the skill.
-
-    Establish what the skill should do and when it should trigger before
-    drafting anything. Extract as much as you can from the conversation
-    before asking questions. At minimum, understand the task, trigger
-    situations, expected input and output, and any hard constraints or edge
-    cases.
-
-2.  Research the domain.
-
-    Before writing, gather relevant context. Look up tool documentation,
+1.  Before writing, gather relevant context. Look up tool documentation,
     check the project for similar existing skills, and identify any scripts
     or reference files that ought to be bundled. Come prepared so you can
     minimize questions to the user.
 
-3.  Choose a name and location.
-
-    Identify the target directory for installation. If not explicitly
-    specified, check whether the current working directory is under a Git
-    directory. If so, assume the root directory of the Git repository is the
-    target. If not, assume the user's home directory is the target — for
-    global installation of the new skill.
-
-    Under the target directory, install the skill file at
-    `.agents/skills/<skill-name>/SKILL.md`.
+2.  Under the target project, install the skill file at
+    `.agents/skills/<skill-name>/SKILL.md` (relative to the project root).
 
     Use kebab-case for skill names, and favor meaningful actions or verbs,
     eg. "specify", "commit", "release", "review". Prefer single verbs, but
     use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
-4.  Write the `SKILL.md` file.
+3.  Write the `SKILL.md` file.
 
     Use the [bundled template](./assets/skill-template/skill-name/SKILL.md)
     and include the sections, front-matter, and formatting required by the
     rules below.
 
-5.  Bundle supporting files if needed.
+4.  Bundle supporting files if needed.
 
     Add files to `scripts/`, `references/`, or `assets/` when the skill needs
     them.
@@ -133,24 +109,24 @@ You will achieve the following outcomes:
     installed alongside others. See the collision safety instructions,
     [here](./references/create-skill-collision-safety.md).
 
-6.  Write the `README.md`.
+5.  Write the `README.md`.
 
     Use the [bundled template](./assets/skill-template/skill-name/README.md).
 
     This is human-readable documentation. Describe what the skill does,
     whether it runs interactively, how to invoke it, what class of model it
-    warrants, and how it fits into surrounding workflows.
+    warrants, and (OPTIONALLY) how it fits into surrounding workflows.
 
     Keep the template's section order. Drop the sections marked OPTIONAL
     where they have nothing to say.
 
-7.  Review the draft.
+6.  Review the draft.
 
     Re-read the completed `SKILL.md` with fresh eyes. Check for unnecessary
     verbosity, redundant rules, or instructions that assume too much. Trim
     anything that isn't pulling its weight.
 
-8.  Validate the skill.
+7.  Validate the skill.
 
     Run the bundled validator against the new skill directory:
 
@@ -185,7 +161,7 @@ You will achieve the following outcomes:
   Helps with documents.
   ```
 
-- `SKILL.md` MUST include the canonical sections, in the canonical order.
+- Write each canonical section to its own contract.
 
   - Front-matter: `name` and `description` are REQUIRED. `compatibility`
     and `license` are OPTIONAL. Under `metadata`, a skill MAY pin a model
@@ -227,6 +203,13 @@ You will achieve the following outcomes:
     There is no separate output section. Include deterministic checks — a
     linter, a validator, a command — wherever the agent can run one.
 
+    A criterion MUST NOT restate a rule or an instruction, and no two
+    criteria MUST state the same outcome. A step the agent performs belongs
+    in `## Instructions`; a constraint on how it works, and the scope it
+    MUST stay inside, belong in `## Rules`. Ask of each bullet whether it
+    can be checked against the finished work without watching the agent
+    work: if not, it is a rule or a step wearing the wrong hat.
+
   - `## Instructions`: The ordered procedural steps. REQUIRED unless the
     skill is purely declarative, in which case `## Rules` alone suffices.
 
@@ -259,10 +242,10 @@ You will achieve the following outcomes:
 
     Audits are always cut from `main`. If local `main` is behind the
     remote, pull first.
-    ```
+  ```
 
-    Bolding every rule heading turns the section into a wall of emphasis and
-    makes the genuinely important lines harder to find.
+  Bolding every rule heading turns the section into a wall of emphasis and
+  makes the genuinely important lines harder to find.
 
 - Keep instructions and rules separate.
 
@@ -292,7 +275,7 @@ You will achieve the following outcomes:
   records, design documentation, delivery plans, audit reports, risk
   registers, changelogs, glossaries, issue trackers.
 
-  Where a skill consumes or produces such an artifact, its `## Input`
+  Where a skill consumes or produces such an artifact, its `## Parameters`
   section MUST carry a bullet naming the store and requiring its discovery:
   from session context first, then the environment (a convention file, a
   workspace manifest, an existing directory, a configured connector), then
@@ -341,10 +324,10 @@ You will achieve the following outcomes:
 
 - Keep the skill token-efficient.
 
-  Skills are loaded into the agent's context window. `SKILL.md` SHOULD
-  stay under 500 lines, counting blank lines — the budget is on the file as
-  loaded, not on its prose. Offload deep detail to `references/` files. Link
-  them with a trigger condition so they're only read when needed. Extract
+  Skills are loaded into the agent's context window, so the budget is on the
+  file as loaded, not on its prose. You SHOULD NOT pad a section with detail
+  that belongs in a `references/` file. Offload deep detail to `references/`,
+  linked with a trigger condition so it is only read when needed, and extract
   recurring logic to `scripts/`. Balance token efficiency against human
   readability.
 
