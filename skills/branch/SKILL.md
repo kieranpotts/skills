@@ -44,8 +44,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The outcome MUST be either a correctly-named branch created from the right
   base, or a pass/fail verdict on the supplied names, naming the specific
   rule each one violates.

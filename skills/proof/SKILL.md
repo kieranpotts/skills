@@ -37,8 +37,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The target files MUST have been edited in place, with only prose words
   changed. Code, markup, and structure MUST be byte-identical otherwise, so
   the diff shows word-level prose edits and nothing else — no reflowed

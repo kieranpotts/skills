@@ -55,8 +55,6 @@ environment do not settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The requirements MUST be filed into the project's specification store as
   testable acceptance criteria, and left at whatever state that store uses
   for "awaiting review", reached by carrying out the scaffold → author →

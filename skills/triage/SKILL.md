@@ -45,8 +45,6 @@ environment do not settle them.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A recommended classification MUST exist for each issue, applied as the
   outcome only once the maintainer confirms it — a label change, an agent
   brief, a needs-info request, or a durably-captured wontfix rationale.

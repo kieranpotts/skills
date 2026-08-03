@@ -44,8 +44,6 @@ settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A committed, tested change MUST exist for that single step — the
   implementation plus its tests, with a clean reviewable diff.
 

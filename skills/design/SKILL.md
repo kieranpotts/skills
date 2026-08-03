@@ -54,8 +54,6 @@ not settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A recommended design MUST exist, naming which qualities it prioritizes —
   "we pick X because it optimizes for Y and Z, accepting weaker W."
 

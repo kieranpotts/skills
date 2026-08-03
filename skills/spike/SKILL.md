@@ -51,8 +51,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A single falsifiable question MUST be stated up front, not a topic and not
   an area to explore.
 

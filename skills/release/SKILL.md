@@ -40,8 +40,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The release branch MUST have been created or advanced, and MUST follow the
   chosen naming
   convention: it MUST be either a permanent release trunk or a temporary

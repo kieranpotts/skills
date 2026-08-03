@@ -40,8 +40,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A commit message MUST exist in the `<type>: <description>` format, with
   any optional flag, body, and footers — or, where messages were supplied
   for checking, a pass/fail verdict naming the rule each failing message

@@ -46,8 +46,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - External behavior MUST be unchanged: every test that passed before MUST
   pass after, and a manual smoke of the affected paths MUST confirm no
   observable difference.

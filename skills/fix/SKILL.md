@@ -54,8 +54,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The reported breakage MUST be resolved at its source, or explicitly
   suppressed with a recorded justification.
 

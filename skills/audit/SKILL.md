@@ -41,8 +41,6 @@ with an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The report MUST be an artifact capturing candidates for architecture
   improvements.
 

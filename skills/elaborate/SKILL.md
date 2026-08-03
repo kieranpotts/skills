@@ -57,8 +57,6 @@ not settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The design MUST be decomposition-ready: a reader MUST be able to pick it
   up and break it into steps without re-asking the questions this skill
   resolved.

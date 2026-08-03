@@ -47,8 +47,6 @@ one at a time and waits for approval before persisting anything.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - Zero or more persisted lessons MUST exist — memory entries and/or
   appended convention rules — each one non-obvious and capable of changing
   future agent behavior, such that a reader of the entry can identify what

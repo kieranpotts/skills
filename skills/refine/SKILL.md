@@ -47,8 +47,6 @@ asking one question at a time and waiting for the answer before proceeding.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - Precise edits to the requirements artifacts MUST exist, conforming to the
   specification store's own conventions — Gherkin, measurable NFRs,
   explicit scope.

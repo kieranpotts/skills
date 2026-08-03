@@ -52,8 +52,6 @@ settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The plan MUST be a numbered checklist of steps, with tight descriptions;
   it MUST NOT substitute for the design document.
 

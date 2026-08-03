@@ -50,8 +50,6 @@ asking one question at a time and waiting for the answer before proceeding.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A new or modified PRD MUST exist, covering outcomes, stakeholders, scope,
   rules, examples, non-functional requirements, assumptions, and open
   questions.

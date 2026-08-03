@@ -41,8 +41,6 @@ prompt the user for clarification.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A complete skill directory MUST exist at the target location, holding a
   `SKILL.md`, a sibling `README.md` for humans, and any `assets/`,
   `references/`, and `scripts/` the skill needs.

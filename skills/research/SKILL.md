@@ -46,8 +46,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A single, cited research report MUST exist, opening with a direct answer
   to the framed question — or with a clear statement of why no answer was
   reachable and what would be needed.

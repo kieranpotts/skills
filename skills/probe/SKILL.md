@@ -53,8 +53,6 @@ asking one question at a time and waiting for each answer before asking the
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The risk store MUST have been discovered before the session starts: its
   location and access method MUST trace to session context, to the
   environment, or to an answer from the user, never to an assumed path.

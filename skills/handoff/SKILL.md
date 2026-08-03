@@ -40,8 +40,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A single, ephemeral handoff document MUST exist outside the repo, written
   to the OS temp directory rather than the project tree, and its absolute
   path MUST have been reported.

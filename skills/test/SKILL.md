@@ -50,8 +50,6 @@ settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A verification report MUST exist, mapping every AC to a status — PASS /
   FAIL / BLOCKED / N/A — each with a pointer to observable evidence.
 

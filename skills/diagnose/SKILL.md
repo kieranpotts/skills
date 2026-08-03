@@ -46,8 +46,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A single confirmed cause MUST be stated, with the evidence that confirmed
   it and the evidence that ruled out the alternatives.
 

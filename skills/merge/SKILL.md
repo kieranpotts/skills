@@ -41,8 +41,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The target branch MUST carry the integrated work, and its history MUST
   reflect the strategy correct for the branch type: `temp/*` branches land
   via rebase-up + fast-forward, `epic/*` branches land via squash-merge,

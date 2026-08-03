@@ -52,8 +52,6 @@ settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A set of findings MUST exist, each one specific and actionable: naming
   the file and line, describing the issue, and suggesting a direction.
 

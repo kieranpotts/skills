@@ -40,8 +40,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - The target files MUST carry presentation-only edits: whitespace,
   indentation, wrapping, quotes, ordering.
 

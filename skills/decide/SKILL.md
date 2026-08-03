@@ -55,8 +55,6 @@ and environment do not settle it.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A completed decision record MUST exist, stating the decision, its
   motivation, the alternatives considered, the honest trade-offs, a
   recommendation, and the conditions under which that recommendation would

@@ -47,8 +47,6 @@ with an error message. -->
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - [An artifact MUST exist, named and located.]
 
 - [A state MUST hold, stated so it can be checked.]

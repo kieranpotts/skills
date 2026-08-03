@@ -35,8 +35,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - Every open comment MUST be dispositioned: each one either resolved —
   fixed, verified, replied to, marked resolved — or left open and surfaced
   as blocked with a reason. None MUST be silently skipped.

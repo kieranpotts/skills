@@ -50,8 +50,6 @@ print an error message.
 
 ## Success criteria
 
-You will achieve the following outcomes:
-
 - A bounded, prioritized validation report MUST exist, holding 5–10
   candidates rather than an exhaustive wishlist.
 
