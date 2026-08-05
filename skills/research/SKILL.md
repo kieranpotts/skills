@@ -4,10 +4,8 @@ description: >-
   Gather external sources on a topic and produce a cited research report. Use
   when a decision is blocked on missing knowledge, or when the user says
   something like "research X", "look into X", or "find out how X works".
+compatibility: requires Read, Write, WebSearch, WebFetch
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/ANALYSIS_DEEP
 ---
 
 # Research

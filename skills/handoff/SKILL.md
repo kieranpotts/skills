@@ -6,10 +6,8 @@ description: >-
   someone else will resume, or when the user says something like "hand this
   off to the next session", "write up where we've got to", or "I'm going to
   bed now, see you tomorrow".
+compatibility: requires Read, Write
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/PROSE_STANDARD
 ---
 
 # Handoff

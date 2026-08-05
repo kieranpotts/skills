@@ -6,10 +6,8 @@ description: >-
   need improving. Or use when the user says something like "refactor this for
   readability", "clean up the structure of this module", or "reduce the
   coupling here without changing behavior".
+compatibility: requires Read, Edit, Bash (tests/git)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Refactor

@@ -4,10 +4,8 @@ description: >-
   Ask, "did we build the right thing?" Use when the user asks something like
   "did we build the right thing?", "does the software fulfill its goals?", or
   "what gaps can you find in the requirements specification?"
+compatibility: requires Read, Bash (git clone)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/ANALYSIS_STANDARD
 ---
 
 # Validate

@@ -6,9 +6,6 @@ description: >-
   branch".
 compatibility: requires git
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/WORKFLOW_STANDARD
 ---
 
 # Release

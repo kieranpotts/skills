@@ -7,10 +7,8 @@ description: >-
   stakeholder review, or when the user says something like "write an RFC for
   this", "draft an RFC proposing X", "we need to decide whether to adopt Y",
   or "help me make the case for this change".
+compatibility: requires Read, Write, WebFetch, WebSearch
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/ANALYSIS_DEEP
 ---
 
 # Decide

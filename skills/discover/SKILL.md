@@ -6,10 +6,8 @@ description: >-
   says something like "let's discover the requirements for…", "run a discovery
   session on…", "help me understand what the customer actually needs", or
   "interview me about this feature".
+compatibility: requires Read, Write
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/ANALYSIS_STANDARD
 ---
 
 # Discover

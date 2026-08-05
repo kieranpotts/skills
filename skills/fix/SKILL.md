@@ -8,10 +8,8 @@ description: >-
   regression test. Or use when the user says something like "fix the build",
   "fix the lint errors", "make the type-checker pass", or "implement the fix to
   resolve this known bug".
+compatibility: requires Read, Edit, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Fix

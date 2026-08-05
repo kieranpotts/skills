@@ -5,10 +5,8 @@ description: >-
   consistency. Use when polishing documentation, a README, release notes, or
   any written content before it ships, or when the user says something like
   "proofread this document" or "check this for spelling and grammar".
+compatibility: requires Read, Edit, Bash (git status)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/PROSE_STANDARD
 ---
 
 # Proof

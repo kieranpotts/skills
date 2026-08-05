@@ -6,10 +6,8 @@ description: >-
   CI lint failures, or aligning a file to project conventions. Or use when the
   user says something like "format this file", "fix the formatting / lint
   errors", or "tidy up the whitespace and style here".
+compatibility: requires Read, Edit, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_BASIC
 ---
 
 # Style

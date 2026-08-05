@@ -4,10 +4,8 @@ description: >-
   Distill durable lessons from the session into memory. Use at session end, or
   when the user says something like "reflect on this session", "what should
   you remember from this?", or "save the lessons from our work today".
+compatibility: requires Read, Write, Edit
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/PROSE_STANDARD
 ---
 
 # Reflect

@@ -5,10 +5,8 @@ description: >-
   when the user says something like "probe the security of...", "run a threat
   model on…", "what are the security risks of this design?", "do a STRIDE
   session on…", or "assess the privacy risks here".
+compatibility: requires Read, Write
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/SECURITY_DEEP
 ---
 
 # Probe

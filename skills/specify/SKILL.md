@@ -5,10 +5,8 @@ description: >-
   criteria. Use when the user says something like "turn this into acceptance
   criteria", "turn this into a spec", or "prepare these as software
   requirements".
+compatibility: requires Read, Write, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/PROSE_DEEP
 ---
 
 # Specify

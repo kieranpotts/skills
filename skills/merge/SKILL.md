@@ -9,9 +9,6 @@ description: >-
   "promote <source-branch-name> to <target-branch-name>".
 compatibility: requires git
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/WORKFLOW_STANDARD
 ---
 
 # Merge

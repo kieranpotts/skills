@@ -6,10 +6,8 @@ description: >-
   bigger than a single commit or touches multiple seams, or when the user says
   something like "break this design into steps", "plan the implementation", or
   "how should we sequence this work?".
+compatibility: requires Read, Write
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/ANALYSIS_DEEP
 ---
 
 # Plan

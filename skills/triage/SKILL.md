@@ -5,10 +5,8 @@ description: >-
   triaging incoming issues, lining them up to be worked on by either humans or
   downstream agents. Also use when the user says something like "triage this
   issue", "work the incoming issue queue", or "prep this issue for an agent".
+compatibility: requires Read, Bash (gh)
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/ANALYSIS_STANDARD
 ---
 
 # Triage

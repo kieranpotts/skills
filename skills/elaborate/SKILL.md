@@ -7,10 +7,8 @@ description: >-
   unstated assumptions, or contested terms. Also use when the user says
   something like "interrogate this design", "grill me on this draft", or
   "stress-test this design before we build it".
+compatibility: requires Read, Grep, Write
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/ANALYSIS_STANDARD
 ---
 
 # Elaborate

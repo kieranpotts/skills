@@ -8,10 +8,8 @@ description: >-
   like "refine the spec based on this feedback", "the acceptance criteria are
   wrong — fix the requirements", or "update the specification to match what we
   learned".
+compatibility: requires Read, Edit
 license: CC0-1.0
-metadata:
-  interactive: yes
-  preferred_model: ollama/PROSE_DEEP
 ---
 
 # Refine

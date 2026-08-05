@@ -6,10 +6,8 @@ description: >-
   before a release. Use when the user says something like "test this against
   the spec", "verify this meets the acceptance criteria", or "run acceptance
   testing on this change".
+compatibility: requires Read, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Test

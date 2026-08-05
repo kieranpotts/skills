@@ -6,10 +6,8 @@ description: >-
   changes before opening a PR, or when the user says something like "review
   this PR", "review my changes before I push", or "check this diff against the
   spec and our conventions".
+compatibility: requires Read, Bash (git diff)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Review

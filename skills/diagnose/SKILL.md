@@ -5,10 +5,8 @@ description: >-
   no fix is applied. Use when the user says something like "diagnose this",
   "debug this", or "why is this happening?", reports a bug, says something is
   broken/throwing/failing, or describes a performance regression.
+compatibility: requires Read, Write, Edit, Grep, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Diagnose

@@ -6,10 +6,8 @@ description: >-
   too speculative to commit to without evidence, or when the user says
   something like "do a spike on whether X is feasible" or "prototype this to
   answer the open question".
+compatibility: requires Read, Write, Bash
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Spike

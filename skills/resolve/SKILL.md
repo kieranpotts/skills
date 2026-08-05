@@ -4,10 +4,8 @@ description: >-
   Action open review comments. Mark them as resolved. Use after a code review,
   or when the user says something like "action the review comments" or
   "address the feedback on this PR".
+compatibility: requires Read, Edit, Bash (git/gh)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_BASIC
 ---
 
 # Resolve

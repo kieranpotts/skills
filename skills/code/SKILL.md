@@ -5,10 +5,8 @@ description: >-
   implementing one numbered step from a plan, or for any small standalone
   change whose design is already obvious, or when the user says something like
   "implement step N of the plan", "code this up", or "build this change".
+compatibility: requires Read, Write, Edit, Bash (tests/git)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/CODE_STANDARD
 ---
 
 # Code

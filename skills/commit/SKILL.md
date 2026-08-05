@@ -7,9 +7,6 @@ description: >-
   "is this commit message valid?", or "why did commit validation fail in CI?".
 compatibility: requires git
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/WORKFLOW_STANDARD
 ---
 
 # Commit

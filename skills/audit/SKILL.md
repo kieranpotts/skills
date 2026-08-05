@@ -5,10 +5,8 @@ description: >-
   Security and privacy is out-of-scope. Use this skill when the user says
   something like "audit this codebase", "do an architectural audit", or
   "is the design still sound?".
+compatibility: requires Read, Grep, Glob, Write, Bash (git clone)
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/ANALYSIS_DEEP
 ---
 
 # Audit

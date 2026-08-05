@@ -5,10 +5,8 @@ description: >-
   involves architecturally significant decisions, or when the user says
   something like "design this feature", "what are the options for building
   this?", or "work out the architecture for this change".
+compatibility: requires Read, Write
 license: CC0-1.0
-metadata:
-  interactive: no
-  preferred_model: ollama/ANALYSIS_DEEP
 ---
 
 # Design
