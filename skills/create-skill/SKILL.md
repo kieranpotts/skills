@@ -6,7 +6,8 @@ description: >-
   or update a skill, or wants to capture a workflow as a reusable skill, or
   when the user says "create a skill for X", "turn this workflow into a skill",
   or "improve the <name> skill".
-compatibility: requires Read, Write, Bash (validator script)
+compatibility: >-
+  requires Read, Write, Edit, Glob, Grep, WebFetch, Bash (validator script)
 license: CC0-1.0
 ---
 
@@ -119,8 +120,10 @@ prompt the user for clarification.
   configuration, or dependencies. Authoring a skill is a documentation task.
   It never requires touching the software the skill will be used on.
 
-- The front-matter fields `name`, `description`, and `license` are
-  REQUIRED.
+- The front-matter fields `name`, `description`, `license`, and
+  `compatibility` are REQUIRED. The Agent Skills standard treats `license`
+  and `compatibility` as optional; this collection requires them, so that
+  every skill declares its terms of use and what it needs in order to run.
 
 - The `description` field is the primary trigger mechanism. It determines
   the scenarios in which an agent should ingest the skill. You SHOULD err toward
@@ -145,7 +148,14 @@ prompt the user for clarification.
 - You MAY add a third sentence that clarifies scenarios in which the skill must
   _not_ be used.
 
-- For the `license` field, default to "CC0-1.0" unless the user says otherwise.
+- For the `license` field, you SHOULD default to "CC0-1.0" unless the user
+  says otherwise.
+
+- The `compatibility` field MUST name every tool the instructions actually
+  call for, in the form `requires <tool>, <tool>`. A skill that searches the
+  workspace needs Glob and Grep; one that reads a reference over the network
+  needs WebFetch. Understating it leaves an agent to discover the shortfall
+  mid-task, with the work already half done.
 
 - You MUST open the body of the skill file with a level 1 Markdown heading.
   This MUST match the skill name. For example, for a skill named `create-skill`,
