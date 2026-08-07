@@ -104,8 +104,7 @@ below.
 
   `## Parameters` defines what the agent consumes, as a bulleted list whose
   items carry their requirement level in a bold lead. Its preamble MUST
-  state whether the agent may prompt the user, matching the
-  `metadata.interactive` flag.
+  state plainly whether the agent may prompt the user.
 
   `## Success criteria` defines the observable end state, and absorbs what
   the skill produces — there is no separate output section. It comes before
