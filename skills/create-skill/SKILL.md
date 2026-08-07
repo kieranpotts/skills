@@ -130,8 +130,10 @@ prompt the user for clarification.
 
   1. First sentence — what the skill does.
 
-  2. Second sentence — `Use when ...` followed by specific triggers (user
-     phrasings, situations, file types, contexts).
+  2. Second sentence — a trigger clause opening with `Use`, followed by
+     specific triggers (user phrasings, situations, file types, contexts).
+     `Use when ...` suits most skills; `Use after ...` suits one that follows
+     a defined upstream step.
 
   ```sh
   ✅ Good:
@@ -159,9 +161,9 @@ prompt the user for clarification.
   out, name the tool as `Bash` and quality the shell command in parentheses,
   eg. `Bash (git diff)`.
 
-- You MUST open the body of the skill file with a level 1 Markdown heading.
-  This MUST match the skill name. For example, for a skill named `create-skill`,
-  the heading will be `# Create skill`.
+- You MUST open the body of the skill file with a level 1 Markdown heading
+  carrying the skill name in sentence case, hyphens replaced by spaces. For a
+  skill named `create-skill`, the heading is `# Create skill`.
 
 - Immediately after the level 1 heading, include a short description (one to
   three sentences only) covering what the agent is being asked to do, and
@@ -242,16 +244,12 @@ prompt the user for clarification.
   `compatibility` value with YAML's `>-`, rather than letting the line run on.
   Tables, fenced code, and links that cannot be broken are the exceptions.
 
-- Use RFC 2119 keywords consistently.
-
-- Every instruction, rule, and success  criterion MUST be built around one or
-  more of the RFC 2119 keywords. For example, rather than writing "run the
-  validator before finishing", be explicit in the requirement level by writing
-  "you MUST run the validator before finishing". A step with no requirement
-  level is ambiguous about whether it can be skipped or varied.
-
-- See [requirements levels](./references/create-skill-requirements-levels.md)
-  for the allowed subset of RFC 2119 keywords.
+- Every instruction, rule, and success criterion MUST be built around one or
+  more RFC 2119 keywords, drawn from the allowed subset and applied
+  consistently. Rather than writing "run the validator before finishing", be
+  explicit about the requirement level: "you MUST run the validator before
+  finishing". A step with no requirement level is ambiguous about whether it
+  can be skipped or varied.
 
 - Skills SHOULD NOT hard-code the formats and storage locations of artifacts
   that an agent consumes or generates. Input and output SHOULD be discoverable
@@ -263,15 +261,15 @@ prompt the user for clarification.
 
 - Skills MUST NOT reference other skills by name. A global skill MUST NOT name
   a project-level skill, and a project-level skill MUST NOT name a global one.
-  Skills in the same collection SHOULD not reference each other, either.
+  Skills in the same collection SHOULD NOT reference each other, either.
   Skills that do not explicitly hand-off to one another have greater reuse.
   They can be composed by orchestrators into all sorts of different workflows.
 
 - Non-obvious requirements SHOULD explain the _why_ behind them. Instead of
   bare imperatives, explain the reasoning so the agent can apply judgment in
-  edge cases. When multiple approaches are valid, rather tha prescribing
+  edge cases. When multiple approaches are valid, rather than prescribing
   exact steps, prefer to set out guiding principles that the agent can use to
-  make its own judgment call to the best way forward.
+  make its own judgment call on the best way forward.
 
 - Prescriptiveness SHOULD match fragility. You SHOULD be prescriptive — eg.
   provide exact commands, flags, and ordering — when operations are fragile,
@@ -310,16 +308,16 @@ prompt the user for clarification.
 - Reach for proven structural techniques when they fit. You SHOULD use these
   where applicable:
 
-  - Step checklists for multi-step workflows where the agent must track
-    progress across dependencies or validation gates.
+  - Step checklists, for multi-step workflows. The agent tracks progress
+    across dependencies and validation gates.
 
-  - Output templates provide concrete structure rather than prose
-    descriptions. Long or conditional templates belong in `assets/`.
+  - Output templates, for structure that prose description cannot pin down.
+    Long or conditional templates belong in `assets/`.
 
-  - Validation loops run a validator, fix failures, and repeat until it
-    passes.
+  - Validation loops, for work that has to converge. Run a validator, fix the
+    failures, repeat until it passes.
 
-  - Plan-validate-execute for batch or destructive operations. Produce a
+  - Plan-validate-execute, for batch or destructive operations. Produce a
     plan, validate it, then execute. The validator MUST produce error
     messages specific enough for the agent to self-correct.
 

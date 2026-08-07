@@ -237,8 +237,9 @@ run_repo_checks() {
   if [[ "${no_keyword}" -eq 0 ]]; then
     printf "  [PASS] Every rule and criterion carries a requirement level\n" >&2
   else
-    printf "  [WARN] %d rule(s)/criteria without an RFC 2119 keyword\n" "${no_keyword}" >&2
+    printf "  [FAIL] %d rule(s)/criteria without an RFC 2119 keyword\n" "${no_keyword}" >&2
     printf "         A step with no requirement level is ambiguous\n" >&2
+    failed=1
   fi
 
   check_compatibility_tools "${skill_md}"

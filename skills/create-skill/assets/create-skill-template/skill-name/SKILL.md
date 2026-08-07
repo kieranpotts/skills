@@ -33,14 +33,12 @@ with an error message. -->
 - **The second parameter — OPTIONAL.** Describe it, and its default when
   absent.
 
-- **Output — REQUIRED for non-interactive skills.**
-  If an agent is expected to run non-interactively, it MUST be given clear
-  guidelines on where and how it will persist its outputs. The agent should
-  be instructed to discover this, first from the last prompt, then from more
-  recent context, and finally from the environment — eg. a convention file, a
-  workspace manifest, etc. The store MAY be a directory in the same repository,
-  a separate repository, or an external service — the agent MUST NOT be left
-  making assumptions about which one it is.
+- **Output store — OPTIONAL.** Where the skill persists what it produces,
+  for skills that write artifacts. Instruct the agent to discover this: from
+  the last prompt, then from more recent context, then from the environment —
+  eg. a convention file, a workspace manifest. The store MAY be a directory in
+  the same repository, a separate repository, or an external service, so the
+  agent MUST NOT be left assuming which.
 
 ## Success criteria
 
