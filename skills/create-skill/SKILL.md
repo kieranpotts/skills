@@ -209,9 +209,9 @@ prompt the user for clarification.
   material the agent can ingest on-demand. For each reference, you MUST specify
   a trigger condition.
 
-- You SHOULD use inline bold formatting only sparingly. Use it for the lead
-  of each parameter, and for a short descriptive opener for each edge case.
-  Bold formatting should be mostly absent from the rest of the document.
+- You SHOULD use inline bold sparingly. Reserve it for the lead of each
+  `## Parameters` bullet. Rules, success criteria, instructions, edge cases,
+  and examples are plain prose. Bold carries meaning only while it is rare.
 
 - Use RFC 2119 keywords consistently.
 
@@ -296,11 +296,13 @@ prompt the user for clarification.
 
 ## Edge cases
 
-- **Improving an existing skill.** Read the current `SKILL.md` first, then treat
-  the improvement like a new draft. Rewrite rather than patch. Preserve the
-  `name` field unchanged.
+- You are improving an existing skill.
 
-- **A similar skill already exists elsewhere**, eg. in Anthropic's skills repo.
+  Read the current `SKILL.md` first, then treat the improvement like a new
+  draft. Rewrite rather than patch. Preserve the `name` field unchanged.
+
+- A similar skill already exists elsewhere, eg. in Anthropic's skills repo.
+
   Use it as a reference for domain knowledge, but adapt the instructions and
   format to the bundled template and the conventions of the project you are
   authoring in. Don't copy verbatim.

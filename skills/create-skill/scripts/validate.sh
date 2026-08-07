@@ -214,8 +214,9 @@ run_repo_checks() {
   if [ "${bold_after}" -eq 0 ]; then
     printf "  [PASS] Inline bold confined to '## Parameters'\n" >&2
   else
-    printf "  [WARN] %d bold-lead bullet(s) after '## Success criteria'\n" "${bold_after}" >&2
-    printf "         Rules, criteria, and examples should be plain prose\n" >&2
+    printf "  [FAIL] %d bold-lead bullet(s) after '## Success criteria'\n" "${bold_after}" >&2
+    printf "         Rules, criteria, edge cases, and examples are plain prose\n" >&2
+    failed=1
   fi
 
   # Every top-level item under '## Rules' and '## Success criteria' should

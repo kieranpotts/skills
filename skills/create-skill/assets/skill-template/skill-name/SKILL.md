@@ -82,11 +82,14 @@ with an error message. -->
 
 ## Edge cases
 
-- **Some edge case.** Describe the edge case and how the agent should handle it.
+- Some edge case, stated as the situation the agent finds itself in.
 
-  Add further paragraphs to the list item if detailed guidance may be required.
+  Describe how the agent should handle it. Add further paragraphs to the list
+  item if detailed guidance may be required.
 
-- **Next edge case.** Describe it. Instruct the agent how to handle it.
+- The next edge case.
+
+  Describe it. Instruct the agent how to handle it.
 
 ## Examples
 
