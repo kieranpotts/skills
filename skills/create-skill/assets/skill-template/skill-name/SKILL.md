@@ -1,9 +1,9 @@
 ---
 name: skill-name
 description: >-
-  One sentence describing what the skill does. Optional sentence describing
-  what's out-of-scope. Use when <specific triggers — user phrasings, situations,
-  file types, contexts>.
+  One sentence describing what the skill does. Use when <specific triggers —
+  user phrasings, situations, file types, contexts>. Optional third sentence
+  naming any situation in which the skill must not be used.
 compatibility: requires <tool> or <tool>, and <tool>
 license: <license>
 ---
