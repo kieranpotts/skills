@@ -77,6 +77,22 @@ run_skills_ref() {
   return 1
 }
 
+#
+# Emit a Markdown file with its fenced code blocks removed, so that headings
+# and list markers inside worked examples are not mistaken for the document's
+# own structure.
+#
+strip_fences() {
+  awk '/^[[:space:]]*```/ { f = !f; next } !f' "$1"
+}
+
+#
+# Emit the YAML front-matter block of a Markdown file.
+#
+front_matter() {
+  awk '/^---$/ { c++; next } c == 1' "$1"
+}
+
 run_repo_checks() {
   local skill_dir="$1"
   local skill_md="$2"
@@ -130,21 +146,60 @@ run_repo_checks() {
     failed=1
   fi
 
-  # '## Parameters' and '## Success criteria' must come first, in that order,
-  # before any other '##' heading.
-  first_two="$(grep -E '^## +' "${skill_md}" | head -2 | sed -E 's/^## +//')"
-  expected="$(printf 'Parameters\nSuccess criteria')"
-  if [ "${first_two}" = "${expected}" ]; then
-    printf "  [PASS] '## Parameters' then '## Success criteria' lead the body\n" >&2
+  # Front-matter must declare a license. skills-ref checks 'name' and
+  # 'description', but not this one.
+  if front_matter "${skill_md}" | grep -qE '^license:[[:space:]]*[^[:space:]]'; then
+    printf "  [PASS] Front-matter declares a license\n" >&2
   else
-    printf "  [FAIL] First two sections must be '## Parameters' then '## Success criteria'\n" >&2
-    printf "         Found: %s\n" "$(echo "${first_two}" | tr '\n' '/')" >&2
+    printf "  [FAIL] Front-matter is missing 'license'\n" >&2
+    failed=1
+  fi
+
+  # The body must open with a level 1 heading matching the skill name in
+  # sentence case, hyphens replaced by spaces — 'create-skill' -> 'Create skill'.
+  local name expected_h1 actual_h1
+  name="$(front_matter "${skill_md}" | sed -nE 's/^name:[[:space:]]*//p' | head -1)"
+  expected_h1="$(tr '-' ' ' <<<"${name}")"
+  expected_h1="${expected_h1^}"
+  actual_h1="$(strip_fences "${skill_md}" | sed -nE 's/^# +//p' | head -1)"
+  if [[ "${actual_h1}" == "${expected_h1}" ]]; then
+    printf "  [PASS] H1 matches the skill name ('%s')\n" "${expected_h1}" >&2
+  else
+    printf "  [FAIL] H1 is '%s'; expected '%s'\n" "${actual_h1}" "${expected_h1}" >&2
+    failed=1
+  fi
+
+  # Sections must appear in the canonical template order, with no headings
+  # outside that set. This subsumes the rule that '## Parameters' and
+  # '## Success criteria' lead the body.
+  local canonical found unknown
+  canonical="$(printf '%s\n' \
+    'Parameters' \
+    'Success criteria' \
+    'Instructions' \
+    'Rules' \
+    'Edge cases' \
+    'Examples' \
+    'Assets' \
+    'References')"
+  found="$(strip_fences "${skill_md}" | grep -E '^## +' | sed -E 's/^## +//; s/[[:space:]]+$//')"
+
+  unknown="$(grep -vxF -f <(printf '%s\n' "${canonical}") <<<"${found}" || true)"
+  if [[ -n "${unknown}" ]]; then
+    printf "  [FAIL] SKILL.md has unrecognized section(s): %s\n" \
+      "$(tr '\n' '/' <<<"${unknown}")" >&2
+    failed=1
+  elif [[ "${found}" == "$(grep -xF -f <(printf '%s\n' "${found}") <<<"${canonical}")" ]]; then
+    printf "  [PASS] SKILL.md sections are in canonical order\n" >&2
+  else
+    printf "  [FAIL] SKILL.md sections are out of order: %s\n" \
+      "$(tr '\n' '/' <<<"${found}")" >&2
     failed=1
   fi
 
   # There must be no separate output section — it is absorbed by the
   # success criteria.
-  if grep -qE '^## +Output\b|^\*\*Output\*\*:' "${skill_md}"; then
+  if strip_fences "${skill_md}" | grep -qE '^## +Output\b|^\*\*Output\*\*:'; then
     printf "  [FAIL] Has an output section; fold it into '## Success criteria'\n" >&2
     failed=1
   else
@@ -153,12 +208,33 @@ run_repo_checks() {
 
   # Inline bold is reserved for the '## Parameters' leads. Flag bold-lead
   # bullets appearing anywhere after the success criteria heading.
-  bold_after="$(awk '/^## +Success criteria/{f=1} f && /^- +\*\*/{c++} END{print c+0}' "${skill_md}")"
+  local bold_after
+  bold_after="$(strip_fences "${skill_md}" \
+    | awk '/^## +Success criteria/{f=1} f && /^- +\*\*/{c++} END{print c+0}')"
   if [ "${bold_after}" -eq 0 ]; then
     printf "  [PASS] Inline bold confined to '## Parameters'\n" >&2
   else
     printf "  [WARN] %d bold-lead bullet(s) after '## Success criteria'\n" "${bold_after}" >&2
     printf "         Rules, criteria, and examples should be plain prose\n" >&2
+  fi
+
+  # Every top-level item under '## Rules' and '## Success criteria' should
+  # carry a requirement level. Continuation lines are folded into their item,
+  # so a keyword anywhere in the item counts.
+  local no_keyword
+  no_keyword="$(strip_fences "${skill_md}" | awk '
+      /^## +(Rules|Success criteria)[[:space:]]*$/ { insec = 1; item = ""; next }
+      /^## +/ { if (item != "") print item; item = ""; insec = 0; next }
+      !insec { next }
+      /^- / { if (item != "") print item; item = $0; next }
+      item != "" { item = item " " $0 }
+      END { if (item != "") print item }
+    ' | grep -cvE '(^|[^A-Za-z])(MUST|SHOULD|REQUIRED|RECOMMENDED|OPTIONAL|MAY)([^A-Za-z]|$)' || true)"
+  if [[ "${no_keyword}" -eq 0 ]]; then
+    printf "  [PASS] Every rule and criterion carries a requirement level\n" >&2
+  else
+    printf "  [WARN] %d rule(s)/criteria without an RFC 2119 keyword\n" "${no_keyword}" >&2
+    printf "         A step with no requirement level is ambiguous\n" >&2
   fi
 
   return "${failed}"
@@ -185,7 +261,7 @@ check_readme_sections() {
     'References')"
 
   # Tolerate extra spaces after the '##' marker, as elsewhere in this script.
-  found="$(grep -E '^## +' "${readme}" | sed -E 's/^## +//; s/[[:space:]]+$//')"
+  found="$(strip_fences "${readme}" | grep -E '^## +' | sed -E 's/^## +//; s/[[:space:]]+$//')"
 
   for section in 'Interactivity' 'How to invoke' 'Recommended models' 'Related skills'; do
     if grep -qxF "${section}" <<<"${found}"; then
