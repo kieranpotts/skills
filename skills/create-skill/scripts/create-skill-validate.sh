@@ -13,7 +13,7 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-Usage: validate.sh <skill_dir>
+Usage: create-skill-validate.sh <skill_dir>
 
 Validate a skill directory containing a SKILL.md.
 
@@ -236,6 +236,61 @@ run_repo_checks() {
   else
     printf "  [WARN] %d rule(s)/criteria without an RFC 2119 keyword\n" "${no_keyword}" >&2
     printf "         A step with no requirement level is ambiguous\n" >&2
+  fi
+
+  check_bundled_resources "${skill_dir}" "${skill_md}" || failed=1
+
+  return "${failed}"
+}
+
+#
+# Bundled resources under assets/, references/, and scripts/ are merged into
+# one shared directory per agent when a skill is compiled for flat-file
+# targets such as Copilot and Cursor. Two skills shipping the same path there
+# collide, the second silently overwriting the first. So every immediate
+# child of those directories must be namespaced to the skill — either a
+# directory named after it, or a name prefixed with it.
+#
+# Each immediate child must also be reachable from SKILL.md, carrying the
+# condition under which the agent loads or runs it. Nesting below that level
+# is the skill's own business; only the entry point needs naming.
+#
+check_bundled_resources() {
+  local skill_dir="$1"
+  local skill_md="$2"
+  local failed=0
+  local name subdir child base found_any=0
+
+  name="$(basename "${skill_dir}")"
+
+  for subdir in assets references scripts; do
+    [[ -d "${skill_dir}/${subdir}" ]] || continue
+    for child in "${skill_dir}/${subdir}"/*; do
+      [[ -e "${child}" ]] || continue
+      base="$(basename "${child}")"
+      found_any=1
+
+      if [[ "${base}" != "${name}"* ]]; then
+        printf "  [FAIL] %s/%s is not namespaced (expected '%s' prefix)\n" \
+          "${subdir}" "${base}" "${name}" >&2
+        failed=1
+      fi
+
+      # Match on the path, not the bare name. A directory named after the
+      # skill would otherwise match trivially, the skill's own name being
+      # all over its SKILL.md.
+      if ! grep -qF "${subdir}/${base}" "${skill_md}"; then
+        printf "  [FAIL] %s/%s is not referenced from SKILL.md\n" \
+          "${subdir}" "${base}" >&2
+        failed=1
+      fi
+    done
+  done
+
+  if (( found_any == 0 )); then
+    printf "  [PASS] No bundled resources to check\n" >&2
+  elif (( failed == 0 )); then
+    printf "  [PASS] Bundled resources are namespaced and referenced\n" >&2
   fi
 
   return "${failed}"

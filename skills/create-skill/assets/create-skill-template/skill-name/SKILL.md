@@ -99,12 +99,12 @@ with an error message. -->
 
 ## Assets
 
-- [Some template](./assets/template.md) \
+- [Some template](./assets/skill-name/template.md) \
   The bundled template to fill out in step N.
 
 ## References
 
-- [API errors](./references/api-errors.md) \
+- [API errors](./references/skill-name-api-errors.md) \
   Read if the API returns a non-200 status code.
 
 - [External reference](https://raw.githubusercontent.com/.../AGENTS.md) \

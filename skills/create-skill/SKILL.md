@@ -65,7 +65,7 @@ prompt the user for clarification.
     eg. "specify", "commit", "release", "review". Prefer single verbs, but
     use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
-3.  Use the [bundled template](./assets/skill-template/skill-name/SKILL.md)
+3.  Use the [bundled template](./assets/create-skill-template/skill-name/SKILL.md)
     to write the `SKILL.md` file. Include the sections, front-matter, and
     formatting required by the rules defined below.
 
@@ -78,7 +78,7 @@ prompt the user for clarification.
     installed alongside others. See the collision safety instructions,
     [here](./references/create-skill-collision-safety.md).
 
-5.  Use the [bundled template](./assets/skill-template/skill-name/README.md)
+5.  Use the [bundled template](./assets/create-skill-template/skill-name/README.md)
     to write a `README.md` file to accompany the `SKILL.md` file. This is
     human-readable documentation. Describe what the skill does, whether it
     runs interactively, how to invoke it, what class of model it warrants,
@@ -94,7 +94,7 @@ prompt the user for clarification.
 7.  Run the bundled validator against the new skill directory.
 
     ```sh
-    scripts/validate.sh <path/to/new-skill-dir>
+    scripts/create-skill-validate.sh <path/to/new-skill-dir>
     ```
 
     The script wraps `skills-ref validate` (if installed) for canonical
@@ -326,15 +326,15 @@ prompt the user for clarification.
       ├── SKILL.md
       ├── README.md
       ├── scripts/
-      │   └── validate.sh
+      │   └── code-openapi-validate.sh
       └── references/
-          ├── error-codes.md
-          └── schema-patterns.md
+          ├── code-openapi-error-codes.md
+          └── code-openapi-schema-patterns.md
   ```
 
 ## Assets
 
-- [Skill template](./assets/skill-template/skill-name/SKILL.md) \
+- [Skill template](./assets/create-skill-template/skill-name/SKILL.md) \
   The bundled `SKILL.md` template to base new skills on. New skills MUST
   follow the structure and formatting herein.
 

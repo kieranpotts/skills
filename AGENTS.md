@@ -38,7 +38,7 @@ below.
 
 - **`skills/create-skill/`**
   Use this to author new skills, both in this repository and in downstream
-  projects. It bundles the canonical template (`assets/skill-template/`),
+  projects. It bundles the canonical template (`assets/create-skill-template/`),
   the validator (`scripts/`), and reference docs (`references/`).
 
 - **`build/`**
@@ -63,7 +63,7 @@ below.
 
 - **`./run/install --help`** to build and install skills into supported agents.
 
-- **`./skills/create-skill/scripts/validate.sh <skill_dir>`** to validate
+- **`./skills/create-skill/scripts/create-skill-validate.sh <skill_dir>`** to validate
   a skill directory before committing.
 
 - **`pre-commit run --all-files`** for linting commit messages
