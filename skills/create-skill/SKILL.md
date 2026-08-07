@@ -39,22 +39,17 @@ prompt the user for clarification.
   `SKILL.md`, a sibling `README.md` for humans, and any `assets/`,
   `references/`, and `scripts/` the skill needs.
 
-- The `description` MUST name both the capability codified in the skill,
-  and the situations in which an agent should use the skill. It MAY also
-  clarify circumstances in which an agent expressly should _not_ use the skill.
+- Every bundled file MUST be reachable from `SKILL.md`, each one carrying the
+  condition under which the agent should load or run it. A bundled file that
+  nothing points at is dead weight in every install of the skill.
 
-- The `## Parameters` section MUST state plainly whether the agent may prompt
-  the user, and in what circumstances. Every parameter MUST be captured in a
-  single bullet point carrying a bold lead naming the parameter and its
-  requirement level, which is always `REQUIRED` or `OPTIONAL`.
+- Every bundled file MUST be namespaced to the skill, so that flattening the
+  bundle alongside other skills' bundles cannot silently overwrite it.
 
-- Every rule, and success criterion MUST carry an explicit requirement-level
-  keyword.
+- The validator MUST report no failures against the skill directory.
 
-- The `SKILL.md` file MUST NOT name any other skill. However, its sibling
-  `README.md` MAY reference related skills.
-
-- The validator MUST pass against the skill directory.
+- The target project's own code and configuration MUST be unchanged. This
+  skill writes a skill directory, and nothing else.
 
 ## Instructions
 
@@ -185,8 +180,9 @@ prompt the user for clarification.
   instructions section is dropped). This section sets goals for the agent to
   achieve. List observable end states that the agent can verify against. Prefer
   to include deterministic checks, such as linters, validators, and shell
-  commands. A criterion MUST NOT restate a rule or an instruction, and no two
-  criteria MUST state the same outcome.
+  commands. Rules constrain how the agent works; criteria state checkable
+  properties of what it produced. A criterion MUST NOT simply reword a rule
+  as a goal, and two criteria MUST NOT state the same outcome.
 
 - The `## Instructions` section is an ordered procedure for the agent to follow.
   It is REQUIRED unless the skill is purely declarative, in which case
