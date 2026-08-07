@@ -5,7 +5,7 @@ description: >-
   any downstream project. Use when the user asks to create, write, draft, add,
   or update a skill, or wants to capture a workflow as a reusable skill, or
   when the user says "create a skill for X", "turn this workflow into a skill",
-  or "improve the <name> skill".
+  or "improve the [name] skill".
 compatibility: >-
   requires Read, Write, Edit, Glob, Grep, WebFetch, Bash (validator script)
 license: CC0-1.0
@@ -135,7 +135,7 @@ prompt the user for clarification.
      `Use when ...` suits most skills; `Use after ...` suits one that follows
      a defined upstream step.
 
-  ```sh
+  ```text
   ✅ Good:
   Extract text and tables from PDF files, forms, or documents. Use when
   working with PDF files or when the user mentions PDFs, forms, or
@@ -338,7 +338,7 @@ prompt the user for clarification.
 
 - A minimal skill with no bundled resources:
 
-  ```sh
+  ```text
   skills/
   └── deploy/
       ├── SKILL.md
@@ -347,7 +347,7 @@ prompt the user for clarification.
 
 - A skill with bundled scripts and references:
 
-  ```sh
+  ```text
   skills/
   └── code-openapi/
       ├── SKILL.md

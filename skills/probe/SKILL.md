@@ -109,7 +109,7 @@ you are building the report as you go.
     stop and tell the user: there is nowhere to record the outcome.
 
     Restate what is to be assessed, in one sentence: "We're
-    threat-modeling <subsystem / flow> — is that the scope you mean?"
+    threat-modeling [subsystem / flow] — is that the scope you mean?"
     Clarify before proceeding.
 
 2.  Establish the business context.
@@ -215,7 +215,7 @@ you are building the report as you go.
     Walk the trust boundaries, data flows, and sensitive assets from step 4.
     For each, apply the chosen framework's categories and ask:
 
-    - "At this boundary/flow/asset, is <category> a credible threat? How
+    - "At this boundary/flow/asset, is [category] a credible threat? How
       would it play out?"
     - "What existing countermeasures already reduce it?"
 

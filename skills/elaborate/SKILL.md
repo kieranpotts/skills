@@ -148,7 +148,7 @@ not settle it.
 - You MUST always recommend an answer.
 
   A question with no recommendation pushes the cognitive load back onto
-  the user. "I'd lean A because <reason>. Which is it?" lets the user agree
+  the user. "I'd lean A because [reason]. Which is it?" lets the user agree
   quickly or articulate the disagreement.
 
 - You SHOULD prefer reading code over asking.

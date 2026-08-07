@@ -14,7 +14,7 @@ To avoid this, namespace every bundled file so it is unique across the whole
 collection. Either nest it under a directory named after the skill, or prefix
 the filename with the skill name:
 
-```
+```text
 skills/
 └── my-skill/
     ├── assets/

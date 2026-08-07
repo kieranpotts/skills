@@ -135,8 +135,8 @@ print an error message.
     Generate ranked hypotheses before testing any of them. Each hypothesis
     needs to be falsifiable. State the prediction it makes:
 
-    > "If <X> is the cause, then <changing Y> will make the bug disappear /
-    <changing Z> will make it worse."
+    > "If [X] is the cause, then [changing Y] will make the bug disappear /
+    [changing Z] will make it worse."
 
     If you cannot state the prediction, discard or sharpen the hypothesis.
 

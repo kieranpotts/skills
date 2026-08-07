@@ -86,7 +86,7 @@ answer shape the question that follows.
 1.  Confirm the seed.
 
     Restate what the user has brought you, in one sentence: "You want to
-    understand the requirements for <feature/capability> — is that right?"
+    understand the requirements for [feature/capability] — is that right?"
 
     Clarify before proceeding if the seed is ambiguous. A discovery built
     on a misread seed produces an invalid PRD.
