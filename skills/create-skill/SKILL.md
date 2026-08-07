@@ -62,7 +62,7 @@ prompt the user for clarification.
     `.agents/skills/<skill-name>/SKILL.md` (relative to the project root).
 
     Use kebab-case for skill names, and favor meaningful actions or verbs,
-    eg. "specify", "commit", "release", "review". Prefer single verbs, but
+    eg. "deploy", "migrate", "publish", "benchmark". Prefer single verbs, but
     use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
 3.  Use the [bundled template](./assets/create-skill-template/skill-name/SKILL.md)
@@ -313,7 +313,7 @@ prompt the user for clarification.
 
   ```sh
   skills/
-  └── commit/
+  └── deploy/
       ├── SKILL.md
       └── README.md
   ```
