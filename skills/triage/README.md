@@ -1,20 +1,27 @@
 # Triage
 
-The **triage** skill is all about verifying that a reported bug or incident is
-real and reproducible.
+Verify that a reported bug or enhancement request is real, reproducible, and
+well specified — then recommend how it should be classified and progressed.
 
-The agent is instructed to take a freshly-filed issue and decides what happens
-next. The agent gathers context from the thread and code, tries to reproduce
-the reported bugs, and updates the issue with its findings and recommended
-remedies.
+The agent takes a single issue from the project's tracker, reads the whole
+thread, explores the code it touches, and tries to reproduce any reported bug.
+It then proposes a category label and a state label, drawn from the
+vocabulary the project actually uses, and — once the maintainer agrees — posts
+the accompanying comment and applies the labels.
 
-The agent is explicitly instructed to _recommend_ rather than _decide_. Humans
-are expected to make a final call before assigning an issue to a person or
-agent to work on.
+The agent is instructed to _recommend_ rather than _decide_. A human makes the
+final call before an issue is handed to a person or an agent to work on. The
+agent is also instructed to stop at classification: it does not write the fix,
+nor the specification the fix works from.
 
 ## Interactivity
 
-This skill is interactive.
+This skill is interactive, and cannot be run away from the keyboard.
+
+The agent pauses for a human decision at the point of classification, and
+prompts for anything it cannot discover on its own: which issue to work on,
+which tracker the project uses, what its label vocabulary is, and where the
+project records ideas it has rejected.
 
 ## How to invoke
 
@@ -24,17 +31,25 @@ This skill is interactive.
 
 > Prep this issue for an agent.
 
+Name the issue in the prompt — a URL, or an ID like `#42` — to skip the
+queue-selection step. Name the target state ("this one's a wontfix") to steer
+the recommendation, though the agent will still say so if it disagrees.
+
 ## Recommended models
 
-A mid-tier model is sufficient for this task. A frontier model will help
-with the more ambiguous bug reports.
+A mid-tier model is sufficient for this task. A frontier model will help with
+the more ambiguous bug reports, where reproducing the fault means reasoning
+about unfamiliar code from a thin description.
 
 ## Suggested workflows
+
+Run this on incoming issues, in batches, rather than on every filing as it
+arrives. Triage is cheapest when the maintainer is already in the queue.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  triage["🤖<br/>triage"]:::agentic
+  triage["🤖🧑<br/>triage"]:::anthropic
   code["🤖<br/>code"]:::agentic
 
   %% Main workflow sequence.
@@ -48,8 +63,9 @@ flowchart LR
 
 ## Related skills
 
-- **[code](../code/).** Picks up the agent brief this skill produces, to drive
-  the build loop.
+- [**code**](../code/) \
+  Picks up the agent brief this skill produces, and drives the build loop
+  from it.
 
 ## References
 

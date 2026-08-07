@@ -1,18 +1,23 @@
 # Handoff
 
-The **handoff** skill is all about compacting a conversation for the next
-session to pick up.
+The handoff skill compacts a session so the next one can pick up the work.
 
-The agent is instructed to compact a conversation into an ephemeral handoff
-document so a fresh agent or human can resume the work. The document should
-capture just enough state to continue, removing issues that have been resolved
-and decisions that have been made.
+The agent is instructed to write a single, ephemeral handoff document covering
+what was done, what remains open, the state of the codebase, suggested next
+steps, and any gotchas. Durable artifacts — specifications, designs, plans,
+issues, commits — are referenced rather than copied, so the handoff cannot
+drift from them. Anything that turns out to be durable is promoted into the
+project's own artifacts instead.
 
-The agent is instructed to write the handoff document to the OS temp directory.
+The document is written outside the project tree, to the OS temp directory by
+default, because it is disposable and should never be committed. The agent
+reports its absolute path and stops there.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively.
+This skill instructs the agent to run non-interactively. It never blocks for
+user input, so it is safe in away-from-keyboard and unattended workflows. If
+it cannot determine what it needs, it stops with an error rather than asking.
 
 ## How to invoke
 
@@ -22,14 +27,20 @@ This skill instructs the agent to run non-interactively.
 
 > I'm going to bed now, see you tomorrow.
 
+An optional argument scopes the handoff to what the next session will work on,
+eg. "hand off — next session continues with the API integration". Without one,
+the handoff covers the full state of the current work.
+
 ## Recommended models
 
-A mid-tier model is sufficient for this task.
+A mid-tier model is sufficient. The task is summarization over context the
+agent already holds, not open-ended analysis.
 
 ## Related skills
 
-- **[reflect](../reflect/).** Companion skill that distills durable lessons
-  from an agent session, while this skill persists task state.
+- [**reflect**](../reflect/) \
+  Companion skill that distills durable lessons from an agent session, while
+  this skill persists task state for the next one.
 
 ## References
 

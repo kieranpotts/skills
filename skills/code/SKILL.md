@@ -1,257 +1,233 @@
 ---
 name: code
 description: >-
-  Write code, verified by tests, for one small increment. Use when
-  implementing one numbered step from a plan, or for any small standalone
-  change whose design is already obvious, or when the user says something like
-  "implement step N of the plan", "code this up", or "build this change".
-compatibility: requires Read, Write, Edit, Bash (tests/git)
+  Implement one small, already-designed step of work, test-first, and commit
+  it as a single reviewable diff. Use when implementing one numbered step of a
+  delivery plan, or any small standalone change whose design is already
+  settled, or when the user says something like "implement step N", "code this
+  up", or "build this change, test-first". Do not use it to design, decompose,
+  or estimate work that has not yet been broken down.
+compatibility: >-
+  requires Read, Write, Edit, Glob, Grep, Bash (test runner, git)
 license: CC0-1.0
 ---
 
 # Code
 
-Write code and tests for a small increment of work.
+Write the code and the tests for one small, already-designed step of work,
+then commit it. Do not design the work, and do not carry on past the commit
+into review, release, or the next step.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
-
-- **One scoped, already-designed unit of work — REQUIRED.** One numbered
-  plan step (or a small standalone change whose design is already obvious).
-  This skill does not design or decompose; it consumes a step that is ready
-  to implement.
-
-- **Where the plan and the project's coding standards live — REQUIRED.**
-  Discover these rather than assuming them: check this session's context
-  first, then the environment (a convention file such as `AGENTS.md`, a
-  workspace manifest, a configured connector). If neither settles it, ask
-  the user. Either MAY be a directory in this repository, a separate
-  repository, or an external service — do not assume a filesystem path or a
-  document structure.
-
-This task otherwise runs non-interactively to completion. You MUST NOT
-prompt the user about the substance of the task; if in doubt about that,
-stop and print an error message. You MAY prompt solely to establish where an
-artifact lives or how to access it, when context and environment do not
+requirements. If you cannot determine the requirements, stop and alert the
+user with an error message. You MAY prompt solely to establish where an
+artifact lives or how to reach it, when context and environment do not
 settle it.
+
+- **The step to implement — REQUIRED.** One scoped unit of work whose design
+  is already settled: a numbered step of a delivery plan, or a small
+  standalone change. If what you are given still needs designing or
+  decomposing, it is not a valid input to this task.
+
+- **The store holding the step — OPTIONAL.** Where the plan, issue, or ticket
+  the step comes from is kept. Resolve it from this session's context first,
+  then from the environment — a convention file, a workspace manifest, a
+  configured connector. It MAY be a directory in this repository, a separate
+  repository, or an external service, so do not assume a filesystem path or a
+  document structure. Absent any such store, the step as stated in the prompt
+  is the whole specification.
+
+- **The project's coding, testing, and commit conventions — OPTIONAL.**
+  Discover these the same way, then read and follow whatever the project
+  documents for itself. Where nothing is documented, infer the conventions
+  from the surrounding code and from recent commit history.
 
 ## Success criteria
 
-- A committed, tested change MUST exist for that single step — the
-  implementation plus its tests, with a clean reviewable diff.
+- An implementation and its tests MUST exist for exactly one step, committed
+  together as a single reviewable diff.
 
-- The diff MUST stay within the step's stated scope, with anything outside
-  it removed or moved to its own step.
+- Each behavior added MUST have at least one test that fails when that
+  behavior is removed. A test that passes either way is verifying nothing.
 
-- All new behavior MUST be tested: each piece of added behavior MUST have at
-  least one test that fails when the behavior is removed.
+- The relevant test suite MUST pass with no tests skipped, pending, or newly
+  flaky, and SHOULD run fast enough to re-run on every edit — a few seconds,
+  not minutes.
 
-- The test loop MUST be fast and run clean: `<10s` for the relevant suite,
-  with no skipped, pending, or flaky tests added.
+- The diff MUST contain nothing the step did not call for: no unrelated
+  fixes, no speculative abstractions, no debug residue, no commented-out
+  code.
 
-- The code MUST match the surrounding style: naming, layout, error handling,
-  and comment density MUST be consistent with nearby files.
+- New code SHOULD be indistinguishable in style from the files around it,
+  unless the existing style is precisely what the step replaces.
 
-- The commit MUST follow the project's commit format, with correct type,
-  lowercase imperative description, and atomic scope.
+- The commit message MUST follow whatever format the project documents, or
+  the format evident in its recent history where nothing is documented.
+
+- Work MUST stop at that commit. Pushing, opening a review, releasing, and
+  starting the next step are the caller's, not yours.
 
 ## Instructions
 
 1.  Restate the step's scope.
 
-    Quote the step from the plan, and state in one sentence what is in-scope
-    and what is out-of-scope.
+    Quote the step as written, then state in one sentence what is in scope
+    and what is out of scope. This quote is the yardstick you will measure
+    the finished diff against in step 6, so capture it verbatim.
 
-    If the step is ambiguous, stop and clarify before writing code.
+    If the step is ambiguous or larger than a single reviewable diff, stop
+    and report that rather than guessing.
 
-2.  Set up the feedback loop.
+2.  Set up the feedback loop before writing any implementation.
 
-    Before writing the implementation, confirm you can run the relevant
-    tests, you know the exact command, and the test runner is wired to the
-    editor or terminal for one-keystroke re-runs. If the loop is slow or
-    missing, fix the loop first.
+    Establish the exact command that runs the tests covering the area you
+    are about to change, and run it once to confirm a clean baseline. If the
+    loop is slow, broken, or missing, you SHOULD fix the loop first — every
+    later step depends on it being trustworthy.
 
-3.  Write the failing test first (TDD default).
+3.  Work test-first, in single cycles.
 
-    Follow red → green → refactor:
+    - Red: write the smallest test that captures one piece of the behavior
+      to add. Run it. Confirm it fails for the expected reason — an
+      assertion mismatch, not an import or syntax error.
 
-    - Red: write the smallest test that captures the behavior to add. Run
-      it. Confirm it fails for the expected reason (assertion mismatch, not
-      import error or syntax error).
-
-    - Green: write the simplest code that makes the test pass. No design
+    - Green: write the simplest code that makes it pass. No design
       improvements yet.
 
-    - Refactor: improve the structure of code and test while all tests stay
-      green.
+    - Refactor: improve the structure of both code and test while
+      everything stays green.
 
-    Repeat for each piece of behavior, one cycle at a time.
+    Repeat one cycle per piece of behavior. See the rule on vertical slicing
+    below for why the cycles MUST NOT be batched.
 
-4.  Choose test doubles.
+4.  Choose the lightest viable test double for each dependency.
 
-    For each dependency, pick the lightest viable double, preferring real
-    implementations over test doubles:
+    Prefer, in order: the real implementation, a lightweight fake, a stub, a
+    mock. Substitute a double only where the real thing is slow,
+    non-deterministic, or unavailable in the test environment.
 
-    - Real implementation > lightweight fake > stub > mock.
+5.  Match the surrounding code.
 
-    Replace dependencies with doubles only when they are slow,
-    non-deterministic, or unavailable.
+    Read two or three nearby files before you commit to naming, file layout,
+    error handling, and logging idioms. Where the project documents coding
+    standards, those win over local habit.
 
-5.  Apply the project's coding standards.
+6.  Review the diff as if you were the reviewer.
 
-    Match the surrounding code's idioms — naming, file layout, error
-    handling, logging. If unsure, read 2-3 nearby files first. New code
-    should be indistinguishable in style from existing code unless the
-    existing code is what the step is replacing.
-
-6.  Review the diff before committing.
-
-    Read the diff as if you were the reviewer. Check:
-
-    - Is everything in this diff in the step's scope?
-
-    - Are there unused imports, debug logs, commented-out code, or `TODO`
-      markers?
-
-    - Does the test name describe the behavior, not the implementation?
-
-    - Could a future reader understand the why without you?
-
-    Trim anything that does not pay its way.
+    Put the quoted step beside the diff and check: is everything here in
+    scope; are there unused imports, debug logs, or leftover markers; does
+    each test name describe the behavior rather than the implementation;
+    could a future reader understand the why without you? Remove or re-home
+    anything that fails those checks.
 
 7.  Commit.
 
-    One step = one commit (or a small batch of `step:` commits if
-    subdivision helps reviewers). Use the project's commit type vocabulary
-    and format, and reference the issue or plan in the body or footer where
-    relevant.
+    One step is one commit, unless subdividing genuinely helps a reviewer.
+    Use the project's commit type vocabulary and format, and reference the
+    originating issue or plan where the project's convention calls for it.
 
 ## Rules
 
-- You MUST discover artifact locations and conventions; you MUST NOT assume
+- You MUST discover artifact locations and conventions rather than assuming
   them.
 
-  This skill is used across projects that keep their artifacts in different
+  This skill runs across projects that keep their artifacts in different
   places, in different formats, under different tools. A path, file name,
   template, or lifecycle state that is right in one project is wrong in the
-  next. Resolve each store first, then read and follow whatever conventions
-  it documents for itself.
+  next.
 
 - You MUST implement one step per session.
 
   Bundling steps multiplies review surface, hides bugs, and makes rollback
-  painful. If you finish a step fast, commit, branch, and start the next
-  one.
+  painful. Finishing early is not a reason to start the next step; commit and
+  stop.
 
-- You MUST stay in-scope.
+- Out-of-scope work MUST be deferred to a follow-up step or its own throwaway
+  branch, never folded into this diff. "While I'm here" is how scope creep
+  starts.
 
-  Out-of-scope work MUST go in a follow-up step or a separate `temp/*`
-  branch. "While I'm here" is how scope creep starts.
-
-- Tests MUST live with the code.
-
-  A behavior added in this step MUST be tested in this step. A step that
-  adds untested behavior MUST be treated as incomplete.
+- A behavior added in this step MUST be tested in this step. A step that
+  leaves new behavior untested is incomplete, whatever else it achieved.
 
 - You MUST slice vertically, not horizontally.
 
-  Red-green-refactor is a single-cycle discipline: one test → one
-  implementation → repeat. Resist the urge to batch the reds.
-
-  ```sh
+  ```text
   WRONG (horizontal):
-  RED:   test1, test2, test3, test4, test5
-  GREEN: impl1, impl2, impl3, impl4, impl5
+  RED:   test1, test2, test3
+  GREEN: impl1, impl2, impl3
 
   RIGHT (vertical):
   RED → GREEN: test1 → impl1
   RED → GREEN: test2 → impl2
-  RED → GREEN: test3 → impl3
   ```
 
-  Tests written in bulk verify imagined behavior, not actual behavior.
-  They drift toward testing the shape of things (function signatures, data
-  structures) rather than user-facing behavior, and they become insensitive
-  to real changes — passing when behavior breaks and failing when behavior
-  is fine. Each test only earns its keep by being written after the previous
-  implementation taught you what to verify.
+  Tests written in bulk verify imagined behavior rather than actual
+  behavior. They drift toward asserting the shape of things — signatures,
+  data structures — and become insensitive to real change, passing when
+  behavior breaks and failing when it is fine. Each test earns its keep by
+  being written after the previous implementation taught you what to verify.
 
-- You MUST match TDD discipline to risk.
+- You SHOULD match test-first discipline to risk.
 
-  TDD is the default. For trivial code (a config tweak, a rename, a
-  one-line copy change) it is overkill and MAY be skipped. For complex logic
-  or anything with corner cases, the test-first discipline pays for itself
-  many times over. If you skip TDD because the design is in genuine flux,
-  explain the skip in the commit body.
+  Test-first is the default. For trivial changes — a config tweak, a rename,
+  a copy edit — it is overkill and MAY be skipped. For logic with corner
+  cases it pays for itself many times over. If you skip it because the design
+  is in genuine flux, say so in the commit body.
 
 - You MUST NOT write speculative code.
 
-  No abstractions for hypothetical futures. No flexibility points for
-  changes that aren't on the plan. Three similar lines beats a premature
-  abstraction. Trim every "might need this" — if you might need it, you
-  don't need it now.
+  No abstractions for hypothetical futures, no flexibility points for changes
+  nobody has asked for. Three similar lines beat a premature abstraction. If
+  you might need it, you do not need it yet.
 
-- You MUST NOT write defensive code at internal boundaries.
+- You MUST validate at system boundaries — user input, network, external
+  APIs — and SHOULD trust internal code. Null-checking, type-guarding, and
+  error-wrapping between your own modules are usually smells rather than
+  safety.
 
-  You MUST validate at system boundaries (user input, network, external
-  APIs), and SHOULD trust internal code. Null-checking, type-guarding, and
-  error-wrapping inside the system are usually code smells.
+- You SHOULD default to writing no comments.
 
-- You SHOULD default to no comments.
-
-  Well-named identifiers do the explaining. You SHOULD add a comment only
-  when the why is non-obvious — a hidden constraint, a workaround for a
-  specific bug, a surprising invariant. You MUST NOT narrate what the code
-  does.
-
-- You MUST stop when the step is done.
-
-  "Done" = test passes, diff is clean, commit message is written. Not "done
-  plus a bit more". The bit more is the next step. Reviewing the result,
-  testing it further, and sequencing what comes next are the caller's.
-
-  Before you stop, re-read the diff with the step quoted next to it, and
-  remove or re-home anything the step does not call for.
+  Well-named identifiers do the explaining. Add a comment only where the why
+  is non-obvious: a hidden constraint, a workaround for a specific bug, a
+  surprising invariant. You MUST NOT narrate what the code does.
 
 ## Edge cases
 
-- The step turns out to be too big.
+- The step turns out to be too big for one reviewable diff.
 
-  Stop. Send it back for the plan to be split. Don't merge a half-step.
+  Stop and report it for the step to be split. Do not commit a half-step.
 
 - You discover a bug unrelated to the step.
 
-  Note it. File an issue or add a TODO with a tracking reference. Do not
-  fix it in this step. Fixing unrelated bugs in scope-locked steps is how
-  diffs become unreviewable.
+  Record it wherever the project tracks issues, and leave it. Fixing
+  unrelated bugs inside a scope-locked step is how diffs become
+  unreviewable.
 
 - You discover a refactor that would make the step easier.
 
-  Two options: (a) do the refactor as a separate prior `refactor:` step,
-  then resume this step; (b) implement the step as-is and queue the refactor
-  for after. Pick (a) when the refactor is small and obvious; (b)
-  otherwise. Never bundle.
+  Either do the refactor as a separate, prior commit and then resume, or
+  implement the step as-is and queue the refactor behind it. Choose the
+  former when the refactor is small and obvious, the latter otherwise. Never
+  bundle the two into one commit.
 
-- Tests are missing for the area being touched.
+- The area you are touching has no tests at all.
 
-  Add characterization tests first — tests that pin down the current
-  behavior — before changing it. This is a separate step from the change
-  itself.
+  Add characterization tests that pin down the current behavior before
+  changing it. That is its own step, and SHOULD be committed separately from
+  the change.
 
-- A spike or prototype.
+- The work is an explicit spike or prototype.
 
-  The goal is to learn, not to ship. Skip TDD, skip strict scope discipline,
-  but throw the prototype away when done. Re-implement properly under this
-  skill afterward.
+  The goal is learning, not shipping. Skip the test-first discipline and the
+  scope locking, but throw the prototype away afterward and re-implement it
+  properly under this task.
 
 ## Examples
 
-- A red → green → refactor cycle for a small step:
+- One red → green → refactor cycle:
 
   ```js
   // Red — write the failing test first.
@@ -260,7 +236,7 @@ settle it.
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('idempotency-key required');
   });
-  // Run: test fails — endpoint returns 201, not 400. Expected failure.
+  // Run: fails — endpoint returns 201, not 400. Expected failure.
 
   // Green — minimal change to pass.
   router.post('/orders', (req, res, next) => {
@@ -269,19 +245,20 @@ settle it.
     }
     next();
   });
-  // Run: test passes.
+  // Run: passes.
 
-  // Refactor — extract the guard if it'll be reused; otherwise leave it
-  // inline. Don't abstract on the first occurrence.
+  // Refactor — extract the guard only if it will be reused. Don't abstract
+  // on the first occurrence.
   ```
 
-- A scoped commit at the end of the step:
+- A scoped commit closing the step, in a project whose convention is
+  Conventional-Commits-style types with an issue reference in the footer:
 
-  ```sh
-  step: validate idempotency-key header on POST /orders
+  ```text
+  feat: validate idempotency-key header on POST /orders
 
-  The handler now rejects requests without the header with 400. The actual
-  idempotency lookup is the next step.
+  The handler now rejects requests without the header with a 400. The
+  idempotency lookup itself is the next step.
 
   Refs: #482
   ```

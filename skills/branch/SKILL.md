@@ -1,222 +1,179 @@
 ---
 name: branch
 description: >-
-  Git branching strategy. Use when creating a new branch, naming a feature or
-  fix branch, or validating branch names before push, or when the user says
-  something like "what should I call this branch?", "create a branch for this
-  work", or "is this branch name valid?".
-compatibility: requires git
+  Names, validates, and creates Git branches under a trunk-based model of
+  fast-forwarded trunks, short-lived temporary branches, and long-lived epic
+  branches. Use when starting a branch, naming a feature or fix branch, or
+  checking branch names before a push, or when the user says "what should I
+  call this branch?", "create a branch for this work", or "is this branch
+  name valid?". Do not use it to commit, merge, delete, or release branches.
+compatibility: >-
+  requires Bash (git switch, git branch, git clone), Read, Glob
 license: CC0-1.0
 ---
 
 # Branch
 
-Create a new development branch in one or more Git repositories, or validate a
-branch name, following the conventions described herein.
-
-You MUST NOT make any code or configuration changes to the software itself.
+Create a development branch in one or more Git repositories, or validate
+branch names, following the conventions described herein. You MUST NOT make
+any code or configuration change to the software itself.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
 requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
+error message. You MAY prompt solely to establish where a repository lives or
 how to access it, when context and environment do not settle it.
 
-- **The target codebase — REQUIRED.** Look in the user's last input prompt
-  for an explicit reference to a target path or URL to a code repository. If
-  a URL, clone the repository to a temporary directory. Otherwise, assume
-  the target is the code repository under which the current working
-  directory (cwd) sits. If the cwd is not part of a code repository, check
-  the nearest `AGENTS.md`. If the target codebase cannot be found, stop and
-  alert the user.
+- **The target repository — REQUIRED.** Look in the user's last prompt for an
+  explicit path or URL. Clone a URL to a temporary directory. Otherwise take
+  the repository containing the current working directory; if the working
+  directory sits outside a repository, check the nearest convention file, eg.
+  an `AGENTS.md`. If no target can be found, stop and alert the user.
 
-- **Branch name or description — OPTIONAL.** If not specified by the user,
-  you will generate a random branch name. Instructions are below.
+- **The work to be branched, or names to validate — REQUIRED.** Either a
+  description of the change the branch will carry, or one or more existing
+  branch names to check.
+
+- **An issue or tracking identifier — OPTIONAL.** Prefixed to the branch
+  description when known. Omit it rather than inventing one.
 
 This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+input.
 
 ## Success criteria
 
-- The outcome MUST be either a correctly-named branch created from the right
-  base, or a pass/fail verdict on the supplied names, naming the specific
-  rule each one violates.
+- Either a branch MUST exist at the chosen name, or a pass/fail verdict MUST
+  have been reported for every name supplied for checking, naming the
+  specific rule each failure violates.
 
-- The branch name MUST validate against the model: it MUST match
-  `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`
-  — one of the three trunks, or a `temp/` or `epic/` branch with a
-  kebab-case description.
+- Every name MUST match the validation regex given in the rules below. This
+  is the deterministic check; run the name through it rather than eyeballing
+  it.
 
-- A `temp/*` or `epic/*` name MUST be within the length budget: 50
-  characters RECOMMENDED, 72 maximum.
+- A `temp/*` or `epic/*` name MUST be within the length budget: 50 characters
+  RECOMMENDED, 72 maximum.
 
-- The branch type MUST fit the work — `temp/*` for a short, single-focus
-  change, `epic/*` for long-lived, multi-contributor work that cannot be
-  continuously integrated. A change of one or two commits needs no branch
-  beyond `dev`.
+- The branch type SHOULD fit the shape of the work, so the reintegration
+  strategy it implies is the right one: `temp/*` for a single-focus change of
+  a few commits, `epic/*` for long-lived multi-contributor work that cannot
+  be continuously integrated, and no branch at all for a change of one or two
+  commits.
 
-- `temp/*` and `epic/*` branches MUST be cut from `dev`, and they MUST NOT
-  be cut from `test`, `ready`, or a release branch.
+- A newly created `temp/*` or `epic/*` branch MUST point at the tip of `dev`.
+  Verify with `git merge-base --is-ancestor dev <branch>` and by confirming
+  the branch carries no commits of its own yet.
 
-- Changes MUST flow forward only: work MUST originate on `dev` and flow
-  through `test` → `ready`, and a fix MUST NOT be committed directly to a
-  downstream trunk.
+- Nothing beyond the new branch pointer MUST have changed: no commits, no
+  merges, no deletions, no pushes, and no edits to tracked files.
 
 ## Instructions
 
 1.  Classify the work.
 
-    Decide whether the change belongs on a trunk branch (`dev`, `test`, or
-    `ready`), a short-lived `temp/*` branch, a long-lived `epic/*` branch, or
-    directly on `dev` (for a one- or two-commit change).
+    Decide whether the change belongs on a trunk (`dev`, `test`, `ready`), a
+    short-lived `temp/*` branch, a long-lived `epic/*` branch, or directly on
+    `dev` for a one- or two-commit change. Prefer the smallest option that
+    fits; every branch is integration debt until it lands.
 
 2.  Form the branch name.
 
-    For trunk branches, the name is fixed (`dev`, `test`, or `ready`).
-
-    For `temp/*` or `epic/*` branches, build the name from the work:
-
-    - Optionally prefix with an issue or tracking ID.
-    - Append a lowercase, hyphen-delimited description of the work.
-    - Keep the total length within the budget.
+    Trunk names are fixed. For `temp/*` or `epic/*`, optionally prefix an
+    issue or tracking identifier, then append a lowercase, hyphen-delimited
+    description of the work, keeping the whole name within budget.
 
 3.  Validate the name against the regex.
 
-    Test the name against
-    `^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$`.
-    If it fails, rewrite the name and re-test until it passes, or report the
-    specific rule that was violated.
+    If it fails, rewrite and re-test until it passes. When the task was to
+    check supplied names, report the specific rule each failing name violates
+    rather than silently correcting it.
 
-4.  Choose the correct base branch.
+4.  Choose the base branch.
 
-    For `temp/*` and `epic/*` branches, base the branch on `dev` only — never
-    on `test`, `ready`, or a release branch.
+    Cut `temp/*` and `epic/*` branches from `dev` only. Fetch first so `dev`
+    is current, then create the branch, eg.
+    `git switch --create temp/42-fix-auth dev`.
 
-5.  Create or report.
+5.  Report what was done.
 
-    If the request is to create a branch, create it from the chosen base. If
-    the request is to validate, report a pass/fail verdict for each supplied
-    name, naming the rule each failure violates.
+    State the branch name, its base, and — for a validation request — the
+    verdict on each name.
 
 ## Rules
 
-- You MUST name and validate branches, and stop there.
+- You MUST name, validate, and create branches, and stop there.
 
-  Merging, cutting releases, and authoring commit messages are separate
-  responsibilities.
+  Committing, merging, cutting releases, and deleting integrated branches
+  are separate responsibilities, even when the same conventions govern them.
 
-- Branches MUST be one of the trunk, temporary, or epic forms.
+- Every branch MUST be one of three forms: a permanent trunk (`dev`, `test`,
+  `ready`), a short-lived `temp/[<id>-]<description>`, or a long-lived
+  `epic/[<id>-]<description>`.
 
-  Permanent trunks:
-
-  ```sh
-  dev
-  test
-  ready
-  ```
-
-  Short-lived temporary branches:
-
-  ```sh
-  temp/[<id>-]<description>
-  ```
-
-  Long-lived epic branches:
-
-  ```sh
-  epic/[<id>-]<description>
-  ```
-
-  Validation regex (for all branch types):
+  All three validate against a single regex:
 
   ```sh
   ^(dev|test|ready|temp/[a-z0-9]+(-[a-z0-9]+)*|epic/[a-z0-9]+(-[a-z0-9]+)*)$
   ```
 
-- Branch names MUST be lowercase and hyphen-delimited.
+- Branch names MUST be lowercase and hyphen-delimited (kebab-case), and MUST
+  NOT contain underscores or spaces. They SHOULD NOT exceed 50 characters,
+  and MUST NOT exceed 72.
 
-  - Branch names MUST be full lowercase.
+- Trunks are permanent, append-only, and fixed-forward.
 
-  - `temp/*` and `epic/*` branch names MUST use hyphen-delimited descriptions
-    (kebab-case).
+  - `dev` is the primary integration trunk, where all work originates. It is
+    the only REQUIRED branch, and SHOULD be the repository's default branch.
 
-  - Branch names MUST NOT contain underscores or spaces.
+  - `test` is an OPTIONAL QA trunk, fast-forwarded to stable commits on `dev`
+    to trigger integration, system, and performance testing.
 
-  - The OPTIONAL `<id>` typically corresponds to an issue number or tracking
-    system identifier. Include it if known.
+  - `ready` is an OPTIONAL production-grade trunk, fast-forwarded to passing
+    commits on `test`. It MUST remain shippable at all times, so that
+    continuous delivery stays possible.
 
-  - Temporary and epic branch names SHOULD NOT exceed 50 characters total,
-    and MUST NOT exceed 72.
+- Temporary branches MUST be short-lived and single-focus.
 
-- Trunk branches are permanent and immutable.
+  They carry one logical change over a small number of commits, commonly
+  tied to an issue. Orthogonal changes SHOULD NOT be combined into one
+  `temp/*` branch. They MUST be cut from `dev`, kept in sync by rebasing up
+  onto `dev` so their unique commits stay at the tip, reintegrated by
+  fast-forward merge, and deleted afterwards — the history survives in `dev`.
 
-  Trunks are append-only and fixed-forward. There are up to three:
+- Epic branches MUST be reserved for long-lived, coordinated work.
 
-  - `dev`: The primary integration trunk. All work originates here. This is
-    the only REQUIRED branch. Most projects SHOULD use `dev` as their
-    default branch.
+  Valid cases: features spanning weeks or months that cannot be continuously
+  integrated or toggled off; major refactoring and replatforming; cross-
+  cutting concerns; long-running research; other highly disruptive or
+  volatile changes.
 
-  - `test`: OPTIONAL QA trunk. Fast-forwarded to stable commits on `dev` to
-    trigger comprehensive testing (integration tests, system tests,
-    performance tests).
-
-  - `ready`: OPTIONAL production-grade trunk. Fast-forwarded to passing
-    commits on `test`. It MUST remain shippable at all times, enabling
-    continuous delivery.
-
-- Temporary branches are short-lived and focused.
-
-  Temporary branches (`temp/*`) capture single-focused changes spanning a
-  small number of commits. Commonly associated with an issue/bug.
-
-  - MUST be cut from `dev`, never from `test`, `ready`, or release branches.
-
-  - One logical change per temporary branch. Multiple orthogonal changes
-    SHOULD NOT be combined into a single temporary branch.
-
-  - MUST use the rebase-up strategy to keep synchronized with `dev`, so the
-    unique commits of temporary branches stay at the tip.
-
-  - MUST be reintegrated with `dev` using fast-forward merge.
-
-  - MUST be deleted after integration; the commit history is preserved in
-    `dev`.
-
-- Epic branches are long-lived and coordinated.
-
-  Epic branches (`epic/*`) are for multi-developer coordination on complex
-  changes.
-
-  - MUST be cut from `dev`, like temporary branches.
-
-  - Valid use cases: large coordinated features spanning weeks/months, and
-    which can't easily be continuously integrated into the `dev` trunk or
-    toggled off; major refactoring and replatforming initiatives;
-    cross-cutting concerns; long-running research work; other highly
-    disruptive or volatile changes.
-
-  - MUST use the merge-down strategy: synchronize by merging `dev` into the
-    epic branch (never rebase). This is safer for long-lived branches with
-    multiple contributors since it preserves the history of the branch.
-
-  - MUST be reintegrated with `dev` using the squash-merge strategy. One
-    fresh commit hits the trunk.
-
-  - MUST be deleted after integration into `dev`. A fresh epic branch MAY be
-    recreated if further long-running development work is required.
+  They MUST be cut from `dev` and synchronized by merging `dev` down into the
+  epic, never by rebasing, because rewriting shared history breaks other
+  contributors. They MUST be reintegrated by squash merge, so one fresh
+  commit hits the trunk, then deleted; a fresh epic MAY be cut if more
+  long-running work follows.
 
 - All changes MUST flow forward through the trunks.
 
-  Work MUST originate on `dev` and flow forward through `test` → `ready` →
-  release. Trunk branches are fixed-forward only. If a problem is discovered
-  downstream, the fix MUST be committed to `dev` and flow forward from there
-  — no direct commits to downstream trunks.
+  Work originates on `dev` and flows through `test` → `ready` → release. A
+  problem found downstream MUST be fixed on `dev` and flow forward from
+  there; a fix MUST NOT be committed directly to a downstream trunk, where
+  it would be lost at the next fast-forward.
 
-  Stale `temp/*` and `epic/*` branches with no commits in ~90 days SHOULD be
-  reviewed periodically and either deleted or revived.
+## Edge cases
+
+- The repository has no `dev` branch.
+
+  Do not cut a `temp/*` or `epic/*` branch from whatever trunk happens to
+  exist. Report that the model's required trunk is missing and stop, so the
+  user can decide whether to establish `dev` or work outside this model.
+
+- A `temp/*` or `epic/*` branch has no commits for roughly 90 days.
+
+  Flag it as stale when it surfaces during naming or validation. Such
+  branches SHOULD be reviewed and either revived or deleted, but deletion is
+  outside this skill's remit.
 
 ## Examples
 
@@ -233,7 +190,7 @@ print an error message.
   ```sh
   temp/42-add-search-endpoint
   temp/178-fix-auth-timeout
-  temp/TS-504-migrate-user-schema
+  temp/ts-504-migrate-user-schema
   temp/update-dependencies
   ```
 
@@ -241,7 +198,7 @@ print an error message.
 
   ```sh
   epic/billing-v2-rewrite
-  epic/PRODUCT-187-auth-overhaul
+  epic/product-187-auth-overhaul
   epic/infra-migrate-kubernetes
   epic/major-ui-redesign
   ```

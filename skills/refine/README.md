@@ -1,21 +1,25 @@
 # Refine
 
-The **refine** skill is all about producing new business requirements in
-response to acceptance testing feedback.
+The **refine** skill revises a requirements specification in response to
+acceptance testing feedback, or to real-world use of the working software.
 
-The agent is instructed to edit the _specification_, not the code, in response
-to acceptance-testing feedback or to real-world use of the working software.
+The agent is instructed to edit the _specification_, never the code. It names
+the trigger and the evidence behind it, resolves where the requirements
+actually live, classifies the change (correction, addition, removal,
+reclassification, threshold adjustment), drafts the edit in the store's own
+conventions as a before-and-after, files the rationale, and traces the
+downstream impact on design, plans, code, and tests.
 
-The boundary is sharp: if the spec was right and the code was wrong, that is a
-defect fix, not a refinement. Refinement is for when the acceptance criterion
-itself is wrong, missing, contradictory, or ambiguous.
-
-The agent drafts the edit in the specification's own conventions. It makes no
-changes to code.
+The boundary is sharp. If the specification was right and the code was wrong,
+that is a defect fix, not a refinement. And a net-new capability is a new
+specification, not a refinement of an old one.
 
 ## Interactivity
 
-This skill is interactive where stakeholders must resolve a disagreement.
+This skill is interactive. The agent may prompt for the trigger, the evidence
+behind it, where the specification lives, and where rationale should be filed
+— asking one question at a time. It is not suited to unattended runs, because
+a refinement without a human-supplied trigger is guesswork.
 
 ## How to invoke
 
@@ -25,12 +29,22 @@ This skill is interactive where stakeholders must resolve a disagreement.
 
 > Update the specification to match what we learned.
 
+Name the failing criterion, the measurement, or the stakeholder report in the
+same breath, and the agent has less to ask for.
+
 ## Recommended models
 
-A mid-tier reasoning model is sufficient for this task. Escalate to a frontier
-model for deeper misunderstandings of the requirements.
+A mid-tier reasoning model is sufficient for most refinements, which are
+localized edits with a clear trigger. Escalate to a frontier model where the
+feedback implies a deeper misreading of the requirements, or where the
+downstream impact is wide.
 
 ## Suggested workflows
+
+Run this after acceptance testing or a round of real use has produced
+concrete feedback, and before any implementation work responds to it. Do not
+run it to tidy a specification speculatively — with no trigger and no
+evidence, there is nothing to refine against.
 
 ```mermaid
 flowchart LR
@@ -40,8 +54,8 @@ flowchart LR
   specify["🤖<br/>specify"]:::agentic
 
   %% Main workflow sequence.
-  validate --> refine
-  refine --> specify
+  validate ==> refine
+  refine ==> specify
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -51,10 +65,14 @@ flowchart LR
 
 ## Related skills
 
-- **[validate](../validate/).** Companion skill that supplies the suggestions
-  this skill then acts on.
+- [**validate**](../validate/) \
+  Runs the acceptance checks whose failures supply this skill's triggers.
 
-- **[specify](../specify/).** Receives the specification edits this skill
-  produces.
+- [**specify**](../specify/) \
+  Writes specifications from scratch. Take that route for a net-new
+  capability, which is out of scope here.
 
-- **[refactor](../refactor/).** The structural analogue to this skill.
+- [**refactor**](../refactor/) \
+  The structural analogue: refactor improves the shape of code without
+  changing behavior, refine improves the shape of requirements without
+  changing the underlying need.

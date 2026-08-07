@@ -1,239 +1,217 @@
 ---
 name: style
 description: >-
-  Improve code presentation — whitespace, style, ordering — without changing
-  structure. Use when normalizing style after implementing a feature, fixing
-  CI lint failures, or aligning a file to project conventions. Or use when the
-  user says something like "format this file", "fix the formatting / lint
-  errors", or "tidy up the whitespace and style here".
-compatibility: requires Read, Edit, Bash
+  Normalize the presentation of code or content — whitespace, wrapping,
+  quoting, ordering — without changing structure or behavior. Use when
+  normalizing style after implementing a feature, fixing a formatting-related
+  CI failure, or aligning files to project conventions, or when the user says
+  something like "format this file", "fix the formatting errors", or "tidy up
+  the whitespace and style here". Do not use it to restructure code, rename
+  anything, or edit the language of prose.
+compatibility: >-
+  requires Read, Edit, Glob, Grep, Bash (formatter, test runner, git)
 license: CC0-1.0
 ---
 
 # Style
 
-Apply presentation-only code or content changes — eg. whitespace,
-indentation, line wrapping, quotes, trailing commas, import ordering —
-without altering behavior, structure, or meaning.
-
-Prefer to use automated formatters configured at the project level.
+Apply presentation-only changes — whitespace, indentation, line wrapping,
+quotes, trailing commas, import ordering — to code or to any other text
+content, leaving behavior, structure, and meaning untouched. Normalize the
+presentation and stop there: reviewing the result and integrating it are
+someone else's job.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the
+user with an error message.
 
-- **The code or content to normalize — REQUIRED.** A set of files, a diff,
-  or the working tree.
+- **Target content — REQUIRED.** The files to normalize. Take them from the
+  user's prompt, a named directory, or the current diff. Where the request
+  names no set, default to the files changed in the version control working
+  tree.
 
-- **The configured formatter and style conventions — REQUIRED.** The
-  project's formatter and style conventions, where they exist.
+- **Formatter and style conventions — OPTIONAL.** The tool and settings that
+  define what "formatted" means here. Discover them from the project rather
+  than assuming: a formatter config file, a format script in the project's
+  task runner, or a commit hook that invokes one. Where the project configures
+  none, fall back to the conventions the surrounding files already follow.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+- **Scope — OPTIONAL.** How wide to run: the files just touched, one
+  directory, or the whole repository. Default to the narrowest scope that
+  covers the target content, because a wider scope buys a noisier diff.
 
 ## Success criteria
 
-- The target files MUST carry presentation-only edits: whitespace,
-  indentation, wrapping, quotes, ordering.
+- Every edited file MUST parse, compile, or load as it did before, and the
+  project's own test command MUST pass afterwards.
 
-- External behavior MUST be unchanged: tests MUST pass after the style
-  pass, and `git diff -w` between pre and post MUST show no changes.
+- Where the pass changed only whitespace, `git diff -w` MUST report an empty
+  diff. Where it also changed quoting, punctuation, or ordering, that check no
+  longer applies and the test suite is the evidence.
 
-- The diff MUST contain only presentation changes: there MUST be no
-  renames, no logic edits, and no structural moves.
+- The diff MUST show no rename, no logic edit, no reordered parameter, and no
+  moved declaration.
 
-- The commit MUST be a single `style:` commit per scope: there MUST be no
-  bundled feature, fix, refactor, or config changes.
+- Formatter configuration, lint configuration, and ignore files MUST be
+  byte-identical to their prior state, so that the pass demonstrably applied
+  the existing rules rather than new ones.
 
-- The formatter, if any, MUST have been used as configured: it MUST NOT be
-  hand-edited around the formatter, and it MUST NOT be run with
-  non-standard options.
+- Generated, transpiled, and vendored files MUST be absent from the diff.
 
-- Tooling gap, if any, MUST be captured: if hand-formatting was necessary, a
-  follow-up `maintenance:` task MUST exist to add or fix the automation.
+- The result MUST be filable as a single style-typed commit per scope, with no
+  feature, fix, refactor, or configuration change bundled in.
+
+- Where any file had to be hand-formatted, a follow-up maintenance task MUST
+  have been recorded in whatever issue store the project uses.
 
 ## Instructions
 
 1.  Confirm the change is presentation only.
 
-    Before reformatting, identify exactly what is changing: whitespace,
-    indentation, line wrapping, trailing newlines, quote style, trailing
-    commas, semicolons, import ordering or grouping, casing of literals,
-    line endings, final newline, BOM, and encoding. If you cannot describe
-    the change in those terms, stop and re-classify as a structural
-    refactor.
+    Name exactly what will change: whitespace, indentation, line wrapping,
+    trailing newlines, quote style, trailing commas, semicolons, import
+    ordering or grouping, casing of literals, line endings, final newline,
+    BOM, encoding. If you cannot describe the intended change in those terms,
+    you MUST stop and re-classify the work as a structural refactor.
 
-2.  Prefer the project's configured formatter.
+2.  Discover the project's formatter and run it as configured.
 
-    Run the project's formatter rather than hand-editing. Look for, in
-    order, a formatter config file, a formatter script in `package.json`,
-    `Makefile`, `justfile`, etc., or a pre-commit hook that configures the
-    formatter. Use the configured tool with the configured options.
+    Search for a formatter config file, a format script in the task runner, or
+    a commit hook that invokes one. You MUST use the configured tool with its
+    configured options, rather than hand-editing or passing overrides —
+    otherwise the next person to run the formatter reverts your work.
 
-3.  Scope the run deliberately.
+3.  Fix the scope before running.
 
-    Decide what to format: the file or files just touched, a single
-    directory, or the whole repo. Wider scope means a noisier diff.
+    Decide which files the run covers and hold it there. You MUST NOT let the
+    formatter widen the diff into files unrelated to the target content.
 
 4.  Verify behavior is unchanged.
 
-    Run the test suite after the formatting pass. Be especially careful
-    with significant-whitespace languages (Python, YAML, Make, Haskell),
-    auto-removal of side-effect imports, quote-style changes inside
-    strings, and generated files.
+    Run the project's test command after the pass. You MUST take extra care
+    with significant-whitespace languages, auto-removal of side-effect
+    imports, quote-style changes that fall inside string literals, and files
+    a generator owns.
 
-5.  Commit as `style:`.
+5.  File the change as a style-typed commit, one per scope.
 
-    Make one formatting commit per scope using the `style:` commit type.
+    Follow whatever commit conventions the project documents. Then stop:
+    reviewing the diff and integrating the branch MUST be left to the caller.
 
-6.  Consider automation for next time.
+6.  Record the tooling gap, if there was one.
 
-    If you formatted by hand, open a follow-up `maintenance:` task to add
-    or fix the formatter config, wire it into a pre-commit hook, and
-    wire it into CI as a check that fails on unformatted code.
+    Where you formatted anything by hand, you SHOULD record a follow-up
+    maintenance task to add or fix the formatter config, wire it into a commit
+    hook, and add a CI check that fails on unformatted content.
 
 ## Rules
 
-- Behavior preservation MUST be non-negotiable.
+- You MUST preserve behavior exactly.
 
-  A formatting change that alters runtime behavior is mislabeled. Tests
-  MUST pass before and after; observable output MUST be byte-identical
-  for any given input. If you cannot promise that, it is not a style
-  change.
+  Tests MUST pass before and after, and observable output MUST be identical
+  for any given input. A change that fails this test is mislabeled and does
+  not belong in a style pass.
 
-- Presentation only — there MUST be no structural edits.
+- You MUST NOT make structural edits.
 
-  Renaming a variable, extracting a function, reordering parameters,
-  simplifying a conditional — all are structural refactors, not style.
-  Even renames that "look like" formatting (eg. casing a constant from
-  `myConst` to `MY_CONST`) change identifier resolution.
+  Renaming a variable, extracting a function, reordering parameters, and
+  simplifying a conditional are refactors. This includes renames that look
+  cosmetic: recasing `myConst` to `MY_CONST` changes identifier resolution.
+
+- You MUST NOT edit the language of prose — spelling, grammar, wording, or
+  terminology. Line wrapping and whitespace in a prose file are in scope; the
+  words are not.
 
 - You MUST NOT bundle formatting with feature, fix, or refactor work.
 
-  Mixed commits hide the substantive change inside formatting noise and
-  make `git blame` useless. You MUST keep formatting separate.
+  Mixed commits hide the substantive change inside formatting noise and make
+  history hard to read.
 
-- You SHOULD prefer automated formatters over hand-edits.
+- You MUST NOT change formatter or lint configuration during a style pass.
 
-  A formatter applies the same rule everywhere and is reproducible.
-  Hand-edits drift, vary by author, and re-emerge in the next diff. If
-  the project has no formatter, that is the bug to fix — via a
-  `maintenance:` commit — before the next manual style pass.
-
-- You MUST NOT change formatter configuration in a style commit.
-
-  Changing `.prettierrc` then re-running the formatter changes two
-  things at once. You MUST split: one `maintenance:` commit changes the
-  config; one `style:` commit applies the new style.
-
-- You MUST respect generated and vendored files.
-
-  Generated code (codegen output, transpiled bundles, vendored
-  third-party files) MUST NOT be reformatted — the generator owns the
-  format. You MUST add such paths to the formatter's ignore list.
-
-- You MUST watch significant-whitespace languages.
-
-  In Python, YAML, Make, and similar, indentation is syntax. A
-  "harmless" re-indent can change meaning. You MUST always run the test
-  suite; for YAML/config files, you MUST run a parser/loader after the
-  change.
-
-- You MUST reformat in its own scope.
-
-  A formatting commit that touches a hundred unrelated files because
-  the formatter happened to find them is harder to review than one that
-  names a directory and stops there. You MUST pick a scope and stick to
+  Editing the config and re-running the formatter changes two things at once.
+  Split them: one maintenance change to the config, one style change applying
   it.
 
-- The diff SHOULD be visually large but semantically empty.
+- You SHOULD prefer an automated formatter over hand-edits.
 
-  A reviewer MUST be able to run `git diff --ignore-all-space` (or
-  `git diff -w`) and see an empty diff. If `-w` still shows changes, the
-  commit is not pure formatting.
+  A formatter applies the same rule everywhere and is reproducible, while
+  hand-edits drift by author and re-emerge in the next diff. Where the project
+  has no formatter, that absence is the real defect, and fixing it is
+  maintenance work rather than part of this pass.
+
+- You MUST NOT reformat generated, transpiled, or vendored files, and you
+  SHOULD get such paths added to the formatter's ignore list.
+
+  The generator or the upstream project owns their format, so any edit here is
+  lost or diverges on the next update.
+
+- You MUST run the test suite when reformatting a significant-whitespace
+  language, and you MUST additionally parse or load any reformatted
+  configuration file.
+
+  Where indentation is syntax — Python, YAML, Make, and similar — even a
+  re-indent that looks harmless can change meaning.
+
+- The diff SHOULD be visually large but semantically empty. A reviewer
+  skimming it SHOULD find nothing that changes what the code does.
 
 ## Edge cases
 
 - The formatter wants to rewrite a file your change just touched.
 
-  Common when joining a project mid-flight. Format the file first in a
-  `style:` commit on the same branch, then make your behavior change
-  against the now-canonical baseline. Reviewers see two clean diffs
-  instead of one noisy one.
+  Format the file first, as its own style change on the branch, then make the
+  behavior change against the now-canonical baseline. Reviewers get two clean
+  diffs instead of one noisy one.
 
 - The formatter and a linter disagree.
 
-  Pick one as authoritative (usually the formatter for whitespace and
-  the linter for everything else) and configure the linter to ignore
-  overlapping rules. Document the decision via a `maintenance:`
-  commit.
+  Pick one as authoritative — usually the formatter for whitespace and the
+  linter for everything else — and configure the linter to drop the
+  overlapping rules. That configuration change is maintenance work, so it MUST
+  NOT ride along in the style change.
 
-- The style change is enormous because the codebase was never
-  formatted.
+- The change is enormous because the content was never formatted.
 
-  A one-off "big bang" reformat is acceptable when adopting or
-  upgrading a formatter. Land it as a single `style:` commit, ideally
-  on its own merge, so `git blame` can be navigated with
-  `git blame --ignore-rev`. Record the commit SHA in
-  `.git-blame-ignore-revs`.
+  A one-off big-bang reformat is acceptable when adopting or upgrading a
+  formatter. Land it as a single style change on its own, and record its
+  commit identifier in the repository's blame-ignore file so history stays
+  navigable.
 
-- Formatting "fixes" a CI failure.
+- Formatting would fix a CI failure.
 
-  If CI fails because of formatting, fix the formatting. But also check
-  whether the formatter check is missing as a local pre-commit hook —
-  if it is, file a `maintenance:` task. Catching format issues at push
-  time is friction.
-
-- Significant-whitespace breakage.
-
-  A Python re-indent turned a method into a nested function. The test
-  suite caught it. Lesson: never run an auto-formatter on a
-  significant-whitespace language without test coverage.
+  Fix the formatting, then check whether the same check runs locally as a
+  commit hook. Where it does not, record that gap as maintenance work:
+  discovering formatting errors at push time is avoidable friction.
 
 ## Examples
 
-- A clean formatting commit after a feature:
+- A clean formatting change following a feature:
 
-  ```sh
-  Sequence:
-    feature: add bulk export endpoint     # the change
-    style:   apply prettier to handlers/  # normalize style
-
-  The feature commit shows the actual logic. The style commit shows
-  the style normalization separately, reviewable in seconds.
+  ```text
+  feature: add bulk export endpoint     # the behavior change
+  style:   apply the formatter to the handlers directory
   ```
+
+  The first shows the logic. The second is reviewable in seconds.
 
 - Catching a behavior change pretending to be style:
 
-  ```sh
-  While "formatting" auth.py I noticed the function `_normalize_token`
-  was renamed to `normalize_token` (removing the underscore). That is
-  a refactor, not a formatting change — it alters the public surface
-  of the module. Reverted the rename; recorded a refactor: follow-up.
-  ```
-
-- A repo-wide normalization, scoped:
-
-  ```sh
-  style: convert tab indentation to spaces across src/
-
-  Applied via .editorconfig + `npm run format`. No source files
-  outside src/ changed. Tests pass.
+  ```text
+  While formatting the auth module, `_normalize_token` had been renamed to
+  `normalize_token`. That alters the module's public surface, so it is a
+  refactor. Reverted the rename and recorded it as follow-up refactor work.
   ```
 
 ## References
 
-<!--
+- [TS-9: Version control](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/009/AGENTS.md) \
+  Read before filing the change, for the commit types and message conventions
+  this skill relies on.
 
-TODO: Reinstate TS-* cross-references when those are republished.
-
-- [TS-9: Version
-  Control](https://github.com/kieranpotts/standards/tree/dev/ts/009): Defines
-  the `style:` commit type used here.
-
--->
+- [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md) \
+  Read when normalizing Markdown content and the project configures no
+  formatter for it.

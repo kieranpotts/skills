@@ -1,23 +1,24 @@
 ---
 name: review
 description: >-
-  Evaluate code for style conventions and pattern consistency. Use when
-  reviewing a pull request, auditing a peer's branch, or self-reviewing
-  changes before opening a PR, or when the user says something like "review
-  this PR", "review my changes before I push", or "check this diff against the
-  spec and our conventions".
-compatibility: requires Read, Bash (git diff)
+  Audit a proposed code change against the specification it claims to satisfy
+  and the project's own standards, classifying every finding by severity and
+  closing with a verdict. Use when reviewing a pull request, auditing a peer's
+  branch, or self-reviewing a diff before opening a PR, or when the user says
+  something like "review this PR", "review my changes before I push", or
+  "check this diff against the spec and our conventions". Do not use it to
+  apply the fixes it recommends.
+compatibility: >-
+  requires Read, Glob, Grep, Bash (git diff, gh)
 license: CC0-1.0
 ---
 
 # Review
 
 Audit a code change for correctness, design, clarity, test coverage,
-security, and completeness. Classify every finding as blocking or
-non-blocking.
-
-Review only. You MUST NOT make any code or configuration changes to the
-software itself.
+security, and completeness, classifying every finding as blocking or
+non-blocking. Review only: report the findings and stop, changing no code or
+configuration yourself.
 
 ## Parameters
 
@@ -32,338 +33,291 @@ how to access it, when context and environment do not settle it.
   explicitly.
 
 - **The specification to check against — REQUIRED.** The acceptance criteria
-  the change claims to satisfy, plus any captured design decision.
+  the change claims to satisfy, plus any captured design decision behind it.
 
-- Where the specification, the decision store, and the project's standards
-  live — REQUIRED. Discover these rather than assuming them: check this
-  session's context first, then the environment (a convention file such as
-  `AGENTS.md`, a workspace manifest, a configured connector). If none settles
-  it, ask the user. Each MAY be a directory in this repository, a separate
-  repository, or an external service — do not assume a filesystem path, a
-  file name, or a document structure.
-
-This task otherwise runs non-interactively to completion. You MUST NOT
-prompt the user about the substance of the task; if in doubt about that,
-stop and print an error message. You MAY prompt solely to establish where an
-artifact lives or how to access it, when context and environment do not
-settle it.
+- **The artifact stores — REQUIRED.** Where the specification, the decision
+  records, and the project's standards live. Discover each rather than
+  assuming it: check this session's context first, then the environment (a
+  convention file, a workspace manifest, a configured connector). If none
+  settles it, ask the user. A store MAY be a directory in this repository, a
+  separate repository, or an external service, so do not assume a filesystem
+  path, a file name, or a document structure.
 
 ## Success criteria
 
-- A set of findings MUST exist, each one specific and actionable: naming
-  the file and line, describing the issue, and suggesting a direction.
+- Every finding MUST name a file and line, describe the issue, and suggest a
+  direction, so the author can act on it without a follow-up conversation.
 
-- Findings MUST be organized into two axes, Specification and Standards,
-  kept distinct in the review output. Each Specification finding MUST quote
-  the specification line it tests against; each Standards finding MUST cite
-  the standard by file and rule.
+- Findings MUST be split across two axes, Specification and Standards, kept
+  visibly distinct in the output. Each Specification finding MUST quote the
+  specification line it tests against; each Standards finding MUST cite the
+  standard by file and rule.
 
-- Every finding MUST carry a severity label — Blocking, Suggestion, Nit, or
-  Praise — with no bare comments.
+- Every finding MUST carry one of the severity labels Blocking, Suggestion,
+  Nit, or Praise. An unlabelled comment leaves the author guessing whether
+  it gates the merge.
 
-- The review MUST close with an explicit verdict: Approve, Request changes,
-  or Comment.
+- The review MUST account for all six categories — correctness, design,
+  clarity, test coverage, security, completeness — recording an explicit
+  "no findings" for any that yielded none, so a skipped category is
+  distinguishable from a clean one.
+
+- The review MUST close with one verdict: Approve, Request changes, or
+  Comment.
+
+- The working tree MUST be left exactly as found: no file edited, no commit,
+  no push, no review thread resolved.
 
 ## Instructions
 
-1.  Understand what the change is and why.
+1.  Establish what the change is and why, before reading any code.
 
-    Read the PR description, linked issue, or commit body. Identify the
-    acceptance criteria (or the specification) it claims to satisfy. Note
-    any captured design decision behind it. If the why is unclear from
-    the description, ask the author.
+    Read the PR description, linked issue, or commit body, and identify the
+    acceptance criteria it claims to satisfy along with any captured design
+    decision behind it. You MUST NOT reverse-engineer intent from the diff:
+    a reviewer who infers the goal from the code can only ever confirm that
+    the code does what the code does.
 
 2.  Pin the comparison base, then read the diff in commit order.
 
-    State the comparison base explicitly — a commit SHA, branch name,
-    tag, or `main`. Capture the diff command once (eg. `git diff
-    <base>...HEAD` for three-dot, merge-base comparison) so every
-    subsequent step references the same set of changes. Read the diff in
-    commit order, not file-by-file.
+    State the base explicitly — a commit SHA, branch name, or tag — because
+    "review the PR" is ambiguous once the source branch moves. Capture the
+    diff command once, so every later step sees the same change set:
 
-3.  Check correctness.
+    ```sh
+    git diff <base>...HEAD
+    ```
 
-    Check, against the ACs and the design:
+    Read commit by commit rather than file by file, so the author's
+    intermediate reasoning stays visible.
 
-    - Does the change implement what the AC requires?
+3.  Check correctness against the acceptance criteria and the design.
 
-    - Does it handle edge cases the AC implies but doesn't enumerate
-      (empty input, max input, null, concurrent calls, error paths)?
+    You MUST establish:
 
-    - Are the assumptions in the code (about types, ranges, ordering,
-      idempotency) actually guaranteed by the callers?
+    - Whether the change implements what the criteria require.
 
-    - Does the change touch state in a way that could leave the system
-      inconsistent if interrupted halfway?
+    - Whether it handles edge cases the criteria imply but do not
+      enumerate — empty input, maximum input, null, concurrent calls,
+      error paths.
+
+    - Whether the assumptions the code makes about types, ranges,
+      ordering, and idempotency are actually guaranteed by its callers.
+
+    - Whether it touches state in a way that could leave the system
+      inconsistent if interrupted halfway.
 
 4.  Check design.
 
-    Check:
+    You SHOULD weigh:
 
-    - Does the change follow the architecture and patterns established
-      in the codebase? Match the style of nearby files unless the change
-      is deliberately replacing them.
+    - Whether the change follows the architecture and patterns already
+      established, matching nearby files unless it deliberately replaces
+      them.
 
-    - Is the module decomposition cohesive? Each module/function/class
-      has one clear responsibility?
+    - Whether each module, function, and class carries one clear
+      responsibility.
 
-    - Are new dependencies (third-party, internal) justified? Could the
-      change have been made without adding them?
+    - Whether new dependencies, third-party or internal, are justified.
 
-    - Does it introduce premature abstractions? Three similar lines is
-      better than one abstraction with one caller.
+    - Whether it introduces premature abstraction. Three similar lines
+      beat one abstraction with a single caller.
 
 5.  Check clarity.
 
-    Check:
+    You SHOULD weigh:
 
-    - Could a developer unfamiliar with this area understand what the
-      code does and why?
+    - Whether a developer unfamiliar with the area could tell what the
+      code does and why.
 
-    - Are names meaningful and idiomatic?
+    - Whether names are meaningful and idiomatic for the language.
 
-    - Are comments adding value (explaining a non-obvious why) rather
-      than narrating what the code does?
+    - Whether comments explain a non-obvious why, rather than narrating
+      what the code already says.
 
-    - Are dead code, debug logs, commented-out blocks, and `TODO`
-      markers removed or justified?
+    - Whether dead code, debug logging, commented-out blocks, and TODO
+      markers are removed or justified.
 
 6.  Check test coverage.
 
-    Check:
+    You MUST establish:
 
-    - Does every new behavior have at least one test that fails when
-      the behavior is removed?
+    - Whether every new behavior has at least one test that would fail if
+      the behavior were removed.
 
-    - Do tests assert on meaningful behavior, not implementation
-      details?
+    - Whether the tests assert on behavior rather than implementation
+      detail.
 
-    - Are test doubles used judiciously — real implementations where
-      practical, doubles only where needed?
+    - Whether test doubles are used judiciously — real implementations
+      where practical, doubles only where needed.
 
-    - Is the test name a description of the behavior, not the method?
+    - Whether each test name describes the behavior rather than the
+      method under test.
 
-7.  Check security.
+7.  Check security, wherever the change touches input, authentication,
+    persistence, or external calls.
 
-    For any change that touches input, auth, persistence, or external
-    calls, check:
+    You MUST establish:
 
-    - Are inputs validated at the system boundary?
+    - Whether inputs are validated at the system boundary.
 
-    - Are access controls enforced — not just at the UI, but at the
-      service layer?
+    - Whether access controls are enforced at the service layer, not
+      merely in the UI.
 
-    - Is sensitive data (PII, secrets, tokens) handled appropriately —
-      encrypted at rest/in transit, never logged, not exposed in error
-      responses?
+    - Whether sensitive data — personal data, secrets, tokens — is
+      encrypted in transit and at rest, kept out of logs, and absent from
+      error responses.
 
-    - Does the change widen the attack surface (new endpoint, new file
-      write, new shell call, new dependency)? If so, was that
-      intentional?
+    - Whether the change widens the attack surface with a new endpoint,
+      file write, shell call, or dependency, and whether that was
+      intentional.
 
-8.  Check completeness.
+8.  Check completeness — whether the change carries everything it needs to
+    ship.
 
-    Check that the change includes everything it needs to ship:
+    You SHOULD look for documentation updates, new configuration and
+    environment variables documented, reversible migrations, feature-flag
+    wiring with a cleanup issue behind it, and telemetry for the new
+    behavior.
 
-    - Documentation updates (README, API docs, runbook).
+9.  Classify every comment, then write it up.
 
-    - Configuration / environment variable additions, documented.
+    Assign one severity to each:
 
-    - Migration scripts, reversible.
+    - Blocking — to be addressed before merge: correctness, security, a
+      new behavior with no test, a broken build.
 
-    - Feature-flag wiring, with a cleanup tracking issue.
+    - Suggestion — would improve the change, acceptable as-is.
 
-    - Telemetry / logs for the new behavior.
+    - Nit — stylistic preference, optional.
 
-9.  Classify and write findings.
+    - Praise — something done well, called out to reinforce the pattern.
 
-    Assign every comment a severity label:
+    Group the write-up by axis, Specification and Standards, and keep each
+    comment specific enough to act on.
 
-    - Blocking: to be addressed before merge (correctness, security,
-      missing tests for new behavior, breaks the build).
+10. Close with one verdict.
 
-    - Suggestion: would improve the change but is acceptable as-is.
-
-    - Nit: stylistic preference, optional.
-
-    - Praise: explicitly noting something well done. Reinforces good
-      patterns.
-
-    Write each comment to be specific and actionable.
-
-10. Conclude with an explicit verdict.
-
-    Choose one of:
-
-    - Approve: ship it; no blocking comments.
-
-    - Request changes: at least one blocking comment.
-
-    - Comment: feedback offered, but decision deferred to another
-      reviewer.
+    Approve where nothing blocks; Request changes where at least one
+    Blocking finding stands; Comment where the feedback is offered but the
+    decision belongs to another reviewer.
 
 ## Rules
 
-- You MUST discover artifact locations and conventions; you MUST NOT assume
+- You MUST discover artifact locations and conventions rather than assume
   them.
 
-  This skill is used across projects that keep their artifacts in different
-  places, in different formats, under different tools. A path, file name,
-  template, or lifecycle state that is right in one project is wrong in the
-  next. Resolve each store first, then read and follow whatever conventions
-  it documents for itself.
+  This skill runs across projects that keep specifications, decisions, and
+  standards in different places, formats, and tools. A path or template that
+  is right in one project is wrong in the next. Resolve each store first,
+  then follow whatever conventions that store documents for itself.
 
-- You MUST report your findings and stop there.
+- You MUST report findings and stop there.
 
-  Acting on them — fixing the code, restructuring, re-running the system —
-  is a separate, downstream responsibility. A reviewer who starts editing
-  gives up the independence that makes the review worth having.
+  Fixing the code, restructuring it, or re-running the system is downstream
+  work for someone else. A reviewer who starts editing forfeits the
+  independence that makes the review worth having.
 
-- You MUST understand the why before reading code.
+- You SHOULD approve at "good enough" rather than hold out for perfect.
 
-  The description, linked issue, and design notes MUST be consulted
-  first. You MUST NOT reverse-engineer intent from the diff.
+  Perfection blocks delivery. Where a comment is genuinely optional, label
+  it Suggestion or Nit and approve anyway.
 
-- You MUST read the diff in commit order against a pinned base.
+- You SHOULD spend attention where machines cannot help.
 
-  "Review the PR" is ambiguous when the source branch may have shifted;
-  the base MUST be explicit.
-
-- You SHOULD ask the author to split a single squashed commit.
-
-  One logical change per commit is the convention; a single squashed
-  commit hides intermediate states and drive-by edits.
-
-- You MUST keep findings organized into two axes: Specification and
-  Standards.
-
-  A change can pass one axis and fail the other. You MUST quote the
-  specification line for each Specification finding and cite the standard
-  (file + rule) for each Standards finding. You MUST NOT merge the
-  axes.
-
-- You SHOULD approve at "good enough", not "perfect".
-
-  Holding out for perfection blocks delivery. If a comment is genuinely
-  optional, label it Suggestion or Nit and approve.
-
-- You MUST distinguish blocking from non-blocking explicitly.
-
-  Every comment MUST carry a severity label.
-
-- You SHOULD focus on what machines can't check.
-
-  Style, formatting, and lint issues belong to automated tooling. You
-  SHOULD spend human attention on correctness, design, security, and
-  clarity.
+  Formatting, lint, and style belong to automated tooling. The
+  highest-leverage finding is "you added behavior with no test for it";
+  naming nits SHOULD NOT dominate the comment count.
 
 - You MUST NOT bikeshed.
 
-  Personal preference is not feedback. If a difference is purely
-  stylistic and the existing code is consistent, you MUST leave it
+  Personal preference is not feedback. Where a difference is purely
+  stylistic and the surrounding code is internally consistent, leave it
   alone.
 
-- You SHOULD review promptly.
+- Comments MUST address the code, not the author.
 
-  A delayed review blocks integration, forces the author to
-  context-switch, and stale diffs grow harder to merge. You SHOULD aim
-  to complete within one working day; if you can't, you SHOULD say so
-  so the author can find another reviewer.
+  "This is wrong" stings; "this does not handle X" describes the code. Same
+  content, different framing.
 
-- Comments MUST be about the code, not the author.
+- You SHOULD ask the author to split a change squashed into a single commit.
 
-  "This is wrong" stings; "This does not handle X" describes the code.
-  Same content, different framing.
-
-- You MUST catch the missing test, not the missing tab.
-
-  The highest-leverage review finding is "you added behavior with no
-  test for it". Lower-leverage findings (style, naming nits) SHOULD NOT
-  dominate the comment count.
-
-- Self-review MUST apply the same skill.
-
-  You MUST run the full procedure on your own diff before opening the
-  PR. Most of the easy findings can be fixed before another human sees
-  them.
-
-- You MUST consider correctness, design, clarity, test coverage,
-  security, and completeness.
-
-  Even if a category has no findings, it MUST have been thought about.
+  One logical change per commit is the convention. A single squashed commit
+  hides intermediate states and drive-by edits.
 
 ## Edge cases
 
-- Reviewer is the author.
+- The reviewer is the author.
 
-  Self-review still applies. Open the diff and run the full procedure
-  as if it were a stranger's. Most easy findings will surface.
+  Self-review still applies. Run the full procedure over your own diff as
+  though it were a stranger's, before anyone else is asked to look. Most of
+  the easy findings surface that way.
 
-- The change is huge.
+- The change is very large.
 
-  Stop and ask the author to split it. Reviews of >~400 LOC become
-  ineffective — reviewers skim and miss issues. A large change is a
-  planning failure; address it there.
+  Stop and ask the author to split it. Review effectiveness falls off
+  sharply past a few hundred changed lines — reviewers skim and miss
+  issues. An oversized change is a planning failure; say so, and address it
+  there.
 
-- The change is urgent (hotfix).
+- The change is an urgent hotfix.
 
-  Apply the same criteria but accept narrower scope: correctness +
-  security for the fix itself, with a follow-up issue for non-blocking
-  comments. Don't skip review just because it's urgent — hotfixes are
-  where defects most often regress.
+  Apply the same criteria over a narrower scope: correctness and security
+  for the fix itself, with non-blocking comments deferred to a follow-up
+  issue. Do not skip the review; hotfixes are where defects most often
+  regress.
 
-- Author disagrees with a finding.
+- The author disagrees with a finding.
 
-  Discuss, don't override. The goal is a better change, not a "won"
-  argument. If genuinely stuck, pull in a third reviewer.
+  Discuss it rather than override it. The goal is a better change, not a
+  won argument. Where genuinely stuck, recommend a third reviewer.
 
-- You don't understand a section.
+- A section of the change is not understood.
 
-  Say so. "I don't follow why X is needed here — can you walk me
-  through it?" is a legitimate review comment. Approving code you
-  don't understand is how subtle bugs ship.
+  Say so. "I don't follow why X is needed here — can you walk me through
+  it?" is a legitimate review comment. Approving code you do not understand
+  is how subtle bugs ship.
 
 ## Examples
 
-- A labeled comment set on a hypothetical diff:
+- Labeled comments on a hypothetical diff:
 
-  ```sh
+  ```text
   [Blocking] handlers/orders.ts:42
-    The new endpoint accepts an `amount` field but doesn't validate it's
-    positive. A negative amount would currently refund the customer.
-    Suggest: validate `amount > 0` at the request boundary and return 400.
+    The new endpoint accepts an `amount` field but does not validate that
+    it is positive. A negative amount would currently refund the customer.
+    Suggest validating `amount > 0` at the request boundary, returning 400.
 
   [Suggestion] handlers/orders.ts:67
-    The retry loop has no jitter — under load all retries will land in the
+    The retry loop has no jitter, so under load all retries land in the
     same window. Adding jitter (`base * (0.5 + Math.random())`) would
-    smooth retries. Non-blocking; we can do it in a follow-up.
+    smooth them out. Non-blocking; fine as a follow-up.
 
   [Nit] handlers/orders.ts:91
-    `orderRepository` is referenced once — could be inlined. Optional.
+    `orderRepository` is referenced once and could be inlined. Optional.
 
   [Praise] handlers/orders.spec.ts:104
-    The concurrent-key test using Promise.all is exactly the kind of test
-    this endpoint needs. Nice.
+    The concurrent-key test using Promise.all is exactly the test this
+    endpoint needs.
   ```
 
-- Verdict block to close the review, organized by axis:
+- A closing verdict block, organized by axis:
 
-  ```sh
+  ```text
   Request changes.
 
   ## Specification
-  - [Blocking] AC-2 requires "amount must be positive" — the handler
-    does not validate this (handlers/orders.ts:42). Quoted from
-    issue #482, AC-2.
-  - [PASS]    AC-1 (concurrent same-key requests return one row) is
+  - [Blocking] AC-2 requires "amount must be positive" — the handler does
+    not validate this (handlers/orders.ts:42). Quoted from issue #482.
+  - [No findings] AC-1 (concurrent same-key requests return one row) is
     implemented and tested.
 
-    ## Standards
-  - [Suggestion] CONTRIBUTING.md §3.2 requires retries to use jitter;
-    the new retry loop has none (handlers/orders.ts:67).
-  - [Praise]   Test naming follows the project convention in
-    CLAUDE.md §"Tests".
+  ## Standards
+  - [Suggestion] CONTRIBUTING.md §3.2 requires retries to use jitter; the
+    new retry loop has none (handlers/orders.ts:67).
+  - [Praise] Test naming follows the project convention.
 
-    Summary: 1 Specification blocker, 1 Standards suggestion. Re-review needed
-    on the Specification finding; Standards finding non-blocking.
-    ```
+  Categories: correctness (1 blocking), design (no findings), clarity (no
+  findings), test coverage (no findings), security (no findings),
+  completeness (1 suggestion).
+  ```

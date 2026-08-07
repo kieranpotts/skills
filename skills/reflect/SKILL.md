@@ -1,92 +1,75 @@
 ---
 name: reflect
 description: >-
-  Distill durable lessons from the session into memory. Use at session end, or
-  when the user says something like "reflect on this session", "what should
-  you remember from this?", or "save the lessons from our work today".
-compatibility: requires Read, Write, Edit
+  Distill durable lessons from the current session and persist them to the
+  agent's memory or the project's committed convention file. Use at session
+  end, or when the user says something like "reflect on this session", "what
+  should you remember from this?", or "save the lessons from our work today".
+  Do not use it to record where a task got to so work can resume later.
+compatibility: >-
+  requires Read, Write, Edit, Glob, Grep
 license: CC0-1.0
 ---
 
 # Reflect
 
-Extract durable lessons from the current session. Capture corrections,
-validated approaches, revealed preferences, and project decisions. Persist
-this information on disk.
+Extract durable lessons from the current session — corrections, validated
+approaches, revealed preferences, and project decisions — and persist the
+ones the user approves. Record how to work with this user on this project;
+do not record task state.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+environment, if possible. If you're uncertain about the required parameters,
+prompt the user for clarification. This skill is interactive throughout: it
+proposes each candidate lesson to the user and blocks on their answer before
+persisting anything.
 
 - **The current session's conversation — REQUIRED.** The source of durable
-  lessons — corrections, validated approaches, revealed preferences, and
+  lessons: corrections, validated approaches, revealed preferences, and
   project decisions surfaced during the work.
 
-- **The agent's existing memory files — REQUIRED.** Checked so new lessons
-  update or extend prior entries rather than duplicating them.
+- **The agent's memory system, and how it is indexed — REQUIRED.** Discover
+  the store and its layout from the harness rather than assuming one. Memory
+  MAY be per-user, per-project, or both, and MAY keep an index file.
 
-- **The project's committed convention file — REQUIRED.** The destination
-  for codebase conventions, and a source to check against before proposing.
+- **The project's committed convention file — REQUIRED.** The destination for
+  codebase conventions, and a store to check against before proposing.
   Discover it rather than assuming it: it may be `AGENTS.md`, `CLAUDE.md`, a
   contributor guide, or something else. Check this session's context first,
-  then the environment. If neither settles it, ask the user.
-
-- **The agent's memory system, and how it is indexed — REQUIRED.** Discover
-  this from the harness rather than assuming a layout. Where no memory
-  system is available, say so and fall back to the committed convention file
-  for codebase conventions.
-
-This skill is interactive. The agent walks the user through each candidate
-one at a time and waits for approval before persisting anything.
+  then the environment, then ask.
 
 ## Success criteria
 
-- Zero or more persisted lessons MUST exist — memory entries and/or
-  appended convention rules — each one non-obvious and capable of changing
-  future agent behavior, such that a reader of the entry can identify what
-  you would do differently because of it.
+- Every persisted lesson MUST be non-obvious and capable of changing a future
+  agent's behavior, such that a reader of the entry can say what an agent
+  would do differently because of it. Persisting nothing is a valid outcome.
 
-- Each `feedback` and `project` entry MUST have both a Why: and a How
-  to apply: line.
+- Every persisted lesson MUST have been approved by the user during the
+  walk-through. Candidates the user declined, and lessons the user never saw,
+  MUST NOT appear in any store.
 
-- Every new memory MUST be indexed, where the memory system keeps an
-  index — an unindexed memory is invisible to future sessions.
+- Entries MUST match the memory entry format given in the examples, and
+  `feedback` and `project` entries MUST additionally carry a why line and a
+  how-to-apply line.
 
-- No saved lesson MUST duplicate an existing memory or convention doc
-  entry.
+- Each new memory MUST be reachable from the memory system's index, where one
+  exists. An unindexed memory is invisible to future sessions.
 
-- No credentials, PII, or internal URLs MUST appear in any saved entry.
+- Saved entries MUST NOT restate a lesson already held in memory or in the
+  project's convention file.
 
-- Memory entries MUST follow the required format.
+- Saved entries MUST NOT contain credentials, tokens, personal data, or
+  internal-only URLs.
 
-  ```markdown
-  ---
-  name: <short-kebab-case-slug>
-  description: <one-line summary — specific, used by future agents to decide relevance>
-  metadata:
-  type: <user | feedback | project | reference>
-  ---
+- Files other than the memory store, its index, and the project's convention
+  file MUST NOT have been modified. Reflecting records lessons; it does not
+  act on them, and it does not touch application code.
 
-  <Lesson content.>
-
-  <For `feedback` and `project` types, follow with:>
-
-  **Why:** <The reason — the past incident, preference, or constraint that makes this matter.>
-
-  **How to apply:** <When and where this guidance kicks in.>
-  ```
-
-- Lessons universal enough to belong in a skill MUST have been flagged as
-  such rather than saved as memories.
-
-- The final report MUST state how many candidates were proposed and how
-  many were saved (by type), the paths/filenames of new and updated
-  entries, and any skipped candidates worth revisiting in a future
-  session.
+- The final report MUST state how many candidates were proposed and how many
+  were persisted by type, the paths of new and updated entries, and any
+  skipped candidates worth revisiting in a future session.
 
 ## Instructions
 
@@ -95,170 +78,167 @@ one at a time and waits for approval before persisting anything.
     Walk the session looking for four signal types:
 
     - Corrections. The user redirected the approach: "no, don't do that",
-      "we don't do it that way here", "stop doing X". Each correction is a
-      candidate.
+      "we don't do it that way here", "stop doing X".
 
     - Validated approaches. The user accepted a non-obvious choice without
       pushback, especially where your first instinct would have been
       different. Quiet acceptance of an unusual move is a signal.
 
     - Revealed preferences. How the user wants to work — response length,
-      tone, format, levels of explanation, when to ask vs. when to act.
+      tone, format, level of explanation, when to ask versus when to act.
 
     - Project decisions outside version control. Constraints, deadlines,
       stakeholder requirements, business context the codebase does not
       encode.
 
-2.  Filter the candidates.
+2.  Read the existing stores before proposing anything.
 
-    Evaluate each candidate against the drop criteria in the Rules
-    section.
+    Load the memory entries and the project's convention file, so that each
+    candidate can be checked against what is already recorded.
 
-3.  Classify each surviving candidate.
+3.  Filter the candidates against the drop criteria in the rules below.
 
-    Assign one of these types — the type drives the format and the
-    destination:
+4.  Classify each surviving candidate. The type drives both the entry format
+    and the destination:
 
-    - `user` — The user's role, expertise, working preferences.
-      Destination: user-level memory if universal across projects;
-      project-level memory if specific to this project.
+    - `user` — the user's role, expertise, and working preferences.
+      Destination: user-level memory if it holds across projects,
+      project-level memory otherwise.
 
-    - `feedback` — Guidance on how to approach work. Corrections and
-      validated approaches both fit here. Destination: project-level
-      memory (usually); user-level if it applies regardless of project.
+    - `feedback` — guidance on how to approach work, including corrections
+      and validated approaches. Destination: project-level memory, or
+      user-level where it applies regardless of project.
 
-    - `project` — Facts, decisions, or constraints about ongoing work
-      that aren't captured in version control. Destination: project-level
-      memory.
+    - `project` — facts, decisions, or constraints about ongoing work that
+      are not captured in version control. Destination: project-level memory.
 
-    - `reference` — Pointers to where information lives in external
-      systems (Linear, Slack, Confluence, dashboards). Destination:
-      project-level memory.
+    - `reference` — a pointer to where information lives in an external
+      system, eg. an issue tracker, a chat thread, a dashboard.
+      Destination: project-level memory.
 
-    - Codebase convention — A repository-specific rule or pattern other
-      contributors (human and agent) should see. Destination: the project's
-      committed convention file — not private memory.
+    - Codebase convention — a repository-specific rule or pattern that other
+      contributors, human and agent, should see. Destination: the project's
+      committed convention file, never private memory.
 
-4.  Walk the user through each candidate.
+5.  Walk the user through the candidates, one at a time. For each, give a
+    one-sentence summary, the proposed type and destination, and a draft of
+    the entry as it would be written. Wait for approval before continuing.
 
-    Follow the one-at-a-time procedure in the Rules section. For each
-    candidate, present a one-sentence summary, the proposed type and
-    destination, and a draft of the entry as it would be written. Ask for
-    approval before persisting.
+6.  Write each approved lesson to its destination. Use the memory entry
+    format from the examples, and cross-link related memories with
+    `[[name]]`. For a codebase convention, append a concise rule to the
+    convention file, in whichever section fits.
 
-5.  Write each accepted lesson.
+7.  Update the memory index, where the memory system keeps one. Add a
+    one-line entry per new memory in that index's own form — typically a
+    title, a link, and a short hook. The index is an index, not a memory, so
+    keep entries terse.
 
-    For memory destinations, use the format defined in the Success
-    criteria.
-
-    Cross-link related memories with `[[name]]`.
-
-    For codebase-convention destinations, append a concise rule to the
-    project's committed convention file, in the section that fits.
-
-6.  Update the memory index.
-
-    Where the memory system keeps an index, add a one-line entry for each new
-    memory, in that index's own form — typically a title, a link, and a short
-    hook. The index is an index, not a memory. Keep entries terse.
-
-7.  Handle duplicates and contradictions during the walk-through.
-
-    If a candidate is close to an existing memory:
-
-    - If the existing entry is stale or wrong, update it instead of
-      creating a new one.
-
-    - If the new lesson refines an existing one, edit the existing entry
-      to incorporate the refinement.
-
-    - Only create a new file when the lesson is genuinely fresh.
-
-    If a candidate contradicts an existing memory, surface the
-    contradiction in the walk-through. Ask the user which reflects
-    current truth, then update or delete the stale entry.
-
-8.  Report briefly.
-
-    Once the walk-through is complete, print the report described in
-    the Success criteria.
+8.  Report as described in the success criteria.
 
 ## Rules
 
-- You MUST walk one candidate at a time.
+- You MUST propose one candidate at a time and wait for the user's answer
+  before moving to the next.
 
-  Walk through proposals individually. Batching invites blind approval;
-  one-at-a-time invites scrutiny. Wait for the user's answer before
-  moving on.
+  Batching invites blind approval; one at a time invites scrutiny.
 
-- You MUST filter ruthlessly.
+- You MUST filter ruthlessly. Drop a candidate if any of the following hold:
 
-  Drop a candidate if any of the following apply:
+  - It is derivable from the current code, the git history, or existing
+    project documentation.
 
-  - It is derivable from the current code, git history, or existing
-    project docs.
-
-  - It is a standard best practice any reasonable agent would follow.
+  - It is a standard best practice any competent agent would follow anyway.
 
   - It is a one-off task detail with no reusable shape.
 
-  - It is already captured in an existing memory or in the project's
-    convention file. Check both before proposing.
+  - It is already captured in memory or in the convention file.
 
-    A candidate survives if it would meaningfully change how a fresh agent
-    behaves on a future session.
+  A candidate survives only if it would meaningfully change how a fresh agent
+  behaves in a future session.
 
-- You MUST reference external systems, not duplicate them.
+- You MUST NOT manufacture lessons to justify the invocation. A session that
+  taught nothing durable is common and unremarkable.
 
-  If the lesson is about a Linear ticket, Slack thread, or external
-  dashboard, you MUST save a `reference` memory that points at it — you
-  MUST NOT paste its content. The external system is the source of
-  truth.
+- You MUST point at external systems rather than copy them. Where a lesson
+  concerns a ticket, a chat thread, or a dashboard, save a `reference` entry
+  that locates it, and MUST NOT paste its content. The external system stays
+  the source of truth, and pasted copies go stale silently.
 
 - Codebase conventions MUST go to the project's committed convention file,
   not to memory.
 
-  Things other contributors need to see MUST be committed to the repo.
-  Memory is agent-private; committed convention files are team-visible. Pick
-  the right destination — and discover which file that project actually uses
-  rather than assuming a name.
+  Memory is agent-private; the convention file is team-visible. Anything
+  other contributors need to see has to be committed to the repository.
 
-- You MUST redact aggressively.
-
-  Memory persists. You MUST strip API keys, tokens, real names,
+- You MUST redact aggressively. Strip API keys, tokens, real names,
   internal-only URLs, and anything else that would embarrass if leaked.
 
-- You MUST distinguish rules from facts.
+  Memory persists well beyond the session that wrote it.
 
-  `feedback` (how to work) and `project` (what's true now) MUST carry
-  the Why: + How to apply: structure — their reason gives future agents
-  room for judgment on edge cases. `user` and `reference` types are
-  statements of fact and need no such scaffolding.
+- You MUST distinguish rules from facts. `feedback` and `project` entries
+  carry a why line and a how-to-apply line, because stating the reason gives
+  future agents room for judgment at the edges. `user` and `reference`
+  entries are statements of fact and need no such scaffolding.
 
-- You SHOULD update rather than duplicate.
+- You SHOULD update an existing entry rather than add a near-duplicate. Two
+  entries saying nearly the same thing is worse than one saying it
+  accurately.
 
-  A new lesson close to an existing memory SHOULD usually edit the
-  existing entry, not create a sibling. Two entries saying
-  nearly-the-same thing is worse than one entry saying it accurately.
+- Entry descriptions SHOULD be specific enough that a future agent can judge
+  relevance from the description alone, without opening the entry.
 
-- If the session contained nothing worth saving, you MUST say so
-  explicitly and stop.
+## Edge cases
 
-  Do not manufacture lessons to justify the invocation.
+- The session contained nothing worth saving.
 
-- If the user disagrees with a proposed lesson, you MUST drop it.
+  Say so explicitly and stop. Do not lower the filter to produce output.
 
-  The user's view of their own preferences trumps your inference from
-  the conversation.
+- A candidate closely resembles an existing memory.
 
-- If a lesson is genuinely universal, you MUST flag it as a candidate
-  for a new skill rather than save it as memory.
+  Where the existing entry is stale or wrong, update it. Where the new lesson
+  refines it, edit the existing entry to fold the refinement in. Create a new
+  entry only when the lesson is genuinely fresh.
 
-  Lessons that apply regardless of user / project belong in a skill,
-  not a memory entry.
+- A candidate contradicts an existing memory.
 
-- If no memory system is available, you MUST fall back to the project's
-  committed convention file for codebase conventions, and skip the memory
-  steps for `user` / `feedback` / `project` / `reference` types.
+  Surface the contradiction during the walk-through, ask the user which
+  reflects current truth, then update or delete the stale entry.
 
-  Flag the deferred candidates in the final report.
+- The user disagrees with a proposed lesson.
+
+  Drop it. The user's account of their own preferences overrides your
+  inference from the conversation.
+
+- A lesson is universal — it would hold for any user on any project.
+
+  Flag it as a candidate for a new skill rather than saving it as a memory,
+  and note it in the report. Memory is for what is particular.
+
+- No memory system is available in this harness.
+
+  Say so, route codebase conventions to the committed convention file as
+  usual, and skip the memory destinations. List the deferred candidates in
+  the report so they can be revisited.
+
+## Examples
+
+- The required format for a memory entry:
+
+  ```markdown
+  ---
+  name: <short-kebab-case-slug>
+  description: <one-line summary, specific enough to judge relevance from>
+  metadata:
+    type: <user | feedback | project | reference>
+  ---
+
+  <Lesson content.>
+
+  <For `feedback` and `project` types, follow with:>
+
+  **Why:** <The past incident, preference, or constraint that makes this
+  matter.>
+
+  **How to apply:** <When and where this guidance kicks in.>
+  ```

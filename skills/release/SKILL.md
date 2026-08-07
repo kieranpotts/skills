@@ -1,198 +1,185 @@
 ---
 name: release
 description: >-
-  Manage release branches, apply version tags. Use when the user says
-  something like "cut a release", "tag version X", or "prepare a release
-  branch".
-compatibility: requires git
+  Cut and tag a software release, following the project's release branching
+  and version-tagging conventions. Use when the user says something like
+  "cut a release", "tag version 1.2.0", "prepare a release branch", or "ship
+  the release". Do not use it to author commit messages or to define the
+  project's general branch model.
+compatibility: >-
+  requires Read, Edit, Glob, Grep, Bash (git branch, git checkout, git tag)
 license: CC0-1.0
 ---
 
 # Release
 
-Prepare a new software release.
-
-You MUST NOT make any code or configuration changes to the software itself.
-However, changes to other artifacts such as the project CHANGELOG may be made,
-as instructed herein.
+Prepare a new software release: cut or advance the release branch, promote the
+changelog, apply the version tag, and ship the build artifacts. You MUST NOT
+change the software's own source code or configuration.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the
+user with an error message.
 
-- **A request to prepare a release — REQUIRED.**
+- **Release model — REQUIRED.** Either a single permanent release trunk
+  (continuous deployment) or temporary `release/<version>` branches (release
+  trains). Discover which one the project uses from its existing branches and
+  its documented version-control conventions.
 
-- **The project's release model and version-tagging convention — REQUIRED.**
-  Either a single release trunk for continuous deployment, or
-  `release/<version>` branches for release trains, plus the version-tagging
-  convention that names the release.
+- **Version-tagging convention — REQUIRED.** The tag format that names a
+  release. Discover it from the project's existing tags. Where the project has
+  none, default to an annotated `v<version>` tag, eg. `v1.2.0`.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+- **Version — REQUIRED.** The version being released. Derive it from the
+  project's versioning scheme and the changes accumulated since the last
+  release tag.
+
+- **Release-ready trunk — REQUIRED.** The trunk whose tip is guaranteed to
+  hold pristine, production-grade revisions, and from which releases are cut.
+  Discover its name from the project's branch model; it is conventionally
+  `ready`.
+
+- **Changelog store — OPTIONAL.** Where the project records its release
+  history, if it keeps one. Resolve it from context, then from the
+  environment — a convention file, a workspace manifest, an existing
+  directory. Do not assume a `CHANGELOG.md` at the repository root. Skip
+  changelog promotion where the project keeps no changelog.
+
+- **Artifact registry — OPTIONAL.** The external registry that receives the
+  build, eg. Docker, npm, PyPI, S3. Discover it from the project's build and
+  deployment configuration. Skip the shipping step where the project
+  publishes nothing.
 
 ## Success criteria
 
-- The release branch MUST have been created or advanced, and MUST follow the
-  chosen naming
-  convention: it MUST be either a permanent release trunk or a temporary
-  `release/<version>` branch, matching
+- The release branch MUST have been created or advanced from the tip of the
+  release-ready trunk, and its name MUST match
   `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
 
-- The release branch MUST point to the `ready` tip from which it was cut,
-  and releases MUST NOT originate from `dev` or `test`.
+- An annotated version tag following the project's tagging convention MUST
+  mark the tip of the release branch.
 
-- The release MUST be tagged: an annotated `v<version>` tag (eg. `v1.2.0`)
-  MUST mark the release, and version tags are treated as permanent.
+- Where the project keeps a changelog, its unreleased section MUST have been
+  promoted to the released version and date, with a fresh empty unreleased
+  section above it — both landing in the release commit.
 
-- The changelog MUST be promoted, where the project keeps one: its
-  unreleased section MUST be promoted to the version and date, a fresh
-  empty unreleased section MUST be opened above it, and this MUST land in
-  the `release:` commit.
+- Where the project publishes a build, the artifacts MUST be retrievable from
+  its registry under the released version, and `git status` MUST show no
+  compiled artifact added to the repository.
 
-- Artifacts MUST live outside Git: compiled artifacts MUST be shipped to
-  an external registry (Docker, npm, PyPI, S3, …) and referenced by tag —
-  never committed to the repository.
+- The software's own source code and configuration MUST be unchanged: the
+  release commit SHOULD touch only the changelog, version manifests, and
+  release-specific configuration.
 
-- No fix MUST have been committed to a release branch: any correction MUST
-  flow `dev` → `ready` → a new release branch, and release branches carry
-  only release-preparation commits.
-
-- A `release/<version>` branch, if used, MUST be deleted after tagging and
-  a successful deployment pipeline, and the release trunk MUST remain
-  intact.
+- A temporary `release/<version>` branch MUST NOT survive a successful tagging
+  and deployment run, whereas a permanent release trunk MUST still exist
+  afterwards.
 
 ## Instructions
 
-1.  Determine the release model and naming convention.
+1.  Establish the release model, the tagging convention, and the version, as
+    described under Parameters. Stop with an error if the project does not
+    settle them.
 
-    Choose one release strategy per the Rules section:
+2.  Cut or advance the release branch from the release-ready trunk.
 
-    - A single release trunk.
+    For a release trunk, fast-forward it to the current tip of the
+    release-ready trunk. For a versioned release branch:
 
-    - Multiple release branches.
+    ```sh
+    git checkout -b release/<version> <ready-trunk>
+    ```
 
-2.  Cut or advance the release branch from `ready`.
+3.  Promote the changelog's unreleased section, where the project keeps a
+    changelog.
 
-    - For the release trunk: fast-forward it to the current `ready` tip.
+    Rename the unreleased section to the version and date being released,
+    eg. `## [1.2.0] - 2026-05-27`, and open a fresh empty unreleased section
+    above it. Follow whatever format that changelog documents for itself.
+    Land this in the release commit on the release branch.
 
-    - For a `release/<version>` branch: run
-      `git checkout -b release/<version> ready`.
-
-3.  Promote the changelog's unreleased section.
-
-    Where the project keeps a changelog, promote its unreleased section to
-    the version and date being released (eg. `## [1.2.0] - 2026-05-27`), and
-    open a fresh empty unreleased section above it. Follow that changelog's
-    own format. Include this as part of the `release:` commit on the release
-    branch. Where the project keeps no changelog, skip this step.
-
-4.  Tag the release.
-
-    Create an annotated version tag on the release branch:
+4.  Tag the release with an annotated tag on the release branch. An annotated
+    tag carries the tagger, date, and message that a lightweight tag does not,
+    and release provenance depends on them.
 
     ```sh
     git tag -a v<version> -m "<release_notes>"
     ```
 
-5.  Build and ship artifacts.
+5.  Build the production artifacts and ship them to the project's artifact
+    registry, indexed by the version tag. Skip this where the project
+    publishes nothing.
 
-    Build production artifacts and ship them to the project's external
-    artifact registry (Docker, npm, PyPI, S3, etc.), indexed by the version
-    tag.
+6.  Delete a temporary `release/<version>` branch once tagging and the
+    deployment pipeline have both succeeded. Leave a permanent release trunk
+    in place.
 
-6.  Clean up the release branch, if used.
+7.  Prepare release notes for end users, where the project expects them.
 
-    For `release/<version>` branches, delete the branch after a successful
-    deployment pipeline. The release trunk is permanent and is never
-    deleted.
-
-7.  Prepare release notes for end users.
-
-    Where the project expects them, derive release notes from the newly
-    promoted versioned section of the changelog. Filter out internal changes
-    (`refactor:`, `style:`, `step:`, `maintenance:`) and write the remainder
-    in plain, non-technical language. The format and publication channel are
-    project-specific.
+    Derive them from the newly promoted changelog section. Filter out changes
+    that are internal to the codebase — refactors, formatting, tooling, and
+    maintenance — and rewrite the remainder in plain, non-technical language.
+    The format and publication channel are project-specific.
 
 ## Rules
 
-- You MUST apply the release branching and tagging convention, and stop
-  there.
+- Exactly one release strategy MUST be in use: either the release trunk or
+  `release/<version>` branches, never both.
 
-  Authoring commit messages and defining the general branch model are
-  separate responsibilities.
+  Running both leaves two competing answers to the question of what is
+  deployable now.
 
-- A single release strategy MUST be in use.
+- Releases MUST be cut from the release-ready trunk, and MUST NOT be cut from
+  an integration or test trunk.
 
-  Either the release trunk (continuous deployment) or
-  `release/<version>` branches (release trains) — not both. The name MUST
-  match `^release(\/[0-9]+\.[0-9]+\.[0-9]+)?$`.
+  Only the release-ready trunk is guaranteed to hold production-grade
+  revisions.
 
-- All releases MUST be cut from `ready`.
+- A release branch MUST carry only release-preparation commits: version bumps,
+  changelog promotion, and release-specific configuration.
 
-  The tip of `ready` is guaranteed to contain pristine, production-grade
-  artifacts. Releases MUST NOT be cut from `dev` or `test`.
+- You MUST NOT commit a fix to a release branch.
 
-- The release trunk rules.
+  Fixes flow back through the integration trunk and out to the release-ready
+  trunk, so a fix made under release pressure is never stranded off the
+  mainline.
 
-  - The release trunk MUST be permanent.
+- If release preparation fails, you SHOULD abandon the branch and start over
+  rather than repairing it in place, so the branch's history stays a clean
+  record of one release attempt.
 
-  - Its tip commit MUST always be a candidate for production deployment.
+- A release trunk, where used, MUST be permanent, and its tip commit MUST
+  always be a candidate for production deployment.
 
-  - It MUST reference pre-built artifacts in external artifact
-    registries.
+- Version tags MUST be treated as permanent, and SHOULD be recorded against
+  the corresponding entry in the artifact registry for traceability.
 
-- `release/<version>` branch rules.
+- Development MAY continue unblocked during release preparation. No code
+  freeze is REQUIRED.
 
-  - A release branch MUST be cut from the `ready` trunk tip:
-    `git checkout -b release/<version> ready`.
+- This task MUST stop at applying the release branching and tagging
+  convention. Authoring commit messages and defining the project's general
+  branch model are separate responsibilities, left to the caller.
 
-  - It MUST be temporary; it MUST be deleted after tagging and a
-    successful deployment pipeline.
+## Edge cases
 
-  - It MUST contain only release-preparation commits: version bumps,
-    changelog updates, release-specific config.
+- The version is not yet decided.
 
-  - It MUST be tagged with version:
-    `git tag -a v<version> -m "<release_notes>"`.
+  You MAY cut the branch as `release/next`, and rename it once the version is
+  settled. Do not apply a version tag until the version is known.
 
-  - Build artifacts MUST be stored in an external artifact registry,
-    indexed by tag.
+- The tip of the release-ready trunk already carries a release tag.
 
-  - If preparation fails, you MUST abandon the branch and start over.
+  There is nothing new to release. Stop and report the existing tag rather
+  than cutting an empty release.
 
-  - You MUST NOT commit fixes to release branches. Fixes MUST flow
-    through `dev` → `ready` → a new release branch.
+- The project has no release trunk or release branches yet.
 
-  - The placeholder name `release/next` MAY be used if the version is not
-    yet decided.
-
-- Development MAY continue unblocked during release preparation.
-
-  No code freezes are required.
-
-- Build artifacts MUST live outside Git.
-
-  Compiled artifacts MUST be shipped to external artifact registries
-  (Docker, npm, PyPI, S3, etc.) and referenced by tag — never committed
-  to the repository.
-
-- Version tags are permanent.
-
-  They SHOULD be referenced in external artifact repos for
-  traceability.
-
-- The changelog's unreleased section MUST be promoted at release time,
-  where the project keeps a changelog.
-
-  Before tagging, promote it to the version and date and open a fresh empty
-  unreleased section above it. This MUST land in the `release:` commit.
-  Discover the changelog rather than assuming `CHANGELOG.md`.
+  This is its first release. Create the branch according to the release model
+  you established, cutting from the release-ready trunk as usual.
 
 ## Examples
 
@@ -216,3 +203,9 @@ print an error message.
   v1.2.0
   v2.0.0
   ```
+
+## References
+
+- [TS-9: Version Control](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/009/AGENTS.md) \
+  Read when the project documents no release model or tagging convention of
+  its own, for the conventions these instructions assume.

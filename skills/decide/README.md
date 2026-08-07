@@ -1,19 +1,25 @@
 # Decide
 
-The **decide** skill is all about framing a technical decision and writing it
-up as an RFC.
+The decide skill frames a technical decision and writes it up as an RFC — a
+proposal meant to be argued with before the decision is settled.
 
-This skill covers decisions about architecture, process, technology, and
-tooling — and any other technical decision that would be expensive to reverse.
+It covers decisions about architecture, process, technology, and tooling, and
+any other technical decision that would be expensive to reverse. The agent is
+instructed to sharpen the decision into a single disagreeable sentence, weigh
+at least two genuine alternatives plus doing nothing, separate verified facts
+from assumptions, and state both the downsides of its recommendation and the
+conditions that would overturn it.
 
-The output is a new RFC (or an equivalent proposal document) written against
-the target project's template.
+The output is a decision record written against the target store's own
+template. The skill stops at authoring: it does not cut branches, open pull
+requests, apply labels, or merge anything.
 
 ## Interactivity
 
 This skill is interactive. The agent is instructed to interview the user —
-about motivation, constraints, candidate options, and stakeholders — to help
-the user prepare an RFC.
+about motivation, constraints, candidate options, and stakeholders — and to
+ask where the decision store lives when the session context and the
+environment do not settle it.
 
 ## How to invoke
 
@@ -27,14 +33,21 @@ the user prepare an RFC.
 
 ## Recommended models
 
-A frontier reasoning model, ideally with extended thinking enabled, is best
-suited to this task.
+A frontier reasoning model, ideally with extended thinking enabled. The task
+is open-ended analysis: it needs judgment about which alternatives are
+genuine, which trade-offs dominate, and where a claim is being asserted
+rather than established.
 
 ## Related skills
 
-- **[research](../research/).** Establishes facts to support an RFC.
+- [**research**](../research/) \
+  Establishes the external facts a decision turns on, so they can be recorded
+  as verified rather than assumed.
 
-- **[spike](../spike/).** Answers questions by developing working, but
-  throwaway, code.
+- [**spike**](../spike/) \
+  Answers "will this actually work?" with throwaway code, settling assumptions
+  that would otherwise land in the open questions.
 
-- **[design](../design/).** Supplies architectural trade-off analysis.
+- [**design**](../design/) \
+  Supplies architectural trade-off analysis, whose conclusions this skill
+  carries into the alternatives section.

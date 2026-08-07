@@ -3,20 +3,22 @@ name: research
 description: >-
   Gather external sources on a topic and produce a cited research report. Use
   when a decision is blocked on missing knowledge, or when the user says
-  something like "research X", "look into X", or "find out how X works".
-compatibility: requires Read, Write, WebSearch, WebFetch
+  something like "research X", "look into X", "find out how X works", or "what
+  are the options for X". Do not use it to make the decision the research
+  informs, or to file the findings into their destination.
+compatibility: >-
+  requires Read, Write, Glob, Grep, WebSearch, WebFetch
 license: CC0-1.0
 ---
 
 # Research
 
-Research a given topic. The topic could be anything: a library, a protocol, a
-pattern, a regulation, or any other prior art. Gather external reference
-resources, analyze those resources, then produce a structured, cited research
-report.
+Research a topic — a library, a protocol, a pattern, a regulation, or any
+other prior art — by gathering external sources, analyzing them, and producing
+a structured, cited research report.
 
-Discovery and synthesis only. You MUST NOT make any changes to any code or
-configuration, or to any documentation beyond the research report itself.
+Discovery and synthesis only. You MUST NOT change code or configuration, or
+any documentation other than the research report itself.
 
 ## Parameters
 
@@ -27,195 +29,191 @@ error message. You MAY prompt solely to establish where an artifact lives or
 how to access it, when context and environment do not settle it.
 
 - **A knowledge gap to close — REQUIRED.** A topic or question blocked on
-  knowledge the agent does not hold and cannot derive from the codebase —
-  how a library behaves, what a protocol mandates, how others solved a
-  comparable problem, what a regulation requires, whether an approach is
-  still current.
+  knowledge you do not hold and cannot derive from the codebase — how a
+  library behaves, what a protocol mandates, how others solved a comparable
+  problem, what a regulation requires, whether an approach is still current.
 
-- **The project's own knowledge sources — REQUIRED.** , to check before
-  reaching outward. Its convention files, documentation, decision store, and
-  agent memory. Discover these rather than assuming them: check this
-  session's context first, then the environment. If neither settles it, ask
-  the user. Do not assume a filesystem path or a document structure.
+- **The decision the answer unblocks — RECOMMENDED.** What becomes possible
+  once the question is answered. This sets the depth of the research and the
+  point at which it stops. Where the user does not say, infer it from the
+  surrounding context and state the inference in the report.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+- **The project's own knowledge sources — REQUIRED.** Where the project keeps
+  its convention files, documentation, decision records, and agent memory, so
+  they can be checked before reaching outward. Discover these from the session
+  context first, then from the environment. Do not assume a filesystem path or
+  a document structure.
+
+- **The report store — OPTIONAL.** Where the report is persisted. Resolve it
+  from the last prompt, then from more recent context, then from the
+  environment — a convention file, a workspace manifest, an existing
+  directory of research notes. The store MAY be a directory in this
+  repository, a separate repository, or an external service, so do not assume
+  a path or a file format. Where nothing settles it, ask.
+
+- **As-of date — OPTIONAL.** The date the findings are photographed at.
+  Default to today.
 
 ## Success criteria
 
-- A single, cited research report MUST exist, opening with a direct answer
-  to the framed question — or with a clear statement of why no answer was
-  reachable and what would be needed.
+- One research report MUST exist in the resolved report store, following
+  whatever structure and naming that store documents for itself. Where the
+  store documents none, the report MUST follow the structure given under
+  Examples.
 
-- The report MUST be actionable from its first few lines: the conclusion
-  leads, the evidence supports, and the reader MUST NOT be made to
-  assemble the answer themselves.
+- The report MUST open with a direct answer to the framed question, or with a
+  statement of why no answer was reachable and what would settle it. A reader
+  who stops after the opening MUST still have something actionable.
 
-- Every decision-bearing claim MUST be cited, and time-sensitive claims
-  MUST be dated, so a reader can follow each material claim to a source
-  and judge whether it is still current.
+- Every claim the decision rests on MUST carry a source, and every claim that
+  can go stale MUST carry the version or date it holds for, so a reader can
+  judge whether it is still current.
 
-- Fact and inference MUST be visibly separated — nothing you inferred MUST
-  be presented as something a source asserted.
+- Sourced fact and your own inference MUST read as distinct categories
+  throughout the report.
 
-- Open questions, including anything deferred, MUST be listed, alongside a
-  suggested destination for the findings.
+- Questions the research could not settle, including any deferred as
+  out-of-scope, MUST be listed with what it would take to settle them.
 
-- The report MUST be the only artifact produced: code, project docs, and
-  shipped skills MUST be untouched.
-
-- The report MUST follow this structure:
-
-  ```md
-  # Research: <topic>
-
-  **Question:** <the specific question(s) framed in step 1>
-  **Decision this unblocks:** <what becomes possible once answered>
-  **As of:** <date>
-
-  ## Answer
-
-  <Direct, actionable answer in 1-3 sentences. The reader who stops
-  here should still have what they need.>
-
-  ## Findings
-
-  - <Claim.> [source](url), accessed <date>. <Version/date the claim holds for.>
-  - <Claim.> Corroborated by [source A](url) and [source B](url).
-  - <Where sources disagreed, the disagreement and your read of it.>
-
-  ## Open questions / low-confidence areas
-
-  - <What the research could not settle, and what it would take to settle it.>
-
-  ## Suggested destination
-
-  <Where these findings should go next: design input, ADR, memory, user review.>
-
-  ## Sources
-
-  - [Title](url) - accessed <date> - <one-line note on what it covers>
-  ```
+- The report MUST be the only artifact produced. Code, configuration, and
+  project documentation MUST be unchanged, and the findings MUST NOT have
+  been written into a design document, a decision record, or a memory store.
 
 ## Instructions
 
 1.  Frame the question.
 
-    Restate the topic as one or more specific, answerable questions. A
-    good frame is falsifiable and scoped: "Does library X support streaming
-    responses, and from which version?" beats "research library X". Note
-    explicitly what decision the answer unblocks — that decision sets the
-    depth and stopping point.
+    Restate the topic as one or more specific, answerable questions. A good
+    frame is falsifiable and scoped: "Does library X support streaming
+    responses, and from which version?" beats "research library X". Note what
+    decision the answer unblocks — that decision sets the depth and the
+    stopping point.
 
-    If the request is too broad to answer in one pass, narrow it to the
+    Where the request is too broad to answer in one pass, narrow it to the
     questions that actually block progress and list the rest as deferred.
 
-2.  Check what is already known first.
+2.  Check what is already known.
 
-    Before reaching outward, check the inward sources that may already hold
-    the answer: the codebase, the project's documentation, its decision
-    store, its committed convention files, and agent memory — wherever this
-    project actually keeps those. Note what you found and what gap remains,
-    as required by the Rules.
+    Search the project's own sources before reaching outward: the codebase,
+    its documentation, its decision records, its convention files, and agent
+    memory. Note what you found and what gap remains.
 
-    If the question is fully answerable from inward sources, skip the
-    external search and report the finding with its in-repo source.
+    Where the inward sources fully answer the question, skip the external
+    search and report the finding against its in-repo source.
 
-3.  Gather external sources.
+3.  Gather external sources for the remaining gap.
 
-    Use web search and fetch (`WebSearch` / `WebFetch` or the host's
-    equivalent) to collect authoritative sources for the remaining gap,
-    following the source-preference and citation Rules.
+    Search the web, then retrieve the promising results in full rather than
+    working from search snippets, which are frequently stale or truncated.
 
-4.  Corroborate and date every claim.
+4.  Corroborate and date each claim that matters to the decision.
 
-    Apply the corroboration and dating Rules to each claim that matters to
-    the decision.
+    Seek a second independent source for anything load-bearing, and record
+    the version or date each claim holds for.
 
-5.  Synthesize into a structured report.
+5.  Resolve the report store, then write the report there.
 
-    Write the report using the structure defined in the Success criteria.
     Lead with a direct answer to the framed question, then the supporting
     evidence, then the open questions. The reader should get the actionable
-    conclusion in the first few lines and be able to drill into the evidence
-    only if they need to.
+    conclusion in the first few lines and drill into the evidence only if
+    they need to.
 
-6.  Separate fact from inference.
+6.  Mark which statements are sourced fact and which are your synthesis or
+    recommendation.
 
-    Mark clearly which statements are sourced fact and which are your
-    synthesis or recommendation. Do not present an inference as if a source
-    asserted it. If the evidence is thin, say the confidence is low — an
-    honest "the sources don't settle this" is more useful than false
-    certainty.
+    Where the evidence is thin, say so. An honest "the sources do not settle
+    this" is more useful to the decision than false certainty.
 
-7.  State where the report should go — but do not put it there.
-
-    End by naming the natural destination(s) for the findings (an input to
-    a design decision, an ADR, a persisted memory entry, or simply the
-    user's review) and stop. Writing into those destinations is a separate,
-    explicit step the caller initiates.
+7.  Name where the findings should go next — an input to a design decision, a
+    decision record, a persisted memory entry, or simply the user's review —
+    and stop there. Filing them is a separate step the caller initiates.
 
 ## Rules
 
-- You MUST cite everything that matters.
-
-  Every claim the decision rests on MUST carry a source URL and an access
-  date. An uncited claim in a research report is just an opinion.
-
 - You SHOULD prefer primary sources over secondary, and recent over old.
 
-  Prefer the spec over the blog post about the spec. Prefer the current
-  docs over a three-year-old tutorial. When you must rely on something
-  older, you MUST flag its age.
+  Prefer the specification over the blog post about it, and the current
+  documentation over a three-year-old tutorial. Where you must rely on
+  something older, you MUST flag its age, because the reader cannot otherwise
+  tell a settled fact from a stale one.
 
-- You MUST treat forums, blogs, and AI-generated content as leads to
-  verify against a primary source, not as conclusions.
+- You MUST treat forums, blogs, and AI-generated content as leads to verify
+  against a primary source, never as conclusions in themselves.
 
-- You MUST date version- and time-sensitive facts.
+- You MUST surface disagreement between sources rather than launder it.
 
-  "As of version 4.2" or "as of 2026-06" attached to a claim is REQUIRED
-  whenever the fact can change. The world moves; the report should say
-  when it was photographed.
+  Present the conflict and your read of which source is more credible and
+  why. Silently collapsing it into one confident answer hides exactly the
+  uncertainty the decision needs to account for.
 
-- You MUST distinguish fact from inference.
+- You MUST NOT fabricate a URL, or present a source as retrieved when you
+  only saw it in a search result.
 
-  Sourced facts and your own synthesis are different categories and MUST
-  read as different categories. Recommendations MUST be clearly labeled
-  as yours, not the sources'.
+- You MUST NOT run an external search where the codebase or the project's own
+  documentation already answers the question.
 
-- You MUST surface disagreement, not launder it.
+- You MUST stop once the framed questions are answered to the confidence the
+  decision needs.
 
-  When sources conflict, present the conflict and your read of which is
-  more credible and why. You MUST NOT silently collapse it into a single
-  confident answer.
+  Research expands to fill the time available. Continuing to read for
+  completeness spends context on material the decision will not use.
 
-- Discovery only: you MUST NOT make production changes.
+- You MUST NOT act on the report.
 
-  This skill MUST NOT edit code, project docs, or shipped skills. It
-  produces a report. Acting on the report is a separate, explicit step.
+  Editing code, configuration, or project documentation, and filing the
+  findings into a design document or decision record, are separate steps the
+  caller initiates. Suggest the destination; do not write to it.
 
-- You MUST stop when the framed question is answered.
+## Edge cases
 
-  Research expands to fill the time available. When the questions from
-  step 1 are answered to the confidence the decision needs, you MUST stop
-  — you MUST NOT keep reading for completeness.
+- Web access is unavailable or blocked.
 
-  Writing the findings into a design doc, an ADR, persisted memory, or
-  anywhere else is a separate step the caller initiates. Suggest the
-  destination; do not file it there yourself.
+  Answer as far as the project's own sources and your own knowledge allow,
+  mark that portion's confidence as reduced and say why, and list what
+  remains unverifiable. You MUST NOT invent citations to cover the gap.
 
-- You MUST NOT fabricate URLs or pretend to have browsed when web access
-  is unavailable.
+- A source is paywalled, rate-limited, or otherwise unreachable.
 
-- You MUST NOT perform an unnecessary external search if the codebase or
-  existing project docs already answer the question.
+  Note that it exists and could not be verified, and look for an open
+  alternative — a preprint, a mirror, an official summary. Do not cite what
+  you could not read.
 
-- If web access is unavailable, you MUST answer as far as the inward
-  sources and the model's own knowledge allow, mark that portion's
-  confidence as reduced, and you MUST NOT fabricate URLs or pretend to
-  have browsed.
+- Sources agree with each other only because they share an origin.
 
-- If sources are paywalled or unreachable, you MUST note that they exist
-  but could not be verified, and find an open alternative where one
-  exists.
+  Several articles restating one upstream announcement are one source, not
+  corroboration. Trace each back to its origin before counting it.
+
+## Examples
+
+- Where the report store documents no structure of its own, use this:
+
+  ```md
+  # Research: <topic>
+
+  **Question:** <the question(s) framed in step 1>
+  **Decision this unblocks:** <what becomes possible once answered>
+  **As of:** <date>
+
+  ## Answer
+
+  <Direct, actionable answer in 1-3 sentences. The reader who stops here
+  should still have what they need.>
+
+  ## Findings
+
+  - <Claim.> [source](url), accessed <date>. <Version/date it holds for.>
+  - <Claim.> Corroborated by [source A](url) and [source B](url).
+  - <Where sources disagreed, the disagreement and your read of it.>
+
+  ## Open questions / low-confidence areas
+
+  - <What the research could not settle, and what would settle it.>
+
+  ## Suggested destination
+
+  <Where these findings should go next.>
+
+  ## Sources
+
+  - [Title](url) - accessed <date> - <one line on what it covers>
+  ```

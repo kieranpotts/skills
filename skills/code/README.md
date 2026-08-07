@@ -1,17 +1,26 @@
 # Code
 
-The **code** skill is all about writing code, verified by tests, for one small
-increment. The agent is instructed to implement one small change in software
-code and configuration following the red → green → refactor cycle. Unit tests,
-and also integration tests where appropriate, are written alongside the code.
+The **code** skill writes the code and the tests for one small, already-designed
+step of work, and commits it as a single reviewable diff.
 
-It is RECOMMENDED to run this step in small increments toward delivery of a
-larger feature, refactor, performance enhancement, or other outcome. Each pass
-yields a small, clean diff for review.
+The agent is instructed to quote the step's scope, establish a fast test
+feedback loop, then work red → green → refactor in single cycles — one test,
+one implementation, repeat — writing unit tests and, where appropriate,
+integration tests alongside the code. It reviews its own diff against the
+quoted step before committing, and stops at the commit: it does not push,
+open a review, or start the next step.
+
+It is RECOMMENDED to run this repeatedly, in small increments, toward a larger
+feature, refactor, or performance goal. Each pass yields one small, clean diff
+for review.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively.
+This skill instructs the agent to run non-interactively, so it is suitable for
+away-from-keyboard and continuous integration workflows. The agent may prompt
+only to establish where an artifact lives or how to reach it; it must never ask
+about the substance of the work. If the step is ambiguous, too large, or still
+needs designing, the agent stops and reports rather than guessing.
 
 ## How to invoke
 
@@ -23,9 +32,15 @@ This skill instructs the agent to run non-interactively.
 
 ## Recommended models
 
-A mid-tier coding model is sufficient for this task.
+A mid-tier coding model is sufficient. The design decisions have already been
+made upstream, so this task is disciplined execution — test-first cycles, style
+matching, scope policing — rather than open-ended reasoning.
 
 ## Suggested workflows
+
+Run this once per planned step. Running it against work that has not been
+decomposed is the main anti-pattern: the skill will stop rather than design
+the step for you.
 
 ```mermaid
 flowchart LR
@@ -48,11 +63,13 @@ flowchart LR
 
 ## Related skills
 
-- **[plan](../plan/).** Decomposes a requirements specification into a
-  pipeline of small changes, which can then be delivered individually using
-  the code skill.
+- [**plan**](../plan/) \
+  Decomposes a requirements specification into a pipeline of small changes.
+  Each of those changes is one invocation of this skill.
 
-- **[triage](../triage/).** An alternative trigger for code changes.
+- [**triage**](../triage/) \
+  An alternative upstream trigger, producing small scoped fixes rather than
+  planned steps.
 
-- **[style](../style/).** Normalizes code presentation after code edits are
-  made.
+- [**style**](../style/) \
+  Normalizes code presentation after the edits are made.

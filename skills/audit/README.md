@@ -1,25 +1,27 @@
 # Audit
 
-The **audit** skill is all about evaluating the evolving architecture for
-modularity, consistency, coupling, and other structural qualities.
+The audit skill evaluates the evolving architecture of a codebase for
+modularity, consistency, coupling, and the placement of its structural
+boundaries.
 
 The agent is instructed to conduct the evaluation on its own terms, with no
 reference to the documented architecture and no knowledge of trade-offs
 already considered. That deliberate blindness is the point. It keeps the
-review unbiased so the agent is more likely to surface genuinely useful
+review unbiased, so the agent is more likely to surface genuinely useful
 suggestions about how the architecture could be improved.
 
-The trade-off is a bit more noisiness in the output artifacts. The agent may
-retread design trade-offs that have long been settled.
+The trade-off is a bit more noise in the output. The agent may retread design
+trade-offs that have long been settled.
 
-This is an evaluation skill. It does not change any code. The output is an
-architectural audit report written to a store defined in the agent's context or
-environment.
+This is an evaluation skill. It changes no code. The output is a single
+architectural audit report, written to a store the agent resolves from its
+context or environment.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively. Therefore, the agent is
-not expected to prompt for answers to its questions.
+This skill instructs the agent to run non-interactively. It never prompts for
+answers, so it is safe to use in away-from-keyboard and continuous integration
+workflows.
 
 ## How to invoke
 
@@ -29,9 +31,15 @@ not expected to prompt for answers to its questions.
 
 > Is the design still sound?
 
+You may name the target codebase as a path or a repository URL, and pin the
+audit to a particular commit. Left unsaid, the agent audits the current
+repository at its checked-out revision.
+
 ## Recommended models
 
-A premium frontier reasoning model is best suited to this task.
+A premium frontier reasoning model is best suited to this task. Judging
+whether a module earns its keep, or whether a boundary sits in the right
+place, is open-ended analysis rather than mechanical transformation.
 
 ## Suggested workflows
 
@@ -61,13 +69,13 @@ flowchart LR
 
 ## Related skills
 
-- **[refactor](../refactor/).** Pass the audit report as context to a coding
-  agent to do the refactor.
+- [**refactor**](../refactor/) \
+  Pass the audit report to a coding agent as the context for a refactor.
 
-- **[probe](../probe/).** While the audit skill is scoped to an evaluation of
-  the static structure of code and data, the probe skill looks specifically at
-  the security and privacy implications of the design.
+- [**probe**](../probe/) \
+  Audit is scoped to the static structure of code and data; probe looks
+  specifically at the security and privacy implications of the design.
 
-- **[validate](../validate/).** The audit skill asks whether the _design_ of the
-  system should evolve. The validate skills asks whether the _specification_
-  of the system should evolve.
+- [**validate**](../validate/) \
+  Audit asks whether the _design_ of the system should evolve. Validate asks
+  whether the _specification_ of the system should evolve.

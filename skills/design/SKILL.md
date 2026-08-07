@@ -1,104 +1,96 @@
 ---
 name: design
 description: >-
-  Explore architectural options and their trade-offs. Use when a code change
-  involves architecturally significant decisions, or when the user says
-  something like "design this feature", "what are the options for building
-  this?", or "work out the architecture for this change".
-compatibility: requires Read, Write
+  Explore architectural options for a change and recommend one, with the
+  trade-offs made explicit. Use when a change involves architecturally
+  significant decisions, or when the user says something like "design this
+  feature", "what are the options for building this?", or "work out the
+  architecture for this change". Do not use it to write requirements, to
+  decompose a design into delivery steps, or to implement anything.
+compatibility: >-
+  requires Read, Write, Edit, Glob, Grep
 license: CC0-1.0
 ---
 
 # Design
 
-Explore architectural options and trade-offs for a feature or other change in
-requirements. Enumerate alternatives, evaluate them against nine software
-design qualities — completeness, correctness, performance, reliability,
-experience, habitability, cohesiveness, changeability, and simplicity — then
-recommend one option with clear reasoning for why its trade-offs are optimally
-balanced.
-
-Architectural design only. You MUST NOT make any code or configuration changes
-to the software itself.
+Explore architectural options for a feature or other change in requirements,
+evaluate each against the nine design qualities, and recommend one with clear
+reasoning for why its trade-offs are the right ones here. This is design work
+only: you MUST NOT change the software's code or configuration.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the user
+with an error message.
 
-- **An approved specification — REQUIRED.** Functional acceptance criteria
-  and non-functional requirements, already reviewed and approved. This skill
-  consumes that specification; it does not write it, and its entry gate
-  refuses to begin until the approval is in place.
+- **An approved specification — REQUIRED.** The functional acceptance
+  criteria and non-functional requirements the design must satisfy, already
+  reviewed and approved. This skill consumes that specification; it does not
+  write it.
 
-- **Where the specification and the decision store live — REQUIRED.**
-  Discover both rather than assuming them: check this session's context
-  first, then the environment (a convention file such as `AGENTS.md`, a
-  workspace manifest, a configured connector). If neither settles it, ask
-  the user. Either MAY be a directory in this repository, a separate
-  repository, or an external service such as a tracker or wiki — do not
-  assume a filesystem path, a file name, or a document structure. Different
-  projects call the decision store an RFC archive, a decision log, or an ADR
+- **The specification store — REQUIRED.** Where the specification lives and
+  how to read it. Discover it: check this session's context first, then the
+  environment — a convention file, a workspace manifest, an existing
+  directory, a configured connector.
+
+- **The decision store — REQUIRED.** Where the project records
+  architecturally significant decisions and their rationale. Discover it the
+  same way. Projects call it an RFC archive, a decision log, or an ADR
   directory; they are the same role.
 
-This task otherwise runs non-interactively to completion. You MUST NOT
-prompt the user about the substance of the design; if in doubt about that,
-stop and print an error message. You MAY prompt solely to establish where
-the specification and decision store are, when context and environment do
-not settle it.
+Either store MAY be a directory in this repository, a separate repository, or
+an external service such as a tracker or a wiki, so you MUST NOT assume a
+filesystem path, a file name, or a document structure. If context and
+environment settle neither, stop and ask the user to name the store before
+going further.
 
 ## Success criteria
 
-- A recommended design MUST exist, naming which qualities it prioritizes —
-  "we pick X because it optimizes for Y and Z, accepting weaker W."
+- Exactly one option per decision point MUST be recommended, naming both the
+  qualities it prioritizes and the qualities it sacrifices — "we pick X
+  because it optimizes for Y and Z, accepting weaker W".
 
-- The constraints MUST have been written down before any option was
-  enumerated: functional ACs, NFRs, existing-system shape, and budget.
+- The constraints — functional acceptance criteria, non-functional
+  requirements, the shape of the existing system, and the budget — MUST have
+  been written down before the first option was enumerated.
 
-- Each decision point MUST carry 2-4 evaluated alternatives, with no
-  decision presented as the only option, and the rejected ones MUST be
-  recorded with the reasons they lost.
+- The qualities that dominate this domain MUST have been named and ranked
+  before any option was compared against them.
 
-- Each option MUST have been evaluated against the nine qualities. Not
-  every quality needs detailed treatment for every option, but the
-  qualities dominant in the domain MUST be explicitly weighed.
+- Each decision point MUST carry between two and four evaluated alternatives,
+  and each rejected alternative MUST be recorded with the reason it lost.
 
-- Where a design question could not be answered by reasoning alone, a
-  time-boxed prototype MUST have produced the evidence that fed back into
-  the evaluation.
+- The rationale MUST be recorded exactly once, in the project's own decision
+  store and in that store's own form, with no second copy of it elsewhere.
 
-- The decision MUST be captured durably: written into the project's own
-  decision store, in that store's own form, somewhere a future reader can
-  find it without asking, and with no second copy of the rationale
-  anywhere else.
+- The software itself MUST be unchanged: no source file, configuration file,
+  schema, or dependency manifest may have been written by this task.
 
-- The stores MUST have been discovered, not assumed: the location and
-  access method for both the specification and the decision store MUST
-  trace to session context, to the environment, or to an answer from the
-  user.
+- The design MUST stop short of a delivery plan: no decomposition into tasks,
+  estimates, or sequencing.
 
 ## Instructions
 
 1.  Check the entry gate.
 
-    Resolve the specification store (see Input), then confirm the relevant
-    requirements are approved — whatever state that store uses to mean
-    "agreed and ready to build". If they are still draft, still under review,
-    or missing entirely, stop, tell the user the design phase is gated on an
-    approved specification, and direct them to approve or write one first.
+    Resolve the specification store, then confirm the relevant requirements
+    are approved — whatever state that store uses to mean "agreed and ready
+    to build". If they are still draft, still under review, or missing
+    entirely, stop, tell the user the design phase is gated on an approved
+    specification, and direct them to approve or write one first.
 
 2.  Gather the constraints.
 
     Before exploring options, write down:
 
-    - Functional ACs the design must satisfy (from the approved
-      specification).
+    - Functional acceptance criteria the design must satisfy, from the
+      approved specification.
 
-    - Non-functional requirements: performance targets, security/compliance,
-      availability, scalability, data retention.
+    - Non-functional requirements: performance targets, security and
+      compliance, availability, scalability, data retention.
 
     - Existing system shape: relevant modules, public APIs, data stores,
       deployment topology.
@@ -109,219 +101,207 @@ not settle it.
     If any constraint is unclear, stop and report what is missing rather
     than designing against a guess.
 
-3.  Identify the decision points.
+3.  Rank the qualities for this domain.
+
+    Name which of the nine qualities dominate here, and in what order, before
+    you start comparing options. The ranking is what makes a trade-off
+    arguable rather than a matter of taste.
+
+4.  Identify the decision points.
 
     List the architecturally significant choices the design must make — the
     ones that would be expensive to reverse later. Typical examples:
 
-    - Module/service boundaries.
-    - Synchronous vs asynchronous communication.
+    - Module and service boundaries.
+    - Synchronous vs. asynchronous communication.
     - Data ownership and consistency model.
     - Persistence technology.
     - Public API shape.
-    - Concurrency / parallelism model.
+    - Concurrency and parallelism model.
 
-    Cosmetic or easily-reversed decisions (variable names, file layout) are
-    not decision points — defer them.
+    Cosmetic or easily reversed decisions, such as variable names and file
+    layout, are not decision points. Defer them.
 
-4.  Enumerate alternatives per decision point.
+5.  Enumerate alternatives per decision point.
 
-    Produce at least two options for each decision point, including a
-    do-nothing or simplest-possible alternative. A single option masquerading
-    as "the design" is an assumption, not a design.
+    Produce at least two options for each, including a do-nothing or
+    simplest-possible alternative. A single option masquerading as "the
+    design" is an assumption, not a design.
 
-5.  Evaluate each option against the nine design qualities.
+6.  Evaluate each option against the nine design qualities.
 
-    For each option, note its impact (positive, neutral, negative) on each
-    quality. Be specific — "improves performance" is not useful; "removes the
-    N+1 query, cutting p95 by ~40ms" is.
+    Note each option's impact — positive, neutral, negative — on each
+    quality. Be specific: "improves performance" is not useful, whereas
+    "removes the N+1 query, cutting p95 by ~40ms" is.
 
-    - Completeness: does it cover all the functional ACs?
-    - Correctness: can it maintain valid, consistent state under the
-      expected workload?
-    - Performance: does it meet the NFR targets?
+    - Completeness: does it cover all the functional acceptance criteria?
+    - Correctness: can it hold valid, consistent state under the expected
+      workload?
+    - Performance: does it meet the non-functional targets?
     - Reliability: how does it handle and recover from failures?
     - Experience: how does it feel for the end user?
-    - Habitability: how easy is it for the next developer to read,
-      maintain, and evolve?
+    - Habitability: how easily can the next developer read, maintain, and
+      evolve it?
     - Cohesiveness: does it form a unified whole, or bolt on?
     - Changeability: how easily can it adapt to plausible future
       requirements?
     - Simplicity: does it minimize unnecessary complexity?
 
-    Most options will trade qualities against one another. Capture the
-    trade explicitly.
+    Most options trade qualities against one another. Capture the trade
+    explicitly.
 
-6.  Recommend one, with reasoning.
+7.  Recommend one option per decision point, with reasoning.
 
-    State which option to pick and why it wins on the qualities that matter
-    most for this domain. Name the qualities being prioritized and the
-    qualities being sacrificed. If two options are close, say so and ask the
-    user to break the tie.
+    State which option to pick and why it wins on the qualities ranked
+    highest in step 3. Name the qualities being prioritized and those being
+    sacrificed.
 
-7.  Capture the decision.
+8.  Capture the decision.
 
-    For architecturally-significant decisions, write a decision record into
-    the project's decision store — context, options considered, decision,
-    consequences — using whatever template and lifecycle that store defines.
-    For smaller designs, a paragraph in the change description or a comment
-    on the issue may suffice.
+    Write a decision record into the project's decision store — context,
+    options considered, decision, consequences — using whatever template and
+    lifecycle that store defines. For a small design, a paragraph in the
+    change description or a comment on the issue may suffice.
 
-    Do not invent a parallel location for decisions. If the project already
-    keeps an RFC archive, a decision log, or an ADR directory, that is where
-    this goes. Descriptive design documentation — what the architecture *is*
-    — is a different artifact from the record of *why*; keep the rationale in
-    the decision store and let the design documentation link to it.
+    Descriptive design documentation, which says what the architecture *is*,
+    is a different artifact from the record of *why*. Keep the rationale in
+    the decision store and let the design documentation link to it, so there
+    is one place to correct when the reasoning is revisited.
 
-    Include enough that a developer six months from now can answer "why did
-    we do it this way?" without re-running the exercise.
-
-8.  Report the design and stop.
+9.  Report the design and stop.
 
     Flag any soft edges that remain — ambiguous terms, unstated assumptions,
     contested trade-offs — so they can be stress-tested before decomposition.
-    Report the design and stop; what consumes it is the orchestrator's
-    concern.
+    What consumes the design is the caller's concern.
 
 ## Rules
 
 - You MUST NOT design against an unapproved specification.
 
-  The specification is the design's contract. Until the user has approved it,
-  its acceptance criteria can still change in review — designing against a
-  moving target wastes the work. If the specification is unapproved, missing,
-  or still under review, you MUST stop and send the user back to approve it
-  (or to write one, clarifying the requirements first, if it does not yet
-  exist). This is the SDLC phase gate.
+  The specification is the design's contract. Until it is approved, its
+  acceptance criteria can still change in review, and designing against a
+  moving target wastes the work. This is the phase gate: if the
+  specification is missing, draft, or still under review, stop and send the
+  user back to approve or write one.
 
-- You MUST discover artifact locations and conventions; you MUST NOT assume
+- You MUST discover artifact locations and conventions rather than assuming
   them.
 
-  This skill is used across projects that keep requirements and decisions in
-  different places, in different formats, under different tools. A path, file
-  name, template, or lifecycle state that is right in one project is wrong in
-  the next. Resolve each store first, then read and follow whatever
+  This skill runs across projects that keep requirements and decisions in
+  different places, in different formats, under different tools. A path,
+  file name, template, or lifecycle state that is right in one project is
+  wrong in the next. Resolve each store first, then follow whatever
   conventions it documents for itself.
 
 - You MUST produce the design and stop there.
 
-  Decomposing it into steps and implementing it are the caller's, so the
-  design can be argued with before anyone has built against it.
+  Decomposing it into steps and implementing it belong to the caller, so
+  that the design can be argued with before anyone has built against it.
 
-- You MUST always produce alternatives.
+- You MUST always produce alternatives, and MUST record the rejected ones
+  with the reason each lost.
 
-  A design that considers only one option is not a design. Even an
-  obviously-best choice gets stronger when its alternatives are written down
-  and rejected for stated reasons.
+  Even an obviously best choice gets stronger when its alternatives are
+  written down. The "why not" often outlives the "why": future requirements
+  may reopen a rejected option, and the prior reasoning saves re-evaluating
+  it from scratch.
 
-- You MUST evaluate against the qualities, not against personal preference.
+- You MUST evaluate against the qualities rather than personal preference.
 
-  The nine qualities are universal. Personal preference and habit are not.
-  When you reach for "I prefer X", restate it as which quality you are
-  optimizing and why it matters here.
+  The nine qualities are universal; habit is not. When you reach for "I
+  prefer X", restate it as which quality you are optimizing and why that
+  quality matters here.
 
-- You MUST identify the qualities that dominate this domain.
+- You MUST stop and clarify when the specification omits a non-functional
+  requirement the design turns on.
 
-  Not all qualities matter equally in every domain. A financial ledger
-  weights correctness over experience; a marketing site weights experience
-  over performance; a long-lived internal tool weights habitability over
-  simplicity. You MUST name the priority ordering before evaluating options.
+  Requirements around scalability, durability, security, and compliance
+  often dictate the technology stack, the database, and the deployment
+  topology, and are expensive to retrofit.
 
-- You MUST surface NFRs early.
-
-  NFRs around scalability, durability, security, and compliance often dictate
-  the design (technology stack, database, deployment topology) and are
-  expensive to retrofit. If the specification omitted them, you MUST stop and
-  clarify before continuing.
-
-- You MUST cost the operational tail.
+- You SHOULD cost the operational tail.
 
   Designs do not end at "shipped". Account for monitoring, alerting, on-call
-  burden, backup/restore, schema migration, dependency lifecycle. Cheap to
-  build does not mean cheap to own.
+  burden, backup and restore, schema migration, and dependency lifecycle.
+  Cheap to build does not mean cheap to own.
 
-- You SHOULD prefer the boring option when qualities are close.
+- You SHOULD prefer the boring option when the qualities are close.
 
-  Familiar technology, fewer moving parts, smaller blast radius. Novelty
-  has a cost the design qualities do not fully capture.
+  Familiar technology, fewer moving parts, smaller blast radius. Novelty has
+  a cost the design qualities do not fully capture.
 
 - You SHOULD prefer deep modules to shallow ones.
 
   A module is deep when a small, simple interface hides a lot of useful
-  behavior — callers benefit from leverage. A module is shallow when its
-  interface is nearly as complex as its implementation. When two designs
-  satisfy the same ACs and NFRs, the one with deeper modules wins on
-  simplicity, habitability, and changeability simultaneously.
-
-- You MUST document the rejected options too.
-
-  The "why not" is often more useful to future readers than the "why".
-  Future requirements may reopen one of the rejected options — the prior
-  reasoning saves a re-evaluation.
+  behavior; it is shallow when its interface is nearly as complex as its
+  implementation. Where two designs satisfy the same criteria, the one with
+  deeper modules wins on simplicity, habitability, and changeability at
+  once.
 
 ## Edge cases
 
 - The design is forced by an existing constraint.
 
-  If there is genuinely only one viable option (eg. a regulatory requirement
-  names the encryption standard; an existing contract fixes the API shape),
-  state the constraint, name the option, and skip the alternatives. But
-  verify the constraint is real before skipping — "we've always done it
-  that way" is not a constraint.
+  If there is genuinely only one viable option — a regulation names the
+  encryption standard, an existing contract fixes the API shape — state the
+  constraint, name the option, and skip the alternatives. Verify the
+  constraint is real first: "we've always done it that way" is not a
+  constraint.
 
-- Prototype or spike.
+- The goal is a prototype or spike.
 
-  If the goal is to learn whether something is feasible, skip the formal
-  evaluation. Write the prototype, then come back and do the design for real,
-  informed by what you learned.
+  If the question is whether something is feasible at all, skip the formal
+  evaluation. Write the prototype, then come back and do the design for
+  real, informed by the evidence it produced.
 
-- Mid-build pivot.
+- A design choice is failing during implementation.
 
-  If a design choice is failing under implementation, stop and redo the
-  design — do not patch around it. Sunk cost is not a quality.
+  Redo the design rather than patching around it. Sunk cost is not a
+  quality.
 
 - Two options are genuinely tied.
 
-  Say so. Present both with their trade-offs and stop — the tie is the
-  caller's to break. Do not flip a coin and proceed silently.
+  Present both with their trade-offs and stop. The tie is the caller's to
+  break, so do not flip a coin and proceed silently.
 
 ## Examples
 
 - A compact decision capture:
 
-  ```sh
-  Decision: Use Postgres LISTEN/NOTIFY for job dispatch.
+  ```text
+  Decision: use Postgres LISTEN/NOTIFY for job dispatch.
 
   Context:
   - Need to fan out ~50 jobs/sec from the API to workers.
   - p95 dispatch latency target: <200ms.
-  - Team operates Postgres already; no Kafka/RabbitMQ in stack.
+  - Team operates Postgres already; no Kafka or RabbitMQ in the stack.
 
-    Options considered:
-    1. Postgres LISTEN/NOTIFY (CHOSEN)
-    + No new infra; reuses existing operational knowledge (habitability,
-      simplicity).
-    + Meets latency target (measured ~30ms p95 in spike).
-    - Caps at ~few-thousand jobs/sec; not future-proof past 10x growth.
+  Dominant qualities: habitability, then simplicity, then performance.
 
-    2. Add Redis Streams
-    + Higher throughput ceiling.
-    - New operational surface; on-call team is unfamiliar (habitability -).
-    - Extra failure mode (Redis unavailability) for a problem we don't
-      have today.
+  Options considered:
 
-    3. Add SQS
-    + Managed, durable, scalable.
-    - Adds AWS coupling; cross-region latency makes p95 marginal.
-    - More expensive at our volume.
+  1. Postgres LISTEN/NOTIFY (chosen)
+     + No new infrastructure; reuses existing operational knowledge
+       (habitability, simplicity).
+     + Meets the latency target (~30ms p95 measured in a spike).
+     - Caps at a few thousand jobs/sec; not future-proof past 10x growth.
 
-    Decision: Option 1. Optimizes for habitability and simplicity while
-    meeting the stated NFRs. Re-evaluate if sustained throughput exceeds
-    2000 jobs/sec, at which point Option 2 or 3 becomes worth the cost.
+  2. Redis Streams
+     + Higher throughput ceiling.
+     - New operational surface the on-call team is unfamiliar with.
+     - Extra failure mode for a problem we do not have today.
 
-    Consequences:
-  - Workers must hold a long-lived Postgres connection (connection pool
-    sizing impact).
-  - Migration to a real queue is a known future cost; design the dispatch
-    interface to make that swap straightforward.
-    ```
+  3. SQS
+     + Managed, durable, scalable.
+     - Adds cloud coupling; cross-region latency makes p95 marginal.
+     - More expensive at our volume.
+
+  Decision: option 1. Optimizes for habitability and simplicity while
+  meeting the stated non-functional targets. Re-evaluate above a sustained
+  2000 jobs/sec, where option 2 or 3 becomes worth its cost.
+
+  Consequences:
+  - Workers hold a long-lived Postgres connection, affecting pool sizing.
+  - Migrating to a real queue is a known future cost; design the dispatch
+    interface so that swap stays straightforward.
+  ```

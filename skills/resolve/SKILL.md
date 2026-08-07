@@ -1,79 +1,93 @@
 ---
 name: resolve
 description: >-
-  Action open review comments. Mark them as resolved. Use after a code review,
-  or when the user says something like "action the review comments" or
-  "address the feedback on this PR".
-compatibility: requires Read, Edit, Bash (git/gh)
+  Action the open review comments on a pull request, implementing each fix,
+  verifying it, and marking the thread resolved. Use after a code review, or
+  when the user says something like "action the review comments", "address
+  the feedback on this PR", or "resolve the open review threads". Do not use
+  it to triage, dismiss, or argue with comments — everything still open is
+  implemented.
+compatibility: >-
+  requires Read, Write, Edit, Grep, Bash (git, review host CLI, test runner)
 license: CC0-1.0
 ---
 
 # Resolve
 
 Action the open review comments on a pull request. Implement each fix in
-code, verify it, and mark the comment as resolved.
+code, verify it, reply, and mark the thread resolved. Stop there: judging
+whether the comments were worth making is not part of this task.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the
+user with an error message.
 
-- **A pull request with open review comments — REQUIRED.** The un-dismissed
-  comments on the pull request; the author has already
-  resolved any they do not want actioned, so what remains is the work list.
+- **The pull request under review — REQUIRED.** The change whose open
+  comments are to be actioned. Discover it from the last prompt, then from
+  recent context (the review that produced the comments), then from the
+  environment — the branch currently checked out and the pull request open
+  against it.
 
-- **The code under review — REQUIRED.** The base commit is pinned.
+- **The review host — REQUIRED.** Where the comment threads live and how to
+  read and write them. Discover this from the environment: the remote the
+  branch pushes to, and the host CLI or API available in the workspace. You
+  MUST NOT assume a particular host, because not every host exposes
+  resolvable threads.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+- **The code under review — REQUIRED.** The branch, and the base commit the
+  comments are anchored to. Take the base from the review itself rather than
+  assuming the branch tip, since the branch MAY have advanced since.
 
 ## Success criteria
 
-- Every open comment MUST be dispositioned: each one either resolved —
-  fixed, verified, replied to, marked resolved — or left open and surfaced
-  as blocked with a reason. None MUST be silently skipped.
+- Every open comment MUST be dispositioned: either resolved — fixed,
+  verified, replied to, thread marked resolved — or left open and reported
+  as blocked with a specific reason. None MUST be silently skipped.
 
-- Every resolution MUST be verified: no thread MUST be marked resolved
-  without a passing test or a run of the existing tests over the touched
-  code.
+- Every thread marked resolved MUST have a passing verification behind it: a
+  test that fails before the fix and passes after, or a green run of the
+  existing tests covering the touched code.
 
-- Every resolved thread MUST have a reply, stating what changed and
-  where, so the reviewer can confirm it without re-reading the diff.
+- Every resolved thread MUST carry a reply naming what changed and where, so
+  the reviewer can confirm the fix without re-reading the diff.
 
-- The diff MUST be minimal: each change MUST answer a specific comment,
-  with no scope creep and no unrequested refactors.
+- The diff MUST contain nothing that no open comment asked for. Unrequested
+  refactors, drive-by fixes, and formatting churn are out-of-scope.
 
-- Resolution work MUST be committed and pushed, in its own commit(s),
-  separate from the original implementation, with the branch pushed so
-  re-review and CI see the fixes.
+- The resolution work MUST sit in its own commit(s), distinct from the
+  commits under review, and the branch MUST be pushed so re-review and CI
+  see the fixes.
+
+- The pull request MUST be left open and in review. It MUST NOT be merged,
+  closed, or otherwise advanced — the verified change is handed back to the
+  caller.
 
 ## Instructions
 
 1.  Collect the open comments.
 
-    Pull the full set of unresolved review comments on the PR — the ones
-    the author has not dismissed. Use the host's review-thread API:
+    Query the review host for the comment threads that are not resolved.
+    Where the host is GitHub:
 
     ```sh
     gh pr view <number> --json reviewThreads \
       --jq '.reviewThreads[] | select(.isResolved == false)'
     ```
 
-    Capture each thread's comment ID, anchored file and line, and
-    requested change. If there are no open comments, report that and stop.
+    Capture each thread's identifier, anchored file and line, and requested
+    change. If there are no open comments, report that and stop.
 
 2.  Pin the working base.
 
-    State the branch and base commit you are working against, matching the
-    base the review pinned its comments to. If the branch
-    has advanced past the reviewed commit, re-anchor each comment to its
-    current location before editing.
+    State the branch and the base commit you are working against, matching
+    the base the review anchored its comments to. If the branch has advanced
+    past that commit, re-anchor each comment to its current location before
+    editing anything.
 
-3.  Order the comments by dependency, not by line.
+3.  Order the comments by dependency, not by line number.
 
     Group related comments and sequence them so an earlier fix does not
     invalidate a later one. Structural comments (rename, extract, move)
@@ -81,22 +95,21 @@ print an error message.
 
 4.  Implement each comment as the smallest faithful change.
 
-    For each open comment, apply exactly the change it asks for. If a
-    comment names a concrete fix, apply that fix; if it names a problem
-    without a fix, apply the smallest change that resolves the problem in
-    the style of the surrounding code.
+    Where a comment names a concrete fix, apply that fix. Where it names a
+    problem without a fix, apply the smallest change that resolves the
+    problem, in the style of the surrounding code.
 
 5.  Verify each fix.
 
-    For correctness findings, add or extend a test that fails before the
-    fix and passes after; for missing-test findings, add the missing test;
-    otherwise run the existing tests covering the touched code.
+    For a correctness finding, add or extend a test that fails before the
+    fix and passes after. For a missing-test finding, add the missing test.
+    Otherwise, run the existing tests covering the touched code.
 
 6.  Reply, then resolve, each thread.
 
-    For each actioned comment, leave a one-line reply stating what changed
-    and where (`Fixed in <sha> — validates amount at the boundary, returns
-    400`), then mark the thread resolved:
+    Leave a one-line reply stating what changed and where (`Fixed in <sha> —
+    validates amount at the boundary, returns 400`), then mark the thread
+    resolved. Where the host is GitHub:
 
     ```sh
     gh api graphql -f query='
@@ -107,105 +120,81 @@ print an error message.
       }' -F threadId=<threadId>
     ```
 
-    If the host has no resolvable-thread API, record the resolution in the
-    reply and the commit message instead, and report which comments were
-    addressed so a human can close the threads.
-
 7.  Commit the resolutions.
 
-    Commit the fixes with a message that ties them to the review (eg.
-    `fix: address review comments on order validation`). Keep the
-    resolution work in its own commit(s), separate from the original
-    implementation commits. Push the branch.
+    Commit the fixes with a message tying them to the review, eg. `fix:
+    address review comments on order validation`. Keep this work in its own
+    commit(s), separate from the commits under review, then push the branch.
 
-8.  Report what could not be resolved.
+8.  Report the outcome.
 
-    If any open comment could not be actioned — it contradicts another open
-    comment, depends on a decision outside this change, rests on a
-    misunderstanding the code cannot satisfy, or asks for a redesign beyond
-    the change under review — leave the thread open and report it with a
-    specific account of why.
+    Report how many open comments were resolved, and list any that were not,
+    each with a specific account of why it could not be actioned.
 
 ## Rules
 
-- You MUST resolve the comments and stop there.
+- You MUST treat every still-open comment as a commitment to implement.
 
-  The verified change is left ready for acceptance testing; what runs
-  against it next is the caller's.
-
-- Every open comment MUST be treated as a commitment to implement.
-
-  The author's curation happened before this skill ran. A comment that is
+  The author's curation happened before this skill ran; a comment that is
   still open is one the author wants done. Disagreeing with, deferring, or
-  rejecting a comment is out-of-scope.
+  dismissing a comment is out-of-scope.
 
-- You MUST make one minimal change per comment.
+- You MUST NOT widen a comment into a broader change.
 
-  You MUST action exactly what the comment asks. You MUST NOT expand
-  scope, refactor adjacent code, or fix problems the comment did not
-  raise.
+  Action exactly what the comment asks. Adjacent code that could be improved
+  is a separate concern, and mixing it in makes the re-review harder than
+  the original review.
 
-- You MUST resolve only what you verified.
+- You MUST NOT mark a thread resolved as a way of closing out a comment you
+  could not action. Leave it open and report it instead — a falsely resolved
+  thread hides the problem from the one person able to settle it.
 
-  A thread MUST be marked resolved only after its fix is shown to work.
+- You SHOULD prefer the host's own resolve mechanism over any local record
+  of the work, so that the reviewer's unresolved-thread count is accurate.
 
-- You MUST reply before you resolve.
-
-  Every resolved thread MUST carry a one-line note of what changed and
-  where, so the reviewer can confirm the resolution from the reply.
-
-- You MUST keep resolution commits separate.
-
-  The fixes that answer a review MUST go in their own commit(s),
-  distinct from the original implementation.
-
-- You MUST surface, never bury, what you can't resolve.
-
-  A comment that cannot be honestly actioned MUST stay open and MUST be
-  reported with a reason. Marking it resolved without a real fix, or
-  silently leaving it open, both hide the problem.
+- You MAY reorder or batch the fixes as step 3 dictates, but each comment
+  MUST end up individually replied to, so the reply stays traceable to the
+  comment it answers.
 
 ## Edge cases
 
 - The branch moved since the review.
 
   Comments anchored to old line numbers may no longer point at the right
-  code. Re-anchor each comment to its current location before editing; if
-  a comment's target has been deleted or rewritten by later work, treat
-  it as unresolvable and surface it (instruction 8).
+  code. Re-anchor each comment to its current location before editing. If a
+  comment's target has been deleted or rewritten by later work, treat it as
+  unresolvable and surface it.
 
 - Two open comments contradict each other.
 
-  The author left both open, but they cannot both be satisfied. Do not
-  pick one silently. Resolve neither; report the contradiction so the
-  author can dismiss one.
+  The author left both open, but they cannot both be satisfied. Do not pick
+  one silently. Resolve neither, and report the contradiction so the author
+  can dismiss one.
 
-- A comment asks for more than a fix — a redesign.
+- A comment asks for a redesign rather than a fix.
 
-  If actioning a comment would mean restructuring beyond the change
-  under review, it is not a resolve-loop task. Surface it as
-  out-of-scope for this skill rather than ballooning the diff;
-  architecturally significant rework is a separate, upstream
-  responsibility.
+  If actioning it would mean restructuring beyond the change under review,
+  it is not a resolution task. Surface it as out-of-scope rather than
+  ballooning the diff; architecturally significant rework is a separate,
+  upstream responsibility.
 
-- A "nit" or "praise" comment is still open.
+- A nit or a praise comment is still open.
 
-  A praise comment needs no code change — reply acknowledging it and
-  resolve. A nit the author left open is, by the curation rule, one they
-  want done: action it like any other.
+  A praise comment needs no code change: reply acknowledging it and resolve.
+  A nit the author left open is, by the curation rule, one they want done —
+  action it like any other comment.
 
-- The host has no resolvable-thread API.
+- The review host has no resolvable-thread API.
 
-  Where review threads cannot be marked resolved programmatically (some
-  hosts, or plain patch review), record the resolution in the reply and
-  the commit message instead, and report which comments were addressed
-  so a human can close the threads.
+  Where threads cannot be marked resolved programmatically, record the
+  resolution in the reply and in the commit message instead, and report
+  which comments were addressed so a human can close the threads.
 
 ## Examples
 
 - A resolution pass over three open comments:
 
-  ```sh
+  ```text
   Open comments on PR #482 (base abc123): 3
 
   [handlers/orders.ts:42]  validate amount > 0, return 400
@@ -220,12 +209,12 @@ print an error message.
     → Inlined. Existing tests green. Replied + resolved.
 
   Committed as `fix: address review comments on order validation` (def456).
-  3 of 3 open comments resolved. Ready for re-test.
+  3 of 3 open comments resolved.
   ```
 
 - A pass that cannot fully resolve:
 
-  ```sh
+  ```text
   Open comments on PR #482: 2
 
   [handlers/orders.ts:42]  validate amount > 0

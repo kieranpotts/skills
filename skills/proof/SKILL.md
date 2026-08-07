@@ -1,203 +1,200 @@
 ---
 name: proof
 description: >-
-  Proofread, then conservatively edit, text for spelling, grammar, and
+  Proofread, then conservatively edit, prose for spelling, grammar, and
   consistency. Use when polishing documentation, a README, release notes, or
   any written content before it ships, or when the user says something like
-  "proofread this document" or "check this for spelling and grammar".
-compatibility: requires Read, Edit, Bash (git status)
+  "proofread this document" or "check this for spelling and grammar". Do not
+  use it to rewrite, restructure, or fact-check a document.
+compatibility: >-
+  requires Read, Edit, Glob, Bash (git status, git diff)
 license: CC0-1.0
 ---
 
 # Proof
 
-Proofread prose, making conservative copy edits — spelling, grammar,
-punctuation, typos, awkward phrasing, and consistency of terminology and
-capitalization.
-
-You MUST NOT change code examples or technical meaning.
+Proofread prose, making the conservative copy edits a careful human editor
+would make on a final pass — spelling, grammar, punctuation, typos, awkward
+phrasing, and consistency of terminology and capitalization. Change words,
+never code, markup, structure, or technical meaning.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or
-how to access it, when context and environment do not settle it.
+requirements. If you cannot determine the requirements, stop and alert the
+user with an error message.
 
 - **A set of prose files — REQUIRED.** Markdown, AsciiDoc, reStructuredText,
-  or plain text. Defaults to the prose files changed in the working tree
-  when no set is given.
-
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+  or plain text, given as a file, a glob, or a directory to recurse. When the
+  request names no set, default to the prose files changed in the version
+  control working tree.
 
 ## Success criteria
 
-- The target files MUST have been edited in place, with only prose words
-  changed. Code, markup, and structure MUST be byte-identical otherwise, so
-  the diff shows word-level prose edits and nothing else — no reflowed
-  blocks, no moved sections, no touched code.
+- The target files MUST have been edited in place, so that the diff shows
+  word-level prose edits and nothing else — no reflowed blocks, no moved
+  sections, no touched code.
 
-- No technical fact, identifier, version number, or command MUST have been
-  altered.
+- Every technical fact, identifier, version number, and command MUST read
+  exactly as it did before.
 
-- Each file's markup MUST remain valid and its original line-wrapping
-  convention MUST be unchanged, so the document parses and renders as it
-  did before.
+- Each edited file MUST still parse and render as it did before, with its
+  markup valid and its original line-wrapping convention intact.
+
+- A diff of the working tree MUST show no file created, renamed, deleted, or
+  modified beyond the resolved target list.
 
 - A per-file summary MUST have been reported, naming which files changed,
-  which were reviewed but left unchanged, which were skipped as generated
-  or vendored, and every item flagged for the author to resolve.
+  which were reviewed but left unchanged, which were skipped as generated or
+  vendored, and every item flagged for the author to resolve.
 
-- Nothing MUST have been staged, committed, or pushed.
+- The edits MUST have been left unstaged, uncommitted, and unpushed.
+  Proofreading ends at the edit. Filing the change belongs to the caller.
 
 ## Instructions
 
 1.  Resolve the set of files to proofread.
 
-    From the user's request, build the list of target files. The target
-    may be a single file, a glob, a directory (recurse it for prose files),
-    or unstated. If unstated, proofread the prose files changed in the
-    working tree (`git status --porcelain`). If the working tree is clean,
-    ask the user which files to review.
+    Expand the requested file, glob, or directory into a concrete list,
+    recursing directories for prose files. Where the request names no set,
+    take the prose files changed in the working tree:
 
-    Apply the file-selection Rules: include only prose files and skip
-    generated or vendored files.
+    ```sh
+    git status --porcelain
+    ```
+
+    Apply the file-selection rules below: prose files only, generated and
+    vendored files skipped.
 
 2.  Detect the markup language and the line-wrapping convention per file.
 
-    Before editing a file, note its format (so you know which syntax to
-    protect) and its existing wrapping style — one-sentence-per-line,
-    hard-wrapped at a column, or unwrapped paragraphs. Keep the wrapping
-    style unchanged.
+    Before editing a file, note its format, so you know which syntax to
+    protect, and its wrapping style — one sentence per line, hard-wrapped at
+    a column, or unwrapped paragraphs. Rewrapping a paragraph buries the
+    prose edits in a diff nobody can review, so the style MUST survive
+    unchanged.
 
 3.  Proofread one file at a time, editing in place.
 
-    Work through the files individually. For each file, apply the allowed
-    edits in the Rules section and protect the forbidden zones in the Rules
-    section. Make the edits directly in the file. After finishing a file,
-    record which changes you made (for the summary) and drop the file from
-    working memory before opening the next — do not re-read a completed
-    file.
+    For each file, make the allowed edits and protect the forbidden zones.
+    Record what you changed for the summary, then drop the file from working
+    memory before opening the next — do not re-read a completed file.
 
 4.  Report a summary and stop.
 
-    When every target file is processed, print a concise summary grouped
-    by file: for each file that changed, a short bullet list of the kinds
-    of edits made (eg. "3 typos, 1 subject-verb agreement, standardized
-    'web-site' → 'website'"). Name any files reviewed but left unchanged
-    and any files skipped as generated or vendored. Then stop — do not
-    stage, commit, or push.
+    Print a concise summary grouped by file. For each file that changed, give
+    a short bullet list of the kinds of edit made, eg. "3 typos, 1
+    subject-verb agreement, standardized 'web-site' to 'website'". Name any
+    file reviewed but left unchanged, and any file skipped as generated or
+    vendored. List every item flagged for the author. Then stop.
 
 ## Rules
 
-### Allowed edits
-
 - You MAY fix spelling, grammar, punctuation, and obvious typos.
 
-- You MAY smooth genuinely awkward phrasing in prose — but only where the
-  meaning is unambiguous and preserved. When in doubt, leave it.
+- You MAY smooth genuinely awkward phrasing, but only where the meaning is
+  unambiguous and preserved. When in doubt, leave it.
 
-- You SHOULD make terminology and capitalization consistent within and
-  across the target files (eg. pick one of "GitHub"/"Github", "set up" vs
-  "setup" by part of speech).
+- You SHOULD make terminology and capitalization consistent within and across
+  the target files, eg. settle on one of "GitHub" and "Github", or on "set up"
+  against "setup" by part of speech.
 
-- You SHOULD default to the project's established English variety. Infer
-  it from the surrounding text (eg. "colour"/"color"). If genuinely
-  ambiguous, leave existing spellings and flag the inconsistency in the
-  summary rather than imposing a variety.
-
-### Forbidden — never change
+- You SHOULD follow the project's established variety of English, inferred
+  from the surrounding text, eg. "colour" against "color".
 
 - You MUST NOT change technical meaning, facts, version numbers, commands,
-  API names, or identifiers. A factual error is for a human to fix, not a
-  copy editor. If a fact looks wrong, flag it in the summary rather than
-  correcting it.
+  API names, or identifiers.
 
-- You MUST NOT change anything inside code. Fenced/indented code blocks,
-  inline code spans, and their language-specific equivalents:
+  A factual error is for a human to fix, not a copy editor. Where a fact
+  looks wrong, flag it in the summary instead of correcting it.
 
-  - Markdown: ` ``` ` fences, `~~~` fences, indented blocks, `` `inline`
-    ``.
-  - AsciiDoc: `----`, `....`, `[source,...]` blocks, `+inline+`/``
-    `inline` ``.
+- You MUST NOT change anything inside code — fenced or indented blocks,
+  inline spans, and their per-format equivalents:
+
+  - Markdown: ` ``` ` and `~~~` fences, indented blocks, `` `inline` ``.
+
+  - AsciiDoc: `----` and `....` blocks, `[source,...]` blocks, `+inline+`,
+    `` `inline` ``.
+
   - reStructuredText: `::` literal blocks, `.. code-block::` directives,
     `` ``inline`` ``.
 
-    Leave code, commands, and sample output verbatim. If a typo appears
-    inside a code span or block, leave it and flag it in the summary only if
-    it is plausibly prose that was wrongly marked as code.
+  Code, commands, and sample output stay verbatim, because a reader will run
+  them exactly as written.
 
-- You MUST NOT change markup syntax and structure. Links and link
-  targets, image refs, macros, cross-references (`xref:`, `<<>>`,
-  `:ref:`), anchors/IDs, includes, directives, conditionals, comments,
-  attribute/front-matter entries, admonition labels (NOTE:, TIP:,
-  WARNING:, etc.), heading levels, and section ordering.
+- You MUST NOT change markup syntax or structural metadata: links and link
+  targets, image references, macros, cross-references (`xref:`, `<<>>`,
+  `:ref:`), anchors and IDs, includes, directives, conditionals, comments,
+  attribute and front-matter entries, admonition labels, heading levels, and
+  section ordering.
 
-- You MUST NOT change the file's structure. You MUST NOT add, remove,
-  reorder, merge, or split sections, paragraphs, or list items.
-  Proofreading changes words, not architecture.
+- You MUST NOT add, remove, reorder, merge, or split sections, paragraphs, or
+  list items. Proofreading changes words, not architecture.
 
-### File selection
+- You MUST edit the target files in place, and MUST NOT create, rename, or
+  move any file, nor touch a file that is not on the target list.
 
 - You MUST include only prose files.
 
-  By extension `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`, `.txt`,
-  and extensionless prose like `README`, `CHANGELOG`, `LICENSE` text. Skip
-  code, config, lockfiles, and generated files.
+  Take them by extension — `.md`, `.markdown`, `.adoc`, `.asciidoc`, `.rst`,
+  `.txt` — plus extensionless prose such as `README`, `CHANGELOG`, and
+  license text. Skip code, configuration, lockfiles, and data.
 
-- You MUST skip generated or vendored files.
+- You MUST skip generated and vendored files unless the user names one
+  explicitly, and MUST report each skip.
 
-  Skip anything under conventional generated/vendor paths unless the
-  user explicitly names it. Report that they were skipped.
+  Editing a generated file loses the edit on the next build, and editing a
+  vendored one diverges the copy from upstream.
 
-### Discipline
+- When a fix would really be a rewrite, you MUST NOT make it. Note it in the
+  summary as a suggestion for the author instead.
 
-- You SHOULD prefer the project's configured formatter for pure
-  whitespace/style.
+  This applies wherever a correction would change meaning or structure.
 
-  If a deterministic prose linter or formatter is configured (eg. Vale,
-  markdownlint, Prettier for Markdown), pure presentation issues are its
-  job, not this skill's — this skill is for the language-level edits a
-  formatter cannot make.
-
-- You MUST edit in place only.
-
-  Modify the target files. You MUST NOT create new files, rename, move,
-  or touch any file not on the target list.
-
-- When a "fix" is really a rewrite, you MUST stop and flag it.
-
-  If correcting something would require changing meaning or structure,
-  you MUST NOT do it — note it in the summary as a suggestion for the
-  author.
-
-- You MUST flag, but NOT remove, leftover chatbot artifacts.
+- You MUST flag, but MUST NOT remove, leftover chatbot artifacts.
 
   Conversational residue from AI-assisted drafting — "I hope this helps!",
-  "Certainly!", "Let me know if you'd like me to expand on this", "You're
-  absolutely right that" — does not belong in shipped documentation.
-  Removing it is a content edit, not a copy edit, so list each instance in
-  the summary for the author to remove rather than deleting it yourself.
+  "Certainly!", "Let me know if you'd like me to expand on this" — does not
+  belong in shipped documentation, but removing it is a content edit rather
+  than a copy edit. List each instance for the author.
 
-- You MUST flag, but NOT rewrite, overused semicolons and misused colons.
+- You MUST flag, but MUST NOT rewrite, overused semicolons and misused
+  colons.
 
   Both are common AI writing smells. A semicolon joining two independent
-  clauses can almost always be split into two plain sentences; a colon
-  should only ever introduce a list, never an explainer clause. Splitting
-  or rephrasing changes sentence structure, so it is out of scope for this
-  skill's edits — flag each instance (with the sentence) in the summary as
-  a suggestion for the author.
+  clauses can almost always be split into two plain sentences, and a colon
+  should introduce a list rather than an explainer clause. Splitting or
+  rephrasing changes sentence structure, so it is out of scope — quote each
+  instance in the summary.
 
 - You MUST treat front matter and metadata conservatively.
 
-  Proofread human-readable values (a `title:` or `description:`) but
-  never the keys, and never structural metadata (slugs, IDs, dates,
-  tags). When unsure whether a value is prose or data, leave it.
+  Proofread human-readable values, such as a title or a description, but
+  never the keys, and never structural metadata such as slugs, IDs, dates,
+  and tags. Where you are unsure whether a value is prose or data, leave it.
 
-- If the files mix British and American spellings and no project
-  convention is discoverable, you MUST NOT impose one.
+## Edge cases
 
-  Report the inconsistency and let the author choose.
+- No file set is given and the working tree is clean.
+
+  There is nothing to proofread and you MUST NOT prompt for a target. Stop
+  and report that no candidate files were found.
+
+- The files mix varieties of English and no project convention is
+  discoverable.
+
+  You MUST NOT impose one. Leave the existing spellings, report the
+  inconsistency, and let the author choose.
+
+- The project configures a deterministic prose linter or formatter, eg. Vale,
+  markdownlint, or a Markdown formatter.
+
+  Pure presentation and whitespace issues are its job. You SHOULD leave them
+  alone and confine yourself to the language-level edits a formatter cannot
+  make.
+
+- A typo appears inside a code span or block.
+
+  Leave it. You SHOULD flag it only where the content is plausibly prose that
+  was wrongly marked up as code.

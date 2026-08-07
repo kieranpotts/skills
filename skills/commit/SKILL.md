@@ -1,109 +1,112 @@
 ---
 name: commit
 description: >-
-  Commit message conventions. Use when composing a commit message, validating
-  a branch's messages before push, or troubleshooting a failed commit-
-  validation CI job, or when the user says "write a commit message for this",
-  "is this commit message valid?", or "why did commit validation fail in CI?".
-compatibility: requires git
+  Compose a Git commit message in a fixed `<type>: <description>` format, or
+  validate existing messages against that format. Use when writing a commit
+  message, checking a branch's messages before push, or troubleshooting a
+  failed commit-message validation job, or when the user says "write a commit
+  message for this", "is this commit message valid?", or "why did commit
+  validation fail in CI?". Do not use it to stage, commit, amend, or push.
+compatibility: >-
+  requires Read, Edit, Glob, Grep, Bash (git diff, git log)
 license: CC0-1.0
 ---
 
 # Commit
 
-Compose a commit message that conforms to the project's convention, or
-validate existing messages against it, and produce the matching changelog
-entry where the project keeps one.
+Compose a commit message that conforms to the convention defined below, or
+validate existing messages against it, and write the matching changelog entry
+where the project keeps a changelog. You MUST NOT stage, commit, amend, or
+push anything.
 
 ## Parameters
 
 Determine the following information from the surrounding context and
-environment.
+environment. You MUST NOT prompt the user for clarification on this task's
+requirements; if you cannot determine them, stop and alert the user with an
+error message.
 
-- **A change to describe, or messages to validate — REQUIRED.** A
-  description of a change to compose a message for, or one or more existing
-  commit messages to validate (a branch's history before push).
+- **A change to describe, or messages to validate — REQUIRED.** Either a
+  changeset to compose a message for — read it with `git diff` where the
+  working tree holds it — or one or more existing messages to check, such as
+  a branch's history read with `git log`.
 
-- **The project's changelog, if it keeps one — REQUIRED for direct commits
-  to an integration trunk or a short-lived branch.** Discover it rather than
-  assuming it: check this session's context first, then the environment (a
-  convention file such as `AGENTS.md`, a changelog file at the project root,
-  a release-notes tool). If the project keeps no changelog, skip the
-  changelog steps and say so. Do not create one uninvited.
+- **The target branch — OPTIONAL.** Whether the commit lands on an
+  integration trunk or short-lived branch, which is what makes a changelog
+  entry due. Assume the current branch if the user does not say.
 
-This task runs non-interactively to completion. It does not block for user
-input. If in doubt about any of the requirements of this task, stop and
-print an error message.
+- **The project's changelog — OPTIONAL.** Where the project records
+  unreleased changes. Discover it rather than assuming: check this session's
+  context first, then the environment — a convention file, a changelog file
+  at the project root, a release-notes tool. Where the project keeps no
+  changelog, skip the changelog work and say so; do not create one uninvited.
 
 ## Success criteria
 
-- A commit message MUST exist in the `<type>: <description>` format, with
-  any optional flag, body, and footers — or, where messages were supplied
-  for checking, a pass/fail verdict naming the rule each failing message
-  violates.
+- The outcome MUST be either a proposed message in `<type>: <description>`
+  form with any flag, body, and footers, or a pass/fail verdict for each
+  message checked, naming the rule that each failure violates.
 
-- The subject line MUST pass the validation regex, and its type MUST fit
-  the semantics of the changeset.
+- The subject line MUST pass both deterministic checks: it matches the
+  validation regex below, and it fits within 72 characters, any flag
+  included.
 
-- The subject line MUST be within budget: 50 characters RECOMMENDED, 72
-  maximum, the optional flag included.
+- The chosen type MUST fit the semantics of the changeset, not merely be a
+  legal string. A `feature:` message on a changeset that ships nothing
+  user-facing is a failure even though it validates.
 
-- No Conventional Commits artifacts MUST appear: no scope parentheticals
-  (`feature(parser): …`), no leading `!`, no trailing `:` artifacts, and
-  nothing between the type and its colon.
-
-- Where the project keeps a changelog and the commit targets a trunk or
+- Where the project keeps a changelog and the commit lands on a trunk or
   short-lived branch, that changelog's unreleased section MUST carry a
   matching entry, unless the type is `chore`.
 
-- Nothing MUST have been staged or committed.
+- Nothing MUST have been staged, committed, amended, or pushed, and no file
+  other than the changelog MUST have been modified. The user keeps the final
+  say over what enters history.
 
 ## Instructions
 
-1.  Identify the change type and scope.
+1.  Read the change.
 
-    Read the diff or the description of the change, and determine whether the
-    change is a single logical change or must be split into multiple atomic
-    commits.
+    Read the diff, or the description of the change, and decide whether it is
+    one logical change or must be split into several atomic commits. Compose
+    a separate message for each.
 
 2.  Choose the commit type.
 
-    Map the change to the most appropriate type from the allowed vocabulary,
-    using the semantics in the Rules. If two types feel applicable, consult
-    the Subtle distinctions note.
+    Map the change to the most fitting type from the vocabulary in the rules
+    below. Where two types both seem to apply, resolve it using the edge
+    cases section.
 
 3.  Compose the subject line.
 
-    Write the subject as `<type>: <description>`, using lowercase, imperative
-    mood, with no trailing period. If the change is breaking, experimental,
-    incompatible, temporary, or work-in-progress, append the corresponding
-    flag.
+    Write `<type>: <description>` in lowercase, imperative mood, with no
+    trailing period. Append a flag where the change is breaking,
+    experimental, internally incompatible, temporary, or work-in-progress.
 
-4.  Add body and footers as needed.
+4.  Add a body and footers where they earn their place.
 
-    If the why is not obvious from the subject, add a body separated by a
-    single blank line. Wrap body lines at 72 characters. Optionally add
-    footers (eg. `Closes: #123`, `Refs: #456`) separated from the body by a
-    single blank line.
+    Where the why is not obvious from the subject, add a body after a single
+    blank line, wrapped at 72 characters. Add footers, such as `Closes: #123`
+    or `Refs: #456`, after a further blank line.
 
-5.  Update the changelog for direct commits to a trunk or short-lived
-    branch.
+5.  Update the changelog, where one is due.
 
-    Where the project keeps a changelog (see Input), add an entry for this
-    change as part of the same commit, in whatever section that changelog
-    uses for unreleased work. Use the same `type: description` format as the
-    subject line, including any flag. Do not add an entry for `chore:`
-    commits. Where the project keeps no changelog, skip this step.
+    Where the project keeps a changelog and the commit lands on a trunk or
+    short-lived branch, add an entry in whatever section that changelog uses
+    for unreleased work, in the same `type: description` form as the subject
+    line, flag included. Skip this step for `chore:` commits, and where the
+    project keeps no changelog.
 
-6.  Validate the message.
+6.  Validate before handing back.
 
-    Check that the subject line matches the validation regex and is within
-    the length budget. If validating existing messages, report a pass/fail
-    verdict for each, naming the rule each failure violates.
+    Check each subject line against the regex and the length budget. When
+    validating supplied messages, report a pass/fail verdict for each, naming
+    the rule that each failure violates.
 
 ## Rules
 
-- You MUST use this exact format:
+- Every message MUST use this exact format, in which square brackets denote
+  optional sections:
 
   ```sh
   <type>: <description>
@@ -113,168 +116,132 @@ print an error message.
   [<footers>]
   ```
 
-  Square brackets denote optional sections.
-
-  Validation regex (only the subject line is checked):
+  Only the subject line is validated, against this regex:
 
   ```sh
   ^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$
   ```
 
-  `<type>` MUST be one of these literal strings:
+- The subject line MUST NOT carry Conventional Commits artifacts.
 
-  - `chore`
-  - `feature`
-  - `fix`
-  - `maintenance`
-  - `merge`
-  - `refactor`
-  - `release`
-  - `revert`
-  - `runtime`
-  - `step`
-  - `style`
+  There is no scope parenthetical (`feature(parser): …`), no `!` breaking
+  marker, and nothing between the type and its colon. This convention looks
+  close enough to Conventional Commits that the habit slips in, so check for
+  it explicitly.
 
-    `<description>` MUST be full lowercase and use the imperative mood (eg.
-    "add", not "added" or "adds"). The description MUST NOT end with a period.
+- The `<description>` MUST be full lowercase, in the imperative mood — "add",
+  not "added" or "adds" — and MUST NOT end with a period.
 
-    An optional flag MAY be appended — `<type>: <description> - <flag>` where
-    `<flag>` is one of:
+- The subject line SHOULD NOT exceed 50 characters and MUST NOT exceed 72,
+  counting the type, description, and any flag.
 
-  - `BREAKING`
-  - `EXPERIMENT`
-  - `INCOMPAT`
-  - `TEMPORARY`
-  - `WIP`
+- The body SHOULD explain why the change was made, not what changed.
 
-    Subject line (type + description + flag) SHOULD NOT exceed 50 characters
-    and MUST NOT exceed 72 characters.
+  It is separated from the subject by a single blank line, written in
+  sentences, and wrapped at 72 characters. Markdown is allowed; plain text is
+  preferred. Footers form a contiguous block of `Key: value` lines — eg.
+  `Closes: #123`, `Reviewed-by: Name <email>` — separated from the body by a
+  single blank line. Bodies and footers are OPTIONAL and are not validated.
 
-    Bodies and footers are OPTIONAL and do not require validation.
+- Commits MUST be atomic — one logical change each, with large changes split.
 
-  - The body SHOULD explain the why of the change, not the what. It MUST be
-    separated from the subject line with a single blank line, use proper
-    English sentences, and wrap lines at 72 characters. Markdown formatting
-    is allowed, but plain text is preferred.
-
-  - The footer section is a contiguous block consisting of key-value pairs,
-    one per line, like `Closes: #123`, `Refs: #456`, `Reviewed-by: Name
-    <email>`. Separated from body by a single blank line.
-
-- Commits MUST be atomic.
-
-  One logical change per commit. Large changes MUST be split into multiple
-  commits.
-
-  A user-facing change typically arrives as a bundle of atomic commits —
-  `refactor:`, `style:`, `step:`, `chore:` — culminating in the `feature:` or
+  A user-facing change typically arrives as a bundle of atomic commits
+  (`refactor:`, `style:`, `step:`, `chore:`) culminating in the `feature:` or
   `runtime:` commit that makes the requirement verifiable through the
   system's UI.
 
-- You MUST compose and validate messages, and stop there.
+- The `<type>` MUST be one of these literal strings, chosen for the semantics
+  of the changeset:
 
-  Staging, committing, and pushing belong to a separate step, so the user
-  keeps the final say over what enters history.
-  <!-- TODO: Allow direct commits to dev? -->
+  - `chore`: small, insignificant housekeeping — typo fixes, comment tweaks,
+    non-production artifacts. Typically needs no peer review.
 
-- You MUST pick the most appropriate commit type.
+  - `feature`: user-facing operation or behavior change — new commands,
+    flags, endpoints, deprecations, removals — verifiable through the UI.
 
-  If two types feel applicable, consult the Subtle distinctions note below
-  — that is where the hard cases are resolved.
+  - `fix`: resolves a defect — bug, regression, vulnerability, or incident,
+    including silencing spurious error log entries.
 
-  Choice based on the semantics of the changeset being committed:
+  - `maintenance`: required upkeep — dependency bumps, test improvements, CI
+    reconfiguration, documentation, security patches.
 
-  - `chore`: Small, insignificant housekeeping — typo fixes, comment
-    tweaks, non-production artifacts. Typically no peer review needed.
+  - `merge`: a merge commit, where the merge was not fast-forwarded.
 
-  - `feature`: User-facing operation or behavior change (new commands,
-    flags, endpoints, features, deprecations, removals), verifiable via
-    the UI.
+  - `refactor`: improves internal structure without changing behavior or
+    degrading runtime quality — renames, helper extraction, simplifying
+    interfaces, restructuring data flows.
 
-  - `fix`: Resolves a defect — bug, regression, vulnerability, or incident
-    (including silencing spurious error log entries).
+  - `release`: version bumps and release-preparation commits.
 
-  - `maintenance`: Required upkeep — dependency bumps, test improvements,
-    CI workflow reconfig, documentation, security patches.
+  - `revert`: reverts a prior commit.
 
-  - `merge`: Merge commits (when not fast-forwarded).
+  - `runtime`: implements a dynamic quality attribute, observable and
+    measurable outside the system — latency, throughput, resource
+    utilization, availability, security, compliance. Named for the
+    externally-observable nature of these changes; it covers the quality
+    attributes as a whole, not speed alone.
 
-  - `refactor`: Improves internal structure without changing features or
-    degrading runtime quality (renames, helper extraction, simplifying
-    interfaces, restructuring data flows).
-
-  - `release`: Version bumps and release-preparation commits.
-
-  - `revert`: Reverting a prior commit.
-
-  - `runtime`: Implements a dynamic quality attribute — observable and
-    measurable outside the system (latency, throughput, resource
-    utilization, availability, security, compliance). Named for the
-    runtime, externally-observable nature of these changes; covers the
-    quality attributes as a whole, not speed alone.
-
-  - `step`: Incremental change toward a larger feature or fix that is not
+  - `step`: incremental progress toward a larger feature or fix that is not
     yet user-facing.
 
-  - `style`: Presentation-only code or content changes — whitespace,
-    indentation, line wrapping, style. Distinct from refactor.
+  - `style`: presentation-only changes to code or content — whitespace,
+    indentation, line wrapping.
 
-    Subtle distinctions:
+- A flag MAY be appended as `<type>: <description> - <flag>`, and MUST be
+  appended where one of these cases applies:
 
-  - `step` vs. `feature`/`runtime`: `step` is incomplete work toward a
-    user-facing change. `feature`/`runtime` is the commit where the change
-    becomes verifiable.
+  - `BREAKING`: breaking change to an external API. Automated tools MAY bump
+    the next release's major version in response.
 
-  - refactor vs. `style`: refactor improves internal structure; `style`
-    improves code presentation only.
-
-  - `maintenance` vs. `chore`: `maintenance` is upkeep that belongs in the
-    changelog (deps, infra, CI). `chore` is repository housekeeping that
-    doesn't (README tweaks, typos) — noise that can be omitted from the
-    changelog.
-
-- You MUST add a flag to the subject line in the following special cases:
-
-  - `BREAKING`: Breaking change to external API. Automated tools MAY bump
-    major version of next release in response.
-
-  - `EXPERIMENT`: Experimental change expected to be reverted. MAY include
+  - `EXPERIMENT`: experimental change expected to be reverted. It MAY include
     experimental user-facing features.
 
-  - `INCOMPAT`: Internal breaking change (function signature, schema, data
-    structure). May break other changes being introduced in parallel
-    branches, but no impact on users.
+  - `INCOMPAT`: internal breaking change — function signature, schema, data
+    structure. It may break parallel branches, but has no user impact.
 
-  - `TEMPORARY`: Temporary commit that will be reverted (eg. debug
-    logging). SHOULD NOT be pushed to `origin/dev` or other trunks in
-    multi-contributor repositories.
+  - `TEMPORARY`: a commit that will be reverted, eg. debug logging.
 
-  - `WIP`: Work-in-progress that breaks the build. SHOULD NOT be pushed
-    to `origin/dev` or other trunks in multi-contributor repositories.
+  - `WIP`: work-in-progress that breaks the build.
 
-- You MUST update the changelog for commits to a trunk or short-lived
-  branch, where the project keeps one.
+  `TEMPORARY` and `WIP` commits SHOULD NOT be pushed to an integration trunk
+  in a multi-contributor repository, because they break the trunk for
+  everyone else.
 
-  Update it as part of the same commit, recording the change in whatever
-  section that changelog uses for unreleased work. Discover the changelog's
-  location and format rather than assuming `CHANGELOG.md` — and where the
-  project keeps none, say so rather than creating one uninvited.
+- All commit types SHOULD be recorded in the changelog, `style:` and
+  `refactor:` included. The sole exception is `chore:`, too minor to warrant
+  an entry.
 
-  All commit types SHOULD be recorded — including `style:` and `refactor:`.
-  The only exception is `chore:`, which is housekeeping too minor to warrant
-  a changelog entry.
+  A changelog serves contributors and developers, whereas release notes — a
+  separate artifact — serve end users. Internal changes such as refactorings
+  and reformattings therefore belong in the changelog.
 
-  Each entry is a bullet point using the same `type: description` format as
-  the commit subject line, including any flag. Newest entries are at the
-  top.
+- Changelog entries are bullet points in the same `type: description` form as
+  the subject line, flag included, and newest entries SHOULD go at the top.
 
-  A changelog is for contributors and developers. Release notes — a
-  separate artifact — is for end users. So we are interested in recording
-  in the changelog internal changes like refactorings and reformattings.
+## Edge cases
+
+- Two commit types both seem to apply.
+
+  `step` versus `feature` or `runtime`: `step` is incomplete work toward a
+  user-facing change; `feature` and `runtime` mark the commit at which the
+  change becomes verifiable.
+
+  `refactor` versus `style`: `refactor` improves internal structure; `style`
+  changes presentation only.
+
+  `maintenance` versus `chore`: `maintenance` is upkeep that belongs in the
+  changelog — dependencies, infrastructure, CI. `chore` is repository
+  housekeeping that does not — readme tweaks, typos.
+
+- A single changeset spans several logical changes.
+
+  Do not stretch one message to cover it. Propose a sequence of atomic
+  messages, and state which files or hunks belong to each, so the user can
+  stage them separately.
 
 ## Examples
 
-- Minimal (subject line only):
+- Subject line only:
 
   ```sh
   feature: add git uncommit
@@ -286,7 +253,7 @@ print an error message.
   chore: fix typo in readme
   ```
 
-- With optional flag:
+- With an optional flag:
 
   ```sh
   feature: remove legacy auth endpoint - BREAKING
@@ -295,7 +262,7 @@ print an error message.
   maintenance: test new build tool version - EXPERIMENT
   ```
 
-- With body and footer:
+- With a body and a footer:
 
   ```sh
   fix: prevent racing of requests
