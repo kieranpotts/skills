@@ -224,9 +224,9 @@ run_repo_checks() {
   # so a keyword anywhere in the item counts.
   local no_keyword
   no_keyword="$(strip_fences "${skill_md}" | awk '
-      /^## +(Rules|Success criteria)[[:space:]]*$/ { insec = 1; item = ""; next }
-      /^## +/ { if (item != "") print item; item = ""; insec = 0; next }
-      !insec { next }
+      /^## +(Rules|Success criteria)[[:space:]]*$/ { in_section = 1; item = ""; next }
+      /^## +/ { if (item != "") print item; item = ""; in_section = 0; next }
+      !in_section { next }
       /^- / { if (item != "") print item; item = $0; next }
       item != "" { item = item " " $0 }
       END { if (item != "") print item }
@@ -243,9 +243,11 @@ run_repo_checks() {
 
 #
 # The human-facing README.md carries a fixed set of sections, in a fixed
-# order. 'Interactivity', 'How to invoke', 'Recommended models', and 'Related
-# skills' are required; 'Examples', 'Suggested workflows', and 'References'
-# are optional, but must sit in their canonical positions when present.
+# order. 'Interactivity', 'How to invoke', and 'Recommended models' are
+# required — every skill has an interactivity mode, an invocation, and a
+# model class. 'Examples', 'Suggested workflows', 'Related skills', and
+# 'References' are contingent on the skill, so they are optional, but must
+# sit in their canonical positions when present.
 #
 check_readme_sections() {
   local readme="$1"
@@ -264,7 +266,7 @@ check_readme_sections() {
   # Tolerate extra spaces after the '##' marker, as elsewhere in this script.
   found="$(strip_fences "${readme}" | grep -E '^## +' | sed -E 's/^## +//; s/[[:space:]]+$//')"
 
-  for section in 'Interactivity' 'How to invoke' 'Recommended models' 'Related skills'; do
+  for section in 'Interactivity' 'How to invoke' 'Recommended models'; do
     if grep -qxF "${section}" <<<"${found}"; then
       printf "  [PASS] README.md has '## %s'\n" "${section}" >&2
     else
