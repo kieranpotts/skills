@@ -6,15 +6,16 @@ project.
 
 It produces a complete skill directory, including:
 
-- A `SKILL.md` written from the bundled template.
+- A `SKILL.md` based on the bundled template.
 - A human-facing `README.md` with skill invocation instructions.
-- Any bundled scripts, references, and assets.
+- Bundled scripts, references, and assets as required by the skill.
 
-The agent is instructed to ensure all artifacts pass the validator.
+The agent is instructed to ensure all artifacts pass a deterministic validator.
 
 ## Interactivity
 
-The agent is instructed to prompt the user to help it form the skill.
+This skill instructs the agent to prompt the user if it needs help forming the
+skill.
 
 ## How to invoke
 
@@ -31,6 +32,7 @@ reasoning model when drafting a genuinely new skill from scratch.
 
 ## Related skills
 
-- **[reflect](../reflect/).** Draws lessons from an AI session, which can then
-  be used as the basis for new skills, so persisting those learnings to disk
-  rather than relying on memory.
+- [**reflect**](../reflect/) \
+  Draws lessons from an AI session, which can the be used as the basis for
+  new skills, so persisting those learnings to disk rather than relying on
+  memory.

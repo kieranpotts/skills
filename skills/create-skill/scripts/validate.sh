@@ -161,8 +161,6 @@ run_repo_checks() {
     printf "         Rules, criteria, and examples should be plain prose\n" >&2
   fi
 
-  check_preferred_model "${skill_md}" || failed=1
-
   return "${failed}"
 }
 
@@ -216,73 +214,6 @@ check_readme_sections() {
   fi
 
   return "${failed}"
-}
-
-#
-# 'metadata.preferred_model' names a model that must actually exist. The
-# vocabulary is not hard-coded: it is read from `ollama list` where Ollama is
-# installed, else from the modelfiles repo. Where neither is available the
-# check is skipped rather than guessed at.
-#
-model_vocabulary() {
-  if command -v ollama >/dev/null 2>&1; then
-    # Strip the ':tag' suffix; 'PROSE_DEEP:latest' is 'PROSE_DEEP'.
-    if ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }' | grep -q .; then
-      ollama list 2>/dev/null | awk 'NR > 1 && NF { sub(/:.*/, "", $1); print $1 }'
-      return 0
-    fi
-  fi
-
-  # Fall back to the modelfiles repo, checked at its conventional siblings of
-  # this collection. Each subdirectory of a dist tree is one model.
-  local here candidate
-  here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-  for candidate in \
-    "${MODELFILES_DIR:-}" \
-    "${here}/../../../../../modelfiles/default" \
-    "${here}/../../../../modelfiles" \
-    "${HOME}/dev/personal/kieranpotts/modelfiles/default"; do
-    [[ -n "${candidate}" && -d "${candidate}/dist/default" ]] || continue
-    find "${candidate}/dist/default" -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
-    return 0
-  done
-
-  return 1
-}
-
-check_preferred_model() {
-  local skill_md="$1"
-  local declared vocabulary
-
-  # Read only the front matter, so prose mentioning the field is not matched.
-  declared="$(awk '
-    NR == 1 && $0 == "---" { infm = 1; next }
-    infm && $0 == "---" { exit }
-    infm && /^[[:space:]]+preferred_model:[[:space:]]*/ {
-      sub(/^[[:space:]]*preferred_model:[[:space:]]*/, ""); print; exit
-    }' "${skill_md}")"
-
-  if [[ -z "${declared}" ]]; then
-    printf "  [PASS] No 'preferred_model' declared (optional)\n" >&2
-    return 0
-  fi
-
-  if ! vocabulary="$(model_vocabulary)"; then
-    printf "  [SKIP] Cannot check 'preferred_model' — no 'ollama' and no modelfiles repo\n" >&2
-    return 0
-  fi
-
-  # 'ollama/PROSE_DEEP' names the 'PROSE_DEEP' model on the ollama
-  # provider. Compare on the model name alone.
-  local model="${declared##*/}"
-  if grep -qxF "${model}" <<<"${vocabulary}"; then
-    printf "  [PASS] preferred_model '%s' exists\n" "${declared}" >&2
-    return 0
-  fi
-
-  printf "  [FAIL] preferred_model '%s' is not an available model\n" "${declared}" >&2
-  printf "         Available: %s\n" "$(tr '\n' ' ' <<<"${vocabulary}")" >&2
-  return 1
 }
 
 main "$@"

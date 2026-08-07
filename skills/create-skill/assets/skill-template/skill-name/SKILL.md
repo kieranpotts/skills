@@ -6,18 +6,12 @@ description: >-
   file types, contexts>.
 compatibility: requires <tool> or <tool>, and <tool>
 license: <license>
-metadata:
-  interactive: no
-  preferred_model: <model-id>
 ---
 
 # [Skill name]
 
 One or two sentences, adapted from the description, saying what the skill
 does.
-
-Set the boundaries. What is out-of-scope? What should the agent explicitly
-not do?
 
 ## Parameters
 
@@ -33,17 +27,20 @@ requirements. If you cannot determine the requirements, stop and alert the user
 with an error message. -->
 
 - **The first parameter — REQUIRED.** Describe it, and how to discover it
-  from the surrounding context when the user does not supply it explicitly.
+  from the surrounding context and environment if the user does not supply it
+  explicitly.
 
 - **The second parameter — OPTIONAL.** Describe it, and its default when
   absent.
 
-- **Where the [artifact] lives, and how to write to it — REQUIRED.**
-  Discover this rather than assuming it: check this session's context first,
-  then the environment (a convention file, a workspace manifest, a configured
-  connector). If neither settles it, ask the user. The store MAY be a
-  directory in this repository, a separate repository, or an external service
-  — do not assume a filesystem path, a file name, or a document structure.
+- **Output — REQUIRED for non-interactive skills.**
+  If an agent is expected to run non-interactively, it MUST be given clear
+  guidelines on where and how it will persist its outputs. The agent should
+  be instructed to discover this, first from the last prompt, then from more
+  recent context, and finally from the environment — eg. a convention file, a
+  workspace manifest, etc. The store MAY be a directory in the same repository,
+  a separate repository, or an external service — the agent MUST NOT be left
+  making assumptions about which one it is.
 
 ## Success criteria
 
@@ -59,9 +56,9 @@ with an error message. -->
 
 ## Instructions
 
-1.  First step, in the imperative.
+1.  First step. Write plain prose in the imperative.
 
-    Any detail the step needs, in plain prose.
+    Add extra paragraphs to cover any detail the agent may need.
 
 2.  Second step.
 
@@ -73,13 +70,11 @@ with an error message. -->
 
 - You MUST state each rule as a full sentence.
 
-  Follow it with an indented paragraph giving the reason, where the reason
-  is not obvious. Explaining why lets the agent apply judgment at the edges.
+  Follow it with an indented paragraph giving the rationale for the rule,
+  if not obvious. Explaining _why_ lets an agent apply judgment at the edges.
 
-- You SHOULD keep rules non-sequential.
-
-  Anything with an order belongs in Instructions. Anything that holds
-  throughout belongs here.
+- You SHOULD keep rules non-sequential. Anything with an order belongs in
+  the instructions sections. Anything that holds throughout belongs here.
 
 - Every rule MUST have an RFC 2119 keyword.
 
@@ -87,25 +82,27 @@ with an error message. -->
 
 ## Edge cases
 
-- Some edge case.
+- **Some edge case.** Describe the edge case and how the agent should handle it.
 
-  Describe the edge case and how the agent should handle it.
+  Add further paragraphs to the list item if detailed guidance may be required.
+
+- **Next edge case.** Describe it. Instruct the agent how to handle it.
 
 ## Examples
 
-- Some example scenario.
+- Describe a representative input and the expected output or behavior.
 
-  Describe a representative input and the expected output or behavior.
+- Another example.
 
 ## Assets
 
-- [Some template](./assets/template.md):
+- [Some template](./assets/template.md) \
   The bundled template to fill out in step N.
 
 ## References
 
-- [API errors](./references/api-errors.md):
+- [API errors](./references/api-errors.md) \
   Read if the API returns a non-200 status code.
 
-- [External reference](https://raw.githubusercontent.com/.../AGENTS.md):
+- [External reference](https://raw.githubusercontent.com/.../AGENTS.md) \
   Read for [purpose].

@@ -7,7 +7,9 @@ Explain, for humans, what instructions are given to agents by this skill.
 ## Interactivity
 
 State whether the skill instructs the agent to run interactively or
-non-interactively, and — if interactive — what the agent will prompt for.
+non-interactively. If interactive, state what information the agent may
+prompt for. If non-interactive, be explicit that the skill can be used in
+away-from-keyboard workflows.
 
 ## How to invoke
 
@@ -26,8 +28,8 @@ Provide examples of input and typical output. OPTIONAL.
 
 ## Recommended models
 
-State the class of model the task warrants, and why — eg. a premium frontier
-reasoning model for open-ended analysis, or a small, fast model for a
+State the class of model the task warrants, and why. For example, a premium
+frontier reasoning model for open-ended analysis, or a small, fast model for a
 mechanical transformation.
 
 ## Suggested workflows
@@ -35,10 +37,11 @@ mechanical transformation.
 Describe when the skill is best run, and what it typically runs before or
 after. Note any anti-patterns, such as running it on every commit. OPTIONAL.
 
-Include a Mermaid diagram of the surrounding sequence, using the shared node
-classes. Scripted steps are ⚙️ `scripted`, steps the agent runs on its own are
-🤖 `agentic`, and steps where the agent works with a human are 🤖🧑
-`anthropic`:
+Optionally, include a Mermaid diagram of the surrounding sequence, using the
+shared node classes. Scripted steps use the `scripted` class and the ⚙️ emoji.
+Steps an agent can run on its own (non-interactively) are `agentic` with 🤖.
+And steps where the agent interacts with a human (🤖🧑) or a human works alone
+(🧑) are `anthropic`:
 
 ```mermaid
 flowchart LR
@@ -59,17 +62,13 @@ flowchart LR
 
 ## Related skills
 
-List sibling skills this one naturally pairs with, and why — eg. what feeds
-this skill, what it hands off to, or what it's a companion or alternative to.
+List sibling skills that this skill naturally pairs with, or hands-off to.
 OPTIONAL.
 
-Format each entry as a bullet, with a blank line between entries. Bold the
-skill link and put the trailing period inside the bold:
-
-- **[skill-name](../skill-name/).** One or two sentences explaining how the
-  two skills relate.
+- [**skill-name**](../skill-name/) \
+  One or two sentences explaining how the two skills relate.
 
 ## References
 
-Link to external material the skill encodes or depends on — standards, GitHub
+Link to external material the skill encodes or depends on, eg. standards, GitHub
 actions, pre-commit hooks, upstream documentation. OPTIONAL.
