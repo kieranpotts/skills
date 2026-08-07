@@ -67,7 +67,7 @@ run_skills_ref() {
 
   if ! command -v skills-ref >/dev/null 2>&1; then
     printf "  skills-ref not installed — skipping canonical checks.\n" >&2
-    printf "  Install with: pip install skills-ref\n" >&2
+    printf "  Install with: pipx install skills-ref\n" >&2
     return 0
   fi
 
