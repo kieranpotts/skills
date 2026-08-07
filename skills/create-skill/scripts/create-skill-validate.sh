@@ -241,9 +241,90 @@ run_repo_checks() {
     printf "         A step with no requirement level is ambiguous\n" >&2
   fi
 
+  check_compatibility_tools "${skill_md}"
+  check_line_length "${skill_md}" || failed=1
   check_bundled_resources "${skill_dir}" "${skill_md}" || failed=1
 
   return "${failed}"
+}
+
+#
+# 'compatibility' names the agent tools a skill needs. External commands are
+# not agent tools: they belong in a parenthetical after Bash, eg.
+# 'Bash (git diff)'. Advisory for now — some skills still name a bare command.
+#
+check_compatibility_tools() {
+  local skill_md="$1"
+  local allowed=" Bash Edit Glob Grep Read WebFetch WebSearch Write "
+  local compat tool unknown=""
+
+  # Capture the value, following YAML folded-scalar continuation lines.
+  compat="$(front_matter "${skill_md}" | awk '
+      /^compatibility:/ {
+        v = $0
+        sub(/^compatibility:[[:space:]]*/, "", v)
+        if (v == ">-" || v == ">" || v == "|" || v == "|-") v = ""
+        grab = 1
+        next
+      }
+      grab && /^[[:space:]]+[^[:space:]]/ {
+        line = $0
+        sub(/^[[:space:]]+/, "", line)
+        v = (v == "" ? line : v " " line)
+        next
+      }
+      grab { grab = 0 }
+      END { print v }
+    ')"
+
+  # Drop the 'requires' lead and any parenthetical qualifiers, then split.
+  compat="${compat/#requires/}"
+  compat="$(sed -E 's/\([^)]*\)//g; s/ (or|and) /, /g' <<<"${compat}")"
+
+  while IFS= read -r tool; do
+    [[ -z "${tool}" ]] && continue
+    [[ "${allowed}" == *" ${tool} "* ]] || unknown+=" ${tool}"
+  done < <(tr ',' '\n' <<<"${compat}" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')
+
+  if [[ -z "${unknown}" ]]; then
+    printf "  [PASS] 'compatibility' names known agent tools\n" >&2
+  else
+    printf "  [WARN] 'compatibility' names non-tool value(s):%s\n" "${unknown}" >&2
+    printf "         Put external commands in a parenthetical, eg. 'Bash (git diff)'\n" >&2
+  fi
+}
+
+#
+# TS-27 puts lines at 80 characters SHOULD, 160 MUST. Tables, fenced code, and
+# unbreakable links are exempt. The budget covers the front-matter too, so no
+# line is skipped on account of being metadata.
+#
+check_line_length() {
+  local skill_md="$1"
+  local over_80 over_160
+
+  over_80="$(awk '
+      /^[[:space:]]*```/ { fence = !fence; next }
+      fence { next }
+      /^[[:space:]]*\|/ { next }
+      /\]\(/ || /http/ { next }
+      length($0) > 80 { c++ }
+      END { print c+0 }
+    ' "${skill_md}")"
+
+  over_160="$(awk '/^[[:space:]]*\|/ { next } /http/ { next } length($0) > 160 { c++ } END { print c+0 }' "${skill_md}")"
+
+  if (( over_160 > 0 )); then
+    printf "  [FAIL] %d line(s) exceed the 160-character hard limit\n" "${over_160}" >&2
+    return 1
+  fi
+
+  if (( over_80 == 0 )); then
+    printf "  [PASS] Lines are within the 80-character budget\n" >&2
+  else
+    printf "  [WARN] %d line(s) exceed 80 characters\n" "${over_80}" >&2
+  fi
+  return 0
 }
 
 #

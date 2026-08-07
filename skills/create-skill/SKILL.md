@@ -121,9 +121,7 @@ prompt the user for clarification.
   It never requires touching the software the skill will be used on.
 
 - The front-matter fields `name`, `description`, `license`, and
-  `compatibility` are REQUIRED. The Agent Skills standard treats `license`
-  and `compatibility` as optional; this collection requires them, so that
-  every skill declares its terms of use and what it needs in order to run.
+  `compatibility` are REQUIRED.
 
 - The `description` field is the primary trigger mechanism. It determines
   the scenarios in which an agent should ingest the skill. You SHOULD err toward
@@ -153,9 +151,13 @@ prompt the user for clarification.
 
 - The `compatibility` field MUST name every tool the instructions actually
   call for, in the form `requires <tool>, <tool>`. A skill that searches the
-  workspace needs Glob and Grep; one that reads a reference over the network
-  needs WebFetch. Understating it leaves an agent to discover the shortfall
-  mid-task, with the work already half done.
+  workspace needs `Glob` and `Grep`. One that reads a reference over the network
+  needs `WebFetch`.
+
+- Tool names in `compatibility` MUST be drawn from this set: `Bash`, `Edit`,
+  `Glob`, `Grep`, `Read`, `WebFetch`, `WebSearch`, `Write`. Where a skill shells
+  out, name the tool as `Bash` and quality the shell command in parentheses,
+  eg. `Bash (git diff)`.
 
 - You MUST open the body of the skill file with a level 1 Markdown heading.
   This MUST match the skill name. For example, for a skill named `create-skill`,
@@ -234,6 +236,11 @@ prompt the user for clarification.
 - You SHOULD use inline bold sparingly. Reserve it for the lead of each
   `## Parameters` bullet. Rules, success criteria, instructions, edge cases,
   and examples are plain prose. Bold carries meaning only while it is rare.
+
+- Lines SHOULD NOT exceed 80 characters, and MUST NOT exceed 160. This budget
+  covers both the front-matter and the body. Fold a long `description` or
+  `compatibility` value with YAML's `>-`, rather than letting the line run on.
+  Tables, fenced code, and links that cannot be broken are the exceptions.
 
 - Use RFC 2119 keywords consistently.
 
