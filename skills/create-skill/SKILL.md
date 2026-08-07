@@ -27,11 +27,10 @@ prompt the user for clarification.
 - **Trigger conditions — REQUIRED.** The situations and user phrasings that
   should invoke it.
 
-- **Target project — OPTIONAL.** Where to install the skill. If not
-  explicitly specified by the user, if the current working directory (cwd) is
-  inside a Git repository, then you can assume that repository is the target
-  repository for installation of the new skill. Otherwise install the skill
-  in the user's home directory at `$HOME/.agents/skills/<skill-name>/`.
+- **Target project — OPTIONAL.** Where to install the skill. If the user does
+  not say, and the current working directory sits inside a Git repository,
+  treat that repository as the target. Otherwise install into the user's home
+  directory, at `$HOME/.agents/skills/<skill-name>/`.
 
 ## Success criteria
 
@@ -48,8 +47,9 @@ prompt the user for clarification.
 
 - The validator MUST report no failures against the skill directory.
 
-- The target project's own code and configuration MUST be unchanged. This
-  skill writes a skill directory, and nothing else.
+- The target project's application code, build configuration, and dependencies
+  MUST be unchanged. The only writes MUST be the skill directory itself and,
+  where the collection keeps one, its index of skills.
 
 ## Instructions
 
@@ -58,8 +58,11 @@ prompt the user for clarification.
     or reference files that ought to be bundled. Come prepared so you can
     minimize questions to the user.
 
-2.  Under the target project, install the skill file at
-    `.agents/skills/<skill-name>/SKILL.md` (relative to the project root).
+2.  You MUST resolve where the target project already keeps its skills, rather
+    than assuming a path. Look for a directory that holds `SKILL.md` files, or
+    a convention file that names one. Only where the project has no existing
+    convention, default to `.agents/skills/`, relative to the project root.
+    Install the new skill at `<skills-dir>/<skill-name>/SKILL.md`.
 
     Use kebab-case for skill names, and favor meaningful actions or verbs,
     eg. "deploy", "migrate", "publish", "benchmark". Prefer single verbs, but
@@ -87,14 +90,21 @@ prompt the user for clarification.
     Keep the readme template's section order. Drop the sections marked OPTIONAL
     where they are not relevant to the skill.
 
-6.  Re-read the completed `SKILL.md` with fresh eyes. Check for unnecessary
-    verbosity, redundant rules, or instructions that assume too much. Trim
-    anything that isn't pulling its weight.
+6.  Where the collection keeps an index of its skills — a manifest, a table in
+    a readme, a navigation file — you MUST register the new skill there too.
+    Discover whether such an index exists rather than assuming a filename. A
+    collection may keep one, several, or none.
 
-7.  Run the bundled validator against the new skill directory.
+7.  Re-read the completed `SKILL.md` and `README.md` with fresh eyes. Check for
+    unnecessary verbosity, redundant rules, or instructions that assume too
+    much. Trim anything that isn't pulling its weight.
+
+8.  You MUST run the bundled validator against the new skill directory. The
+    script ships beside this file, so resolve its path from this skill's own
+    directory — not from your working directory, which is the target project.
 
     ```sh
-    scripts/create-skill-validate.sh <path/to/new-skill-dir>
+    <this-skill-dir>/scripts/create-skill-validate.sh <path/to/new-skill-dir>
     ```
 
     The script wraps `skills-ref validate` (if installed) for canonical
@@ -105,7 +115,9 @@ prompt the user for clarification.
 
 ## Rules
 
-- You MUST NOT make any code or configuration changes to any software.
+- You MUST NOT change the target project's application code, build
+  configuration, or dependencies. Authoring a skill is a documentation task.
+  It never requires touching the software the skill will be used on.
 
 - The front-matter fields `name`, `description`, and `license` are
   REQUIRED.
