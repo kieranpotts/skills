@@ -146,14 +146,17 @@ run_repo_checks() {
     failed=1
   fi
 
-  # Front-matter must declare a license. skills-ref checks 'name' and
-  # 'description', but not this one.
-  if front_matter "${skill_md}" | grep -qE '^license:[[:space:]]*[^[:space:]]'; then
-    printf "  [PASS] Front-matter declares a license\n" >&2
-  else
-    printf "  [FAIL] Front-matter is missing 'license'\n" >&2
-    failed=1
-  fi
+  # The Agent Skills standard treats 'license' and 'compatibility' as
+  # optional, so skills-ref checks neither. This collection requires both.
+  local fm_field
+  for fm_field in license compatibility; do
+    if front_matter "${skill_md}" | grep -qE "^${fm_field}:[[:space:]]*[^[:space:]]"; then
+      printf "  [PASS] Front-matter declares '%s'\n" "${fm_field}" >&2
+    else
+      printf "  [FAIL] Front-matter is missing '%s'\n" "${fm_field}" >&2
+      failed=1
+    fi
+  done
 
   # The body must open with a level 1 heading matching the skill name in
   # sentence case, hyphens replaced by spaces — 'create-skill' -> 'Create skill'.
