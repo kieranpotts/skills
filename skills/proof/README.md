@@ -45,5 +45,4 @@ warrant a frontier reasoning model.
 
 - [**style**](../style/) \
   Normalizes the presentation of a document, while this skill corrects its
-  language. Run them in either order, but expect fewer conflicts running
-  style first.
+  language. Run both on documentation, in either order, as separate changes.

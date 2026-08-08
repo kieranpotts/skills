@@ -51,3 +51,7 @@ rather than established.
 - [**design**](../design/) \
   Supplies architectural trade-off analysis, whose conclusions this skill
   carries into the alternatives section.
+
+- [**elaborate**](../elaborate/) \
+  Interrogates a proposed design and surfaces the decisions embedded in it.
+  Where one is too large to settle in that interview, it lands here.

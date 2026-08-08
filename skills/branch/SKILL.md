@@ -83,6 +83,11 @@ input.
     issue or tracking identifier, then append a lowercase, hyphen-delimited
     description of the work, keeping the whole name within budget.
 
+    Lowercase the identifier too, even where the tracker displays it
+    uppercase (`TS-504` becomes `ts-504`). The regex admits no exception for
+    it, and Git branch names carry the same case-sensitivity hazards as any
+    other path component.
+
 3.  Validate the name against the regex.
 
     If it fails, rewrite and re-test until it passes. When the task was to

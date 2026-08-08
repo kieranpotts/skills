@@ -86,24 +86,37 @@ skill named `gh` anywhere outside the front matter, so this was a clean
 one-line change in each. Verified both skills, and the full collection,
 still validate PASSED.
 
-## Minor, unrelated to the above
+## Minor, unrelated to the above — RESOLVED
 
-- Three READMEs gained a `decide` entry under `## Related skills` on the
-  authoring agents' own initiative: `elaborate`, `research`, `spike`. Each is
-  defensible individually; nobody decided it centrally.
+- The `decide` entries in `elaborate`, `research`, and `spike` are kept —
+  each names a real, specific relationship, not a generic "see also".
+  `research` and `spike` already linked back reciprocally from `decide`'s
+  own README; `elaborate` didn't, which was the actual gap. Added the
+  missing reciprocal entry to `decide/README.md`.
 
-- `proof`'s README asserts that running `style` first yields fewer conflicts.
-  Neither skill documents that ordering.
+- `proof`'s README claimed running `style` first yields fewer conflicts,
+  which `style`'s own README contradicted ("run them... in either order").
+  Reworded `proof`'s entry to match `style`'s existing "either order, as
+  separate changes" phrasing, since neither skill ever substantiated the
+  ordering claim and the two skills touch disjoint aspects of a file
+  (words vs. presentation) with no real interaction between them.
 
 - `specify`'s `## Examples` section was deleted rather than repaired. It had a
   malformed code fence and illustrated store discovery rather than any output
-  the skill produces. It is the only section removed outright during the pass.
+  the skill produces. It is the only section removed outright during the
+  pass, and it's a closed record now — nothing further to do.
 
-- `branch`'s examples previously used uppercase tracking IDs
-  (`TS-504`, `PRODUCT-187`) that failed the skill's own lowercase-only
-  validation regex. The examples were lowercased. If uppercase IDs are meant
-  to be legal, the regex needs changing instead — and that likely affects
-  `commit` too.
+- `branch`'s lowercase-only regex is correct as-is; uppercase tracking IDs
+  are not meant to be legal in a branch name. Made this explicit rather than
+  implicit: instruction 2 now says outright to lowercase the identifier too
+  (`TS-504` becomes `ts-504`), even where the tracker displays it uppercase,
+  since Git branch names carry the same case-sensitivity hazards as any
+  other path component. Checked `commit` for the same concern: it never
+  embeds a free-text tracking ID, only numeric `#123` references in
+  footers, so it was never actually affected.
+
+Verified: all edited skills, and the full 29-skill collection, still
+validate PASSED.
 
 ## Part two — `create-skill` itself
 
