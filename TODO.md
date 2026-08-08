@@ -121,28 +121,19 @@ out, so installers see the cost up front. `gap-analysis` (in the `standards`
 repository) can now re-declare `Agent` truthfully; that repository's own
 skill still needs updating to pick this up.
 
-## 6. The validator's H1 check has three false-positive classes
+## 6. The validator's H1 check has three false-positive classes — RESOLVED
 
-`create-skill-validate.sh` derives the expected H1 from the `name` field by
-replacing hyphens with spaces and sentence-casing. That is wrong for:
+Decision: downgraded the check from FAIL to WARN in `create-skill-validate.sh`.
+The derivation (`name` field, hyphens→spaces, sentence-case) still runs and
+still flags acronyms (`APT`), all-caps headings (`RFC`), and correctly
+hyphenated compounds (`cross-references`) — but a mismatch no longer blocks
+a clean run. A comment above the check now says explicitly that a WARN here
+is not necessarily a defect. Verified: `create-skill` and all 29 skills in
+this collection still validate PASSED.
 
-- Acronyms. `# APT` (bootstrap) and all six `# ... RFC` headings (rfc) are
-  flagged; the validator wants `Apt` and `Draft rfc`.
-
-- Hyphenated compounds. `fix-cross-references` is flagged; the validator
-  wants `# Fix cross references`, but "cross-references" is a correctly
-  hyphenated English compound that the skill's own prose uses throughout.
-
-- Proper nouns, by the same logic, though no current skill trips this.
-
-Eight of the 47 downstream skills carry a residual FAIL for this reason
-alone, and every one of them is correct as written. This is the only check
-in the validator that a conforming skill cannot satisfy.
-
-Until it is fixed, a clean run is not achievable across the collection, which
-erodes the validator's value as a gate. Options: relax the check to a WARN,
-compare case-insensitively, or let the front matter carry an explicit
-`title` that the check honors when present.
+The eight downstream skills carrying a residual FAIL will clear to WARN the
+next time their repository reruns the validator; no edit is needed in those
+repositories for this alone.
 
 ## 7. Project-level skills need a carve-out from "discover, don't assume" — RESOLVED
 

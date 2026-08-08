@@ -159,8 +159,12 @@ run_repo_checks() {
     fi
   done
 
-  # The body must open with a level 1 heading matching the skill name in
+  # The body should open with a level 1 heading matching the skill name in
   # sentence case, hyphens replaced by spaces — 'create-skill' -> 'Create skill'.
+  # Advisory only: this derivation is wrong for acronyms ('APT'), all-caps
+  # headings ('RFC'), and correctly-hyphenated compounds ('cross-references'),
+  # so a mismatch here is not necessarily a defect — read the actual heading
+  # before assuming it needs changing.
   local name expected_h1 actual_h1
   name="$(front_matter "${skill_md}" | sed -nE 's/^name:[[:space:]]*//p' | head -1)"
   expected_h1="$(tr '-' ' ' <<<"${name}")"
@@ -169,8 +173,7 @@ run_repo_checks() {
   if [[ "${actual_h1}" == "${expected_h1}" ]]; then
     printf "  [PASS] H1 matches the skill name ('%s')\n" "${expected_h1}" >&2
   else
-    printf "  [FAIL] H1 is '%s'; expected '%s'\n" "${actual_h1}" "${expected_h1}" >&2
-    failed=1
+    printf "  [WARN] H1 is '%s'; expected '%s'\n" "${actual_h1}" "${expected_h1}" >&2
   fi
 
   # Sections must appear in the canonical template order, with no headings
