@@ -62,7 +62,7 @@ user with an error message.
 - Generated, transpiled, and vendored files MUST be absent from the diff.
 
 - The result MUST be filable as a single style-typed commit per scope, with no
-  feature, fix, refactor, or configuration change bundled in.
+  behavior, fix, refactor, or configuration change bundled in.
 
 - Where any file had to be hand-formatted, a follow-up maintenance task MUST
   have been recorded in whatever issue store the project uses.
@@ -125,7 +125,7 @@ user with an error message.
   terminology. Line wrapping and whitespace in a prose file are in scope; the
   words are not.
 
-- You MUST NOT bundle formatting with feature, fix, or refactor work.
+- You MUST NOT bundle formatting with behavior, fix, or refactor work.
 
   Mixed commits hide the substantive change inside formatting noise and make
   history hard to read.
@@ -189,11 +189,11 @@ user with an error message.
 
 ## Examples
 
-- A clean formatting change following a feature:
+- A clean formatting change following a behavior change:
 
   ```text
-  feature: add bulk export endpoint     # the behavior change
-  style:   apply the formatter to the handlers directory
+  behavior: add bulk export endpoint     # the behavior change
+  style:    apply the formatter to the handlers directory
   ```
 
   The first shows the logic. The second is reviewable in seconds.

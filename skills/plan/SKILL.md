@@ -242,7 +242,7 @@ access it, when context and environment do not settle that.
      Pass: integration test posts the same order twice with the same
      key, sees one row.
 
-  5. feature: enable POST /orders behind ORDERS_API_V2 flag          [HITL]
+  5. behavior: enable POST /orders behind ORDERS_API_V2 flag         [HITL]
      Pass: flag on -> endpoint live; flag off -> 404.
      HITL because: requires SRE sign-off on the rollout plan.
 

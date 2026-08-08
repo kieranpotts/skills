@@ -33,7 +33,7 @@ history.
     - fix: fix a bug - INCOMPAT
     - chore: update README
     - refactor: refactor code
-    - runtime: cut p95 latency on the search endpoint
+    - quality: cut p95 latency on the search endpoint
     ```
 
     Commit the changelog update:
@@ -59,7 +59,7 @@ history.
     - fix: fix a bug - INCOMPAT
     - chore: update README
     - refactor: refactor code
-    - runtime: cut p95 latency on the search endpoint
+    - quality: cut p95 latency on the search endpoint
     ```
 
 5.  **Push the commit and its tag to the remote.**

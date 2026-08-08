@@ -52,7 +52,7 @@ error message.
   included.
 
 - The chosen type MUST fit the semantics of the changeset, not merely be a
-  legal string. A `feature:` message on a changeset that ships nothing
+  legal string. A `behavior:` message on a changeset that ships nothing
   user-facing is a failure even though it validates.
 
 - Where the project keeps a changelog and the commit lands on a trunk or
@@ -119,12 +119,12 @@ error message.
   Only the subject line is validated, against this regex:
 
   ```sh
-  ^((chore|feature|fix|maintenance|merge|refactor|release|revert|runtime|step|style): [a-z].*)$
+  ^((behavior|chore|fix|maintenance|merge|quality|refactor|release|revert|step|style): [a-z].*)$
   ```
 
 - The subject line MUST NOT carry Conventional Commits artifacts.
 
-  There is no scope parenthetical (`feature(parser): …`), no `!` breaking
+  There is no scope parenthetical (`behavior(parser): …`), no `!` breaking
   marker, and nothing between the type and its colon. This convention looks
   close enough to Conventional Commits that the habit slips in, so check for
   it explicitly.
@@ -146,18 +146,18 @@ error message.
 - Commits MUST be atomic — one logical change each, with large changes split.
 
   A user-facing change typically arrives as a bundle of atomic commits
-  (`refactor:`, `style:`, `step:`, `chore:`) culminating in the `feature:` or
-  `runtime:` commit that makes the requirement verifiable through the
+  (`refactor:`, `style:`, `step:`, `chore:`) culminating in the `behavior:` or
+  `quality:` commit that makes the requirement verifiable through the
   system's UI.
 
 - The `<type>` MUST be one of these literal strings, chosen for the semantics
   of the changeset:
 
+  - `behavior`: user-facing operation or behavior change — new commands,
+    flags, endpoints, deprecations, removals — verifiable through the UI.
+
   - `chore`: small, insignificant housekeeping — typo fixes, comment tweaks,
     non-production artifacts. Typically needs no peer review.
-
-  - `feature`: user-facing operation or behavior change — new commands,
-    flags, endpoints, deprecations, removals — verifiable through the UI.
 
   - `fix`: resolves a defect — bug, regression, vulnerability, or incident,
     including silencing spurious error log entries.
@@ -167,6 +167,12 @@ error message.
 
   - `merge`: a merge commit, where the merge was not fast-forwarded.
 
+  - `quality`: implements a dynamic quality attribute, observable and
+    measurable outside the system — latency, throughput, resource
+    utilization, availability, security, compliance. Named for the
+    externally-observable nature of these changes; it covers the quality
+    attributes as a whole, not speed alone.
+
   - `refactor`: improves internal structure without changing behavior or
     degrading runtime quality — renames, helper extraction, simplifying
     interfaces, restructuring data flows.
@@ -175,14 +181,8 @@ error message.
 
   - `revert`: reverts a prior commit.
 
-  - `runtime`: implements a dynamic quality attribute, observable and
-    measurable outside the system — latency, throughput, resource
-    utilization, availability, security, compliance. Named for the
-    externally-observable nature of these changes; it covers the quality
-    attributes as a whole, not speed alone.
-
-  - `step`: incremental progress toward a larger feature or fix that is not
-    yet user-facing.
+  - `step`: incremental progress toward a larger behavior change or fix that
+    is not yet user-facing.
 
   - `style`: presentation-only changes to code or content — whitespace,
     indentation, line wrapping.
@@ -222,8 +222,8 @@ error message.
 
 - Two commit types both seem to apply.
 
-  `step` versus `feature` or `runtime`: `step` is incomplete work toward a
-  user-facing change; `feature` and `runtime` mark the commit at which the
+  `step` versus `behavior` or `quality`: `step` is incomplete work toward a
+  user-facing change; `behavior` and `quality` mark the commit at which the
   change becomes verifiable.
 
   `refactor` versus `style`: `refactor` improves internal structure; `style`
@@ -244,7 +244,7 @@ error message.
 - Subject line only:
 
   ```sh
-  feature: add git uncommit
+  behavior: add git uncommit
   fix: handle empty repository in git-amend
   refactor: simplify test repo interface
   style: apply prettier to src
@@ -256,7 +256,7 @@ error message.
 - With an optional flag:
 
   ```sh
-  feature: remove legacy auth endpoint - BREAKING
+  behavior: remove legacy auth endpoint - BREAKING
   step: refactor database layer - INCOMPAT
   refactor: optimize query performance - WIP
   maintenance: test new build tool version - EXPERIMENT
