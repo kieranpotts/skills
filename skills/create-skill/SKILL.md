@@ -265,6 +265,15 @@ prompt the user for clarification.
   be more easily ported between projects and to remain stable as a project's
   own conventions evolve.
 
+  This does not apply to a project-level skill's own repository — such a
+  skill exists to encode that repository's layout, and genericizing it would
+  empty the skill out. It still applies to anything the skill touches outside
+  its own repository. When authoring a project-level skill, name that
+  repository's concrete conventions (directory layout, file names, branch
+  patterns) directly; resolve everything else — a sibling repository, an
+  issue tracker, a chat service — from context, then environment, then the
+  user.
+
 - Skills MUST NOT reference other skills by name. A global skill MUST NOT name
   a project-level skill, and a project-level skill MUST NOT name a global one.
   Skills in the same collection SHOULD NOT reference each other, either.

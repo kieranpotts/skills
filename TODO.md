@@ -144,35 +144,20 @@ erodes the validator's value as a gate. Options: relax the check to a WARN,
 compare case-insensitively, or let the front matter carry an explicit
 `title` that the check honors when present.
 
-## 7. Project-level skills need a carve-out from "discover, don't assume"
+## 7. Project-level skills need a carve-out from "discover, don't assume" — RESOLVED
 
-`AGENTS.md` states that a skill MUST NOT hard-code the location, file name,
-format, or internal structure of any artifact it reads or writes. That rule
-exists because the skills in *this* collection are installed globally and run
-against arbitrary projects.
-
-It is wrong for project-level skills. A skill living in
-`audits/.agents/skills/` exists precisely to encode that repository's
-layout — `audits/YYYY-MM-DD-<slug>/`, `INDEX.md`, `TEMPLATE.md`, the
-`audit/<slug>` branch pattern. Genericizing those into discovered parameters
-would empty the skills out.
-
-The downstream pass ran with the carve-out stated only in the transient
-briefing given to each agent:
-
-> The rule does not apply to a skill's own repository. It still binds for
-> anything outside it — a sibling repository, an issue tracker, a chat
-> service — which must be resolved from context, then environment, then the
-> user.
-
-That distinction held up well in practice, and it is the reason `risks`'
-`update-register` correctly gave up its hard-coded link to the `audits`
-repository while keeping `risks/REGISTER.md` concrete. It needs writing into
-`AGENTS.md`, or into `create-skill` itself, or the next pass will re-litigate
-it.
+Decision: wrote the carve-out from the transient briefing into `AGENTS.md`'s
+"discover, don't assume" rule and into `create-skill/SKILL.md`'s matching
+rule, so it no longer has to be re-supplied per pass. The rule does not apply
+to a project-level skill's own repository — such a skill exists to encode
+that repository's concrete layout — but still binds in full for anything
+outside it (a sibling repository, an issue tracker, a chat service) and for
+global skills, which have no repository of their own to carve out.
 
 This is closely related to part one's item 2 — the same tension, seen from
-the other side.
+the other side, and resolved the same direction (keep the general rule as
+literal as possible, name concrete vocabulary only where genericizing would
+hollow the skill out).
 
 ## 8. The sibling-naming rule is harder downstream than here — RESOLVED
 

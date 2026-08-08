@@ -140,6 +140,16 @@ below.
   for itself. The store owns its template, its lifecycle, and its format;
   the skill owns only the method.
 
+  This rule does not apply to a project-level skill's own repository. Such a
+  skill exists precisely to encode that repository's layout — its directory
+  structure, its file names, its branch patterns — and genericizing those
+  into discovered parameters would empty the skill out. The rule still binds
+  for anything outside that repository — a sibling repository, an issue
+  tracker, a chat service — which a project-level skill MUST resolve from
+  context, then environment, then the user, same as a global skill. Global
+  skills, installed across arbitrary projects, have no repository of their
+  own to carve out and so remain bound by the rule in full.
+
 - Skills MUST NOT reference other skills by name.
 
   A global skill MUST NOT name a project-level skill, and a project-level
