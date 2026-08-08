@@ -161,26 +161,23 @@ obviously cover siblings that always ship together. `design`'s four
 in that repository to match; the conformance pass already showed this
 reads fine as lifecycle-stage references instead.
 
-## 9. Nothing in `create-skill` governs the family index
+## 9. Nothing in `create-skill` governs the family index — RESOLVED
 
-Most downstream repositories keep a `.agents/skills/README.md` cataloguing
-their skills, usually with a Mermaid workflow diagram. `create-skill`
-describes the per-skill `README.md` and says nothing about this index.
+Decision: specified it. Added
+`create-skill/references/create-skill-workflow-diagrams.md`, giving the emoji
+legend (🤖 non-interactive, 🤖🧑 interactive, ⚙️ scripted) and the canonical
+`classDef` block — reusing this collection's own root `README.md` diagrams
+as the worked example. `SKILL.md` instruction 6 now points to it when
+registering a skill in an index that includes a Mermaid workflow diagram,
+and a new Rules bullet requires the diagram's node markers to stay in sync
+with each skill's own README and its `classDef` styling to match the
+reference. A collection still isn't required to keep an index, or a diagram
+within one.
 
-The consequence showed up immediately: in five repositories the index diagram
-drew every node as `agentic` 🤖 while the skills are interactive and their
-own READMEs now say so. Four agents corrected the index to `anthropic` 🤖🧑;
-the `rfc` agent left it, reading its remit to edit the index as covering
-prose only. Both readings were reasonable, because there is no rule.
-
-Two smaller drifts in the same file: `audits`' index uses
-`stroke-width:2px` in its `classDef anthropic` where the `create-skill`
-template uses `1px`, and `bookmarks` and `bootstrap` have no index at all —
-their skill catalogues live in the repository `AGENTS.md`, where they have
-gone stale.
-
-`create-skill` should either specify the index or state explicitly that it is
-out of scope.
+This fixes the `agentic`/`anthropic` drift and the `stroke-width`
+inconsistency going forward, but doesn't retroactively fix the five
+repositories already carrying it, or give `bookmarks`/`bootstrap` an index —
+those are downstream follow-ups.
 
 ## 10. A recurring defect the validator could catch cheaply — RESOLVED
 
@@ -228,6 +225,9 @@ and none is a `create-skill` concern.
 | `design` | All four `SKILL.md` files still name sibling skills by slash-path (item 8 is now resolved: rebind these as lifecycle-stage references instead). |
 | `standards` | `gap-analysis` dropped its `Agent` declaration during the conformance pass because the value wasn't in the permitted set (item 5 is now resolved). Re-declare `Agent` in `compatibility` and add the required README explanation of why it fans out. |
 | `audits`, `design`, `rfc` | Still carry the actual ` ```gh ` fenced blocks that item 10's new validator check now catches (1 instance in `audits`, 2 in `design`, 2 in `rfc`). Re-fence each as its real language (`graphql`, `sh`, etc.) and rerun the validator. |
+| `rfc` | Its index diagram still draws every node `agentic` 🤖 despite its own skill READMEs stating some are interactive (item 9 is now resolved: sync the markers per the new reference). |
+| `audits` | Its index diagram's `classDef anthropic` uses `stroke-width:2px` against the now-specified `1px` convention (item 9). |
+| `bookmarks`, `bootstrap` | Have no skills index at all; their catalogues live in the repository `AGENTS.md`, which has gone stale. Item 9 specifies the index format if one is added, but doesn't require adding one. |
 | `specs` | `supersede-spec` swaps `#released` → `#superseded` on a pull request closed at release, but `CONTRIBUTING.md` scopes lifecycle labels to open pull requests and lists none past `#released`. Either document the label or drop the swap. |
 | `specs` | `CONTRIBUTING.md` permits an `EPIC` type and `epic/<slug>` branches, but `proposals/INDEX.md` only ever shows `Feature`. Confirm `Epic` belongs in the index. |
 | `specs` | No documented path exists for abandoning a `DRAFT` proposal. `reject-spec` covers only `PROPOSED` onwards; the state machine implies a draft is simply dropped, but nothing says whether that should leave a trace. |

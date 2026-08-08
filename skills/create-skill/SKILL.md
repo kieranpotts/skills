@@ -96,6 +96,10 @@ prompt the user for clarification.
     Discover whether such an index exists rather than assuming a filename. A
     collection may keep one, several, or none.
 
+    If the index includes a Mermaid workflow diagram depicting skills as
+    nodes, read [Skill workflow diagrams](./references/create-skill-workflow-diagrams.md)
+    before editing it.
+
 7.  Re-read the completed `SKILL.md` and `README.md` with fresh eyes. Check for
     unnecessary verbosity, redundant rules, or instructions that assume too
     much. Trim anything that isn't pulling its weight.
@@ -286,6 +290,12 @@ prompt the user for clarification.
   lifecycle *stage* the skill hands off to, or point at the repository's own
   contributing docs, not the sibling skill.
 
+- Where a collection's skills index includes a Mermaid workflow diagram, its
+  node markers MUST stay in sync with each skill's own README, and its
+  `classDef` styling MUST follow
+  [Skill workflow diagrams](./references/create-skill-workflow-diagrams.md). A
+  collection is not required to keep such a diagram, or an index at all.
+
 - Non-obvious requirements SHOULD explain the _why_ behind them. Instead of
   bare imperatives, explain the reasoning so the agent can apply judgment in
   edge cases. When multiple approaches are valid, rather than prescribing
@@ -405,3 +415,7 @@ prompt the user for clarification.
   that in the `## Parameters` preamble and the README's "Interactivity"
   section, and how a non-interactive skill should handle a target
   repository's own confirmation requirements.
+
+- [Skill workflow diagrams](./references/create-skill-workflow-diagrams.md) \
+  Read when registering a skill in, or otherwise editing, a collection's
+  index if it includes a Mermaid workflow diagram.
