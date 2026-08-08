@@ -401,6 +401,7 @@ prompt the user for clarification.
   RFC 2119 to use.
 
 - [Interactive vs. non-interactive skills](./references/create-skill-interactive.md) \
-  Read when deciding whether a skill prompts the user mid-flow, and how to
-  state that in the `## Parameters` preamble and the README's
-  "Interactivity" section.
+  Read when deciding whether a skill prompts the user mid-flow, how to state
+  that in the `## Parameters` preamble and the README's "Interactivity"
+  section, and how a non-interactive skill should handle a target
+  repository's own confirmation requirements.

@@ -204,24 +204,19 @@ others not yet surveyed) still carry the actual ` ```gh ` instances and need
 fixing directly — the validator only catches new instances and reruns of
 `create-skill` against those skills, it doesn't retroactively fix files.
 
-## 11. Non-interactive skills cannot satisfy a "confirm with the user" rule
+## 11. Non-interactive skills cannot satisfy a "confirm with the user" rule — RESOLVED
 
-`create-skill` treats interactivity as a per-skill mode, stated in the
-`## Parameters` preamble. It says nothing about what a non-interactive skill
-should do when the repository it operates on has a rule requiring user
-confirmation.
+Decision: wrote the `garden` pattern into
+`create-skill/references/create-skill-interactive.md` as a new section — a
+non-interactive skill facing a confirmation requirement MUST NOT perform the
+action outright, and recommends it instead, surfacing the recommendation in
+its report. The uncommitted working tree stands in for the mid-flow prompt
+it can't make. `SKILL.md`'s reference-list entry for that file now points
+at the addition.
 
-The `garden` repository hit this squarely. Its `AGENTS.md` requires explicit
-user confirmation before promoting or demoting an entry's maturity emoji, but
-the skills that would do so are non-interactive. The pass resolved it by
-making the family `MUST NOT` change the emoji and `SHOULD` recommend one,
-pushing the decision to the human reading the report — a reasonable answer,
-but invented on the spot.
-
-The general pattern is worth stating in `create-skill`: a non-interactive
-skill facing a confirmation requirement recommends rather than acts, and
-surfaces the recommendation in its report. The uncommitted working tree is
-the review gate.
+`garden`'s own family already implements this correctly and needs no
+further change; the gap was only that `create-skill` didn't say so, leaving
+each future pass to reinvent it.
 
 ## Downstream items, for the repositories themselves
 
