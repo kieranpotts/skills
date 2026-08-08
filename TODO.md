@@ -206,17 +206,18 @@ gone stale.
 `create-skill` should either specify the index or state explicitly that it is
 out of scope.
 
-## 10. A recurring defect the validator could catch cheaply
+## 10. A recurring defect the validator could catch cheaply — RESOLVED
 
-Four repositories independently carried GraphQL and shell snippets fenced as
-` ```gh ` — not a language, so no highlighting and a copy-paste hazard.
-Instances in `audits` (1), `design` (2), `rfc` (2), and more likely
-elsewhere. The shape is identical everywhere, so it is one copy-paste
-lineage rather than four mistakes.
+Decision: added `check_fence_languages` to `create-skill-validate.sh`,
+checked against both `SKILL.md` and `README.md`. It FAILs any fenced code
+block whose info string isn't in a known-language set (blank/plain-text
+fences are unaffected). Verified it flags a synthetic ` ```gh ` block and
+produces no false positives across all 29 skills in this collection.
 
-A validator check for fence languages outside a known set would catch this
-class permanently, and would also have caught the stray-indentation broken
-fences found across five skills in part one's pass.
+The four downstream repositories (`audits`, `design` ×2, `rfc` ×2, and any
+others not yet surveyed) still carry the actual ` ```gh ` instances and need
+fixing directly — the validator only catches new instances and reruns of
+`create-skill` against those skills, it doesn't retroactively fix files.
 
 ## 11. Non-interactive skills cannot satisfy a "confirm with the user" rule
 
@@ -255,6 +256,7 @@ and none is a `create-skill` concern.
 | `design` | `reconcile-design` walks all eight views by default, which is expensive. Promoting its drift-area parameter to REQUIRED would change its remit. |
 | `design` | All four `SKILL.md` files still name sibling skills by slash-path (item 8 is now resolved: rebind these as lifecycle-stage references instead). |
 | `standards` | `gap-analysis` dropped its `Agent` declaration during the conformance pass because the value wasn't in the permitted set (item 5 is now resolved). Re-declare `Agent` in `compatibility` and add the required README explanation of why it fans out. |
+| `audits`, `design`, `rfc` | Still carry the actual ` ```gh ` fenced blocks that item 10's new validator check now catches (1 instance in `audits`, 2 in `design`, 2 in `rfc`). Re-fence each as its real language (`graphql`, `sh`, etc.) and rerun the validator. |
 | `specs` | `supersede-spec` swaps `#released` → `#superseded` on a pull request closed at release, but `CONTRIBUTING.md` scopes lifecycle labels to open pull requests and lists none past `#released`. Either document the label or drop the swap. |
 | `specs` | `CONTRIBUTING.md` permits an `EPIC` type and `epic/<slug>` branches, but `proposals/INDEX.md` only ever shows `Feature`. Confirm `Epic` belongs in the index. |
 | `specs` | No documented path exists for abandoning a `DRAFT` proposal. `reject-spec` covers only `PROPOSED` onwards; the state machine implies a draft is simply dropped, but nothing says whether that should leave a trace. |

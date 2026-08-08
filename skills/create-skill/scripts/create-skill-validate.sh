@@ -104,6 +104,7 @@ run_repo_checks() {
   if [[ -f "${skill_dir}/README.md" ]]; then
     printf "  [PASS] README.md present\n" >&2
     check_readme_sections "${skill_dir}/README.md" || failed=1
+    check_fence_languages "${skill_dir}/README.md" || failed=1
   else
     printf "  [FAIL] Missing sibling README.md\n" >&2
     failed=1
@@ -245,8 +246,47 @@ run_repo_checks() {
   check_compatibility_tools "${skill_md}"
   check_line_length "${skill_md}" || failed=1
   check_bundled_resources "${skill_dir}" "${skill_md}" || failed=1
+  check_fence_languages "${skill_md}" || failed=1
 
   return "${failed}"
+}
+
+#
+# A fenced code block's info string names a real language, or is left blank
+# for plain text. A copy-pasted CLI name (eg. '```gh' for a `gh` command's
+# GraphQL or shell output) is neither, and renders with no highlighting. Flag
+# any fence language outside a known set.
+#
+check_fence_languages() {
+  local file="$1"
+  local known=" sh bash zsh shell text plaintext md markdown mermaid json \
+    yaml yml toml xml html css scss less js jsx ts tsx json5 python py rust \
+    rs go java c cpp csharp cs ruby rb php kotlin kt swift sql graphql gql \
+    diff patch dockerfile makefile ini adoc asciidoc "
+  local unknown
+
+  unknown="$(awk -v known="${known}" '
+      /^[[:space:]]*```/ {
+        if (!fence) {
+          lang = $0
+          sub(/^[[:space:]]*```/, "", lang)
+          sub(/[[:space:]].*$/, "", lang)
+          if (lang != "" && index(known, " " lang " ") == 0) print lang
+        }
+        fence = !fence
+        next
+      }
+    ' "${file}" | sort -u)"
+
+  if [[ -z "${unknown}" ]]; then
+    printf "  [PASS] Fenced code blocks use known languages\n" >&2
+    return 0
+  else
+    printf "  [FAIL] Unknown fence language(s) in %s: %s\n" \
+      "$(basename "${file}")" "$(tr '\n' ' ' <<<"${unknown}")" >&2
+    printf "         Not a recognized language identifier — check for a copy-paste error\n" >&2
+    return 1
+  fi
 }
 
 #
