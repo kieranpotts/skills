@@ -47,22 +47,33 @@ parameter defaults only, not hard-coded values, across `branch`, `merge`,
 literally and preserves portability for repositories that diverge from TS-9.
 No further changes needed — the six skills already reflect this.
 
-## 3. Should evaluation skills persist their reports?
+## 3. Should evaluation skills persist their reports? — RESOLVED
 
-Reporting skills split two ways:
+Decision: made `test` and `validate` durable, mirroring `research`'s
+pattern (an OPTIONAL report-store parameter, ephemeral when nothing
+resolves it). Both skills gained:
 
-- Resolve an output store and write to it: `audit`, `probe`, `research`,
-  `review`.
+- A `Report store — OPTIONAL` parameter, resolved the same way as their
+  existing required store (specification, in both cases). Where nothing
+  resolves it, the report returns to the caller as before — neither skill
+  was made to prompt for it, matching each skill's existing interactivity
+  stance (`test` may already ask about artifact locations; `validate` never
+  prompts at all).
 
-- Return the report to the caller and write nothing: `test`, `validate`.
+- `Write` added to `compatibility`.
 
-Both behaviors predate the pass and were preserved. `test` and `validate`
-therefore carry no `Write` in `compatibility`, which is what makes their
-"working tree unchanged" boundary criterion coherent.
+- A success criterion: written to the resolved store, following that
+  store's own conventions, when one resolves; returned in full otherwise.
 
-If verification and validation evidence is meant to be durable, both skills
-need an output-store parameter and `Write`. That is a design change, not a
-conformance fix, which is why it was left alone.
+- The "working tree unchanged" boundary criterion narrowed to name the
+  report itself as the one permitted write.
+
+- The final instruction step updated to resolve the store and write there
+  before stopping.
+
+Verified: both skills, and the full 29-skill collection, still validate
+PASSED. `audit`, `probe`, `research`, `review` needed no change — they
+already had this shape.
 
 ## 4. Naming a specific host CLI in `compatibility` — RESOLVED
 

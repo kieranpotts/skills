@@ -10,7 +10,8 @@ bounded to the five to ten findings that matter most.
 
 This is evaluation only. The agent produces a prioritized report and an
 explicit verdict — MEETS THE NEED or GAPS FOUND — but changes no
-specification and no code.
+specification and no code. Where a report store resolves, the report is
+persisted there; otherwise it is returned to the caller.
 
 Note the distinction from verification: checking the code against its
 acceptance criteria is a different job. Validation questions the acceptance

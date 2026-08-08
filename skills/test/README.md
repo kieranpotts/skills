@@ -15,6 +15,9 @@ of the environment the checks ran in, and one explicit verdict. Failures are
 classified as implementation defects or specification defects and handed back.
 The skill fixes neither, and does not release the change.
 
+Where a report store resolves, the report is persisted there; otherwise it is
+returned to the caller and the working tree is left exactly as found.
+
 ## Interactivity
 
 This skill instructs the agent to run non-interactively, so it suits

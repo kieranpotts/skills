@@ -8,7 +8,7 @@ description: >-
   in the requirements specification?". Do not use it to check whether the code
   satisfies its acceptance criteria, which is verification, not validation.
 compatibility: >-
-  requires Read, Glob, Grep, Bash (git clone, running the software)
+  requires Read, Write, Glob, Grep, Bash (git clone, running the software)
 license: CC0-1.0
 ---
 
@@ -45,6 +45,11 @@ user with an error message.
   standing one up, so the user's journey can be walked in practice. Default to
   the completed, tested increments in the target repository.
 
+- **Report store — OPTIONAL.** Where the validation report is persisted, if
+  it is to outlive this session. Resolve it the same way as the
+  specification's store. Where nothing settles it, return the report to the
+  caller instead of writing it anywhere.
+
 ## Success criteria
 
 - The report MUST hold between five and ten findings, ordered by priority.
@@ -66,7 +71,12 @@ user with an error message.
 - The report MUST state one of two verdicts explicitly, MEETS THE NEED or
   GAPS FOUND. An implied verdict does not count.
 
-- The working tree MUST be unchanged when the task ends: no specification
+- Where a report store is resolved, the report MUST be written there,
+  following whatever conventions that store documents for itself. Where none
+  is resolved, the report MUST still be returned in full to the caller.
+
+- The working tree MUST be unchanged when the task ends, beyond the
+  validation report itself where a report store resolved: no specification
   edits, no code edits, no commits, branches, issues, or pull requests.
 
 ## Instructions
@@ -129,7 +139,10 @@ user with an error message.
 
 6.  Deliver the report and the verdict, then stop.
 
-    Acting on the report belongs to whoever revises the specification.
+    Resolve the report store; if one resolves, write the report there,
+    following whatever conventions it documents for itself. Otherwise return
+    the report in full. Acting on the report belongs to whoever revises the
+    specification.
 
 ## Rules
 

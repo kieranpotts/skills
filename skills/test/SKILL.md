@@ -9,7 +9,7 @@ description: >-
   acceptance testing on this change". Do not use it to fix the defects it
   finds, to amend the specification, or to release the change.
 compatibility: >-
-  requires Read, Glob, Grep, WebFetch, Bash (test runners, scanners,
+  requires Read, Write, Glob, Grep, WebFetch, Bash (test runners, scanners,
   benchmarks)
 license: CC0-1.0
 ---
@@ -45,12 +45,21 @@ context and environment do not settle it.
   Default to 15-30 minutes of work for a typical change, and longer where the
   change touches a high-risk area.
 
+- **Report store — OPTIONAL.** Where the verification report is persisted, if
+  it is to outlive this session. Resolve it the same way as the
+  specification's store. Where nothing settles it, return the report to the
+  caller instead of writing it anywhere.
+
 ## Success criteria
 
 - A verification report MUST exist that maps every AC in the specification to
   exactly one status — PASS, FAIL, BLOCKED, or N/A — each carrying a pointer
   to evidence a reviewer can re-examine without repeating the work: a test
   name and line, a measured number, a log excerpt, a screenshot.
+
+- Where a report store is resolved, the report MUST be written there,
+  following whatever conventions that store documents for itself. Where none
+  is resolved, the report MUST still be returned in full to the caller.
 
 - Each FAIL in the report MUST carry a classification, either an implementation
   defect or a specification defect, so the caller knows which artifact to take
@@ -65,7 +74,8 @@ context and environment do not settle it.
 
 - The working tree MUST hold no edit made by this task to production source,
   test code, or the specification. Verification that alters its subject cannot
-  say whether the thing verified is the thing that ships.
+  say whether the thing verified is the thing that ships. The one exception is
+  the verification report itself, written to a resolved report store.
 
 ## Instructions
 
@@ -114,7 +124,10 @@ context and environment do not settle it.
 6.  Assemble the report and state the verdict.
 
     Map each AC to its status and evidence, note the environment, classify
-    every FAIL, and close with the verdict. Stop there — do not act on it.
+    every FAIL, and close with the verdict. Resolve the report store; if one
+    resolves, write the report there, following whatever conventions it
+    documents for itself. Otherwise return the report in full. Stop there —
+    do not act on it.
 
 ## Rules
 
