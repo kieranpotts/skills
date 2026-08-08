@@ -83,90 +83,13 @@ below.
   **[create-skill](./skills/create-skill/SKILL.md)** skill. See also
   [`docs/creating-skills.md`](./docs/creating-skills.md).
 
-- `SKILL.md` files SHOULD NOT exceed 500 lines. The count is of physical
-  lines, blank lines included — it is a budget on the file as loaded into
-  the context window, not on its prose.
-
-- Each skill directory MUST contain a sibling `README.md`.
-
-- A skill's `README.md` is for humans. It MUST include usage docs (for
-  users to invoke a skill directly). It MAY include reference material that
-  provides background to a skill's design rationale, or other information
-  that will not be relevant to agents.
-
-- Each `SKILL.md` MUST include one of `## Instructions` or `## Rules`, or both.
-
-- Each `SKILL.md` MUST also include `## Success criteria`.
-
-- Each `SKILL.md` MUST include `## Parameters` and `## Success criteria`,
-  in that order, immediately after the title and before any other `##`
-  heading.
-
-  `## Parameters` defines what the agent consumes, as a bulleted list whose
-  items carry their requirement level in a bold lead. Its preamble MUST
-  state plainly whether the agent may prompt the user.
-
-  `## Success criteria` defines the observable end state, and absorbs what
-  the skill produces — there is no separate output section. It comes before
-  the instructions so the agent knows what it is aiming at before it starts.
-
-- Inline bold SHOULD be used sparingly.
-
-  Reserve it for the lead of each `## Parameters` bullet. Rules, success
-  criteria, instructions, edge cases, and examples are plain prose. Bold
-  carries meaning only while it is rare.
-
-- Skills MUST discover where artifacts live; they MUST NOT assume it.
-
-  These skills are installed globally and run against projects that use
-  different methods and tools. A skill MUST NOT hard-code the location,
-  file name, format, or internal structure of any artifact it reads or
-  writes — requirements, decision records, design documentation, delivery
-  plans, audit reports, risk registers, changelogs, glossaries, issue
-  trackers.
-
-  Resolve each artifact store in this order: what the session context
-  already establishes, then the environment (a convention file, a workspace
-  manifest, an existing directory, a configured connector), then by asking
-  the user. A store MAY be a directory in the current repository, a separate
-  repository, or an external service — never assume a filesystem path.
-
-  Having resolved a store, follow whatever conventions that store documents
-  for itself. The store owns its template, its lifecycle, and its format;
-  the skill owns only the method.
-
-  This rule does not apply to a project-level skill's own repository. Such a
-  skill exists precisely to encode that repository's layout — its directory
-  structure, its file names, its branch patterns — and genericizing those
-  into discovered parameters would empty the skill out. The rule still binds
-  for anything outside that repository — a sibling repository, an issue
-  tracker, a chat service — which a project-level skill MUST resolve from
-  context, then environment, then the user, same as a global skill. Global
-  skills, installed across arbitrary projects, have no repository of their
-  own to carve out and so remain bound by the rule in full.
-
-- Skills MUST NOT reference other skills by name.
-
-  A global skill MUST NOT name a project-level skill, and a project-level
-  skill MUST NOT name a global one. Refer to the *procedure* a store defines
-  ("carry out whatever the store prescribes for filing a change"), never to
-  the named skill that happens to implement it. This keeps both layers
-  independently installable.
-
-  The rule also binds within a single project-level family of skills, even
-  where the whole family is always installed together — eg. a
-  draft/review/complete or propose/accept-reject/supersede lifecycle. Refer
-  to the lifecycle _stage_ ("once the next stage's review is complete") or
-  to the repository's own contributing docs, never to the sibling skill by
-  name.
-
-- A `SKILL.md`'s `## References` section, if present, MAY point to a mix of
-  both internal and external references resources — the skill's own bundled
-  assets plus assets that must be fetched via a web request.
-
-- Each skill MUST have a single responsibility. It does one job and stops
-  at its boundary. It leaves adjacent work to the caller. For example, a
-  proofreading skill edits prose but does not commit the change.
+- Skill-authoring conventions — required file structure, `SKILL.md` section
+  order, the line budget, discoverable artifact stores, no cross-skill
+  references, and so on — are defined by the
+  **[create-skill](./skills/create-skill/SKILL.md)** skill, not restated
+  here. Where this document and `create-skill` ever disagree, `create-skill`
+  governs: it is what the validator checks and what an authoring agent
+  actually loads.
 
 - A skill that changes the working tree MUST either commit that change as
   its own last step, or explicitly leave it uncommitted for another actor
@@ -197,8 +120,6 @@ below.
   protected trunk is for the repository's own conventions and the
   **[branch](./skills/branch/SKILL.md)** skill to have already settled, not
   something a change-making skill gates on.
-
-- Skills MUST be portable and independent, with no hand-offs to other skills.
 
 - MUST NOT commit anything under `build/`. It is gitignored. Only
   `build/README.md` is tracked.

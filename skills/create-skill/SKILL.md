@@ -261,13 +261,21 @@ prompt the user for clarification.
   finishing". A step with no requirement level is ambiguous about whether it
   can be skipped or varied.
 
-- Skills SHOULD NOT hard-code the formats and storage locations of artifacts
-  that an agent consumes or generates. Input and output SHOULD be discoverable
-  from the context surrounding the skill, or from the environment. Decoupling
-  skills from particular conventions for writing artifacts such as requirements
-  specifications, decision records, and design documentation, allows skills to
-  be more easily ported between projects and to remain stable as a project's
-  own conventions evolve.
+- Skills MUST discover where artifacts live; they MUST NOT assume it.
+
+  A skill MUST NOT hard-code the location, file name, format, or internal
+  structure of any artifact it reads or writes — requirements, decision
+  records, design documentation, delivery plans, audit reports, risk
+  registers, changelogs, glossaries, issue trackers. Resolve each artifact
+  store in this order: what the session context already establishes, then
+  the environment (a convention file, a workspace manifest, an existing
+  directory, a configured connector), then by asking the user. A store MAY
+  be a directory in the current repository, a separate repository, or an
+  external service — never assume a filesystem path.
+
+  Having resolved a store, follow whatever conventions that store documents
+  for itself. The store owns its template, its lifecycle, and its format;
+  the skill owns only the method.
 
   This does not apply to a project-level skill's own repository — such a
   skill exists to encode that repository's layout, and genericizing it would
@@ -277,6 +285,14 @@ prompt the user for clarification.
   patterns) directly; resolve everything else — a sibling repository, an
   issue tracker, a chat service — from context, then environment, then the
   user.
+
+- Each skill MUST have a single responsibility. It does one job and stops at
+  its boundary, leaving adjacent work to the caller. For example, a skill
+  that proofreads a document edits it but does not commit the change.
+
+- Skills MUST be portable and independent, with no hand-offs to other
+  skills. Composing skills into a workflow is the orchestrator's job, not a
+  skill's own.
 
 - Skills MUST NOT reference other skills by name. A global skill MUST NOT name
   a project-level skill, and a project-level skill MUST NOT name a global one.
@@ -317,12 +333,14 @@ prompt the user for clarification.
   a class of problems, not what to produce for a single instance. A reusable
   method that generalizes beats a hardcoded answer.
 
-- Keep the skill token-efficient. Skills are loaded into the agent's context
-  window, so the budget is on the file as loaded, not on its prose. You SHOULD
-  NOT pad a section with detail that belongs in a `references/` file. Offload
-  deep detail to `references/`, linked with a trigger condition so it is only
-  read when needed, and extract recurring logic to `scripts/`. Balance token
-  efficiency against human readability.
+- Keep the skill token-efficient. A `SKILL.md` file MUST NOT exceed 500
+  physical lines, blank lines included — the validator enforces this. Skills
+  are loaded into the agent's context window, so the budget is on the file
+  as loaded, not on its prose. You SHOULD NOT pad a section with detail that
+  belongs in a `references/` file. Offload deep detail to `references/`,
+  linked with a trigger condition so it is only read when needed, and
+  extract recurring logic to `scripts/`. Balance token efficiency against
+  human readability.
 
 - Document gotchas directly in the main `SKILL.md` file. Do not extract these
   to reference resources. Environment-specific facts that defy reasonable
