@@ -116,11 +116,6 @@ below.
   criteria, instructions, edge cases, and examples are plain prose. Bold
   carries meaning only while it is rare.
 
-- The reference implementation is
-  [`draft-audit`](https://github.com/kieranpotts/audits/tree/main/.agents/skills/draft-audit).
-
-  When the conventions here are ambiguous, match that skill's shape.
-
 - Skills MUST discover where artifacts live; they MUST NOT assume it.
 
   These skills are installed globally and run against projects that use
