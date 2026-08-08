@@ -156,10 +156,16 @@ prompt the user for clarification.
   workspace needs `Glob` and `Grep`. One that reads a reference over the network
   needs `WebFetch`.
 
-- Tool names in `compatibility` MUST be drawn from this set: `Bash`, `Edit`,
-  `Glob`, `Grep`, `Read`, `WebFetch`, `WebSearch`, `Write`. Where a skill shells
-  out, name the tool as `Bash` and quality the shell command in parentheses,
-  eg. `Bash (git diff)`.
+- Tool names in `compatibility` MUST be drawn from this set: `Agent`, `Bash`,
+  `Edit`, `Glob`, `Grep`, `Read`, `WebFetch`, `WebSearch`, `Write`. Where a
+  skill shells out, name the tool as `Bash` and qualify the shell command in
+  parentheses, eg. `Bash (git diff)`.
+
+  Reserve `Agent` for a skill whose mechanism depends on spawning sub-agents
+  — the fan-out is a named instruction step and a rule governs it, not an
+  incidental convenience. Where `Agent` is declared, the skill's `README.md`
+  MUST also explain why it fans out, so a human deciding whether to install
+  the skill understands the cost before running it.
 
 - You MUST open the body of the skill file with a level 1 Markdown heading
   carrying the skill name in sentence case, hyphens replaced by spaces. For a
@@ -264,6 +270,12 @@ prompt the user for clarification.
   Skills in the same collection SHOULD NOT reference each other, either.
   Skills that do not explicitly hand-off to one another have greater reuse.
   They can be composed by orchestrators into all sorts of different workflows.
+
+  This still binds within a single project-level family of skills that ships
+  as a lifecycle — eg. draft/review/complete or propose/accept-reject/supersede
+  — even though the whole family is always installed together. Name the
+  lifecycle *stage* the skill hands off to, or point at the repository's own
+  contributing docs, not the sibling skill.
 
 - Non-obvious requirements SHOULD explain the _why_ behind them. Instead of
   bare imperatives, explain the reasoning so the agent can apply judgment in

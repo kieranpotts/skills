@@ -148,6 +148,13 @@ below.
   the named skill that happens to implement it. This keeps both layers
   independently installable.
 
+  The rule also binds within a single project-level family of skills, even
+  where the whole family is always installed together — eg. a
+  draft/review/complete or propose/accept-reject/supersede lifecycle. Refer
+  to the lifecycle _stage_ ("once the next stage's review is complete") or
+  to the repository's own contributing docs, never to the sibling skill by
+  name.
+
 - A `SKILL.md`'s `## References` section, if present, MAY point to a mix of
   both internal and external references resources — the skill's own bundled
   assets plus assets that must be fetched via a web request.
