@@ -173,6 +173,36 @@ below.
   at its boundary. It leaves adjacent work to the caller. For example, a
   proofreading skill edits prose but does not commit the change.
 
+- A skill that changes the working tree MUST either commit that change as
+  its own last step, or explicitly leave it uncommitted for another actor
+  to file — never one by default and the other by omission.
+
+  Commit when the edit is itself a complete, commit-worthy unit of work:
+  implementing a plan step, fixing a bug, performing a refactor move,
+  normalizing style. Each of these has its own type in the
+  **[commit](./skills/commit/SKILL.md)** skill's vocabulary (`step`, `fix`,
+  `refactor`, `style`, and so on), which is what marks it as a change the
+  skill itself is responsible for closing out.
+
+  Leave the change uncommitted when the skill only polishes or verifies
+  content that another change already produced or will produce —
+  proofreading prose, auditing, reviewing, testing, validating. That skill's
+  edits, if it makes any, stay in the working tree for the change's
+  originator, or the user, to fold in and file.
+
+  A skill that commits MUST stop at that commit. Pushing, opening a review,
+  merging, and releasing are out of scope for a single skill.
+
+  **[commit](./skills/commit/SKILL.md)** itself is neither case: it composes
+  the message, and the changelog entry where one is due, that another actor
+  will use to file the change. It MUST NOT stage or commit anything itself.
+
+  A skill MUST NOT decide branch policy. It commits, or proposes to commit,
+  on whatever branch is already checked out. Whether that branch is a
+  protected trunk is for the repository's own conventions and the
+  **[branch](./skills/branch/SKILL.md)** skill to have already settled, not
+  something a change-making skill gates on.
+
 - Skills MUST be portable and independent, with no hand-offs to other skills.
 
 - MUST NOT commit anything under `build/`. It is gitignored. Only

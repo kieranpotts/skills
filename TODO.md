@@ -14,33 +14,29 @@ itself, and was surfaced by applying it downstream.
 All 29 skills here validate clean as they stand. These are judgment calls,
 not defects.
 
-## 1. Do skills commit their own work?
+## 1. Do skills commit their own work? — RESOLVED
 
-The collection has no stated rule, so each skill answers from precedent, and
-the precedents disagree:
+Decision: the principle isn't quite "change-making commits, evaluation
+doesn't" — `proof` edits prose but still doesn't commit, which that framing
+can't explain. The rule now written into `AGENTS.md` is finer-grained: a
+skill commits when its edit is itself a complete, commit-worthy unit of work
+with its own type in `commit`'s vocabulary (`step`, `fix`, `refactor`,
+`style`) — `code`, `fix`, `refactor`, `style` all qualify. A skill leaves
+its edits uncommitted when it only polishes or verifies content that
+another change already produced or will produce — `proof`, and by the same
+logic `audit`, `review`, `test`, `validate`. `commit` is neither case: it
+composes the message and changelog entry for another actor to file, and
+MUST NOT stage or commit anything itself. A skill that does commit MUST
+stop there — pushing, review, merging, and releasing stay out of scope.
 
-| Skill      | Behavior                                            |
-| ---------- | --------------------------------------------------- |
-| `code`     | Commits; boundary stated as "stops at the commit".  |
-| `fix`      | Commits, at instruction 9.                          |
-| `refactor` | Commits. Previously also integrated and opened a PR.|
-| `style`    | Commits, at instruction 5.                          |
-| `proof`    | Stops before the commit.                            |
-| `commit`   | Composes a message; will not stage or commit.       |
+The `<!-- TODO: Allow direct commits to dev? -->` marker is answered by the
+same rule: a skill MUST NOT decide branch policy. It commits on whatever
+branch is already checked out; whether that's a protected trunk is for the
+repository's own conventions and the `branch` skill to have already
+settled, not something a change-making skill gates on.
 
-`AGENTS.md` cites proofreading as a skill that "edits prose but does not
-commit the change", which supports the `proof` position but sits awkwardly
-beside the four skills that do commit.
-
-The working principle the pass converged on — change-making skills commit,
-evaluation skills do not — is coherent, but it is written down nowhere.
-
-`commit` is a further wrinkle: it writes the changelog file while refusing to
-stage it, so it modifies the working tree but declines to record the change.
-
-Decide the rule, then state it in `AGENTS.md` so skills stop inferring it.
-Note that `commit` also carried a `<!-- TODO: Allow direct commits to dev? -->`
-marker, removed during the pass; that question is part of this one.
+No skill needed editing — all six already behave per this rule. Only
+`AGENTS.md` was missing the write-up.
 
 ## 2. How convention-agnostic should the Git and planning skills be? — RESOLVED
 
