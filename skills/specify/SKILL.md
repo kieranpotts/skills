@@ -9,7 +9,7 @@ description: >-
   not use it to gather or invent requirements: an incomplete PRD is rejected,
   not filled in.
 compatibility: >-
-  requires Read, Write, Edit, Glob, Grep, Bash (git, gh)
+  requires Read, Write, Edit, Glob, Grep, Bash (git, review host CLI)
 license: CC0-1.0
 ---
 

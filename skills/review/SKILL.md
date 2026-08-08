@@ -9,7 +9,7 @@ description: >-
   "check this diff against the spec and our conventions". Do not use it to
   apply the fixes it recommends.
 compatibility: >-
-  requires Read, Glob, Grep, Bash (git diff, gh)
+  requires Read, Glob, Grep, Bash (git diff, review host CLI)
 license: CC0-1.0
 ---
 

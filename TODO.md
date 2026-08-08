@@ -64,22 +64,16 @@ If verification and validation evidence is meant to be durable, both skills
 need an output-store parameter and `Write`. That is a design change, not a
 conformance fix, which is why it was left alone.
 
-## 4. Naming a specific host CLI in `compatibility`
+## 4. Naming a specific host CLI in `compatibility` — RESOLVED
 
-Two skills were deliberately genericized during the pass, and two were not:
-
-| Skill     | `compatibility` parenthetical         |
-| --------- | ------------------------------------- |
-| `triage`  | `Bash (issue tracker CLI, ...)`       |
-| `resolve` | `Bash (git, review host CLI, ...)`    |
-| `review`  | `Bash (git diff, gh)`                 |
-| `specify` | `Bash (git, gh)`                      |
-
-Naming `gh` presumes GitHub in skills whose stores are supposed to be
-discovered. Naming a generic CLI is vaguer but portable.
-
-Pick one direction and apply it to all four. It is a one-line change per
-skill.
+Decision: genericized `review` and `specify` to match `triage`/`resolve`.
+`review`'s `Bash (git diff, gh)` is now `Bash (git diff, review host CLI)`;
+`specify`'s `Bash (git, gh)` is now `Bash (git, review host CLI)` — matching
+`resolve`'s term, not `triage`'s "issue tracker CLI", since `specify` files
+a proposal through a review/discussion vehicle (a PR), not an issue. Neither
+skill named `gh` anywhere outside the front matter, so this was a clean
+one-line change in each. Verified both skills, and the full collection,
+still validate PASSED.
 
 ## Minor, unrelated to the above
 
