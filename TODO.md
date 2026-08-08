@@ -42,27 +42,14 @@ Decide the rule, then state it in `AGENTS.md` so skills stop inferring it.
 Note that `commit` also carried a `<!-- TODO: Allow direct commits to dev? -->`
 marker, removed during the pass; that question is part of this one.
 
-## 2. How convention-agnostic should the Git and planning skills be?
+## 2. How convention-agnostic should the Git and planning skills be? — RESOLVED
 
-The no-hard-coding rule in `AGENTS.md` says a skill MUST NOT hard-code the
-location, name, or format of any artifact it touches. Applied literally, that
-also strips out TS-9's vocabulary, which several skills previously named
-outright:
-
-- `branch`, `merge`, `release` — the trunk names `dev`, `test`, `ready` were
-  softened into discovered parameters, with the TS-9 names kept only as noted
-  defaults.
-
-- `plan`, `fix`, `code` — the commit type prefixes `step:`, `feature:`,
-  `refactor:`, `fix:`, `maintenance:` were genericized to describe the *role*
-  each type plays, with the literals left visible only in worked examples.
-
-The tension: TS-9 is a standard these repositories all follow, so naming its
-vocabulary outright is arguably domain content rather than a hard-coded
-artifact store. Portability costs concreteness here.
-
-This is the change most likely to want reversing. It is localized to the
-rules and parameters of those six skills.
+Decision: keep the genericized state. TS-9 names (`dev`, `test`, `ready`,
+`step:`, `feature:`, `refactor:`, `fix:`, `maintenance:`) stay as discovered-
+parameter defaults only, not hard-coded values, across `branch`, `merge`,
+`release`, `plan`, `fix`, `code`. This matches the no-hard-coding rule
+literally and preserves portability for repositories that diverge from TS-9.
+No further changes needed — the six skills already reflect this.
 
 ## 3. Should evaluation skills persist their reports?
 
@@ -123,34 +110,16 @@ Reapplying `create-skill` to 47 project-level skills in ten sibling
 repositories exposed gaps in the skill, its validator, and this collection's
 `AGENTS.md`. Unlike part one, several of these are outright defects.
 
-## 5. The `compatibility` vocabulary cannot express sub-agent fan-out
+## 5. The `compatibility` vocabulary cannot express sub-agent fan-out — RESOLVED
 
-`create-skill` restricts `compatibility` to
-`Bash Edit Glob Grep Read WebFetch WebSearch Write`. There is no entry for
-the Agent/Task tool.
-
-The `gap-analysis` skill in the `standards` repository spawns sub-agents —
-it is central to how the skill works, with a dedicated instruction step and
-a rule governing it. The skill previously declared `Agent` in
-`compatibility`; the conformance pass had to drop it, because the value is
-not in the permitted set. The capability is now undeclared while the
-instructions still depend on it.
-
-Three ways out:
-
-- Add `Agent` (or `Task`) to the permitted vocabulary. Simplest, and honest
-  about what the skill needs. Risks encouraging fan-out in skills that do
-  not warrant it.
-
-- Treat sub-agent use as a host capability rather than a tool, and document
-  it in the README's `## Recommended models` instead. Keeps the front matter
-  a pure tool list.
-
-- Declare it in the Bash parenthetical form already used for external
-  commands. Inaccurate — it is not a shell command.
-
-The first is probably right, but the vocabulary is deliberately small and
-this is the first case that has needed widening.
+Decision: added `Agent` to the permitted `compatibility` vocabulary in
+`create-skill/SKILL.md` and its validator (`create-skill-validate.sh`), with
+a rule reserving it for skills whose mechanism depends on fan-out (a named
+instruction step and a governing rule, not incidental convenience). Where
+`Agent` is declared, the skill's `README.md` MUST also explain why it fans
+out, so installers see the cost up front. `gap-analysis` (in the `standards`
+repository) can now re-declare `Agent` truthfully; that repository's own
+skill still needs updating to pick this up.
 
 ## 6. The validator's H1 check has three false-positive classes
 
@@ -205,24 +174,16 @@ it.
 This is closely related to part one's item 2 — the same tension, seen from
 the other side.
 
-## 8. The sibling-naming rule is harder downstream than here
+## 8. The sibling-naming rule is harder downstream than here — RESOLVED
 
-`AGENTS.md` says skills MUST NOT reference other skills by name. Downstream,
-the skills come in lifecycle families — draft → review → complete, propose →
-accept/reject → supersede — where the pull to name the next stage is much
-stronger than anything in this collection.
-
-The pass enforced the rule, referring to lifecycle *stages* or deferring to
-the repository's own `CONTRIBUTING.md` instead. Every agent reported that
-nothing was lost. `design` was the worst offender: all four of its
-`SKILL.md` files named siblings by slash-path, including an explicit
-hand-off.
-
-Worth confirming the rule is meant to bind within a single project-level
-family, since the `AGENTS.md` rationale — keeping global and project layers
-independently installable — does not obviously cover siblings that are
-always installed together. If it is meant to bind, say so; the current
-wording has to be inferred.
+Decision: the rule stays absolute. It binds within a single project-level
+family, not only across the global/project boundary. `AGENTS.md` and
+`create-skill/SKILL.md` now say so explicitly, instead of leaving it to be
+inferred from the independent-installability rationale, which didn't
+obviously cover siblings that always ship together. `design`'s four
+`SKILL.md` files (which named siblings by slash-path) still need re-editing
+in that repository to match; the conformance pass already showed this
+reads fine as lifecycle-stage references instead.
 
 ## 9. Nothing in `create-skill` governs the family index
 
@@ -292,6 +253,8 @@ and none is a `create-skill` concern.
 | `risks` | `CONTRIBUTING.md` says "session report" where `AGENTS.md`, `INDEX.md`, and `TEMPLATE.md` say "workshop report". |
 | `rfc` | `reject-rfc`, `complete-rfc`, and `supersede-rfc` push directly to `main`; none handles branch protection. |
 | `design` | `reconcile-design` walks all eight views by default, which is expensive. Promoting its drift-area parameter to REQUIRED would change its remit. |
+| `design` | All four `SKILL.md` files still name sibling skills by slash-path (item 8 is now resolved: rebind these as lifecycle-stage references instead). |
+| `standards` | `gap-analysis` dropped its `Agent` declaration during the conformance pass because the value wasn't in the permitted set (item 5 is now resolved). Re-declare `Agent` in `compatibility` and add the required README explanation of why it fans out. |
 | `specs` | `supersede-spec` swaps `#released` → `#superseded` on a pull request closed at release, but `CONTRIBUTING.md` scopes lifecycle labels to open pull requests and lists none past `#released`. Either document the label or drop the swap. |
 | `specs` | `CONTRIBUTING.md` permits an `EPIC` type and `epic/<slug>` branches, but `proposals/INDEX.md` only ever shows `Feature`. Confirm `Epic` belongs in the index. |
 | `specs` | No documented path exists for abandoning a `DRAFT` proposal. `reject-spec` covers only `PROPOSED` onwards; the state machine implies a draft is simply dropped, but nothing says whether that should leave a trace. |
