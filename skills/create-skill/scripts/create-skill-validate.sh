@@ -256,7 +256,7 @@ run_repo_checks() {
 #
 check_compatibility_tools() {
   local skill_md="$1"
-  local allowed=" Bash Edit Glob Grep Read WebFetch WebSearch Write "
+  local allowed=" Agent Bash Edit Glob Grep Read WebFetch WebSearch Write "
   local compat tool unknown=""
 
   # Capture the value, following YAML folded-scalar continuation lines.
