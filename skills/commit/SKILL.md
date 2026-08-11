@@ -119,7 +119,7 @@ error message.
   Only the subject line is validated, against this regex:
 
   ```sh
-  ^((behavior|chore|fix|maintenance|merge|quality|refactor|release|revert|step|style): [a-z].*)$
+  ^((behavior|chore|fix|maintenance|merge|quality|refactor|revert|step|style|version): [a-z].*)$
   ```
 
 - The subject line MUST NOT carry Conventional Commits artifacts.
@@ -177,8 +177,6 @@ error message.
     degrading runtime quality — renames, helper extraction, simplifying
     interfaces, restructuring data flows.
 
-  - `release`: version bumps and release-preparation commits.
-
   - `revert`: reverts a prior commit.
 
   - `step`: incremental progress toward a larger behavior change or fix that
@@ -186,6 +184,8 @@ error message.
 
   - `style`: presentation-only changes to code or content — whitespace,
     indentation, line wrapping.
+
+  - `version`: version bumps and release-preparation commits; marks a version was cut, not deployed.
 
 - A flag MAY be appended as `<type>: <description> - <flag>`, and MUST be
   appended where one of these cases applies:

@@ -40,7 +40,7 @@ history.
 
     ```sh
     git add CHANGELOG.md
-    git commit -m "release: v<version>"
+    git commit -m "version: <version>"
     ```
 
 3.  **Tag the release.**
