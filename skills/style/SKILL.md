@@ -208,10 +208,10 @@ user with an error message.
 
 ## References
 
-- [TS-9: Version control](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/009/AGENTS.md) \
+- [TS-9: Version control](https://kieranpotts.com/standards/009) \
   Read before filing the change, for the commit types and message conventions
   this skill relies on.
 
-- [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md) \
+- [TS-27: Markdown](https://kieranpotts.com/standards/027) \
   Read when normalizing Markdown content and the project configures no
   formatter for it.

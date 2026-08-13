@@ -2,7 +2,7 @@
 
 The **merge** skill integrates work between two divergent Git branches,
 following the reintegration rules of the trunk-based model described in
-[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
+[TS-9: Version Control](https://kieranpotts.com/standards/009).
 
 The agent is told to identify the source and target branches, pick the merge
 strategy their branch types call for, align and check the source before
@@ -72,5 +72,5 @@ flowchart LR
 
 ## References
 
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   The branching model and reintegration strategies this skill encodes.

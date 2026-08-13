@@ -416,7 +416,7 @@ prompt the user for clarification.
 
 ## References
 
-- [TS-27: Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md) \
+- [TS-27: Markdown](https://kieranpotts.com/standards/027) \
   Technical standard for formatting Markdown documents. Skill files
   MUST follow the formatting conventions described in this standard.
 

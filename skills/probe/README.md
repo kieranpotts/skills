@@ -82,7 +82,7 @@ flowchart LR
 
 ## References
 
-- [TS-54: Threat Modeling](https://github.com/kieranpotts/standards/tree/latest/dev/src/054)
+- [TS-54: Threat Modeling](https://kieranpotts.com/standards/054)
   is the technical standard that underpins this skill.
 
 - [kieranpotts/risks](https://github.com/kieranpotts/risks) is a reference for

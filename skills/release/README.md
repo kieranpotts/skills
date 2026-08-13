@@ -2,7 +2,7 @@
 
 The release skill encapsulates the rules for cutting release branches and
 applying version tags, as defined in
-[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
+[TS-9: Version Control](https://kieranpotts.com/standards/009).
 
 It instructs the agent to work out which of two mutually exclusive release
 strategies the project uses — a single permanent `release` trunk, or temporary
@@ -75,6 +75,6 @@ flowchart LR
 
 ## References
 
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   The technical standard that defines the release branching and version
   tagging conventions encoded here.

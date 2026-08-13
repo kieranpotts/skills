@@ -206,6 +206,6 @@ user with an error message.
 
 ## References
 
-- [TS-9: Version Control](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/009/AGENTS.md) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   Read when the project documents no release model or tagging convention of
   its own, for the conventions these instructions assume.

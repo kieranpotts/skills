@@ -367,7 +367,7 @@ the report as you go.
 
 ## References
 
-- [TS-54: Threat Modeling](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/054/AGENTS.md) \
+- [TS-54: Threat Modeling](https://kieranpotts.com/standards/054) \
   One documented instance of the method this skill follows — the workshop
   procedure, the decomposition model, the STRIDE and LINDDUN frameworks, and
   a rating scheme. Read it when the target store documents no method of its

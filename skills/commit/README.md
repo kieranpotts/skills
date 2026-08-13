@@ -1,7 +1,7 @@
 # Commit
 
 The commit skill encapsulates the rules for creating revisions in Git defined
-in [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
+in [TS-9: Version Control](https://kieranpotts.com/standards/009).
 
 It instructs the agent to compose a commit message in a fixed subject-line
 format — `<type>: <description>`, with an optional ` - <flag>` suffix — where

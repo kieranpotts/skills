@@ -1,7 +1,7 @@
 # Branch
 
 The **branch** skill encapsulates the rules for a Git branching strategy defined in
-[TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009).
+[TS-9: Version Control](https://kieranpotts.com/standards/009).
 
 It codifies a trunk-based branch model consisting of three fast-forwarded trunks
 (`dev` → `test` → `ready`), short-lived `temp/*` branches, and long-lived
@@ -70,5 +70,5 @@ flowchart LR
 
 ## References
 
-- [TS-9: Version Control](https://github.com/kieranpotts/standards/tree/latest/dev/src/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   The technical standard this skill encodes.

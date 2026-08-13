@@ -83,9 +83,9 @@ flowchart LR
 ## References
 
 - [TS-9: Version
-  control](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/009/AGENTS.md) \
+  control](https://kieranpotts.com/standards/009) \
   Defines the `style:` and `maintenance:` commit types used here.
 
 - [TS-27:
-  Markdown](https://raw.githubusercontent.com/kieranpotts/standards/refs/heads/latest/dev/src/027/AGENTS.md) \
+  Markdown](https://kieranpotts.com/standards/027) \
   Formatting conventions for Markdown content.
