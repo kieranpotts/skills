@@ -123,3 +123,25 @@ below.
 
 - MUST NOT commit anything under `build/`. It is gitignored. Only
   `build/README.md` is tracked.
+
+## References
+
+The following technical standards (TS) govern this project. Fetch and ingest
+the relevant standards as-and-when required for the task at hand.
+
+- [**TS-61: AI Tools**](https://kieranpotts.com/standards/061) \
+  Use when planning or executing coding tasks, managing your own context,
+  authoring AGENTS.md files or agent skills, calling tools, or handling
+  untrusted content.
+
+- [**TS-25: Technical Documentation**](https://kieranpotts.com/standards/025) \
+  Use when deciding what documentation a project needs, where it should live,
+  who it's for, or whether it's still trustworthy.
+
+- [**TS-26: Technical Writing Style Guide**](https://kieranpotts.com/standards/026) \
+  Use when writing or editing the prose of a technical document. Covers
+  tone-of-voice, headings, terminology, lists, and citations.
+
+- [**TS-9: Version Control**](https://kieranpotts.com/standards/009) \
+  Use when working with Git. Covers commits, branching, merging, integration
+  strategies, cutting releases, and configuring Git/PR/CI tooling.
