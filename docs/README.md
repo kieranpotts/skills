@@ -13,3 +13,4 @@ which have been influential in the design of this collection of agent skills.
 - [**Publishing to skills.sh**](./publishing.md)
 - [**Releasing**](./releasing.md)
 - [**Acknowledgements**](./acknowledgements.md)
+- [**Repository settings**](./development/repository-settings.md)
