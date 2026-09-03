@@ -208,7 +208,7 @@ user with an error message.
 
 ## References
 
-- [TS-9: Version control](https://kieranpotts.com/standards/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   Read before filing the change, for the commit types and message conventions
   this skill relies on.
 

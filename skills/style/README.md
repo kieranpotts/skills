@@ -82,10 +82,8 @@ flowchart LR
 
 ## References
 
-- [TS-9: Version
-  control](https://kieranpotts.com/standards/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
   Defines the `style:` and `maintenance:` commit types used here.
 
-- [TS-27:
-  Markdown](https://kieranpotts.com/standards/027) \
+- [TS-27: Markdown](https://kieranpotts.com/standards/027) \
   Formatting conventions for Markdown content.
