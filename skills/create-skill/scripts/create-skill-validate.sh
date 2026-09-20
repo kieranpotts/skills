@@ -339,35 +339,43 @@ check_compatibility_tools() {
 }
 
 #
-# TS-27 puts lines at 80 characters SHOULD, 160 MUST. Tables, fenced code, and
-# unbreakable links are exempt. The budget covers the front-matter too, so no
-# line is skipped on account of being metadata.
+# Prose is not soft wrapped: every paragraph, list item, and blockquote
+# paragraph sits on one source line, however long. A second consecutive prose
+# line that does not itself open a block is a wrap. Fenced code, tables, YAML
+# front-matter, and hard line breaks keep their own line structure, so they
+# are exempt.
 #
 check_line_length() {
   local skill_md="$1"
-  local over_80 over_160
+  local wrapped
 
-  over_80="$(awk '
-      /^[[:space:]]*```/ { fence = !fence; next }
+  wrapped="$(awk '
+      NR == 1 && /^---[[:space:]]*$/ { front = 1; next }
+      front { if (/^(---|\.\.\.)[[:space:]]*$/) front = 0; next }
+
+      /^[[:space:]]*(```|~~~)/ { fence = !fence; prose = 0; next }
       fence { next }
-      /^[[:space:]]*\|/ { next }
-      /\]\(/ || /http/ { next }
-      length($0) > 80 { c++ }
-      END { print c+0 }
+
+      /^[[:space:]]*$/ { prose = 0; next }
+      /^[[:space:]]*\|/ { prose = 0; next }
+      /(  +|\\)$/ { prose = 0; next }
+
+      # A line that opens a block of its own is never a wrap, but the prose it
+      # opens can be wrapped onto the line after it.
+      /^[[:space:]]*(#|>|<|[-*+][[:space:]]|[0-9]+[.)][[:space:]])/ { prose = 1; next }
+      /^[[:space:]]*(\*\*\*|---|___)[[:space:]]*$/ { prose = 0; next }
+
+      prose { c++; if (first == "") first = NR; next }
+      { prose = 1 }
+      END { print c+0, first+0 }
     ' "${skill_md}")"
 
-  over_160="$(awk '/^[[:space:]]*\|/ { next } /http/ { next } length($0) > 160 { c++ } END { print c+0 }' "${skill_md}")"
-
-  if (( over_160 > 0 )); then
-    printf "  [FAIL] %d line(s) exceed the 160-character hard limit\n" "${over_160}" >&2
+  if [[ "${wrapped%% *}" != 0 ]]; then
+    printf "  [FAIL] %d soft-wrapped prose line(s), from line %s\n" ${wrapped} >&2
     return 1
   fi
 
-  if (( over_80 == 0 )); then
-    printf "  [PASS] Lines are within the 80-character budget\n" >&2
-  else
-    printf "  [WARN] %d line(s) exceed 80 characters\n" "${over_80}" >&2
-  fi
+  printf "  [PASS] Prose is not soft wrapped\n" >&2
   return 0
 }
 

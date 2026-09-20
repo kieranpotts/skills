@@ -14,30 +14,23 @@
 
 ## Summary
 
-A short, single-paragraph verdict on the security and privacy posture of the
-scoped system, and the headline risks this session surfaced. What is the shape
-of the exposure?
+A short, single-paragraph verdict on the security and privacy posture of the scoped system, and the headline risks this session surfaced. What is the shape of the exposure?
 
 ## Business context
 
-Why does the system exist, and what business value does it provide? What are the
-critical business functions? Who are the key stakeholders?
+Why does the system exist, and what business value does it provide? What are the critical business functions? Who are the key stakeholders?
 
-What is the business impact of a security or privacy failure – financial,
-reputational, regulatory, operational?
+What is the business impact of a security or privacy failure – financial, reputational, regulatory, operational?
 
 ## Technical scope
 
-What is being threat modeled? Define the system boundaries and in-scope
-components. What is expressly out-of-scope?
+What is being threat modeled? Define the system boundaries and in-scope components. What is expressly out-of-scope?
 
-What is the technology stack? What are the deployment environments and the
-integration points with other (out-of-scope) systems?
+What is the technology stack? What are the deployment environments and the integration points with other (out-of-scope) systems?
 
 ## Decomposition
 
-How does the system work? Include or link to architecture diagrams, data-flow
-diagrams, and other models used in the session.
+How does the system work? Include or link to architecture diagrams, data-flow diagrams, and other models used in the session.
 
 ### Key components
 
@@ -76,9 +69,7 @@ Where trust changes, eg. internet to DMZ, DMZ to internal network.
 
 ## Threat assessment
 
-Assess each component, data flow, and asset against the chosen framework(s).
-Rate each threat by likelihood and impact to yield a severity, using a
-consistent scoring scheme.
+Assess each component, data flow, and asset against the chosen framework(s). Rate each threat by likelihood and impact to yield a severity, using a consistent scoring scheme.
 
 | Ref | Component / Flow               | Description                                                                  | Type                   | Countermeasures                                          | Likelihood | Impact   | Severity |
 | --- | ------------------------------ | ---------------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------- | ---------- | -------- | -------- |
@@ -90,23 +81,17 @@ consistent scoring scheme.
 
 ### Risks raised
 
-Which of the threats above are worth tracking over time, and were therefore
-promoted into the risk register. List their register references here. The
-register tracks their ongoing status.
+Which of the threats above are worth tracking over time, and were therefore promoted into the risk register. List their register references here. The register tracks their ongoing status.
 
 - `TA1`: Forged payment-confirmation webhook.
 - `TA3`: Card number (PAN) leaked to application logs.
 - `TA4`: Long-lived payment gateway API key.
 
-(`TA2` was assessed but not promoted. The server-side total recomputation
-already reduces it to Medium, with no residual exposure worth tracking.)
+(`TA2` was assessed but not promoted. The server-side total recomputation already reduces it to Medium, with no residual exposure worth tracking.)
 
 ## Mitigation strategies
 
-For each risk raised, capture the agreed mitigation strategy, or the reason for
-accepting the risk with no mitigation. Record enough rationale that a future
-reader understands _why_ this response was chosen. Detailed step-by-step
-remediation belongs in the code repository's own issue tracker — link to it.
+For each risk raised, capture the agreed mitigation strategy, or the reason for accepting the risk with no mitigation. Record enough rationale that a future reader understands _why_ this response was chosen. Detailed step-by-step remediation belongs in the code repository's own issue tracker — link to it.
 
 ## Follow-ups
 

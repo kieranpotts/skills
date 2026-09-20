@@ -2,28 +2,15 @@
 
 The **validate** skill is all about asking, "did we build the right thing?"
 
-The agent is instructed to recover the originating statement of need, walk
-through the working software as the user pursuing their goal, and surface the
-gaps where what was _specified_ has diverged from what the user actually
-wanted. Each gap is classified, evidenced, and priced, and the whole set is
-bounded to the five to ten findings that matter most.
+The agent is instructed to recover the originating statement of need, walk through the working software as the user pursuing their goal, and surface the gaps where what was _specified_ has diverged from what the user actually wanted. Each gap is classified, evidenced, and priced, and the whole set is bounded to the five to ten findings that matter most.
 
-This is evaluation only. The agent produces a prioritized report and an
-explicit verdict — MEETS THE NEED or GAPS FOUND — but changes no
-specification and no code. Where a report store resolves, the report is
-persisted there; otherwise it is returned to the caller.
+This is evaluation only. The agent produces a prioritized report and an explicit verdict — MEETS THE NEED or GAPS FOUND — but changes no specification and no code. Where a report store resolves, the report is persisted there; otherwise it is returned to the caller.
 
-Note the distinction from verification: checking the code against its
-acceptance criteria is a different job. Validation questions the acceptance
-criteria themselves.
+Note the distinction from verification: checking the code against its acceptance criteria is a different job. Validation questions the acceptance criteria themselves.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively. It resolves the
-specification, the statement of need, and the running software from context
-and the environment, and stops with an error rather than prompting the user.
-It is therefore safe in away-from-keyboard and continuous integration
-workflows.
+This skill instructs the agent to run non-interactively. It resolves the specification, the statement of need, and the running software from context and the environment, and stops with an error rather than prompting the user. It is therefore safe in away-from-keyboard and continuous integration workflows.
 
 ## How to invoke
 
@@ -35,15 +22,11 @@ workflows.
 
 ## Recommended models
 
-A premium frontier reasoning model. The task is open-ended judgment — inferring
-unstated user needs, weighing impact against change cost, and resisting the
-pull toward manufacturing findings — none of which a small model does reliably.
+A premium frontier reasoning model. The task is open-ended judgment — inferring unstated user needs, weighing impact against change cost, and resisting the pull toward manufacturing findings — none of which a small model does reliably.
 
 ## Suggested workflows
 
-Run this once a body of work is complete and demonstrable, not on every
-commit. Validation needs working software to walk through, and its output is
-an input to the next round of requirements refinement.
+Run this once a body of work is complete and demonstrable, not on every commit. Validation needs working software to walk through, and its output is an input to the next round of requirements refinement.
 
 ```mermaid
 flowchart LR
@@ -69,13 +52,10 @@ flowchart LR
 ## Related skills
 
 - [**refine**](../refine/) \
-  Acts on the specification gaps this skill surfaces, turning suggested
-  directions into revised requirements.
+  Acts on the specification gaps this skill surfaces, turning suggested directions into revised requirements.
 
 - [**audit**](../audit/) \
-  Checks the architectural integrity of the evolving system, where this skill
-  checks its fitness for the user's need.
+  Checks the architectural integrity of the evolving system, where this skill checks its fitness for the user's need.
 
 - [**test**](../test/) \
-  Verifies the system against its specification, where this skill questions
-  whether that specification was right.
+  Verifies the system against its specification, where this skill questions whether that specification was right.
