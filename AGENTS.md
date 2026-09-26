@@ -70,6 +70,8 @@ Every `SKILL.md` file SHOULD be token-efficient (RECOMMENDED limit: 500 lines, c
 
   A skill MUST NOT decide branch policy. It commits, or proposes to commit, on whatever branch is already checked out. Whether that branch is a protected trunk is for the repository's own conventions and the **[branch](./skills/branch/SKILL.md)** skill to have already settled, not something a change-making skill gates on.
 
+- MUST NOT hard-wrap prose in `SKILL.md`, `README.md`, or other Markdown files: write one line per paragraph, list item, and blockquote paragraph, however long, and let the editor soft-wrap. The validator enforces this for `SKILL.md`. Commit message bodies are the exception: they are hard-wrapped at 72 characters, per the **[commit](./skills/commit/SKILL.md)** skill. Do not reflow an existing file's prose as a side effect of an unrelated change.
+
 - MUST NOT commit anything under `build/`. It is gitignored. Only `build/README.md` is tracked.
 
 ## References
@@ -84,6 +86,9 @@ The following technical standards (TS) govern this project. Fetch and ingest the
 
 - [**TS-26: Technical Writing Style Guide**](https://kieranpotts.com/standards/026) \
   Use when writing or editing the prose of a technical document. Covers tone-of-voice, headings, terminology, lists, and citations.
+
+- [**TS-28: AsciiDoc**](https://kieranpotts.com/standards/028) \
+  Use when deciding how to wrap prose in source files (§ Line length and wrapping). This repository has chosen one line per paragraph.
 
 - [**TS-9: Version Control**](https://kieranpotts.com/standards/009) \
   Use when working with Git. Covers commits, branching, merging, integration strategies, cutting releases, and configuring Git/PR/CI tooling.
