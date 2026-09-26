@@ -1,7 +1,5 @@
 # ✨Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**🚧 UNDER CONSTRUCTION 🚧**
-
 **A collection of agentic workflow skills** — also known as rules or instructions — covering universal phases of the software development lifecycle (specifying, designing, planning, branching, coding, committing…), plus supporting activities like business discovery, issue triage, and session reflection.
 
 This is no grab-bag of random skills. It's a cohesive collection, designed to be composable into all sorts of agentic workflows, and intended to be installed globally for reuse across multiple code repositories and software projects.
