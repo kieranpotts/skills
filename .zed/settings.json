@@ -9,10 +9,10 @@
 
   "languages": {
 
-    /* Wrap documentation files at the viewport or 100 characters.  */
+    /* Wrap documentation files at the viewport or 160 characters.  */
     "Markdown": {
       "soft_wrap": "bounded",
-      "preferred_line_length": 100
+      "preferred_line_length": 160
     }
 
   }
