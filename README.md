@@ -1,6 +1,6 @@
 # ✨Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**A collection of agentic workflow skills** — also known as rules or instructions — covering universal phases of the software development lifecycle (specifying, designing, planning, branching, coding, committing…), plus supporting activities like business discovery, issue triage, and session reflection.
+**A collection of agentic workflow skills** — also known as rules or instructions — covering universal phases of the software development lifecycle (specifying, designing, planning, branching, coding, committing, etc.) plus supporting activities like business discovery, issue triage, and session reflection.
 
 This is no grab-bag of random skills. It's a cohesive collection, designed to be composable into all sorts of agentic workflows, and intended to be installed globally for reuse across multiple code repositories and software projects.
 
@@ -8,24 +8,24 @@ The goal is predictable, consistent outcomes from any mainstream coding model �
 
 The skills in this collection are loosely coupled from one another, to support their composability. But they can't just be dropped into any software project. They encode strong opinions and depend on a broader ecosystem of development tools and methods being in place. Specifically, these skills depend on version-controlled stores for software requirements, technical decisions, system designs, and delivery plans. The skills instruct agents to read and write to these stores, which serve as the external persistence layers between discrete agentic steps in a workflow. An agent working on an upstream task will write artifacts to one of these stores, which a downstream agent will read as context for its own task.
 
-The following repositories are templates for these external dependencies:
+The following repositories are templates for these external dependencies.
 
-- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) \
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) —
   Captures what the system does, in business terms.
 
-- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc) \
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc) —
   Records how significant technical decisions were made, and why.
 
-- [**📐 Design Docs**](https://github.com/kieranpotts/design) \
+- [**📐 Design Docs**](https://github.com/kieranpotts/design) —
   Documents what the system looks like in production.
 
-- [**🔍 Architecture Audits**](https://github.com/kieranpotts/audits) \
+- [**🔍 Architecture Audits**](https://github.com/kieranpotts/audits) —
   Logs historical evaluations of the as-built system's structural integrity.
 
-- [**🗺️ Delivery Plans**](https://github.com/kieranpotts/plans) \
+- [**🗺️ Delivery Plans**](https://github.com/kieranpotts/plans) —
   Tracks when, and in what order, the work gets done.
 
-- [**⚠️ Risk Register**](https://github.com/kieranpotts/risks) \
+- [**⚠️ Risk Register**](https://github.com/kieranpotts/risks) —
   Records the inherent security and privacy risks the system carries.
 
 Running the whole ecosystem on version control means requirements, decisions, designs, plans, and code all coexist in the same system. All the artifacts that are read and written by agents are branched, committed, reviewed, and merged the same way. Auditability and rollback are built-in for free.
@@ -34,17 +34,17 @@ The source files conform to the [Agent Skills](https://agentskills.io/) standard
 
 ## 🧩 Skills
 
-The skills in this collection span four categories:
+The skills in this collection span four categories.
 
-- **Workflow skills** provide instructions for agents running discrete phases of the software development lifecycle.
+- **➡️ Workflow skills** provide instructions for agents running discrete phases of the software development lifecycle.
 
-- **Version control skills** for managing revisions and triggering software builds and releases via Git.
+- **🔀 Version control skills** for managing revisions and triggering software builds and releases via Git.
 
-- **Auxiliary skills** for peripheral tasks like the proofreading of technical documentation.
+- **📎 Auxiliary skills** for peripheral tasks like the proofreading of technical documentation.
 
-- **Agentic workflow-optimization skills**, like agent handoff and session reflection.
+- **🤖 Agentic workflow-optimization skills**, like agent handoff and session reflection.
 
-Each skill operates in one of two possible modes:
+Each skill operates in one of two possible modes.
 
 - Most of the skills in this collection instruct the agent to run **non-interactively (🤖)**. The agent is instructed to discover all the information it needs from its context and the environment. If it cannot complete the task without prompting, the agent is instructed instead to stop and alert with an error message. These skills are intended to be used in away-from-keyboard contexts.
 
@@ -54,9 +54,9 @@ Each skill operates in one of two possible modes:
 
 | Skill                                | Description                                                                                           |Mode|
 |--------------------------------------|-------------------------------------------------------------------------------------------------------|----|
-| **[audit](./skills/audit/)**         | Evaluate the evolving architecture — modularity, consistency, coupling, etc.                          | 🤖 |
+| **[audit](./skills/audit/)**         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                          | 🤖 |
 | **[code](./skills/code/)**           | Write code, verified by tests, for one small increment.                                               | 🤖 |
-| **[decide](./skills/decide/)**       | Frame a technical decision as an RFC.                                                                 |🤖🧑|
+| **[decide](./skills/decide/)**       | Frame a technical decision as an RFC or ADR.                                                          |🤖🧑|
 | **[design](./skills/design/)**       | Explore architectural options and their trade-offs.                                                   | 🤖 |
 | **[diagnose](./skills/diagnose/)**   | Find the cause of unexpected behaviors and runtime issues.                                            | 🤖 |
 | **[discover](./skills/discover/)**   | Run a discovery workshop with the customer to elicit product requirements.                            |🤖🧑|
@@ -103,9 +103,9 @@ Each skill operates in one of two possible modes:
 
 ### 🪟 Context management
 
-It is strongly RECOMMENDED that each skill be invoked in a fresh context window, for two reasons:
+It is strongly RECOMMENDED that each skill be invoked in a fresh context window. There are two reasons for this.
 
-- **Contamination.** Skills like **review**, **audit**, and **validate** are meant to interrogate work already done. If the agent still holds the conversation that produced that prior art, its behavior will be influenced by that background context. It will carry its own justifications forward, making it less effective in its adversarial role.
+- **Contamination.** Skills like **[review](./skills/review/)**, **[audit](./skills/audit/)**, and **[review](./skills/validate/)** are meant to interrogate work already done. If the agent still holds the conversation that produced that prior art, its behavior will be influenced by that background context. The agent will carry its own justifications forward, making it less effective in its intended adversarial role.
 
 - **Lossy summarization.** Long-running sessions are subject to context summarization, which can drop important detail. Starting each skill in a fresh agent session can help to avoid the loss of important context.
 
@@ -113,7 +113,7 @@ It is strongly RECOMMENDED that each skill be invoked in a fresh context window,
 
 None of the skills in this collection explicitly hand off to other skills. No skill invokes, or even knows about, another skill. Each does its one job, reports the result, and stops.
 
-Instead, skills are connected by contracts. One skill's output is another skill's input, and that input/output is always a durable artifact persisted to disk — eg. a requirements spec, a design doc, or a delivery plan — never state held in a conversation thread or context window. This decouples skills both temporally and structurally: a downstream skill doesn't need to be loaded into the same agent session as the upstream skill that produced its input.
+Instead, skills are connected by contracts. One skill's output is another skill's input, and that input/output is always a durable artifact persisted to disk — eg. a requirements spec, a design doc, or a delivery plan — never state held in a conversation thread or context window. This decouples skills both temporally and structurally. A downstream skill doesn't need to be loaded into the same agent session as the upstream skill that produced its input.
 
 These design constraints are what allow these skills to be composed into all sorts of different agentic workflows.
 
@@ -186,7 +186,7 @@ flowchart LR
 
 ## 📦 Installation
 
-To use these skills, you need to install them in a format and location supported by your agent harnesses. There are two ways to do this:
+To use these skills, you need to install them in a format and location supported by your agent harnesses. There are two ways to do this.
 
 - Use Vercel's [skills.sh CLI](https://github.com/vercel-labs/skills).
 - Use the [custom installer script](./run/install) included in this repository.
@@ -267,7 +267,7 @@ Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format in
 
 For Copilot and Cursor, the source files are transpiled to instructions (`.github/instructions/*.instructions.md`) and rules (`.cursor/rules/*.mdc`) respectively.
 
-The `--agents` flag installs into `.agents/skills/` — a vendor-neutral location that a growing number of harnesses auto-discover — as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor. The skills are installed in their native [Agent Skills](https://agentskills.io/) format — no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single harness-agnostic install, but combine this with other flags to target other harnesses that you know you will be using, to ensure consistent behavior across all your agents.
+The `--agents` flag installs into `.agents/skills/` — a vendor-neutral location that a growing number of harnesses auto-discover (as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor). The skills are installed in their native [Agent Skills](https://agentskills.io/) format — no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single harness-agnostic install, but combine this with other flags to target other harnesses that you know you will be using, to ensure consistent behavior across all your agents.
 
 By default, the custom installer will place the skills in a subdirectory of your home directory. But not all agent harnesses auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agent harnesses to detect skills at specific paths. So, if you install the skills globally, you should review your harness configurations to ensure the skills are discoverable.
 
