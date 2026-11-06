@@ -58,5 +58,5 @@ flowchart LR
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
   The technical standard that defines the release branching and version tagging conventions encoded here.

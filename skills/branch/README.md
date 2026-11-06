@@ -47,16 +47,16 @@ flowchart LR
 
 ## Related skills
 
-- [**commit**](../commit/) \
+- [**commit**](../commit/) —
   Creates the revisions that land on the branches this skill defines.
 
-- [**merge**](../merge/) \
+- [**merge**](../merge/) —
   Integrates work between the divergent branches this skill creates, and deletes them afterwards.
 
-- [**release**](../release/) \
+- [**release**](../release/) —
   Cuts release branches from the trunks this skill defines.
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
   The technical standard this skill encodes.

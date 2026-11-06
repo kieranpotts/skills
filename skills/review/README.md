@@ -53,8 +53,8 @@ flowchart LR
 
 ## Related skills
 
-- [**resolve**](../resolve/) \
+- [**resolve**](../resolve/) —
   Actions the open comments this skill leaves behind. Review reports and stops; resolve does the fixing.
 
-- [**audit**](../audit/) \
+- [**audit**](../audit/) —
   A wider, design-level companion to this skill's change-level pass. Reach for audit when the question is about the system rather than the diff.

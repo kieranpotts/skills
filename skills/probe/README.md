@@ -51,10 +51,10 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Records changes to a system's architecture. A significant design change is a natural trigger for a fresh threat modeling session.
 
-- [**audit**](../audit/) \
+- [**audit**](../audit/) —
   Companion skill that inspects a system's structural integrity, where this one inspects its exposure to attack.
 
 ## References

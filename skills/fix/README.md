@@ -51,5 +51,5 @@ flowchart LR
 
 ## Related skills
 
-- [**diagnose**](../diagnose/) \
+- [**diagnose**](../diagnose/) —
   Finds the underlying cause of an issue, and hands over a confirmed causal chain and a failing regression test that this skill then acts on. Reach for it first whenever the cause of a breakage is not already established.

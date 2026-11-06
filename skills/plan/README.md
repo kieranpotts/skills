@@ -43,8 +43,8 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Supplies the agreed architectural option and its trade-offs, which this skill decomposes into delivery steps.
 
-- [**code**](../code/) \
+- [**code**](../code/) —
   Picks up each step this plan produces, one at a time, and implements it.

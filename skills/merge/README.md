@@ -45,16 +45,16 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) \
+- [**branch**](../branch/) —
   Defines and creates the branches whose types decide the merge strategy used here.
 
-- [**commit**](../commit/) \
+- [**commit**](../commit/) —
   Authors the revisions that this skill integrates between branches.
 
-- [**release**](../release/) \
+- [**release**](../release/) —
   Cuts release branches from the trunk that this skill fast-forwards.
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) \
+- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
   The branching model and reintegration strategies this skill encodes.

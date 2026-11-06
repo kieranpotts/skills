@@ -47,5 +47,5 @@ flowchart LR
 
 ## Related skills
 
-- [**review**](../review/) \
+- [**review**](../review/) —
   Leaves the comments that this skill then actions. Curate its output before running this skill, since every comment left open gets implemented.

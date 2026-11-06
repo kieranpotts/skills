@@ -51,13 +51,16 @@ flowchart LR
 
 ## Related skills
 
-- [**specify**](../specify/) \
+- [**specify**](../specify/) —
   Turns the PRD's rules and examples into testable acceptance criteria. This skill deliberately stops short of that.
 
 ## References
 
-- [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015): The core technique — rules, examples, and questions, captured in a discovery session.
+- [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/) (Matt Wynne, 2015) —
+  The core technique — rules, examples, and questions, captured in a discovery session.
 
-- [Specification by Example](https://gojko.net/books/specification-by-example/) (Gojko Adzic): The broader philosophy — refine requirements through concrete cases, not abstract prose.
+- [Specification by Example](https://gojko.net/books/specification-by-example/) (Gojko Adzic) —
+  The broader philosophy — refine requirements through concrete cases, not abstract prose.
 
-- [Impact Mapping](https://www.impactmapping.org/) (Gojko Adzic): Source of the *goal / actor / impact* framing used in the outcome section.
+- [Impact Mapping](https://www.impactmapping.org/) (Gojko Adzic) —
+  Source of the goal/actor/impact framing used in the outcome section.

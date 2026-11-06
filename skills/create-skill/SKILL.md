@@ -39,11 +39,11 @@ Determine the following information from the surrounding context and environment
 
 ## Instructions
 
-1.  Before writing, gather relevant context. Look up tool documentation, check the project for similar existing skills, and identify any scripts or reference files that ought to be bundled. Come prepared so you can minimize questions to the user.
+1. Before writing, gather relevant context. Look up tool documentation, check the project for similar existing skills, and identify any scripts or reference files that ought to be bundled. Come prepared so you can minimize questions to the user.
 
-2.  You MUST resolve where the target project already keeps its skills, rather than assuming a path. Look for a directory that holds `SKILL.md` files, or a convention file that names one. Only where the project has no existing convention, default to `.agents/skills/`, relative to the project root. Install the new skill at `<skills-dir>/<skill-name>/SKILL.md`.
+2. You MUST resolve where the target project already keeps its skills, rather than assuming a path. Look for a directory that holds `SKILL.md` files, or a convention file that names one. Only where the project has no existing convention, default to `.agents/skills/`, relative to the project root. Install the new skill at `<skills-dir>/<skill-name>/SKILL.md`.
 
-    Use kebab-case for skill names, and favor meaningful actions or verbs, eg. "deploy", "migrate", "publish", "benchmark". Prefer single verbs, but use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
+   Use kebab-case for skill names, and favor meaningful actions or verbs, eg. "deploy", "migrate", "publish", "benchmark". Prefer single verbs, but use `<verb>-<noun>` when disambiguation is needed, eg. "create-skill".
 
 3.  Use the [bundled template](./assets/create-skill-template/skill-name/SKILL.md) to write the `SKILL.md` file. Include the sections, front-matter, and formatting required by the rules defined below.
 
@@ -201,7 +201,7 @@ Determine the following information from the surrounding context and environment
 
 ## Examples
 
-- A minimal skill with no bundled resources:
+- A minimal skill with no bundled resources.
 
   ```text
   skills/
@@ -210,7 +210,7 @@ Determine the following information from the surrounding context and environment
       └── README.md
   ```
 
-- A skill with bundled scripts and references:
+- A skill with bundled scripts and references.
 
   ```text
   skills/

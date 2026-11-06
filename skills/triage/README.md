@@ -47,7 +47,7 @@ flowchart LR
 
 ## Related skills
 
-- [**code**](../code/) \
+- [**code**](../code/) —
   Picks up the agent brief this skill produces, and drives the build loop from it.
 
 ## References

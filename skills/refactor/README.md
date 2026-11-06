@@ -51,11 +51,11 @@ flowchart LR
 
 ## Related skills
 
-- [**audit**](../audit/) \
+- [**audit**](../audit/) —
   Surfaces the structural drift that this skill then acts on. Run it first to decide which quality is worth improving.
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Takes over when a move would redraw module boundaries, change a public interface, or alter the data model — changes this skill refuses to make.
 
-- [**test**](../test/) \
+- [**test**](../test/) —
   Builds the safety net this skill depends on. Use it first where coverage of the target code is thin.

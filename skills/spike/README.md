@@ -46,8 +46,8 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Companion skill that poses the questions a spike answers with throwaway code, and that consumes the answer once the spike has filed it.
 
-- [**decide**](../decide/) \
+- [**decide**](../decide/) —
   Records an architecturally significant decision. A spike's finding is often the evidence such a decision rests on.

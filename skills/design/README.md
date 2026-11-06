@@ -51,14 +51,14 @@ flowchart LR
 
 ## Related skills
 
-- [**specify**](../specify/) \
+- [**specify**](../specify/) —
   Supplies the approved requirements that this skill proposes a solution to. Design is gated on its output.
 
-- [**plan**](../plan/) \
+- [**plan**](../plan/) —
   Decomposes the resulting design into incremental delivery steps, picking up where this skill stops.
 
-- [**elaborate**](../elaborate/) \
+- [**elaborate**](../elaborate/) —
   Stress-tests a draft design — its ambiguous terms and unstated assumptions — before it is decomposed.
 
-- [**spike**](../spike/) \
+- [**spike**](../spike/) —
   Answers feasibility questions the design turns on, feeding evidence back into the evaluation.

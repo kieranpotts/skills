@@ -45,13 +45,13 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Produces the draft architectural change that this skill interrogates.
 
-- [**plan**](../plan/) \
+- [**plan**](../plan/) —
   Decomposes the sharpened design into implementation increments once elaboration is done.
 
-- [**decide**](../decide/) \
+- [**decide**](../decide/) —
   Writes up a single decision in full, where elaboration surfaces one too large to settle in the interview.
 
 ## References

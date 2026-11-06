@@ -47,10 +47,10 @@ flowchart LR
 
 ## Related skills
 
-- [**triage**](../triage/) \
+- [**triage**](../triage/) —
   Establishes that a reported bug is real and reproducible before anyone spends time on it. Run it first, and hand its reproduction to this skill.
 
-- [**fix**](../fix/) \
+- [**fix**](../fix/) —
   Applies the remedy once this skill has confirmed the cause, and turns the red regression test green.
 
 ## References

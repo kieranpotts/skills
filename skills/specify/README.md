@@ -45,11 +45,11 @@ flowchart LR
 
 ## Related skills
 
-- [**discover**](../discover/) \
+- [**discover**](../discover/) —
   Gathers the requirements and produces the PRD that this skill transforms into acceptance criteria.
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Runs after approval, designing an implementation against the acceptance criteria this skill produces.
 
-- [**test**](../test/) \
+- [**test**](../test/) —
   Validates progress against the acceptance criteria, letting agents use deterministic tools rather than judgment to decide whether work is done.

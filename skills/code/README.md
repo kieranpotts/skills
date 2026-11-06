@@ -47,11 +47,11 @@ flowchart LR
 
 ## Related skills
 
-- [**plan**](../plan/) \
+- [**plan**](../plan/) —
   Decomposes a requirements specification into a pipeline of small changes. Each of those changes is one invocation of this skill.
 
-- [**triage**](../triage/) \
+- [**triage**](../triage/) —
   An alternative upstream trigger, producing small scoped fixes rather than planned steps.
 
-- [**style**](../style/) \
+- [**style**](../style/) —
   Normalizes code presentation after the edits are made.

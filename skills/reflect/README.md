@@ -32,5 +32,5 @@ Do not run it on every session by reflex. Most sessions teach nothing durable, a
 
 ## Related skills
 
-- [**handoff**](../handoff/) \
+- [**handoff**](../handoff/) —
   Companion skill for persisting task state between discrete agent sessions. Where **reflect** records what was learned, **handoff** records where the work got to.

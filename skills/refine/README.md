@@ -47,11 +47,11 @@ flowchart LR
 
 ## Related skills
 
-- [**validate**](../validate/) \
+- [**validate**](../validate/) —
   Runs the acceptance checks whose failures supply this skill's triggers.
 
-- [**specify**](../specify/) \
+- [**specify**](../specify/) —
   Writes specifications from scratch. Take that route for a net-new capability, which is out of scope here.
 
-- [**refactor**](../refactor/) \
+- [**refactor**](../refactor/) —
   The structural analogue: refactor improves the shape of code without changing behavior, refine improves the shape of requirements without changing the underlying need.

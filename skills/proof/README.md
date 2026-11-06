@@ -28,5 +28,5 @@ A small, fast model is sufficient. The work is bounded, mechanical, and governed
 
 ## Related skills
 
-- [**style**](../style/) \
+- [**style**](../style/) —
   Normalizes the presentation of a document, while this skill corrects its language. Run both on documentation, in either order, as separate changes.

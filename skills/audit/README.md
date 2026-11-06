@@ -1,12 +1,12 @@
 # Audit
 
-The audit skill evaluates the evolving architecture of a codebase for modularity, consistency, coupling, and the placement of its structural boundaries.
+The audit skill evaluates the as-built architecture of a codebase for modularity, consistency, coupling, and the placement of its structural boundaries.
 
 The agent is instructed to conduct the evaluation on its own terms, with no reference to the documented architecture and no knowledge of trade-offs already considered. That deliberate blindness is the point. It keeps the review unbiased, so the agent is more likely to surface genuinely useful suggestions about how the architecture could be improved.
 
 The trade-off is a bit more noise in the output. The agent may retread design trade-offs that have long been settled.
 
-This is an evaluation skill. It changes no code. The output is a single architectural audit report, written to a store the agent resolves from its context or environment.
+This is an evaluation skill. It changes no code. The output is a single architectural audit report, written to a store the agent resolves from the context its given or the local environment.
 
 ## Interactivity
 
@@ -20,17 +20,17 @@ This skill instructs the agent to run non-interactively. It never prompts for an
 
 > Is the design still sound?
 
-You may name the target codebase as a path or a repository URL, and pin the audit to a particular commit. Left unsaid, the agent audits the current repository at its checked-out revision.
+You may name the target codebase as a path or a repository URL, and pin the audit to a particular commit. Else the agent will audit the repository in the current working directory, at its checked-out revision.
 
 ## Recommended models
 
-A premium frontier reasoning model is best suited to this task. Judging whether a module earns its keep, or whether a boundary sits in the right place, is open-ended analysis rather than mechanical transformation.
+A premium frontier reasoning model, with "thinking" dialled up, will be best suited to this task. This is open-ended analysis rather than mechanical transformation.
 
 ## Suggested workflows
 
 An architecture audit may be scheduled to run periodically, or be triggered by a big changeset landing on the main trunk. Alternatively, it may be configured as a preflight step in a release workflow.
 
-It is NOT RECOMMENDED to run an audit against every commit, especially in continuous integration workflows.
+It is NOT RECOMMENDED to run an audit against every commit, especially in continuous integration workflows. Architectural audits are computationally expensive, and there is little value to be gained from running them "continuously".
 
 ```mermaid
 flowchart LR
@@ -51,11 +51,11 @@ flowchart LR
 
 ## Related skills
 
-- [**refactor**](../refactor/) \
+- [**refactor**](../refactor/) —
   Pass the audit report to a coding agent as the context for a refactor.
 
-- [**probe**](../probe/) \
-  Audit is scoped to the static structure of code and data; probe looks specifically at the security and privacy implications of the design.
+- [**probe**](../probe/) —
+  The **audit** skill is scoped to the static structure of code and data. The [**probe**](../probe/) skill looks specifically at the security and privacy implications of the design.
 
-- [**validate**](../validate/) \
-  Audit asks whether the _design_ of the system should evolve. Validate asks whether the _specification_ of the system should evolve.
+- [**validate**](../validate/) —
+  The **audit** skills asks whether the _design_ of the system should evolve. The [**validate**](../validate/) skill asks whether the _specification_ of the system should evolve.

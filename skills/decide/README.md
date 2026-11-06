@@ -26,14 +26,14 @@ A frontier reasoning model, ideally with extended thinking enabled. The task is 
 
 ## Related skills
 
-- [**research**](../research/) \
+- [**research**](../research/) —
   Establishes the external facts a decision turns on, so they can be recorded as verified rather than assumed.
 
-- [**spike**](../spike/) \
+- [**spike**](../spike/) —
   Answers "will this actually work?" with throwaway code, settling assumptions that would otherwise land in the open questions.
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Supplies architectural trade-off analysis, whose conclusions this skill carries into the alternatives section.
 
-- [**elaborate**](../elaborate/) \
+- [**elaborate**](../elaborate/) —
   Interrogates a proposed design and surfaces the decisions embedded in it. Where one is too large to settle in that interview, it lands here.

@@ -26,7 +26,7 @@ A mid-tier model is sufficient. The task is summarization over context the agent
 
 ## Related skills
 
-- [**reflect**](../reflect/) \
+- [**reflect**](../reflect/) —
   Companion skill that distills durable lessons from an agent session, while this skill persists task state for the next one.
 
 ## References

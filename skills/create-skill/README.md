@@ -28,5 +28,5 @@ A mid-tier model is sufficient for basic skill authoring. Reach for a frontier r
 
 ## Related skills
 
-- [**reflect**](../reflect/) \
+- [**reflect**](../reflect/) —
   Draws lessons from an AI session, which can then be used as the basis for new skills, so persisting those learnings to disk rather than relying on memory.

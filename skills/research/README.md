@@ -32,11 +32,11 @@ A frontier reasoning model with strong long-context handling. The task calls for
 
 ## Related skills
 
-- [**spike**](../spike/) \
+- [**spike**](../spike/) —
   Answers a question with throwaway code, where external sources alone cannot settle it. Reach for a spike when the uncertainty is about how something behaves in this codebase rather than what the documentation says.
 
-- [**design**](../design/) \
+- [**design**](../design/) —
   Consumes research reports as evidence when weighing architectural trade-offs. Research supplies the facts; design makes the call.
 
-- [**decide**](../decide/) \
+- [**decide**](../decide/) —
   Records the decision a piece of research unblocks. Run research first, then hand its report to the decision record as supporting evidence.

@@ -51,11 +51,11 @@ flowchart LR
 
 ## Related skills
 
-- [**refine**](../refine/) \
+- [**refine**](../refine/) —
   Acts on the specification gaps this skill surfaces, turning suggested directions into revised requirements.
 
-- [**audit**](../audit/) \
+- [**audit**](../audit/) —
   Checks the architectural integrity of the evolving system, where this skill checks its fitness for the user's need.
 
-- [**test**](../test/) \
+- [**test**](../test/) —
   Verifies the system against its specification, where this skill questions whether that specification was right.

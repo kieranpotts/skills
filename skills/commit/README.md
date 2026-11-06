@@ -45,19 +45,19 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) \
+- [**branch**](../branch/) —
   Defines the branching model that commits land on, including which branches make a changelog entry due.
 
-- [**merge**](../merge/) \
+- [**merge**](../merge/) —
   Integrates commits between divergent branches, consuming the history this skill helps compose.
 
-- [**release**](../release/) \
+- [**release**](../release/) —
   Cuts release branches from the committed history, and turns changelog entries into release notes.
 
 ## References
 
-- [Validate commit messages action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) \
+- [Validate commit messages action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) —
   The GitHub action that validates commit messages against these conventions.
 
-- [Pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks) \
+- [Pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks) —
   Validate commit messages against the same conventions, locally.
