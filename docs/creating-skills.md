@@ -1,6 +1,7 @@
 # Creating skills
 
-To author a new skill — or improve an existing one — use the [**create-skill**](../skills/create-skill/SKILL.md) skill.
+To author a new skill, or improve an existing one, use the
+[**create-skill**](../skills/create-skill/SKILL.md) skill.
 
 ## References
 

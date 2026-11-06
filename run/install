@@ -1,32 +1,33 @@
 #!/usr/bin/env bash
 
 #
-# Install skills into AI agents: Claude Code, Pi, Cursor, GitHub Copilot,
-# plus the agent-agnostic .agents/skills convention.
+# Install skills into AI agents — Claude Code, Pi, Cursor, GitHub Copilot,
+# plus the agent-agnostic `.agents/skills` convention.
 #
-# Select targets with --claude, --pi, --cursor, --copilot, --agents, or
-# --all. These parameters do not accept values.
+# Select targets with `--claude`, `--pi`, `--cursor`, `--copilot`, `--agents`,
+# or `--all`. These parameters do not accept values.
 #
-# --agents installs into .agents/skills/ — a vendor-neutral location an
+# `--agents` installs into `.agents/skills/` — a vendor-neutral location an
 # increasing number of harnesses auto-discover. Use it on its own, or
 # alongside the per-agent flags when you also want agent-specific copies
 # (eg. tweaked for Pi or Claude).
 #
-# The target directory is set once via --dir. It defaults to ~
+# The target directory is set once via `--dir`. It defaults to `~`
 # (user-level install). Pass any other path for a project-level install.
 #
-# Every install first compiles agent-specific artifacts into ./build/:
-# Claude/Pi/agents as verbatim copies of each skill directory; Cursor
+# Every install first compiles agent-specific artifacts into `./build/`.
+# Claude/Pi/agents as verbatim copies of each skill directory. Cursor
 # (.mdc) and Copilot (.instructions.md) as generated files with the right
-# front-matter. All targets then install from ./build/:
+# front-matter. All targets then install from `./build/`.
 #
-#   - Default → hard copies of ./build/ artifacts. The target remains
+#   - Default → hard copies of `./build/` artifacts. The target remains
 #     self-contained and unaffected by later repo changes.
-#   - --symlinks → symlinks into ./build/. Rebuilds (eg. after editing a
+#
+#   - `--symlinks` → symlinks into `./build/`. Rebuilds (eg. after editing a
 #     skill) are picked up immediately. Useful when developing skills.
 #
 # Cursor and Copilot may not auto-discover user-level skills. The script
-# warns at the end of the run if either was installed at ~.
+# warns at the end of the run if either was installed at `~`.
 #
 # See `--help` for more guidance.
 #

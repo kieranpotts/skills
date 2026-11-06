@@ -34,22 +34,22 @@ That said, the skills have been designed and tested against the following
 template repositories, which serve as reference implementations of these
 stores.
 
-- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) —
+- [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs).
   Captures what the system does, in business terms.
 
-- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc) —
+- [**💬 Requests for Comments (RFC)**](https://github.com/kieranpotts/rfc).
   Records how significant technical decisions were made, and why.
 
-- [**📐 Design Docs**](https://github.com/kieranpotts/design) —
+- [**📐 Design Docs**](https://github.com/kieranpotts/design).
   Documents what the system looks like in production.
 
-- [**🔍 Architecture Audits**](https://github.com/kieranpotts/audits) —
+- [**🔍 Architecture Audits**](https://github.com/kieranpotts/audits).
   Logs historical evaluations of the as-built system's structural integrity.
 
-- [**🗺️ Delivery Plans**](https://github.com/kieranpotts/plans) —
+- [**🗺️ Delivery Plans**](https://github.com/kieranpotts/plans).
   Tracks when, and in what order, the work gets done.
 
-- [**⚠️ Risk Register**](https://github.com/kieranpotts/risks) —
+- [**⚠️ Risk Register**](https://github.com/kieranpotts/risks).
   Records the inherent security and privacy risks the system carries.
 
 These templates run every store on version control. That means requirements,

@@ -10,6 +10,6 @@
 # software stacks here: https://github.com/github/gitignore
 #
 
-# Build artifacts (but keep the README or .keep file).
+# Build artifacts — but keep the README.
 build/*
 !build/README.md
