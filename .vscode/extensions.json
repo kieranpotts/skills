@@ -1,7 +1,7 @@
 {
   "recommendations": [
 
-    /* EditorConfig — .editorconfig file support. */
+    /* EditorConfig — `.editorconfig` file support. */
     "editorconfig.editorconfig",
 
   ]
