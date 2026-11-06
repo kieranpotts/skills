@@ -1,12 +1,29 @@
-# ✨Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
+# ✨ Skills [![skills.sh downloads](https://skills.sh/b/kieranpotts/skills)](https://skills.sh/kieranpotts/skills)
 
-**A collection of agentic workflow skills** — also known as rules or instructions — covering universal phases of the software development lifecycle (specifying, designing, planning, branching, coding, committing, etc.) plus supporting activities like business discovery, issue triage, and session reflection.
+**A collection of agentic workflow skills** — also known as rules or
+instructions — covering universal phases of the software development lifecycle
+— specifying, designing, planning, branching, coding, committing, etc. — plus
+supporting activities like business discovery, issue triage, and session
+reflection.
 
-This is no grab-bag of random skills. It's a cohesive collection, designed to be composable into all sorts of agentic workflows, and intended to be installed globally for reuse across multiple code repositories and software projects.
+This is no grab-bag of random skills. It's a cohesive collection, designed to be
+composable into all sorts of agentic workflows. It's also intended to be
+installed globally for reuse across multiple code repositories and software
+projects.
 
-The goal is predictable, consistent outcomes from any mainstream coding model — regardless of the technology stack or business domain.
+The goal is predictable, consistent outcomes from any mainstream coding model —
+regardless of the technology stack or business domain.
 
-The skills in this collection are loosely coupled from one another, to support their composability. But they can't just be dropped into any software project. They encode strong opinions and depend on a broader ecosystem of development tools and methods being in place. Specifically, these skills depend on version-controlled stores for software requirements, technical decisions, system designs, and delivery plans. The skills instruct agents to read and write to these stores, which serve as the external persistence layers between discrete agentic steps in a workflow. An agent working on an upstream task will write artifacts to one of these stores, which a downstream agent will read as context for its own task.
+The skills in this collection are loosely coupled from one another, to support
+their composability. But they can't just be dropped into any software project.
+They encode strong opinions and depend on a broader ecosystem of development
+tools and methods being in place. Specifically, these skills depend on
+version-controlled stores for software requirements, technical decisions,
+system designs, and delivery plans. The skills instruct agents to read and
+write to these stores, which serve as the external persistence layers between
+discrete agentic steps in a workflow. An agent working on an upstream task will
+write artifacts to one of these stores, which a downstream agent will read as
+context for its own task.
 
 The following repositories are templates for these external dependencies.
 
@@ -28,96 +45,145 @@ The following repositories are templates for these external dependencies.
 - [**⚠️ Risk Register**](https://github.com/kieranpotts/risks) —
   Records the inherent security and privacy risks the system carries.
 
-Running the whole ecosystem on version control means requirements, decisions, designs, plans, and code all coexist in the same system. All the artifacts that are read and written by agents are branched, committed, reviewed, and merged the same way. Auditability and rollback are built-in for free.
+Running the whole ecosystem on version control means requirements, decisions,
+designs, plans, and code all coexist in the same system. All the artifacts that
+are read and written by agents are branched, committed, reviewed, and merged
+the same way. Auditability and rollback come built in, for free.
 
-The source files conform to the [Agent Skills](https://agentskills.io/) standard — natively compatible with Claude Code, Pi, and other agents. The [built-in installer](./run/install) transpiles the source files to GitHub Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor rules (`.cursor/rules/*.mdc`). All other mainstream agent harnesses are supported via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See the installation steps, below, for more details.
+The source files conform to the [Agent Skills](https://agentskills.io/) standard
+— natively compatible with Claude Code, Pi, and other agents. The
+[built-in installer](./run/install) transpiles the source files to GitHub
+Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor
+rules (`.cursor/rules/*.mdc`). All other mainstream agent harnesses are supported
+via Vercel's [skills.sh installer](https://github.com/vercel-labs/skills). See
+the installation steps, below, for more details.
 
 ## 🧩 Skills
 
 The skills in this collection span four categories.
 
-- **➡️ Workflow skills** provide instructions for agents running discrete phases of the software development lifecycle.
+- **➡️ Workflow skills** for agents running discrete phases of the software
+  development lifecycle.
 
-- **🔀 Version control skills** for managing revisions and triggering software builds and releases via Git.
+- **🔀 Version control skills** for managing revisions and triggering software
+  builds and releases via Git.
 
-- **📎 Auxiliary skills** for peripheral tasks like the proofreading of technical documentation.
+- **📎 Auxiliary skills** for peripheral tasks like the proofreading of
+  technical documentation.
 
-- **🤖 Agentic workflow-optimization skills**, like agent handoff and session reflection.
+- **🤖 Agentic workflow-optimization skills**, like agent handoff and session
+  reflection.
 
 Each skill operates in one of two possible modes.
 
-- Most of the skills in this collection instruct the agent to run **non-interactively (🤖)**. The agent is instructed to discover all the information it needs from its context and the environment. If it cannot complete the task without prompting, the agent is instructed instead to stop and alert with an error message. These skills are intended to be used in away-from-keyboard contexts.
+- Most of the skills in this collection instruct the agent to run
+  **non-interactively (🤖)**. The agent is told to discover for itself all the
+  information it needs from its context and the environment. If it cannot
+  complete the task without prompting, the agent is instructed to stop and
+  alert with an error message. These skills are designed to be used in
+  away-from-keyboard contexts.
 
-- A small number of skills are necessarily **interactive (🤖🧑)**. The value in these skills is in discovery of requirements in collaboration with the user. These skills are NOT designed to be used in automated specs-to-code delivery pipelines, though they may serve as triggers for such workflows.
+- A small number of skills are necessarily **interactive (🧑)**. The value in
+  these skills is in discovery of requirements through collaboration with the
+  user. These skills are NOT designed to be used in automated specs-to-code
+  delivery pipelines, though they may serve as triggers for such workflows.
 
 ### ➡️ Workflow skills
 
-| Skill                                | Description                                                                                           |Mode|
-|--------------------------------------|-------------------------------------------------------------------------------------------------------|----|
-| **[audit](./skills/audit/)**         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                          | 🤖 |
-| **[code](./skills/code/)**           | Write code, verified by tests, for one small increment.                                               | 🤖 |
-| **[decide](./skills/decide/)**       | Frame a technical decision as an RFC or ADR.                                                          |🤖🧑|
-| **[design](./skills/design/)**       | Explore architectural options and their trade-offs.                                                   | 🤖 |
-| **[diagnose](./skills/diagnose/)**   | Find the cause of unexpected behaviors and runtime issues.                                            | 🤖 |
-| **[discover](./skills/discover/)**   | Run a discovery workshop with the customer to elicit product requirements.                            |🤖🧑|
-| **[elaborate](./skills/elaborate/)** | Refine a proposed solution by interrogating the design docs.                                          |🤖🧑|
-| **[fix](./skills/fix/)**             | Fix anything broken whose cause is already known — failing builds, lint, type-checks, diagnosed bugs. | 🤖 |
-| **[plan](./skills/plan/)**           | Decompose delivery into small, stable increments.                                                     | 🤖 |
-| **[probe](./skills/probe/)**         | Run an interactive threat-modeling session. Record security risks.                                    |🤖🧑|
-| **[refactor](./skills/refactor/)**   | Iterate the design while maintaining stability through system testing.                                | 🤖 |
-| **[refine](./skills/refine/)**       | Produce new business requirements in response to acceptance testing feedback.                         |🤖🧑|
-| **[resolve](./skills/resolve/)**     | Action open review comments. Mark them as resolved.                                                   | 🤖 |
-| **[review](./skills/review/)**       | Evaluate code for style conventions and pattern consistency.                                          | 🤖 |
-| **[specify](./skills/specify/)**     | Specify functional and non-functional requirements as testable acceptance criteria.                   | 🤖 |
-| **[spike](./skills/spike/)**         | Develop throwaway code to answer design questions.                                                    | 🤖 |
-| **[style](./skills/style/)**         | Improve code presentation — whitespace, style, ordering — without changing structure.                 | 🤖 |
-| **[test](./skills/test/)**           | Check the evolving software for both functional correctness and runtime qualities.                    | 🤖 |
-| **[triage](./skills/triage/)**       | Verify that a reported bug or incident is real and reproducible.                                      | 🤖 |
-| **[validate](./skills/validate/)**   | Ask, "did we build the right thing?"                                                                  | 🤖 |
+| Skill                                | Description                                                                                            |Mode|
+|--------------------------------------|--------------------------------------------------------------------------------------------------------|----|
+| [**audit**](./skills/audit/)         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                           | 🤖 |
+| [**code**](./skills/code/)           | Write code, verified by tests, for one small increment.                                                | 🤖 |
+| [**decide**](./skills/decide/)       | Frame a technical decision as an RFC or ADR.                                                           | 🧑 |
+| [**design**](./skills/design/)       | Explore architectural options and their trade-offs.                                                    | 🤖 |
+| [**diagnose**](./skills/diagnose/)   | Find the cause of unexpected behaviors and runtime issues.                                             | 🤖 |
+| [**discover**](./skills/discover/)   | Run a discovery workshop with the customer to elicit product requirements.                             | 🧑 |
+| [**elaborate**](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs.                                           | 🧑 |
+| [**fix**](./skills/fix/)             | Fix anything broken whose cause is already known — failing builds, lints, type-checks, diagnosed bugs. | 🤖 |
+| [**plan**](./skills/plan/)           | Decompose delivery into small, stable increments.                                                      | 🤖 |
+| [**probe**](./skills/probe/)         | Run an interactive threat-modeling session. Record security risks.                                     | 🧑 |
+| [**refactor**](./skills/refactor/)   | Iterate the design while maintaining stability through system testing.                                 | 🤖 |
+| [**refine**](./skills/refine/)       | Produce new business requirements in response to acceptance testing feedback.                          | 🧑 |
+| [**resolve**](./skills/resolve/)     | Address open review comments. Mark them as resolved.                                                   | 🤖 |
+| [**review**](./skills/review/)       | Evaluate code for style conventions and pattern consistency.                                           | 🤖 |
+| [**specify**](./skills/specify/)     | Specify functional and non-functional requirements as testable acceptance criteria.                    | 🤖 |
+| [**spike**](./skills/spike/)         | Develop throwaway code to answer design questions.                                                     | 🤖 |
+| [**style**](./skills/style/)         | Improve code presentation — whitespace, style, ordering — without changing structure.                  | 🤖 |
+| [**test**](./skills/test/)           | Check the evolving software for both functional correctness and runtime qualities.                     | 🤖 |
+| [**triage**](./skills/triage/)       | Verify that a reported bug or incident is real and reproducible.                                       | 🤖 |
+| [**validate**](./skills/validate/)   | Ask, "did we build the right thing?"                                                                   | 🤖 |
 
 ### 🔀 Version control skills
 
 | Skill                            | Description                                  |Mode|
 |----------------------------------|----------------------------------------------|----|
-| **[branch](./skills/branch/)**   | Git branching strategy.                      | 🤖 |
-| **[commit](./skills/commit/)**   | Commit message conventions.                  | 🤖 |
-| **[merge](./skills/merge/)**     | Consolidate divergence between branches.     | 🤖 |
-| **[release](./skills/release/)** | Manage release branches, apply version tags. | 🤖 |
+| [**branch**](./skills/branch/)   | Git branching strategy.                      | 🤖 |
+| [**commit**](./skills/commit/)   | Commit message conventions.                  | 🤖 |
+| [**merge**](./skills/merge/)     | Consolidate divergence between branches.     | 🤖 |
+| [**release**](./skills/release/) | Manage release branches, apply version tags. | 🤖 |
 
 ### 📎 Auxiliary skills
 
 | Skill                              | Description                                                                       |Mode|
 |------------------------------------|-----------------------------------------------------------------------------------|----|
-| **[research](./skills/research/)** | Gather external sources on a topic and produce a cited research report.           | 🤖 |
-| **[proof](./skills/proof/)**       | Proofread, then conservatively edit, text for spelling, grammar, and consistency. | 🤖 |
+| [**research**](./skills/research/) | Gather external sources on a topic and produce a cited research report.           | 🤖 |
+| [**proof**](./skills/proof/)       | Proofread, then conservatively edit, text for spelling, grammar, and consistency. | 🤖 |
 
 ### 🤖 Agentic workflow-optimization skills
 
 | Skill                                      | Description                                             |Mode|
 |--------------------------------------------|---------------------------------------------------------|----|
-| **[handoff](./skills/handoff/)**           | Compact a conversation for the next session to pick up. | 🤖 |
-| **[reflect](./skills/reflect/)**           | Distill durable lessons from the session into memory.   | 🤖 |
-| **[create-skill](./skills/create-skill/)** | Author a new skill, or improve an existing one.         |🤖🧑|
+| [**handoff**](./skills/handoff/)           | Compact a conversation for the next session to pick up. | 🤖 |
+| [**reflect**](./skills/reflect/)           | Distill durable lessons from the session into memory.   | 🤖 |
+| [**create-skill**](./skills/create-skill/) | Author a new skill, or improve an existing one.         | 🧑 |
 
 ## ⌨️ Usage
 
+The skills in this collection are designed around a one-to-one mapping between
+agents and skills. The intention is for one agent session to run exactly one
+skill as its single-shot prompt. The agent does the one job that skill
+describes, reports its result, and stops. Job done.
+
+None of the skills refer to other skills. Nor do any of the skills instruct
+agents to hand off to sub-agents to run other skills.
+
+This has implications for context management and workflow composition.
+
 ### 🪟 Context management
 
-It is strongly RECOMMENDED that each skill be invoked in a fresh context window. There are two reasons for this.
+It is strongly RECOMMENDED that each skill be invoked in a fresh context window.
+There are two reasons for this.
 
-- **Contamination.** Skills like **[review](./skills/review/)**, **[audit](./skills/audit/)**, and **[review](./skills/validate/)** are meant to interrogate work already done. If the agent still holds the conversation that produced that prior art, its behavior will be influenced by that background context. The agent will carry its own justifications forward, making it less effective in its intended adversarial role.
+- **Contamination.** Skills like [**review**](./skills/review/),
+  [**audit**](./skills/audit/), and [**validate**](./skills/validate/) are
+  meant to interrogate work already done. If the agent still holds the
+  conversation that produced that prior art, its behavior will be influenced by
+  that background context. The agent will carry its own justifications forward,
+  making it less effective in its intended adversarial role.
 
-- **Lossy summarization.** Long-running sessions are subject to context summarization, which can drop important detail. Starting each skill in a fresh agent session can help to avoid the loss of important context.
+- **Lossy summarization.** Long-running sessions are subject to context
+  summarization, which can drop important detail. Starting each skill in a
+  fresh agent session can help to avoid the loss of important context.
 
 ### 🪡 Workflow composition
 
-None of the skills in this collection explicitly hand off to other skills. No skill invokes, or even knows about, another skill. Each does its one job, reports the result, and stops.
+Although each skill is highly decoupled from all the others, the skills are
+nonetheless connected through IO contracts. One agent's output is another
+agent's input. That output/input is always a durable artifact persisted to
+disk — eg. a requirements spec, a design doc, or a delivery plan — never state
+held in a conversation thread or context window. This decouples agents
+both temporally and structurally. A downstream skill doesn't need to be loaded
+into the same agent session as the upstream skill that produced its input.
 
-Instead, skills are connected by contracts. One skill's output is another skill's input, and that input/output is always a durable artifact persisted to disk — eg. a requirements spec, a design doc, or a delivery plan — never state held in a conversation thread or context window. This decouples skills both temporally and structurally. A downstream skill doesn't need to be loaded into the same agent session as the upstream skill that produced its input.
+This design allows these skills to be composed into all sorts of different
+agentic workflows.
 
-These design constraints are what allow these skills to be composed into all sorts of different agentic workflows.
-
-The below flow diagram represents one possible workflow composition. It shows agentic steps (🤖) and traditional automation scripts (⚙️) being used in combination. Humans are brought into the loop (🧑) where failure modes in the pipeline cannot be fully handled by only the agentic and automated steps.
+The flow diagram below represents one possible workflow composition. It shows
+agentic steps (🤖) and traditional automation scripts (⚙️) being used in
+combination. Almost the entire workflow runs in the background through a
+[loop engineering](https://www.ibm.com/think/topics/loop-engineering) system.
+Humans are only brought into the loop (🧑) where failure modes in the loop
+cannot be fully handled by agents or scripts.
 
 ```mermaid
 flowchart LR
@@ -152,15 +218,68 @@ flowchart LR
   classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
 ```
 
+The flow diagram below represents a more cautious workflow. A human gate (🧑)
+follows each agentic step. Each agent persists its output — the
+software spec, the design, the plan, the code — for a human to approve before
+the next agent (🤖) or pipeline (⚙️) picks it up. A rejected artifact is
+returned to the agent that produced it for another pass, guided by the human's
+feedback. This trades throughput for control, which suits high-risk changes or
+teams still building trust in agentic workflows.
+
+```mermaid
+flowchart LR
+  specify["🤖<br/>specify"]:::agentic
+  design["🤖<br/>design"]:::agentic
+  plan["🤖<br/>plan"]:::agentic
+  code["🤖<br/>code"]:::agentic
+  deploy["⚙️<br/>deploy"]:::scripted
+  gate1["🧑<br/>approve"]:::anthropic
+  gate2["🧑<br/>approve"]:::anthropic
+  gate3["🧑<br/>approve"]:::anthropic
+  gate4["🧑<br/>review"]:::anthropic
+
+  specify ==> gate1
+  gate1 == pass ==> design
+  design ==> gate2
+  gate2 == pass ==> plan
+  plan ==> gate3
+  gate3 == pass ==> code
+  code ==> gate4
+  gate4 == pass ==> deploy
+
+  gate1 -- fail --> specify
+  gate2 -- fail --> design
+  gate3 -- fail --> plan
+  gate4 -- fail --> code
+
+  classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
+  classDef scripted fill:#e2e3e5,stroke:#4b5157,color:#383d41,stroke-width:2px
+  classDef anthropic fill:#fff3cd,stroke:#856404,color:#856404,stroke-width:1px,stroke-dasharray:2 3
+```
+
 ### 🧭 Orchestration
 
-Agentic workflows like this may themselves be orchestrated by a supervisor agent (🤖), a script (⚙️), or a human (🧑) — or a combination of all three.
+Agentic workflows may themselves be orchestrated by a supervisor agent (🤖), a
+script (⚙️), or a human (🧑) — or a combination of all three.
 
-To allow for fully agentic workflows, in which no human checkpoints are needed at all, most of the workflow skills are designed to be run non-interactively (🤖). Most skills instruct the agents to take everything they need from the context window and the environment. The agents either complete their tasks autonomously, or they fail with a specific account of what input is missing. They're instructed not to prompt users for input beyond the initial prompt.
+To allow for fully agentic workflows, in which no human checkpoints are needed
+at all, most of the workflow skills are designed to be run non-interactively (🤖).
+These skills instruct the agents to take everything they need from the context
+window and the environment. The agents either complete their tasks autonomously,
+or they fail with a specific account of what input is missing. They're
+instructed not to prompt users for input beyond the initial prompt.
 
-But a small number of skills will prompt the user to make decisions as the agent explores options to move forward. For example, the **[discover](./skills/discover/)** skill asks questions to elicit product requirements, while the **[elaborate](./skills/elaborate/)** skill interrogates a proposed architectural design. These interactive skills (🤖🧑) are intended to be invoked directly by humans.
+But a small number of skills will prompt the user to make decisions as the agent
+explores options to move forward. For example, the [**discover**](./skills/discover/)
+skill asks questions to elicit product requirements, while the
+[**elaborate**](./skills/elaborate/) skill interrogates a proposed
+architectural design. These interactive skills (🧑) are intended to be invoked
+directly by humans.
 
-Interactive skills are not meant to be used away-from-keyboard, and therefore they can't be incorporated into highly automated specs-to-code workflows. However, these skills may be used as triggers for such workflows, sitting upstream in the software development lifecycle.
+Interactive skills are not meant to be used away-from-keyboard, and therefore
+they can't be incorporated into highly automated specs-to-code workflows
+through loop engineering. However, these skills may be used as triggers for
+such workflows, sitting upstream in the software development lifecycle.
 
 ```mermaid
 flowchart LR
@@ -169,8 +288,8 @@ flowchart LR
   plan["🤖<br/>plan"]:::agentic
   code["🤖<br/>code"]:::agentic
 
-  discover["🤖🧑<br/>discover"]:::anthropic
-  elaborate["🤖🧑<br/>elaborate"]:::anthropic
+  discover["🧑<br/>discover"]:::anthropic
+  elaborate["🧑<br/>elaborate"]:::anthropic
 
   specify ==> design
   design ==> plan
@@ -186,14 +305,18 @@ flowchart LR
 
 ## 📦 Installation
 
-To use these skills, you need to install them in a format and location supported by your agent harnesses. There are two ways to do this.
+To use these skills, you need to install them in a format and location supported
+by your agent harnesses. There are two ways to do this.
 
 - Use Vercel's [skills.sh CLI](https://github.com/vercel-labs/skills).
 - Use the [custom installer script](./run/install) included in this repository.
 
 ### skills.sh CLI
 
-Change to the root directory of the project in which you want to install these skills. Use Vercel's [skills CLI](https://www.skills.sh/) to download the skills directly from GitHub and install them in the paths supported by your target agent harnesses, relative to the current working directory.
+Change to the root directory of the project in which you want to install these
+skills. Use Vercel's [skills CLI](https://www.skills.sh/) to download the skills
+directly from GitHub and install them in the paths supported by your target
+agent harnesses, relative to the current working directory.
 
 ```sh
 # Use an interactive picker to choose which skills to install.
@@ -208,23 +331,35 @@ npx skills add kieranpotts/skills --skill commit
 # Target a specific agent harness.
 npx skills add kieranpotts/skills -a claude-code
 
+# Install at the user level, rather than into the current project.
+npx skills add kieranpotts/skills -g
+
 # Preview available skills without installing them.
 npx skills add kieranpotts/skills --list
 ```
 
 Re-run the `skills add` command periodically to pick up upstream changes.
 
-Every mainstream agent harness is supported — [see the list here](https://www.skills.sh/agent).
+Every mainstream agent harness is supported
+— [see the list here](https://www.skills.sh/agent).
 
-Whenever you install skills using this CLI, anonymous telemetry data will be collected that will feed into the leaderboards on the [skills.sh website](https://www.skills.sh/), helping others to discover popular skills.
+Whenever you install skills using this CLI, anonymous telemetry data is
+collected. It feeds the leaderboards on the
+[skills.sh website](https://www.skills.sh/), helping others to discover
+popular skills. Set `DISABLE_TELEMETRY=1` or `DO_NOT_TRACK=1` to opt out.
 
 ### Custom installer
 
-Since these skills are intended to be used globally across multiple code repositories, it is recommended to install these skills in the user's home directory or in a workspace root, rather than in individual code repositories. Unfortunately, the skills.sh installer supports only project-level skills.
+Since these skills are intended to be used globally across multiple code
+repositories, it is RECOMMENDED to install them in the user's home directory
+or in a workspace root, rather than in individual code repositories.
 
-The custom [`./run/install`](./run/install) script supports fewer agents than the skills.sh CLI does, but it installs the skills into the user's home directory by default, rather than into the current project directory.
+The skills.sh CLI installs into the current project unless you pass `-g`.
+The custom [`./run/install`](./run/install) script installs the skills into the
+user's home directory by default.
 
-Clone this repository anywhere on your machine, then execute `./run/install` from its root.
+To use the custom installer, clone this repository anywhere on your machine,
+then execute `./run/install` from its root.
 
 ```sh
 # Claude only, installed in the user's home directory.
@@ -248,10 +383,10 @@ Clone this repository anywhere on your machine, then execute `./run/install` fro
 # All harnesses, into a project in another directory.
 ./run/install --all --dir ~/dev/my-project
 
-# All harnesses, installed as user level symlinks.
+# All harnesses, installed as user-level symlinks.
 ./run/install --all --symlinks
 
-# Remove Claude's user level install.
+# Remove Claude's user-level install.
 ./run/install --uninstall --claude
 
 # Remove Pi's install from a particular project.
@@ -261,47 +396,93 @@ Clone this repository anywhere on your machine, then execute `./run/install` fro
 ./run/install --help
 ```
 
-At least one harness flag is required: `--claude`, `--pi`, `--copilot`, `--cursor`, and/or `--agents`. Alternatively, use `--all` to install the skills into multiple locations so that every supported agent harness will auto-discover them.
+At least one harness flag is required: `--claude`, `--pi`, `--copilot`,
+`--cursor`, and/or `--agents`. Alternatively, use `--all` to install the skills
+into multiple locations, so that every supported agent harness will
+auto-discover them.
 
-Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format in which the source files are written. So, to target these harnesses, the source files are simply copied verbatim into the paths where the harnesses will auto-discover them.
+Claude Code and Pi support the [Agent Skills](https://agentskills.io/) format,
+which is the same one in which the source files are written. So, to target
+these harnesses, the source files are simply copied verbatim into the paths
+where the harnesses will auto-discover them. No transformations take place.
 
-For Copilot and Cursor, the source files are transpiled to instructions (`.github/instructions/*.instructions.md`) and rules (`.cursor/rules/*.mdc`) respectively.
+For Copilot and Cursor, the source files are transpiled to instructions
+(`.github/instructions/*.instructions.md`) and rules (`.cursor/rules/*.mdc`)
+respectively.
 
-The `--agents` flag installs into `.agents/skills/` — a vendor-neutral location that a growing number of harnesses auto-discover (as of May 2026 the list includes Pi and Copilot, plus OpenCode, OpenAI Codex, and Gemini CLI, but not Claude Code or Cursor). The skills are installed in their native [Agent Skills](https://agentskills.io/) format — no transpilation from the source files. It is RECOMMENDED to use `--agents` on its own for a single harness-agnostic install, but combine this with other flags to target other harnesses that you know you will be using, to ensure consistent behavior across all your agents.
+The `--agents` flag installs the skills into `.agents/skills/` — a vendor-neutral
+location that a growing number of harnesses auto-discover (as of May 2026, the
+list includes Pi, Copilot, Cursor, OpenCode, OpenAI Codex, and Gemini CLI, but
+not Claude Code). The skills are installed in their native
+[Agent Skills](https://agentskills.io/) format — no transpilation from the
+source files. It is RECOMMENDED to use `--agents` on its own for a single
+harness-agnostic install, but combine this with other flags to target other
+harnesses that you know you will be using, to ensure consistent behavior
+across all your agents.
 
-By default, the custom installer will place the skills in a subdirectory of your home directory. But not all agent harnesses auto-detect skills installed in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot and Cursor do not. However, you can configure most agent harnesses to detect skills at specific paths. So, if you install the skills globally, you should review your harness configurations to ensure the skills are discoverable.
+By default, the custom installer will place the skills in a subdirectory of
+your home directory. But not all agent harnesses auto-detect skills installed
+in the user's home directory. As of May 2026, Claude Code and Pi do, but Copilot
+and Cursor do not. However, you can configure most agent harnesses to detect
+skills at specific paths. So, if you install the skills globally, you should
+review your harness configurations to ensure the skills are discoverable.
 
 #### Per-project installation
 
-By default, the custom installer will place the skills in a subdirectory of your home directory. For example, the Copilot skills will be installed at `$HOME/.github/instructions/<skill-name>.instructions.md`.
+By default, the custom installer will place the skills in a subdirectory of your
+home directory. For example, the Copilot skills will be installed at
+`$HOME/.github/instructions/<skill-name>.instructions.md`.
 
-Pass the `--dir` parameter to install into a specific project instead. For example, `--dir ~/dev/my-project` will install the Copilot skills at `$HOME/dev/my-project/.github/instructions/<skill-name>.instructions.md`.
+Pass the `--dir` parameter to install into a specific project instead. For
+example, `--dir ~/dev/my-project` will install the Copilot skills at
+`$HOME/dev/my-project/.github/instructions/<skill-name>.instructions.md`.
 
 #### Dev mode (symlinks)
 
-By default, the source files are transpiled to artifacts understood by each target agent harness, and it is those built artifacts that are copied into the target installation directories. The installed skills are thereby decoupled from the source skills in this repository. So you are free to modify the installed skills, and to commit them to your own projects — make them your own!
+By default, the source files are transpiled to artifacts understood by each
+target agent harness, and it is those built artifacts that are copied into the
+target installation directories. The installed skills are thereby decoupled from
+the source skills in this repository. So you are free to modify the installed
+skills, and to commit them to your own projects — make them your own!
 
-> [!NOTE] One thing you might want to modify in the installed skills files are Cursor's `alwaysApply` setting and Copilot's `applyTo` setting. These are set to `true` and `"**"` respectively, which means the skills will always be in-scope in those agent harnesses. You might want to tune these settings so the skills are brought into context only under specific conditions.
+> [!NOTE]
+> Two things you might want to modify in the installed skill files are
+> Cursor's `alwaysApply` setting and Copilot's `applyTo` setting. These are set
+> to `true` and `"**"` respectively, which means the skills will always be
+> in-scope in those agent harnesses. You might want to tune these settings so
+> the skills are brought into context only under specific conditions.
 
-If you pass the `--symlinks` parameter, instead of installing hard copies of the skills, symlinks will be put into the target auto-discovery locations. These symlinks will reference the built artifacts in this repository.
+If you pass the `--symlinks` parameter, instead of installing hard copies of
+the skills, symlinks will be put into the target auto-discovery locations.
+These symlinks will reference the built artifacts in this repository.
 
-This offers a useful "dev mode" when iterating and evaluating these skills. Changes made to the skills in this repository will be immediately detected by new agent sessions, providing you with fast feedback on the effectiveness of the changes.
+This offers a useful "dev mode" when iterating and evaluating these skills.
+Changes made to the skills in this repository will be immediately detected by
+new agent sessions, providing you with fast feedback on the effectiveness of
+the changes.
 
-Symlinked files don't port well between environments via version control, so you should configure Git to ignore any symlinked skills you put inside your local code repositories.
+Symlinked files don't port well between environments via version control, so
+you should configure Git to ignore any symlinked skills you put inside your
+local code repositories.
 
 #### Uninstalling skills
 
-You can also use the `--uninstall` flag, in combination with the other targeting flags, to remove particular skills installed at particular locations.
+You can also use the `--uninstall` flag, in combination with the other targeting
+flags, to remove particular skills installed at particular locations.
 
-For example, the parameters `--uninstall --claude --copilot --dir ~/dev/project` will remove the skills for Claude and Copilot from a particular project.
+For example, the parameters `--uninstall --claude --copilot --dir ~/dev/project`
+will remove the skills for Claude and Copilot from a particular project.
 
-The `--uninstall` option will delete only those skills that were installed by the `./run/install` script in the first place. Skills installed by other tools — including the skills.sh CLI — will be unharmed.
+The `--uninstall` option will delete only those skills that were installed by
+the `./run/install` script in the first place. Skills installed by other tools
+— including the skills.sh CLI — will be unharmed.
 
-> [!TIP] Use `./run/install --help` for more guidance.
+> [!TIP]
+> Use `./run/install --help` for more guidance.
 
 ## 🛠️ Developer documentation
 
-For contributors and maintainers, see the [developer docs](./docs/).
+Contributors and maintainers — see the [developer docs](./docs/).
 
 -----
 
