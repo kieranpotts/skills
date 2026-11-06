@@ -80,9 +80,9 @@ counting blank lines) and MUST pass the validator checks — described below.
 - MUST run the [create-skill validator](./skills/create-skill/scripts/create-skill-validate.sh )
   on any new or modified skill before committing the changes.
 
-- MUST hard-wrap prose in Markdown files at 80 characters, except Leave unbroken
-  anything that reads better as long lines, such as tables and long URLs. Never
-  break a line inside a link, code span, or emphasis.
+- SHOULD hard-wrap prose in Markdown files at 80 characters. MAY leave unbroken
+  anything that reads better as long lines, such as tables and long URLs. MUST
+  NOT break a line inside a link, code span, or emphasis.
 
 ## References
 
