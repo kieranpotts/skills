@@ -58,6 +58,13 @@ system. All the artifacts that are read and written by agents are branched,
 committed, reviewed, and merged the same way. Auditability and rollback come
 built in, for free.
 
+> [!TIP]
+> An `AGENTS.md` file is a great place to record where each store lives.
+> Mainstream agent harnesses load `AGENTS.md` into context automatically, so
+> every skill finds its stores without being told. See the
+> [`AGENTS.md`](https://github.com/kieranpotts/template/blob/latest/dev/AGENTS.md)
+> file in my template repository for an example.
+
 The source files conform to the [Agent Skills](https://agentskills.io/)
 standard — natively compatible with Claude Code, Pi, and other agents. The
 [built-in installer](./run/install) transpiles the source files to GitHub
