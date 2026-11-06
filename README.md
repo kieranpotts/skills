@@ -16,16 +16,23 @@ regardless of the technology stack or business domain.
 
 The skills in this collection are loosely coupled from one another, to support
 their composability. But they can't just be dropped into any software project.
-They encode strong opinions and depend on a broader ecosystem of development
-tools and methods being in place. Specifically, these skills depend on
-version-controlled stores for software requirements, technical decisions,
-system designs, and delivery plans. The skills instruct agents to read and
-write to these stores, which serve as the external persistence layers between
-discrete agentic steps in a workflow. An agent working on an upstream task will
-write artifacts to one of these stores, which a downstream agent will read as
-context for its own task.
+They encode strong opinions, and they assume a broader ecosystem of development
+tools and methods is in place. In particular, the skills instruct agents to read
+from and write to stores of software requirements, technical decisions, system
+designs, delivery plans, and so on. These stores serve as the external
+persistence layers between discrete agentic steps in a workflow. An agent
+working on an upstream task will write artifacts to one of these stores, which
+a downstream agent will read as context for its own task.
 
-The following repositories are templates for these external dependencies.
+The skills are not hard-wired to any particular implementation of these stores.
+Each skill resolves its store from the context it is given or from the local
+environment, then follows whatever conventions that store documents for itself.
+A store may be a directory inside the code repository, a separate repository,
+or an external system such as an issue tracker or wiki.
+
+That said, the skills have been designed and tested against the following
+template repositories, which serve as reference implementations of these
+stores.
 
 - [**📋 Software Requirements Specification (SRS)**](https://github.com/kieranpotts/specs) —
   Captures what the system does, in business terms.
@@ -45,13 +52,14 @@ The following repositories are templates for these external dependencies.
 - [**⚠️ Risk Register**](https://github.com/kieranpotts/risks) —
   Records the inherent security and privacy risks the system carries.
 
-Running the whole ecosystem on version control means requirements, decisions,
-designs, plans, and code all coexist in the same system. All the artifacts that
-are read and written by agents are branched, committed, reviewed, and merged
-the same way. Auditability and rollback come built in, for free.
+These templates run every store on version control. That means requirements,
+decisions, designs, audits, risks, plans, and code all coexist in the same
+system. All the artifacts that are read and written by agents are branched,
+committed, reviewed, and merged the same way. Auditability and rollback come
+built in, for free.
 
-The source files conform to the [Agent Skills](https://agentskills.io/) standard
-— natively compatible with Claude Code, Pi, and other agents. The
+The source files conform to the [Agent Skills](https://agentskills.io/)
+standard — natively compatible with Claude Code, Pi, and other agents. The
 [built-in installer](./run/install) transpiles the source files to GitHub
 Copilot instructions (`.github/instructions/*.instructions.md`) and Cursor
 rules (`.cursor/rules/*.mdc`). All other mainstream agent harnesses are supported
@@ -169,9 +177,9 @@ There are two reasons for this.
 
 Although each skill is highly decoupled from all the others, the skills are
 nonetheless connected through IO contracts. One agent's output is another
-agent's input. That output/input is always a durable artifact persisted to
-disk — eg. a requirements spec, a design doc, or a delivery plan — never state
-held in a conversation thread or context window. This decouples agents
+agent's input. That output/input is always a durable artifact persisted to an
+external store — eg. a requirements spec, a design doc, or a delivery plan —
+never state held in a conversation thread or context window. This decouples agents
 both temporally and structurally. A downstream skill doesn't need to be loaded
 into the same agent session as the upstream skill that produced its input.
 
