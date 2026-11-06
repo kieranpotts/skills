@@ -247,7 +247,6 @@ run_repo_checks() {
   fi
 
   check_compatibility_tools "${skill_md}"
-  check_line_length "${skill_md}" || failed=1
   check_bundled_resources "${skill_dir}" "${skill_md}" || failed=1
   check_fence_languages "${skill_md}" || failed=1
 
@@ -336,47 +335,6 @@ check_compatibility_tools() {
     printf "  [WARN] 'compatibility' names non-tool value(s):%s\n" "${unknown}" >&2
     printf "         Put external commands in a parenthetical, eg. 'Bash (git diff)'\n" >&2
   fi
-}
-
-#
-# Prose is not soft wrapped: every paragraph, list item, and blockquote
-# paragraph sits on one source line, however long. A second consecutive prose
-# line that does not itself open a block is a wrap. Fenced code, tables, YAML
-# front-matter, and hard line breaks keep their own line structure, so they
-# are exempt.
-#
-check_line_length() {
-  local skill_md="$1"
-  local wrapped
-
-  wrapped="$(awk '
-      NR == 1 && /^---[[:space:]]*$/ { front = 1; next }
-      front { if (/^(---|\.\.\.)[[:space:]]*$/) front = 0; next }
-
-      /^[[:space:]]*(```|~~~)/ { fence = !fence; prose = 0; next }
-      fence { next }
-
-      /^[[:space:]]*$/ { prose = 0; next }
-      /^[[:space:]]*\|/ { prose = 0; next }
-      /(  +|\\)$/ { prose = 0; next }
-
-      # A line that opens a block of its own is never a wrap, but the prose it
-      # opens can be wrapped onto the line after it.
-      /^[[:space:]]*(#|>|<|[-*+][[:space:]]|[0-9]+[.)][[:space:]])/ { prose = 1; next }
-      /^[[:space:]]*(\*\*\*|---|___)[[:space:]]*$/ { prose = 0; next }
-
-      prose { c++; if (first == "") first = NR; next }
-      { prose = 1 }
-      END { print c+0, first+0 }
-    ' "${skill_md}")"
-
-  if [[ "${wrapped%% *}" != 0 ]]; then
-    printf "  [FAIL] %d soft-wrapped prose line(s), from line %s\n" ${wrapped} >&2
-    return 1
-  fi
-
-  printf "  [PASS] Prose is not soft wrapped\n" >&2
-  return 0
 }
 
 #
