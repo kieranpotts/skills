@@ -1,6 +1,6 @@
 # Audit
 
-The audit skill evaluates the as-built architecture of a codebase for
+The **audit** skill evaluates the as-built architecture of a codebase for
 modularity, consistency, coupling, and the placement of its structural
 boundaries.
 
@@ -19,9 +19,11 @@ context its given, else from the local environment.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively. The agent is told to
-never prompts for answers. This makes the skill useful in away-from-keyboard
-and continuous integration workflows.
+This skill instructs the agent to run non-interactively. The agent is told not
+to prompt the user for answers to anything it is not sure about. Instead, if
+the agent cannot complete its task from the initial single-shot prompt, it is
+instructed to stop and return an error message. This makes the skill useful in
+away-from-keyboard workflows and automated delivery pipelines.
 
 ## How to invoke
 
@@ -31,9 +33,10 @@ and continuous integration workflows.
 
 > Is the design still sound?
 
-You may name the target codebase as a path or a repository URL, and pin the
-audit to a particular commit. Otherwise the agent will audit the repository in
-the current working directory, at its checked-out revision.
+The agent audits the repository in the current working directory, at its
+checked-out revision. Run from outside a repository, you may name the target
+codebase as a path or a repository URL. Either way, you may pin the audit to a
+particular commit.
 
 ## Recommended models
 

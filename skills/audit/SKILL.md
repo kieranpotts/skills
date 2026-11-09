@@ -25,10 +25,11 @@ environment. You MUST NOT prompt the user for clarification on this task's
 requirements. If you cannot determine the requirements, stop and alert the
 user with an error message.
 
-- **Target codebase — REQUIRED.** The path or URL of the codebase under audit.
-  If a URL, clone the repository to a temporary local directory. If no location
-  is specified, but if the current working directory sits within a code
-  repository, treat that repository as the target.
+- **Target codebase — REQUIRED.** The repository under audit. If the current
+  working directory sits inside a Git repository, that repository is the
+  target. Otherwise discover the target from the session context, eg. a path or
+  URL the user has named. Clone a URL to a temporary local directory. If no
+  target can be found, stop and alert the user.
 
 - **Audit reports store — REQUIRED.** This is where you will file your audit
   report. Resolve it from the session context, then from the local environment.
