@@ -2,34 +2,24 @@
 
 #
 # Install skills into AI agents — Claude Code, Pi, Cursor, GitHub Copilot,
-# plus the agent-agnostic `.agents/skills` convention.
+# plus the agent-agnostic .agents/skills convention.
 #
-# Select targets with `--claude`, `--pi`, `--cursor`, `--copilot`, `--agents`,
-# or `--all`. These parameters do not accept values.
+# Specify target harnesses with the flags --claude, --pi, --cursor,
+# --copilot, --agents, or --all. The --agents option installs into
+# .agents/skills/, a vendor-neutral location that an increasing number of
+# harnesses auto-discover.
 #
-# `--agents` installs into `.agents/skills/` — a vendor-neutral location an
-# increasing number of harnesses auto-discover. Use it on its own, or
-# alongside the per-agent flags when you also want agent-specific copies
-# (eg. tweaked for Pi or Claude).
+# The target directory is set via --dir. It defaults to ~ for a
+# user-level install. Pass any other path for a project-level install.
 #
-# The target directory is set once via `--dir`. It defaults to `~`
-# (user-level install). Pass any other path for a project-level install.
+# Every install first compiles agent-specific artifacts into ./build/. For
+# example, Cursor rules (.mdc) and Copilot instructions (.instructions.md) are
+# generated from the source files. All harness targets are then installed from
+# the built artifacts. By default, skills/rules/instructions are copied to their
+# target directories. Pass the --symlinks option to install them as system
+# links to the built artifacts — this is useful for development.
 #
-# Every install first compiles agent-specific artifacts into `./build/`.
-# Claude/Pi/agents as verbatim copies of each skill directory. Cursor
-# (.mdc) and Copilot (.instructions.md) as generated files with the right
-# front-matter. All targets then install from `./build/`.
-#
-#   - Default → hard copies of `./build/` artifacts. The target remains
-#     self-contained and unaffected by later repo changes.
-#
-#   - `--symlinks` → symlinks into `./build/`. Rebuilds (eg. after editing a
-#     skill) are picked up immediately. Useful when developing skills.
-#
-# Cursor and Copilot may not auto-discover user-level skills. The script
-# warns at the end of the run if either was installed at `~`.
-#
-# See `--help` for more guidance.
+# Use --help to get more guidance.
 #
 
 set -euo pipefail
@@ -81,13 +71,13 @@ Target paths (relative to DIR):
   Agents:    DIR/.agents/skills/
 
 Notes:
-  - Every install first compiles per-agent artifacts into ./build/ (in the
-    repo root). By default, the built artifacts are hard-copied into the
+  - Every install first compiles per-agent artifacts into ./build/ in the
+    repo root. By default, the built artifacts are hard-copied into the
     target DIR. Pass --symlinks to create symlinks back to the built
     artifacts in this repository, instead.
   - Copied skills are independent of the source repo. Changes (or even
     deletion) of the repo don't affect already-installed skills.
-  - Re-run `./run/install` to refresh installed skills from the latest source.
+  - Re-run ./run/install to refresh installed skills from the latest source.
   - Symlink installs pick up changes immediately on the next install run.
     Use this for fast evaluation of skills during their development.
   - Cursor and Copilot typically only auto-discover skills in project
