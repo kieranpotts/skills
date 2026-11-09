@@ -207,23 +207,24 @@ user with an error message.
 ## Edge cases
 
 - If a merge is in progress, and every conflict is resolved, and the user asks
-  you to commit it, stop and alert the user all the same. Concluding an in-flight
-  merge is out-of-scope.
+  you to commit it, then stop and alert the user all the same. Concluding an
+  in-flight merge is out-of-scope.
 
-- Never attempt to resolve merge conflicts. Even if a conflict looks trivial,
-  eg. whitespace or the order of imports, abort and alert the user.
+- If there are merge conflicts, then never attempt to resolve them. Even if a
+  conflict looks trivial, eg. whitespace or the order of imports, abort and
+  alert the user.
 
-- If both sides apply cleanly but the combined behavior is wrong, this is a
-  semantic conflict, eg. a symbol renamed on one side is still called from the
-  other. Only the build and tests will catch this type of merge issues. Do not
+- If both sides apply cleanly but the combined behavior is wrong, eg. a symbol
+  renamed on one side is still called from the other, then this is a semantic
+  conflict. Only the build and tests will catch this type of merge issue. Do not
   attempt to fix it, even where the fix looks mechanical. Stop and report the
   issue.
 
 - If the source and target sit in different pipelines, eg. `latest/temp/*` into
-  `v2/dev`, this is a backport, not a merge. Stop and report it.
+  `v2/dev`, then this is a backport, not a merge. Stop and report it.
 
-- If the source branch is already an ancestor of the target, there is nothing
-  to integrate, so stop and report.
+- If the source branch is already an ancestor of the target, then there is
+  nothing to integrate, so stop and report.
 
 ## Examples
 

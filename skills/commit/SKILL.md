@@ -190,13 +190,13 @@ user with an error message.
 
 ## Edge cases
 
-- If the changeset spans several concerns, you should still try to make one
+- If the changeset spans several concerns, then you should still try to make one
   commit. Choose the type of the concern with the most impact, in this order:
   `behavior`, `fix`, `quality`, `maintenance`, `step`, `refactor`, `style`,
   `chore`.
 
-- If two commit types both seem to apply to one concern, consider te following
-  differentiators.
+- If two commit types both seem to apply to one concern, then consider the
+  following differentiators.
 
   - `step` versus `behavior` or `quality`. `step` is for incomplete work toward
     a user-facing change. `behavior` and `quality` mark the commit at which the

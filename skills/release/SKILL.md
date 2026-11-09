@@ -154,7 +154,7 @@ user with an error message.
 
 ## Edge cases
 
-- If the version is not yet decided, you MAY cut the branch as
+- If the version is not yet decided, then you MAY cut the branch as
   `[<pipeline>/]release/next`, eg. `latest/release/next`, and rename it once
   the version is settled. Do not apply a version tag until the version is known.
 
