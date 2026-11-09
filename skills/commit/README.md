@@ -70,7 +70,7 @@ flowchart LR
 - [**branch**](../branch/).
   Creates temporary and long-lived branches for feature development.
 
-- [**changelog**](../changelog/).
+- [**chronicle**](../chronicle/).
   Writes the changelog entry for a notable change, ready to commit with it.
 
 - [**merge**](../merge/).

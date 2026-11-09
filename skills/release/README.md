@@ -64,7 +64,7 @@ flowchart LR
 - [**branch**](../branch/).
   Creates temporary and long-lived branches for feature development.
 
-- [**changelog**](../changelog/).
+- [**chronicle**](../chronicle/).
   Keeps the "unreleased" section of the changelog up-to-date, ready to promote.
 
 - [**commit**](../commit/).

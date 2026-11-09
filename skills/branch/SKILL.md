@@ -145,19 +145,19 @@ user with an error message.
 
 - If the resolved pipeline has no development trunk, eg. the repository has
   neither `dev` nor `latest/dev`, or the user named "v2" but there is no
-  `v2/dev`, report the missing trunk and stop. Do not make assumptions about
-  the target development trunk from which to cut a new branch. Proceed only
-  if the target is clear.
+  `v2/dev`, then report the missing trunk and stop. Do not make assumptions
+  about the target development trunk from which to cut a new branch. Proceed
+  only if the target is clear.
 
 - If the named delivery pipeline matches more than one development trunk, eg.
-  the used asked for "v2" and the repository has both `v2.3/dev` and
-  `v2.4-LTS/dev` branches, do not guess between them. Instead, report the
+  the user asked for "v2" and the repository has both `v2.3/dev` and
+  `v2.4-LTS/dev` branches, then do not guess between them. Instead, report the
   candidate trunks and stop.
 
-- If the default branch is not a development trunk, eg. it is `main`, stop
+- If the default branch is not a development trunk, eg. it is `main`, then stop
   and report the problem.
 
-- If a branch already exists at the chosen name, do not reuse or reset it.
+- If a branch already exists at the chosen name, then do not reuse or reset it.
   Instead, try to choose a more specific description, or stop and report the
   clash.
 

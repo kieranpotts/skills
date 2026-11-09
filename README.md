@@ -130,12 +130,13 @@ Each skill operates in one of two possible modes.
 
 ### 🔀 Version control skills
 
-| Skill                            | Description                                  |Mode|
-|----------------------------------|----------------------------------------------|----|
-| [**branch**](./skills/branch/)   | Git branching strategy.                      | 🤖 |
-| [**commit**](./skills/commit/)   | Commit message conventions.                  | 🤖 |
-| [**merge**](./skills/merge/)     | Consolidate divergence between branches.     | 🤖 |
-| [**release**](./skills/release/) | Manage release branches, apply version tags. | 🤖 |
+| Skill                                | Description                                    |Mode|
+|--------------------------------------|------------------------------------------------|----|
+| [**branch**](./skills/branch/)       | Git branching strategy.                        | 🤖 |
+| [**chronicle**](./skills/chronicle/) | Keep the changelog's unreleased section true.  | 🤖 |
+| [**commit**](./skills/commit/)       | Commit changes, with conventional messages.    | 🤖 |
+| [**merge**](./skills/merge/)         | Consolidate divergence between branches.       | 🤖 |
+| [**release**](./skills/release/)     | Manage release branches, apply version tags.   | 🤖 |
 
 ### 📎 Auxiliary skills
 
