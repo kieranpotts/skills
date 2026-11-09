@@ -35,7 +35,8 @@
         "chronicle",
         "commit",
         "merge",
-        "release"
+        "release",
+        "version"
       ]
     },
     {

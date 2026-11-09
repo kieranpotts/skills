@@ -71,7 +71,7 @@ flowchart LR
   Creates temporary and long-lived branches for feature development.
 
 - [**chronicle**](../chronicle/).
-  Writes the changelog entry for a notable change, ready to commit with it.
+  Summarizes the headline changes in the commits since the last release.
 
 - [**merge**](../merge/).
   Integrates work between two divergent branches.

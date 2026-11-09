@@ -137,6 +137,7 @@ Each skill operates in one of two possible modes.
 | [**commit**](./skills/commit/)       | Commit changes, with conventional messages.    | 🤖 |
 | [**merge**](./skills/merge/)         | Consolidate divergence between branches.       | 🤖 |
 | [**release**](./skills/release/)     | Manage release branches, apply version tags.   | 🤖 |
+| [**version**](./skills/version/)     | Work out the next version number.              | 🤖 |
 
 ### 📎 Auxiliary skills
 
