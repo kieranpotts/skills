@@ -1,30 +1,50 @@
 # Commit
 
-The commit skill encapsulates the rules for creating revisions in Git defined in [TS-9: Version Control](https://kieranpotts.com/standards/009).
+The **commit** skill commits pending changes to Git as a single commit,
+following the convention defined in [TS-9: Version Control][TS-9].
 
-It instructs the agent to compose a commit message in a fixed subject-line format — `<type>: <description>`, with an optional ` - <flag>` suffix — where the type comes from a closed vocabulary, each entry with precise semantics. The agent also writes the matching changelog entry where the project keeps a changelog and the commit lands on a trunk or short-lived branch.
+If the index holds changes, the agent commits those alone and leaves the rest
+of the dirty working tree untouched. Otherwise it commits everything — modified,
+deleted, and untracked files alike.
 
-The skill stops at composing and validating. It does not stage, commit, amend, or push, so the user keeps the final say over what enters history.
+To split a large change into several atomic commits, stage each atomic increment
+yourself and invoke the skill once per increment.
+
+The agent writes the commit message from its own analysis of the changeset, not
+from wording in your prompt. The message follows a fixed format:
+`<type>: <description> [- <flag>]`. The `<type>` comes from a closed
+vocabulary with precise semantics.
+
+The agent is instructed not to modify any files, including changelogs. The agent
+does not amend, rewrite, or push commits, and it never bypasses Git hooks.
+
+The skill does not handle merges. If a merge or squash merge is in progress,
+the agent stops without committing, even where every conflict is resolved.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively. It never blocks for user input, so it is safe in away-from-keyboard workflows and in CI. Where it cannot determine its inputs, it stops with an error rather than asking.
+This skill instructs the agent to run non-interactively. The agent is told not
+to prompt the user for answers to anything it is not sure about. Instead, if
+the agent cannot complete its task from the initial single-shot prompt, it is
+instructed to stop and return an error message. This makes the skill useful in
+away-from-keyboard workflows and automated delivery pipelines.
+
+Invoking the skill counts as permission to commit. The commit stays local
+until you push it, so you can still review it with `git show` and undo it with
+`git reset HEAD~1`.
 
 ## How to invoke
 
-> Write a commit message for this.
+> Commit this.
 
-> Is this commit message valid?
-
-> Why did commit validation fail in CI?
+> Commit the staged changes.
 
 ## Recommended models
 
-A small, fast model is sufficient. The work is a constrained transformation against a fixed vocabulary and a regex, not open-ended reasoning. The one judgment call — picking the right type for the changeset — is covered by the skill's own disambiguation notes.
+A small, fast model is sufficient. The work is a constrained transformation
+against a fixed vocabulary, not open-ended reasoning.
 
 ## Suggested workflows
-
-Run it once a change is complete and staged for review, before handing the message to Git. Running it mid-change wastes effort, since the changeset is still moving.
 
 ```mermaid
 flowchart LR
@@ -32,10 +52,12 @@ flowchart LR
   branch["🤖<br/>branch"]:::agentic
   commit["🤖<br/>commit"]:::agentic
   merge["🤖<br/>merge"]:::agentic
+  release["🤖<br/>release"]:::agentic
 
   %% Main workflow sequence.
   branch ==> commit
   commit ==> merge
+  merge ==> release
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -45,19 +67,27 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) —
-  Defines the branching model that commits land on, including which branches make a changelog entry due.
+- [**branch**](../branch/).
+  Creates temporary and long-lived branches for feature development.
 
-- [**merge**](../merge/) —
-  Integrates commits between divergent branches, consuming the history this skill helps compose.
+- [**changelog**](../changelog/).
+  Writes the changelog entry for a notable change, ready to commit with it.
 
-- [**release**](../release/) —
-  Cuts release branches from the committed history, and turns changelog entries into release notes.
+- [**merge**](../merge/).
+  Integrates work between two divergent branches.
+
+- [**release**](../release/).
+  Cuts release branches from the trunk.
 
 ## References
 
-- [Validate commit messages action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) —
+- [TS-9: Version Control][TS-9].
+  The technical standard this skill encodes.
+
+- [Validate commit messages action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages).
   The GitHub action that validates commit messages against these conventions.
 
-- [Pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks) —
+- [Pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks).
   Validate commit messages against the same conventions, locally.
+
+[TS-9]: https://kieranpotts.com/standards/009

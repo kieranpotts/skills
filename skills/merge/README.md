@@ -1,39 +1,58 @@
 # Merge
 
-The **merge** skill integrates work between two divergent Git branches, following the reintegration rules of the trunk-based model described in [TS-9: Version Control](https://kieranpotts.com/standards/009).
+The **merge** skill integrates work between two divergent Git branches,
+following the reintegration rules of the trunk-based model described in
+[TS-9: Version Control][TS-9].
 
-The agent is told to identify the source and target branches, pick the merge strategy their branch types call for, align and check the source before merging, resolve any conflicts by hand, verify the merged result locally, and then push and clean up the disposable branch. It is told to integrate and stop there — branching, releasing, and versioning stay outside its remit.
+The agent is told to identify the source and target branches, pick the merge
+strategy their branch types call for, align the source with the target, verify
+the merged result locally, and then push and clean up the disposable branch.
+
+The agent does not resolve merge conflicts. If Git cannot complete a rebase or
+merge by itself, the agent aborts it, leaving both branches as they were, and
+reports the conflicted files for you to resolve.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively, so it is safe in away-from-keyboard workflows. It may ask only where a repository or artifact lives when the context and environment do not settle it. On any error — a failed fast-forward, a conflict that reveals a design disagreement — it is instructed to stop and escalate rather than improvise.
+This skill instructs the agent to run non-interactively. The agent is told not
+to prompt the user for answers to anything it is not sure about. Instead, if
+the agent cannot complete its task from the initial single-shot prompt, it is
+instructed to stop and return an error message. This makes the skill useful in
+away-from-keyboard workflows and automated delivery pipelines.
 
 ## How to invoke
 
-> Merge this branch into `dev`.
+> Merge this branch into `latest/dev`.
 
-> Integrate `temp/...` back into the trunk.
+> Integrate `latest/temp/...` back into the trunk.
 
-> Promote `dev` to `test`.
+> Promote `latest/dev` to `latest/test`.
 
-Name both branches where the repository has more than one trunk. The agent will not guess a target.
+Name both branches where the repository has more than one trunk. Both must sit
+in the same delivery pipeline (eg. both `latest/` or both `v2/`). The agent
+refuses to merge across delivery pipelines.
 
 ## Recommended models
 
-A mid-tier model is sufficient, since the strategy follows mechanically from the branch types. Escalate to a frontier reasoning model when conflicts are semantically tangled, or when two long-lived branches have deeply diverged.
+A mid-tier model is sufficient, since the strategy follows mechanically from
+the branch types, and conflicts are handed back to the user rather than
+resolved by the agent.
 
 ## Suggested workflows
 
-Run this skill when a piece of work is finished and verified on its own branch, not continuously — a trunk promotion on every commit adds churn without adding integration.
+Run this skill when a piece of work is finished and verified on its own
+branch.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
+  branch["🤖<br/>branch"]:::agentic
   commit["🤖<br/>commit"]:::agentic
   merge["🤖<br/>merge"]:::agentic
   release["🤖<br/>release"]:::agentic
 
   %% Main workflow sequence.
+  branch ==> commit
   commit ==> merge
   merge ==> release
 
@@ -45,16 +64,18 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) —
-  Defines and creates the branches whose types decide the merge strategy used here.
+- [**branch**](../branch/).
+  Creates temporary and long-lived branches for feature development.
 
-- [**commit**](../commit/) —
-  Authors the revisions that this skill integrates between branches.
+- [**commit**](../commit/).
+  Commits ordinary, single-parent changes. Does not handle merges.
 
-- [**release**](../release/) —
-  Cuts release branches from the trunk that this skill fast-forwards.
+- [**release**](../release/).
+  Cuts release branches from the trunk.
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
-  The branching model and reintegration strategies this skill encodes.
+- [TS-9: Version Control][TS-9].
+  The technical standard this skill encodes.
+
+[TS-9]: https://kieranpotts.com/standards/009

@@ -1,32 +1,49 @@
 # Branch
 
-The **branch** skill encapsulates the rules for a Git branching strategy defined in [TS-9: Version Control](https://kieranpotts.com/standards/009).
+The **branch** skill names and creates a Git branch for a piece of work,
+following the trunk-based branching model defined in
+[TS-9: Version Control][TS-9].
 
-It codifies a trunk-based branch model consisting of three fast-forwarded trunks (`dev` → `test` → `ready`), short-lived `temp/*` branches, and long-lived `epic/*` branches.
+Work branches are either short-lived "temp" branches (named `[<pipeline>/]temp/*`)
+or long-lived "epic" branches (named `[<pipeline>/]epic/*`). Both are cut from
+the development trunk, named `[<pipeline>/]dev`.
 
-The agent is instructed to classify the work, form a name for it, validate that name against a regex, cut the branch from `dev`, and stop there. Committing, merging, and releasing are left to the caller.
+Where a project prefixes its trunks with a delivery pipeline, ie. `latest/dev`
+or `v2/dev` rather than `dev`, the new work branch takes the same prefix, eg.
+`latest/temp/42-fix-auth`.
+
+Committing, merging, and releasing are out-of-scope.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively, so it is safe in away-from-keyboard and CI workflows. The agent may prompt only to establish where a target repository lives; on any other uncertainty it stops with an error rather than guessing.
+This skill instructs the agent to run non-interactively. The agent is told not
+to prompt the user for answers to anything it is not sure about. Instead, if
+the agent cannot complete its task from the initial single-shot prompt, it is
+instructed to stop and return an error message. This makes the skill useful in
+away-from-keyboard workflows and automated delivery pipelines.
 
 ## How to invoke
 
-> What should I call this branch?
-
 > Create a branch for this work.
 
-> Is this branch name valid?
+> Start a branch for issue 42.
 
-Pass an issue or tracking identifier if you want it prefixed to the branch description.
+> Start a branch in the v2 pipeline for this security patch.
+
+Pass an issue number or other tracking identifier if you want it prefixed to
+the branch name. Name the target delivery pipeline if the work does not belong
+neither to the current checked-out development trunk nor the default "latest"
+delivery pipeline.
 
 ## Recommended models
 
-A small, fast model is sufficient for this task. The naming rules are mechanical and the validation step is a regex.
+A small, fast model is sufficient for this task. The naming rules are quite
+mechanical.
 
 ## Suggested workflows
 
-Run this at the start of a piece of work, once it is clear the change is too large to land directly on `dev`.
+Run this at the start of a new piece of work, once it is clear the change is too
+large to land directly on the development trunk.
 
 ```mermaid
 flowchart LR
@@ -34,10 +51,12 @@ flowchart LR
   branch["🤖<br/>branch"]:::agentic
   commit["🤖<br/>commit"]:::agentic
   merge["🤖<br/>merge"]:::agentic
+  release["🤖<br/>release"]:::agentic
 
   %% Main workflow sequence.
   branch ==> commit
   commit ==> merge
+  merge ==> release
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -47,16 +66,18 @@ flowchart LR
 
 ## Related skills
 
-- [**commit**](../commit/) —
-  Creates the revisions that land on the branches this skill defines.
+- [**commit**](../commit/).
+  Composes commit messages for individual revisions.
 
-- [**merge**](../merge/) —
-  Integrates work between the divergent branches this skill creates, and deletes them afterwards.
+- [**merge**](../merge/).
+  Integrates work between two divergent branches.
 
-- [**release**](../release/) —
-  Cuts release branches from the trunks this skill defines.
+- [**release**](../release/).
+  Cuts release branches from the trunk.
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
+- [TS-9: Version Control][TS-9].
   The technical standard this skill encodes.
+
+[TS-9]: https://kieranpotts.com/standards/009

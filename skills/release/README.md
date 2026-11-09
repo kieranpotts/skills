@@ -1,14 +1,24 @@
 # Release
 
-The release skill encapsulates the rules for cutting release branches and applying version tags, as defined in [TS-9: Version Control](https://kieranpotts.com/standards/009).
+The **release** skill cuts a software release and applies its version tag,
+following the conventions defined in [TS-9: Version Control][TS-9].
 
-It instructs the agent to work out which of two mutually exclusive release strategies the project uses — a single permanent `release` trunk, or temporary `release/<version>` branches — and then to cut or advance that branch from the release-ready trunk, promote the changelog's unreleased section, apply an annotated version tag, ship the build to the project's artifact registry, and draft user-facing release notes.
-
-The agent is told not to touch the software's own source code or configuration, and not to commit fixes to a release branch.
+The agent is instructed to work out the appropriate release strategy from the
+session context and local environment. The project is expected to use either a
+single permanent `[<pipeline>/]release` trunk, or multiple temporary
+`[<pipeline>/]release/<version>` branches. The agent promotes the latest
+changes on the release-ready trunk — named `[<pipeline>/]ready` — to the
+relevant release trunk or release branch. It then promotes the changelog's
+"unreleased" items, applies an annotated version tag, and pushed the changes
+to the upstream repository — this is expected to trigger a deployment pipeline.
 
 ## Interactivity
 
-This skill instructs the agent to run non-interactively. It resolves the release model, tagging convention, version, changelog, and artifact registry from the surrounding context and the project itself, and stops with an error rather than asking the user. It is therefore suitable for away-from-keyboard and continuous integration workflows.
+This skill instructs the agent to run non-interactively. The agent is told not
+to prompt the user for answers to anything it is not sure about. Instead, if
+the agent cannot complete its task from the initial single-shot prompt, it is
+instructed to stop and return an error message. This makes the skill useful in
+away-from-keyboard workflows and automated delivery pipelines.
 
 ## How to invoke
 
@@ -18,24 +28,28 @@ This skill instructs the agent to run non-interactively. It resolves the release
 
 > Prepare a release branch.
 
-> Ship the release.
+> Cut a 2.3.1 patch release from the v2 pipeline.
 
 ## Recommended models
 
-A small, fast model is sufficient. The work is a mechanical application of a documented branching and tagging convention, with no open-ended analysis.
+A small, fast model is sufficient. The work is a mechanical application of a
+documented branching and tagging convention, with no open-ended analysis.
 
 ## Suggested workflows
 
-Run this once the release-ready trunk holds the revisions you intend to ship, after integration and before deployment. Do not run it per commit: a release is a deliberate act, and version tags are permanent.
+Run this once the release-ready trunk holds the revisions you intend to ship,
+after integration and before deployment.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
+  branch["🤖<br/>branch"]:::agentic
   merge["🤖<br/>merge"]:::agentic
   release["🤖<br/>release"]:::agentic
   deploy["⚙️<br/>deploy"]:::scripted
 
   %% Main workflow sequence.
+  branch ==> merge
   merge ==> release
   release ==> deploy
 
@@ -47,16 +61,30 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) \
-  Defines the trunks that release branches are cut from. Run it to establish the branch model this skill then assumes.
+- [**branch**](../branch/).
+  Creates temporary and long-lived branches for feature development.
 
-- [**commit**](../commit/) \
-  Creates the revisions that a release is assembled from, including the release commit that carries the promoted changelog.
+- [**changelog**](../changelog/).
+  Keeps the "unreleased" section of the changelog up-to-date, ready to promote.
 
-- [**merge**](../merge/) \
-  Integrates release branches back into the trunks once a release has shipped.
+- [**commit**](../commit/).
+  Composes commit messages for individual revisions.
+
+- [**merge**](../merge/).
+  Integrates work between two divergent branches.
 
 ## References
 
-- [TS-9: Version Control](https://kieranpotts.com/standards/009) —
-  The technical standard that defines the release branching and version tagging conventions encoded here.
+- [TS-9: Version Control][TS-9].
+  The release branching conventions this skill encodes.
+
+- [TS-10: Releasing][TS-10].
+  How a released version is headed in the changelog, and how release cadence
+  maps onto the release model.
+
+- [TS-11: Versioning][TS-11].
+  The versioning scheme and tagging convention the skill applies.
+
+[TS-9]: https://kieranpotts.com/standards/009
+[TS-10]: https://kieranpotts.com/standards/010
+[TS-11]: https://kieranpotts.com/standards/011
