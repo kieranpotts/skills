@@ -38,6 +38,15 @@ checked-out revision. Run from outside a repository, you may name the target
 codebase as a path or a repository URL. Either way, you may pin the audit to a
 particular commit.
 
+## Outcomes
+
+The skill writes one architectural audit report to the resolved audit store.
+Each finding cites specific files and lines, and findings are ordered by
+priority.
+
+The audited codebase is left unchanged — no commits, branches, issues, or pull
+requests.
+
 ## Recommended models
 
 A premium frontier reasoning model, with "thinking" dialled up, will be best
