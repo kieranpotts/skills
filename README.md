@@ -16,13 +16,15 @@ regardless of the technology stack or business domain.
 
 The skills in this collection are loosely coupled from one another, to support
 their composability. But they can't just be dropped into any software project.
-They encode strong opinions, and they assume a broader ecosystem of development
-tools and methods is in place. In particular, the skills instruct agents to read
-from and write to stores of software requirements, technical decisions, system
-designs, delivery plans, and so on. These stores serve as the external
-persistence layers between discrete agentic steps in a workflow. An agent
-working on an upstream task will write artifacts to one of these stores, which
-a downstream agent will read as context for its own task.
+They encode strong opinions — many of them derived from my own
+[technical standards](https://kieranpotts.com/standards) — and they assume a
+broader ecosystem of development tools and methods is in place. In particular,
+the skills instruct agents to read from and write to stores of software
+requirements, technical decisions, system designs, delivery plans, and so on.
+These stores serve as the external persistence layers between discrete agentic
+steps in a workflow. An agent working on an upstream task will write artifacts
+to one of these stores, which a downstream agent will read as context for its
+own task.
 
 The skills are not hard-wired to any particular implementation of these stores.
 Each skill resolves its store from the context it is given or from the local
