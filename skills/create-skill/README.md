@@ -1,6 +1,6 @@
 # Create skill
 
-The **create-skill** skill is all about authoring a new skill, or improving an
+The **`create-skill`** skill is all about authoring a new skill, or improving an
 existing one, either in this global skills collection or any downstream project.
 
 It produces a complete skill directory, including:
@@ -42,6 +42,7 @@ reasoning model when drafting a genuinely new skill from scratch.
 
 ## Related skills
 
-- [**reflect**](../reflect/). Draws lessons from an AI session, which can then
-  be used as the basis for new skills, so persisting those learnings to disk
-  rather than relying on memory.
+- [**`reflect`**](../reflect/) \
+  Draws lessons from an AI session, which can then be used as the basis for
+  new skills, so persisting those learnings to disk rather than relying on
+  memory.

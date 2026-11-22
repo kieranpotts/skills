@@ -1,6 +1,6 @@
 # Validate
 
-The **validate** skill is all about asking, "did we build the right thing?"
+The **`validate`** skill is all about asking, "did we build the right thing?"
 
 The agent is instructed to recover the originating statement of need, walk
 through the working software as the user pursuing their goal, and surface the
@@ -74,11 +74,14 @@ flowchart LR
 
 ## Related skills
 
-- [**refine**](../refine/). Acts on the specification gaps this skill surfaces,
-  turning suggested directions into revised requirements.
+- [**`refine`**](../refine/) \
+  Acts on the specification gaps this skill surfaces, turning suggested
+  directions into revised requirements.
 
-- [**audit**](../audit/). Checks the architectural integrity of the evolving
-  system, where this skill checks its fitness for the user's need.
+- [**`audit`**](../audit/) \
+  Checks the architectural integrity of the evolving system, where this skill
+  checks its fitness for the user's need.
 
-- [**test**](../test/). Verifies the system against its specification, where
-  this skill questions whether that specification was right.
+- [**`test`**](../test/) \
+  Verifies the system against its specification, where this skill questions
+  whether that specification was right.

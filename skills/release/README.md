@@ -1,6 +1,6 @@
 # Release
 
-The **release** skill cuts a software release, following the conventions
+The **`release`** skill cuts a software release, following the conventions
 defined in [TS-9: Version Control][TS-9] and [TS-11: Versioning][TS-11].
 
 The agent tags the `version: <version>` commit — which is expected to already
@@ -82,10 +82,10 @@ flowchart LR
 
 ## Related skills
 
-- [**merge**](../merge/) \
+- [**`merge`**](../merge/) \
   Promotes the version commit from the development trunk to the testing trunk.
 
-- [**version**](../version/) \
+- [**`version`**](../version/) \
   Derives the version number and makes the version commit that this skill
   tags.
 

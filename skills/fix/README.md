@@ -1,6 +1,6 @@
 # Fix
 
-The **fix** skill repairs something whose cause is already known, and prove the
+The **`fix`** skill repairs something whose cause is already known, and prove the
 repair worked.
 
 The cause may have been named by a tool — a failing build, compile, lint, or
@@ -78,7 +78,7 @@ flowchart LR
 
 ## Related skills
 
-- [**diagnose**](../diagnose/). Finds the underlying cause of an issue, and
-  hands over a confirmed causal chain and a failing regression test that this
-  skill then acts on. Reach for it first whenever the cause of a breakage is
-  not already established.
+- [**`diagnose`**](../diagnose/) \
+  Finds the underlying cause of an issue, and hands over a confirmed causal
+  chain and a failing regression test that this skill then acts on. Reach for
+  it first whenever the cause of a breakage is not already established.

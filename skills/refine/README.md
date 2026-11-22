@@ -1,6 +1,6 @@
 # Refine
 
-The **refine** skill revises a requirements specification in response to
+The **`refine`** skill revises a requirements specification in response to
 acceptance testing feedback, or to real-world use of the working software.
 
 The agent is instructed to edit the _specification_, never the code. It names
@@ -74,12 +74,14 @@ flowchart LR
 
 ## Related skills
 
-- [**validate**](../validate/). Runs the acceptance checks whose failures
-  supply this skill's triggers.
+- [**`validate`**](../validate/) \
+  Runs the acceptance checks whose failures supply this skill's triggers.
 
-- [**specify**](../specify/). Writes specifications from scratch. Take that
-  route for a net-new capability, which is out-of-scope here.
+- [**`specify`**](../specify/) \
+  Writes specifications from scratch. Take that route for a net-new
+  capability, which is out-of-scope here.
 
-- [**refactor**](../refactor/). The structural analogue: refactor improves the
-  shape of code without changing behavior, refine improves the shape of
-  requirements without changing the underlying need.
+- [**`refactor`**](../refactor/) \
+  The structural analogue: refactor improves the shape of code without
+  changing behavior, refine improves the shape of requirements without
+  changing the underlying need.

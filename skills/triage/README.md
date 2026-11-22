@@ -1,6 +1,6 @@
 # Triage
 
-The **triage** skills verified that a reported bug or enhancement request is
+The **`triage`** skills verified that a reported bug or enhancement request is
 real, reproducible, and well specified, then recommends how it should be
 classified and progressed.
 
@@ -80,8 +80,9 @@ flowchart LR
 
 ## Related skills
 
-- [**code**](../code/). Picks up the agent brief this skill produces, and
-  drives the build loop from it.
+- [**`code`**](../code/) \
+  Picks up the agent brief this skill produces, and drives the build loop from
+  it.
 
 ## References
 

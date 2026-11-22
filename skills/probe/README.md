@@ -1,6 +1,6 @@
 # Probe
 
-The **probe** skill runs an interactive threat modeling workshop and records
+The **`probe`** skill runs an interactive threat modeling workshop and records
 the security and privacy risks it surfaces.
 
 The agent is instructed to facilitate a workshop in which the target system is
@@ -85,12 +85,13 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/). Records changes to a system's architecture. A
-  significant design change is a natural trigger for a fresh threat modeling
-  session.
+- [**`design`**](../design/) \
+  Records changes to a system's architecture. A significant design change is a
+  natural trigger for a fresh threat modeling session.
 
-- [**audit**](../audit/). Companion skill that inspects a system's structural
-  integrity, where this one inspects its exposure to attack.
+- [**`audit`**](../audit/) \
+  Companion skill that inspects a system's structural integrity, where this
+  one inspects its exposure to attack.
 
 ## References
 

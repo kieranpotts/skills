@@ -65,16 +65,16 @@ counting blank lines) and MUST pass the validator checks — described below.
 
 ## Rules
 
-- MUST follow the [**branch**](./skills/branch/SKILL.md) skill for all branch
+- MUST follow the [**`branch`**](./skills/branch/SKILL.md) skill for all branch
   names.
 
-- MUST follow the [**commit**](./skills/commit/SKILL.md) skill for all commit
+- MUST follow the [**`commit`**](./skills/commit/SKILL.md) skill for all commit
   messages.
 
 - MUST NOT commit anything under `build/`. It is git-ignored, except for
   `build/README.md` which is tracked.
 
-- MUST use the [**create-skill**](./skills/create-skill/SKILL.md) skill to
+- MUST use the [**`create-skill`**](./skills/create-skill/SKILL.md) skill to
   create or modify a skill. See also [`docs/creating-skills.md`](./docs/creating-skills.md).
 
 - MUST run the [create-skill validator](./skills/create-skill/scripts/create-skill-validate.sh )

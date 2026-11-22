@@ -1,6 +1,6 @@
 # Proof
 
-The **proof** skill proofreads, then conservatively edits, prose for spelling,
+The **`proof`** skill proofreads, then conservatively edits, prose for spelling,
 grammar, and consistency.
 
 The agent is instructed to make the edits a careful human editor would make on
@@ -51,6 +51,6 @@ warrant a frontier reasoning model.
 
 ## Related skills
 
-- [**style**](../style/). Normalizes the presentation of a document, while
-  this skill corrects its language. Run both on documentation, in either order,
-  as separate changes.
+- [**`style`**](../style/) \
+  Normalizes the presentation of a document, while this skill corrects its
+  language. Run both on documentation, in either order, as separate changes.

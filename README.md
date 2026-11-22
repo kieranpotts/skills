@@ -107,54 +107,54 @@ Each skill operates in one of two possible modes.
 
 ### ➡️ Workflow skills
 
-| Skill                                   | Description                                                                                            |Mode|
-|-----------------------------------------|--------------------------------------------------------------------------------------------------------|----|
-| ✅ [**audit**](./skills/audit/)         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                           | 🤖 |
-| ⭕ [**code**](./skills/code/)           | Write code, verified by tests, for one small increment.                                                | 🤖 |
-| ⭕ [**decide**](./skills/decide/)       | Frame a technical decision as an RFC or ADR.                                                           | 🧑 |
-| ⭕ [**design**](./skills/design/)       | Explore architectural options and their trade-offs.                                                    | 🤖 |
-| ⭕ [**diagnose**](./skills/diagnose/)   | Find the cause of unexpected behaviors and runtime issues.                                             | 🤖 |
-| ⭕ [**discover**](./skills/discover/)   | Run a discovery workshop with the customer to elicit product requirements.                             | 🧑 |
-| ⭕ [**elaborate**](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs.                                           | 🧑 |
-| ⭕ [**fix**](./skills/fix/)             | Fix anything broken whose cause is already known — failing builds, lints, type-checks, diagnosed bugs. | 🤖 |
-| ⭕ [**plan**](./skills/plan/)           | Decompose delivery into small, stable increments.                                                      | 🤖 |
-| ⭕ [**probe**](./skills/probe/)         | Run an interactive threat-modeling session. Record security risks.                                     | 🧑 |
-| ⭕ [**refactor**](./skills/refactor/)   | Iterate the design while maintaining stability through system testing.                                 | 🤖 |
-| ⭕ [**refine**](./skills/refine/)       | Produce new business requirements in response to acceptance testing feedback.                          | 🧑 |
-| ⭕ [**resolve**](./skills/resolve/)     | Address open review comments. Mark them as resolved.                                                   | 🤖 |
-| ⭕ [**review**](./skills/review/)       | Evaluate code for style conventions and pattern consistency.                                           | 🤖 |
-| ⭕ [**specify**](./skills/specify/)     | Specify functional and non-functional requirements as testable acceptance criteria.                    | 🤖 |
-| ⭕ [**spike**](./skills/spike/)         | Develop throwaway code to answer design questions.                                                     | 🤖 |
-| ⭕ [**style**](./skills/style/)         | Improve code presentation — whitespace, style, ordering — without changing structure.                  | 🤖 |
-| ⭕ [**test**](./skills/test/)           | Check the evolving software for both functional correctness and runtime qualities.                     | 🤖 |
-| ⭕ [**triage**](./skills/triage/)       | Verify that a reported bug or incident is real and reproducible.                                       | 🤖 |
-| ⭕ [**validate**](./skills/validate/)   | Ask, "did we build the right thing?"                                                                   | 🤖 |
+| Skill                                     | Description                                                                                            | Mode |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------|------|
+| ✅ [**`audit`**](./skills/audit/)         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                           | 🤖   |
+| ⭕ [**`code`**](./skills/code/)           | Write code, verified by tests, for one small increment.                                                | 🤖   |
+| ⭕ [**`decide`**](./skills/decide/)       | Frame a technical decision as an RFC or ADR.                                                           | 🧑   |
+| ⭕ [**`design`**](./skills/design/)       | Explore architectural options and their trade-offs.                                                    | 🤖   |
+| ⭕ [**`diagnose`**](./skills/diagnose/)   | Find the cause of unexpected behaviors and runtime issues.                                             | 🤖   |
+| ⭕ [**`discover`**](./skills/discover/)   | Run a discovery workshop with the customer to elicit product requirements.                             | 🧑   |
+| ⭕ [**`elaborate`**](./skills/elaborate/) | Refine a proposed solution by interrogating the design docs.                                           | 🧑   |
+| ⭕ [**`fix`**](./skills/fix/)             | Fix anything broken whose cause is already known — failing builds, lints, type-checks, diagnosed bugs. | 🤖   |
+| ⭕ [**`plan`**](./skills/plan/)           | Decompose delivery into small, stable increments.                                                      | 🤖   |
+| ⭕ [**`probe`**](./skills/probe/)         | Run an interactive threat-modeling session. Record security risks.                                     | 🧑   |
+| ⭕ [**`refactor`**](./skills/refactor/)   | Iterate the design while maintaining stability through system testing.                                 | 🤖   |
+| ⭕ [**`refine`**](./skills/refine/)       | Produce new business requirements in response to acceptance testing feedback.                          | 🧑   |
+| ⭕ [**`resolve`**](./skills/resolve/)     | Address open review comments. Mark them as resolved.                                                   | 🤖   |
+| ⭕ [**`review`**](./skills/review/)       | Evaluate code for style conventions and pattern consistency.                                           | 🤖   |
+| ⭕ [**`specify`**](./skills/specify/)     | Specify functional and non-functional requirements as testable acceptance criteria.                    | 🤖   |
+| ⭕ [**`spike`**](./skills/spike/)         | Develop throwaway code to answer design questions.                                                     | 🤖   |
+| ⭕ [**`style`**](./skills/style/)         | Improve code presentation — whitespace, style, ordering — without changing structure.                  | 🤖   |
+| ⭕ [**`test`**](./skills/test/)           | Check the evolving software for both functional correctness and runtime qualities.                     | 🤖   |
+| ⭕ [**`triage`**](./skills/triage/)       | Verify that a reported bug or incident is real and reproducible.                                       | 🤖   |
+| ⭕ [**`validate`**](./skills/validate/)   | Ask, "did we build the right thing?"                                                                   | 🤖   |
 
 ### 🔀 Version control skills
 
-| Skill                                   | Description                                    |Mode|
-|-----------------------------------------|------------------------------------------------|----|
-| ⭕ [**branch**](./skills/branch/)       | Git branching strategy.                        | 🤖 |
-| ⭕ [**chronicle**](./skills/chronicle/) | Keep the changelog's unreleased section true.  | 🤖 |
-| ⭕ [**commit**](./skills/commit/)       | Commit changes, with conventional messages.    | 🤖 |
-| ⭕ [**merge**](./skills/merge/)         | Consolidate divergence between branches.       | 🤖 |
-| ⭕ [**release**](./skills/release/)     | Tag a version, fast-forward ready and release. | 🤖 |
-| ⭕ [**version**](./skills/version/)     | Bump the version, promote the changelog.       | 🤖 |
+| Skill                                     | Description                                    | Mode |
+|-------------------------------------------|------------------------------------------------|------|
+| ⭕ [**`branch`**](./skills/branch/)       | Git branching strategy.                        | 🤖   |
+| ⭕ [**`chronicle`**](./skills/chronicle/) | Keep the changelog's unreleased section true.  | 🤖   |
+| ⭕ [**`commit`**](./skills/commit/)       | Commit changes, with conventional messages.    | 🤖   |
+| ⭕ [**`merge`**](./skills/merge/)         | Consolidate divergence between branches.       | 🤖   |
+| ⭕ [**`release`**](./skills/release/)     | Tag a version, fast-forward ready and release. | 🤖   |
+| ⭕ [**`version`**](./skills/version/)     | Bump the version, promote the changelog.       | 🤖   |
 
 ### 📎 Auxiliary skills
 
-| Skill                                 | Description                                                                       |Mode|
-|---------------------------------------|-----------------------------------------------------------------------------------|----|
-| ⭕ [**research**](./skills/research/) | Gather external sources on a topic and produce a cited research report.           | 🤖 |
-| ⭕ [**proof**](./skills/proof/)       | Proofread, then conservatively edit, text for spelling, grammar, and consistency. | 🤖 |
+| Skill                                   | Description                                                                       | Mode |
+|-----------------------------------------|-----------------------------------------------------------------------------------|------|
+| ⭕ [**`research`**](./skills/research/) | Gather external sources on a topic and produce a cited research report.           | 🤖   |
+| ⭕ [**`proof`**](./skills/proof/)       | Proofread, then conservatively edit, text for spelling, grammar, and consistency. | 🤖   |
 
 ### 🤖 Agentic workflow-optimization skills
 
-| Skill                                         | Description                                             |Mode|
-|-----------------------------------------------|---------------------------------------------------------|----|
-| ⭕ [**handoff**](./skills/handoff/)           | Compact a conversation for the next session to pick up. | 🤖 |
-| ⭕ [**reflect**](./skills/reflect/)           | Distill durable lessons from the session into memory.   | 🤖 |
-| ⭕ [**create-skill**](./skills/create-skill/) | Author a new skill, or improve an existing one.         | 🧑 |
+| Skill                                           | Description                                             | Mode |
+|-------------------------------------------------|---------------------------------------------------------|------|
+| ⭕ [**`handoff`**](./skills/handoff/)           | Compact a conversation for the next session to pick up. | 🤖   |
+| ⭕ [**`reflect`**](./skills/reflect/)           | Distill durable lessons from the session into memory.   | 🤖   |
+| ⭕ [**`create-skill`**](./skills/create-skill/) | Author a new skill, or improve an existing one.         | 🧑   |
 
 ## ⌨️ Usage
 
@@ -173,8 +173,8 @@ This has implications for context management and workflow composition.
 It is strongly RECOMMENDED that each skill be invoked in a fresh context window.
 There are two reasons for this.
 
-- **Contamination.** Skills like [**review**](./skills/review/),
-  [**audit**](./skills/audit/), and [**validate**](./skills/validate/) are
+- **Contamination.** Skills like [**`review`**](./skills/review/),
+  [**`audit`**](./skills/audit/), and [**`validate`**](./skills/validate/) are
   meant to interrogate work already done. If the agent still holds the
   conversation that produced that prior art, its behavior will be influenced by
   that background context. The agent will carry its own justifications forward,
@@ -289,11 +289,11 @@ or they fail with a specific account of what input is missing. They're
 instructed not to prompt users for input beyond the initial prompt.
 
 But a small number of skills will prompt the user to make decisions as the agent
-explores options to move forward. For example, the [**discover**](./skills/discover/)
-skill asks questions to elicit product requirements, while the
-[**elaborate**](./skills/elaborate/) skill interrogates a proposed
-architectural design. These interactive skills (🧑) are intended to be invoked
-directly by humans.
+explores options to move forward. For example, the
+[**`discover`**](./skills/discover/) skill asks questions to elicit product
+requirements, while the [**`elaborate`**](./skills/elaborate/) skill
+interrogates a proposed architectural design. These interactive skills (🧑) are
+intended to be invoked directly by humans.
 
 Interactive skills are not meant to be used away-from-keyboard, and therefore
 they can't be incorporated into highly automated specs-to-code workflows

@@ -1,6 +1,6 @@
 # Design
 
-The **design** skill is all about exploring architectural options and their
+The **`design`** skill is all about exploring architectural options and their
 trade-offs.
 
 The agent takes an approved software requirements specification, or a proposed
@@ -75,14 +75,18 @@ flowchart LR
 
 ## Related skills
 
-- [**specify**](../specify/). Supplies the approved requirements that this skill
-  proposes a solution to. Design is gated on its output.
+- [**`specify`**](../specify/) \
+  Supplies the approved requirements that this skill proposes a solution to.
+  Design is gated on its output.
 
-- [**plan**](../plan/). Decomposes the resulting design into incremental
-  delivery steps, picking up where this skill stops.
+- [**`plan`**](../plan/) \
+  Decomposes the resulting design into incremental delivery steps, picking up
+  where this skill stops.
 
-- [**elaborate**](../elaborate/). Stress-tests a draft design — its ambiguous
-  terms and unstated assumptions — before it is decomposed.
+- [**`elaborate`**](../elaborate/) \
+  Stress-tests a draft design — its ambiguous terms and unstated assumptions —
+  before it is decomposed.
 
-- [**spike**](../spike/). Answers feasibility questions the design turns on,
-  feeding evidence back into the evaluation.
+- [**`spike`**](../spike/) \
+  Answers feasibility questions the design turns on, feeding evidence back
+  into the evaluation.

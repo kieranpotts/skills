@@ -1,6 +1,6 @@
 # Chronicle
 
-The **chronicle** skill updates the "unreleased" section of a project's
+The **`chronicle`** skill updates the "unreleased" section of a project's
 changelog to accurately reflect the headline user-facing changes since the last
 release point, following the conventions defined in [TS-10: Releasing][TS-10].
 
@@ -78,10 +78,10 @@ flowchart LR
 
 ## Related skills
 
-- [**commit**](../commit/) \
+- [**`commit`**](../commit/) \
   Use this skill to commits the changes made to the changelog.
 
-- [**version**](../version/) \
+- [**`version`**](../version/) \
   Promotes the "unreleased" section of the changelog to a released version.
 
 ## References

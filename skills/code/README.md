@@ -1,6 +1,6 @@
 # Code
 
-The **code** skill writes the code and the tests for one small, already-designed
+The **`code`** skill writes the code and the tests for one small, already-designed
 step of work, and commits it as a single reviewable diff.
 
 The agent is instructed to establish a fast test feedback loop, then work red →
@@ -68,10 +68,13 @@ flowchart LR
 
 ## Related skills
 
-- [**plan**](../plan/). Decomposes a requirements specification into a pipeline
-  of small changes. Each of those changes is one invocation of this skill.
+- [**`plan`**](../plan/) \
+  Decomposes a requirements specification into a pipeline of small changes.
+  Each of those changes is one invocation of this skill.
 
-- [**triage**](../triage/). An alternative upstream trigger, producing small
-  scoped fixes rather than planned steps.
+- [**`triage`**](../triage/) \
+  An alternative upstream trigger, producing small scoped fixes rather than
+  planned steps.
 
-- [**style**](../style/). Normalizes code presentation after the edits are made.
+- [**`style`**](../style/) \
+  Normalizes code presentation after the edits are made.

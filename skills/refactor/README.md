@@ -1,6 +1,6 @@
 # Refactor
 
-The **refactor** skill is all about iterating the design while maintaining
+The **`refactor`** skill is all about iterating the design while maintaining
 stability through system testing.
 
 The agent is instructed to restructure source code, without changing observable
@@ -82,12 +82,14 @@ flowchart LR
 
 ## Related skills
 
-- [**audit**](../audit/). Surfaces the structural drift that this skill then
-  acts on. Run it first to decide which quality is worth improving.
+- [**`audit`**](../audit/) \
+  Surfaces the structural drift that this skill then acts on. Run it first to
+  decide which quality is worth improving.
 
-- [**design**](../design/). Takes over when a move would redraw module
-  boundaries, change a public interface, or alter the data model — changes
-  this skill refuses to make.
+- [**`design`**](../design/) \
+  Takes over when a move would redraw module boundaries, change a public
+  interface, or alter the data model — changes this skill refuses to make.
 
-- [**test**](../test/). Builds the safety net this skill depends on. Use it
-  first where coverage of the target code is thin.
+- [**`test`**](../test/) \
+  Builds the safety net this skill depends on. Use it first where coverage of
+  the target code is thin.

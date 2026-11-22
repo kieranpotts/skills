@@ -1,6 +1,6 @@
 # Test
 
-The **test** skill checks the evolving software for both functional correctness and
+The **`test`** skill checks the evolving software for both functional correctness and
 runtime qualities.
 
 The agent is instructed to recover the full set of acceptance criteria from
@@ -82,8 +82,10 @@ flowchart LR
 
 ## Related skills
 
-- [**validate**](../validate/). Asks whether the specification this skill
-  verifies against was the right specification in the first place.
+- [**`validate`**](../validate/) \
+  Asks whether the specification this skill verifies against was the right
+  specification in the first place.
 
-- [**diagnose**](../diagnose/). Takes on the implementation defects this skill
-  reports but deliberately leaves unfixed.
+- [**`diagnose`**](../diagnose/) \
+  Takes on the implementation defects this skill reports but deliberately
+  leaves unfixed.

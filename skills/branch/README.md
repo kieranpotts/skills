@@ -1,17 +1,17 @@
 # Branch
 
-The **branch** skill names and creates a Git branch for a piece of work,
+The **`branch`** skill names and creates a Git branch for a piece of work,
 following the trunk-based branching model defined in [TS-9: Version Control][TS-9].
 
-Work branches are either short-lived "temp" branches — named `[<pipeline>/]temp/*` —
-or long-lived "epic" branches — named `[<pipeline>/]epic/*`. The agent creates a
-temp branch unless the user specifically asks for an epic.
+Work branches are either short-lived "temp" branches — named `[<pipeline>/]temp/*`
+— or long-lived "epic" branches — named `[<pipeline>/]epic/*`. The agent creates
+a temp branch unless the user specifically asks for an epic.
 
 The repository must be a bare clone in a `.bare` directory, with its worktrees
-checked out in sibling directories, eg. `<project>/.bare` and
-`<project>/default`. The agent stops if it is laid out any other way. It checks
-the new branch out in a new worktree beside `.bare`, leaving the worktree you
-invoked it from untouched.
+checked out in sibling directories, eg. `<project>/.bare` and `<project>/default`.
+The agent stops if it is laid out any other way. The agent checks out the new
+branch in a new worktree beside `.bare`, leaving the worktree you invoked it
+from untouched.
 
 ## Interactivity
 
@@ -38,7 +38,7 @@ The target repository is changed in the following ways.
 
 - The local development trunk is fast-forwarded to match `origin`, and
   remote-tracking branches and tags are refreshed. Where the trunk is checked
-  out in a worktree, that worktree must be clean, or the agent stops.
+  out in a worktree, that worktree must be clean, else the agent stops.
 
 - There's a new branch, checked out in a new worktree beside `.bare`, named
   after the branch, eg. `<project>/latest-temp-42-fix-auth-timeout`. The new
@@ -79,10 +79,10 @@ flowchart LR
 
 ## Related skills
 
-- [**commit**](../commit/) \
+- [**`commit`**](../commit/) \
   Commits the work on the new branch.
 
-- [**merge**](../merge/) \
+- [**`merge`**](../merge/) \
   Integrates the branch back into the development trunk.
 
 ## References

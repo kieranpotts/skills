@@ -1,6 +1,6 @@
 # Elaborate
 
-The **elaborate** skill refines a proposed solution by interrogating the design
+The **`elaborate`** skill refines a proposed solution by interrogating the design
 documentation. It is a highly interactive session with one objective: to nail
 down an architectural design and mitigate the major risks within it.
 
@@ -78,14 +78,16 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/). Produces the draft architectural change that this
-  skill interrogates.
+- [**`design`**](../design/) \
+  Produces the draft architectural change that this skill interrogates.
 
-- [**plan**](../plan/). Decomposes the sharpened design into implementation
-  increments once elaboration is done.
+- [**`plan`**](../plan/) \
+  Decomposes the sharpened design into implementation increments once
+  elaboration is done.
 
-- [**decide**](../decide/). Writes up a single decision in full, where
-  elaboration surfaces one too large to settle in the interview.
+- [**`decide`**](../decide/) \
+  Writes up a single decision in full, where elaboration surfaces one too
+  large to settle in the interview.
 
 ## References
 

@@ -1,6 +1,6 @@
 # Handoff
 
-The **handoff** skill compacts a session so the next one can pick up the work.
+The **`handoff`** skill compacts a session so the next one can pick up the work.
 
 The agent is instructed to write a single, ephemeral handoff document covering
 what was done, what remains open, the state of the codebase, suggested next
@@ -46,7 +46,8 @@ agent already holds, not open-ended analysis.
 
 ## Related skills
 
-- [**reflect**](../reflect/). Companion skill that distills durable lessons
+- [**`reflect`**](../reflect/) \
+  Companion skill that distills durable lessons
 from an agent session, while this skill persists task state for the next one.
 
 ## References

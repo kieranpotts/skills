@@ -1,6 +1,6 @@
 # Discover
 
-The **discover** skill runs a discovery workshop with the customer to elicit
+The **`discover`** skill runs a discovery workshop with the customer to elicit
 product requirements.
 
 The agent is instructed to run an interview that turns a vague business need
@@ -74,7 +74,8 @@ flowchart LR
 
 ## Related skills
 
-- [**specify**](../specify/). Turns the PRD's rules and examples into testable
+- [**`specify`**](../specify/) \
+  Turns the PRD's rules and examples into testable
 acceptance criteria. This skill deliberately stops short of that.
 
 ## References

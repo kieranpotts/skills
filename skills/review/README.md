@@ -1,6 +1,6 @@
 # Review
 
-The **review** skill audits a proposed code change against the specification
+The **`review`** skill audits a proposed code change against the specification
 it claims to satisfy and against the project's own standards.
 
 The agent is instructed to analyze the diff statically — pinned to an explicit
@@ -78,9 +78,10 @@ flowchart LR
 
 ## Related skills
 
-- [**resolve**](../resolve/). Actions the open comments this skill leaves behind.
-  Review reports and stops; resolve does the fixing.
+- [**`resolve`**](../resolve/) \
+  Actions the open comments this skill leaves behind. Review reports and
+  stops; resolve does the fixing.
 
-- [**audit**](../audit/). A wider, design-level companion to this skill's
-  change-level pass. Reach for audit when the question is about the system
-  rather than the diff.
+- [**`audit`**](../audit/) \
+  A wider, design-level companion to this skill's change-level pass. Reach for
+  audit when the question is about the system rather than the diff.

@@ -1,6 +1,6 @@
 # Version
 
-The **version** skill works out the next version number for a delivery
+The **`version`** skill works out the next version number for a delivery
 pipeline, following the Semantic Versioning rules defined in
 [TS-11: Versioning][TS-11].
 
@@ -70,16 +70,16 @@ flowchart LR
 
 ## Related skills
 
-- [**chronicle**](../chronicle/) \
+- [**`chronicle`**](../chronicle/) \
   Writes the changelog entries that this skill promotes.
 
-- [**commit**](../commit/) \
+- [**`commit`**](../commit/) \
   Sets the commit types and flags that this skill reads to decide the bump.
 
-- [**merge**](../merge/) \
+- [**`merge`**](../merge/) \
   Promotes the version commit through the pipeline's trunks.
 
-- [**release**](../release/) \
+- [**`release`**](../release/) \
   Tags the version commit, and fast-forwards `ready` and `release` to it.
 
 ## References

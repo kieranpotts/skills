@@ -1,6 +1,6 @@
 # Commit
 
-The **commit** skill commits pending changes to Git as a single commit,
+The **`commit`** skill commits pending changes to Git as a single commit,
 following the conventions defined in [TS-9: Version Control][TS-9].
 
 The agent commits the staged changes, or everything (including untracked files)
@@ -70,16 +70,16 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) \
+- [**`branch`**](../branch/) \
   Creates the temp or epic branch that the commits land on.
 
-- [**chronicle**](../chronicle/) \
+- [**`chronicle`**](../chronicle/) \
   Summarizes the headline changes in the commits since the last release.
 
-- [**merge**](../merge/) \
+- [**`merge`**](../merge/) \
   Integrates a branch's commits into the development trunk.
 
-- [**version**](../version/) \
+- [**`version`**](../version/) \
   Reads the commit types and flags to decide the next version number.
 
 ## References

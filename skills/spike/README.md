@@ -1,6 +1,6 @@
 # Spike
 
-The **spike** skill writes throwaway code to answer one falsifiable design
+The **`spike`** skill writes throwaway code to answer one falsifiable design
 question, records the answer, and disposes of the code.
 
 The agent is instructed to frame a single question — feasibility, performance,
@@ -82,9 +82,10 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/). Companion skill that poses the questions a spike
-  answers with throwaway code, and that consumes the answer once the spike has
-  filed it.
+- [**`design`**](../design/) \
+  Companion skill that poses the questions a spike answers with throwaway
+  code, and that consumes the answer once the spike has filed it.
 
-- [**decide**](../decide/). Records an architecturally significant decision.
-  A spike's finding is often the evidence such a decision rests on.
+- [**`decide`**](../decide/) \
+  Records an architecturally significant decision. A spike's finding is often
+  the evidence such a decision rests on.

@@ -1,6 +1,6 @@
 # Specify
 
-The **specify** skill turns a business-oriented product requirements document (PRD),
+The **`specify`** skill turns a business-oriented product requirements document (PRD),
 or similar informal artifact, into a formal software requirements specification
 written as testable acceptance criteria.
 
@@ -73,12 +73,14 @@ flowchart LR
 
 ## Related skills
 
-- [**discover**](../discover/). Gathers the requirements and produces the PRD
-  that this skill transforms into acceptance criteria.
+- [**`discover`**](../discover/) \
+  Gathers the requirements and produces the PRD that this skill transforms
+  into acceptance criteria.
 
-- [**design**](../design/). Runs after approval, designing an implementation
-  against the acceptance criteria this skill produces.
+- [**`design`**](../design/) \
+  Runs after approval, designing an implementation against the acceptance
+  criteria this skill produces.
 
-- [**test**](../test/). Validates progress against the acceptance criteria,
-  letting agents use deterministic tools rather than judgment to decide whether
-  work is done.
+- [**`test`**](../test/) \
+  Validates progress against the acceptance criteria, letting agents use
+  deterministic tools rather than judgment to decide whether work is done.

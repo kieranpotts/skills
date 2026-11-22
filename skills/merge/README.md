@@ -1,6 +1,6 @@
 # Merge
 
-The **merge** skill integrates the checked-out branch into another branch in
+The **`merge`** skill integrates the checked-out branch into another branch in
 the same delivery pipeline, following the rules defined in
 [TS-9: Version Control][TS-9].
 
@@ -86,13 +86,13 @@ flowchart LR
 
 ## Related skills
 
-- [**branch**](../branch/) \
+- [**`branch`**](../branch/) \
   Creates the temp and epic branches this skill integrates.
 
-- [**commit**](../commit/) \
+- [**`commit`**](../commit/) \
   Commits ordinary, single-parent changes. Does not handle merges.
 
-- [**release**](../release/) \
+- [**`release`**](../release/) \
   Tags a release and fast-forwards `ready` and `release` to it.
 
 ## References

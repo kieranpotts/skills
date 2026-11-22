@@ -1,6 +1,6 @@
 # Resolve
 
-The **resolve** skill is all about actioning the open review comments on a pull
+The **`resolve`** skill is all about actioning the open review comments on a pull
 request, and marking them as resolved.
 
 The agent is instructed to take every comment thread still open on the pull
@@ -76,6 +76,6 @@ flowchart LR
 
 ## Related skills
 
-- [**review**](../review/). Leaves the comments that this skill then actions.
-  Curate its output before running this skill, since every comment left open
-  gets implemented.
+- [**`review`**](../review/) \
+  Leaves the comments that this skill then actions. Curate its output before
+  running this skill, since every comment left open gets implemented.

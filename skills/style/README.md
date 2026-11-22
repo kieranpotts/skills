@@ -1,6 +1,6 @@
 # Style
 
-The **style** skill is all about improving the presentation of code and content
+The **`style`** skill is all about improving the presentation of code and content
 — whitespace, wrapping, quoting, ordering — without changing structure,
 behavior, or meaning.
 
@@ -76,13 +76,15 @@ flowchart LR
 
 ## Related skills
 
-- [**proof**](../proof/). Corrects the language of prose — spelling, grammar,
-  wording — while this skill normalizes only its presentation. Run both on
-  documentation, in either order, as separate changes.
+- [**`proof`**](../proof/) \
+  Corrects the language of prose — spelling, grammar, wording — while this
+  skill normalizes only its presentation. Run both on documentation, in either
+  order, as separate changes.
 
-- [**refactor**](../refactor/). Takes over when a change would alter structure
-  rather than presentation: renames, extractions, reordered parameters — all of
-  which this skill refuses.
+- [**`refactor`**](../refactor/) \
+  Takes over when a change would alter structure rather than presentation:
+  renames, extractions, reordered parameters — all of which this skill
+  refuses.
 
 ## References
 

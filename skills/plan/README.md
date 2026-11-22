@@ -1,6 +1,6 @@
 # Plan
 
-The **plan** skill is all about decomposing delivery into small, stable
+The **`plan`** skill is all about decomposing delivery into small, stable
 increments. It turns an agreed design into a sequenced checklist of small
 construction steps that can be built through an iterative loop, so supporting
 continuous integration.
@@ -68,8 +68,9 @@ flowchart LR
 
 ## Related skills
 
-- [**design**](../design/). Supplies the agreed architectural option and its
-  trade-offs, which this skill decomposes into delivery steps.
+- [**`design`**](../design/) \
+  Supplies the agreed architectural option and its trade-offs, which this
+  skill decomposes into delivery steps.
 
-- [**code**](../code/). Picks up each step this plan produces, one at a time,
-  and implements it.
+- [**`code`**](../code/) \
+  Picks up each step this plan produces, one at a time, and implements it.

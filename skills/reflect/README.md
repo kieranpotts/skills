@@ -1,6 +1,6 @@
 # Reflect
 
-The **reflect** skill distills durable lessons from an agent session and
+The **`reflect`** skill distills durable lessons from an agent session and
 persists them, so that the next session starts better-informed than this one
 did.
 
@@ -66,6 +66,7 @@ and an empty result is the correct outcome.
 
 ## Related skills
 
-- [**handoff**](../handoff/). Companion skill for persisting task state between
-  discrete agent sessions. Where **reflect** records what was learned,
-  **handoff** records where the work got to.
+- [**`handoff`**](../handoff/) \
+  Companion skill for persisting task state between discrete agent sessions.
+  Where **`reflect`** records what was learned, **`handoff`** records where the
+  work got to.
