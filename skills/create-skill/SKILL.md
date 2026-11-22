@@ -18,9 +18,18 @@ or a downstream project.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. If you're uncertain about the required parameters,
-prompt the user for clarification.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. If you're uncertain
+about the required parameters, prompt the user for clarification.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A description of the skill — REQUIRED.** Either a description of a new skill
   to create, or a path to an existing skill to improve.
@@ -28,11 +37,9 @@ prompt the user for clarification.
 - **Trigger conditions — REQUIRED.** The situations and user phrasings that
   should invoke it.
 
-- **Target project — OPTIONAL.** Where to install the skill. If the current
-  working directory sits inside a Git repository, that repository is the
-  target. Otherwise discover the target from the session context, eg. a path or
-  URL the user has named. Failing both, install into the user's home directory,
-  at `$HOME/.agents/skills/<skill-name>/`.
+- **Target project — OPTIONAL.** Where to install the skill: the target
+  worktree's repository. Where there is no target worktree, install into the
+  user's home directory, at `$HOME/.agents/skills/<skill-name>/`.
 
 ## Success criteria
 
@@ -198,9 +205,11 @@ prompt the user for clarification.
   agent can check its own work against.
 
 - The `## Parameters` section is REQUIRED. It defines what the skill consumes.
-  Open this section with a short preamble telling the agent to determine the
-  parameters from the session context and local environment, and stating plainly
-  whether it may prompt the user when uncertain.
+  Open this section with the template's preamble: a paragraph telling the agent
+  to determine the parameters from the session context, the current working
+  directory, and the local environment, stating plainly whether it may prompt
+  the user when uncertain; then the paragraph on repository layout and the
+  target worktree, verbatim.
 
 - The parameters MUST be a bulleted list, even for a single parameter. Each item
   has a bold-lead bullet naming the parameter and its requirement level, with
@@ -276,14 +285,31 @@ prompt the user for clarification.
   constraint or a genuine choice, state the constraint as a rule, or word the
   choice plainly in the step, eg. "skip the fetch if there is no remote".
 
-- Skills MUST discover the target repository from the local environment first.
+- Skills MUST assume that every Git repository is a bare clone in a `.bare`
+  directory, with each of its worktrees checked out in a directory beside it,
+  eg. `<project>/.bare` and `<project>/default`, where the `default` worktree
+  has the default branch checked out.
 
-  Where a skill acts on a repository, the repository containing the current
-  working directory is the target. Only where the working directory sits outside
-  a Git repository does the skill look to the session context, eg. a path or URL
-  the user has named. A skill MUST NOT direct the agent to search for convention
-  files such as `AGENTS.md` to find the target; any that apply are already in
-  the session context.
+  A skill that creates a worktree MUST create it beside the others, in
+  `<project>`, never at an arbitrary location, so every checkout of a project
+  stays discoverable from `git worktree list`.
+
+- Skills MUST discover the target worktree from the current working directory
+  first.
+
+  Where the working directory sits inside a worktree, that worktree is the
+  target. Only otherwise does the skill look to the session context, eg. a
+  path the user has named, because an agent launched at a workspace root or
+  from a parent directory has no worktree to infer. Wherever a repository is
+  identified but none of its worktrees is, the `default` worktree is the
+  target. A skill MUST NOT direct the agent to search for convention files such
+  as `AGENTS.md` to find the target; any that apply are already in the session
+  context.
+
+- A parameter that the target worktree's checked-out branch can supply, such
+  as a delivery pipeline, SHOULD be OPTIONAL, defaulting to what the `default`
+  worktree's branch supplies where the target worktree cannot, eg. because its
+  `HEAD` is detached.
 
 - Skills MUST discover where artifacts live; they MUST NOT assume it.
 

@@ -30,10 +30,19 @@ markup, structure, or technical meaning.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the user
-with an error message.
+Determine the following information from the session context, the current
+working directory, and the local environment. You MUST NOT prompt the user for
+clarification on this task's requirements. If you cannot determine the
+requirements, stop and alert the user with an error message.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A set of prose files — REQUIRED.** Markdown, AsciiDoc, reStructuredText, or
   plain text, given as a file, a glob, or a directory to recurse. When the

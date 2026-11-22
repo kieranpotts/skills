@@ -22,11 +22,21 @@ maintainer decide. Do not fix the issue you triage.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. If you're uncertain about the required parameters,
-prompt the user for clarification. This skill is interactive throughout: triage
-is a maintainer's decision, so present a recommendation and wait for direction
-before applying labels, posting comments, or closing anything.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. If you're uncertain
+about the required parameters, prompt the user for clarification. This skill is
+interactive throughout: triage is a maintainer's decision, so present a
+recommendation and wait for direction before applying labels, posting comments,
+or closing anything.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **The target issue — REQUIRED.** Look in the user's last input prompt for an
   explicit reference to a target issue. This may be a full URL or an ID like

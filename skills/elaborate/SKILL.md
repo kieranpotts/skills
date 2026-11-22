@@ -24,10 +24,20 @@ is discovery work — you MUST NOT change the software itself.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. This skill is interactive: where session context and
-local environment leave a parameter unsettled, prompt the user for it, one question at
-a time, and wait for the answer before asking the next.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. This skill is
+interactive: where session context and local environment leave a parameter
+unsettled, prompt the user for it, one question at a time, and wait for the
+answer before asking the next.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A draft design with soft edges — REQUIRED.** A design document, decision
   record, or pull request description carrying unresolved trade-offs, ambiguous

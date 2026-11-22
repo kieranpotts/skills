@@ -24,10 +24,20 @@ change the assessed system, and you MUST NOT exploit it.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. This skill is interactive: the workshop is itself a
-conversation, so you SHOULD prompt the user whenever a parameter, a fact about
-the system, or a rating is uncertain — one question at a time.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. This skill is
+interactive: the workshop is itself a conversation, so you SHOULD prompt the
+user whenever a parameter, a fact about the system, or a rating is uncertain —
+one question at a time.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **What to assess — REQUIRED.** A subsystem, service, data flow, feature, or
   design. The user MAY point at a codebase, a design document, or a diagram, or

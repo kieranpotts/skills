@@ -21,32 +21,39 @@ the working tree.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and report.
+Determine the following information from the session context, the current
+working directory, and the local environment. You MUST NOT prompt the user for
+clarification on this task's requirements. If you cannot determine the
+requirements, stop and report.
 
-- **The target repository — REQUIRED.** The Git repository containing the
-  current working directory. It MUST be a bare clone in a directory named
-  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
-  `<project>/.bare` and `<project>/default`. If the working directory sits
-  outside a Git repository, or the repository is not laid out this way, stop
-  and report.
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
-- **The delivery pipeline — REQUIRED.** This is usually a major version number
-  like "v1" or "v2", or the word "latest". It may be unspecified for
+- **The current worktree — REQUIRED.** The target worktree, as resolved above.
+  If there is no target worktree, or its repository is not laid out as above,
+  stop and report.
+
+- **The delivery pipeline — OPTIONAL.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unnamed for
   continuously-released software that has a single perpetual delivery pipeline.
-  Determine the name of the delivery pipeline from the current checked-out
-  branch. Examples:
+  Determine it from the branch checked out in the current worktree, which this
+  task commits to. Examples:
 
   - `latest/dev` → "latest"
   - `v1/temp/42-fix-auth` → "v1"
   - `dev` → unnamed pipeline
 
-  The name of the delivery pipeline, if specified, forms the optional
-  `[<pipeline>/]` component in branch names.
+  If the current worktree's `HEAD` is detached, stop and report: there is no
+  branch to work on.
 
-  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
-  confidently determined from the current checked-out branch, stop and report.
+  The name of the delivery pipeline, if any, forms the optional
+  `[<pipeline>/]` component in branch names.
 
 - **Context — OPTIONAL.** Anything in the user's prompt or the session's
   conversation that bears on the changeset, eg. the problem it solves, why it
@@ -72,7 +79,12 @@ requirements. If you cannot determine the requirements, stop and report.
 
 ## Step-by-step instructions
 
-1.  Check the repository layout before anything else. Stop and report unless
+1.  Run every Git command in the current worktree, unless a step names
+    another. Where the working directory lies elsewhere, pass
+    `-C <current-worktree>`, because a change of directory may not persist
+    between commands.
+
+    Check the repository layout before anything else. Stop and report unless
     `git rev-parse --path-format=absolute --git-common-dir` prints a path
     ending in `/.bare`, and the current worktree's top level, from
     `git rev-parse --show-toplevel`, sits directly in the directory that holds

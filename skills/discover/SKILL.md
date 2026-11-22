@@ -22,11 +22,20 @@ product requirements document (PRD) in business language. This is discovery only
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. If you're uncertain about the required parameters,
-prompt the user for clarification. Beyond these parameters, this skill is
-interactive throughout: you elicit the substance of the PRD from the user in
-conversation, one question at a time.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. If you're uncertain
+about the required parameters, prompt the user for clarification. Beyond these
+parameters, this skill is interactive throughout: you elicit the substance of
+the PRD from the user in conversation, one question at a time.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A seed — OPTIONAL.** A draft PRD or similar artifacts, supplied as file
   paths, URLs, or pasted text. The seed MAY be vague, incomplete, or absent.

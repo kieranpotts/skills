@@ -90,10 +90,10 @@ expensive, and there is little value to be gained from running them
 
 - [**`probe`**](../probe/) \
   The **`audit`** skill is scoped to the static structure of code and data. The
-  [**`probe`**](../probe/) skill is a companion that instructs agents to look
-  specifically at the security and privacy implications of the as-built design.
+  **`probe`** skill is a companion that instructs agents to look specifically at
+  the security and privacy implications of the as-built design.
 
 - [**`validate`**](../validate/) \
   The **`audit`** skill asks whether the _design_ of the system should evolve.
-  The [**`validate`**](../validate/) skill asks whether the _specification_ of
-  the system should evolve.
+  The **`validate`** skill asks whether the _specification_ of the system should
+  evolve.

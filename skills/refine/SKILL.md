@@ -24,10 +24,19 @@ and refine the acceptance criteria it disproved. Do not change code or tests.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. If you're uncertain about the required parameters,
-prompt the user for clarification. Ask one question at a time, and wait for the
-answer before continuing.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. If you're uncertain
+about the required parameters, prompt the user for clarification. Ask one
+question at a time, and wait for the answer before continuing.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A feedback trigger — REQUIRED.** The event that prompted the refinement: a
   failing acceptance criterion, an exploratory-testing finding, a stakeholder

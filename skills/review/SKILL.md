@@ -21,11 +21,21 @@ only: report the findings and stop, changing no code or configuration yourself.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements; if you cannot determine them, stop and alert the user with an
-error message. You MAY prompt solely to establish where an artifact lives or how
-to access it, when session context and local environment do not settle it.
+Determine the following information from the session context, the current
+working directory, and the local environment. You MUST NOT prompt the user for
+clarification on this task's requirements; if you cannot determine them, stop
+and alert the user with an error message. You MAY prompt solely to establish
+where an artifact lives or how to access it, when session context and local
+environment do not settle it.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **A code change to audit — REQUIRED.** A pull request, a peer's branch, or
   one's own diff before opening a PR. The comparison base is pinned explicitly.

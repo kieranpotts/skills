@@ -20,16 +20,24 @@ wrappers, and unhandled failure modes.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+Determine the following information from the session context, the current
+working directory, and the local environment. You MUST NOT prompt the user for
+clarification on this task's requirements. If you cannot determine the
+requirements, stop and alert the user with an error message.
 
-- **Target codebase — REQUIRED.** The repository under audit. If the current
-  working directory sits inside a Git repository, that repository is the
-  target. Otherwise discover the target from the session context, eg. a path or
-  URL the user has named. Clone a URL to a temporary local directory. If no
-  target can be found, stop and alert the user.
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
+
+- **Target codebase — REQUIRED.** The repository under audit, checked out in
+  the target worktree. Where the session context names only a URL, clone it to
+  a temporary local directory. If no target can be found, stop and alert the
+  user.
 
 - **Audit reports store — REQUIRED.** This is where you will file your audit
   report. Resolve it from the session context, then from the local environment.
@@ -39,8 +47,7 @@ user with an error message.
 
 - **Revision — OPTIONAL.** A specific revision, usually a Git commit hash,
   that is the subject of the audit, eg. `owner/repo@<commit-sha>`. Default to
-  the `HEAD` commit of the checked-out branch, else the `HEAD` commit of the
-  default branch.
+  the `HEAD` commit of the target worktree.
 
 ## Success criteria
 

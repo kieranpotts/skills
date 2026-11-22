@@ -23,10 +23,19 @@ nothing you write here is ever promoted to it.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the user
-with an error message.
+Determine the following information from the session context, the current
+working directory, and the local environment. You MUST NOT prompt the user for
+clarification on this task's requirements. If you cannot determine the
+requirements, stop and alert the user with an error message.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **One falsifiable question — REQUIRED.** A single feasibility, performance,
   ergonomics, or integration-risk question that reasoning alone cannot close. If
@@ -44,8 +53,9 @@ with an error message.
   connector.
 
 - **Where spike code may live — OPTIONAL.** An isolated location outside the
-  production paths. Default to a scratch directory or an unmergeable branch
-  where the project has no convention of its own.
+  production paths. Where the project has no convention of its own, default to
+  an unmergeable branch checked out in a new worktree beside the others, eg.
+  `<project>/spike-<topic>`.
 
 A store MAY be a directory in this repository, a separate repository, or an
 external service such as a tracker or a wiki, so you MUST NOT assume a
@@ -115,11 +125,11 @@ store before writing any code.
 
 5.  Isolate and mark the spike.
 
-    Keep the code out of the production paths — a scratch directory outside any
-    tracked path, a dedicated subdirectory, or a branch that will not be merged,
-    in a separate worktree or clone where the tooling allows. Name the location
-    and the branch for what it is, and head the entry-point file with a comment
-    marking it a spike. The next reader should never have to ask.
+    Keep the code out of the production paths — a branch that will not be
+    merged, checked out in its own worktree in `<project>`, a dedicated
+    subdirectory, or a scratch directory outside any tracked path. Name the
+    location and the branch for what it is, and head the entry-point file with
+    a comment marking it a spike. The next reader should never have to ask.
 
 6.  Run the experiment and capture the findings.
 

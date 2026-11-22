@@ -14,11 +14,13 @@ One or two sentences, adapted from the description, saying what the skill does.
 
 ## Parameters
 
-Determine the following information from the session context and local environment, if possible. If you're uncertain about the required parameters, prompt the user for clarification.
+Determine the following information from the session context, the current working directory, and the local environment, if possible. If you're uncertain about the required parameters, prompt the user for clarification.
 
 <!-- For a non-interactive skill, use this preamble instead:
 
-Determine the following information from the session context and local environment. You MUST NOT prompt the user for clarification on this task's requirements. If you cannot determine the requirements, stop and alert the user with an error message. -->
+Determine the following information from the session context, the current working directory, and the local environment. You MUST NOT prompt the user for clarification on this task's requirements. If you cannot determine the requirements, stop and alert the user with an error message. -->
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory, with each of its worktrees checked out in a directory beside it, eg. `<project>/.bare` and `<project>/default`. The `default` worktree has the repository's default branch checked out. If the current working directory sits inside a worktree, that is the target worktree, the one to work in. Otherwise take the target worktree from the session context, eg. a path the user has named. Wherever a repository is identified but none of its worktrees is, use its `default` worktree.
 
 - **The first parameter — REQUIRED.** Describe it, and how to discover it from the session context and local environment if the user does not supply it explicitly.
 

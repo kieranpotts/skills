@@ -21,11 +21,20 @@ record task state.
 
 ## Parameters
 
-Determine the following information from the session context and local
-environment, if possible. If you're uncertain about the required parameters,
-prompt the user for clarification. This skill is interactive throughout: it
-proposes each candidate lesson to the user and blocks on their answer before
-persisting anything.
+Determine the following information from the session context, the current
+working directory, and the local environment, if possible. If you're uncertain
+about the required parameters, prompt the user for clarification. This skill is
+interactive throughout: it proposes each candidate lesson to the user and blocks
+on their answer before persisting anything.
+
+Assume every Git repository is laid out as a bare clone in a `.bare` directory,
+with each of its worktrees checked out in a directory beside it, eg.
+`<project>/.bare` and `<project>/default`. The `default` worktree has the
+repository's default branch checked out. If the current working directory sits
+inside a worktree, that is the target worktree, the one to work in. Otherwise
+take the target worktree from the session context, eg. a path the user has
+named. Wherever a repository is identified but none of its worktrees is, use its
+`default` worktree.
 
 - **The current session's conversation — REQUIRED.** The source of durable
   lessons: corrections, validated approaches, revealed preferences, and project
