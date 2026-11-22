@@ -30,23 +30,13 @@ requirements, stop and alert the user with an error message. You MAY prompt
 solely to establish where an artifact lives or how to access it, when the
 session context and local environment do not settle it.
 
-Assume every Git repository is laid out as a bare clone in a `.bare` directory,
-with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
-If this structure does not exist, stop and alert the user.
-Every repository this task needs MUST already be checked out on disk in this
-layout. Never clone, download, or copy one to a new location. If one is missing,
-stop and alert the user.
-
-If the current working directory sits inside a worktree, that is the target
-worktree that you will work in. Otherwise try to identify the target worktree
-from the session context, perhaps a path the user named. Else fallback to using
-the `default` worktree, which is used to check out the repository's default branch.
-If the `default` worktree does not exist, stop and alert the user.
-Artifact stores, such as specifications, designs, decision records, and audit
-reports, are Git repositories too, or directories inside one. Where a store is a
-separate repository, work in its `default` worktree unless the session context
-names another, and follow whatever conventions the store documents for itself.
+- **Target codebase — REQUIRED.** The codebase in which the failure shows up. If
+  the current working directory sits inside a Git worktree, that worktree is the
+  target. Otherwise identify the target repository from the session context, eg.
+  a path the user named. In a bare repository with worktrees, the target is the
+  worktree the context names, else the `default` worktree. In a plain
+  repository, the target is its checked-out branch. The target MUST already
+  exist on disk — do not clone an upstream repository.
 
 - **The reported failure — REQUIRED.** The symptom, where it shows up, and any
   reproduction the user already has. For performance work, a numerical baseline
@@ -55,9 +45,12 @@ names another, and follow whatever conventions the store documents for itself.
 - **Handover store — OPTIONAL.** Where the diagnosis is recorded for whoever
   performs the repair. Discover it from the last prompt, then from more recent
   session context, then from the local environment — a convention file, a
-  workspace manifest. It MAY be a directory in this repository or a separate
-  repository, so do not assume a filesystem path. Absent any store, return the
-  handover in your final response.
+  workspace manifest. The store may be a directory inside the target codebase,
+  or a separate repository on the local disk, in which case work in the worktree
+  the context names, else its `default` worktree, else a plain repository's
+  checked-out branch. If the store is identified but does not exist on disk,
+  stop and alert the user — do not clone it. Do not assume a filesystem path.
+  Absent any store, return the handover in your final response.
 
 ## Success criteria
 

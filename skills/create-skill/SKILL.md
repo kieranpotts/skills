@@ -22,33 +22,21 @@ Determine the following information from the session context, the current
 working directory, and the local environment, if possible. If you're uncertain
 about the required parameters, prompt the user for clarification.
 
-Assume every Git repository is laid out as a bare clone in a `.bare` directory,
-with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
-If this structure does not exist, stop and alert the user.
-Every repository this task needs MUST already be checked out on disk in this
-layout. Never clone, download, or copy one to a new location. If one is missing,
-stop and alert the user.
-
-If the current working directory sits inside a worktree, that is the target
-worktree that you will work in. Otherwise try to identify the target worktree
-from the session context, perhaps a path the user named. Else fallback to using
-the `default` worktree, which is used to check out the repository's default branch.
-If the `default` worktree does not exist, stop and alert the user.
-Artifact stores, such as specifications, designs, decision records, and audit
-reports, are Git repositories too, or directories inside one. Where a store is a
-separate repository, work in its `default` worktree unless the session context
-names another, and follow whatever conventions the store documents for itself.
-
 - **A description of the skill — REQUIRED.** Either a description of a new skill
   to create, or a path to an existing skill to improve.
 
 - **Trigger conditions — REQUIRED.** The situations and user phrasings that
   should invoke it.
 
-- **Target project — OPTIONAL.** Where to install the skill: the target
-  worktree's repository. Where there is no target worktree, install into the
-  user's home directory, at `$HOME/.agents/skills/<skill-name>/`.
+- **Target project — OPTIONAL.** Where to install the skill. If the current
+  working directory sits inside a Git worktree, that worktree is the target.
+  Otherwise identify the target repository from the session context, eg. a path
+  the user named. In a bare repository with worktrees, the target is the
+  worktree the context names, else the `default` worktree. In a plain
+  repository, the target is its checked-out branch. The target MUST already
+  exist on disk — do not clone an upstream repository. Where no repository is
+  identified at all, install into the user's home directory, at
+  `$HOME/.agents/skills/<skill-name>/`.
 
 ## Success criteria
 
@@ -214,11 +202,10 @@ names another, and follow whatever conventions the store documents for itself.
   agent can check its own work against.
 
 - The `## Parameters` section is REQUIRED. It defines what the skill consumes.
-  Open this section with the template's preamble: a paragraph telling the agent
-  to determine the parameters from the session context, the current working
-  directory, and the local environment, stating plainly whether it may prompt
-  the user when uncertain; then the two paragraphs on repository layout and the
-  target worktree, verbatim.
+  Open this section with the template's preamble, telling the agent to
+  determine the parameters from the session context, the current working
+  directory, and the local environment, and stating plainly whether it may
+  prompt the user when uncertain.
 
 - The parameters MUST be a bulleted list, even for a single parameter. Each item
   has a bold-lead bullet naming the parameter and its requirement level, with
@@ -294,31 +281,33 @@ names another, and follow whatever conventions the store documents for itself.
   constraint or a genuine choice, state the constraint as a rule, or word the
   choice plainly in the step, eg. "skip the fetch if there is no remote".
 
-- Skills MUST assume that every Git repository is already checked out on disk
-  as a bare clone in a `.bare` directory, with each worktree in a directory
-  beside it, eg. `<project>/.bare` and `<project>/default`, the `default`
-  worktree holding the default branch. Where a repository is missing or laid
-  out otherwise, the skill MUST stop and alert the user. It MUST NOT clone,
+- Each parameter that names a repository MUST say how to resolve it, in its
+  own bullet, so the agent can resolve each parameter independently.
+
+  For the codebase a skill works on, use the template's "Target codebase"
+  wording: the Git worktree containing the current working directory; else the
+  repository the session context identifies — in a bare repository with
+  worktrees, the worktree the context names, else the `default` worktree; in a
+  plain repository, its checked-out branch. Look to the working directory
+  first, because an agent launched at a workspace root or from a parent
+  directory has no worktree to infer. A skill MUST NOT direct the agent to
+  search for convention files such as `AGENTS.md` to find the target; any that
+  apply are already in the session context.
+
+  A skill that creates worktrees, or otherwise depends on the bare layout, MUST
+  instead require a bare clone in a `.bare` directory with its worktrees beside
+  it, eg. `<project>/.bare` and `<project>/default`, and stop where it finds
+  another layout. A new worktree MUST go beside the others.
+
+- Every repository a skill works with MUST already exist on disk. Where one
+  does not, the skill MUST stop and alert the user. It MUST NOT clone,
   download, or copy a repository to a new location, because a checkout the user
-  did not make is easily lost; fetching into an existing one is fine. A new
-  worktree MUST go beside the others, so `git worktree list` finds it.
+  did not make is easily lost; fetching into an existing one is fine.
 
-- Skills MUST discover the target worktree from the current working directory
-  first.
-
-  Where the working directory sits inside a worktree, that worktree is the
-  target. Only otherwise does the skill look to the session context, eg. a
-  path the user has named, because an agent launched at a workspace root or
-  from a parent directory has no worktree to infer. Failing both, the `default`
-  worktree is the target, and where it does not exist, the skill MUST stop. A
-  skill MUST NOT direct the agent to search for convention files such
-  as `AGENTS.md` to find the target; any that apply are already in the session
-  context.
-
-- A parameter that the target worktree's checked-out branch can supply, such
-  as a delivery pipeline, SHOULD be OPTIONAL, defaulting to what the `default`
-  worktree's branch supplies where the target worktree cannot, eg. because its
-  `HEAD` is detached.
+- A parameter that the target's checked-out branch can supply, such as a
+  delivery pipeline, SHOULD be OPTIONAL, defaulting to what the `default`
+  worktree's branch supplies where the target cannot, eg. because its `HEAD` is
+  detached.
 
 - Skills MUST discover where artifacts live; they MUST NOT assume it.
 
@@ -328,10 +317,12 @@ names another, and follow whatever conventions the store documents for itself.
   changelogs, glossaries. Resolve each artifact store in this order: what the
   session context already establishes, then the environment (a convention file,
   a workspace manifest, an existing directory), then by asking the user. A store
-  MAY be a directory in the current repository or a separate repository —
-  never assume a filesystem path. A store MUST NOT be an external service, such
-  as a wiki or an issue tracker: it is a Git repository on disk, worked in
-  through its `default` worktree unless the session context names another.
+  MAY be a directory inside the target codebase or a separate repository on the
+  local disk — never assume a filesystem path. A store MUST NOT be an external
+  service, such as a wiki or an issue tracker. The store's bullet MUST say how
+  to resolve a separate repository, using the template's wording: the worktree
+  the context names, else its `default` worktree, else a plain repository's
+  checked-out branch.
 
   Having resolved a store, follow whatever conventions that store documents for
   itself. The store owns its template, its lifecycle, and its format; the skill

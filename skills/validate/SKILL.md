@@ -27,29 +27,22 @@ working directory, and the local environment. You MUST NOT prompt the user for
 clarification on this task's requirements. If you cannot determine the
 requirements, stop and alert the user with an error message.
 
-Assume every Git repository is laid out as a bare clone in a `.bare` directory,
-with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
-If this structure does not exist, stop and alert the user.
-Every repository this task needs MUST already be checked out on disk in this
-layout. Never clone, download, or copy one to a new location. If one is missing,
-stop and alert the user.
-
-If the current working directory sits inside a worktree, that is the target
-worktree that you will work in. Otherwise try to identify the target worktree
-from the session context, perhaps a path the user named. Else fallback to using
-the `default` worktree, which is used to check out the repository's default branch.
-If the `default` worktree does not exist, stop and alert the user.
-Artifact stores, such as specifications, designs, decision records, and audit
-reports, are Git repositories too, or directories inside one. Where a store is a
-separate repository, work in its `default` worktree unless the session context
-names another, and follow whatever conventions the store documents for itself.
+- **Target codebase — REQUIRED.** The codebase of the system under validation.
+  If the current working directory sits inside a Git worktree, that worktree is
+  the target. Otherwise identify the target repository from the session context,
+  eg. a path the user named. In a bare repository with worktrees, the target is
+  the worktree the context names, else the `default` worktree. In a plain
+  repository, the target is its checked-out branch. The target MUST already
+  exist on disk — do not clone an upstream repository.
 
 - **Requirements specification — REQUIRED.** The specification under validation.
   Resolve where it lives from the last prompt, then from the session context,
   then from the local environment — a convention file, a workspace manifest, an
-  existing directory of specifications. The store MAY be a directory in this
-  repository or a separate repository, so do not assume a filesystem path, a
+  existing directory of specifications. The store may be a directory inside the
+  target codebase, or a separate repository on the local disk, in which case
+  work in the worktree the context names, else its `default` worktree, else a
+  plain repository's checked-out branch. If the store does not exist on disk,
+  stop and alert the user — do not clone it. Do not assume a filesystem path, a
   file name, or a document structure.
 
 - **Statement of need — OPTIONAL.** A preserved product requirements document,
@@ -60,7 +53,7 @@ names another, and follow whatever conventions the store documents for itself.
 
 - **Working software — OPTIONAL.** A running instance, or instructions for
   standing one up, so the user's journey can be walked in practice. Default to
-  the completed, tested increments in the target repository.
+  the completed, tested increments in the target codebase.
 
 - **Report store — OPTIONAL.** Where the validation report is persisted, if it
   is to outlive this session. Resolve it the same way as the specification's

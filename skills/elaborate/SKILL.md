@@ -30,33 +30,23 @@ interactive: where session context and local environment leave a parameter
 unsettled, prompt the user for it, one question at a time, and wait for the
 answer before asking the next.
 
-Assume every Git repository is laid out as a bare clone in a `.bare` directory,
-with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
-If this structure does not exist, stop and alert the user.
-Every repository this task needs MUST already be checked out on disk in this
-layout. Never clone, download, or copy one to a new location. If one is missing,
-stop and alert the user.
-
-If the current working directory sits inside a worktree, that is the target
-worktree that you will work in. Otherwise try to identify the target worktree
-from the session context, perhaps a path the user named. Else fallback to using
-the `default` worktree, which is used to check out the repository's default branch.
-If the `default` worktree does not exist, stop and alert the user.
-Artifact stores, such as specifications, designs, decision records, and audit
-reports, are Git repositories too, or directories inside one. Where a store is a
-separate repository, work in its `default` worktree unless the session context
-names another, and follow whatever conventions the store documents for itself.
-
 - **A draft design with soft edges — REQUIRED.** A design document, decision
   record, or pull request description carrying unresolved trade-offs, ambiguous
   terms, unstated assumptions, or dependencies not yet thought through. This
   skill does not originate the design; it consumes a draft to sharpen.
 
+- **Target codebase — REQUIRED.** The codebase the draft design would change. If
+  the current working directory sits inside a Git worktree, that worktree is the
+  target. Otherwise identify the target repository from the session context, eg.
+  a path the user named. In a bare repository with worktrees, the target is the
+  worktree the context names, else the `default` worktree. In a plain
+  repository, the target is its checked-out branch. The target MUST already
+  exist on disk — do not clone an upstream repository.
+
 - **The code the design touches — REQUIRED.** The modules, public interfaces,
   and tests the draft would change, so its claims can be checked against what is
-  already implemented. Locate these from the draft's own references and by
-  searching the workspace, rather than asking the user to list them.
+  already implemented. Locate these within the target codebase, from the draft's
+  own references and by searching it, rather than asking the user to list them.
 
 - **The acceptance criteria the design answers to — OPTIONAL.** The requirements
   the design is meant to satisfy, wherever the project keeps them. Where none
@@ -72,9 +62,12 @@ names another, and follow whatever conventions the store documents for itself.
   discovered the same way. Projects variously call this an RFC archive, a
   decision log, or an ADR directory; they are the same role.
 
-  Neither store's location is safe to assume. Either MAY be a file in this
-  repository or a separate repository, so do not assume a filesystem path, a
-  file name, or a document structure.
+  Neither store's location is safe to assume. Either may be a file inside the
+  target codebase, or a separate repository on the local disk, in which case
+  work in the worktree the context names, else its `default` worktree, else a
+  plain repository's checked-out branch. If a store does not exist on disk, stop
+  and alert the user — do not clone it. Do not assume a filesystem path, a file
+  name, or a document structure.
 
 ## Success criteria
 
