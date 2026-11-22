@@ -32,12 +32,21 @@ one question at a time.
 
 Assume every Git repository is laid out as a bare clone in a `.bare` directory,
 with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare` and `<project>/default`. The `default` worktree has the
-repository's default branch checked out. If the current working directory sits
-inside a worktree, that is the target worktree, the one to work in. Otherwise
-take the target worktree from the session context, eg. a path the user has
-named. Wherever a repository is identified but none of its worktrees is, use its
-`default` worktree.
+`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
+If this structure does not exist, stop and alert the user.
+Every repository this task needs MUST already be checked out on disk in this
+layout. Never clone, download, or copy one to a new location. If one is missing,
+stop and alert the user.
+
+If the current working directory sits inside a worktree, that is the target
+worktree that you will work in. Otherwise try to identify the target worktree
+from the session context, perhaps a path the user named. Else fallback to using
+the `default` worktree, which is used to check out the repository's default branch.
+If the `default` worktree does not exist, stop and alert the user.
+Artifact stores, such as specifications, designs, decision records, and audit
+reports, are Git repositories too, or directories inside one. Where a store is a
+separate repository, work in its `default` worktree unless the session context
+names another, and follow whatever conventions the store documents for itself.
 
 - **What to assess — REQUIRED.** A subsystem, service, data flow, feature, or
   design. The user MAY point at a codebase, a design document, or a diagram, or
@@ -45,12 +54,11 @@ named. Wherever a repository is identified but none of its worktrees is, use its
   decomposition sharpens it.
 
 - **Where the risk store lives, and how to write to it — REQUIRED.** Discover
-  this rather than assuming it: check the session context first, then the
-  local environment (a convention file, a workspace manifest, a directory that
-  plainly holds risk records, a configured connector). If neither settles it,
-  ask the user. The store MAY be a directory in this repository, a separate
-  repository, or an external service such as a GRC platform or issue tracker,
-  so do not assume a filesystem path, a file name, or a document structure.
+  this rather than assuming it: check the session context first, then the local
+  environment (a convention file, a workspace manifest, a directory that plainly
+  holds risk records). If neither settles it, ask the user. The store MAY be a
+  directory in this repository or a separate repository, so do not assume a
+  filesystem path, a file name, or a document structure.
 
 - **Threat modeling framework — OPTIONAL.** The lens to assess through. Ask the
   user; where they express no preference, default to STRIDE, adding LINDDUN when
@@ -85,11 +93,9 @@ named. Wherever a repository is identified but none of its worktrees is, use its
 - The assessed system MUST be unchanged: no edits to its code, configuration, or
   dependencies, and no probing traffic sent to it.
 
-- Nothing MUST have been committed or published. Where the store is
-  version-controlled, the new report and the modified register MUST be left
-  uncommitted — never staged, branched, or committed. Where the store is an
-  external service, the entries MUST be left in whatever draft state that
-  service offers, or reported for the user to file.
+- Nothing MUST have been committed or published. The new report and the
+  modified register MUST be left uncommitted — never staged, branched, or
+  committed.
 
 ## Step-by-step instructions
 
@@ -101,11 +107,10 @@ as you go.
 1.  Locate the risk store and confirm the seed.
 
     Establish where this project records security and privacy risk, and how to
-    write to it, before the assessment starts. Work outward: what the
-    session context already tells you, then the local environment — a convention
-    file at the project root, a workspace manifest, a directory that plainly
-    holds risk records, a configured connector. If none of that settles it, ask
-    the user.
+    write to it, before the assessment starts. Work outward: what the session
+    context already tells you, then the local environment — a convention file at
+    the project root, a workspace manifest, a directory that plainly holds risk
+    records. If none of that settles it, ask the user.
 
     Then read whatever that store publishes about itself — its convention file,
     its contributor documentation, its report template, its existing register —
@@ -309,8 +314,8 @@ as you go.
   them.
 
   This skill is used across projects that record risk in different places and
-  formats — a directory of Markdown, a separate repository, a GRC platform, an
-  issue tracker. A path, file name, field set, or rating scale that is right in
+  formats — a directory of Markdown in the codebase, a separate repository of
+  CSV registers. A path, file name, field set, or rating scale that is right in
   one project is wrong in the next. Where no store can be established even after
   asking, you MUST stop and alert the user: there is nowhere valid to record the
   outcome.

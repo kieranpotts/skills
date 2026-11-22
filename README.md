@@ -29,8 +29,7 @@ own task.
 The skills are not hard-wired to any particular implementation of these stores.
 Each skill resolves its store from the context it is given or from the local
 environment, then follows whatever conventions that store documents for itself.
-A store may be a directory inside the code repository, a separate repository,
-or an external system such as an issue tracker or wiki.
+A store may be a directory inside the code repository or a separate repository.
 
 That said, the skills have been designed and tested against the following
 template repositories, which serve as reference implementations of these

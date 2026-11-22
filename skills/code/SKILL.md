@@ -31,12 +31,21 @@ context and local environment do not settle it.
 
 Assume every Git repository is laid out as a bare clone in a `.bare` directory,
 with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare` and `<project>/default`. The `default` worktree has the
-repository's default branch checked out. If the current working directory sits
-inside a worktree, that is the target worktree, the one to work in. Otherwise
-take the target worktree from the session context, eg. a path the user has
-named. Wherever a repository is identified but none of its worktrees is, use its
-`default` worktree.
+`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
+If this structure does not exist, stop and alert the user.
+Every repository this task needs MUST already be checked out on disk in this
+layout. Never clone, download, or copy one to a new location. If one is missing,
+stop and alert the user.
+
+If the current working directory sits inside a worktree, that is the target
+worktree that you will work in. Otherwise try to identify the target worktree
+from the session context, perhaps a path the user named. Else fallback to using
+the `default` worktree, which is used to check out the repository's default branch.
+If the `default` worktree does not exist, stop and alert the user.
+Artifact stores, such as specifications, designs, decision records, and audit
+reports, are Git repositories too, or directories inside one. Where a store is a
+separate repository, work in its `default` worktree unless the session context
+names another, and follow whatever conventions the store documents for itself.
 
 - **The step to implement — REQUIRED.** One scoped unit of work whose design is
   already settled: a numbered step of a delivery plan, or a small standalone
@@ -44,12 +53,11 @@ named. Wherever a repository is identified but none of its worktrees is, use its
   a valid input to this task.
 
 - **The store holding the step — OPTIONAL.** Where the plan, issue, or ticket
-  the step comes from is kept. Resolve it from the session context first,
-  then from the local environment — a convention file, a workspace manifest, a
-  configured connector. It MAY be a directory in this repository, a separate
-  repository, or an external service, so do not assume a filesystem path or a
-  document structure. Absent any such store, the step as stated in the prompt is
-  the whole specification.
+  the step comes from is kept. Resolve it from the session context first, then
+  from the local environment — a convention file, a workspace manifest. It MAY
+  be a directory in this repository or a separate repository, so do not assume a
+  filesystem path or a document structure. Absent any such store, the step as
+  stated in the prompt is the whole specification.
 
 - **The project's coding, testing, and commit conventions — OPTIONAL.** Discover
   these the same way, then read and follow whatever the project documents for

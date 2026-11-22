@@ -7,7 +7,7 @@ description: >-
   "do an architectural audit", or "is the design still sound?". Do not use it to
   review security, privacy, or runtime performance.
 compatibility: >-
-  requires Read, Glob, Grep, Write, Edit, Bash (git clone)
+  requires Read, Glob, Grep, Write, Edit, Bash (git rev-parse)
 license: CC0-1.0
 ---
 
@@ -27,23 +27,29 @@ requirements, stop and alert the user with an error message.
 
 Assume every Git repository is laid out as a bare clone in a `.bare` directory,
 with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare` and `<project>/default`. The `default` worktree has the
-repository's default branch checked out. If the current working directory sits
-inside a worktree, that is the target worktree, the one to work in. Otherwise
-take the target worktree from the session context, eg. a path the user has
-named. Wherever a repository is identified but none of its worktrees is, use its
-`default` worktree.
+`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
+If this structure does not exist, stop and alert the user.
+Every repository this task needs MUST already be checked out on disk in this
+layout. Never clone, download, or copy one to a new location. If one is missing,
+stop and alert the user.
+
+If the current working directory sits inside a worktree, that is the target
+worktree that you will work in. Otherwise try to identify the target worktree
+from the session context, perhaps a path the user named. Else fallback to using
+the `default` worktree, which is used to check out the repository's default branch.
+If the `default` worktree does not exist, stop and alert the user.
+Artifact stores, such as specifications, designs, decision records, and audit
+reports, are Git repositories too, or directories inside one. Where a store is a
+separate repository, work in its `default` worktree unless the session context
+names another, and follow whatever conventions the store documents for itself.
 
 - **Target codebase — REQUIRED.** The repository under audit, checked out in
-  the target worktree. Where the session context names only a URL, clone it to
-  a temporary local directory. If no target can be found, stop and alert the
-  user.
+  the target worktree.
 
 - **Audit reports store — REQUIRED.** This is where you will file your audit
   report. Resolve it from the session context, then from the local environment.
-  The store may be a directory inside the target codebase, a separate repository,
-  or an external service such as a wiki — do not assume the store exists on the
-  local filesystem.
+  The store may be a directory inside the target codebase or a separate
+  repository, so do not assume its path.
 
 - **Revision — OPTIONAL.** A specific revision, usually a Git commit hash,
   that is the subject of the audit, eg. `owner/repo@<commit-sha>`. Default to

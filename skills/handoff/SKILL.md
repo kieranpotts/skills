@@ -28,12 +28,21 @@ requirements, stop and alert the user with an error message.
 
 Assume every Git repository is laid out as a bare clone in a `.bare` directory,
 with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare` and `<project>/default`. The `default` worktree has the
-repository's default branch checked out. If the current working directory sits
-inside a worktree, that is the target worktree, the one to work in. Otherwise
-take the target worktree from the session context, eg. a path the user has
-named. Wherever a repository is identified but none of its worktrees is, use its
-`default` worktree.
+`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
+If this structure does not exist, stop and alert the user.
+Every repository this task needs MUST already be checked out on disk in this
+layout. Never clone, download, or copy one to a new location. If one is missing,
+stop and alert the user.
+
+If the current working directory sits inside a worktree, that is the target
+worktree that you will work in. Otherwise try to identify the target worktree
+from the session context, perhaps a path the user named. Else fallback to using
+the `default` worktree, which is used to check out the repository's default branch.
+If the `default` worktree does not exist, stop and alert the user.
+Artifact stores, such as specifications, designs, decision records, and audit
+reports, are Git repositories too, or directories inside one. Where a store is a
+separate repository, work in its `default` worktree unless the session context
+names another, and follow whatever conventions the store documents for itself.
 
 - **The current session's context — REQUIRED.** The work done, the decisions
   made, the durable artifacts already produced, and the state of the codebase.

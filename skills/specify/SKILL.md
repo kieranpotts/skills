@@ -32,12 +32,21 @@ environment do not settle it.
 
 Assume every Git repository is laid out as a bare clone in a `.bare` directory,
 with each of its worktrees checked out in a directory beside it, eg.
-`<project>/.bare` and `<project>/default`. The `default` worktree has the
-repository's default branch checked out. If the current working directory sits
-inside a worktree, that is the target worktree, the one to work in. Otherwise
-take the target worktree from the session context, eg. a path the user has
-named. Wherever a repository is identified but none of its worktrees is, use its
-`default` worktree.
+`<project>/.bare`, `<project>/default`, and `<project>/latest-temp-41-auth-fixes`.
+If this structure does not exist, stop and alert the user.
+Every repository this task needs MUST already be checked out on disk in this
+layout. Never clone, download, or copy one to a new location. If one is missing,
+stop and alert the user.
+
+If the current working directory sits inside a worktree, that is the target
+worktree that you will work in. Otherwise try to identify the target worktree
+from the session context, perhaps a path the user named. Else fallback to using
+the `default` worktree, which is used to check out the repository's default branch.
+If the `default` worktree does not exist, stop and alert the user.
+Artifact stores, such as specifications, designs, decision records, and audit
+reports, are Git repositories too, or directories inside one. Where a store is a
+separate repository, work in its `default` worktree unless the session context
+names another, and follow whatever conventions the store documents for itself.
 
 - **A PRD to transform — REQUIRED.** Supplied as a file path, pasted text, or
   the output of an earlier step in this session. It is expected to be complete
@@ -47,10 +56,9 @@ named. Wherever a repository is identified but none of its worktrees is, use its
 - **The specification store — REQUIRED.** Where the project keeps its
   requirements, and how to file into it. Discover this rather than assuming it:
   check the session context first, then the local environment (a convention file
-  such as `AGENTS.md`, a workspace manifest, a configured tool or connector). If
-  neither settles it, ask the user. The store MAY be a directory in this
-  repository, a separate repository, or an external service — do not assume a
-  filesystem path, a file name, or a document structure.
+  such as `AGENTS.md`, a workspace manifest). If neither settles it, ask the
+  user. The store MAY be a directory in this repository or a separate repository
+  — do not assume a filesystem path, a file name, or a document structure.
 
 ## Success criteria
 
@@ -121,9 +129,8 @@ named. Wherever a repository is identified but none of its worktrees is, use its
 3.  Locate the specification store.
 
     Work outward: what the session context already tells you, then the
-    environment — a convention file at the project root, a workspace manifest, a
-    configured connector to a tracker or wiki. If none of that settles it, ask
-    the user.
+    environment — a convention file at the project root, a workspace manifest.
+    If none of that settles it, ask the user.
 
 4.  Learn the store's own workflow.
 
@@ -232,12 +239,6 @@ named. Wherever a repository is identified but none of its worktrees is, use its
   environment names one, then ask the user where requirements belong. If they
   cannot say either, tell them the project has no home for requirements and
   stop — do not write them into an arbitrary file.
-
-- If the store is an external service rather than a repository, eg. a tracker,
-  wiki, or documentation platform, then the procedure is unchanged: learn its
-  conventions, file the requirements as it expects, and report the resulting
-  item. If you have no means to write to it, say so and output the specification
-  for the user to file manually.
 
 - If the task is a spike or research task, then the goal is to learn, not to
   ship a feature. Write the specification as a list of questions to answer, with

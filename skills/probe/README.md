@@ -49,9 +49,8 @@ The risk store is changed in the following ways.
   reference, a mitigation or accept decision, a residual risk, and a review
   date.
 
-Nothing is committed. In a version-controlled store, the changes are left
-uncommitted. In an external service, they are left in draft, or reported for
-the user to file. The assessed system is unchanged.
+Nothing is committed: the changes are left uncommitted in the risk store. The
+assessed system is unchanged.
 
 ## Recommended models
 

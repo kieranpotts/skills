@@ -33,10 +33,10 @@ away-from-keyboard workflows and automated delivery pipelines.
 
 > Is the design still sound?
 
-The agent audits the repository in the current working directory, at its
-checked-out revision. Run from outside a repository, you may name the target
-codebase as a path or a repository URL. Either way, you may pin the audit to a
-particular commit.
+The agent audits the worktree in the current working directory, at its
+checked-out revision. Run from outside a worktree, you may name the target
+codebase by its path on disk; the agent will not clone a repository for you.
+Either way, you may pin the audit to a particular commit.
 
 ## Outcomes
 
