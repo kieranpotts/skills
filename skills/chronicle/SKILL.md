@@ -2,269 +2,248 @@
 name: chronicle
 description: >-
   Write or update the "unreleased" section of the project's changelog, so that
-  it summarizes the headline changes committed since the last release tag, in
-  sentences written for the software's end users. Use this skill when notable
-  changes have been committed and are ready to integrate, before cutting a
-  release, or when the user says something like "update the changelog",
-  "write the changelog entries", or "bring the changelog up-to-date". Do not
-  use this skill to promote the "unreleased" section to a released version, to
-  edit released sections, or to commit any file other than the changelog.
+  it summarizes the headline changes committed since the delivery pipeline's
+  last release tag, in sentences written for the software's end users. Use
+  when notable changes have been committed, before preparing a release, or when
+  the user says something like "update the changelog", "write the changelog
+  entries", or "bring the changelog up to date". Do not use it to promote the
+  "unreleased" section to a released version, to edit released sections, or to
+  commit the changelog.
 compatibility: >-
-  requires Read, Edit, Glob, Grep, Bash (git status, git branch,
-  git symbolic-ref, git describe, git log, git diff, git tag, git merge-base,
-  git commit)
+  requires Bash (git status, git rev-parse, git worktree, git fetch,
+  git describe, git log, git diff), Edit, Glob, Grep, Read
 license: CC0-1.0
 ---
 
 # Chronicle
 
 Reconcile the changelog's "unreleased" section with the commits made since the
-last release, until it gives end users a true account of the headline changes
-in the next release. Work from the commit history alone: uncommitted work is
-not part of any release yet.
+delivery pipeline's last release, until it gives end users a true account of the
+headline changes in the next release. Edit the changelog, and nothing else, and
+leave the edits uncommitted in the development trunk's worktree.
 
 ## Parameters
 
 Determine the following information from the session context and local
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+requirements. If you cannot determine the requirements, stop and report.
 
 - **The target repository — REQUIRED.** The Git repository containing the
-  current working directory or, failing that, one named in the session
-  context.
+  current working directory. It MUST be a bare clone in a directory named
+  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
+  `<project>/.bare` and `<project>/default`. If the working directory sits
+  outside a Git repository, or the repository is not laid out this way, stop
+  and report.
 
-- **The delivery pipeline — REQUIRED.** The group of trunks whose releases the
-  changelog records, named by the prefix those trunks share, eg. "latest" in
-  `latest/dev`. A project MAY run several pipelines in parallel, eg. "latest"
-  for v2 and "v1" for a maintained older version, each with its own releases.
-  List the pipelines' development trunks with
-  `git branch --remotes --list 'origin/dev' 'origin/*/dev'`. Each trunk's
-  pipeline is the part between `origin/` and `/dev`. If the most-recent user
-  prompt names a pipeline, eg. "the v1 pipeline", use that. Else, where the
-  checked-out branch's name starts with a listed pipeline's prefix, eg.
-  `latest/temp/42-fix-auth`, take that pipeline. Else take the pipeline of the
-  repository's default branch, read with
-  `git symbolic-ref --short refs/remotes/origin/HEAD`. A project with
-  unprefixed trunks, or none, eg. a lone `main`, runs one unnamed pipeline.
+- **The delivery pipeline — REQUIRED.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unspecified for
+  continuously-released software that has a single perpetual delivery pipeline.
+  Determine the name of the delivery pipeline from the branch checked out in
+  the current worktree. Examples:
 
-- **The changelog — REQUIRED.** The file in which the project records its
-  release history. Resolve it from the session context, then from the local
-  environment — a convention file, a workspace manifest, an existing file such
-  as `CHANGELOG.md`, `HISTORY.md`, or `CHANGES`. Do not assume a `CHANGELOG.md`
-  at the repository root. Where the project keeps no changelog, stop and report
-  that there is nothing to do.
+  - `latest/dev` → "latest"
+  - `v1/temp/42-fix-auth` → "v1"
+  - `dev` → unnamed pipeline
+
+  The name of the delivery pipeline, if specified, forms the optional
+  `[<pipeline>/]` component in branch names.
+
+  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
+  confidently determined from the current checked-out branch, stop and report.
+
+- **The development trunk — REQUIRED.** The branch `[<pipeline>/]dev`. The
+  changelog edits land on it, in its own worktree, whichever branch the
+  current worktree has checked out.
+
+- **The changelog — REQUIRED.** The `CHANGELOG.md` file is expected to be at the
+  root of the trunk's worktree. Look for it there. If there is no such file,
+  stop and report.
 
 ## Success criteria
 
-- The "unreleased" section MUST describe every headline change committed between
-  the delivery pipeline's release baseline and `HEAD`, and no change that falls
-  short of a headline change. Any entry that no commit in that range accounts
-  for MUST be named in your report.
+- The "unreleased" section MUST describe every headline change committed
+  between the release baseline and `HEAD`.
 
-- Where the changelog needed edits, exactly one new commit MUST sit on `HEAD`,
-  with the message `chore: update unreleased changelog`, touching the changelog
-  and no other file. Where it needed none, you MUST make no commit.
+- The `HEAD` of every worktree MUST NOT move. You MUST NOT commit anything.
 
-- `git show HEAD -- <changelog>` MUST show hunks inside the "unreleased" section
-  only, and no new version heading. Every released section MUST be
-  byte-for-byte unchanged.
+- Your edits MUST sit unstaged in the trunk's worktree, in the changelog only:
+  `git -C <trunk-worktree> status --porcelain` MUST print nothing but
+  ` M CHANGELOG.md`. Compared with its state before your run, the changelog
+  MUST differ inside the "unreleased" section only. Every "released" section
+  of the changelog MUST be byte-for-byte unchanged.
 
-- Every other file's state in the working tree and the index MUST be as you
-  found it.
+- Every other worktree MUST be as you found it.
 
-## Instructions
+- Your report MUST open with `updated` or `no changes`, on a line of its own,
+  so an orchestrating script can read it. The second line MUST give the path
+  of the trunk's worktree. After that, your report MUST list each entry added,
+  revised, merged, removed, or kept in the changelog.
 
-1.  Read the whole changelog, and learn its conventions before writing
-    anything. The changelog is loosely based on Keep a Changelog: the newest
-    release first, an "unreleased" section above it, and entries grouped under
-    Added, Changed, Deprecated, Removed, Fixed, and Security. Treat that as a
-    starting point, not a contract. Where the changelog documents a format of
-    its own, or its released sections depart from Keep a Changelog — in their
-    headings, in listing entries flat, in the tense and voice of entries, in
-    how they mark breaking changes, or in whether entries cite issues, pull
-    requests, or commits — you MUST follow the changelog. You SHOULD leave out
-    any category heading that would hold no entries.
+## Step-by-step instructions
 
-2.  Establish the release baseline, the commit at which the delivery pipeline's
-    last release was cut. Each pipeline has its own releases, so you MUST take
-    the baseline from the pipeline's own release tags. Do not take the
-    repository's newest tag, which may belong to another pipeline.
+1.  Check the repository layout before anything else. Stop and report unless
+    `git rev-parse --path-format=absolute --git-common-dir` prints a path
+    ending in `/.bare`, and the current worktree's top level, from
+    `git rev-parse --show-toplevel`, sits directly in the directory that holds
+    `.bare`. Call that directory `<project>`.
 
-    Match the pipeline's release tags with a pattern from the project's
-    tagging convention, eg. `v*`. Where the pipeline is named for a version
+2.  Resolve the development trunk's worktree. In
+    `git worktree list --porcelain`, it is the `worktree <path>` record with
+    the line `branch refs/heads/[<pipeline>/]dev`. Where no worktree has the
+    trunk checked out, create one in `<project>`, named after the branch with
+    each `/` replaced by `-`:
+
+    ```sh
+    git worktree add <project>/latest-dev latest/dev
+    ```
+
+    Stop and report if the trunk's worktree is not clean. Then run every later
+    command from inside it, so that `HEAD` means the trunk.
+
+3.  Update the remote-tracking branches and tags with `git fetch origin --tags`.
+    If the repository has no `origin` remote, skip the fetch, work from local
+    refs, and say so in your report.
+
+4.  Read the whole changelog, and learn its conventions and formatting before
+    writing anything. The newest releases are expected to be listed first, with
+    an "unreleased" section at the very top. Under each release, changelog
+    entries MAY be grouped under "Added", "Changed", "Deprecated", "Removed",
+    "Fixed", and "Security". For smaller releases, changelog entries may form
+    a single contiguous list.
+
+5.  Establish the release baseline. This is the delivery pipeline's most recent
+    release tag reachable from `HEAD`. Release tags take the form
+    `v<major>.<minor>.<patch>`. Where the pipeline is named for a version
     series, eg. "v1" or "v2.4-LTS", narrow the pattern to that series, eg.
-    `v1.*` or `v2.4.*`. Then take the most recent matching tag reachable from
-    `HEAD`:
+    `v1.*` or `v2.4.*`. Otherwise match `v[0-9]*`. Exclude pre-release tags,
+    which never serve as a baseline.
 
     ```sh
-    git describe --tags --abbrev=0 --match '<pattern>' HEAD
+    git describe --tags --abbrev=0 --match '<pattern>' --exclude '*-*' HEAD
     ```
 
-    Where no matching tag is reachable from `HEAD`, the changelog decides:
+    If no tag matches, the delivery pipeline has not had a release yet, so
+    the commit range starts at the root of its history.
 
-    - If the changelog lists no released versions, the project has never
-      released, and the baseline is the root of the history.
-
-    - If it lists released versions, the release commits may sit on release
-      branches that never merged back. Find the pipeline's most recent release
-      tag, eg. with `git tag --list '<pattern>' --sort=-v:refname`, and take
-      `git merge-base HEAD <tag>` as the baseline.
-
-    - If no tag exists for a version the changelog says was released, you MUST
-      stop and report the missing tag, rather than treat the whole history as
-      unreleased.
-
-3.  Gather the commits since the baseline:
+6.  Gather the commits made since the baseline, leaving out merge commits,
+    which carry no changes of their own.
 
     ```sh
-    git log --reverse --format='%h %s%n%b' <baseline>..HEAD
+    git log --no-merges --reverse --format='%h %s%n%b' <baseline>..HEAD
     ```
 
-    Where the baseline is the root of the history, drop `<baseline>..` and log
-    from `HEAD`.
+    Where there is no baseline, drop `<baseline>..`. Work from the commit
+    messages alone, not their diffs, nor any uncommitted or untracked changes.
+    Uncommitted work may never ship, and the commit message states what a
+    change means in its author's words. Where a message is too thin to tell
+    what changed for end users, leave the commit out and report it.
 
-    The range holds the delivery pipeline's own history only. A fix
-    cherry-picked in from another pipeline is part of it, and you MUST treat it
-    like any other commit in the range: this pipeline's end users have not yet
-    had it.
+7.  Pick out the headline changes — those that end users would notice and want
+    to read about. These are new capabilities, changes in behavior, deprecations,
+    removals, fixes to defects in a released version, security fixes, and
+    marked shifts in performance, compatibility, or supported platforms.
 
-    You MUST work from the commit messages alone. You MUST NOT read the diffs
-    of those commits, nor any uncommitted or untracked changes in the working
-    tree. Uncommitted work may never ship, so it has no place in the account of
-    a release. And the changelog needs what each change means for end users,
-    which the commit message states in its author's words; a diff shows only
-    how the code moved. Where a message is too thin to tell what a commit
-    changed for end users, leave it out and report it, rather than guess.
+    Be selective, because a changelog that lists every tweak buries the
+    changes that matter. Leave out minor adjustments, small fixes few end users
+    would notice, and internal work such as refactoring. Always give breaking
+    changes, deprecations, removals, and security fixes an entry, because end
+    users may need to act on them.
 
-4.  Pick out the headline changes. A change is a headline change where end
-    users would notice it and want to read about it: a new capability, a
-    change in behavior, a deprecation, a removal, a fix to a defect end users
-    met in a released version, a security fix, or a marked shift in
-    performance, compatibility, or supported platforms.
+    Describe the net effect of the range. Fold many commits toward one change
+    into one entry, describing its final form. A defect introduced and fixed
+    within the range gets no entry, and nor does a change reverted within it:
+    a `revert:` commit quotes the header of the commit it reverts, and names
+    its hash in a `Reverts:` footer.
 
-    You SHOULD be selective. A changelog that lists every small tweak buries
-    the changes that matter. Leave out minor adjustments and small fixes that
-    few end users would notice, along with refactors, reformatting, test and CI
-    changes, internal tooling, and contributor documentation. Breaking
-    changes, deprecations, removals, and security fixes MUST always get an
-    entry, however small, because end users may need to act on them.
+    Use the commit types as hints for sorting, letting each commit's subject
+    and body decide:
 
-    You MUST describe the net effect of the range, not its history. One change
-    MAY span many commits — a run of incremental steps, then the commit that
-    makes it usable — and SHOULD become one entry, describing its final form.
-    A defect introduced and fixed within the range gets no entry, because no
-    end user ever saw it. Nor does a change reverted within the range.
+    | Commit                                          | Usual category                      |
+    | ----------------------------------------------- | ----------------------------------- |
+    | `behavior`                                      | Added, Changed, Deprecated, Removed |
+    | `fix`                                           | Fixed, or Security                  |
+    | `quality`                                       | Changed, or Security                |
+    | `maintenance`                                   | None, unless end users see it       |
+    | `step`, `refactor`, `style`, `chore`, `version` | None                                |
+    | Flagged `BREAKING`                              | A breaking change                   |
+    | Flagged `INCOMPAT`                              | None: internal only                 |
 
-    Where the commits follow a typed convention, use the types to help sort and
-    categorize the changes. The types are hints, and each commit's subject and
-    body MUST decide. For example:
+8.  Reconcile the "unreleased" section with the headline changes:
 
-    - `behavior` usually marks something Added, Changed, Deprecated, or
-      Removed.
+    - Keep an entry that is still accurate, and keep its wording too. A human
+      may have written or moderated it.
 
-    - `fix` usually marks something Fixed, or a Security fix for a
-      vulnerability.
+    - Revise an entry whose change has since grown or been altered, and merge
+      entries that turn out to describe one change.
 
-    - `quality` usually marks something Changed, or a Security improvement.
+    - Remove an entry whose change was reverted within the range, or released
+      before the baseline.
 
-    - `maintenance` is usually not a headline change, except for a security
-      patch or a dependency change that end users can see.
+    - Keep, and report, an entry that no commit in the range accounts for, for
+      any other reason. A human may have written it ahead of the work.
 
-    - `step`, `refactor`, `style`, and `chore` are usually not headline
-      changes.
+    - Add an entry for each headline change no entry yet covers. Where there is
+      no "unreleased" section, create one above the most recent released
+      section, in the changelog's heading style, eg. `## [Unreleased]`.
 
-    - A `BREAKING` flag marks a breaking change. `INCOMPAT` marks an internal
-      one, which end users cannot see.
+9.  Leave the edits in the trunk's worktree. Do not stage or commit the
+    changelog: committing it is a separate task, for a human or another tool to
+    take on. Check `git diff -- CHANGELOG.md` to confirm that your edits fall
+    inside the "unreleased" section only.
 
-5.  Reconcile the "unreleased" section with the headline changes.
+10. Report. Open with `updated` where you edited the changelog, or
+    `no changes` where it was already true, then give the trunk's worktree
+    path, so the caller knows where to commit. Also list any commit you left
+    out where the call was close, so a human can overrule you.
 
-    - Keep an entry that is still accurate. You SHOULD preserve its wording: a
-      human may have written or moderated it, and rewording it would churn the
-      diff and override their judgment for no gain in accuracy.
+## Rules
 
-    - Revise an entry whose change has since grown or been altered.
+- You MUST edit the changelog only on the development trunk, so that every
+  branch cut from the trunk afterwards inherits one account of the next
+  release, rather than each branch carrying its own conflicting version of it.
 
-    - Merge entries that turn out to describe one change.
+- You MUST NOT switch the branch checked out in any worktree, and you MUST
+  edit the trunk's worktree only where you found it clean: where
+  `git -C <path> status --porcelain` printed nothing,
+  `git -C <path> rev-parse -q --verify MERGE_HEAD` failed, and no file existed
+  at `git -C <path> rev-parse --path-format=absolute --git-path SQUASH_MSG`.
+  Each worktree belongs to whoever works in it, and uncommitted changes there
+  are someone's work in progress, which your edits would tangle with.
 
-    - Remove an entry whose change was reverted within the range, or has
-      already been released.
+- You MUST write each new or revised entry as a complete sentence, from the end
+  user's side of the change: what they can now do, what behaves differently,
+  or what they must change — "the API now returns 429 when a client exceeds
+  its rate limit", not "add rate limiting middleware".
 
-    - Keep and report an entry that no commit in the range accounts for, for
-      any other reason. You SHOULD NOT delete it on the strength of the commit
-      history alone: a human may have written it ahead of the work, and only
-      they can say whether it belongs.
+- An entry MUST NOT carry a commit type, a commit flag, or a commit subject
+  copied verbatim. A changelog that restates `git log` adds nothing.
 
-    - Add an entry for each headline change that no entry yet covers. Where the
-      changelog has no "unreleased" section, create one directly above the most
-      recent released section, in the changelog's own heading style, eg.
-      `## [Unreleased]`.
+- An entry for a breaking change MUST say so plainly, with the changelog's own
+  marker where it has one, and say what end users must do in response.
 
-    You MUST write each new or revised entry as a complete sentence, from the
-    end user's side of the change, in the changelog's conventions. Say what end
-    users can now do, what behaves differently, or what they must change —
-    "the API now returns 429 when a client exceeds its rate limit", not "add
-    rate limiting middleware". An entry MUST NOT carry a commit type, a commit
-    flag, or a commit subject copied verbatim: a changelog that restates
-    `git log` adds nothing a reader could not get from Git.
+- The "unreleased" section MUST read as finished release history after every
+  run, because it is promoted word for word when a version is prepared.
 
-    Where a change is breaking, the entry MUST say so plainly, using the
-    changelog's own marker where it has one, and say what end users must do in
-    response.
-
-    The "unreleased" section is promoted word for word when a release is cut, so
-    it MUST read as finished release history after every run.
-
-6.  Where the changelog now differs from `HEAD`, commit it, and only it:
-
-    ```sh
-    git commit -m "chore: update unreleased changelog" -- <changelog>
-    ```
-
-    Naming the changelog as the commit's only path leaves anything else that
-    was already staged out of the commit, and still staged. You MUST use this
-    message exactly, with no body. You MUST NOT bypass the project's commit
-    hooks or signing configuration; where a hook rejects the commit, stop and
-    report its output, leaving the changelog edits uncommitted.
-
-7.  Report each entry you added, revised, merged, removed, or kept without a
-    matching commit, with the commits it covers. You SHOULD also list any
-    commit you left out where the call was close, and any whose message was
-    too thin to judge, so a human reviewer can overrule you.
-
-    Where you find an error in a released section, you MUST report it rather
-    than correct it. Released sections are the permanent record of what
-    shipped, so their correction is a human's call.
-
-    Report the commit you made, if any, by its short hash.
+- You MUST NOT edit a released section. Where you find an error in one, report
+  it: released sections are the permanent record of what shipped.
 
 ## Edge cases
 
-- If the prompt names a delivery pipeline that the checked-out branch does not
-  belong to, eg. "the v1 pipeline" while `HEAD` is on `latest/dev`, or one the
-  repository does not have, then stop and report the mismatch. Do not switch
-  branches, and do not reconcile one pipeline's changelog with another's
-  commits.
+- If the pipeline has no development trunk, ie. neither
+  `refs/heads/[<pipeline>/]dev` nor `refs/remotes/origin/[<pipeline>/]dev`
+  exists, then stop and report the missing trunk. Do not create one.
+
+- If `git worktree add` refuses, eg. because the directory already exists, or
+  a stale worktree record still claims the branch, then stop and report its
+  output. Do not remove, move, or prune any worktree.
 
 - If the changelog's most recent released version falls outside the
   pipeline's version series, eg. it lists 2.0.0 on `v1/dev`, then stop and
-  report it. The changelog and the pipeline disagree on which releases this
-  branch carries, and only a human can say which is right.
+  report. The changelog and the pipeline disagree on which releases this
+  branch carries.
 
-- If the changelog already carries uncommitted edits, then treat them as
-  existing entries, someone's work in progress, and reconcile them like any
-  other. Do not revert them. They go into the commit with your own edits, so
-  name them in your report.
-
-- If the repository holds several changelogs, and more than one needs edits,
-  then commit them together in the one commit, naming each as a path.
-
-- If the repository holds several changelogs, one per package, then reconcile
-  each changelog against its own package: limit the log to the package's
-  directory, eg. `git log <baseline>..HEAD -- <package-dir>`, and take its
-  baseline from the package's own tags, eg. `parser@1.2.0`. Reconcile only the
-  changelogs for the packages the session context names; otherwise, every
-  changelog whose package has new commits.
+- If the changelog lists a released version that has no tag, then stop and
+  report the missing tag, rather than treat the whole history as unreleased.
 
 ## Examples
 
@@ -282,10 +261,9 @@ user with an error message.
   refactor: simplify config loader
   ```
 
-  The "unreleased" section they become. The steps fold into the export entry.
-  The header-row fix gets no entry, because that defect never shipped. The
-  help-text fix is too minor to make the headlines, and the refactor is
-  invisible to end users.
+  The steps fold into the export entry. The header-row fix gets no entry,
+  because that defect never shipped. The help-text fix is too minor, and the
+  refactor is invisible to end users.
 
   ```md
   ## [Unreleased]

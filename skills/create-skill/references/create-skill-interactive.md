@@ -1,5 +1,7 @@
 # Interactive vs. non-interactive skills
 
+...
+
 Read this when deciding whether a skill should prompt the user mid-flow.
 
 A skill is said to be **interactive** if it allows or instructs the agent to block on user input — pausing to ask a question and waiting for the answer before continuing. A skill is **non-interactive** if it explicitly tells the agent to do its work from start-to-finish from its inputs and the workspace alone, never stopping to get more input from the user.

@@ -1,52 +1,43 @@
 # Version
 
 The **version** skill works out the next version number for a delivery
-pipeline, following the Semantic Versioning conventions defined in
+pipeline, following the Semantic Versioning rules defined in
 [TS-11: Versioning][TS-11].
 
-The agent finds the pipeline's last release tag, then reads the commit messages
-made since, up to the tip of the release-ready trunk. It reads the commit
-messages only, not their diffs. Each commit's type and flags decide the bump
-it calls for, and the highest bump wins:
+The agent derives the version bump from the commit types and flags since the
+last release tag on the current delivery pipeline. It then promotes the
+changelog's "unreleased" section to that version, and commits it as
+`version: <version>`. Nothing is pushed.
 
-- A commit flagged `BREAKING` calls for a major bump.
-- A `behavior`, `fix`, or `quality` commit calls for a minor bump.
-- A `maintenance`, `refactor`, `style`, or `chore` commit calls for a patch
-  bump.
-- `step` and `version` commits, and reverts, call for no bump.
-
-Where a project maintains several delivery pipelines in parallel, eg. "latest"
-for v2 and "v1" for an older major version, the agent takes the last release
-from the pipeline's own tags. It stops if the bump would take the version
-outside the pipeline's version series, eg. a breaking change on the v1
-pipeline.
-
-This skill only reports the version. It does not tag, commit, or edit any
-file. The report opens with the bare version number on its own line, so a
-script or orchestrator can read it.
+The repository must be a bare clone in a `.bare` directory, with its worktrees
+checked out in sibling directories, eg. `<project>/.bare` and
+`<project>/default`. The agent stops if it is laid out any other way, or if the
+current worktree has uncommitted changes.
 
 ## Interactivity
 
 This skill instructs the agent to run non-interactively. The agent is told not
 to prompt the user for answers to anything it is not sure about. Instead, if
 the agent cannot complete its task from the initial single-shot prompt, it is
-instructed to stop and return an error message. This makes the skill useful in
-away-from-keyboard workflows and automated delivery pipelines.
+instructed to stop and report. This makes the skill useful in away-from-keyboard
+workflows and automated delivery pipelines.
 
 ## How to invoke
 
-> What's the next version?
+> Bump the version.
 
-> Work out the next version number.
+> Prepare the next release candidate.
 
-> What would the v1 pipeline release next?
+## Outcomes
 
-> What would the next release candidate be?
+The target repository has one new commit, `version: <version>`, that promotes
+the changelog's "unreleased" section to the new version and updates the
+version manifests. No tag is created, and nothing is pushed.
 
-Name a delivery pipeline if you want the next version of a pipeline other than
-the one the checked-out branch belongs to. Name a branch or commit if the
-release will be cut from somewhere other than the pipeline's release-ready
-trunk.
+The agent's report opens with the next version on the first line, bare, eg.
+`1.3.0`, so an orchestrator can read it. This is followed by the release
+baseline tag, the bump level, and a list of the commits that decided the new
+version number.
 
 ## Recommended models
 
@@ -55,21 +46,21 @@ commit types and flags that the commit authors have already chosen.
 
 ## Suggested workflows
 
-Run this once the release-ready trunk holds the revisions you intend to ship,
-just before cutting the release.
+Run this once the changelog's "unreleased" section is up to date, and before
+promoting the version commit through the pipeline to cut the release.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  merge["🤖<br/>merge"]:::agentic
   chronicle["🤖<br/>chronicle"]:::agentic
   version["🤖<br/>version"]:::agentic
+  merge["🤖<br/>merge"]:::agentic
   release["🤖<br/>release"]:::agentic
 
   %% Main workflow sequence.
-  merge ==> chronicle
   chronicle ==> version
-  version ==> release
+  version ==> merge
+  merge ==> release
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -79,22 +70,30 @@ flowchart LR
 
 ## Related skills
 
-- [**chronicle**](../chronicle/).
-  Writes the changelog entries for the release being versioned.
+- [**chronicle**](../chronicle/) \
+  Writes the changelog entries that this skill promotes.
 
-- [**commit**](../commit/).
+- [**commit**](../commit/) \
   Sets the commit types and flags that this skill reads to decide the bump.
 
-- [**release**](../release/).
-  Cuts the release and applies the version tag.
+- [**merge**](../merge/) \
+  Promotes the version commit through the pipeline's trunks.
+
+- [**release**](../release/) \
+  Tags the version commit, and fast-forwards `ready` and `release` to it.
 
 ## References
 
-- [TS-11: Versioning][TS-11].
+- [TS-11: Versioning][TS-11] \
   The versioning scheme and bump rules this skill encodes.
 
-- [TS-9: Version Control][TS-9].
-  The commit conventions and delivery pipelines the bump rules act on.
+- [TS-9: Version Control][TS-9] \
+  The commit conventions, delivery pipelines, and version commits the skill
+  acts on.
+
+- [TS-10: Releasing][TS-10] \
+  How a released version is headed in the changelog.
 
 [TS-9]: https://kieranpotts.com/standards/009
+[TS-10]: https://kieranpotts.com/standards/010
 [TS-11]: https://kieranpotts.com/standards/011

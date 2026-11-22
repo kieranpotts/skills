@@ -14,13 +14,13 @@ One or two sentences, adapted from the description, saying what the skill does.
 
 ## Parameters
 
-Determine the following information from the surrounding context and environment, if possible. If you're uncertain about the required parameters, prompt the user for clarification.
+Determine the following information from the session context and local environment, if possible. If you're uncertain about the required parameters, prompt the user for clarification.
 
 <!-- For a non-interactive skill, use this preamble instead:
 
-Determine the following information from the surrounding context and environment. You MUST NOT prompt the user for clarification on this task's requirements. If you cannot determine the requirements, stop and alert the user with an error message. -->
+Determine the following information from the session context and local environment. You MUST NOT prompt the user for clarification on this task's requirements. If you cannot determine the requirements, stop and alert the user with an error message. -->
 
-- **The first parameter — REQUIRED.** Describe it, and how to discover it from the surrounding context and environment if the user does not supply it explicitly.
+- **The first parameter — REQUIRED.** Describe it, and how to discover it from the session context and local environment if the user does not supply it explicitly.
 
 - **The second parameter — OPTIONAL.** Describe it, and its default when absent.
 
@@ -38,7 +38,7 @@ Determine the following information from the surrounding context and environment
 
 - Every success criterion MUST have an RFC 2119 keyword.
 
-## Instructions
+## Step-by-step instructions
 
 1.  First step. Write plain prose in the imperative.
 
@@ -64,13 +64,11 @@ Determine the following information from the surrounding context and environment
 
 ## Edge cases
 
-- Some edge case, stated as the situation the agent finds itself in.
+- If some edge case arises, stated as the situation the agent finds itself in,
+  then describe how the agent should handle it. Add further paragraphs to the
+  list item if detailed guidance may be required.
 
-  Describe how the agent should handle it. Add further paragraphs to the list item if detailed guidance may be required.
-
-- The next edge case.
-
-  Describe it. Instruct the agent how to handle it.
+- If the next edge case arises, then describe how the agent should handle it.
 
 ## Examples
 
@@ -87,6 +85,3 @@ Determine the following information from the surrounding context and environment
 
 - [API errors](./references/skill-name-api-errors.md) \
   Read if the API returns a non-200 status code.
-
-- [External reference](https://raw.githubusercontent.com/.../AGENTS.md) \
-  Read for [purpose].

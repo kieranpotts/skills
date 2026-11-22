@@ -61,7 +61,7 @@ user with an error message.
 - The audit report MUST NOT carry security, privacy, or runtime-performance
   findings. These concerns fall outside of the scope of a basic code audit.
 
-## Instructions
+## Step-by-step instructions
 
 1.  Decide what is in scope — which repositories, services, or directories. Pin
     the codebase to a specific revision so the findings stay attributable when

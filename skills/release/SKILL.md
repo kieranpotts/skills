@@ -1,201 +1,219 @@
 ---
 name: release
 description: >-
-  Cut a software release from the release-ready trunk, promote the changelog,
-  and apply the version tag. Use this skill when the user says something like
-  "cut a release", "tag version 1.2.0", or "prepare a release branch". Do not
-  use this skill to write or revise changelog entries, to build, publish, or
-  deploy artifacts, to write release notes, or to author ordinary commits.
+  Cut a software release by tagging the delivery pipeline's version commit,
+  fast-forwarding the release-ready trunk to the new tag, and fast-forwarding
+  the release trunk to match, each in its own worktree. Use when a version
+  commit has passed through the pipeline and is ready to ship, or when the user
+  says something like "cut a release", "release 1.2.0", or "tag version
+  1.2.0". Do not use it to decide the version number, to edit the changelog,
+  to push, or to build, publish, or deploy artifacts.
 compatibility: >-
-  requires Read, Edit, Glob, Grep, Bash (git branch, git switch,
-  git merge, git add, git commit, git tag, git describe, git symbolic-ref, git config)
+  requires Bash (git status, git rev-parse, git worktree, git fetch, git log,
+  git merge-base, git config, git tag, git merge)
 license: CC0-1.0
 ---
 
 # Release
 
-Cut a new software release. Cut a new release branch or advance the existing
-release trunk. Promote "unreleased" changes to "released" in the changelog, if
-there is one. Commit those changes and apply an annotated tag, marking the
-release point. Push the commit and its tag — this is expected to trigger an
-upstream deployment pipeline.
+Release a version by tagging its version commit, then fast-forward
+`[<pipeline>/]ready` to the tag and `[<pipeline>/]release` to `ready`, each in
+its own worktree, so all three mark the same commit. Make no commits, and push
+nothing.
 
 ## Parameters
 
 Determine the following information from the session context and local
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+requirements. If you cannot determine the requirements, stop and report.
 
-- **Delivery pipeline — REQUIRED.** The group of trunks the release is cut
-  from, named by the prefix those trunks share, eg. "latest" in
-  `latest/ready`. If the name of the delivery pipeline is specified in the
-  most-recent user prompt, eg. "the v2 pipeline", use that. Else take it from
-  the repository's default branch, read with the command
-  `git symbolic-ref --short refs/remotes/origin/HEAD`. A branch named
-  `origin/latest/dev` gives "latest" as the name of the default delivery
-  pipeline, while `origin/dev` gives an unnamed default pipeline.
+- **The target repository — REQUIRED.** The Git repository containing the
+  current working directory. It MUST be a bare clone in a directory named
+  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
+  `<project>/.bare` and `<project>/default`. If the working directory sits
+  outside a Git repository, or the repository is not laid out this way, stop
+  and report.
 
-- **Release model — REQUIRED.** The project is expected to use either a single
-  permanent `[<pipeline>/]release` trunk (for continuous deployment) or
-  temporary `[<pipeline>/]release/<version>` branches (for release trains), eg.
-  `latest/release` or `latest/release/1.2.0`. Discover which one the pipeline
-  uses from its existing branches and the project's documented version-control
-  conventions.
+- **The delivery pipeline — REQUIRED.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unspecified for
+  continuously-released software that has a single perpetual delivery pipeline.
+  Determine the name of the delivery pipeline from the branch checked out in
+  the current worktree. Examples:
 
-- **Version — REQUIRED.** The version being released. Derive it from the
-  project's versioning scheme and the changes accumulated since the pipeline's
-  last release tag, read with `git describe --tags --abbrev=0 <ready-trunk>`.
-  Do not assume a linear increment from the repository's newest tag, since this
-  may belong to another delivery pipeline.
+  - `latest/dev` → "latest"
+  - `v1/temp/42-fix-auth` → "v1"
+  - `dev` → unnamed pipeline
 
-- **Release-ready trunk — REQUIRED.** The trunk whose tip is guaranteed to hold
-  production-grade revisions, and from which releases are cut. Discover its
-  name from the project's branch model. It is conventionally
-  `[<pipeline>/]ready`, eg. `latest/ready`.
+  The name of the delivery pipeline, if specified, forms the optional
+  `[<pipeline>/]` component in branch names.
 
-- **Changelog location — OPTIONAL.** Resolve it from the session context, then
-  from the local environment. Look for a convention file or a workspace manifest
-  — not not assume a `CHANGELOG.md` file at the repository root. Skip changelog
-  promotion where the project keeps no changelog.
+  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
+  confidently determined from the current checked-out branch, stop and report.
+
+- **The version — REQUIRED.** The semantic version being released, from the
+  prompt or the session context, eg. `1.2.0` or `1.3.0-rc.0`. Drop any leading
+  `v`. Never derive it yourself: if no version is given, stop and report.
+
+- **The source trunk — REQUIRED.** The trunk that feeds `[<pipeline>/]ready`:
+  `[<pipeline>/]test` where it exists, or else `[<pipeline>/]dev`.
 
 ## Success criteria
 
-- The release branch MUST have been created or advanced from the tip of the
-  release-ready trunk.
+- An annotated tag `v<version>` MUST exist, on the commit whose subject is
+  `version: <version>`: `git cat-file -t v<version>` MUST print `tag`, and
+  `git log -1 --format=%s v<version>` MUST print `version: <version>`.
 
-- Where the project keeps a changelog, its "unreleased" section MUST have been
-  promoted to the released version and date, in a release commit on the
-  release branch.
+- `git rev-parse v<version>^{commit} [<pipeline>/]ready [<pipeline>/]release`
+  MUST print the same hash three times, except for a pre-release.
 
-- An annotated version tag MUST mark the tip of the release branch. Check with
-  `git describe --exact-match`.
+- There MUST NOT be any new commits, and nothing MUST have been pushed. The
+  branch checked out in each worktree MUST NOT change, and the worktrees of
+  `[<pipeline>/]ready` and `[<pipeline>/]release` MUST be clean:
+  `git -C <path> status --porcelain` MUST print nothing for each.
 
-- The software's own source code and configuration MUST be unchanged. The
-  release commit SHOULD touch only the changelog, version manifests, and
-  release-specific configuration.
+- Your report MUST open with the tag on a line of its own, eg. `v1.2.0`, so a
+  script can read it, followed by the tagged commit, the worktrees you moved
+  or created, and the refs still to push.
 
-## Instructions
+## Step-by-step instructions
 
-1.  Cut or advance the release branch from the release-ready trunk. For a
-    release trunk, fast-forward it to the current tip of the release-ready
-    trunk. For a versioned release branch:
+1.  Check the repository layout before anything else. Stop and report unless
+    `git rev-parse --path-format=absolute --git-common-dir` prints a path
+    ending in `/.bare`, and the current worktree's top level, from
+    `git rev-parse --show-toplevel`, sits directly in the directory that holds
+    `.bare`. Call that directory `<project>`.
 
-    ```sh
-    git switch --create latest/release/<version> latest/ready
-    ```
+    The current worktree may be dirty. Nothing you do touches it.
 
-2.  If the project keeps a changelog, promote the changelog's "unreleased"
-    section to a "released" one. Rename the unreleased section's heading to
-    the version and date being released, eg. `## [1.2.0] - 2026-05-27`. Start a
-    fresh, empty "unreleased" section above it, ready to record changes in the
-    next release after this one. Match the heading styles to the existing
-    formatting. Leave the existing changelog entries as they stand.
+2.  Update the remote-tracking branches and tags with
+    `git fetch origin --tags`. If the repository has no `origin` remote, skip
+    the fetch, work from local refs, and say so in the report.
 
-3.  Commit these changes, with any version-manifest bump, as a single release
-    commit on the release branch. Stage only the changelog, version manifests,
-    and release-specific configuration, by path.
-
-    Write the message header as a `version` commit, giving the bare version
-    number as the description, with no `v` prefix. Example:
-
-    ```sh
-    git commit -m "version: 1.2.0"
-    ```
-
-    The `version` commit type marks that a version has been cut, not that it
-    has been deployed.
-
-4.  Tag the tip of the release branch with an annotated tag.
+3.  Unless the version is a pre-release, resolve the worktrees of
+    `[<pipeline>/]ready` and, where the branch exists, `[<pipeline>/]release`.
+    In `git worktree list --porcelain`, a branch's worktree is the
+    `worktree <path>` record with the line `branch refs/heads/<branch>`. Where
+    no worktree has the branch checked out, create one in `<project>`, named
+    after the branch with each `/` replaced by `-`:
 
     ```sh
-    git tag -a v<version> -m "<summary of the release>"
+    git worktree add <project>/latest-ready latest/ready
     ```
 
-    Where the project signs its commits, sign the tag too, using `-s` in place
-    of `-a`. Read `git config --get commit.gpgSign` and
-    `git config --get tag.gpgSign`, and treat either one set to `true` as
-    signing being in use. Check the signature with `git tag -v v<version>`.
+    Stop and report unless each worktree is clean. Where
+    `[<pipeline>/]release` does not exist yet, check that nothing exists at
+    `<project>/latest-release`, for its worktree in step 8.
 
-5.  Push the version commit and release tag upstream: `git push --follow-tags`.
+4.  Bring the local source trunk, `[<pipeline>/]ready`, and
+    `[<pipeline>/]release` up to date. Where a worktree has the branch checked
+    out, stop and report unless that worktree is clean, then fast-forward the
+    branch there, with `git -C <path> merge --ff-only origin/<branch>`. Where
+    none does, use `git fetch origin <branch>:<branch>`. Both refuse anything
+    but a fast-forward. If the local branch has diverged from origin, stop and
+    report.
 
-6.  Report the release branch, the release commit, and the tag.
+5.  Find the version commit on the source trunk. List the candidates, and keep
+    only those whose subject is exactly `version: <version>`:
+
+    ```sh
+    git log --format='%H %s' -F --grep='version: <version>' latest/test
+    ```
+
+    Stop and report unless exactly one commit remains.
+
+6.  Validate the release before moving any ref. Stop and report unless every
+    one of these holds:
+
+    - `[<pipeline>/]ready` is at or behind the version commit:
+      `git merge-base --is-ancestor latest/ready <commit>`.
+
+    - `[<pipeline>/]release`, where it exists, is at or behind the version
+      commit: `git merge-base --is-ancestor latest/release <commit>`.
+
+    - The tag `v<version>` does not exist, or already points at the version
+      commit, as when resuming an interrupted release.
+
+7.  Tag the version commit, unless the tag already points at it:
+
+    ```sh
+    git tag -a v1.2.0 -m "Release 1.2.0" <commit>
+    ```
+
+    Where `git config --get tag.gpgSign` or `git config --get commit.gpgSign`
+    prints `true`, sign the tag with `-s` in place of `-a`.
+
+8.  Fast-forward `[<pipeline>/]ready` to the tag, then `[<pipeline>/]release` to
+    `[<pipeline>/]ready`, each in its worktree. Where the pipeline has no
+    release trunk yet, this is its first release: create the trunk at
+    `[<pipeline>/]ready`, checked out in a new worktree.
+
+    ```sh
+    git -C <ready-worktree> merge --ff-only v1.2.0
+    git -C <release-worktree> merge --ff-only latest/ready
+    # or, for a first release:
+    git worktree add -b latest/release <project>/latest-release latest/ready
+    ```
+
+9.  Report. Name the refs to push, eg.
+    `git push origin v1.2.0 latest/ready latest/release`, without running the
+    push.
 
 ## Rules
 
-- You MUST NOT add, reword, reorder, regroup, or remove changelog entries when
-  promoting the "unreleased" section. The "unreleased" section is written and
-  reviewed before the release is cut.
+- You MUST only fast-forward `[<pipeline>/]ready` and `[<pipeline>/]release`,
+  never merge, reset, or force them. Every trunk shares one linear history,
+  and fixes flow forward from `dev`, never backward.
 
-- Releases MUST be cut from the release-ready trunk, and MUST NOT be cut from an
-  integration or test trunk. Only the release-ready trunk is guaranteed to hold
-  production-grade revisions.
+- You MUST NOT fast-forward `[<pipeline>/]ready` past the version commit. The
+  commits after it on the source trunk belong to a later release.
 
-- The release trunk or branch MUST carry the same pipeline prefix as the
-  release-ready trunk it is cut from, eg. `v2/release/2.3.1` from `v2/ready`.
-  You MUST NOT cut a release for one pipeline from another pipeline's trunk.
+- You MUST treat tags as permanent. Never move, delete, or recreate an existing
+  tag.
 
-- A release MUST be recorded in exactly one release commit, with a `version`
-  type subject line.
+- You MUST NOT switch the branch checked out in any worktree, and you MUST move
+  a branch in its worktree only where you found that worktree clean: where
+  `git -C <path> status --porcelain` printed nothing,
+  `git -C <path> rev-parse -q --verify MERGE_HEAD` failed, and no file existed
+  at `git -C <path> rev-parse --path-format=absolute --git-path SQUASH_MSG`.
+  Each worktree belongs to whoever works in it, and a fast-forward under
+  someone's uncommitted changes can tangle with their work in progress.
 
-- A release branch MUST carry only release-preparation commits: version bumps,
-  changelog promotion, and release-specific configuration.
-
-- You MUST NOT commit a fix to a release branch. Fixes flow through the
-  integration trunk and out to the release-ready trunk, so a fix made under
-  release pressure is never stranded off the mainline.
-
-- If release preparation fails, you SHOULD abandon the branch and start over,
-  rather than repairing it in place, so the branch's history stays a clean
-  record of one release attempt.
-
-- Version tags MUST be treated as permanent. You MUST NOT move or delete an
-  existing tag.
+- You MUST NOT push. Publishing the tag and trunks, which typically triggers
+  deployment, is the caller's decision.
 
 ## Edge cases
 
-- If the version is not yet decided, then you MAY cut the branch as
-  `[<pipeline>/]release/next`, eg. `latest/release/next`, and rename it once
-  the version is settled. Do not apply a version tag until the version is known.
+- If no version commit matches on the source trunk, then it has not been
+  promoted that far yet, or was never made. Stop and report.
 
-- If the tip of the release-ready trunk already carries a release tag, then
-  there is nothing new to release. Stop and report the existing tag rather than
-  cutting an empty release.
+- If `[<pipeline>/]ready` has already moved past the version commit, then the
+  release trunk could no longer match the tag. Stop and report.
 
-- If the changelog's "unreleased" section is missing or empty, though the
-  release-ready trunk carries commits since the last release tag, then do not
-  write the missing entries yourself. Stop and report it, so the caller
-  can bring the changelog up-to-date before the release is cut.
+- If the pipeline has no `[<pipeline>/]ready` trunk, then stop and report.
+  Releases are cut only from a trunk guaranteed to hold production-grade
+  revisions.
 
-- If the resolved delivery pipeline has no release-ready trunk, eg. the user
-  asked for a v2 patch release and there is no `v2/ready`, then do not fall
-  back to another pipeline's trunk. Stop and report the missing trunk.
+- If the version is not of the form `<major>.<minor>.<patch>`, with an OPTIONAL
+  `-<stage>.<n>` pre-release suffix, then stop and report. Release tags are
+  `v` followed by a semantic version.
 
-- If the project has no release trunk or release branches yet, then this is the
-  first release. Create the branch according to the release model you
-  established, cutting from the release-ready trunk as usual.
+- If the version is a pre-release, eg. `1.3.0-rc.0`, then tag the version
+  commit, but leave `[<pipeline>/]ready` and `[<pipeline>/]release` where they
+  are. A pre-release is for testing, not for production.
+
+- If `git worktree add` refuses, eg. because the directory already exists, or
+  a stale worktree record still claims the branch, then stop and report its
+  output. Do not remove, move, or prune any worktree.
 
 ## Examples
 
-- Release trunk:
+- Releasing `1.2.0` on the "latest" pipeline, where `latest/test` holds the
+  `version: 1.2.0` commit at `4b1e9d0`:
 
-  ```sh
-  latest/release
-  release  # Single unprefixed pipeline.
-  ```
-
-- Release branches:
-
-  ```sh
-  latest/release/1.2.0
-  latest/release/next
-  v2/release/2.3.1  # Patch to a maintained older version.
-  release/2.0.0     # Single unprefixed pipeline.
-  ```
-
-- Version tags:
-
-  ```sh
+  ```text
   v1.2.0
-  v2.0.0
+  Tagged 4b1e9d0 (version: 1.2.0).
+  latest/ready and latest/release now point at 4b1e9d0, in the worktrees
+  <project>/latest-ready and <project>/latest-release.
+  To publish: git push origin v1.2.0 latest/ready latest/release
   ```

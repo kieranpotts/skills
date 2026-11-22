@@ -4,6 +4,8 @@ Short introduction, restating the purpose of the skill.
 
 Explain, for humans, what instructions are given to agents by this skill.
 
+...
+
 ## Interactivity
 
 State whether the skill instructs the agent to run interactively or non-interactively. If interactive, state what information the agent may prompt for. If non-interactive, be explicit that the skill can be used in away-from-keyboard workflows.
@@ -17,6 +19,10 @@ Examples of phrases that are expected to invoke the skill. Describe any argument
 > Do a security review.
 
 > Reconcile the design docs.
+
+## Outcomes
+
+Describe what a successful run changes — files, repository state, external systems — and what the agent's report opens with, where a script reads it. Cover the happy path only.
 
 ## Examples
 

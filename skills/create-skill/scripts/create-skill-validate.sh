@@ -8,6 +8,8 @@
 # checks (front-matter, naming, required fields). Repo-specific checks always
 # run regardless.
 #
+# ...
+#
 
 set -euo pipefail
 
@@ -122,12 +124,12 @@ run_repo_checks() {
     failed=1
   fi
 
-  # At least one of '## Instructions' or '## Rules' is required.
+  # At least one of '## Step-by-step instructions' or '## Rules' is required.
   # Tolerate extra spaces after the '##' marker (eg. '##  Rules').
-  if grep -qE '^## +(Instructions|Rules)\b' "${skill_md}"; then
-    printf "  [PASS] Has '## Instructions' and/or '## Rules'\n" >&2
+  if grep -qE '^## +(Step-by-step instructions|Rules)\b' "${skill_md}"; then
+    printf "  [PASS] Has '## Step-by-step instructions' and/or '## Rules'\n" >&2
   else
-    printf "  [FAIL] Missing both '## Instructions' and '## Rules'\n" >&2
+    printf "  [FAIL] Missing both '## Step-by-step instructions' and '## Rules'\n" >&2
     failed=1
   fi
 
@@ -183,7 +185,7 @@ run_repo_checks() {
   canonical="$(printf '%s\n' \
     'Parameters' \
     'Success criteria' \
-    'Instructions' \
+    'Step-by-step instructions' \
     'Rules' \
     'Edge cases' \
     'Examples' \
@@ -242,8 +244,28 @@ run_repo_checks() {
     printf "  [PASS] Every rule and criterion carries a requirement level\n" >&2
   else
     printf "  [FAIL] %d rule(s)/criteria without an RFC 2119 keyword\n" "${no_keyword}" >&2
-    printf "         A step with no requirement level is ambiguous\n" >&2
+    printf "         A rule with no requirement level is ambiguous\n" >&2
     failed=1
+  fi
+
+  # Step-by-step instructions are all expected to be followed, so they
+  # generally carry no requirement level. Advisory only: a step may
+  # legitimately quote a keyword, eg. one that edits another document's rules.
+  local step_keywords
+  # The backticks in the pattern are literal: a keyword quoted as code is not
+  # a requirement level.
+  # shellcheck disable=SC2016
+  step_keywords="$(strip_fences "${skill_md}" | awk '
+      /^## +Step-by-step instructions[[:space:]]*$/ { in_section = 1; next }
+      /^## +/ { in_section = 0; next }
+      in_section
+    ' | grep -cE '(^|[^A-Za-z`])(MUST|SHOULD|REQUIRED|RECOMMENDED|OPTIONAL|MAY)([^A-Za-z`]|$)' || true)"
+  if [[ "${step_keywords}" -eq 0 ]]; then
+    printf "  [PASS] Step-by-step instructions carry no RFC 2119 keywords\n" >&2
+  else
+    printf "  [WARN] %d line(s) of step-by-step instructions carry an RFC 2119 keyword\n" \
+      "${step_keywords}" >&2
+    printf "         Steps are all expected to be followed; move hard constraints to '## Rules'\n" >&2
   fi
 
   check_compatibility_tools "${skill_md}"
@@ -392,11 +414,11 @@ check_bundled_resources() {
 
 #
 # The human-facing README.md carries a fixed set of sections, in a fixed
-# order. 'Interactivity', 'How to invoke', and 'Recommended models' are
-# required — every skill has an interactivity mode, an invocation, and a
-# model class. 'Examples', 'Suggested workflows', 'Related skills', and
-# 'References' are contingent on the skill, so they are optional, but must
-# sit in their canonical positions when present.
+# order. 'Interactivity', 'How to invoke', 'Outcomes', and 'Recommended
+# models' are required — every skill has an interactivity mode, an invocation,
+# an outcome, and a model class. 'Examples', 'Suggested workflows', 'Related
+# skills', and 'References' are contingent on the skill, so they are optional,
+# but must sit in their canonical positions when present.
 #
 check_readme_sections() {
   local readme="$1"
@@ -406,6 +428,7 @@ check_readme_sections() {
   canonical="$(printf '%s\n' \
     'Interactivity' \
     'How to invoke' \
+    'Outcomes' \
     'Examples' \
     'Recommended models' \
     'Suggested workflows' \
@@ -415,7 +438,7 @@ check_readme_sections() {
   # Tolerate extra spaces after the '##' marker, as elsewhere in this script.
   found="$(strip_fences "${readme}" | grep -E '^## +' | sed -E 's/^## +//; s/[[:space:]]+$//')"
 
-  for section in 'Interactivity' 'How to invoke' 'Recommended models'; do
+  for section in 'Interactivity' 'How to invoke' 'Outcomes' 'Recommended models'; do
     if grep -qxF "${section}" <<<"${found}"; then
       printf "  [PASS] README.md has '## %s'\n" "${section}" >&2
     else

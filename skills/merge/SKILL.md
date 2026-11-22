@@ -1,281 +1,275 @@
 ---
 name: merge
 description: >-
-  Integrate work from one Git branch into another, using the merge strategy —
-  rebase-then-fast-forward, squash merge, merge commit, or fast-forward — that
-  the source and target branch types call for. Use this skill when work on one
-  branch is ready to be integrated into another, or when the user says
-  something like "merge this branch into ...", "integrate this branch back into
-  the trunk", or "promote one branch to another". Do not use this skill to
-  conclude a merge already in progress, create branches, author ordinary
-  commits, or cut releases.
+  Integrate the checked-out Git branch into another branch of the same delivery
+  pipeline, in the target branch's own worktree, using the strategy — rebase
+  then fast-forward, squash merge, merge commit, or fast-forward — that the two
+  branch types call for. Use when work on a branch is ready to integrate, or
+  when the user says something like "merge this branch", "integrate this into
+  the trunk", or "promote dev to test". Do not use it to conclude a merge
+  already in progress, to create branches, to author ordinary commits, or to
+  cut releases.
 compatibility: >-
-  requires Bash (git, project build and test commands), Read, Edit, Glob, Grep
+  requires Bash (git status, git rev-parse, git worktree, git fetch, git log,
+  git rebase, git merge, git commit, git diff, git reset)
 license: CC0-1.0
 ---
 
 # Merge
 
-Integrate one Git branch into another using the merge strategy appropriate to
-their branch types. You MUST NOT change the software itself, resolve merge
-conflicts, or conclude a merge already in progress. Where Git cannot complete a
-merge by itself, abort and alert the user. Do not run the build or tests to
-verify the merge, and do not push any new commits that capture the integration.
+Integrate the checked-out branch into its target, using the strategy that the
+pair of branch types calls for, and working on the target in its own worktree.
+Where Git cannot complete the integration by itself, abort it and report the
+conflicts.
 
 ## Parameters
 
 Determine the following information from the session context and local
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+requirements. If you cannot determine the requirements, stop and report.
 
-- **The source branch — REQUIRED.** The branch carrying the work to be
-  integrated.
+- **The target repository — REQUIRED.** The Git repository containing the
+  current working directory. It MUST be a bare clone in a directory named
+  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
+  `<project>/.bare` and `<project>/default`. If the working directory sits
+  outside a Git repository, or the repository is not laid out this way, stop
+  and report.
 
-- **The target branch — REQUIRED.** The branch the work lands on. Never infer it
-  — a repository may have several trunks, any one of which could be the
-  integration target. The user MUST specify it.
+- **The delivery pipeline — REQUIRED.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unspecified for
+  continuously-released software that has a single perpetual delivery pipeline.
+  Determine the name of the delivery pipeline from the branch checked out in
+  the current worktree. Examples:
 
-- **The delivery pipeline — REQUIRED.** Extract this from the branch name prefix,
-  which is expected to be the same for both the source and target branches.
-  For example, in the branch names `latest/temp/482-idempotency` (source) and
-  `latest/dev` (target), the delivery pipeline is named "latest". A project that
-  runs a single unprefixed delivery pipeline (a bare `dev` trunk) has no prefix.
+  - `latest/dev` → "latest"
+  - `v1/temp/42-fix-auth` → "v1"
+  - `dev` → unnamed pipeline
+
+  The name of the delivery pipeline, if specified, forms the optional
+  `[<pipeline>/]` component in branch names.
+
+  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
+  confidently determined from the current checked-out branch, stop and report.
+
+- **The source branch — REQUIRED.** The branch checked out in the current
+  worktree, which carries the work to integrate.
+
+- **The target branch — REQUIRED.** The branch the work lands on. For a temp or
+  epic source, it is `[<pipeline>/]dev`, unless the prompt names another. For
+  a trunk source, the prompt MUST name it, eg. "promote dev to test" or "merge
+  dev into the billing epic".
+
+- **The target worktree — REQUIRED.** The worktree that has the target branch
+  checked out. Where there is none, you will create one.
 
 ## Success criteria
 
-- The target branch MUST carry the source's work.
+- The target MUST carry the source's work. After a fast-forward,
+  `git merge-base --is-ancestor <source> <target>` MUST succeed. After a squash
+  merge, `git diff --quiet <source> <target>` MUST succeed.
 
-- Where the source is a short-lived "temp" branch, the target branch MUST have
-  a clean, linear extension to its commit history. It MAY inherit multiple
-  commits from the source branch. Where the source branch is a long-lived "epic"
-  branch, the target branch MUST have a single new commit, capturing a squashed
-  diff of all the unique commits on the source branch. Check with
-  `git log --oneline --graph -10`.
+- After integrating a temp branch, or promoting a trunk,
+  `git rev-list --merges <old-target>..<target>` MUST print nothing. After
+  integrating an epic, `git rev-list --count <old-target>..<target>` MUST
+  print `1`.
 
-- Merge conflicts MUST NOT be resolved by the agent. Where Git stops on a
-  conflict, the rebase or merge MUST be aborted and the conflicted paths
-  reported to the user.
+- The source MUST still be checked out in the current worktree, and the target
+  in the target worktree. Both worktrees MUST be clean:
+  `git -C <path> status --porcelain` MUST print nothing for each.
 
-- A merge MUST NOT remain in progress. `git rev-parse -q --verify MERGE_HEAD`
-  MUST fail, and the `SQUASH_MSG` file MUST NOT exist. There MUST NOT be any
-  conflict markers in the source code. The command
-  `git grep -nE '^(<<<<<<<|=======|>>>>>>>)'`, run on the merged tree,
-  MUST return nothing.
+- No merge MUST remain in progress in either worktree:
+  `git -C <path> rev-parse -q --verify MERGE_HEAD` MUST fail, and the
+  `SQUASH_MSG` file MUST NOT exist.
 
-- The source branch MUST endure. No branches should have been deleted.
+- No branch or worktree MUST have been deleted, and nothing MUST have been
+  pushed.
 
-## Instructions
+- Your report MUST open with the target branch and its new short hash on a line
+  of its own, eg. `latest/dev 3f9c2ab`, so a script can read it. The second
+  line MUST give the path of the target worktree. The strategy used MUST
+  follow.
 
-1.  State the source and target branches. Check first whether a merge is already
-    in progress. `git rev-parse -q --verify MERGE_HEAD` succeeds during a merge,
-    and the file at `git rev-parse --git-path SQUASH_MSG` exists during a squash
-    merge. Check both, because `git status` does not report a pending squash
-    merge. If either holds, stop and alert the user, leaving the merge exactly
-    as you found it. Otherwise, confirm both the source and target branches
-    exist are are current with their remotes, and confirm there are no dirty
-    working changes — `git status` MUST be clean before proceeding.
+## Step-by-step instructions
 
-2.  Classify the branch pair and choose the integration strategy.
+1.  Check the repository layout before anything else. Stop and report unless
+    `git rev-parse --path-format=absolute --git-common-dir` prints a path
+    ending in `/.bare`, and the current worktree's top level, from
+    `git rev-parse --show-toplevel`, sits directly in the directory that holds
+    `.bare`. Call that directory `<project>`.
 
-    | Source → Target                                           | Integration strategy | Integration command                                |
-    | --------------------------------------------------------- | -------------------- | -------------------------------------------------- |
-    | `<pipeline>/temp/*` → `<pipeline>/dev`                    | Rebase up, then FF   | `git rebase <pipeline>/dev && git merge --ff-only` |
-    | `<pipeline>/epic/*` → `<pipeline>/dev`                    | Squash merge         | `git merge --squash`                               |
-    | `<pipeline>/dev` → `<pipeline>/epic/*`                    | Merge commit (no-FF) | `git merge --no-ff <pipeline>/dev`                 |
-    | `<pipeline>/dev` → `<pipeline>/test` → `<pipeline>/ready` | Fast-forward only    | `git merge --ff-only`                              |
-    | `<pipeline>/ready` → `<pipeline>/release(/*)`             | Fast-forward only    | `git merge --ff-only`                              |
+    Then stop and report unless the current worktree is clean.
 
-    NOTE: `<pipeline>` stands for the delivery pipeline prefix, and it may be
-    empty where the project's trunks are unprefixed.
-
-    If you cannot determine the integration strategy, stop and alert the user.
-
-3.  Align the source branch with the target. For a short-lived "temp" branch,
-    rebase it onto the latest target (`git rebase latest/dev`), so the
-    fast-forward that follows adds no commit. For a long-lived "epic" branch,
-    first merge the target down into it (`git merge --no-ff latest/dev`). For
-    a trunk promotion, verify the upstream trunk is a direct descendant of the
-    target (`git merge-base --is-ancestor latest/test latest/dev`). If it is
-    not, stop and report it.
-
-4.  Execute the merge with the integration command mapped from the table.
+2.  Resolve the target worktree. In `git worktree list --porcelain`, it is the
+    `worktree <path>` record with the line `branch refs/heads/<target>`. Where
+    no worktree has the target checked out, create one in `<project>`, named
+    after the branch with each `/` replaced by `-`:
 
     ```sh
-    # Short-lived "temp" branch into the trunk, after the rebase-up.
-    git switch latest/dev
-    git merge --ff-only latest/temp/482-idempotency
-
-    # Long-lived "epic" branch into the trunk, after the merge-down.
-    git switch latest/dev
-    git merge --squash latest/epic/billing-v2-rewrite
-    git commit -m "<type>: <description>" # See commit message rules below.
-
-    # Development trunk into a long-lived "epic" branch.
-    git switch latest/epic/billing-v2-rewrite
-    git merge --no-ff latest/dev
-    git commit -m "merge: capture latest development trunk changes"
-
-    # Trunk forward-promotion.
-    git switch latest/test
-    git merge --ff-only latest/dev
+    git worktree add <project>/latest-test latest/test
     ```
 
-5.  Abort on any conflict Git cannot resolve by itself. If a rebase or merge
-    causes conflicts, do not attempt to resolve them. Instead, list the
-    conflicted paths (`git diff --name-only --diff-filter=U`), then abort,
-    leaving both branches as they were. Use `git rebase --abort` to abort a
-    rebase, `git merge --abort` to abort a merge, or `git reset --merge` to
-    abort a squash merge. Stop, and alert the user with the conflicted paths.
+    Stop and report unless the target worktree is clean.
+
+3.  Update the remote-tracking branches and tags with
+    `git fetch origin --tags`. If the repository has no `origin` remote, skip
+    the fetch, work from local refs, and say so in the report.
+
+4.  Bring every shared branch involved — the trunks, and any epic — up to date,
+    in the worktree that has it checked out:
+    `git -C <path> merge --ff-only origin/<branch>`. This refuses anything but
+    a fast-forward. If the local branch has diverged from origin, stop and
+    report. Skip a branch that origin does not carry. A temp branch is
+    personal, so its local copy is authoritative: leave it as it is.
+
+5.  Choose the strategy from the branch pair. If the pair is not in this table,
+    stop and report.
+
+    | Source (current worktree) | Target                 | Strategy                  |
+    | ------------------------- | ---------------------- | ------------------------- |
+    | `[<pipeline>/]temp/*`     | `[<pipeline>/]dev`     | Rebase, then fast-forward |
+    | `[<pipeline>/]epic/*`     | `[<pipeline>/]dev`     | Merge down, then squash   |
+    | `[<pipeline>/]dev`        | `[<pipeline>/]epic/*`  | Merge commit              |
+    | `[<pipeline>/]dev`        | `[<pipeline>/]test`    | Fast-forward              |
+    | `[<pipeline>/]test`       | `[<pipeline>/]ready`   | Fast-forward              |
+    | `[<pipeline>/]dev`        | `[<pipeline>/]ready`   | Fast-forward              |
+    | `[<pipeline>/]ready`      | `[<pipeline>/]release` | Fast-forward              |
+
+    Promote `dev` straight to `ready` only where the pipeline has no `test`
+    trunk. One run moves one row: a promotion from `dev` to `release` takes
+    three runs.
+
+6.  Record the target's current tip, `<old-target>`, for the success criteria.
+    Then run the strategy's commands. Commands without `-C` run in the current
+    worktree, on the source.
+
+    Temp branch into the trunk:
+
+    ```sh
+    git rebase latest/dev
+    git -C <target-worktree> merge --ff-only latest/temp/482-idempotency
+    ```
+
+    Epic branch into the trunk. Merge the trunk down first, so the squash
+    carries the epic's resolution of any divergence:
+
+    ```sh
+    git merge --no-ff --no-edit -m "merge: sync with latest/dev" latest/dev
+    git -C <target-worktree> merge --squash latest/epic/billing-v2-rewrite
+    git -C <target-worktree> commit -F - <<'EOF'
+    behavior: rewrite billing engine - BREAKING
+
+    - step: extract invoice model
+    - behavior: replace legacy tax rules - BREAKING
+    - fix: round line totals to the currency's minor unit
+    EOF
+    ```
+
+    Trunk into an epic branch:
+
+    ```sh
+    git -C <target-worktree> merge --no-ff --no-edit \
+      -m "merge: sync with latest/dev" latest/dev
+    ```
+
+    Trunk promotion:
+
+    ```sh
+    git -C <target-worktree> merge --ff-only latest/dev
+    ```
+
+7.  If Git stops on a conflict, list the conflicted paths in the worktree where
+    it stopped, with `git -C <path> diff --name-only --diff-filter=U`. Then
+    abort there, leaving both branches as they were: `git rebase --abort` for a
+    rebase, `git merge --abort` for a merge, or `git reset --merge` for a
+    squash merge. Then stop and report the conflicted paths.
+
+8.  Report.
 
 ## Rules
 
-- You MUST select the strategy from the branch pair, not from convenience.
-  Short-lived "temp" branches are rebased up then fast-forwarded. Long-lived
-  "epic" branches are squashed. Trunks are only fast-forwarded.
+- You MUST NOT resolve a conflict, however trivial it looks, eg. whitespace or
+  import order. A resolution needs the authors' knowledge of what each side
+  intended.
 
-- You MUST NOT squash a short-lived "temp" branch. Its atomic commits carry
-  per-step rollback granularity into the trunk, which squashing discards.
+- You MUST NOT squash a temp branch. Its atomic commits carry per-step rollback
+  granularity into the trunk, which squashing discards.
 
-- You MUST resolve divergence between a trunk and a long-lived "epic" branch by
-  first merging the trunk down into that branch.
+- You MUST only fast-forward one trunk to another, never with `--no-ff` or
+  force. A failing `--ff-only` means the target carries a commit the source
+  does not, which is a workflow violation to report, not to work around.
 
-- You MUST NOT use `--no-ff` to forward-promote a trunk. A failing `--ff-only`
-  means the target carries a commit the upstream trunk does not. This is a
-  workflow violation to report. In this scenario, you MUST NOT try to force
-  the merge.
+- You MAY rebase a temp branch even after it has been pushed, because temp
+  branches are personal. You MUST NOT rewrite the history of a trunk or an
+  epic branch, which are shared.
 
-- You MUST NOT do anything more except attempt the integration. Creating
-  branches, authoring ordinary commits, concluding merges already in progress,
-  fixing failing code, and cutting releases are out-of-scope.
+- The source and target MUST belong to the same delivery pipeline. Work moves
+  between pipelines only by cherry-picking, which is out of scope.
 
-- The source and target MUST belong to the same delivery pipeline. Each delivery
-  pipeline is a separate line of trunks, and work leaves one pipeline for
-  another only through cherry-picking, never by merging. You MUST NOT merge
-  `latest/dev` into `v2/dev`, for example.
+- You MUST NOT switch the branch checked out in any worktree, and you MUST
+  change a worktree only where you found it clean: where
+  `git -C <path> status --porcelain` printed nothing,
+  `git -C <path> rev-parse -q --verify MERGE_HEAD` failed, and no file existed
+  at `git -C <path> rev-parse --path-format=absolute --git-path SQUASH_MSG`.
+  Each worktree belongs to whoever works in it, and uncommitted changes there
+  are someone's work in progress, which a merge would tangle with.
 
-- You MUST NOT resolve merge conflicts, however trivial they look. A resolution
-  needs the authors' knowledge of what each side intended. Abort, and leave the
-  resolution to the user.
+- The squash commit's message MUST follow the project's commit convention:
+  `<type>: <description>[ - <flag>]`, with a subject that SHOULD NOT exceed 50
+  characters and MUST NOT exceed 72. Take the type from the epic's commits
+  (`git log --no-merges --format=%s <target>..<source>`), choosing the one
+  with the most impact in this order: `behavior`, `fix`, `quality`,
+  `maintenance`, `step`, `refactor`, `style`, `chore`. Write the description
+  for the epic's outcome.
 
-- You MUST NOT commit, continue, or abort a merge already in progress. The
-  merge, and any conflict resolution in it, belongs to whoever started it.
-  Aborting it would discard their resolutions. Committing it would land an
-  integration this skill neither chose the strategy for nor produced.
+- The squash commit's subject MUST carry `BREAKING` if any of the epic's
+  commits does, or else `INCOMPAT` if any does, because later tooling reads
+  flags to decide version bumps. Drop `WIP`, `TEMPORARY`, and `EXPERIMENT`,
+  which describe intermediate states the squash erases. The body MUST list the
+  epic's commit subjects, one per line, oldest first.
 
 - You MUST NOT use `--no-verify`, `--allow-empty`, or the `-X ours` and
-  `-X theirs` strategy options. Skipping hooks or silently preferring one side
-  hides legitimate conflicts.
+  `-X theirs` strategy options. Skipping hooks, or silently preferring one
+  side, hides legitimate conflicts.
 
-- You MUST NOT rebase commits already pushed to a shared branch. Rewriting
-  shared history breaks every other contributor's clone.
-
-- To commit a squash merge, write a commit message in the following format:
-  `<type>: <description>`. The `<description>` part described the changes. It
-  MUST be full lowercase, and written in the imperative mood — "add", not
-  "added" or "adds". It MUST NOT end with a period and MUST NOT be longer than
-  60 characters in length. The `<type>` value MUST be derived from the following
-  map — choose the type with the closest semantics to the changeset:
-
-  - `behavior`. User-facing operation or behavior change — eg. new commands,
-    endpoints, deprecations, removals — verifiable through the UI.
-
-  - `chore`. Small, insignificant housekeeping — eg. typo fixes, comment tweaks,
-    or edits to other non-production artifacts. Typically needs no peer review
-    nor changelog entry.
-
-  - `fix`. Resolves a defect — eg. a bug, regression, vulnerability, incident,
-    or silencing of spurious error log entries.
-
-  - `maintenance`. Required upkeep — eg. dependency bumps, test improvements, CI
-    reconfiguration, documentation, and security patches.
-
-  - `quality`. Implements a dynamic quality attribute, observable and measurable
-    outside the system — eg. latency, throughput, resource utilization,
-    availability, security, compliance.
-
-  - `refactor`. Improves internal structure without changing behavior or
-    degrading runtime quality — eg. renames, helper extraction, simplifying
-    interfaces, and restructuring of data flows.
-
-  - `step`. Incremental progress toward a larger behavior change or fix that is
-    not yet user-facing.
-
-  - `style`. Presentation-only changes to code or content — eg. whitespace,
-    indentation, line wrapping.
+- You MUST NOT run the build or tests, push, or delete any branch or worktree.
+  Verifying the merged result, publishing it, and cleaning up belong to the
+  caller.
 
 ## Edge cases
 
-- If a merge is in progress, and every conflict is resolved, and the user asks
-  you to commit it, then stop and alert the user all the same. Concluding an
-  in-flight merge is out-of-scope.
+- If the source is already an ancestor of the target, then there is nothing to
+  integrate. Stop and report.
 
-- If there are merge conflicts, then never attempt to resolve them. Even if a
-  conflict looks trivial, eg. whitespace or the order of imports, abort and
-  alert the user.
+- If a temp branch carries a commit flagged `WIP` or `TEMPORARY`, then stop and
+  report it. A broken build or a commit meant for reverting must not reach the
+  trunk.
 
-- If both sides apply cleanly but the combined behavior is wrong, eg. a symbol
-  renamed on one side is still called from the other, then this is a semantic
-  conflict. Only the build and tests will catch this type of merge issue. Do not
-  attempt to fix it, even where the fix looks mechanical. Stop and report the
-  issue.
+- If the target is in another pipeline, eg. `latest/temp/*` into `v2/dev`, then
+  this is a backport, not a merge. Stop and report.
 
-- If the source and target sit in different pipelines, eg. `latest/temp/*` into
-  `v2/dev`, then this is a backport, not a merge. Stop and report it.
-
-- If the source branch is already an ancestor of the target, then there is
-  nothing to integrate, so stop and report.
+- If `git worktree add` refuses, eg. because the directory already exists, or
+  a stale worktree record still claims the branch, then stop and report its
+  output. Do not remove, move, or prune any worktree.
 
 ## Examples
-
-- Reintegrating a short-lived "temp" branch:
-
-  ```sh
-  # On latest/temp/482-idempotency:
-  git fetch origin
-  git rebase origin/latest/dev  # Rebase up; abort on any conflict.
-  git switch latest/dev
-  git merge --ff-only latest/temp/482-idempotency
-  npm test                      # Green on the merged result.
-  git push origin latest/dev
-  git branch -d latest/temp/482-idempotency
-  git push origin --delete latest/temp/482-idempotency
-  ```
-
-- Reintegrating a long-lived "epic" branch:
-
-  ```sh
-  # Pre-condition: latest/dev has been merged down into the epic.
-  git switch latest/dev
-  git pull --ff-only
-  git merge --squash latest/epic/billing-v2-rewrite
-  git commit             # Subject reflects the epic's outcome.
-  npm test               # Green on the squashed result.
-  git push origin latest/dev
-  git branch -D latest/epic/billing-v2-rewrite  # -D: never FF-merged.
-  git push origin --delete latest/epic/billing-v2-rewrite
-  ```
 
 - A conflicted merge-down:
 
   ```sh
-  git switch latest/epic/billing-v2-rewrite
-  git merge --no-ff latest/dev
+  git merge --no-ff --no-edit -m "merge: sync with latest/dev" latest/dev
   # CONFLICT (content): Merge conflict in src/billing/invoice.ts
-  git diff --name-only --diff-filter=U  # Record the conflicted paths.
+  git diff --name-only --diff-filter=U
   git merge --abort
-
-  # Alert the user that src/billing/invoice.ts conflicts. Do not resolve it.
   ```
+
+  The report names `src/billing/invoice.ts` as conflicted.
 
 - A blocked trunk promotion:
 
   ```sh
-  git switch latest/test
-  git merge --ff-only latest/dev
+  git -C <target-worktree> merge --ff-only latest/dev
   # fatal: Not possible to fast-forward, aborting.
-
-  # latest/test carries a commit that is not on latest/dev. Fixes must
-  # originate upstream and flow forward, so this is a workflow violation.
-  # Report it; do not reach for --no-ff to "fix" it.
   ```
+
+  The report says that `latest/test` carries a commit missing from
+  `latest/dev`, which breaks the rule that every change originates on `dev`.

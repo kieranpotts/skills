@@ -1,5 +1,7 @@
 # Skill workflow diagrams
 
+...
+
 Read this when a collection's skills index — a manifest, a table in a `README.md`, a navigation file — includes a Mermaid workflow diagram showing skills as nodes. Not every collection keeps one; this only applies where one exists.
 
 The diagram marks each node with the skill's interactivity mode, which MUST match, verbatim, what that skill's own `README.md` states in its `## Interactivity` section:

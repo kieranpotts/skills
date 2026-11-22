@@ -1,240 +1,244 @@
 ---
 name: version
 description: >-
-  Determine the next semantic version number for a delivery pipeline, from the
-  commits accumulated since that pipeline's last release tag. Use this skill
-  before cutting a release, or when the user says something like "what's the
-  next version?", "work out the next version number", or "what would the v1
-  pipeline release next?". Do not use this skill to apply a version tag, edit a
-  version manifest, cut a release branch, or write changelog entries.
+  Derive the next semantic version number from the commits made since the
+  delivery pipeline's last release tag, promote the changelog's "unreleased"
+  section to that version, and record both in a version commit on the
+  development trunk or a work branch. Use before a release, or when the user
+  says something like "bump the version" or "prepare the next version". Do
+  not use it only to report what the next version would be, to apply a
+  version tag, to fast-forward trunks, or to write changelog entries.
 compatibility: >-
-  requires Read, Glob, Grep, Bash (git fetch, git branch, git symbolic-ref,
-  git describe, git tag, git log, git merge-base, git rev-parse)
+  requires Bash (git status, git rev-parse, git fetch, git describe, git tag,
+  git log, git commit), Edit, Glob, Grep, Read
 license: CC0-1.0
 ---
 
 # Version
 
-Work out the version number that a delivery pipeline's next release will take,
-by reading the commit messages since the pipeline's last release tag. Report the
-version and how you derived it. You MUST NOT create tags, branches, or commits,
-nor edit any file.
+Work out the version number of the pipeline's next release from the commit
+messages since its last release tag. Then promote the changelog's "unreleased"
+section to that version, bump any version manifest, and commit the lot as
+`version: <version>`.
 
 ## Parameters
 
 Determine the following information from the session context and local
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+requirements. If you cannot determine the requirements, stop and report.
 
 - **The target repository — REQUIRED.** The Git repository containing the
-  current working directory or, failing that, one named in the session
-  context.
+  current working directory. It MUST be a bare clone in a directory named
+  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
+  `<project>/.bare` and `<project>/default`. If the working directory sits
+  outside a Git repository, or the repository is not laid out this way, stop
+  and report.
 
-- **The delivery pipeline — REQUIRED.** The group of trunks whose next release
-  is being versioned, named by the prefix those trunks share, eg. "latest" in
-  `latest/dev`. A project MAY run several pipelines in parallel, eg. "latest"
-  for v2 and "v1" for a maintained older version, each with its own releases.
-  List the pipelines' development trunks with
-  `git branch --remotes --list 'origin/dev' 'origin/*/dev'`. Each trunk's
-  pipeline is the part between `origin/` and `/dev`. If the most-recent user
-  prompt names a pipeline, eg. "the v1 pipeline", use that. Else, where the
-  checked-out branch's name starts with a listed pipeline's prefix, eg.
-  `latest/temp/42-fix-auth`, take that pipeline. Else take the pipeline of the
-  repository's default branch, read with
-  `git symbolic-ref --short refs/remotes/origin/HEAD`. A project with
-  unprefixed trunks, or none, eg. a lone `main`, runs one unnamed pipeline.
+- **The delivery pipeline — REQUIRED.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unspecified for
+  continuously-released software that has a single perpetual delivery pipeline.
+  Determine the name of the delivery pipeline from the current checked-out
+  branch. Examples:
 
-- **The release revision — OPTIONAL.** The commit the next release would be cut
-  from. Use a branch or commit named in the most-recent user prompt. Else take
-  the tip of the pipeline's release-ready trunk, conventionally
-  `origin/[<pipeline>/]ready`, eg. `origin/latest/ready`, because only that
-  trunk holds the revisions a release is cut from. Where the pipeline has no
-  release-ready trunk, take its development trunk, eg. `origin/latest/dev`,
-  or a lone `main`.
+  - `latest/dev` → "latest"
+  - `v1/temp/42-fix-auth` → "v1"
+  - `dev` → unnamed pipeline
 
-- **The versioning scheme — OPTIONAL.** Where the project documents its own
-  versioning rules, eg. in a convention file or contributing guide, follow
-  them where they differ from the rules below. Otherwise apply the rules below,
-  which are Semantic Versioning 2.0.0 with commit-type mappings.
+  The name of the delivery pipeline, if specified, forms the optional
+  `[<pipeline>/]` component in branch names.
+
+  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
+  confidently determined from the current checked-out branch, stop and report.
+
+- **The changelog — OPTIONAL.** The file in which the project records its
+  release history. Resolve it from the session context, then from the local
+  environment — a convention file, a workspace manifest, an existing file such
+  as `CHANGELOG.md`, `HISTORY.md`, or `CHANGES`. Do not assume a `CHANGELOG.md`
+  at the repository root. Where the project keeps no changelog, skip its
+  promotion.
+
+- **Version manifests — OPTIONAL.** Files that record the project's version
+  string, eg. `package.json`, `pyproject.toml`, or `Cargo.toml`. Discover them
+  from the local environment. Lockfiles and generated files are not version
+  manifests.
 
 ## Success criteria
 
-- The report MUST open with the next version on a line of its own, bare, with
-  no `v` prefix, eg. `1.3.0`, so a script or orchestrator can read it.
+- The next version MUST NOT already exist as a tag:
+  `git rev-parse -q --verify refs/tags/v<version>` MUST fail.
 
-- The report MUST name the release baseline tag, the release revision, the bump
-  level, and the commit or commits that decided the bump, by short hash and
-  subject.
+- Exactly one new commit MUST sit on `HEAD`, with the subject
+  `version: <version>`, touching the changelog and version manifests and no
+  other file: check with `git show --name-only --format= HEAD`. Where there
+  was nothing to edit, you MUST make no commit.
 
-- The next version MUST NOT already exist as a tag. Check with
-  `git rev-parse -q --verify refs/tags/v<version>`, which MUST fail.
+- In that commit, `git show HEAD -- <changelog>` MUST show only heading
+  changes: the former "unreleased" heading renamed to the version and date,
+  and a new, empty "unreleased" section above it. Every entry MUST be
+  byte-for-byte unchanged.
 
-- The repository MUST be as you found it, apart from remote-tracking refs and
-  tags fetched from `origin`. There MUST NOT be any new tags of your own, nor
-  new branches, commits, or edits to tracked or untracked files.
+- There MUST NOT be any new tags or branches, and the worktree MUST be clean
+  after the commit: `git status --porcelain` MUST print nothing.
 
-## Instructions
+- Your report MUST open with the next version on a line of its own, bare, with
+  no `v` prefix, eg. `1.3.0`, so a script can read it. It MUST then name the
+  release baseline tag, the bump level, and the commits that decided the bump,
+  by short hash and subject.
 
-1.  Bring the repository's view of the remote up-to-date, so the baseline is
-    not taken from stale tags:
+## Step-by-step instructions
+
+1.  Check the repository layout before anything else. Stop and report unless
+    `git rev-parse --path-format=absolute --git-common-dir` prints a path
+    ending in `/.bare`, and the current worktree's top level, from
+    `git rev-parse --show-toplevel`, sits directly in the directory that holds
+    `.bare`.
+
+    Then check the repository state. Stop and report if a merge, rebase,
+    cherry-pick, or revert is in progress. A merge is in progress if
+    `git rev-parse -q --verify MERGE_HEAD` succeeds, and a squash merge if the
+    file at `git rev-parse --git-path SQUASH_MSG` exists. Check both, because
+    `git status` does not report a pending squash merge.
+
+    Stop and report if the checked-out branch is `[<pipeline>/]test`,
+    `[<pipeline>/]ready`, or `[<pipeline>/]release`. Those trunks only ever
+    move by fast-forward, so a commit there would strand work outside the flow
+    from `dev`. Stop and report, too, if the worktree is dirty, ie. if
+    `git status --porcelain` prints anything. Uncommitted changes are someone's
+    work in progress, which the version commit could sweep up, and which
+    makes the commit's contents harder to verify.
+
+2.  Update the remote-tracking branches and tags with
+    `git fetch origin --tags`. If the repository has no `origin` remote, skip
+    the fetch, work from local refs, and say so in the report.
+
+3.  Establish the release baseline: the pipeline's most recent release tag
+    reachable from `HEAD`. Release tags take the form
+    `v<major>.<minor>.<patch>`. Where the pipeline is named for a version
+    series, eg. "v1" or "v2.4-LTS", narrow the pattern to that series, eg.
+    `v1.*` or `v2.4.*`; otherwise match `v[0-9]*`. Exclude pre-release tags,
+    which never serve as a baseline:
 
     ```sh
-    git fetch origin --tags
+    git describe --tags --abbrev=0 --match '<pattern>' --exclude '*-*' HEAD
     ```
 
-2.  Learn the project's tagging convention from its existing tags, eg.
-    `git tag --list --sort=-v:refname | head -20`. The default convention is
-    `v<major>.<minor>.<patch>`, so the release tag pattern is `v[0-9]*`. Where
-    the pipeline is named for a version series, eg. "v1" or "v2.4-LTS", narrow
-    the pattern to that series, eg. `v1.*` or `v2.4.*`.
-
-3.  Establish the release baseline, the most recent release tag of the
-    pipeline. Each pipeline has its own releases, so you MUST take the baseline
-    from the pipeline's own tags, reachable from the release revision. Do not
-    take the repository's newest tag, which may belong to another pipeline.
-    Exclude pre-release tags, which never serve as a baseline:
-
-    ```sh
-    git describe --tags --abbrev=0 --match '<pattern>' --exclude '*-*' <revision>
-    ```
-
-    Where no matching tag is reachable from the release revision, the release
-    commits may sit on release branches that never merged back. Find the
-    pipeline's most recent release tag with
-    `git tag --list '<pattern>' --sort=-v:refname`, ignoring pre-release tags.
-    Take that tag's version as the baseline version, and
-    `git merge-base <revision> <tag>` as the commit the range starts from.
+    If no tag matches, the pipeline has never released, and the range starts
+    at the root of the history.
 
 4.  Gather the commits made since the baseline, leaving out merge commits,
-    which bring in commits that the range already holds:
+    which carry no change of their own, and commits that touch only the
+    changelog, which never warrant a release on their own:
 
     ```sh
-    git log --no-merges --reverse --format='%h %s%n%b' <baseline>..<revision>
+    git log --no-merges --reverse --format='%h %s%n%b' <baseline>..HEAD \
+      -- . ':(exclude)<changelog>'
     ```
 
-    You MUST work from the commit messages alone. You MUST NOT read the diffs,
-    nor any uncommitted or untracked changes in the working tree. Each commit's
-    author stated its type and flags in its message, and the bump rules below
-    act on those, so classifying commits from their diffs would only second
-    guess the author. Uncommitted work is not part of any release.
+    Where there is no baseline, drop `<baseline>..`, and where there is no
+    changelog, drop the pathspec. Work from the commit messages alone, not
+    their diffs, nor any uncommitted or untracked changes. Each author stated
+    the type and flags of their commit, and the bump rules act on those.
 
 5.  Classify each commit by the bump it calls for. Read the type from the
-    `<type>:` prefix of the subject line, and the flag from its
-    ` - <FLAG>` suffix.
+    subject's `<type>:` prefix, and any flag from its ` - <FLAG>` suffix.
 
-    - Major. Any commit flagged `BREAKING`, whatever its type. A breaking change
-      is one that requires a consumer to take action to avoid disruption,
-      including a required configuration change, even where the programmatic
-      contract is unchanged.
+    | Commit                                              | Bump  |
+    | --------------------------------------------------- | ----- |
+    | Any type, flagged `BREAKING`                        | Major |
+    | `behavior`, `fix`, `quality`                        | Minor |
+    | `maintenance`, `refactor`, `style`, `chore`         | Patch |
+    | `create`, `update`, `delete`                        | Patch |
+    | `step`, `version`, `revert`                         | None  |
 
-    - Minor. Commits of type `behavior`, `fix`, or `quality`. These are the
-      user-facing changes the version number communicates to consumers: new
-      features, deprecations, bug fixes, and runtime-quality improvements.
+    `INCOMPAT` marks an internal breaking change, invisible to consumers, so it
+    never calls for a major bump: classify the commit by its type. A
+    `revert:` commit quotes the header of the commit it reverts, and names its
+    hash in a `Reverts:` footer. If both commits sit in the range, disregard
+    both: the change never reaches a consumer.
 
-    - Patch. Commits of type `maintenance`, `refactor`, `style`, or `chore`.
-      These are internal changes that leave the user-visible contract alone.
+6.  Take the highest bump any commit calls for: major beats minor beats patch.
+    Where no commit calls for a bump, stop and report the baseline tag's
+    version as current, with nothing to release.
 
-    - None. Commits of type `step` or `version`, and reverts. These are
-      version-neutral.
+7.  Apply the bump to the baseline version by exactly 1, and reset every lower
+    component to zero: a major bump takes `1.4.2` to `2.0.0`, a minor bump to
+    `1.5.0`, and a patch bump to `1.4.3`. Check that no tag exists for the
+    result.
 
-    A commit flagged `INCOMPAT` is an internal breaking change, invisible to
-    consumers. It MUST NOT, on its own, call for a major bump; classify it by
-    its type, as above.
+8.  Promote the changelog. Rename its "unreleased" heading to the version and
+    today's date, in the changelog's own heading style, eg.
+    `## [1.5.0] - 2026-11-09`. Then add a new, empty "unreleased" section above
+    it. Do not add, reword, reorder, regroup, or remove any entry.
 
-6.  Take the highest bump that any commit calls for: major beats minor beats
-    patch. Where no commit calls for a bump, there is nothing to version: stop
-    and report the baseline tag as the current version.
+9.  Set the version string in each version manifest to the new version, with no
+    `v` prefix. Change that one field only.
 
-7.  Apply the bump to the baseline version, by exactly 1, and reset every lower
-    component to zero:
+10. Commit the changelog and manifests, and nothing else:
 
-    - Major: `1.4.2` becomes `2.0.0`.
+    ```sh
+    git commit -m "version: 1.5.0" -- CHANGELOG.md package.json
+    ```
 
-    - Minor: `1.4.2` becomes `1.5.0`.
+    Do not bypass the project's commit hooks.
+    Where a hook rejects the commit, stop and report its output, leaving the
+    edits uncommitted.
 
-    - Patch: `1.4.2` becomes `1.4.3`.
-
-8.  Check the result against the pipeline's version series, and against the
-    existing tags, as the success criteria require. Then report, opening with
-    the bare version number. Where a call was close, eg. a commit with an
-    unrecognized type, name it, so a human reviewer can overrule you.
+11. Report. Where a call was close, eg. a commit with an unrecognized type,
+    name it, so a human can overrule you.
 
 ## Rules
 
-- You MUST derive the bump from the commit history alone. Do not take the
-  version, or the bump level, from the user's prompt or the session's
-  conversation. A version number is a promise to consumers about what changed,
-  which only the commits since the last release can back up.
+- You MUST derive the bump from the commit history alone, not from the user's
+  prompt or the session's conversation. A version number is a promise to
+  consumers about what changed, which only the commits since the last release
+  can back up.
 
-- You MUST NOT apply, move, or delete any tag. Tags are permanent once pushed,
-  and tagging is the release step's job, not this skill's.
-
-- You MUST NOT edit a version manifest, eg. `package.json` or `pyproject.toml`,
-  nor the changelog, even where it disagrees with the version you derived.
-  Report the disagreement instead.
-
-- You MUST NOT version one pipeline's release from another pipeline's tags or
-  commits.
+- You MUST NOT apply, move, or delete any tag. A tag marks a release, which is
+  cut later, once the version commit has passed through the pipeline.
 
 ## Edge cases
 
-- If the prompt names a delivery pipeline that the repository does not have,
-  then stop and report it. Do not fall back to another pipeline.
+- If the changelog's "unreleased" section is missing or empty, though the range
+  holds commits that call for a bump, then stop and report. Do not write the
+  missing entries yourself, so a human can bring the changelog up to date
+  first.
 
-- If the bump would take the version outside the pipeline's version series,
-  eg. a `BREAKING` commit on the "v1" pipeline, or a minor bump on
-  "v2.4-LTS", then stop and report the commits that call for it. The next
-  version belongs to another pipeline, and only a human can decide whether to
-  drop the change or release it elsewhere.
+- If the bump would take the version outside the pipeline's version series, eg.
+  a `BREAKING` commit on the "v1" pipeline, or a minor bump on "v2.4-LTS",
+  then stop and report the commits that call for it. Only a human can decide
+  whether to drop the change or release it from another pipeline.
 
 - If the pipeline has no release tags at all, then this is the first release.
-  Report `1.0.0`, unless the project documents a different initial version, eg.
-  `0.1.0` for a prototype. Where a version manifest or the changelog says a
-  version was already released, though no tag for it exists, stop and report
-  the missing tag rather than treat the whole history as unreleased.
+  Use `1.0.0`, unless the project documents another initial version, eg.
+  `0.1.0`. Where the changelog or a manifest says a version was already
+  released, though no tag for it exists, stop and report the missing tag,
+  rather than treat the whole history as unreleased.
 
-- If the baseline version is `0.x.y`, then a `BREAKING` commit calls for a
-  minor bump, not a major one, and every other bump applies as usual. Version
-  zero makes no compatibility promise, and moving to `1.0.0` is a human
-  decision. Report that a breaking change was absorbed this way.
-
-- If the release revision already carries a release tag, eg.
-  `git describe --tags --exact-match <revision>` succeeds, then there is
-  nothing new to version. Stop and report the existing tag.
-
-- If a commit in the range reverts another commit in the range, then disregard
-  both. The reverted change never reaches a consumer. Recognize a revert by
-  Git's default `Revert "<subject>"` message, and its
-  `This reverts commit <hash>.` line in the body.
-
-- If the commits follow a different typed convention, eg. Conventional Commits,
-  then map its types by meaning. For Conventional Commits, `feat`, `fix`, and
-  `perf` call for a minor bump, a `!` after the type or a `BREAKING CHANGE:`
-  footer calls for a major bump, and `revert` is version-neutral. Every other
-  type calls for a patch bump.
+- If the baseline version is `0.x.y`, then a `BREAKING` commit calls for a minor
+  bump, not a major one. Version zero makes no compatibility promise, and
+  moving to `1.0.0` is a human decision. Say in the report that a breaking
+  change was absorbed this way.
 
 - If a commit carries no recognizable type, then classify it from its subject
-  and body by the meanings given in the instructions, and name it in your
-  report. Where the message is too thin to judge, assume a minor bump, the
-  safer error, and say so.
+  and body by the meanings in the table, and name it in the report. Where the
+  message is too thin to judge, assume a minor bump, the safer error.
 
-- If the prompt asks for a pre-release version, eg. "the next release
-  candidate", then derive the release version as usual, and append
-  `-<stage>.<n>`, eg. `1.5.0-rc.0`. Take `<n>` as one more than the highest
-  existing tag for that version and stage, eg. `v1.5.0-rc.1` gives `rc.2`, or
-  `0` where there is none.
+- If the prompt asks for a pre-release, eg. "the next release candidate", then
+  derive the release version as usual, and append `-<stage>.<n>`, eg.
+  `1.5.0-rc.0`. Take `<n>` as one more than the highest existing tag for that
+  version and stage, eg. `v1.5.0-rc.1` gives `rc.2`, or `0` where there is
+  none. Promote and commit as for any other version.
 
-- If the project's tags follow a scheme other than Semantic Versioning, eg.
-  calendar versioning, then stop and report the scheme. These rules do not
-  apply to it.
+- If the project's tags follow a scheme other than `v<major>.<minor>.<patch>`,
+  eg. calendar versioning, then stop and report the scheme. These bump rules
+  do not apply to it.
 
-- If the repository has no `origin` remote, then skip the fetch, work from the
-  local branches and tags, and say so in your report.
+- If the project keeps neither a changelog nor a version manifest, then there
+  is nothing to commit. Report the version, and make no commit.
 
 ## Examples
 
-- Commits since `v1.4.2` on `latest/ready`:
+- Commits since `v1.4.2`:
 
   ```text
   step: extract csv writer
@@ -243,7 +247,10 @@ user with an error message.
   fix: escape apostrophes in search query
   ```
 
-  The `behavior` and `fix` commits call for a minor bump. The report opens:
+  The `behavior` and `fix` commits call for a minor bump. The changelog's
+  `## [Unreleased]` heading becomes `## [1.5.0] - 2026-11-09`, under a new,
+  empty `## [Unreleased]`, and the commit is `version: 1.5.0`. The report
+  opens:
 
   ```text
   1.5.0
@@ -262,9 +269,9 @@ user with an error message.
 
   ```text
   maintenance: bump typescript to 5.0
-  step: refactor database layer - INCOMPAT
-  chore: fix typo in readme
+  refactor: rename user id columns - INCOMPAT
+  chore: update unreleased changelog
   ```
 
-  The `INCOMPAT` flag is internal, so it calls for no major bump. The next
+  The changelog-only commit is left out, and `INCOMPAT` is internal. The next
   version is `1.4.3`.

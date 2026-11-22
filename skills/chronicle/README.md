@@ -2,39 +2,48 @@
 
 The **chronicle** skill updates the "unreleased" section of a project's
 changelog to accurately reflect the headline user-facing changes since the last
-release, following the conventions defined in [TS-10: Releasing][TS-10].
+release point, following the conventions defined in [TS-10: Releasing][TS-10].
 
-The agent reads every commit since the last release tag on the current delivery
-pipeline. It reads the commit messages only, not their diffs, and does not look
-at untracked or uncommitted changes. It then reviews the "unreleased" section
-of the changelog and updates it to accurately reflect the most noteworthy
-user-facing changes. Minor tweaks and internal changes are left out, but
-breaking changes, deprecations, removals, and security fixes always get a
-changelog entry.
+The changelog format is loosely based on [Keep a Changelog](https://keepachangelog.com/).
+Changelog entries are written for the software's end users. The skill edits the
+changelog only, and leaves the edits uncommitted, for a separate commit step to
+capture.
 
-Where a project maintains several delivery pipelines in parallel, eg. "latest"
-for v2 and "v1" for an older major version, the agent works out which pipeline
-the checked-out branch belongs to. It takes the last release from that
-pipeline's own tags, so it never mixes up one version series' releases with
-another's.
-
-Changelog entries are written for the software's end users. The changelog
-format is loosely based on [Keep a Changelog](https://keepachangelog.com/).
-
-Any edits made to the changelog are committed, on their own, with a `chore`
-commit. No other file is staged or committed.
+The edits always land on the delivery pipeline's development trunk, eg.
+`latest/dev`. The repository must be a bare clone in a `.bare` directory, with
+its worktrees checked out in sibling directories, eg. `<project>/.bare` and
+`<project>/default`. The agent stops if the repository is laid out any other
+way. It works in the trunk's worktree, creating one if it does not already
+exist, and stops if that worktree has uncommitted changes.
 
 ## Interactivity
 
 This skill instructs the agent to run non-interactively. The agent is told not
 to prompt the user for answers to anything it is not sure about. Instead, if
 the agent cannot complete its task from the initial single-shot prompt, it is
-instructed to stop and return an error message. This makes the skill useful in
-away-from-keyboard workflows and automated delivery pipelines.
+instructed to stop and report. This makes the skill useful in away-from-keyboard
+workflows and automated delivery pipelines.
 
 ## How to invoke
 
 > Update the changelog.
+
+> Bring the changelog up to date.
+
+## Outcomes
+
+The target repository is changed in the following ways.
+
+- The "unreleased" section of the changelog is updated to cover every headline
+  change since the last release. Released sections are left untouched.
+
+- The edits are left uncommitted and unstaged in the development trunk's
+  worktree, which is created if it did not exist. No commit is made.
+
+The agent's report opens with `updated` or `no changes`. This is written on
+the first line, so an orchestrator can read it, and the trunk's worktree path
+on the second. This is followed by the entries added, revised, merged, or
+removed.
 
 ## Recommended models
 
@@ -43,20 +52,23 @@ takes judgment that a small model applies unreliably.
 
 ## Suggested workflows
 
-Run this once the changes are committed, before cutting a new release.
+Run this once changes for the next version are committed, but before preparing
+the next version and its release. Commit the changelog edits before moving on.
 
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  code["🤖<br/>code"]:::agentic
   commit["🤖<br/>commit"]:::agentic
+  merge["🤖<br/>merge"]:::agentic
   chronicle["🤖<br/>chronicle"]:::agentic
-  release["🤖<br/>release"]:::agentic
+  commitChangelog["🤖<br/>commit"]:::agentic
+  version["🤖<br/>version"]:::agentic
 
   %% Main workflow sequence.
-  code ==> commit
-  commit ==> chronicle
-  chronicle ==> release
+  commit ==> merge
+  merge ==> chronicle
+  chronicle ==> commitChangelog
+  commitChangelog ==> version
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -66,15 +78,19 @@ flowchart LR
 
 ## Related skills
 
-- [**commit**](../commit/).
-  Commits the changes that the changelog describes.
+- [**commit**](../commit/) \
+  Use this skill to commits the changes made to the changelog.
 
-- [**release**](../release/).
+- [**version**](../version/) \
   Promotes the "unreleased" section of the changelog to a released version.
 
 ## References
 
-- [TS-10: Releasing][TS-10].
+- [TS-10: Releasing][TS-10] \
   The technical standard this skill encodes.
 
+- [TS-9: Version Control][TS-9] \
+  The commit conventions and delivery pipelines the skill reads.
+
+[TS-9]: https://kieranpotts.com/standards/009
 [TS-10]: https://kieranpotts.com/standards/010

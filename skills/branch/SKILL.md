@@ -1,182 +1,197 @@
 ---
 name: branch
 description: >-
-  Name and create a Git branch for a piece of work, under a trunk-based model
-  of short-lived temporary branches and long-lived epic branches cut from a
-  delivery pipeline's development trunk — usually `dev` or `latest/dev`. Use
-  this skill when starting a new branch, or when the user says something like
-  "create a branch for this work" or "start a branch for issue 42". Do not use
-  this skill to commit, merge, or release.
+  Name and create a Git branch for a piece of work, cut from the tip of the
+  development trunk of the checked-out branch's delivery pipeline and checked
+  out in a worktree of its own, under the trunk-based model of short-lived temp
+  branches and long-lived epic branches. Use when starting a new branch, or
+  when the user says something like "create a branch for this work" or "start
+  a branch for issue 42". Do not use it to commit, merge, or release.
 compatibility: >-
-  requires Bash (git fetch, git switch, git symbolic-ref, git clone), Read, Glob
+  requires Bash (git status, git rev-parse, git worktree, git fetch, git merge)
 license: CC0-1.0
 ---
 
 # Branch
 
-Name and create a development branch for a new piece of work, following the
-conventions described herein. You MUST NOT make any code or configuration
-changes to the software itself. You MUST NOT stage, commit, amend, or push
-anything.
+Name and create a branch for a new piece of work, cut from the tip of the
+current delivery pipeline's development trunk, and check it out in a new
+worktree. Do not change any file, and do not commit or push anything.
 
 ## Parameters
 
 Determine the following information from the session context and local
 environment. You MUST NOT prompt the user for clarification on this task's
-requirements. If you cannot determine the requirements, stop and alert the
-user with an error message.
+requirements. If you cannot determine the requirements, stop and report.
 
-- **The target repository — REQUIRED.** If the current working directory sits
-  inside a Git repository, that repository is the target. Otherwise discover the
-  target from the session context, eg. a path or URL the user has named. If the
-  target is a URL that resolves to an upstream Git repository, clone it to a
-  temporary local directory. If no target can be found, stop and alert the
-  user.
+- **The target repository — REQUIRED.** The Git repository containing the
+  current working directory. It MUST be a bare clone in a directory named
+  `.bare`, with each of its worktrees checked out in a directory beside it, eg.
+  `<project>/.bare` and `<project>/default`. If the working directory sits
+  outside a Git repository, or the repository is not laid out this way, stop
+  and report.
+
+- **The delivery pipeline — REQUIRED.** This is usually a major version number
+  like "v1" or "v2", or the word "latest". It may be unspecified for
+  continuously-released software that has a single perpetual delivery pipeline.
+  Determine the name of the delivery pipeline from the branch checked out in
+  the current worktree. Examples:
+
+  - `latest/dev` → "latest"
+  - `v1/temp/42-fix-auth` → "v1"
+  - `dev` → unnamed pipeline
+
+  The name of the delivery pipeline, if specified, forms the optional
+  `[<pipeline>/]` component in branch names.
+
+  If the `HEAD` is detached, or the delivery pipeline can't be otherwise
+  confidently determined from the current checked-out branch, stop and report.
 
 - **Branch description — REQUIRED.** A description of the changeset the branch
   will carry.
 
-- **The delivery pipeline — OPTIONAL.** There may be separate delivery pipelines
-  for different major versions of the software that are developed and maintained
-  in parallel. If not specified, assume the target is the default delivery
-  pipeline, which is either named "latest" or has no name at all.
+- **Branch type — OPTIONAL.** You will create a short-lived "temp" branch,
+  unless the user explicitly asks for an "epic" branch that is long-lived
+  and/or has multiple collaborators.
 
-- **An issue or tracking identifier — OPTIONAL.** This will be prefixed to the
-  branch name when known. If not known, omit it.
+- **Tracking identifier — OPTIONAL.** An issue number or other identifier.
+  If specified, you will include this is the branch name.
 
 ## Success criteria
 
-- A new branch MUST exist, named in the `[<pipeline>/]temp/[<id>-]<description>`
-  or `[<pipeline>/]epic/[<id>-]<description>` form, as described in the below
-  rules, eg. `latest/temp/42-fix-auth-timeout`.
+- A new branch MUST exist, named `[<pipeline>/]<type>/[<id>-]<description>`,
+  eg. `latest/temp/42-fix-auth-timeout`.
 
-- The new branch MUST point at the tip of its delivery pipeline's development
-  trunk and carry no unique commits of its own. Verify with
-  `git rev-parse <new-branch> [<pipeline>/]dev`, eg.
-  `git rev-parse latest/temp/42-fix-auth-timeout latest/dev`.
+- The new branch MUST be checked out in a new, clean worktree in `<project>`,
+  named after the branch with each `/` replaced by `-`, eg.
+  `<project>/latest-temp-42-fix-auth-timeout`.
 
-- Apart from the branch pointer, other artifacts MUST NOT have been changed
-  in the repository. There MUST NOT be any new commit objects, merges, pushes,
-  or edits to either tracked or untracked source files.
+- The new branch MUST point at the tip of the development trunk, with no
+  commits of its own. `git rev-parse <new-branch> [<pipeline>/]dev` MUST print
+  the same hash twice, and where `origin` exists, so MUST
+  `git rev-parse [<pipeline>/]dev origin/[<pipeline>/]dev`.
 
-## Instructions
+- There MUST NOT be any new commits, merges, or pushes. No worktree other than
+  the new one MUST change, except by the trunk's fast-forward.
 
-1.  Determine the name of the delivery pipeline, which will become the
-    `<pipeline>` value in the branch name. The value MAY be empty.
+- Your report MUST open with the new branch name on the first line, so an
+  orchestrating script can read it. The second line MUST give the path of the
+  new worktree. This MUST be followed by the commit hash that the branch
+  starts from.
 
-    - List the development trunks with
-      `git fetch origin && git branch --remotes --list 'origin/dev' 'origin/*/dev'`.
-      Each trunk's delivery pipeline is the part between `origin/` and `/dev`.
-      `origin/latest/dev` gives "latest" as the name of the delivery pipeline,
-      `origin/v2.4-LTS/dev` gives "v2.4-LTS", and `origin/dev` gives no named
-      delivery pipeline.
+## Step-by-step instructions
 
-    - If the prompt names a major version number that matches the name of a
-      delivery pipeline, eg. the prompt is "patch this in v2" and the branch
-      `origin/v2/dev` exists, take that as the name of the target delivery
-      pipeline. Else, if the checked-out branch is one of the listed trunks,
-      take its named delivery pipeline as the target, eg. "latest" if the
-      current branch is `latest/dev`. If the checked-out branch isn't one of
-      the listed trunks, determine the default branch with
-      `git symbolic-ref --short refs/remotes/origin/HEAD`, and use its
-      named delivery pipeline as the target.
+1.  Check the repository layout before anything else. Stop and report unless
+    `git rev-parse --path-format=absolute --git-common-dir` prints a path
+    ending in `/.bare`, and the current worktree's top level, from
+    `git rev-parse --show-toplevel`, sits directly in the directory that holds
+    `.bare`. Call that directory `<project>`.
 
-2.  Classify the work. Is this for a small, discrete change that could be
-    implemented in just a few commits? Or is this multi-contributor work
-    spanning weeks or months, and that cannot be continuously integrated into
-    the trunk and toggled off using a branch-by-abstraction technique?
+    The current worktree may be dirty. Nothing you do touches it.
 
-3.  Determine the branch type. For small, discrete changes, choose a short-lived
-    "temp" branch, following the `[<pipeline>/]temp/[<id>-]<description>`
-    naming convention. For longer tasks, choose an "epic" branch, named
-    `[<pipeline>/]epic/[<id>-]<description>`.
+2.  Update the remote-tracking branches and tags with `git fetch origin --tags`.
+    If the repository has no `origin` remote, skip the fetch, work from local
+    refs, and say so in your report.
 
-4.  Form the `<description>` part of the branch name. Follow the rules below.
-    Condense it to its few most distinctive words, eg. "fix the timeout in the
-    auth flow" becomes `fix-auth-timeout`.
+3.  Bring the local development trunk up to date. Find whether a worktree has
+    it checked out: in `git worktree list --porcelain`, that is the
+    `worktree <path>` record with the line
+    `branch refs/heads/[<pipeline>/]dev`.
 
-5.  Optionally, if specified by the user, add the issue number or tracking
-    identifier to the `<id>` component of the branch name, eg.
-    `temp/42-fix-auth-timeout`.
+    - Where one does, stop and report unless that worktree is clean. Then
+      fast-forward the trunk there, with
+      `git -C <path> merge --ff-only origin/[<pipeline>/]dev`.
 
-6.  Create the branch from the target delivery pipeline's development trunk.
-    Fetch first, so the trunk is current, then create the branch from the target
-    development branch, and switch to the new branch. Example:
-    `git switch --create latest/temp/42-fix-auth latest/dev`.
+    - Where none does, fast-forward it with
+      `git fetch origin [<pipeline>/]dev:[<pipeline>/]dev`.
 
-7.  Report the branch name and its base.
+    Both commands refuse every type of integration except a clean
+    fast-forward. If the local branch has diverged from origin, stop and
+    report.
+
+4.  Compose the new branch name from the form `[<pipeline>/]<type>/[<id>-]<description>`.
+    Condense the description to its few most distinctive words, eg. "fix the
+    timeout in the auth flow" becomes `fix-auth-timeout`, and prefix the
+    tracking identifier where there is one, eg. `42-fix-auth-timeout`.
+
+5.  Check that the name is free, ie. that both
+    `git rev-parse -q --verify refs/heads/[<pipeline>/]<type>/[<id>-]<description>` and
+    `git rev-parse -q --verify refs/remotes/origin/[<pipeline>/]<type>/[<id>-]<description>` fail,
+    and that nothing exists yet at the new worktree's path in `<project>`.
+
+6.  Create the branch from the development trunk, checked out in a new
+    worktree. Example:
+
+    ```sh
+    git worktree add -b latest/temp/42-fix-auth-timeout \
+      <project>/latest-temp-42-fix-auth-timeout latest/dev
+    ```
+
+7.  Report.
 
 ## Rules
 
-- You MUST NOT do anything else except create a new branch. Staging, committing,
-   merging, cutting releases, and deleting branches are out-of-scope.
+- You MUST cut the branch from the development trunk of the checked-out
+  branch's delivery pipeline. Thus, if the current checked-out branch is
+  `v1/temp/42-fix-auth-timeout`, then the current delivery pipeline is "v1"
+  and its development trunk is `v1/dev`. You will cut the new branch from
+  `v1/dev`, and the new branch will take `v1/` for the `<pipeline>/`
+  component of its name. This component records where a branch was cut from,
+  and where it integrates back.
 
-- Branch names MUST take one of two forms, where square brackets denote an
-  optional part.
+- You MUST copy the delivery pipeline prefix verbatim, eg. `v2.4-LTS`. Do not
+  normalize it, and never invent one.
 
-  ```sh
-  [<pipeline>/]temp/[<id>-]<description>
-  [<pipeline>/]epic/[<id>-]<description>
-  ```
+- The `<description>` component MUST use lowercase letters, digits, and hyphens
+  only. It SHOULD NOT exceed 50 characters, and MUST NOT exceed 72.
 
-- You MUST cut `[<pipeline>/]temp/*` and `[<pipeline>/]epic/*` branches from
-  their delivery pipeline's development trunk, which is named `[<pipeline>/]dev`.
+- The `<id>` component is optional, but if included it MUST match the identifier
+  exactly as specified by the user, including its letter case, eg. `PRD-504`.
 
-- A branch MUST carry the same pipeline prefix as the development trunk it is
-  cut from. `latest/temp/*` branches are cut from `latest/dev`, `v2/temp/*`
-  from `v2/dev`, and unprefixed `temp/*` branches are cut from an unprefixed
-  `dev` development trunk. The prefix informs where a branch was cut from and
-  where it will be integrated back into.
+- You MUST NOT create a trunk or a delivery pipeline.
 
-- The pipeline prefix MUST be copied verbatim from the existing trunk name, eg.
-  `v2.4-LTS`. Do not normalize it, and never invent one.
-
-- The `<description>` MUST be lowercase and hyphen-delimited (kebab-case), with
-  no underscores, spaces, or other punctuation. It SHOULD NOT exceed 50
-  characters, and MUST NOT exceed 72.
-
-- The `<id>` MUST match the actual identifier exactly, as the tracker displays
-  it. Do not change its case or punctuation, eg. `PRD-504` MUST NOT be changed
-  to `prd-504` or `prd504`.
-
-- You MUST NOT create a new trunk or delivery pipeline.
+- You MUST NOT switch the branch checked out in any worktree, and you MUST move
+  the trunk in its worktree only where you found that worktree clean: where
+  `git -C <path> status --porcelain` printed nothing,
+  `git -C <path> rev-parse -q --verify MERGE_HEAD` failed, and no file existed
+  at `git -C <path> rev-parse --path-format=absolute --git-path SQUASH_MSG`.
+  Each worktree belongs to whoever works in it, and a fast-forward under
+  someone's uncommitted changes can tangle with their work in progress.
 
 ## Edge cases
 
-- If the resolved pipeline has no development trunk, eg. the repository has
-  neither `dev` nor `latest/dev`, or the user named "v2" but there is no
-  `v2/dev`, then report the missing trunk and stop. Do not make assumptions
-  about the target development trunk from which to cut a new branch. Proceed
-  only if the target is clear.
+- If the pipeline has no development trunk, eg. the checked-out branch is
+  `v2/temp/fix-auth-timeout` but there is no `v2/dev`, then stop and report the
+  missing trunk.
 
-- If the named delivery pipeline matches more than one development trunk, eg.
-  the user asked for "v2" and the repository has both `v2.3/dev` and
-  `v2.4-LTS/dev` branches, then do not guess between them. Instead, report the
-  candidate trunks and stop.
+- If the chosen branch name is taken, then choose a more specific description.
+  Never reuse or reset an existing branch.
 
-- If the default branch is not a development trunk, eg. it is `main`, then stop
-  and report the problem.
-
-- If a branch already exists at the chosen name, then do not reuse or reset it.
-  Instead, try to choose a more specific description, or stop and report the
-  clash.
+- If `git worktree add` refuses, eg. because the directory already exists,
+  then stop and report its output. Do not remove, move, or prune any worktree.
 
 ## Examples
 
-- Valid names for temporary branches:
+- Temp branches:
 
-  ```sh
+  ```text
   latest/temp/42-add-search-endpoint
-  latest/temp/178-fix-auth-timeout
   v2/temp/TS-504-migrate-user-schema
   temp/update-dependencies
   ```
 
-- Valid names for epic branches:
+- Epic branches:
 
-  ```sh
+  ```text
   latest/epic/billing-v2-rewrite
-  latest/epic/PRD-187-auth-overhaul
-  next/epic/infra-migrate-kubernetes
+  v1/epic/PRD-187-auth-overhaul
   epic/major-ui-redesign
+  ```
+
+- A report:
+
+  ```text
+  latest/temp/42-fix-auth-timeout
+  /home/me/dev/acme/latest-temp-42-fix-auth-timeout
+  Cut from latest/dev at 3f9c2ab.
   ```

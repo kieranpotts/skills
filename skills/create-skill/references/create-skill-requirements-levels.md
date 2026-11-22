@@ -1,8 +1,10 @@
 # Requirements levels (RFC 2119)
 
-Read this when deciding how forcefully to word a criterion, instruction, rule, or success check in a `SKILL.md` file.
+...
 
-The following capitalized keywords — a subset of those defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) — MAY appear in `SKILL.md` front-matter and body content to indicate the requirement level of a skill's criteria, instructions, rules, or success criteria. Interpret them as RFC 2119 describes:
+Read this when deciding how forcefully to word a rule or success criterion in a `SKILL.md` file.
+
+The following capitalized keywords — a subset of those defined in [IETF RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) — MAY appear in `SKILL.md` front-matter and body content to indicate the requirement level of a skill's parameters, rules, or success criteria. Interpret them as RFC 2119 describes:
 
 - **REQUIRED**, **MUST**, **MUST NOT** \
   Absolute obligations and prohibitions. The agent's output is wrong if it violates these requirements.
@@ -14,3 +16,5 @@ The following capitalized keywords — a subset of those defined in [IETF RFC 21
   Genuinely discretionary. Either choice is valid.
 
 Reserve "MUST" / "MUST NOT" for things that are genuinely load-bearing, eg. a fragile command sequence, a destructive-operation guard, a format contract a downstream skill depends on. Over-using "MUST" flattens the signal. If everything is mandatory, the agent cannot tell the real constraints from preferences, and applies less judgment where judgment is wanted.
+
+Every rule and success criterion carries at least one keyword. Step-by-step instructions generally carry none: every step is expected to be followed, so "run the validator" says all that "you MUST run the validator" does. Where a step seems to need a keyword, the constraint usually belongs in `## Rules` instead.
