@@ -108,7 +108,7 @@ Each skill operates in one of two possible modes.
 
 | Skill                                     | Description                                                                                            | Mode |
 |-------------------------------------------|--------------------------------------------------------------------------------------------------------|------|
-| ✅ [**`audit`**](./skills/audit/)         | Evaluate the as-built architecture — modularity, consistency, coupling, etc.                           | 🤖   |
+| ✅ [**`audit`**](./skills/audit/)         | Evaluate the as-built static structure of a system for modularity, consistency, coupling, etc.         | 🤖   |
 | ⭕ [**`code`**](./skills/code/)           | Write code, verified by tests, for one small increment.                                                | 🤖   |
 | ⭕ [**`decide`**](./skills/decide/)       | Frame a technical decision as an RFC or ADR.                                                           | 🧑   |
 | ⭕ [**`design`**](./skills/design/)       | Explore architectural options and their trade-offs.                                                    | 🤖   |
