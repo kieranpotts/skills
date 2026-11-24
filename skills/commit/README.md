@@ -9,9 +9,11 @@ the changeset, read alongside the session's conversation and the repository's
 recent history, in the format `<type>: <description>[ - <flag>]`. The message
 describes only what the commit contains.
 
-The repository must be a bare clone in a `.bare` directory, with its worktrees
-checked out in sibling directories, eg. `<project>/.bare` and
-`<project>/default`. The agent stops if it is laid out any other way.
+The skill works in any Git repository. The agent stops, rather than commit, if
+`HEAD` is detached, if a merge, rebase, cherry-pick, or revert is in progress,
+or if the checked-out branch is a `test`, `ready`, or `release` trunk. Where
+the project installs the [`validate-commit-message`][hooks] hook, the hook
+enforces the message format.
 
 ## Interactivity
 
@@ -52,15 +54,13 @@ against a fixed vocabulary, not open-ended reasoning.
 ```mermaid
 flowchart LR
   %% Node labels and classes.
-  branch["🤖<br/>branch"]:::agentic
+  code["🤖<br/>code"]:::agentic
   commit["🤖<br/>commit"]:::agentic
-  merge["🤖<br/>merge"]:::agentic
   chronicle["🤖<br/>chronicle"]:::agentic
 
   %% Main workflow sequence.
-  branch ==> commit
-  commit ==> merge
-  merge ==> chronicle
+  code ==> commit
+  commit ==> chronicle
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -70,17 +70,8 @@ flowchart LR
 
 ## Related skills
 
-- [**`branch`**](../branch/) \
-  Creates the temp or epic branch that the commits land on.
-
 - [**`chronicle`**](../chronicle/) \
   Summarizes the headline changes in the commits since the last release.
-
-- [**`merge`**](../merge/) \
-  Integrates a branch's commits into the development trunk.
-
-- [**`version`**](../version/) \
-  Reads the commit types and flags to decide the next version number.
 
 ## References
 
@@ -90,7 +81,8 @@ flowchart LR
 - [Validate commit messages action](https://github.com/kieranpotts/actions/tree/dev/validate-commit-messages) \
   The GitHub action that validates commit messages against these conventions.
 
-- [Pre-commit hooks](https://github.com/kieranpotts/pre-commit-hooks) \
+- [Pre-commit hooks][hooks] \
   Validate commit messages against the same conventions, locally.
 
 [TS-9]: https://kieranpotts.com/standards/009
+[hooks]: https://github.com/kieranpotts/pre-commit-hooks

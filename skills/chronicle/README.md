@@ -59,16 +59,12 @@ the next version and its release. Commit the changelog edits before moving on.
 flowchart LR
   %% Node labels and classes.
   commit["🤖<br/>commit"]:::agentic
-  merge["🤖<br/>merge"]:::agentic
   chronicle["🤖<br/>chronicle"]:::agentic
   commitChangelog["🤖<br/>commit"]:::agentic
-  version["🤖<br/>version"]:::agentic
 
   %% Main workflow sequence.
-  commit ==> merge
-  merge ==> chronicle
+  commit ==> chronicle
   chronicle ==> commitChangelog
-  commitChangelog ==> version
 
   %% Class definitions.
   classDef agentic fill:#cce5ff,stroke:#004085,color:#004085,stroke-width:2px
@@ -80,9 +76,6 @@ flowchart LR
 
 - [**`commit`**](../commit/) \
   Use this skill to commits the changes made to the changelog.
-
-- [**`version`**](../version/) \
-  Promotes the "unreleased" section of the changelog to a released version.
 
 ## References
 

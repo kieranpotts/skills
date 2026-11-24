@@ -2,7 +2,7 @@
 
 **A collection of agentic workflow skills** — also known as rules or
 instructions — covering universal phases of the software development lifecycle
-— specifying, designing, planning, branching, coding, committing, etc. — plus
+— specifying, designing, planning, coding, committing, etc. — plus
 supporting activities like business discovery, issue triage, and session
 reflection.
 
@@ -13,6 +13,13 @@ projects.
 
 The goal is predictable, consistent outcomes from any mainstream coding model —
 regardless of the technology stack or business domain.
+
+The skills focus on automating tasks that require judgment and inference — eg.
+turning requirements into acceptance criteria, weighing design trade-offs, or
+describing what a changeset means. They deliberately do not encode fixed
+procedures, such as tagging a release or fast-forwarding a branch. Scripts
+serve those better than agents: they are faster, cheaper, and fully
+deterministic.
 
 The skills in this collection are loosely coupled from one another, to support
 their composability. But they can't just be dropped into any software project.
@@ -81,8 +88,8 @@ The skills in this collection span four categories.
 - **➡️ Workflow skills** for agents running discrete phases of the software
   development lifecycle.
 
-- **🔀 Version control skills** for managing revisions and triggering software
-  builds and releases via Git.
+- **🔀 Version control skills** for writing commit messages and changelog
+  entries.
 
 - **📎 Auxiliary skills** for peripheral tasks like the proofreading of
   technical documentation.
@@ -131,14 +138,10 @@ Each skill operates in one of two possible modes.
 
 ### 🔀 Version control skills
 
-| Skill                                     | Description                                    | Mode |
-|-------------------------------------------|------------------------------------------------|------|
-| ⭕ [**`branch`**](./skills/branch/)       | Git branching strategy.                        | 🤖   |
-| ⭕ [**`chronicle`**](./skills/chronicle/) | Keep the changelog's unreleased section true.  | 🤖   |
-| ⭕ [**`commit`**](./skills/commit/)       | Commit changes, with conventional messages.    | 🤖   |
-| ⭕ [**`merge`**](./skills/merge/)         | Consolidate divergence between branches.       | 🤖   |
-| ⭕ [**`release`**](./skills/release/)     | Tag a version, fast-forward ready and release. | 🤖   |
-| ⭕ [**`version`**](./skills/version/)     | Bump the version, promote the changelog.       | 🤖   |
+| Skill                                     | Description                                   | Mode |
+|-------------------------------------------|-----------------------------------------------|------|
+| ⭕ [**`chronicle`**](./skills/chronicle/) | Keep the changelog's unreleased section true. | 🤖   |
+| ⭕ [**`commit`**](./skills/commit/)       | Commit changes, with conventional messages.   | 🤖   |
 
 ### 📎 Auxiliary skills
 

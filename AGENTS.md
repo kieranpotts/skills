@@ -65,11 +65,13 @@ counting blank lines) and MUST pass the validator checks — described below.
 
 ## Rules
 
-- MUST follow the [**`branch`**](./skills/branch/SKILL.md) skill for all branch
-  names.
+- MUST follow the naming conventions in
+  [TS-9's branches section](https://kieranpotts.com/standards/009#Branches) for
+  all branch names.
 
 - MUST follow the [**`commit`**](./skills/commit/SKILL.md) skill for all commit
-  messages.
+  messages. The `validate-commit-message` hook, configured in
+  `.pre-commit-config.yaml`, enforces the format.
 
 - MUST NOT commit anything under `build/`. It is git-ignored, except for
   `build/README.md` which is tracked.

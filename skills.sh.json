@@ -28,21 +28,11 @@
       ]
     },
     {
-      "title": "VCS",
-      "description": "Skills for managing revisions and versions with Git.",
+      "title": "Supporting",
+      "description": "Cross-cutting skills that support the SDLC steps, including version control.",
       "skills": [
-        "branch",
         "chronicle",
         "commit",
-        "merge",
-        "release",
-        "version"
-      ]
-    },
-    {
-      "title": "Supporting",
-      "description": "Cross-cutting skills that support the SDLC and version control steps.",
-      "skills": [
         "create-skill",
         "handoff",
         "proof",
