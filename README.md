@@ -501,10 +501,6 @@ the `./run/install` script in the first place. Skills installed by other tools
 > [!TIP]
 > Use `./run/install --help` for more guidance.
 
-## 🛠️ Developer documentation
-
-Contributors and maintainers — see the [developer docs](./docs/).
-
 -----
 
 Copyright © 2026-present Kieran Potts, [CC0 license](./LICENSE.txt)
